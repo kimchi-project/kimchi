@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-kimchi.NETWORK_TYPE_BRIDGE = "bridged";
+kimchi.NETWORK_TYPE_MACVTAP = "macvtap";
 
 kimchi.initNetwork = function() {
     if(wok.tabMode['network'] === 'admin') {
@@ -36,7 +36,7 @@ kimchi.initNetworkListView = function() {
                 state : data[i].state === "active" ? "up" : "down"
             };
             if (data[i].connection === "macvtap") {
-                network.type = kimchi.NETWORK_TYPE_BRIDGE;
+                network.type = kimchi.NETWORK_TYPE_MACVTAP;
             } else {
                 network.type = data[i].connection;
             }
