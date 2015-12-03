@@ -33,7 +33,7 @@ kimchi.startNetworkCreation = function() {
         name : network.name,
         connection: network.type
     };
-    if (network.type === kimchi.NETWORK_TYPE_BRIDGE) {
+    if (network.type === kimchi.NETWORK_TYPE_MACVTAP) {
         data.connection = "macvtap";
         data.interface = network.interface;
         if ($("#enableVlan").prop("checked")) {
@@ -114,7 +114,7 @@ kimchi.enableBridgeOptions = function(enable) {
 
 
 kimchi.setDefaultNetworkType = function(isInterfaceAvail) {
-    $("#networkType").val('bridged', isInterfaceAvail);
+    $("#networkType").val('macvtap', isInterfaceAvail);
     $("#networkType option:contains('bridged')").prop("disabled", !isInterfaceAvail);
     $("#networkType").val('nat', !isInterfaceAvail);
     $("#networkType").selectpicker();
@@ -134,7 +134,7 @@ kimchi.getNetworkDialogValues = function() {
         name : $("#networkName").val(),
         type : $("#networkType").val()
     };
-    if (network.type === kimchi.NETWORK_TYPE_BRIDGE) {
+    if (network.type === kimchi.NETWORK_TYPE_MACVTAP) {
         network.interface = $("#networkDestinationID").val();
         network.vlan_id = parseInt($("#networkVlanID").val());
     }
@@ -151,7 +151,7 @@ kimchi.setupNetworkFormEvent = function() {
         var selectedType = $(this).val();
         if(selectedType ==  'isolated' ||  selectedType ==  'nat') {
             kimchi.enableBridgeOptions(false);
-        } else if (selectedType ==  'bridged') {
+        } else if (selectedType ==  'macvtap') {
             kimchi.enableBridgeOptions(true);
         }
     }); 
