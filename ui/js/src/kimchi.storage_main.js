@@ -175,9 +175,9 @@ kimchi.storageBindClick = function() {
             var storage_action = $(this);
             var deleteButton = storage_action.find('.pool-delete');
             if ('active' === deleteButton.data('stat')) {
-                deleteButton.attr('disabled', 'disabled');
+                deleteButton.parent().addClass('disabled');
             } else {
-                deleteButton.removeAttr('disabled');
+                deleteButton.parent().removeClass('disabled');
             }
         });
 
