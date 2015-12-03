@@ -324,6 +324,9 @@ class NetworkModel(object):
         if connection == 'bridge':
             # macvtap bridge
             interface = interface or forward['interface'][0]
+            if netinfo.is_nic(interface) or netinfo.is_bonding(interface):
+                connection = 'macvtap'
+
             # exposing the network on linux bridge or macvtap interface
             interface_subnet = knetwork.get_dev_netaddr(interface)
             subnet = subnet if subnet else interface_subnet
