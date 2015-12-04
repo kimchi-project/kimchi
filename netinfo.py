@@ -94,12 +94,12 @@ def ovs_bridges():
     if ovs_cmd is None:
         return []
 
-    out, error, rc = run_command([ovs_cmd, '--oneline', 'list-br'])
+    out, error, rc = run_command([ovs_cmd, 'list-br'])
     if rc != 0:
         wok_log.info("Error listing OVS bridges")
         return []
 
-    return list(set(out.split('\n')) - set(['']))
+    return [x.strip() for x in out.rstrip('\n').split('\n') if x.strip()]
 
 
 def is_ovs_bridge(iface):
@@ -113,12 +113,12 @@ def ovs_bridge_ports(ovsbr):
     if ovs_cmd is None:
         return []
 
-    out, error, rc = run_command([ovs_cmd, '--oneline', 'list-ports', ovsbr])
+    out, error, rc = run_command([ovs_cmd, 'list-ports', ovsbr])
     if rc != 0:
         wok_log.info("Error listing OVS bridge ports for %s" % str(ovsbr))
         return []
 
-    return list(set(out.split('\n')) - set(['']))
+    return [x.strip() for x in out.rstrip('\n').split('\n') if x.strip()]
 
 
 def all_interfaces():
