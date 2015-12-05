@@ -34,7 +34,7 @@ from wok.config import config
 from wok.exception import InvalidOperation
 from wok.exception import InvalidParameter, NotFoundError, OperationFailed
 from wok.rollbackcontext import RollbackContext
-from wok.utils import add_task
+from wok.utils import add_task, get_task_id
 from wok.xmlutils.utils import xpath_get_text
 
 from wok.plugins.kimchi import netinfo
@@ -927,14 +927,14 @@ class ModelTests(unittest.TestCase):
                            objstore_loc=self.tmp_store)
         taskid = add_task('', quick_op, inst.objstore, 'Hello')
         inst.task_wait(taskid)
-        self.assertEquals(1, taskid)
+        self.assertEquals(get_task_id(), taskid)
         self.assertEquals('finished', inst.task_lookup(taskid)['status'])
         self.assertEquals('Hello', inst.task_lookup(taskid)['message'])
 
         taskid = add_task('', long_op, inst.objstore,
                           {'delay': 3, 'result': False,
                            'message': 'It was not meant to be'})
-        self.assertEquals(2, taskid)
+        self.assertEquals(get_task_id(), taskid)
         self.assertEquals('running', inst.task_lookup(taskid)['status'])
         self.assertEquals('OK', inst.task_lookup(taskid)['message'])
         inst.task_wait(taskid)
