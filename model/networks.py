@@ -143,7 +143,7 @@ class NetworksModel(object):
             ip.ip = ip.ip + 1
 
         dhcp_start = str(ip.ip + ip.numhosts / 2)
-        dhcp_end = str(ip.ip + ip.numhosts - 2)
+        dhcp_end = str(ip.ip + ip.numhosts - 3)
         params.update({'net': str(ip),
                        'dhcp': {'range': {'start': dhcp_start,
                                 'end': dhcp_end}}})
