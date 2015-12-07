@@ -5,24 +5,24 @@
         <access role="admin" mode="admin"/>
         <access role="user" mode="byInstance"/>
         <title>Guests</title>
-        <path>plugins/kimchi/guests.html</path>
+        <path>plugins/kimchi/tabs/guests.html</path>
     </tab>
     <tab>
         <access role="admin" mode="admin"/>
         <access role="user" mode="none"/>
         <title>Templates</title>
-        <path>plugins/kimchi/templates.html</path>
+        <path>plugins/kimchi/tabs/templates.html</path>
     </tab>
     <tab>
         <access role="admin" mode="admin"/>
         <access role="user" mode="read-only"/>
         <title>Storage</title>
-        <path>plugins/kimchi/storage.html</path>
+        <path>plugins/kimchi/tabs/storage.html</path>
     </tab>
     <tab>
         <access role="admin" mode="admin"/>
         <access role="user" mode="read-only"/>
         <title>Network</title>
-        <path>plugins/kimchi/network.html</path>
+        <path>plugins/kimchi/tabs/network.html</path>
     </tab>
 </tabs-ext>
