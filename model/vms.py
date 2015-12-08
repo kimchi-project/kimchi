@@ -57,6 +57,7 @@ from wok.plugins.kimchi.model.utils import get_ascii_nonascii_name, get_vm_name
 from wok.plugins.kimchi.model.utils import get_metadata_node
 from wok.plugins.kimchi.model.utils import remove_metadata_node
 from wok.plugins.kimchi.model.utils import set_metadata_node
+from wok.plugins.kimchi.osinfo import MAX_MEM_LIM
 from wok.plugins.kimchi.screenshot import VMScreenshot
 from wok.plugins.kimchi.utils import template_name_from_uri
 from wok.plugins.kimchi.xmlutils.cpu import get_cpu_xml, get_numa_xml
@@ -881,49 +882,62 @@ class VMModel(object):
         else:
             if memory is not None:
                 root.remove(memory)
+
+            def _get_slots(maxMem):
+                slots = (maxMem - params['memory']) >> 10
+                # Libvirt does not accepts slots <= 1
+                if slots < 0:
+                    raise OperationFailed("KCHVM0041E")
+                elif slots == 0:
+                    slots = 1
+
+                distro, _, _ = platform.linux_distribution()
+                if distro == "IBM_PowerKVM":
+                    # max 32 slots on Power
+                    if slots > 32:
+                        slots = 32
+                return slots
+            # End of _get_slots
+
+            def _get_newMaxMem():
+                # Setting max memory to 4x memory requested, host total memory,
+                # or 1 TB. This should avoid problems with live migration
+                newMaxMem = MAX_MEM_LIM
+                hostMem = self.conn.get().getInfo()[1] << 10
+                if hostMem < newMaxMem:
+                    newMaxMem = hostMem
+                mem = params.get('memory', 0)
+                if (mem != 0) and (((mem * 4) << 10) < newMaxMem):
+                    newMaxMem = (mem * 4) << 10
+
+                distro, _, _ = platform.linux_distribution()
+                if distro == "IBM_PowerKVM":
+                    # max memory 256MiB alignment
+                    newMaxMem -= (newMaxMem % 256)
+                return newMaxMem
+
             maxMem = root.find('.maxMemory')
-            host_mem = self.conn.get().getInfo()[1]
-            slots = (host_mem - params['memory']) >> 10
-            # Libvirt does not accepts slots <= 1
-            if slots < 0:
-                raise OperationFailed("KCHVM0041E")
-            elif slots == 0:
-                slots = 1
+            if maxMem is not None:
+                root.remove(maxMem)
 
-            force_max_mem_update = False
-            distro, _, _ = platform.linux_distribution()
-            if distro == "IBM_PowerKVM":
-                # max memory 256MiB alignment
-                host_mem -= (host_mem % PPC_MEM_ALIGN)
-                # force max memory update if it exists but it's wrong.
-                if maxMem is not None and\
-                   int(maxMem.text) != (host_mem << 10):
-                    force_max_mem_update = True
+            # Setting maxMemory
+            newMaxMem = _get_newMaxMem()
+            slots = _get_slots(newMaxMem >> 10)
+            max_mem_xml = E.maxMemory(
+                str(newMaxMem),
+                unit='Kib',
+                slots=str(slots))
+            root.insert(0, max_mem_xml)
 
-                # max 32 slots on Power
-                if slots > 32:
-                    slots = 32
+            # Setting memory hard limit to max_memory + 1GiB
+            memtune = root.find('memtune')
+            if memtune is not None:
+                hl = memtune.find('hard_limit')
+                if hl is not None:
+                    memtune.remove(hl)
+                    memtune.insert(0, E.hard_limit(str(newMaxMem + 1048576),
+                                                   unit='Kib'))
 
-            if maxMem is None:
-                max_mem_xml = E.maxMemory(
-                    str(host_mem << 10),
-                    unit='Kib',
-                    slots=str(slots))
-                root.insert(0, max_mem_xml)
-                new_xml = ET.tostring(root, encoding="utf-8")
-            else:
-                # Update slots only
-                new_xml = xml_item_update(ET.tostring(root, encoding="utf-8"),
-                                          './maxMemory',
-                                          str(slots),
-                                          attr='slots')
-
-                if force_max_mem_update:
-                    new_xml = xml_item_update(new_xml,
-                                              './maxMemory',
-                                              str(host_mem << 10))
-
-            return new_xml
         return ET.tostring(root, encoding="utf-8")
 
     def _get_host_maxcpu(self):

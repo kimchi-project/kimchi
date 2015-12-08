@@ -352,6 +352,13 @@ class VMTemplate(object):
         else:
             params['cdroms'] = cdrom_xml
 
+        # In order to avoid problems with live migration, setting maxMemory of
+        # the VM, which will be lesser value between:
+        # [ 1TB,  (Template Memory * 4),  Host Physical Memory.
+        tmp_max_mem = (params['memory'] << 10) * 4
+        if tmp_max_mem < params['max_memory']:
+            params['max_memory'] = tmp_max_mem
+
         # Setting maximum number of slots to avoid errors when hotplug memory
         # Number of slots are the numbers of chunks of 1GB that fit inside
         # the max_memory of the host minus memory assigned to the VM. It
@@ -366,6 +373,9 @@ class VMTemplate(object):
             distro, _, _ = platform.linux_distribution()
             if distro == "IBM_PowerKVM":
                 params['slots'] = 32
+
+        # set a hard limit using max_memory + 1GiB
+        params['hard_limit'] = params['max_memory'] + (1024 << 10)
 
         cpu_topo = self.info.get('cpu_info').get('topology')
         if (cpu_topo is not None):
@@ -390,6 +400,9 @@ class VMTemplate(object):
           %(qemu-stream-cmdline)s
           <name>%(name)s</name>
           <uuid>%(uuid)s</uuid>
+          <memtune>
+            <hard_limit unit='KiB'>%(hard_limit)s</hard_limit>
+          </memtune>
           <maxMemory slots='%(slots)s' unit='KiB'>%(max_memory)s</maxMemory>
           <memory unit='MiB'>%(memory)s</memory>
           %(vcpus)s
