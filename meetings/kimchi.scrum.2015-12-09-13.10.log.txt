@@ -1,0 +1,87 @@
+13:10:32 <alinefm> #startmeeting
+13:10:32 <kimchi-bot> Meeting started Wed Dec  9 13:10:32 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:10:32 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:10:32 <alinefm> #meetingname scrum
+13:10:32 <alinefm> #info Agenda 1) Status 2) Open discussion
+13:10:32 <alinefm> anything else?
+13:10:32 <kimchi-bot> The meeting name has been set to 'scrum'
+13:11:55 <alinefm> let's get started
+13:11:57 <alinefm> #topic Status
+13:11:57 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:12:03 <ziviani> #info ziviani fixed gingerbase issue gingerbase #8
+13:12:04 <ziviani> #info ziviani fixed gingerbase issue kimchi #781 and #782
+13:12:04 <ziviani> #info ziviani tested new Kimchi (and opened new bugs)
+13:12:04 <ziviani> #info ziviani reviewed code
+13:12:04 <ziviani> #info ziviani is working on bugs
+13:12:36 <alinefm> #info alinefm separated wok and gingerbase into new git repositories and properly configured git-submodule on wok
+13:13:08 <alinefm> #info alinefm working on bug fixes
+13:13:21 <chandra> #info chandra trying to create a network tab and design the pages as per the mockups shared in the community for ginger
+13:13:21 <alinefm> #info alinefm is currently working on new navigation issues
+13:13:22 <pvital_> #info pvital is working on Ginger community's issue #051.
+13:13:22 <pvital_> #info pvital submitted patchset to fix Kimchi testcases errors on Fedora 23. Will submit V2 for some of them ASAP.
+13:13:22 <pvital_> #info pvital investigated the Wok community's issues #001 and #002.
+13:13:22 <pvital_> #info pvital reviewed some patches from Wok, Kimchi, Ginger Base and Ginger.
+13:14:00 <chandra> #info reviewed some of the patches in the community
+13:14:35 <samhenri> #info samhenri fixing #770, #772, #773, #783 and #784
+13:14:44 <samhenri> Kimchi issues*
+13:14:46 <alinefm> alteodoro, danielhb, lcorreia, ramonn, rotru, anything else?
+13:14:58 <alteodoro> #info alteodoro Working on the Templates screen filter
+13:15:08 <danielhb> #info danielhb reviewed patches related to Live Migration UI and others
+13:15:11 <lcorreia> alinefm, yes
+13:15:57 <ramonn> #info ramonn having some issue to lookup for storagepool and storagevolumes at kimchi/vmtemplate.py
+13:16:17 <alinefm> ramonn, why are you trying to do that?
+13:16:24 <alinefm> ramonn, vmtemplate is independent on model
+13:16:29 <lcorreia> #info lucio worked on some fixes for kimchi: show network type correctly, UI tweaks for Linux bridge and OVS support, OVS command output handling fix, RPM build version error
+13:16:29 <lcorreia> #info lucio worked on some fixes for ginger: support to dnf in repositories/package update, inclusion of python-apt dep for Ubuntu
+13:16:29 <lcorreia> #info lucio reported issue #788
+13:16:29 <lcorreia> #info lucio working on making Ginger noarch and general RPM build issues for wok and all plugins
+13:16:30 <lcorreia> #info lucio will work on issues after that
+13:16:33 <alinefm> ramonn,  so no model logc should be there
+13:16:48 <ramonn> #info ramonn working on a feature to identify installation media. Have success on identify media, but need to create some logic to identify disk pool
+13:16:59 <ramonn> #info ramonn will look how to do this by libvirt api
+13:18:01 <WalterNik> #info WalterNik reviewed networking, storage and zIO UI proposal for ginger and gingers390x
+13:18:28 <lcorreia> #info lucio fixed issue 766 - define network interface on libvirt
+13:18:57 <alinefm> ramonn, did you see my questions?
+13:20:27 <rotru> #info rotru Finished patchset (v9) that support multiple disks in Templates, including scripting to update objectstore, remotion of 'storagepool' tag from backend, update of lots of tests and other fixes. Patches were committed, thanks alinefm for the help;
+13:20:47 <rotru> #info rotru Sent patch to fix to Issue #753: Avoid store max_memory in Templates records;
+13:21:29 <rotru> #info rotru Sent patches to upstream to change Memory Management: Set memory hard_limit / Set max_memory to 4*Memory / Set max_memory limit to 1TB.
+13:21:54 <rotru> #info rotru Working in Issue: #700
+13:22:03 <alinefm> anything else, guys?
+13:22:21 <ziviani> no
+13:22:24 <lagarcia> no
+13:23:07 <pvital_> no
+13:23:07 <rotru> #info rotru Tested some parts of new UI and opened some bugs
+13:23:12 <rotru> done
+13:24:02 <chandra> alinefm, samhenri: I have made one base observation on the new ui overall user experience when it comes to different browsers
+13:24:29 <samhenri> chandra I've seen it
+13:24:52 <samhenri> chandra I'm fixing some of those issues in Kimchi and alteodoro in Ginger
+13:25:06 <chandra> samhenri thanks, I have created #58, #59
+13:25:20 <chandra> on ginger so I guess these can be applied to all areas of new ui
+13:25:52 <samhenri> chandra I just replied to #59
+13:25:53 <jcbmna> hi there. i installed kimchi for the first time and created a guest. in the guest list i see the thumbnail of the linux installer from the boot cd. when i click connect, a new window openstp port 64667 but nothing listens there ("connection refused" in the browser). what can i do?
+13:27:09 <alinefm> jcbmna, are you using spice or novnc? do you have all the deps installed? python-websockify, novnc, spice-html5?
+13:27:25 <alinefm> let's move on to open discussion
+13:27:29 <alinefm> #topic Open Discussion
+13:27:38 <alinefm> I have an IMPORTANT note
+13:28:09 <alinefm> First of all, the emails I sent to the ML with the [IMPORTANT] tag MUST be read =)
+13:28:33 <alinefm> full read, I mean! Including the links to the github wiki pages
+13:28:34 <alinefm> OK?
+13:28:40 <lcorreia> ok
+13:28:54 <ziviani> ok
+13:29:02 <samhenri> ok
+13:29:15 <alinefm> the second important node is: we are one week for the 2.0 GA
+13:29:25 <alinefm> so we must close as many bugs as we can
+13:29:41 <alinefm> the bug fixes patches will be accepted until next Web (Dec 16th)
+13:29:42 <alinefm> OK?
+13:29:50 <ziviani> ok
+13:30:23 <alinefm> I don't have anything else from my side =)
+13:30:34 <alinefm> any other topic for today?
+13:30:45 <ziviani> no
+13:31:13 <pvital_> no
+13:31:27 <samhenri> nope
+13:31:29 <WalterNik> no
+13:31:31 <lcorreia> no
+13:31:42 <alteodoro> no
+13:32:09 <alinefm> ok
+13:32:17 <alinefm> thanks everyone for joining and let's code! =P
+13:32:21 <alinefm> #endmeeting

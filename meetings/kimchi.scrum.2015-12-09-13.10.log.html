@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:10:32</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:10:32</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Dec  9 13:10:32 2015 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:10:32</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:10:32</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:10:32</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda 1) Status 2) Open discussion</span>
+<a name="l-6"></a><span class="tm">13:10:32</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-7"></a><span class="tm">13:10:32</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-8"></a><span class="tm">13:11:55</span><span class="nk"> &lt;alinefm&gt;</span> let's get started
+<a name="l-9"></a><span class="tm">13:11:57</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-10"></a><span class="tm">13:11:57</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-11"></a><span class="tm">13:12:03</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani fixed gingerbase issue gingerbase #8</span>
+<a name="l-12"></a><span class="tm">13:12:04</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani fixed gingerbase issue kimchi #781 and #782</span>
+<a name="l-13"></a><span class="tm">13:12:04</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani tested new Kimchi (and opened new bugs)</span>
+<a name="l-14"></a><span class="tm">13:12:04</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani reviewed code</span>
+<a name="l-15"></a><span class="tm">13:12:04</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani is working on bugs</span>
+<a name="l-16"></a><span class="tm">13:12:36</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm separated wok and gingerbase into new git repositories and properly configured git-submodule on wok</span>
+<a name="l-17"></a><span class="tm">13:13:08</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm working on bug fixes</span>
+<a name="l-18"></a><span class="tm">13:13:21</span><span class="nk"> &lt;chandra&gt;</span> <span class="cmd">#info </span><span class="cmdline">chandra trying to create a network tab and design the pages as per the mockups shared in the community for ginger</span>
+<a name="l-19"></a><span class="tm">13:13:21</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm is currently working on new navigation issues</span>
+<a name="l-20"></a><span class="tm">13:13:22</span><span class="nk"> &lt;pvital_&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital is working on Ginger community's issue #051.</span>
+<a name="l-21"></a><span class="tm">13:13:22</span><span class="nk"> &lt;pvital_&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital submitted patchset to fix Kimchi testcases errors on Fedora 23. Will submit V2 for some of them ASAP.</span>
+<a name="l-22"></a><span class="tm">13:13:22</span><span class="nk"> &lt;pvital_&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital investigated the Wok community's issues #001 and #002.</span>
+<a name="l-23"></a><span class="tm">13:13:22</span><span class="nk"> &lt;pvital_&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital reviewed some patches from Wok, Kimchi, Ginger Base and Ginger.</span>
+<a name="l-24"></a><span class="tm">13:14:00</span><span class="nk"> &lt;chandra&gt;</span> <span class="cmd">#info </span><span class="cmdline">reviewed some of the patches in the community</span>
+<a name="l-25"></a><span class="tm">13:14:35</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">samhenri fixing #770, #772, #773, #783 and #784</span>
+<a name="l-26"></a><span class="tm">13:14:44</span><span class="nk"> &lt;samhenri&gt;</span> Kimchi issues*
+<a name="l-27"></a><span class="tm">13:14:46</span><span class="nk"> &lt;alinefm&gt;</span> alteodoro, danielhb, lcorreia, ramonn, rotru, anything else?
+<a name="l-28"></a><span class="tm">13:14:58</span><span class="nk"> &lt;alteodoro&gt;</span> <span class="cmd">#info </span><span class="cmdline">alteodoro Working on the Templates screen filter</span>
+<a name="l-29"></a><span class="tm">13:15:08</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">danielhb reviewed patches related to Live Migration UI and others</span>
+<a name="l-30"></a><span class="tm">13:15:11</span><span class="nk"> &lt;lcorreia&gt;</span> alinefm, yes
+<a name="l-31"></a><span class="tm">13:15:57</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">ramonn having some issue to lookup for storagepool and storagevolumes at kimchi/vmtemplate.py</span>
+<a name="l-32"></a><span class="tm">13:16:17</span><span class="nk"> &lt;alinefm&gt;</span> ramonn, why are you trying to do that?
+<a name="l-33"></a><span class="tm">13:16:24</span><span class="nk"> &lt;alinefm&gt;</span> ramonn, vmtemplate is independent on model
+<a name="l-34"></a><span class="tm">13:16:29</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">lucio worked on some fixes for kimchi: show network type correctly, UI tweaks for Linux bridge and OVS support, OVS command output handling fix, RPM build version error</span>
+<a name="l-35"></a><span class="tm">13:16:29</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">lucio worked on some fixes for ginger: support to dnf in repositories/package update, inclusion of python-apt dep for Ubuntu</span>
+<a name="l-36"></a><span class="tm">13:16:29</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">lucio reported issue #788</span>
+<a name="l-37"></a><span class="tm">13:16:29</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">lucio working on making Ginger noarch and general RPM build issues for wok and all plugins</span>
+<a name="l-38"></a><span class="tm">13:16:30</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">lucio will work on issues after that</span>
+<a name="l-39"></a><span class="tm">13:16:33</span><span class="nk"> &lt;alinefm&gt;</span> ramonn,  so no model logc should be there
+<a name="l-40"></a><span class="tm">13:16:48</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">ramonn working on a feature to identify installation media. Have success on identify media, but need to create some logic to identify disk pool</span>
+<a name="l-41"></a><span class="tm">13:16:59</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">ramonn will look how to do this by libvirt api</span>
+<a name="l-42"></a><span class="tm">13:18:01</span><span class="nk"> &lt;WalterNik&gt;</span> <span class="cmd">#info </span><span class="cmdline">WalterNik reviewed networking, storage and zIO UI proposal for ginger and gingers390x</span>
+<a name="l-43"></a><span class="tm">13:18:28</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">lucio fixed issue 766 - define network interface on libvirt</span>
+<a name="l-44"></a><span class="tm">13:18:57</span><span class="nk"> &lt;alinefm&gt;</span> ramonn, did you see my questions?
+<a name="l-45"></a><span class="tm">13:20:27</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru Finished patchset (v9) that support multiple disks in Templates, including scripting to update objectstore, remotion of 'storagepool' tag from backend, update of lots of tests and other fixes. Patches were committed, thanks alinefm for the help;</span>
+<a name="l-46"></a><span class="tm">13:20:47</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru Sent patch to fix to Issue #753: Avoid store max_memory in Templates records;</span>
+<a name="l-47"></a><span class="tm">13:21:29</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru Sent patches to upstream to change Memory Management: Set memory hard_limit / Set max_memory to 4*Memory / Set max_memory limit to 1TB.</span>
+<a name="l-48"></a><span class="tm">13:21:54</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru Working in Issue: #700</span>
+<a name="l-49"></a><span class="tm">13:22:03</span><span class="nk"> &lt;alinefm&gt;</span> anything else, guys?
+<a name="l-50"></a><span class="tm">13:22:21</span><span class="nk"> &lt;ziviani&gt;</span> no
+<a name="l-51"></a><span class="tm">13:22:24</span><span class="nk"> &lt;lagarcia&gt;</span> no
+<a name="l-52"></a><span class="tm">13:23:07</span><span class="nk"> &lt;pvital_&gt;</span> no
+<a name="l-53"></a><span class="tm">13:23:07</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru Tested some parts of new UI and opened some bugs</span>
+<a name="l-54"></a><span class="tm">13:23:12</span><span class="nk"> &lt;rotru&gt;</span> done
+<a name="l-55"></a><span class="tm">13:24:02</span><span class="nk"> &lt;chandra&gt;</span> alinefm, samhenri: I have made one base observation on the new ui overall user experience when it comes to different browsers
+<a name="l-56"></a><span class="tm">13:24:29</span><span class="nk"> &lt;samhenri&gt;</span> chandra I've seen it
+<a name="l-57"></a><span class="tm">13:24:52</span><span class="nk"> &lt;samhenri&gt;</span> chandra I'm fixing some of those issues in Kimchi and alteodoro in Ginger
+<a name="l-58"></a><span class="tm">13:25:06</span><span class="nk"> &lt;chandra&gt;</span> samhenri thanks, I have created #58, #59
+<a name="l-59"></a><span class="tm">13:25:20</span><span class="nk"> &lt;chandra&gt;</span> on ginger so I guess these can be applied to all areas of new ui
+<a name="l-60"></a><span class="tm">13:25:52</span><span class="nk"> &lt;samhenri&gt;</span> chandra I just replied to #59
+<a name="l-61"></a><span class="tm">13:25:53</span><span class="nk"> &lt;jcbmna&gt;</span> hi there. i installed kimchi for the first time and created a guest. in the guest list i see the thumbnail of the linux installer from the boot cd. when i click connect, a new window openstp port 64667 but nothing listens there ("connection refused" in the browser). what can i do?
+<a name="l-62"></a><span class="tm">13:27:09</span><span class="nk"> &lt;alinefm&gt;</span> jcbmna, are you using spice or novnc? do you have all the deps installed? python-websockify, novnc, spice-html5?
+<a name="l-63"></a><span class="tm">13:27:25</span><span class="nk"> &lt;alinefm&gt;</span> let's move on to open discussion
+<a name="l-64"></a><span class="tm">13:27:29</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-65"></a><span class="tm">13:27:38</span><span class="nk"> &lt;alinefm&gt;</span> I have an IMPORTANT note
+<a name="l-66"></a><span class="tm">13:28:09</span><span class="nk"> &lt;alinefm&gt;</span> First of all, the emails I sent to the ML with the [IMPORTANT] tag MUST be read =)
+<a name="l-67"></a><span class="tm">13:28:33</span><span class="nk"> &lt;alinefm&gt;</span> full read, I mean! Including the links to the github wiki pages
+<a name="l-68"></a><span class="tm">13:28:34</span><span class="nk"> &lt;alinefm&gt;</span> OK?
+<a name="l-69"></a><span class="tm">13:28:40</span><span class="nk"> &lt;lcorreia&gt;</span> ok
+<a name="l-70"></a><span class="tm">13:28:54</span><span class="nk"> &lt;ziviani&gt;</span> ok
+<a name="l-71"></a><span class="tm">13:29:02</span><span class="nk"> &lt;samhenri&gt;</span> ok
+<a name="l-72"></a><span class="tm">13:29:15</span><span class="nk"> &lt;alinefm&gt;</span> the second important node is: we are one week for the 2.0 GA
+<a name="l-73"></a><span class="tm">13:29:25</span><span class="nk"> &lt;alinefm&gt;</span> so we must close as many bugs as we can
+<a name="l-74"></a><span class="tm">13:29:41</span><span class="nk"> &lt;alinefm&gt;</span> the bug fixes patches will be accepted until next Web (Dec 16th)
+<a name="l-75"></a><span class="tm">13:29:42</span><span class="nk"> &lt;alinefm&gt;</span> OK?
+<a name="l-76"></a><span class="tm">13:29:50</span><span class="nk"> &lt;ziviani&gt;</span> ok
+<a name="l-77"></a><span class="tm">13:30:23</span><span class="nk"> &lt;alinefm&gt;</span> I don't have anything else from my side =)
+<a name="l-78"></a><span class="tm">13:30:34</span><span class="nk"> &lt;alinefm&gt;</span> any other topic for today?
+<a name="l-79"></a><span class="tm">13:30:45</span><span class="nk"> &lt;ziviani&gt;</span> no
+<a name="l-80"></a><span class="tm">13:31:13</span><span class="nk"> &lt;pvital_&gt;</span> no
+<a name="l-81"></a><span class="tm">13:31:27</span><span class="nk"> &lt;samhenri&gt;</span> nope
+<a name="l-82"></a><span class="tm">13:31:29</span><span class="nk"> &lt;WalterNik&gt;</span> no
+<a name="l-83"></a><span class="tm">13:31:31</span><span class="nk"> &lt;lcorreia&gt;</span> no
+<a name="l-84"></a><span class="tm">13:31:42</span><span class="nk"> &lt;alteodoro&gt;</span> no
+<a name="l-85"></a><span class="tm">13:32:09</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-86"></a><span class="tm">13:32:17</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining and let's code! =P
+<a name="l-87"></a><span class="tm">13:32:21</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
