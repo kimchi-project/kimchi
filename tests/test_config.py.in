@@ -92,8 +92,7 @@ class ConfigTests(unittest.TestCase):
                 'tools.sessions.httponly': True,
                 'tools.sessions.locking': 'explicit',
                 'tools.sessions.storage_type': 'ram',
-                'tools.sessions.timeout': SESSIONSTIMEOUT,
-                'tools.wokauth.on': True
+                'tools.sessions.timeout': SESSIONSTIMEOUT
             },
             '/novnc': {
                 'tools.wokauth.on': True,
