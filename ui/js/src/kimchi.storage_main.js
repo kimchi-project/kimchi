@@ -450,7 +450,7 @@ kimchi.storage_main = function() {
         };
 
         var uriElements = result.target_uri.split('/');
-        var poolName = uriElements[2];
+        var poolName = uriElements[4];
         var volumeName = uriElements.pop();
         var progress = extractProgressData(result['message']);
         var size = progress['size'];
@@ -467,7 +467,7 @@ kimchi.storage_main = function() {
 
     wok.topic('kimchi/volumeTransferFinished').subscribe(function(result) {
         var uriElements = result.target_uri.split('/');
-        var poolName = uriElements[2];
+        var poolName = uriElements[4];
         var volumeName = uriElements.pop();
         var volumeBox = $('#volume' + poolName + ' [data-volume-name="' + volumeName + '"]');
         $('.volume-progress', volumeBox).addClass('hidden');
@@ -491,7 +491,7 @@ kimchi.storage_main = function() {
         result && wok.message.error(errText);
 
         var uriElements = result.target_uri.split('/');
-        var poolName = uriElements[2];
+        var poolName = uriElements[4];
         var volumeName = uriElements.pop();
         volumeBox = $('#volume' + poolName + ' [data-volume-name="' + volumeName + '"]');
         $('.progress-status', volumeBox).text(i18n['KCHPOOL6015M']);
