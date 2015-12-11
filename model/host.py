@@ -18,6 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import libvirt
+from collections import defaultdict
 from lxml import objectify
 
 from wok.exception import InvalidParameter
@@ -144,6 +145,27 @@ class DevicesModel(object):
 class DeviceModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
+        self.iommu_groups = self._get_iommu_groups()
+
+    def _get_iommu_groups(self):
+        iommu_groups = defaultdict(list)
+        conn = self.conn
+
+        try:
+            devices = DevicesModel(conn=conn).get_list()
+
+        except:
+            return iommu_groups
+
+        for device in devices:
+            info = hostdev.get_dev_info(
+                conn.get().nodeDeviceLookupByName(device))
+            if 'iommuGroup' not in info:
+                continue
+            iommu_group_nr = int(info['iommuGroup'])
+            iommu_groups[iommu_group_nr].append(device)
+
+        return iommu_groups
 
     def lookup(self, nodedev_name):
         conn = self.conn.get()
@@ -151,7 +173,16 @@ class DeviceModel(object):
             dev = conn.nodeDeviceLookupByName(nodedev_name)
         except:
             raise NotFoundError('KCHHOST0003E', {'name': nodedev_name})
-        return hostdev.get_dev_info(dev)
+
+        info = hostdev.get_dev_info(dev)
+        info['multifunction'] = self.is_multifunction_pci(info)
+        return info
+
+    def is_multifunction_pci(self, info):
+        if 'iommuGroup' not in info:
+            return False
+        iommu_group_nr = int(info['iommuGroup'])
+        return len(self.iommu_groups[iommu_group_nr]) > 1
 
     @staticmethod
     def _toint(num_str):

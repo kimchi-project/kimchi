@@ -870,6 +870,7 @@ List of available groups.
         * description: Product description of a "pci" device.
     * iommuGroup: IOMMU group number of a "pci" device. Would be None/null if
 	              host does not enable IOMMU support.
+    * multifunction: True if the device belongs to a multi-function adapter.
 
 
 ### Sub-collection: VMs with the device assigned.
