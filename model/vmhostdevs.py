@@ -279,7 +279,8 @@ class VMHostDevModel(object):
                 return {'name': dev_name,
                         'type': e.attrib['type'],
                         'product': dev_info.get('product', None),
-                        'vendor': dev_info.get('vendor', None)}
+                        'vendor': dev_info.get('vendor', None),
+                        'multifunction': dev_info.get('multifunction', None)}
 
         raise NotFoundError('KCHVMHDEV0001E',
                             {'vmid': vmid, 'dev_name': dev_name})
