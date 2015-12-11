@@ -486,6 +486,9 @@ kimchi.guest_edit_main = function() {
             $('.body', '#form-guest-edit-pci').append(itemNode);
             pciEnabled || $('button', itemNode).remove();
             $('button i', itemNode).addClass(iconClass);
+            if (kimchi.thisVMState === "running" && arrPCIDevices[i].multifunction) {
+                $('button', itemNode).prop("disabled", true);
+            }
             $('button', itemNode).on('click', function(event) {
                 event.preventDefault();
                 var obj = $(this);
