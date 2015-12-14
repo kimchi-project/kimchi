@@ -34,7 +34,7 @@
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#toolbar" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
+                <span class="sr-only">$_("Toggle navigation")</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -43,7 +43,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="toolbar">
                 <ul class="nav navbar-nav navbar-right tools" display="none">
-                    <li><a id="storage-pool-add" class="btn-tool" href="javascript:void(0);"><i class="fa fa-plus-circle"></i><span>Add a Storage</span></a></li>
+                    <li><a id="storage-pool-add" class="btn-tool" href="javascript:void(0);"><i class="fa fa-plus-circle"></i><span>$_("Add a Storage")</span></a></li>
                 </ul>
             </div>
         </div>
@@ -57,7 +57,7 @@
                 </div>
             </div>
             <div id="alert-container"></div>
-            <div id='storageGrid'>
+            <div id='storageGrid' class="hidden">
                 <div>
                     <span class="column-state"><span class="sr-only">$_("State")</span></span><!--
                     --><span class="column-name">$_("Name")</span><!--
@@ -89,6 +89,14 @@
                           </div>
                     </div>
                   </div>
+            </div>
+        </div>
+        <div class="wok-mask">
+            <div class="wok-mask-loader-container">
+                <div class="wok-mask-loading">
+                    <div class="wok-mask-loading-icon"></div>
+                    <div class="wok-mask-loading-text">$_("Loading...")</div>
+                </div>
             </div>
         </div>
     </div>

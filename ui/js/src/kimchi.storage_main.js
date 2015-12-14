@@ -16,6 +16,7 @@
  * limitations under the License.
  */
 kimchi.doListStoragePools = function() {
+    $('.wok-mask').removeClass('hidden');
     kimchi.listStoragePools(function(result) {
         var storageHtml = $('#storageTmpl').html();
         if (result && result.length) {
@@ -46,14 +47,18 @@ kimchi.doListStoragePools = function() {
                 $('.storage-allocate').addClass('storage-allocate-padding-user');
             }
             $('#storageGrid').dataGrid({enableSorting: false});
+            $('#storageGrid').removeClass('hidden');
+            $('.wok-mask').fadeOut(300, function() {});
             $('input', $('.grid-control', '.storage')).on('keyup', function(){
                 $('#storageGrid').dataGrid('filter', $(this).val());
             });
             kimchi.storageBindClick();
         } else {
+            $('.wok-mask').fadeOut(300, function() {});
             $('#storagepoolsList').html('');
         }
     }, function(err) {
+        $('.wok-mask').fadeOut(300, function() {});
         wok.message.error(err.responseJSON.reason);
     });
 };
