@@ -1558,7 +1558,7 @@ msgstr ""
 "O tipo de dispositivo. Atualmente, \"cdrom\" e \"disk\" são suportados."
 
 msgid "Storage Pool"
-msgstr "storage pool"
+msgstr "Storage Pool"
 
 msgid "Storage pool which volume located in"
 msgstr "Conjunto de armazenamentos no qual o volume está localizado"
@@ -1631,6 +1631,9 @@ msgstr "Máquinas Guests"
 
 msgid "Templates"
 msgstr "Modelos"
+
+msgid "Template Name (ID)"
+msgstr "Nome do Modelo (ID)"
 
 msgid "Failed to get application configuration"
 msgstr "Falha ao obter a configuração do aplicativo"
@@ -1763,6 +1766,12 @@ msgstr "Chave de GPG"
 
 msgid "Add"
 msgstr "Incluir"
+
+msgid "Add Storage"
+msgstr "Incluir Storage"
+
+msgid "Add Interface"
+msgstr "Incluir Interface"
 
 msgid "Remove"
 msgstr "Remover"
@@ -2275,14 +2284,8 @@ msgstr "Procurar ISOs"
 msgid "The following ISOs are available:"
 msgstr "Os ISOs a seguir estão disponíveis:"
 
-msgid "OS: "
-msgstr "S.O.: "
-
-msgid "Version: "
-msgstr "Versão: "
-
-msgid "Size: "
-msgstr "Tamanho: "
+msgid "Size"
+msgstr "Tamanho"
 
 msgid "Search more ISOs"
 msgstr "Procurar mais ISOs"
@@ -2299,8 +2302,14 @@ msgstr "Caminho do arquivo: "
 msgid "Loading default remote ISOs ..."
 msgstr "Carregando ISOs remotos padrão..."
 
-msgid "Arch: "
-msgstr "Arq.: "
+msgid "Provide a URL for a specific ISO image:"
+msgstr "Forneça uma URL para uma imagem ISO específica:"
+
+msgid "Provide a File Path for a specific ISO image:"
+msgstr "Forneça o caminho do arquivo para uma imagem ISO específica:"
+
+msgid "Arch"
+msgstr "Arq. "
 
 msgid "I want to use a custom URL"
 msgstr "Eu desejo usar uma URL customizada"

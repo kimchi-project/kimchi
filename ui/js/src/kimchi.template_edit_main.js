@@ -21,12 +21,18 @@ kimchi.template_edit_main = function() {
     var origNetworks;
     var templateDiskSize;
     $('#template-name', templateEditMain).val(kimchi.selectedTemplate);
-    $('#edit-template-tabs a[data-toggle="tab"]').on('shown.bs.tab', function (e) {    
+    $('#edit-template-tabs a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        $('.tab-content').css('overflow','hidden');
         var target = $(this).attr('href');
-
-        $(target).css('left','-'+$(window).width()+'px');   
+        $(target).css('left','-'+$(window).width()+'px');
         var left = $(target).offset().left;
-        $(target).css({left:left}).animate({"left":"0px"}, "10");
+        $(target).css({
+                left: left
+            }).animate({
+                    "left": "0px"
+            },400, function() {
+            $('.tab-content').css('overflow','visible');
+        });
     });
 
     var initTemplate = function(template) {
@@ -65,6 +71,7 @@ kimchi.template_edit_main = function() {
             return false;
         }
         enableSpice();
+        $('#template-edit-graphics').selectpicker();
 
         var initStorage = function(result) {
             // Gather storagepools data
@@ -187,7 +194,7 @@ kimchi.template_edit_main = function() {
                     storageDiskFormat : 'qcow2',
                     storageIndex : storageID
                 }
-                addStorageItem(storageNodeData);                
+                addStorageItem(storageNodeData);
             });
         };
 
