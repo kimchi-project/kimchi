@@ -20,33 +20,17 @@ kimchi.doListTemplates = function() {
         if (result && result.length) {
             $('#noTemplates').hide();
             var listHtml = '<li class="wok-vm-header">' +
-                '<span class="column-name">Template Name (ID)</span><!--' +
-                '--><span class="column-type">OS</span><!--' +
-                '--><span class="column-version">Version</span><!--' +
-                '--><span class="column-processors">CPUs</span><!--' +
-                '--><span class="column-memory">Memory</span><!-- ' +
+                '<span class="column-name">'+i18n['KCHTMPL6004M']+'</span><!--' +
+                '--><span class="column-type">'+i18n['KCHTMPL6005M']+'</span><!--' +
+                '--><span class="column-version">'+i18n['KCHTMPL6006M']+'</span><!--' +
+                '--><span class="column-processors">'+i18n['KCHTMPL6007M']+'</span><!--' +
+                '--><span class="column-memory">'+i18n['KCHTMPL6008M']+'</span><!-- ' +
                 '--><span class="column-action" style="display:none">   ' +
-                '    <span class="sr-only">Actions</span><!-- ' +
+                '    <span class="sr-only">'+i18n['KCHTMPL6009M']+'</span><!-- ' +
                 '--></span> ' +
                 '</li>';
             var templateHtml = $('#templateTmpl').html();
             $.each(result, function(index, value) {
-                var isLocal;
-                if (value.cdrom) {
-                    isLocal = /^\//.test(value['cdrom']);
-                } else {
-                    for (var i = 0; i < value.disks.length; i++) {
-                        if (value.disks[i].base) {
-                            isLocal = /^\//.test(value.disks[i].base);
-                            break;
-                        }
-                    }
-                }
-                if (isLocal) {
-                    value.location = "plugins/kimchi/images/theme-default/icon-local.png";
-                } else {
-                    value.location = "plugins/kimchi/images/theme-default/icon-remote.png";
-                }
                 listHtml += wok.substitute(templateHtml, value);
             });
             $('#templateList').html(listHtml);
@@ -55,10 +39,10 @@ kimchi.doListTemplates = function() {
             $('#templateList').html('');
             $('#noTemplates').show();
         }
-        $('html').removeClass('processing');
+        $('.wok-mask').addClass('hidden');
     }, function(err) {
         wok.message.error(err.responseJSON.reason);
-        $('html').removeClass('processing');
+        $('.wok-mask').addClass('hidden');
     });
 };
 
@@ -72,7 +56,7 @@ kimchi.templateBindClick = function() {
     $('.template-clone a').on('click', function(event) {
         event.preventDefault();
         kimchi.selectedTemplate = $(this).data('template');
-        $('html').addClass('processing');
+        $('.wok-mask').removeClass('hidden');
         kimchi.cloneTemplate(kimchi.selectedTemplate, function() {
             kimchi.doListTemplates();
         }, function(err) {

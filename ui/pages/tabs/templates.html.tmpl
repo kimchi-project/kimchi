@@ -43,7 +43,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="toolbar">
                 <ul class="nav navbar-nav navbar-right tools" display="none">
-                    <li><a id="template-add" class="btn-tool" href="javascript:void(0);"><i class="fa fa-plus-circle"></i><span>Add a Template</span></a></li>
+                    <li><a id="template-add" class="btn-tool" href="javascript:void(0);"><i class="fa fa-plus-circle"></i><span>$_("Add Template")</span></a></li>
                 </ul>
             </div>
         </div>
@@ -62,41 +62,47 @@
             </div>
             <div id="alert-container"></div>
             <ul id="templateList" class="wok-vm-list empty-when-logged-off">
-                <script id="templateTmpl" type="html/text">
-                    <li class="wok-vm-body">
-                        <span class='column-name' title="{name}" val="{name}">{name}</span><!--
-                        --><span class='column-action pull-right'>
-                            <span class="pull-right">
-                                <div class="dropdown menu-flat">
-                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"><span class="edit-alt"></span>$_("Actions")<span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li role="presentation" nwAct="edit" class='template-edit'><a href="#" data-template='{name}'><i class="fa fa-pencil"></i>$_("Edit")</a></li>
-                                        <li role="presentation" nwAct="clone" class='template-clone'><a href="#" data-template='{name}'><i class="fa fa-files-o"></i>$_("Clone")</a></li>
-                                        <li role="presentation" nwAct="delete" class='critical template-delete'><a href="#" data-template='{name}'><i class="fa fa-minus-circle"></i>$_("Delete")</a></li>
-                                    </ul>
-                                </div>
-                            </span>
-                        </span><!--
-                        --><span class='column-type distro-icon icon-{os_distro}' val="{os_distro}">{os_distro}</span><!--
-                        --><span class="item-hidden">$_("OS")</span><!--
-                        --><span class='column-version' val="{os_version}">{os_version}</span><!--
-                        --><span class="item-hidden">$_("Version")</span><!--
-                        --><span class='column-processors' val="{cpus}"><strong>{cpus}</strong> cores</span><!--
-                        --><span class="item-hidden">$_("CPUs")</span><!--
-                        --><span class='column-memory' val="{memory}"><strong>{memory}</strong> M</span><!--
-                        --><span class="item-hidden">$_("Memory")</span>
-                    </li>
-
-                </script>
             </ul>
         </div>
     </div>
-
-    <div id="modalWindow" class="modal fade host-modal templates-modal" tabindex="-1" role="dialog" aria-labelledby="templatesModalLabel" aria-hidden="true">
+    <div class="wok-mask hidden">
+        <div class="wok-mask-loader-container">
+            <div class="wok-mask-loading">
+                <div class="wok-mask-loading-icon"></div>
+                <div class="wok-mask-loading-text">$_("Loading...")</div>
+            </div>
+        </div>
+    </div>
+    <div id="modalWindow" class="modal fade host-modal templates-modal" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="templatesModalLabel" aria-hidden="true">
     </div>
     <script>
     kimchi.template_main();
+    </script>
+    <script id="templateTmpl" type="html/text">
+        <li class="wok-vm-body">
+            <span class='column-name' title="{name}" val="{name}">{name}</span><!--
+            --><span class='column-action pull-right'>
+                <span class="pull-right">
+                    <div class="dropdown menu-flat">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"><span class="edit-alt"></span>$_("Actions")<span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="presentation" nwAct="edit" class='template-edit'><a href="#" data-template='{name}'><i class="fa fa-pencil"></i>$_("Edit")</a></li>
+                            <li role="presentation" nwAct="clone" class='template-clone'><a href="#" data-template='{name}'><i class="fa fa-files-o"></i>$_("Clone")</a></li>
+                            <li role="presentation" nwAct="delete" class='critical template-delete'><a href="#" data-template='{name}'><i class="fa fa-minus-circle"></i>$_("Delete")</a></li>
+                        </ul>
+                    </div>
+                </span>
+            </span><!--
+            --><span class='column-type distro-icon icon-{os_distro}' val="{os_distro}">{os_distro}</span><!--
+            --><span class="item-hidden">$_("OS")</span><!--
+            --><span class='column-version' val="{os_version}">{os_version}</span><!--
+            --><span class="item-hidden">$_("Version")</span><!--
+            --><span class='column-processors' val="{cpus}"><strong>{cpus}</strong> cores</span><!--
+            --><span class="item-hidden">$_("CPUs")</span><!--
+            --><span class='column-memory' val="{memory}"><strong>{memory}</strong> M</span><!--
+            --><span class="item-hidden">$_("Memory")</span>
+        </li>
     </script>
 </body>
 </html>
