@@ -213,7 +213,7 @@ class VMTemplate(object):
                 img = "%s-%s.img" % (vm_uuid, params['index'])
                 storage_path = self._get_storage_path(disk['pool']['name'])
                 params['path'] = os.path.join(storage_path, img)
-
+                params['pool_type'] = disk['pool']['type']
             disks_xml += get_disk_xml(params)[1]
 
         return unicode(disks_xml, 'utf-8')
