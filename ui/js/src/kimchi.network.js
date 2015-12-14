@@ -28,6 +28,7 @@ kimchi.initNetwork = function() {
 };
 
 kimchi.initNetworkListView = function() {
+    $('.wok-mask').removeClass('hidden');
     kimchi.listNetworks(function(data) {
         for (var i = 0; i < data.length; i++) {
             var network = {
@@ -46,6 +47,8 @@ kimchi.initNetworkListView = function() {
             kimchi.addNetworkItem(network);
         }
         $('#networkGrid').dataGrid({enableSorting: false});
+        $('#networkGrid').removeClass('hidden');
+        $('.wok-mask').fadeOut(300, function() {});
         $('input', $('.grid-control', '#network-content-container')).on('keyup', function(){
             $('#networkGrid').dataGrid('filter', $(this).val());
         });
@@ -151,7 +154,7 @@ kimchi.addNetworkActions = function(network) {
                 };
                 wok.confirm(settings, function() {
                     kimchi.stopNetwork(network, menu);
-                    $('#networkGrid').dataGrid('deleteRow', $(evt.currentTarget).parents(".row"));
+                    $('#networkGrid').dataGrid('deleteRow', $(evt.currentTarget).parents(".wok-datagrid-row"));
                 }, null);
             }
             else {
@@ -169,7 +172,7 @@ kimchi.addNetworkActions = function(network) {
                 cancel : i18n['KCHAPI6003M']
             }, function() {
                 kimchi.deleteNetwork(network.name, function() {
-                    $('#networkGrid').dataGrid('deleteRow', $(evt.currentTarget).parents(".row"));
+                    $('#networkGrid').dataGrid('deleteRow', $(evt.currentTarget).parents(".wok-datagrid-row"));
                 });
             }, null);
         }
