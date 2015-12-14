@@ -26,9 +26,9 @@ from wok.plugins.kimchi.i18n import messages
 from wok.plugins.kimchi.control import sub_nodes
 from wok.plugins.kimchi.model import model as kimchiModel
 from wok.plugins.kimchi.utils import upgrade_objectstore_data
-from wok.plugins.kimchi.utils import upgrade_objectstore_schema
 from wok.plugins.kimchi.utils import upgrade_objectstore_template_disks
 from wok.root import WokRoot
+from wok.utils import upgrade_objectstore_schema
 
 
 class KimchiRoot(WokRoot):
@@ -68,7 +68,7 @@ class KimchiRoot(WokRoot):
         # Some paths or URI's present in the objectstore have changed after
         # Kimchi 2.0.0 release. Check here if an upgrade in the schema and data
         # are necessary.
-        if upgrade_objectstore_schema('version'):
+        if upgrade_objectstore_schema(config.get_object_store(), 'version'):
             upgrade_objectstore_data('icon', 'images', 'plugins/kimchi/')
             upgrade_objectstore_data('storagepool', '/storagepools',
                                      '/plugins/kimchi')
