@@ -4,6 +4,7 @@ Section: base
 Priority: optional
 Architecture: all
 Depends: wok,
+         ginger-base,
          python-imaging,
          python-configobj,
          websockify,
