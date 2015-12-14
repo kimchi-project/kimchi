@@ -15,34 +15,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-kimchi.doListTemplates = function() {
+
+ kimchi.doListTemplates = function() {
+    $('.wok-mask').removeClass('hidden');
     kimchi.listTemplates(function(result) {
         if (result && result.length) {
             $('#noTemplates').hide();
-            var listHtml = '<li class="wok-vm-header">' +
-                '<span class="column-name">'+i18n['KCHTMPL6004M']+'</span><!--' +
-                '--><span class="column-type">'+i18n['KCHTMPL6005M']+'</span><!--' +
-                '--><span class="column-version">'+i18n['KCHTMPL6006M']+'</span><!--' +
-                '--><span class="column-processors">'+i18n['KCHTMPL6007M']+'</span><!--' +
-                '--><span class="column-memory">'+i18n['KCHTMPL6008M']+'</span><!-- ' +
-                '--><span class="column-action" style="display:none">   ' +
-                '    <span class="sr-only">'+i18n['KCHTMPL6009M']+'</span><!-- ' +
-                '--></span> ' +
-                '</li>';
+            var listHtml = '';
             var templateHtml = $('#templateTmpl').html();
             $.each(result, function(index, value) {
                 listHtml += wok.substitute(templateHtml, value);
             });
+            $('.wok-vm-list').removeClass('hidden');
+            $('#templates-container').removeClass('hidden');
             $('#templateList').html(listHtml);
             kimchi.templateBindClick();
+            $('.wok-mask').fadeOut(300, function() {});
         } else {
             $('#templateList').html('');
             $('#noTemplates').show();
+            $('.wok-vm-list').addClass('hidden');
+            $('#templates-container').addClass('hidden');
+            $('.wok-mask').fadeOut(300, function() {});
         }
-        $('.wok-mask').addClass('hidden');
+
+        var options = { valueNames: ['name-filter', 'os-type-filter', 'os-version-filter', 'cpus-filter', 'memory-filter'] };
+        var templatesList = new List('templates-container', options);
+
     }, function(err) {
         wok.message.error(err.responseJSON.reason);
-        $('.wok-mask').addClass('hidden');
+        $('.wok-mask').fadeOut(300, function() {
+            $('.wok-mask').addClass('hidden');
+        });
     });
 };
 
@@ -80,7 +84,7 @@ kimchi.templateBindClick = function() {
             }, function(err) {
                 wok.message.error(err.responseJSON.reason);
             });
-        }, function() {});
+        }, function(){});
     });
 }
 kimchi.hideTitle = function() {
