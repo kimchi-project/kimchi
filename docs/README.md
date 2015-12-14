@@ -119,7 +119,7 @@ Build and Install
     Kimchi:
     $ cd plugins/kimchi
 
-    For openSUSE 13.1:
+    For openSUSE 13.2:
     $ ./autogen.sh --with-spice-html5
 
     Otherwise:
