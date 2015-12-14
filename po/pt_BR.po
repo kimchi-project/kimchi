@@ -2264,7 +2264,10 @@ msgid "Please, wait..."
 msgstr "Aguarde..."
 
 msgid "Add Template"
-msgstr "Incluir modelo"
+msgstr "Incluir Modelo"
+
+msgid "Add a Template"
+msgstr "Incluir Modelo"
 
 msgid "Where is the source media for this template? "
 msgstr "Onde está a mídia de origem para este modelo? "
@@ -2320,6 +2323,12 @@ msgstr "Editar modelo"
 msgid "Processor"
 msgstr "Processador"
 
+msgid "Processors Used"
+msgstr "Utilização do Processador"
+
+msgid "Memory Utilization"
+msgstr "Utilização da Memória"
+
 msgid "CDROM"
 msgstr "CD-ROM"
 
@@ -2353,6 +2362,9 @@ msgstr "CPU"
 msgid "Disk I/O"
 msgstr "E/S de disco"
 
+msgid "Storage I/O"
+msgstr "E/S de disco"
+
 msgid "Network I/O"
 msgstr "E/S de Rede"
 
@@ -2376,6 +2388,12 @@ msgstr "Distribuição do S.O."
 
 msgid "OS Code Name"
 msgstr "Nome-código do S.O."
+
+msgid "OS Type"
+msgstr "Tipo do S.O."
+
+msgid "Guest Name ID"
+msgstr "Nome do Guest (ID)"
 
 msgid "CPU(s)"
 msgstr "CPU(s)"
@@ -2451,6 +2469,15 @@ msgstr "Ativar"
 
 msgid "Add Volume"
 msgstr "Incluir volume"
+
+msgid "Add a Storage"
+msgstr "Incluir Armazenamento"
+
+msgid "Add a Network"
+msgstr "Incluir Rede"
+
+msgid "Add a Guest"
+msgstr "Incluir Máquina Guest"
 
 msgid "Extend"
 msgstr "Estender"
