@@ -157,7 +157,7 @@ uninstall-local:
 
 VERSION:
 	@if test -d .git; then                                \
-		git describe --abbrev=0 > $@;                     \
+		git describe --abbrev=0 --always > $@;            \
 	fi
 
 .PHONY: deb install-deb rpm fedora-rpm suse-rpm ChangeLog VERSION
