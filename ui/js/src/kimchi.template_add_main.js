@@ -16,29 +16,34 @@
  * limitations under the License.
  */
 kimchi.switchPage = function(fromPageId, toPageId, direction) {
+    $('.tab-content').css('overflow', 'hidden');
     direction = direction || 'left';
     var toLeftBegin;
     var fromLeftEnd;
-    if('left' === direction) {
+    if ('left' === direction) {
         toLeftBegin = '100%';
         fromLeftEnd = '-100%';
-    } else if('right' === direction) {
+    } else if ('right' === direction) {
         toLeftBegin = '-100%';
         fromLeftEnd = '100%';
     }
-    var formPage = $('#'+fromPageId);
-    var toPage = $('#'+toPageId);
+    var formPage = $('#' + fromPageId);
+    var toPage = $('#' + toPageId);
     toPage.css({
         left: toLeftBegin
     });
     formPage.animate({
         left: fromLeftEnd,
         opacity: 0.1
-    }, 400);
+    }, 400, function() {
+        $('.tab-content').css('overflow', 'visible');
+    });
     toPage.animate({
         left: '0',
         opacity: 1
-    }, 400);
+    }, 400, function() {
+        $('.tab-content').css('overflow', 'visible');
+    });
 };
 
 kimchi.template_add_main = function() {
@@ -49,7 +54,7 @@ kimchi.template_add_main = function() {
     var deepScan = function(button) {
         kimchi.deepScanHandler = kimchi.stepListDeepScanIsos(function(isos, isFinished) {
             if (isos && isos.length) {
-                if(button === '#iso-search') {
+                if (button === '#iso-search') {
                     $(button + '-loading').hide();
                     button = '#iso-more';
                     $(button + '-loading').show();
@@ -65,7 +70,7 @@ kimchi.template_add_main = function() {
                 $(button).show();
             }
         }, function(err) {
-            wok.message.error(err.responseJSON.reason,'#alert-modal-container');
+            wok.message.error(err.responseJSON.reason, '.alert-modal-container');
             $(button + '-loading').hide();
             $(button).show();
         });
@@ -87,11 +92,11 @@ kimchi.template_add_main = function() {
         $('#iso-file').val(''); // 1 - Folder path text
         $('vm-image-local-text').val(''); // 3 - File path text
         $('#iso-url').val(''); // 4 - Remote folder path text
-        $('#btn-template-file-create').attr('disabled', 'disabled').css('display','inline-block'); // 1 - Folder path
-        $('#btn-template-local-iso-create').attr('disabled', 'disabled').css('display','none'); // 2 - Selected ISOs
-        $('#vm-image-local-box-button').attr('disabled', 'disabled').css('display','none'); // 3 - File path
-        $('#btn-template-url-create').attr('disabled', 'disabled').css('display','none'); // 4 - Remote folder path
-        $('#btn-template-remote-iso-create').attr('disabled', 'disabled').css('display','none');  // 5 - Remote selected isos
+        $('#btn-template-file-create').attr('disabled', 'disabled').css('display', 'inline-block'); // 1 - Folder path
+        $('#btn-template-local-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 2 - Selected ISOs
+        $('#vm-image-local-box-button').attr('disabled', 'disabled').css('display', 'none'); // 3 - File path
+        $('#btn-template-url-create').attr('disabled', 'disabled').css('display', 'none'); // 4 - Remote folder path
+        $('#btn-template-remote-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 5 - Remote selected isos
         $('#select-all-local-iso, #select-all-remote-iso').prop('checked', false); // False to all select-all checkboxes
         $('#list-local-iso [type="checkbox"], #list-remote-iso [type="checkbox"]').prop('checked', false); // False to all list checkboxes
 
@@ -119,16 +124,16 @@ kimchi.template_add_main = function() {
         //$('#iso-file-check').prop('checked', false);
         $('#iso-file').val('');
         $('vm-image-local-text').val('');
-        $('#iso-url').val(''); 
-        $('#btn-template-file-create').attr('disabled', 'disabled').css('display','inline-block');
+        $('#iso-url').val('');
+        $('#btn-template-file-create').attr('disabled', 'disabled').css('display', 'inline-block');
 
-        $('#btn-template-local-iso-create').attr('disabled', 'disabled').css('display','none'); // 2 - Selected ISOs
+        $('#btn-template-local-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 2 - Selected ISOs
 
-        $('#vm-image-local-box-button').attr('disabled', 'disabled').css('display','none'); // 3 - File path
+        $('#vm-image-local-box-button').attr('disabled', 'disabled').css('display', 'none'); // 3 - File path
 
-        $('#btn-template-url-create').attr('disabled', 'disabled').css('display','none'); // 4 - Remote folder path
+        $('#btn-template-url-create').attr('disabled', 'disabled').css('display', 'none'); // 4 - Remote folder path
 
-        $('#btn-template-remote-iso-create').attr('disabled', 'disabled').css('display','none');  // 5 - Remote selected isos
+        $('#btn-template-remote-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 5 - Remote selected isos
 
         $('#select-all-local-iso, #select-all-remote-iso').prop('checked', false); // False to all select-all checkboxes
 
@@ -136,23 +141,20 @@ kimchi.template_add_main = function() {
 
     };
 
-    $('#iso-file').on('input propertychange', function() {
+    $('#iso-file').on('input propertychange keyup focus cut paste click', function() {
+        $('#btn-template-file-create').css('display', 'inline-block'); // 1 - Folder path
+        $('#select-all-local-iso, #select-all-remote-iso').prop('checked', false);
+        $('#list-local-iso [type="checkbox"], #list-remote-iso [type="checkbox"]').prop('checked', false);
+        setTimeout(function() {
+            var isValid = kimchi.template_check_path($('input#iso-file').val());
+            $('input#iso-file').parent().toggleClass('has-error', !isValid);
+            $('#btn-template-file-create').attr('disabled', (isValid ? false : true));
+        }, 0);
         if ($('#iso-file').val()) {
-
-        $('#btn-template-file-create').removeAttr('disabled').css('display','inline-block'); // 1 - Folder path
-
-        $('#btn-template-local-iso-create').attr('disabled', 'disabled').css('display','none'); // 2 - Selected ISOs
-
-        $('#vm-image-local-box-button').attr('disabled', 'disabled').css('display','none'); // 3 - File path
-
-        $('#btn-template-url-create').attr('disabled', 'disabled').css('display','none'); // 4 - Remote folder path
-
-        $('#btn-template-remote-iso-create').attr('disabled', 'disabled').css('display','none');  // 5 - Remote selected isos
-
-        $('#select-all-local-iso, #select-all-remote-iso').prop('checked', false); // False to all select-all checkboxes
-
-        $('#list-local-iso [type="checkbox"], #list-remote-iso [type="checkbox"]').prop('checked', false); // False to all list checkboxes
-
+            $('#btn-template-local-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 2 - Selected ISOs
+            $('#vm-image-local-box-button').attr('disabled', 'disabled').css('display', 'none'); // 3 - File path
+            $('#btn-template-url-create').attr('disabled', 'disabled').css('display', 'none'); // 4 - Remote folder path
+            $('#btn-template-remote-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 5 - Remote selected isos
         } else {
             $('#btn-template-file-create').attr('disabled', 'disabled');
         }
@@ -168,37 +170,36 @@ kimchi.template_add_main = function() {
             $('#iso-search').show();
         }
     }, function(err) {
-        wok.message.error(err.responseJSON.reason,'#alert-modal-container');
+        wok.message.error(err.responseJSON.reason, '.alert-modal-container');
     });
     $('#template-add-window .modal-body .template-pager').animate({
-    height: "689px"
-  },400);
+        height: "689px"
+    }, 400);
 
     // 1-1 local iso
     $('#iso-local').change(function() {
-        if(this.checked){
-            if(currentPage === 'vm-image-local-box') {
-                kimchi.switchPage(currentPage, 'iso-local-box','right'); 
-            } else if(currentPage === 'iso-remote-box') {
-                kimchi.switchPage(currentPage, 'iso-local-box','right'); 
+        if (this.checked) {
+            if (currentPage === 'vm-image-local-box') {
+                kimchi.switchPage(currentPage, 'iso-local-box', 'right');
+            } else if (currentPage === 'iso-remote-box') {
+                kimchi.switchPage(currentPage, 'iso-local-box', 'right');
             }
             currentPage = 'iso-local-box';
-                $('#template-add-window .modal-body .template-pager').animate({
+            $('#template-add-window .modal-body .template-pager').animate({
                 height: "689px"
-              },400);            
+            }, 400);
             initLocalIsoField();
             initIsoFileField();
 
-            $('#btn-template-file-create').attr('disabled', 'disabled').css('display','inline-block'); // 1 - Folder path
+            $('#btn-template-file-create').attr('disabled', 'disabled').css('display', 'inline-block'); // 1 - Folder path
 
-            $('#btn-template-local-iso-create').attr('disabled', 'disabled').css('display','none'); // 2 - Selected ISOs
+            $('#btn-template-local-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 2 - Selected ISOs
 
-            $('#vm-image-local-box-button').attr('disabled', 'disabled').css('display','none'); // 3 - File path
+            $('#vm-image-local-box-button').attr('disabled', 'disabled').css('display', 'none'); // 3 - File path
 
-            $('#btn-template-url-create').attr('disabled', 'disabled').css('display','none'); // 4 - Remote folder path
+            $('#btn-template-url-create').attr('disabled', 'disabled').css('display', 'none'); // 4 - Remote folder path
 
-            $('#btn-template-remote-iso-create').attr('disabled', 'disabled').css('display','none');  // 5 - Remote selected isos
-    
+            $('#btn-template-remote-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 5 - Remote selected isos
 
             kimchi.listIsos(function(isos) {
                 if (isos && isos.length) {
@@ -208,14 +209,14 @@ kimchi.template_add_main = function() {
                     $('#iso-search').show();
                 }
             }, function(err) {
-                wok.message.error(err.responseJSON.reason,'#alert-modal-container');
+                wok.message.error(err.responseJSON.reason, '.alert-modal-container');
             });
         }
     });
 
     $('#iso-search').click(function() {
         var settings = {
-            content : i18n['KCHTMPL6002M']
+            content: i18n['KCHTMPL6002M']
         };
         wok.confirm(settings, function() {
             $('#iso-search').hide();
@@ -226,7 +227,7 @@ kimchi.template_add_main = function() {
 
     $('#iso-more').click(function() {
         var settings = {
-            content : i18n['KCHTMPL6002M']
+            content: i18n['KCHTMPL6002M']
         };
         wok.confirm(settings, function() {
             $('#iso-more').hide();
@@ -255,17 +256,18 @@ kimchi.template_add_main = function() {
         $('#list-local-iso [type="checkbox"]').prop('checked', $(this).prop('checked'));
         if ($(this).prop('checked')) {
             $('#iso-file').val('');
+            $('#iso-file').parent().removeClass('has-error');
             $('vm-image-local-text').val('');
 
-            $('#btn-template-file-create').attr('disabled', 'disabled').css('display','none'); // 1 - Folder path
+            $('#btn-template-file-create').attr('disabled', 'disabled').css('display', 'none'); // 1 - Folder path
 
-            $('#btn-template-local-iso-create').removeAttr('disabled').css('display','inline-block'); // 2 - Selected ISOs
+            $('#btn-template-local-iso-create').removeAttr('disabled').css('display', 'inline-block'); // 2 - Selected ISOs
 
-            $('#vm-image-local-box-button').attr('disabled', 'disabled').css('display','none'); // 3 - File path
+            $('#vm-image-local-box-button').attr('disabled', 'disabled').css('display', 'none'); // 3 - File path
 
-            $('#btn-template-url-create').attr('disabled', 'disabled').css('display','none'); // 4 - Remote folder path
+            $('#btn-template-url-create').attr('disabled', 'disabled').css('display', 'none'); // 4 - Remote folder path
 
-            $('#btn-template-remote-iso-create').attr('disabled', 'disabled').css('display','none');  // 5 - Remote selected isos
+            $('#btn-template-remote-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 5 - Remote selected isos
 
         } else {
             $('#btn-template-local-iso-create').attr('disabled', 'disabled');
@@ -273,20 +275,21 @@ kimchi.template_add_main = function() {
     });
 
     $('#list-local-iso').on('click', '[type="checkbox"]', function() {
+        $('#iso-file').parent().removeClass('has-error');
         var checkedLength = $('#list-local-iso [type="checkbox"]:checked').length;
         $('#iso-file').val('');
         $('vm-image-local-text').val('');
         $('#iso-url').val('');
 
-        $('#btn-template-file-create').attr('disabled', 'disabled').css('display','none'); // 1 - Folder path
+        $('#btn-template-file-create').attr('disabled', 'disabled').css('display', 'none'); // 1 - Folder path
 
-        $('#btn-template-local-iso-create').attr('disabled', 'disabled').css('display','inline-block'); // 2 - Selected ISOs
+        $('#btn-template-local-iso-create').attr('disabled', 'disabled').css('display', 'inline-block'); // 2 - Selected ISOs
 
-        $('#vm-image-local-box-button').attr('disabled', 'disabled').css('display','none'); // 3 - File path
+        $('#vm-image-local-box-button').attr('disabled', 'disabled').css('display', 'none'); // 3 - File path
 
-        $('#btn-template-url-create').attr('disabled', 'disabled').css('display','none'); // 4 - Remote folder path
+        $('#btn-template-url-create').attr('disabled', 'disabled').css('display', 'none'); // 4 - Remote folder path
 
-        $('#btn-template-remote-iso-create').attr('disabled', 'disabled').css('display','none');  // 5 - Remote selected isos
+        $('#btn-template-remote-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 5 - Remote selected isos
         if (checkedLength) {
             $('#btn-template-local-iso-create').removeAttr('disabled');
             var length = $('#list-local-iso [type="checkbox"]').length;
@@ -306,11 +309,12 @@ kimchi.template_add_main = function() {
         var isoFile = $('#iso-file').val();
         $('vm-image-local-text').val('');
         if (!kimchi.template_check_path(isoFile)) {
+            wok.message.error(err.responseJSON.reason, '.alert-modal-container');
             wok.message.error.code('KCHAPI6003E');
             return;
         }
         var data = {
-            "cdrom" : isoFile
+            "cdrom": isoFile
         };
         addTemplate(data);
     });
@@ -331,21 +335,20 @@ kimchi.template_add_main = function() {
         $('#iso-remote').attr("disabled", false).css('cursor', 'pointer');
         $('#iso-remote').change(function() {
             if (this.checked) {
-                if(currentPage === 'iso-local-box') { // slide twice
-                    kimchi.switchPage(currentPage, 'iso-remote-box','left'); 
-                } else if(currentPage === 'vm-image-local-box') { // slide once
-                    kimchi.switchPage(currentPage, 'iso-remote-box','left'); 
+                if (currentPage === 'iso-local-box') { // slide twice
+                    kimchi.switchPage(currentPage, 'iso-remote-box', 'left');
+                } else if (currentPage === 'vm-image-local-box') { // slide once
+                    kimchi.switchPage(currentPage, 'iso-remote-box', 'left');
                 }
                 currentPage = 'iso-remote-box';
                 $('#template-add-window .modal-body .template-pager').animate({
                     height: "635px"
-                },400);
+                }, 400);
                 initRemoteIsoField();
                 initIsoUrlField();
                 kimchi.listDistros(function(isos) {
                     showRemoteIsoField(isos);
-                }, function() {
-                });
+                }, function() {});
             }
         });
     };
@@ -363,15 +366,15 @@ kimchi.template_add_main = function() {
         $('vm-image-local-text').val('');
         $('#iso-url').val('');
 
-        $('#btn-template-file-create').attr('disabled', 'disabled').css('display','none'); // 1 - Folder path
+        $('#btn-template-file-create').attr('disabled', 'disabled').css('display', 'none'); // 1 - Folder path
 
-        $('#btn-template-local-iso-create').attr('disabled', 'disabled').css('display','none'); // 2 - Selected ISOs
+        $('#btn-template-local-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 2 - Selected ISOs
 
-        $('#vm-image-local-box-button').attr('disabled', 'disabled').css('display','none'); // 3 - File path
+        $('#vm-image-local-box-button').attr('disabled', 'disabled').css('display', 'none'); // 3 - File path
 
-        $('#btn-template-url-create').attr('disabled', 'disabled').css('display','inline-block'); // 4 - Remote folder path
+        $('#btn-template-url-create').attr('disabled', 'disabled').css('display', 'inline-block'); // 4 - Remote folder path
 
-        $('#btn-template-remote-iso-create').attr('disabled', 'disabled').css('display','none');  // 5 - Remote selected isos
+        $('#btn-template-remote-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 5 - Remote selected isos
 
         $('#select-all-local-iso, #select-all-remote-iso').prop('checked', false); // False to all select-all checkboxes
 
@@ -409,17 +412,18 @@ kimchi.template_add_main = function() {
 
             $('#iso-file').val('');
             $('vm-image-local-text').val('');
-            $('#iso-url').val(''); 
+            $('#iso-url').val('');
+            $('#iso-url').parent().removeClass('has-error');
 
-            $('#btn-template-file-create').attr('disabled', 'disabled').css('display','none'); // 1 - Folder path
+            $('#btn-template-file-create').attr('disabled', 'disabled').css('display', 'none'); // 1 - Folder path
 
-            $('#btn-template-local-iso-create').attr('disabled', 'disabled').css('display','none'); // 2 - Selected ISOs
+            $('#btn-template-local-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 2 - Selected ISOs
 
-            $('#vm-image-local-box-button').attr('disabled', 'disabled').css('display','none'); // 3 - File path
+            $('#vm-image-local-box-button').attr('disabled', 'disabled').css('display', 'none'); // 3 - File path
 
-            $('#btn-template-url-create').attr('disabled', 'disabled').css('display','none'); // 4 - Remote folder path
+            $('#btn-template-url-create').attr('disabled', 'disabled').css('display', 'none'); // 4 - Remote folder path
 
-            $('#btn-template-remote-iso-create').removeAttr('disabled').css('display','inline-block');  // 5 - Remote selected isos
+            $('#btn-template-remote-iso-create').removeAttr('disabled').css('display', 'inline-block'); // 5 - Remote selected isos
 
         } else {
             $('#btn-template-remote-iso-create').attr('disabled', 'disabled');
@@ -427,6 +431,7 @@ kimchi.template_add_main = function() {
     });
 
     $('#list-remote-iso').on('click', '[type="checkbox"]', function() {
+        $('#iso-url').parent().removeClass('has-error');
         var checkedLength = $('#list-remote-iso [type="checkbox"]:checked').length;
         if (checkedLength) {
             $('#btn-template-remote-iso-create').removeAttr('disabled');
@@ -437,15 +442,15 @@ kimchi.template_add_main = function() {
             $('vm-image-local-text').val('');
             $('#iso-url').val('');
 
-            $('#btn-template-file-create').attr('disabled', 'disabled').css('display','none'); // 1 - Folder path
+            $('#btn-template-file-create').attr('disabled', 'disabled').css('display', 'none'); // 1 - Folder path
 
-            $('#btn-template-local-iso-create').attr('disabled', 'disabled').css('display','none'); // 2 - Selected ISOs
+            $('#btn-template-local-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 2 - Selected ISOs
 
-            $('#vm-image-local-box-button').attr('disabled', 'disabled').css('display','none'); // 3 - File path
+            $('#vm-image-local-box-button').attr('disabled', 'disabled').css('display', 'none'); // 3 - File path
 
-            $('#btn-template-url-create').attr('disabled', 'disabled').css('display','none'); // 4 - Remote folder path
+            $('#btn-template-url-create').attr('disabled', 'disabled').css('display', 'none'); // 4 - Remote folder path
 
-            $('#btn-template-remote-iso-create').removeAttr('disabled').css('display','inline-block');  // 5 - Remote selected isos
+            $('#btn-template-remote-iso-create').removeAttr('disabled').css('display', 'inline-block'); // 5 - Remote selected isos
 
         } else {
             $('#select-all-remote-iso').prop('checked', false);
@@ -464,62 +469,70 @@ kimchi.template_add_main = function() {
         $('vm-image-local-text').val('');
         $('#iso-url').val('');
 
-        $('#btn-template-file-create').attr('disabled', 'disabled').css('display','none'); // 1 - Folder path
+        $('#btn-template-file-create').attr('disabled', 'disabled').css('display', 'none'); // 1 - Folder path
 
-        $('#btn-template-local-iso-create').attr('disabled', 'disabled').css('display','none'); // 2 - Selected ISOs
+        $('#btn-template-local-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 2 - Selected ISOs
 
-        $('#vm-image-local-box-button').attr('disabled', 'disabled').css('display','none'); // 3 - File path
+        $('#vm-image-local-box-button').attr('disabled', 'disabled').css('display', 'none'); // 3 - File path
 
-        $('#btn-template-url-create').attr('disabled','disabled').css('display','inline-block'); // 4 - Remote folder path
+        $('#btn-template-url-create').attr('disabled', 'disabled').css('display', 'inline-block'); // 4 - Remote folder path
 
-        $('#btn-template-remote-iso-create').attr('disabled', 'disabled').css('display','none');  // 5 - Remote selected isos
+        $('#btn-template-remote-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 5 - Remote selected isos
 
     }
 
-    $('#iso-url').on('input propertychange', function() {
-        if ($('#iso-url').val()) {
-            $('#btn-template-url-create').removeAttr('disabled');
-        } else {
-            $('#btn-template-url-create').attr('disabled', 'disabled');
-        }
+    $('#iso-url').on('input propertychange keyup focus cut paste click', function() {
+        $('#select-all-local-iso, #select-all-remote-iso').prop('checked', false);
+        $('#list-local-iso [type="checkbox"], #list-remote-iso [type="checkbox"]').prop('checked', false);
+        $('#btn-template-url-create').attr('disabled', 'disabled').css('display', 'inline-block');
+        $('#btn-template-remote-iso-create').attr('disabled', 'disabled').css('display', 'none');
+        setTimeout(function() {
+            var isValid = kimchi.template_check_url($('input#iso-url').val());
+            $('input#iso-url').parent().toggleClass('has-error', !isValid);
+            $('#btn-template-url-create').attr('disabled', (isValid ? false : true));
+        }, 0);
     });
 
-    $('#vm-image-local').change(function(){
-        if(this.checked) {
-            if(currentPage === 'iso-local-box') {
-                kimchi.switchPage(currentPage, 'vm-image-local-box','left'); 
-            } else if(currentPage === 'iso-remote-box') {
-                kimchi.switchPage(currentPage, 'vm-image-local-box','right'); 
+    $('#vm-image-local').change(function() {
+        if (this.checked) {
+            if (currentPage === 'iso-local-box') {
+                kimchi.switchPage(currentPage, 'vm-image-local-box', 'left');
+            } else if (currentPage === 'iso-remote-box') {
+                kimchi.switchPage(currentPage, 'vm-image-local-box', 'right');
             }
             currentPage = 'vm-image-local-box';
             $('#template-add-window .modal-body .template-pager').animate({
                 height: "100px"
-              },400);
+            }, 400);
 
-            $('#btn-template-file-create').attr('disabled', 'disabled').css('display','none'); // 1 - Folder path
-            $('#btn-template-local-iso-create').attr('disabled', 'disabled').css('display','none'); // 2 - Selected ISOs
-            $('#vm-image-local-box-button').attr('disabled', 'disabled').css('display','inline-block'); // 3 - File path
-            $('#btn-template-url-create').attr('disabled', 'disabled').css('display','none'); // 4 - Remote folder path
-            $('#btn-template-remote-iso-create').attr('disabled', 'disabled').css('display','none');  // 5 - Remote selected isos
+            $('#btn-template-file-create').attr('disabled', 'disabled').css('display', 'none'); // 1 - Folder path
+            $('#btn-template-local-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 2 - Selected ISOs
+            $('#vm-image-local-box-button').attr('disabled', 'disabled').css('display', 'inline-block'); // 3 - File path
+            $('#btn-template-url-create').attr('disabled', 'disabled').css('display', 'none'); // 4 - Remote folder path
+            $('#btn-template-remote-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 5 - Remote selected isos
 
         }
     });
-    $('input', '#vm-image-local-box').on('keyup cut paste', function(){
-        setTimeout(function(){
+    $('input', '#vm-image-local-box').on('input propertychange keyup focus cut paste click', function() {
+        setTimeout(function() {
             var isValid = kimchi.template_check_path($('input', '#vm-image-local-box').val());
-            $('input', '#vm-image-local-box').toggleClass('invalid-field', !isValid);
+            $('input', '#vm-image-local-box').parent().toggleClass('has-error', !isValid);
             $('#vm-image-local-box-button').attr('disabled', (isValid ? false : true));
         }, 0);
     });
     $('button', $('#vm-image-local-box')).button({
         disabled: true
-    }).click(function(){
+    }).click(function() {
         $('input', '#vm-image-local-box').prop('disabled', true);
         $(this).button('option', {
             label: i18n['KCHAPI6008M'],
             disabled: true
         });
-        addTemplate({disks:[{base:$('input', '#vm-image-local-box').val()}]}, function(){
+        addTemplate({
+            disks: [{
+                base: $('input', '#vm-image-local-box').val()
+            }]
+        }, function() {
             $('input', '#vm-image-local-box').prop('disabled', false);
             $('button', $('.body', '#vm-image-local-box')).button('option', {
                 label: i18n['KCHAPI6005M'],
@@ -535,7 +548,7 @@ kimchi.template_add_main = function() {
             return;
         }
         var data = {
-            "cdrom" : isoUrl
+            "cdrom": isoUrl
         };
         addTemplate(data);
     });
@@ -543,13 +556,13 @@ kimchi.template_add_main = function() {
     //do create
     var addTemplate = function(data, callback) {
         kimchi.createTemplate(data, function() {
-            if(callback) callback();
+            if (callback) callback();
             kimchi.doListTemplates();
             wok.window.close();
             wok.topic('templateCreated').publish();
         }, function(err) {
-            if(callback) callback();
-            wok.message.error(err.responseJSON.reason,'#alert-modal-container');
+            if (callback) callback();
+            wok.message.error(err.responseJSON.reason, '.alert-modal-container');
         });
     };
 
@@ -560,9 +573,9 @@ kimchi.template_add_main = function() {
             var successNum = 0;
             var addTemplate = function(isoInfo) {
                 var data = {
-                    "os_distro" : isoInfo.os_distro,
-                    "os_version" : isoInfo.os_version,
-                    "cdrom" : isoInfo.path
+                    "os_distro": isoInfo.os_distro,
+                    "os_version": isoInfo.os_version,
+                    "cdrom": isoInfo.path
                 };
                 kimchi.createTemplate(data, function() {
                     successNum++;
@@ -574,7 +587,7 @@ kimchi.template_add_main = function() {
                         wok.window.close();
                     }
                 }, function(err) {
-                    wok.message.error(err.responseJSON.reason,'#alert-modal-container');
+                    wok.message.error(err.responseJSON.reason, '.alert-modal-container');
                 });
             };
             if (formData.iso instanceof Array) {

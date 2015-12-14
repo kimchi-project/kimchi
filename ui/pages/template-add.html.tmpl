@@ -28,30 +28,27 @@
             <div class="modal-header">
                 <h4 class="modal-title">$_("Add Template")</h4>
             </div>
-            <div class="modal-body">            
-                <span id="alert-modal-container"></span>
+            <div class="modal-body">
                 <div class="template-modal-container">
                     <div>
-                        <h5>$_("Where is the source media for this template? ")</h5>                       
-                        <label class="radio-inline">
-                            <input type="radio" checked="checked" name="iso-source" id="iso-local" value="iso-local"> $_("Local ISO Image")
-                        </label>                        
-                        <label class="radio-inline">
-                            <input type="radio" name="iso-source" id="vm-image-local" value="vm-image-local"> $_("Local Image File")
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="iso-source" id="iso-remote" value="iso-remote"> $_("Remote ISO Image")
-                        </label>                        
+                        <h5>$_("Where is the source media for this template? ")</h5>
+                        <input type="radio" checked="checked" name="iso-source" id="iso-local" value="iso-local" class="wok-radio">
+                        <label for="iso-local">$_("Local ISO Image")</label>
+                        <input type="radio" name="iso-source" id="vm-image-local" value="vm-image-local" class="wok-radio">
+                        <label for="vm-image-local">$_("Local Image File")</label>
+                        <input type="radio" name="iso-source" id="iso-remote" value="iso-remote" class="wok-radio">
+                        <label for="iso-remote">$_("Remote ISO Image")</label>
                     </div>
                 </div>
                 <div class="template-pager">
                     <div class="page-list">
                         <div class="page" id="iso-local-box">
+                                <span class="alert-modal-container"></span>
                                 <!-- 1-1-2 -->
                                 <div id="iso-file-field">
                                     <div id="iso-file-box" class="custom-iso-field">
                                         <div class="form-group">
-                                        <label for="iso-file">Provide a File Path for a specific ISO image:</label>
+                                        <label for="iso-file">$_("Provide a File Path for a specific ISO image:")</label>
                                         <input type="text" class="form-control" id="iso-file" name="iso-file">
                                         </div>
                                     </div>
@@ -84,11 +81,11 @@
                                                             </h3>
                                                             <dl class="iso-info">
                                                                 <dt>{os_distro}</dt>
-                                                                <dd>$_("OS: ")</dd>
+                                                                <dd>$_("OS")</dd>
                                                                 <dt>{os_version}</dt>
-                                                                <dd>$_("Version: ")</dd>
+                                                                <dd>$_("Version")</dd>
                                                                 <dt>{capacity}</dt>
-                                                                <dd>$_("Size: ")</dd>
+                                                                <dd>$_("Size")</dd>
                                                             </dl>
                                                         </span>
                                                     </span>
@@ -104,6 +101,7 @@
                         </div>
 
                         <div class="page" id="vm-image-local-box">
+                            <span class="alert-modal-container"></span>
                             <div class="from-group">
                                 <label for="vm-image-local-text">$_("File Path:")</label>
                                 <input type="text" class="form-control" id="vm-image-local-text" />
@@ -112,11 +110,11 @@
 
                         <!-- 1-2 -->
                         <div class="page" id="iso-remote-box">
-
+                            <span class="alert-modal-container"></span>
                             <!-- 1-2-2 -->
-                            <div id="iso-url-field" style="display: none;">                          
+                            <div id="iso-url-field" style="display: none;">
                                 <div id="iso-url-box" class="form-group">
-                                    <label for="iso-url">Provide a URL for a specific ISO image:</label>
+                                    <label for="iso-url">$_("Provide a URL for a specific ISO image:")</label>
                                     <input type="text" class="form-control" id="iso-url" name="iso-url">
                                 </div>
                             </div>
@@ -152,48 +150,28 @@
                                                         </h3>
                                                         <dl class="iso-info">
                                                             <dt>{os_distro}</dt>
-                                                            <dd>$_("OS: ")</dd>
+                                                            <dd>$_("OS")</dd>
                                                             <dt>{os_version}</dt>
-                                                            <dd>$_("Version: ")</dd>
+                                                            <dd>$_("Version")</dd>
                                                             <dt>{os_arch}</dt>
-                                                            <dd>$_("Arch: ")</dd>
+                                                            <dd>$_("Arch")</dd>
                                                         </dl>
                                                     </span>
                                                 </span>
                                             </label>
                                         </li>
-                                    </script>                        
+                                    </script>
                                 </div>
                             </div>
                     </div>
         </div>
     </div>
     <div class="modal-footer">
-
-                <!-- Template from local file path -->
-
-                <!-- TODO: Use only one button and direct action based on current form field and "page" -->
-
                 <button class="btn btn-default" id="btn-template-file-create" disabled="disabled">$_("Create")</button>
-
-                <!-- Template from selected local isos -->
-
-                <!-- Old: $_("Create Templates from Selected ISO") -->
                 <button class="btn btn-default" id="btn-template-local-iso-create" disabled="disabled">$_("Create")</button>
-
-                <!-- Template from local file path -->
-
                 <button id="vm-image-local-box-button" class="btn btn-default ui-button-primary">$_("Create")</button>
-
-                <!-- Template from URL Iso -->
-
                 <button class="btn btn-default" id="btn-template-url-create" disabled="disabled">$_("Create")</button>
-
-                <!-- Template from selected remote isos -->
-
-                <!-- Old: $_("Create Templates from Selected ISO") -->
                 <button class="btn btn-default" id="btn-template-remote-iso-create" disabled="disabled">$_("Create")</button>
-
                 <button class="btn btn-default" data-dismiss="modal" type="button">$_("Cancel")</button>
     </div>
 </div>
