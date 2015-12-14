@@ -31,6 +31,7 @@
             <div class="modal-body">
                 <div class="template-modal-container">
                     <div>
+                        <span id="alert-modal-container"></span>
                         <h5>$_("Where is the source media for this template? ")</h5>
                         <input type="radio" checked="checked" name="iso-source" id="iso-local" value="iso-local" class="wok-radio">
                         <label for="iso-local">$_("Local ISO Image")</label>
@@ -43,7 +44,6 @@
                 <div class="template-pager">
                     <div class="page-list">
                         <div class="page" id="iso-local-box">
-                                <span class="alert-modal-container"></span>
                                 <!-- 1-1-2 -->
                                 <div id="iso-file-field">
                                     <div id="iso-file-box" class="custom-iso-field">
@@ -53,6 +53,8 @@
                                         </div>
                                     </div>
                                 </div>
+                                <span id="local-iso-warning-container"></span>
+                                <span id="local-iso-error-container"></span>
                                 <button class="btn btn-primary" id="iso-search" style="display: none">$_("Search ISOs")</button>
                                 <button class="btn btn-primary" id="iso-search-loading" style="display: none"><span class="wok-loading-icon"></span> $_("Please, wait...")</button>
                                 <!-- 1-1-1 -->
@@ -101,7 +103,6 @@
                         </div>
 
                         <div class="page" id="vm-image-local-box">
-                            <span class="alert-modal-container"></span>
                             <div class="from-group">
                                 <label for="vm-image-local-text">$_("File Path:")</label>
                                 <input type="text" class="form-control" id="vm-image-local-text" />
@@ -110,7 +111,6 @@
 
                         <!-- 1-2 -->
                         <div class="page" id="iso-remote-box">
-                            <span class="alert-modal-container"></span>
                             <!-- 1-2-2 -->
                             <div id="iso-url-field" style="display: none;">
                                 <div id="iso-url-box" class="form-group">
@@ -118,12 +118,12 @@
                                     <input type="text" class="form-control" id="iso-url" name="iso-url">
                                 </div>
                             </div>
-
                             <!-- 1-2-0 -->
                             <div id="load-remote-iso">
                                 <p><span class="wok-loading-icon"></span> $_("Loading default remote ISOs ...")</p>
                             </div>
-
+                            <span id="remote-iso-warning-container"></span>
+                            <span id="remote-iso-error-container"></span>
                             <!-- 1-2-1 -->
                             <div id="remote-iso-field" class="iso-field" style="display: none;">
                                 <div class="row">

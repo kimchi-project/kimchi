@@ -38,7 +38,7 @@ kimchi.sp_add_volume_main = function() {
         $('.volume-input').prop('disabled', true);
         $('.volume-input.' + this.value).prop('disabled', false);
         type = this.value;
-        if(type == 'download') {
+        if(type === 'download') {
             $(addButton).prop('disabled', !isValidURL());
         }
         else {
@@ -104,11 +104,12 @@ kimchi.sp_add_volume_main = function() {
             kimchi.uploadVolumeToSP(kimchi.selectedSP, blobFile.name, {
                 formData: fd
             }, function(result) {
-                if (uploaded < blobFile.size)
-                    setTimeout(doUpload, 500);
+                if (uploaded < blobFile.size){
+                                    setTimeout(doUpload, 500);
+                }
             }, onError);
 
-            uploaded += blob.size
+            uploaded += blob.size;
         };
 
         // Check file exists and has read permission
@@ -116,10 +117,12 @@ kimchi.sp_add_volume_main = function() {
             var blob = blobFile.slice(0, 20);
             var reader = new FileReader();
             reader.onloadend = function(e) {
-                if (e.loaded == 0)
+                if (e.loaded === 0){
                     wok.message.error.code('KCHAPI6008E');
-                else
+                }
+                else{
                     createUploadVol();
+                }
             };
 
             reader.readAsBinaryString(blob);
@@ -133,10 +136,12 @@ kimchi.sp_add_volume_main = function() {
                 var blob = blobFile.slice(uploaded, uploaded + chunkSize);
                 var reader = new FileReader();
                 reader.onloadend = function(e) {
-                    if (e.loaded == 0)
+                    if (e.loaded === 0) {
                         wok.message.error.code('KCHAPI6009E');
-                    else
+                    }
+                    else {
                         uploadRequest(blob);
+                    }
                 };
 
                 reader.readAsBinaryString(blob);
@@ -144,14 +149,14 @@ kimchi.sp_add_volume_main = function() {
                 wok.message.error.code('KCHAPI6009E');
                 return;
             }
-        }
+        };
 
         var trackVolCreation = function(taskid) {
             var onTaskResponse = function(result) {
                 var taskStatus = result['status'];
                 var taskMsg = result['message'];
-                if (taskStatus == 'running') {
-                    if (taskMsg != 'ready for upload') {
+                if (taskStatus === 'running') {
+                    if (taskMsg !== 'ready for upload') {
                         setTimeout(function() {
                             trackVolCreation(taskid);
                         }, 2000);

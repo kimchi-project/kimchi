@@ -26,10 +26,12 @@ kimchi.storagepool_add_main = function() {
     // 'pool-doAdd' button if all the visible form
     // fields are filled, disables it otherwise.
     $('#form-pool-add').on('input change propertychange', function() {
-        if (!kimchi.inputsNotBlank())
-            $("#pool-doAdd").attr("disabled", true);
-        else
+        if (!kimchi.inputsNotBlank()){
+                    $("#pool-doAdd").attr("disabled", true);
+        }
+        else {
            $("#pool-doAdd").attr("disabled", false);
+        }
     });
 };
 
@@ -38,7 +40,7 @@ kimchi.storageFilterSelect = function(id, isUpdate) {
     var options = $(".option", '#'+id);
     var filter = function(container, key){
         container.children().each(function(){
-            $(this).css("display", $(this).text().indexOf(key)==-1 ? "none" : "");
+            $(this).css("display", $(this).text().indexOf(key)===-1 ? "none" : "");
         });
     };
     if(!isUpdate){
@@ -63,7 +65,7 @@ kimchi.setupISCSI = function(){
         $(".option", "#iSCSITarget").empty();
         $('input', "#iSCSITarget").attr("placeholder", i18n['KCHPOOL6006M']);
         kimchi.getISCSITargets(server, port, function(data){
-            if(data.length==0){
+            if(data.length===0){
                 $('input', "#iSCSITarget").attr("placeholder", i18n['KCHPOOL6007M']);
             }else{
                 for(var i=0; i<data.length; i++){
@@ -79,14 +81,14 @@ kimchi.setupISCSI = function(){
         }, function(data){
             $('input', "#iSCSITarget").attr("placeholder", i18n['KCHPOOL6008M']);
             callback();
-            wok.message.error(data.responseJSON.reason);
+            wok.message.error(data.responseJSON.reason,'#alert-modal-container');
         });
     };
     var triggerLoadTarget = function(){
         $('input', "#iSCSITarget").val("");
         var server = $("#iscsiserverId").val().trim();
         var port = $("#iscsiportId").val().trim();
-        if(server!="" && !$("#iscsiserverId").hasClass("invalid-field") && !$("#iscsiportId").hasClass("invalid-field")){
+        if(server!=="" && !$("#iscsiserverId").hasClass("invalid-field") && !$("#iscsiportId").hasClass("invalid-field")){
             $("#iscsiserverId").attr("disabled", true);
             $("#iscsiportId").attr("disabled", true);
             loadTargets(server, port, function(){
@@ -127,7 +129,7 @@ kimchi.initStorageAddPage = function() {
             var listHtml = '';
             valid_types = ['part', 'disk', 'mpath'];
             $.each(data, function(index, value) {
-                if (valid_types.indexOf(value.type) != -1) {
+                if (valid_types.indexOf(value.type) !== -1) {
                     listHtml += wok.substitute(deviceHtml, value);
                 }
             });
@@ -238,10 +240,10 @@ kimchi.initStorageAddPage = function() {
     $('#poolTypeInputId').change(function() {
         var poolObject = {'dir': ".path-section", 'netfs': '.nfs-section',
                           'iscsi': '.iscsi-section', 'scsi': '.scsi-section',
-                          'logical': '.logical-section'}
+                          'logical': '.logical-section'};
         var selectType = $(this).val();
         $.each(poolObject, function(type, value) {
-            if(selectType == type){
+            if(selectType === type){
                 $(value).removeClass('hidden');
             } else {
                 $(value).addClass('hidden');
@@ -275,19 +277,20 @@ kimchi.initStorageAddPage = function() {
  * already.
  */
 kimchi.inputsNotBlank = function() {
-    if (!$('#poolId').val()) return false;
+    if (!$('#poolId').val()) { return false; }
     var poolType = $("#poolTypeInputId").val();
     if (poolType === "dir") {
-        if (!$('#pathId').val()) return false;
+        if (!$('#pathId').val()) { return false; }
     } else if (poolType === "netfs") {
-        if (!$('#nfspathId').val()) return false;
-        if (!$('#nfsserverId').val()) return false;
+        if (!$('#nfspathId').val()) { return false; }
+        if (!$('#nfsserverId').val()) { return false; }
     } else if (poolType === "iscsi") {
-        if (!$('#iscsiserverId').val()) return false;
-        if (!$('#iscsiTargetId').val()) return false;
+        if (!$('#iscsiserverId').val()) { return false; }
+        if (!$('#iscsiTargetId').val()) { return false; }
     } else if (poolType === "logical") {
-        if ($("input[name=devices]:checked").length === 0)
-            return false;
+        if ($("input[name=devices]:checked").length === 0){
+                    return false;
+            }
     }
     return true;
 };
@@ -393,7 +396,7 @@ kimchi.addPool = function(event) {
             }
             formData.source = source;
         } else if (poolType === 'scsi'){
-            formData.source = { adapter_name: $('#scsiAdapter').selectMenu('value') };
+            formData.source = { adapter_name: $('#scsiAdapter').val() };
         }
         var storagePoolAddingFunc = function() {
             $('input', '#form-pool-add').attr('disabled','disabled');
@@ -403,7 +406,7 @@ kimchi.addPool = function(event) {
                     kimchi.doListStoragePools();
                     wok.window.close();
                 }, function(err) {
-                    wok.message.error(err.responseJSON.reason);
+                    wok.message.error(err.responseJSON.reason,'#alert-modal-container');
                     $('input', '#form-pool-add').removeAttr('disabled');
                     $('#pool-loading').hide();
                     $('#pool-doAdd').show();
