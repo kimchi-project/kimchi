@@ -101,46 +101,6 @@ def validate_repo_url(url):
         raise InvalidParameter("KCHREPOS0002E")
 
 
-def get_objectstore_fields():
-    """
-        Return a list with all fields of the objectstore.
-    """
-    conn = sqlite3.connect(config.get_object_store(), timeout=10)
-    cursor = conn.cursor()
-    schema_fields = []
-    sql = "PRAGMA table_info('objects')"
-    cursor.execute(sql)
-    for row in cursor.fetchall():
-        schema_fields.append(row[1])
-    return schema_fields
-
-
-def upgrade_objectstore_schema(field=None):
-    """
-        Add a new column (of type TEXT) in the objectstore schema.
-    """
-    if field is None:
-        wok_log.error("Cannot upgrade objectstore schema.")
-        return False
-
-    if field in get_objectstore_fields():
-        return False
-    try:
-        conn = sqlite3.connect(config.get_object_store(), timeout=10)
-        cursor = conn.cursor()
-        sql = "ALTER TABLE objects ADD COLUMN %s TEXT" % field
-        cursor.execute(sql)
-        wok_log.info("Objectstore schema sucessfully upgraded.")
-        conn.close()
-    except sqlite3.Error, e:
-        if conn:
-            conn.rollback()
-            conn.close()
-        wok_log.error("Cannot upgrade objectstore schema: ", e.args[0])
-        return False
-    return True
-
-
 def upgrade_objectstore_data(item, old_uri, new_uri):
     """
         Upgrade the value of a given JSON's item of all Template and VM entries
