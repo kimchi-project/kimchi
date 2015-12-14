@@ -40,10 +40,10 @@ kimchi.guest_storage_add_main = function() {
     var selectStorageVolHTML  = '';
 
     typeTextbox.change(function() {
-        var pathObject = {'cdrom': ".path-section", 'disk': '.volume-section'}
+        var pathObject = {'cdrom': ".path-section", 'disk': '.volume-section'};
         selectType = $(this).val();
         $.each(pathObject, function(type, value) {
-            if(selectType == type){
+            if(selectType === type){
                 $(value).removeClass('hidden');
             } else {
                 $(value).addClass('hidden');
@@ -66,7 +66,7 @@ kimchi.guest_storage_add_main = function() {
         var options = [];
         if (result && result.length) {
             $.each(result, function(index, storagePool) {
-                if ((storagePool.state=="active") && (storagePool.type !== 'kimchi-iso')) {
+                if ((storagePool.state==="active") && (storagePool.type !== 'kimchi-iso')) {
                     options.push({
                         label: storagePool.name,
                         value: storagePool.name
@@ -90,7 +90,7 @@ kimchi.guest_storage_add_main = function() {
             if (result.length) {
                 $.each(result, function(index, value) {
                     // Only unused volume can be attached
-                    if (value.used_by.length == 0 && value.isvalid && (value.type != 'file' || validVolType[selectType].test(value.format))) {
+                    if (value.used_by.length === 0 && value.isvalid && (value.type !== 'file' || validVolType[selectType].test(value.format))) {
                         options.push({
                             label: value.name,
                             value: value.name
@@ -111,16 +111,16 @@ kimchi.guest_storage_add_main = function() {
                 }
                 volTextbox.selectpicker();
                 $('.selectpicker').selectpicker('refresh');
-            } 
+            }
         }, null, false);
     });
 
 
     typeTextbox.change(function() {
-        var pathObject = {'cdrom': ".path-section", 'disk': '.volume-section'}
+        var pathObject = {'cdrom': ".path-section", 'disk': '.volume-section'};
         var selectType = $(this).val();
         $.each(pathObject, function(type, value) {
-            if(selectType == type){
+            if(selectType === type){
                 $(value).removeClass('hidden');
             } else {
                 $(value).addClass('hidden');
@@ -143,22 +143,24 @@ kimchi.guest_storage_add_main = function() {
     typeTextbox.selectpicker();
 
     var validateCDROM = function(settings) {
-        if (/^((https|http|ftp|ftps|tftp|\/).*)+$/.test(settings['path']))
-            return true;
+        if (/^((https|http|ftp|ftps|tftp|\/).*)+$/.test(settings['path'])){
+                    return true;
+        }
         else {
-            wok.message.error.code('KCHVMSTOR0001E');
+            wok.message.error(i18n['KCHVMSTOR0001E'],'#alert-modal-container2');
             return false;
         }
-    }
+    };
 
     var validateDisk = function(settings) {
-        if (settings['pool'] && settings['vol'])
-            return true;
+        if (settings['pool'] && settings['vol']){
+                    return true;
+        }
         else {
-            wok.message.error.code('KCHVMSTOR0002E');
+            wok.message.error(i18n['KCHVMSTOR0002E'],'#alert-modal-container2');
             return false;
         }
-    }
+    };
 
     validator = {cdrom: validateCDROM, disk: validateDisk};
     var submitForm = function(event) {
@@ -175,8 +177,8 @@ kimchi.guest_storage_add_main = function() {
         $(submitButton).prop('disabled', true);
         $.each([pathTextbox, poolTextbox, volTextbox], function(i, c) {
             $(c).prop('disabled', true);
-            val = $(c).val()
-            if (val && val != '') {
+            val = $(c).val();
+            if (val && val !== '') {
                 settings[$(c).attr('name')] = $(c).val();
             }
         });
@@ -199,7 +201,7 @@ kimchi.guest_storage_add_main = function() {
         }, function(result) {
             var errText = result['reason'] ||
                 result['responseJSON']['reason'];
-            wok.message.error(errText);
+            wok.message.error(errText, '#alert-modal-container2');
 
             $.each([submitButton, pathTextbox, poolTextbox, volTextbox], function(i, c) {
                 $(c).prop('disabled', false);

@@ -28,7 +28,7 @@ kimchi.doListStoragePools = function() {
                     value.icon = 'icon-med';
                 } else {
                     value.icon = 'icon-low';
-                }                
+                }
                 value.capacity = wok.changetoProperUnit(value.capacity,1);
                 value.allocated = wok.changetoProperUnit(value.allocated,1);
                 value.enableExt = value.type==="logical" ? "" : "hide-content";
@@ -36,8 +36,9 @@ kimchi.doListStoragePools = function() {
                     listHtml += wok.substitute(storageHtml, value);
                 }
             });
-            if($('#storageGrid').hasClass('wok-datagrid'))
+            if($('#storageGrid').hasClass('wok-datagrid')) {
                 $('#storageGrid').dataGrid('destroy');
+            }
             $('#storagepoolsList').html(listHtml);
             if(wok.tabMode['storage'] === 'admin') {
                 $('.storage-button').attr('style','display');
@@ -55,7 +56,7 @@ kimchi.doListStoragePools = function() {
     }, function(err) {
         wok.message.error(err.responseJSON.reason);
     });
-}
+};
 
 kimchi.storageBindClick = function() {
 
@@ -212,7 +213,7 @@ kimchi.storageBindClick = function() {
             }
         }
     });
-}
+};
 
 kimchi._generateVolumeHTML = function(volume) {
     if(volume['type'] === 'kimchi-iso') {
@@ -236,11 +237,11 @@ kimchi._generateVolumeHTML = function(volume) {
 };
 
 kimchi.doListVolumes = function(poolObj) {
-    var poolName = poolObj.data('name')
+    var poolName = poolObj.data('name');
 
     var getOngoingVolumes = function() {
-        var result = {}
-        var filter = 'status=running&target_uri=' + encodeURIComponent('^/plugins/kimchi/storagepools/' + poolName + '/*')
+        var result = {};
+        var filter = 'status=running&target_uri=' + encodeURIComponent('^/plugins/kimchi/storagepools/' + poolName + '/*');
         kimchi.getTasksByFilter(filter, function(tasks) {
             for(var i = 0; i < tasks.length; i++) {
                 var volumeName = tasks[i].target_uri.split('/').pop();
@@ -272,7 +273,7 @@ kimchi.doListVolumes = function(poolObj) {
         var ongoingVolumes = [];
         var ongoingVolumesMap = getOngoingVolumes();
         $.each(ongoingVolumesMap, function(volumeName, task) {
-            ongoingVolumes.push(volumeName)
+            ongoingVolumes.push(volumeName);
             var volume = {
                 poolName: poolName,
                 used_by: [],
@@ -292,7 +293,7 @@ kimchi.doListVolumes = function(poolObj) {
         });
 
         $.each(result, function(index, value) {
-            if (ongoingVolumes.indexOf(value.name) == -1) {
+            if (ongoingVolumes.indexOf(value.name) === -1) {
                 value.poolname = poolName;
                 listHtml += kimchi._generateVolumeHTML(value);
             }
@@ -314,7 +315,7 @@ kimchi.doListVolumes = function(poolObj) {
     }, function(err) {
         wok.message.error(err.responseJSON.reason);
     }, false);
-}
+};
 
     kimchi.initLogicalPoolExtend = function() {
 
@@ -367,7 +368,7 @@ kimchi.doListVolumes = function(poolObj) {
 
     $('#logicalPoolExtend').on('hidden.bs.modal', function () {
         $('.host-partition', '#logicalPoolExtend').empty();
-    })
+    });
 
     $('#logicalPoolExtend').on('show.bs.modal', function() {
         //$('#logicalPoolExtend2').find('.modal-content').html();
@@ -394,7 +395,7 @@ kimchi.doListVolumes = function(poolObj) {
             var devicePaths = [];
             $("input[type='checkbox']:checked", "#logicalPoolExtend").each(function() {
                 devicePaths.push($(this).prop('value'));
-            })
+            });
             kimchi.updateStoragePool($("#logicalPoolExtend"), {
                 disks: devicePaths
             }, function(partitions) {
@@ -411,7 +412,7 @@ kimchi.doListVolumes = function(poolObj) {
 
     });
 
-}
+};
 
 kimchi.storage_main = function() {
     if(wok.tabMode['storage'] === 'admin') {
@@ -504,4 +505,4 @@ kimchi.changeArrow = function(obj) {
     } else {
         $(obj).removeClass('arrow-up').addClass('arrow-down');
     }
-}
+};
