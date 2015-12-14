@@ -523,8 +523,9 @@ var kimchi = {
         };
 
         kimchi.getTask(taskID, onTaskResponse, err);
-        if(kimchi.trackingTasks.indexOf(taskID) < 0)
+        if(kimchi.trackingTasks.indexOf(taskID) < 0) {
             kimchi.trackingTasks.push(taskID);
+        }
     },
 
     deleteStoragePool : function(poolName, suc, err) {
@@ -539,7 +540,7 @@ var kimchi = {
     },
 
     changePoolState : function(poolName, state, suc, err) {
-        if (state === 'activate' || state === 'deactivate')
+        if (state === 'activate' || state === 'deactivate') {
             $.ajax({
                 url : 'plugins/kimchi/storagepools/' + encodeURIComponent(poolName) + '/' + state,
                 type : 'POST',
@@ -548,6 +549,7 @@ var kimchi = {
                 success : suc,
                 error : err
             });
+        }
     },
 
     listNetworks : function(suc, err) {
@@ -780,7 +782,7 @@ var kimchi = {
             dataType : 'json',
             success : suc,
             error : err || function(data) {
-                wok.message.error(data.responseJSON.reason);
+                wok.message.error(data.responseJSON.reason,'#alert-modal-container');
             }
         });
     },
@@ -794,7 +796,7 @@ var kimchi = {
             data : JSON.stringify(interface),
             success : suc,
             error : err || function(data) {
-                wok.message.error(data.responseJSON.reason);
+                wok.message.error(data.responseJSON.reason,'#alert-modal-container');
             }
         });
     },
@@ -807,7 +809,7 @@ var kimchi = {
             dataType : 'json',
             success : suc,
             error : err ? err : function(data) {
-                wok.message.error(data.responseJSON.reason);
+                wok.message.error(data.responseJSON.reason,'#alert-modal-container');
             }
         });
     },
@@ -821,7 +823,7 @@ var kimchi = {
             dataType : 'json',
             success: suc,
             error: err ? err : function(data) {
-                wok.message.error(data.responseJSON.reason);
+                wok.message.error(data.responseJSON.reason,'#alert-modal-container');
             }
         });
     },
@@ -836,7 +838,7 @@ var kimchi = {
             async : false,
             success : suc && suc(data),
             error : err ? err : function(data) {
-                wok.message.error(data.responseJSON.reason);
+                wok.message.error(data.responseJSON.reason,'#alert-modal-container');
             }
         });
     },
@@ -850,7 +852,7 @@ var kimchi = {
             resend : true,
             success : suc,
             error : err ? err : function(data) {
-                wok.message.error(data.responseJSON.reason);
+                wok.message.error(data.responseJSON.reason,'#alert-modal-container');
             }
         });
     },
@@ -864,7 +866,7 @@ var kimchi = {
             resend : true,
             success : suc,
             error : err ? err : function(data) {
-                wok.message.error(data.responseJSON.reason);
+                wok.message.error(data.responseJSON.reason,'#alert-modal-container');
             }
         });
     },
@@ -878,7 +880,7 @@ var kimchi = {
             resend : true,
             success : suc,
             error : err ? err : function(data) {
-                wok.message.error(data.responseJSON.reason);
+                wok.message.error(data.responseJSON.reason,'#alert-modal-container');
             }
         });
     },
@@ -892,7 +894,7 @@ var kimchi = {
             resend : true,
             success : suc,
             error : err ? err : function(data) {
-                wok.message.error(data.responseJSON.reason);
+                wok.message.error(data.responseJSON.reason,'#alert-modal-container');
             }
         });
     },
@@ -906,7 +908,7 @@ var kimchi = {
             resend : true,
             success : suc,
             error : err ? err : function(data) {
-                wok.message.error(data.responseJSON.reason);
+                wok.message.error(data.responseJSON.reason,'#alert-modal-container');
             }
         });
     },
@@ -922,7 +924,7 @@ var kimchi = {
             resend : true,
             success : suc,
             error : err ? err : function(data) {
-                wok.message.error(data.responseJSON.reason);
+                wok.message.error(data.responseJSON.reason,'#alert-modal-container');
             }
         });
     },
@@ -1067,7 +1069,7 @@ var kimchi = {
             resend : true,
             success : suc,
             error : err ? err : function(data) {
-                wok.message.error(data.responseJSON.reason);
+                wok.message.error(data.responseJSON.reason, '#alert-modal-container');
             }
         });
     },
@@ -1082,7 +1084,7 @@ var kimchi = {
             resend : true,
             success : suc,
             error : err ? err : function(data) {
-                wok.message.error(data.responseJSON.reason);
+                wok.message.error(data.responseJSON.reason, '#alert-modal-container');
             }
         });
     },
@@ -1095,7 +1097,7 @@ var kimchi = {
             dataType : 'json',
             success : suc,
             error : err ? err : function(data) {
-                wok.message.error(data.responseJSON.reason);
+                wok.message.error(data.responseJSON.reason, '#alert-modal-container');
             }
         });
     },
@@ -1108,7 +1110,7 @@ var kimchi = {
             dataType : 'json',
             success : suc,
             error : err ? err : function(data) {
-                wok.message.error(data.responseJSON.reason);
+                wok.message.error(data.responseJSON.reason, '#alert-modal-container');
             }
         });
     },
@@ -1121,7 +1123,7 @@ var kimchi = {
             dataType : 'json',
             success : suc,
             error : err ? err : function(data) {
-                wok.message.error(data.responseJSON.reason);
+                wok.message.error(data.responseJSON.reason, '#alert-modal-container');
             }
         });
     },
