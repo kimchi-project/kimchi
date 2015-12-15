@@ -39,7 +39,7 @@
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#toolbar" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
+                <span class="sr-only">$_("Toggle navigation")</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -48,7 +48,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="toolbar">
                 <ul class="nav navbar-nav navbar-right tools" display="none">
-                    <li><a id="vm-add" class="btn-tool" href="javascript:void(0);"><i class="fa fa-plus-circle"></i><span>Add a Guest</span></a></li>
+                    <li><a id="vm-add" class="btn-tool" href="javascript:void(0);"><i class="fa fa-plus-circle"></i><span>$_("Add a Guest")</span></a></li>
                 </ul>
             </div>
         </div>
@@ -57,11 +57,11 @@
         <div class="container">
             <div class="row grid-control hidden">
                 <div class="pull-right">
-                    <label for="guests-filter" class="sr-only">$_("Filter"):</label>
-                    <input type="text" class="filter form-control" placeholder="$_("Filter")">
+                    <label for="search_input" class="sr-only">$_("Filter"):</label>
+                    <input type="text" class="filter form-control search" id="search_input" placeholder="$_("Filter")">
                 </div>
             </div>        
-        <div id="alert-container"></div>
+            <div id="alert-container"></div>
             <div id="guestListField" style="display: none">
                 <ul class="wok-guest-list">
                     <li class="wok-guest-list-header">
@@ -74,11 +74,12 @@
                       --><span class="column-storage"><span>$_("Storage I/O")</span></span><!--
                       --><span class="column-network"><span>$_("Network I/O")</span></span><!--
                       --><span class="column-action" style="display:none">
-                          <span class="sr-only">Actions</span><!--
+                          <span class="sr-only">$_("Actions")</span><!--
                       --></span>
                     </li>
                     <li class="wok-guest-list-body">
-                        <ul id="guestList" class="wok-guest-list empty-when-logged-off" style="-webkit-padding-start: 0px;">
+                        <ul id="guestList" class="wok-guest-list empty-when-logged-off list">
+                        </ul>
                     </li>
                 </ul>
             </div>
@@ -87,12 +88,17 @@
             </div>
         </div>
     </div>
-<div id="modalWindow" class="modal fade host-modal guests-modal" tabindex="-1" role="dialog" aria-labelledby="guestsModalLabel" aria-hidden="true">
-</div>
-<div id="extendCreateTemplate" class="modal fade host-modal templates-modal" tabindex="-1" role="dialog" aria-labelledby="templateModalLabel" aria-hidden="true">
-</div>
-<div id="extendCreateStorage" class="modal fade host-modal storage-modal" tabindex="-1" role="dialog" aria-labelledby="storageModalLabel" aria-hidden="true">
-</div>
+    <div class="wok-mask hidden">
+        <div class="wok-mask-loader-container">
+            <div class="wok-mask-loading">
+                <div class="wok-mask-loading-icon"></div>
+                <div class="wok-mask-loading-text">$_("Loading...")</div>
+            </div>
+        </div>
+    </div>
+    <div id="modalWindow" class="modal fade host-modal guests-modal" tabindex="-1" role="dialog" aria-labelledby="guestsModalLabel" aria-hidden="true"></div>
+    <div id="extendCreateTemplate" class="modal fade host-modal templates-modal" tabindex="-1" role="dialog" aria-labelledby="templateModalLabel" aria-hidden="true"></div>
+    <div id="extendCreateStorage" class="modal fade host-modal storage-modal" tabindex="-1" role="dialog" aria-labelledby="storageModalLabel" aria-hidden="true"></div>
     <script id="guest-tmpl" type="kimchi/template">
     $ht(file=$data.ui_dir + "/pages/guest.html.tmpl", searchList=[self, {'lang':$lang}])
     </script>
