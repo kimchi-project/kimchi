@@ -16,6 +16,10 @@
  * limitations under the License.
  */
 
+// init Guest Filter List global variable
+var guestFilterList;
+var listFiltered;
+
 kimchi.sampleGuestObject = {
     "name": "",
     "uuid": "",
@@ -259,7 +263,26 @@ kimchi.getOpenMenuVmId = function() {
     return result;
 };
 
+kimchi.initGuestFilter = function() {
+    // Create the list with the css classes that could be filtered at
+    // the first click at the Filter Input Field
+    $('#search_input').one('keyup', function(event) {
+        var options = {
+            valueNames: ['title', 'distro-icon', 'processors-percentage', 'memory-percentage', 'storage-percentage', 'network-percentage']
+        };
+        guestFilterList = new List('guest-content-container', options);
+    });
+};
+
+kimchi.resetGuestFilter = function() {
+    if(guestFilterList){
+        $('#search_input').val();
+        listFiltered = false;
+    }
+};
+
 kimchi.listVmsAuto = function() {
+
     //Check if the actions button is opened or not,
     //if opended stop the reload of the itens until closed
     var $isDropdownOpened = $('[name="guest-actions"] ul.dropdown-menu').is(":visible");
@@ -313,14 +336,29 @@ kimchi.listVmsAuto = function() {
                         var currentConsoleImages = kimchi.getVmsCurrentConsoleImgs();
                         var openMenuGuest = kimchi.getOpenMenuVmId();
                         $('#guestList').empty();
+                        $('.grid-control').removeClass('hidden');
                         $('#guestListField').show();
                         $('#noGuests').hide();
-
-                        $.each(result, function(index, vm) {
-                            var guestLI = kimchi.createGuestLi(vm, currentConsoleImages[vm.name], vm.name == openMenuGuest);
-                            $('#guestList').append(guestLI);
-                        });
+                        // Check if the list is being filtered, if true populate
+                        // the #guestList only with the filtered elements
+                        listFiltered = ((guestFilterList != undefined) && (guestFilterList.matchingItems.length != result.length) && $('#search_input').val() != "");
+                        if (!listFiltered) {
+                            $.each(result, function(index, vm) {
+                                var guestLI = kimchi.createGuestLi(vm, currentConsoleImages[vm.name], vm.name == openMenuGuest);
+                                $('#guestList').append(guestLI);
+                            });
+                        } else {
+                            $.each(result, function(index, vm) {
+                                $.each(guestFilterList.matchingItems, function(index, listFiltered) {
+                                    if (listFiltered._values.title === vm.name) {
+                                        var guestLI = kimchi.createGuestLi(vm, currentConsoleImages[vm.name], vm.name == openMenuGuest);
+                                        $('#guestList').append(guestLI);
+                                    }
+                                });
+                            });
+                        }
                     } else {
+                        $('.grid-control').addClass('hidden');
                         $('#guestListField').hide();
                         $('#noGuests').show();
                     }
@@ -331,6 +369,9 @@ kimchi.listVmsAuto = function() {
             function(errorResponse, textStatus, errorThrown) {
                 if (errorResponse.responseJSON && errorResponse.responseJSON.reason) {
                     wok.message.error(errorResponse.responseJSON.reason);
+                    $('.wok-mask').fadeOut(300, function() {
+                        $('.wok-mask').addClass('hidden');
+                    });
                 }
                 kimchi.vmTimeout = window.setTimeout("kimchi.listVmsAuto();", 5000);
             });
@@ -665,6 +706,7 @@ kimchi.guestSetRequestHeader = function(xhr) {
 };
 
 kimchi.guest_main = function() {
+
     if (wok.tabMode['guests'] === 'admin') {
         $('.tools').attr('style', 'display');
         $("#vm-add").on("click", function(event) {
@@ -676,7 +718,9 @@ kimchi.guest_main = function() {
     $('#guests-root-container').on('remove', function() {
         kimchi.vmTimeout && clearTimeout(kimchi.vmTimeout);
     });
-    kimchi.listVmsAuto()
+    kimchi.resetGuestFilter();
+    kimchi.initGuestFilter();
+    kimchi.listVmsAuto();
 };
 
 kimchi.editTemplate = function(guestTemplate, oldPopStat) {
