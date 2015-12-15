@@ -21,6 +21,8 @@
 #silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang, fallback=True)
 #silent _ = t.gettext
 #silent _t = t.gettext
+<html>
+<body>
 <div id="add-network-window" class="window modal-content">
     <div class="modal-header">
         <h4 class="modal-title" id="networkModalLabel">$_("Create a network")</h4>
@@ -68,3 +70,5 @@
 <script type="text/javascript">
 kimchi.network_add_main();
 </script>
+</body>
+</html>

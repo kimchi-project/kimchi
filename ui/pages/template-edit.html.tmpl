@@ -21,7 +21,8 @@
 #silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang, fallback=True)
 #silent _ = t.gettext
 #silent _t = t.gettext
-
+<html>
+<body>
 <div id="template-edit-window" class="window modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">$_("Edit Template")</h4>
@@ -200,3 +201,5 @@
         </span>
     </div>
 </script>
+</body>
+</html>

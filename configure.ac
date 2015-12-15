@@ -95,7 +95,6 @@ AC_CONFIG_FILES([
     ui/config/Makefile
     ui/css/Makefile
     ui/images/Makefile
-    ui/images/theme-default/Makefile
     ui/js/Makefile
     ui/spice-html5/Makefile
     ui/spice-html5/css/Makefile

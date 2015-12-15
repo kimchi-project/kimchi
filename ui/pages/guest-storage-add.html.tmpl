@@ -21,6 +21,11 @@
 #silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang, fallback=True)
 #silent _ = t.gettext
 #silent _t = t.gettext
+<html>
+<head>
+    <link rel="stylesheet" href="plugins/kimchi/css/kimchi.css">
+</head>
+<body>
 <div id="guest-storage-add-window" class="window">
     <div class="modal-content">
         <div class="modal-header">
@@ -66,3 +71,5 @@
 <script type="text/javascript">
     kimchi.guest_storage_add_main();
 </script>
+</body>
+</html>
