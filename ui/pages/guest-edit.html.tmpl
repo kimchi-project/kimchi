@@ -20,6 +20,9 @@
 #silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang, fallback=True)
 #silent _ = t.gettext
 #silent _t = t.gettext
+<!DOCTYPE html>
+<html>
+<body>
 <div id="guest-edit-window" class="window modal-content">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -283,3 +286,5 @@
 <script type="text/javascript">
     kimchi.guest_edit_main();
 </script>
+</body>
+</html>
