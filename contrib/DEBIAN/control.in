@@ -27,6 +27,7 @@ Depends: wok,
          spice-html5,
          python-magic
 Build-Depends: xsltproc,
+               gettext,
                python-lxml,
                python-dev,
                python-pip
