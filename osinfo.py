@@ -27,9 +27,6 @@ from distutils.version import LooseVersion
 
 from wok.config import PluginPaths
 
-# In PowerPC, memories must be aligned to 256 MiB
-PPC_MEM_ALIGN = 256
-
 
 SUPPORTED_ARCHS = {'x86': ('i386', 'i686', 'x86_64'),
                    'power': ('ppc', 'ppc64'),
@@ -87,9 +84,6 @@ modern_version_bases = {'x86': {'debian': '6.0', 'ubuntu': '7.10',
 
 icon_available_distros = [icon[5:-4] for icon in glob.glob1('%s/images/'
                           % PluginPaths('kimchi').ui_dir, 'icon-*.png')]
-
-# Max memory 1TB, in KiB
-MAX_MEM_LIM = 1073741824
 
 
 def _get_arch():
@@ -202,24 +196,9 @@ def lookup(distro, version):
     params['os_version'] = version
     arch = _get_arch()
 
-    # Setting maxMemory of the VM, which will be lesser value between:
-    # [ 1TB,  (Template Memory * 4),  Host Physical Memory.
-    # Here, we return 1TB or aligned Host Physical Memory
-    if hasattr(psutil, 'virtual_memory'):
-        params['max_memory'] = psutil.virtual_memory().total >> 10
-    else:
-        params['max_memory'] = psutil.TOTAL_PHYMEM >> 10
     # set up arch to ppc64 instead of ppc64le due to libvirt compatibility
     if params["arch"] == "ppc64le":
         params["arch"] = "ppc64"
-        # in Power, memory must be aligned in 256MiB
-        if (params['max_memory'] >> 10) % PPC_MEM_ALIGN != 0:
-            alignment = params['max_memory'] % (PPC_MEM_ALIGN << 10)
-            params['max_memory'] -= alignment
-
-    # Setting limit to 1TB
-    if params['max_memory'] > MAX_MEM_LIM:
-        params['max_memory'] = MAX_MEM_LIM
 
     if distro in modern_version_bases[arch]:
         if LooseVersion(version) >= LooseVersion(
