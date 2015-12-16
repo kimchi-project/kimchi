@@ -82,6 +82,11 @@ class TemplatesModel(object):
         # will be raised here
         t = LibvirtVMTemplate(params, scan=True, conn=self.conn)
 
+        # Validate max memory
+        maxMem = (t._get_max_memory(t.info.get('memory')) >> 10)
+        if t.info.get('memory') > maxMem:
+            raise OperationFailed("KCHVM0041E", {'maxmem': str(maxMem)})
+
         # Validate volumes
         for disk in t.info.get('disks'):
             volume = disk.get('volume')

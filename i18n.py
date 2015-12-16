@@ -99,7 +99,7 @@ messages = {
     "KCHVM0038E": _("Unable to suspend VM '%(name)s'. Details: %(err)s"),
     "KCHVM0039E": _("Cannot resume VM '%(name)s' because it is not paused."),
     "KCHVM0040E": _("Unable to resume VM '%(name)s'. Details: %(err)s"),
-    "KCHVM0041E": _("Memory assigned is higher then the maximum allowed in the host."),
+    "KCHVM0041E": _("Memory assigned is higher then the maximum allowed in the host: %(maxmem)sMib."),
     "KCHVM0042E": _("VM '%(name)s' does not support live memory update. Update the memory with the machine offline to enable this feature."),
     "KCHVM0043E": _("Only increase memory is allowed in active VMs"),
     "KCHVM0044E": _("For live memory update, new memory value must be equal old memory value plus multiples of 1024 Mib"),

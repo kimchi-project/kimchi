@@ -48,7 +48,6 @@ from wok.plugins.kimchi import model
 from wok.plugins.kimchi import vnc
 from wok.plugins.kimchi.config import READONLY_POOL_TYPE, get_kimchi_version
 from wok.plugins.kimchi.kvmusertests import UserTests
-from wok.plugins.kimchi.osinfo import PPC_MEM_ALIGN
 from wok.plugins.kimchi.model.config import CapabilitiesModel
 from wok.plugins.kimchi.model.cpuinfo import CPUInfoModel
 from wok.plugins.kimchi.model.featuretests import FeatureTests
@@ -57,9 +56,9 @@ from wok.plugins.kimchi.model.utils import get_ascii_nonascii_name, get_vm_name
 from wok.plugins.kimchi.model.utils import get_metadata_node
 from wok.plugins.kimchi.model.utils import remove_metadata_node
 from wok.plugins.kimchi.model.utils import set_metadata_node
-from wok.plugins.kimchi.osinfo import MAX_MEM_LIM
 from wok.plugins.kimchi.screenshot import VMScreenshot
 from wok.plugins.kimchi.utils import template_name_from_uri
+from wok.plugins.kimchi.vmtemplate import MAX_MEM_LIM, PPC_MEM_ALIGN
 from wok.plugins.kimchi.xmlutils.cpu import get_cpu_xml, get_numa_xml
 from wok.plugins.kimchi.xmlutils.disk import get_vm_disk_info, get_vm_disks
 
@@ -887,7 +886,8 @@ class VMModel(object):
                 slots = (maxMem - params['memory']) >> 10
                 # Libvirt does not accepts slots <= 1
                 if slots < 0:
-                    raise OperationFailed("KCHVM0041E")
+                    raise OperationFailed("KCHVM0041E",
+                                          {'maxmem': str(maxMem)})
                 elif slots == 0:
                     slots = 1
 
