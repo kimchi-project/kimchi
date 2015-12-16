@@ -20,6 +20,7 @@
 
 import json
 import os
+import psutil
 import unittest
 from functools import partial
 
@@ -139,6 +140,18 @@ class TemplateTests(unittest.TestCase):
             self.request('/plugins/kimchi/templates/test-format').read()
         )
         self.assertEquals(tmpl['disks'][0]['format'], 'vmdk')
+
+        # Create template with memory higher than host max
+        if hasattr(psutil, 'virtual_memory'):
+            max_mem = (psutil.virtual_memory().total >> 10 >> 10)
+        else:
+            max_mem = (psutil.TOTAL_PHYMEM >> 10 >> 10)
+        memory = max_mem + 1024
+        t = {'name': 'test-maxmem', 'cdrom': '/tmp/mock.iso', 'memory': memory}
+        req = json.dumps(t)
+        resp = self.request('/plugins/kimchi/templates', req, 'POST')
+        self.assertEquals(500, resp.status)
+        self.assertTrue(str(max_mem) in resp.read())
 
     def test_customized_tmpl(self):
         # Create a template

@@ -18,6 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import os
+import psutil
 import unittest
 import uuid
 
@@ -88,12 +89,7 @@ class VMTemplateTests(unittest.TestCase):
     def test_to_xml(self):
         graphics = {'type': 'spice', 'listen': '127.0.0.1'}
         vm_uuid = str(uuid.uuid4()).replace('-', '')
-        if os.uname()[4] in ['ppc', 'ppc64', 'ppc64le']:
-            maxmem = 3328
-        else:
-            maxmem = 3072
-        t = VMTemplate({'name': 'test-template', 'cdrom': self.iso,
-                       'max_memory': maxmem << 10})
+        t = VMTemplate({'name': 'test-template', 'cdrom': self.iso})
         xml = t.to_vm_xml('test-vm', vm_uuid, graphics=graphics)
         self.assertEquals(vm_uuid, xpath_get_text(xml, "/domain/uuid")[0])
         self.assertEquals('test-vm', xpath_get_text(xml, "/domain/name")[0])
@@ -102,7 +98,21 @@ class VMTemplateTests(unittest.TestCase):
         expr = "/domain/devices/graphics/@listen"
         self.assertEquals(graphics['listen'], xpath_get_text(xml, expr)[0])
         expr = "/domain/maxMemory/@slots"
-        self.assertEquals('2', xpath_get_text(xml, expr)[0])
+        self.assertEquals('3', xpath_get_text(xml, expr)[0])
+        expr = "/domain/maxMemory"
+        self.assertEquals(str((1024 * 4) << 10), xpath_get_text(xml, expr)[0])
+
+        if hasattr(psutil, 'virtual_memory'):
+            host_memory = psutil.virtual_memory().total >> 10
+        else:
+            host_memory = psutil.TOTAL_PHYMEM >> 10
+        t = VMTemplate({'name': 'test-template', 'cdrom': self.iso,
+                        'memory': (host_memory >> 10) - 512})
+        xml = t.to_vm_xml('test-vm', vm_uuid, graphics=graphics)
+        expr = "/domain/maxMemory"
+        self.assertEquals(str(host_memory), xpath_get_text(xml, expr)[0])
+        expr = "/domain/maxMemory/@slots"
+        self.assertEquals('1', xpath_get_text(xml, expr)[0])
 
     def test_arg_merging(self):
         """
