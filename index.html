@@ -5,10 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/custom.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
 
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -22,7 +21,7 @@
       <div class="inner">
         <h1>Kimchi</h1>
         <h2>An HTML5 management interface for KVM</h2>
-        <a href="https://github.com/kimchi-project/kimchi" class="button"><small>View project on</small>GitHub</a>
+        <a href="https://github.com/kimchi-project/kimchi" class="button"><small>View project on</small> GitHub</a>
       </div>
     </header>
 
@@ -30,41 +29,74 @@
       <div class="inner clearfix">
         <section id="main-content">
           <h1>
-<a name="kimchi-project" class="anchor" href="#kimchi-project"><span class="octicon octicon-link"></span></a>Kimchi Project</h1>
+<a id="kimchi-project" class="anchor" href="#kimchi-project" aria-hidden="true"><span class="octicon octicon-link"></span></a>Kimchi Project</h1>
 
 <p>Kimchi is an HTML5 based management tool for KVM. It is designed to make it as
 easy as possible to get started with KVM and create your first guest.</p>
 
-<p>Kimchi runs as a daemon on the hypervisor host. It manages KVM guests through
-libvirt. The management interface is accessed over the web using a browser that
-supports HTML5.</p>
+<p>Kimchi runs as a Wok plugin. Wok runs as a daemon on the hypervisor host.</p>
+
+<p>Kimchi manages KVM guests through libvirt. The management interface is accessed
+over the web using a browser that supports HTML5.</p>
 
 <h1>
-<a name="hypervisor-support" class="anchor" href="#hypervisor-support"><span class="octicon octicon-link"></span></a>Hypervisor Support</h1>
+<a id="browser-support" class="anchor" href="#browser-support" aria-hidden="true"><span class="octicon octicon-link"></span></a>Browser Support</h1>
 
-<p>Kimchi daemon might run on any GNU/Linux distribution that meets the conditions
-described on the 'Getting Started' section below.</p>
-
-<p>The Kimchi community makes an effort to test with the latest versions of Fedora,
-RHEL, OpenSuSe, and Ubuntu.</p>
-
-<h1>
-<a name="getting-started" class="anchor" href="#getting-started"><span class="octicon octicon-link"></span></a>Getting Started</h1>
+<p>Wok and its plugin can run in any web browser that supports HTML5. The
+Kimchi community (responsible for Wok project) makes an effort to
+test it with the latest versions of Chrome and Firefox browsers, but the
+following list can be used as reference to browser support.</p>
 
 <h2>
-<a name="install-dependencies" class="anchor" href="#install-dependencies"><span class="octicon octicon-link"></span></a>Install Dependencies</h2>
+<a id="desktop-browser-support" class="anchor" href="#desktop-browser-support" aria-hidden="true"><span class="octicon octicon-link"></span></a>Desktop Browser Support:</h2>
+
+<ul>
+<li>
+<strong>Internet Explorer:</strong> Current version</li>
+<li>
+<strong>Chrome:</strong> Current version</li>
+<li>
+<strong>Firefox:</strong> Current version</li>
+<li>
+<strong>Safari:</strong> Current version</li>
+<li>
+<strong>Opera:</strong> Current version</li>
+</ul>
+
+<h2>
+<a id="mobile-browser-support" class="anchor" href="#mobile-browser-support" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mobile Browser Support:</h2>
+
+<ul>
+<li>
+<strong>Safari iOS:</strong> Current version</li>
+<li>
+<strong>Android Browser</strong> Current version</li>
+</ul>
+
+<h1>
+<a id="hypervisor-distro-support" class="anchor" href="#hypervisor-distro-support" aria-hidden="true"><span class="octicon octicon-link"></span></a>Hypervisor Distro Support</h1>
+
+<p>Kimchi might run on any GNU/Linux distribution that meets the conditions
+described on the 'Getting Started' section below.</p>
+
+<p>The Kimchi community makes an effort to test it with the latest versions of
+Fedora, RHEL, OpenSuSe, and Ubuntu.</p>
+
+<h1>
+<a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting Started</h1>
+
+<h2>
+<a id="install-dependencies" class="anchor" href="#install-dependencies" aria-hidden="true"><span class="octicon octicon-link"></span></a>Install Dependencies</h2>
 
 <p><strong>For fedora and RHEL:</strong></p>
 
-<pre><code>$ sudo yum install gcc make autoconf automake gettext-devel git \
-                   python-cherrypy python-cheetah libvirt-python \
-                   libvirt libvirt-daemon-config-network python-imaging \
-                   PyPAM m2crypto python-jsonschema rpm-build \
-                   qemu-kvm python-psutil python-ethtool sos \
-                   python-ipaddr python-ldap python-lxml nfs-utils \
-                   iscsi-initiator-utils libxslt pyparted nginx \
-                   python-libguestfs libguestfs-tools python-websockify \
-                   novnc spice-html5 python-configobj python-magic
+<pre><code> $ sudo yum install wok libvirt-python libvirt gettext-devel \
+                    libvirt-daemon-config-network python-imaging \
+                    qemu-kvm python-ethtool sos python-ipaddr \
+                    nfs-utils iscsi-initiator-utils pyparted \
+                    python-libguestfs libguestfs-tools \
+                    python-websockify novnc spice-html5 \
+                    python-configobj python-magic python-paramiko
 
  # If using RHEL, install the following additional packages:
  $ sudo yum install python-unittest2 python-ordereddict
@@ -72,76 +104,69 @@ RHEL, OpenSuSe, and Ubuntu.</p>
  # Restart libvirt to allow configuration changes to take effect
  $ sudo service libvirtd restart
 
- Packages version requirement:
-     python-psutil &gt;= 0.6.0
-
- # These dependencies are only required if you want to run the tests:
- $ sudo yum install pyflakes python-pep8 python-requests
+# These dependencies are only required if you want to run the tests:
+$ sudo yum install pyflakes python-pep8 python-requests python-mock
 </code></pre>
 
 <p><em>Note for RHEL users</em>: Some of the above packages are located in the Red Hat
-EPEL repositories. See <a href="http://fedoraproject.org/wiki/EPEL#How_can_I_use_these_extra_packages.3F">this FAQ</a>
-for more information on how to configure your system to access this repository.
+EPEL repositories.  See
+<a href="http://fedoraproject.org/wiki/EPEL#How_can_I_use_these_extra_packages.3F">this FAQ</a>
+for more information on how to configure your system to access this repository.</p>
 
-And for RHEL7 systems, you also need to subscribe to the "RHEL Server Optional" channel at RHN Classic or Red Hat Satellite.</p>
+<p>And for RHEL7 systems, you also need to subscribe to the "RHEL Server Optional"
+channel at RHN Classic or Red Hat Satellite.</p>
 
-<p><strong>For debian:</strong></p>
+<p><strong>For Ubuntu (Debian-based):</strong></p>
 
-<pre><code>$ sudo apt-get install gcc make autoconf automake gettext git \
-                       python-cherrypy3 python-cheetah python-libvirt \
-                       libvirt-bin python-imaging python-configobj \
-                       python-pam python-m2crypto python-jsonschema \
-                       qemu-kvm libtool python-psutil python-ethtool \
-                       sosreport python-ipaddr python-ldap \
-                       python-lxml nfs-common open-iscsi lvm2 xsltproc \
-                       python-parted nginx python-guestfs libguestfs-tools \
-                       websockify novnc spice-html5 python-magic
+<pre><code>$ sudo apt-get install wok python-imaging python-configobj websockify \
+                       novnc python-libvirt libvirt-bin nfs-common \
+                       qemu-kvm python-parted python-ethtool sosreport \
+                       xsltproc python-ipaddr python-lxml open-iscsi \
+                       python-guestfs libguestfs-tools spice-html5 \
+                       python-magic python-paramiko gettext \
 
-    # These dependencies are only required if you want to run the tests:
-    $ sudo apt-get install pep8 pyflakes python-requests
-
-Packages version requirement:
-    python-jsonschema &gt;= 1.3.0
-    python-psutil &gt;= 0.6.0
+# These dependencies are only required if you want to run the tests:
+$ sudo apt-get install pep8 pyflakes python-requests python-mock
 </code></pre>
 
 <p><strong>For openSUSE:</strong></p>
 
-<pre><code>$ sudo zypper install gcc make autoconf automake gettext-tools git \
-                      python-CherryPy python-Cheetah libvirt-python \
-                      libvirt libvirt-daemon-config-network python-pam \
-                      python-imaging python-M2Crypto python-jsonschema \
-                      rpm-build kvm python-psutil python-ethtool \
-                      python-ipaddr python-ldap python-lxml nfs-client \
-                      open-iscsi libxslt-tools python-xml python-parted \
-                      nginx python-libguestfs python-configobj \
-                      guestfs-tools python-websockify novnc python-magic
+<pre><code>$ sudo zypper install wok libvirt-python libvirt gettext-tools \
+                      libvirt-daemon-config-network python-imaging \
+                      kvm python-ethtool python-ipaddr nfs-client \
+                      open-iscsi python-parted python-libguestfs \
+                      python-configobj guestfs-tools python-websockify \
+                      novnc python-magic python-paramiko
 
-    # These dependencies are only required if you want to run the tests:
-    $ sudo zypper install python-pyflakes python-pep8 python-requests
-
-Packages version requirement:
-    python-psutil &gt;= 0.6.0
+# These dependencies are only required if you want to run the tests:
+$ sudo zypper install python-pyflakes python-pep8 python-requests python-mock
 </code></pre>
 
 <p><em>Note for openSUSE users</em>: Some of the above packages are located in different
 openSUSE repositories. See
-<a href="http://download.opensuse.org/repositories/home:GRNET:synnefo/">this FAQ</a>
-for python-parted;
-<a href="http://download.opensuse.org/repositories/systemsmanagement:/spacewalk/">this FAQ</a>
-for python-ethtool, and
-<a href="http://download.opensuse.org/repositories/home:/Simmphonie:/python/">this FAQ</a>
-for python-magic to get the correct repository based on your openSUSE version. And
+<a href="http://download.opensuse.org/repositories/home:GRNET:synnefo/">this FAQ</a> for
+python-parted, <a href="http://download.opensuse.org/repositories/systemsmanagement:/spacewalk/">this FAQ</a>
+for python-ethtool, and <a href="http://download.opensuse.org/repositories/home:/Simmphonie:/python/">this FAQ</a> for python-magic to get the correct repository based on your openSUSE version. And
 <a href="http://en.opensuse.org/SDB:Add_package_repositories">this FAQ</a> for more
 information on how configure your system to access this repository.</p>
 
 <h2>
-<a name="build-and-install" class="anchor" href="#build-and-install"><span class="octicon octicon-link"></span></a>Build and Install</h2>
+<a id="build-and-install" class="anchor" href="#build-and-install" aria-hidden="true"><span class="octicon octicon-link"></span></a>Build and Install</h2>
 
-<pre><code># For openSUSE 13.2:
+<pre><code>Wok:
+$ ./autogen.sh --system
+
+$ make
+$ sudo make install   # Optional if running from the source tree
+
+
+Kimchi:
+$ cd plugins/kimchi
+
+For openSUSE 13.2:
 $ ./autogen.sh --with-spice-html5
 
-# Otherwise:
+Otherwise:
 $ ./autogen.sh --system
 
 $ make
@@ -149,19 +174,67 @@ $ sudo make install   # Optional if running from the source tree
 </code></pre>
 
 <h2>
-<a name="run" class="anchor" href="#run"><span class="octicon octicon-link"></span></a>Run</h2>
+<a id="run" class="anchor" href="#run" aria-hidden="true"><span class="octicon octicon-link"></span></a>Run</h2>
 
-<pre><code>$ sudo kimchid
+<pre><code>$ sudo wokd --host=0.0.0.0
 </code></pre>
 
+<p>If you cannot access Wok, take a look at these 2 points:</p>
+
+<ol>
+<li>
+<p>Firewall
+Wok uses by default the ports 8000, 8001 and 64667. To allow incoming connections:</p>
+
+<p>For system using firewalld, do:
+sudo firewall-cmd --add-port=8000/tcp --permanent
+sudo firewall-cmd --add-port=8001/tcp --permanent
+sudo firewall-cmd --add-port=64667/tcp --permanent
+sudo firewall-cmd --reload</p>
+
+<p>For openSUSE systems, do:
+sudo /sbin/SuSEfirewall2 open EXT TCP 8000
+sudo /sbin/SuSEfirewall2 open EXT TCP 8001
+sudo /sbin/SuSEfirewall2 open EXT TCP 64667</p>
+
+<p>For system using iptables, do:
+sudo iptables -A INPUT -p tcp --dport 8000 -j ACCEPT
+sudo iptables -A INPUT -p tcp --dport 8001 -j ACCEPT
+sudo iptables -A INPUT -p tcp --dport 64667 -j ACCEPT</p>
+
+<p>Don't forget to correctly save the rules.</p>
+</li>
+<li>
+<p>SELinux
+Allow httpd_t context for Wok web server:</p>
+
+<p>semanage permissive -a httpd_t</p>
+</li>
+</ol>
+
 <h2>
-<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+<a id="test" class="anchor" href="#test" aria-hidden="true"><span class="octicon octicon-link"></span></a>Test</h2>
 
-<p>Connect your browser to https://localhost:8001.</p>
+<pre><code>$ cd plugins/kimchi
+$ make check-local # check for i18n and formatting errors
+$ sudo make check
+</code></pre>
 
-<p>By default, Kimchi uses PAM to authenticate users so you can log in with the same username
+<p>After all tests are executed, a summary will be displayed containing any
+errors/failures which might have occurred.</p>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>Connect your browser to https://localhost:8001.  You should see a screen like:</p>
+
+<p><img src="/docs/kimchi-login.png" alt="Wok Login Screen"></p>
+
+<p>Wok uses PAM to authenticate users so you can log in with the same username
 and password that you would use to log in to the machine itself.  Once logged in
-you will see the Guests tab.</p>
+you will see a screen like:</p>
+
+<p><img src="/docs/kimchi-guest.png" alt="Kimchi Guest View"></p>
 
 <p>This shows you the list of running guests including a live screenshot of
 the guest session.  You can use the action buttons to shutdown the guests
@@ -173,31 +246,42 @@ In Kimchi, all guest creation is done through templates.</p>
 <p>You can view or modify templates by clicking on the Templates link in the
 top navigation bar.</p>
 
+<p>The template screen looks like:</p>
+
+<p><img src="/docs/kimchi-templates.png" alt="Kimchi Template View"></p>
+
+<p>From this view, you can change the parameters of a template or create a
+new template using the "+" button in the upper right corner.</p>
+
 <p>To create a template, you need an ISO on your host or using remote one.
 If you are willing to use your own ISO, please copy it to out of box storage
 pool (default path is: /var/lib/kimchi/isos).</p>
 
 <h2>
-<a name="known-issues" class="anchor" href="#known-issues"><span class="octicon octicon-link"></span></a>Known Issues</h2>
+<a id="known-issues" class="anchor" href="#known-issues" aria-hidden="true"><span class="octicon octicon-link"></span></a>Known Issues</h2>
 
 <ol>
-<a href="https://github.com/kimchi-project/kimchi/issues">https://github.com/kimchi-project/kimchi/issues</a>
-</ol><h2>
-<a name="participating" class="anchor" href="#participating"><span class="octicon octicon-link"></span></a>Participating</h2>
+<li>When you are using NFS as storage pool, check the nfs export path permission
+is configured as:
+(1) export path need to be squashed as kvm gid and libvirt uid:
+    /my_export_path *(all_squash,anongid=, anonuid=,rw,sync)
+    So that root user can create volume with right user/group.
+(2) Chown of export path as libvirt user, group as kvm group,
+    In order to make sure all mapped user can get into the mount point.</li>
+</ol>
 
-<p>All patches are sent through our mailing list hosted by oVirt.
-More information can be found at:</p>
+<h2>
+<a id="participating" class="anchor" href="#participating" aria-hidden="true"><span class="octicon octicon-link"></span></a>Participating</h2>
+
+<p>All patches are sent through our mailing list hosted by oVirt.  More
+information can be found at:</p>
 
 <p><a href="https://github.com/kimchi-project/kimchi/wiki/Communications">https://github.com/kimchi-project/kimchi/wiki/Communications</a></p>
 
-<p><a href="https://github.com/kimchi-project/kimchi/wiki/How-to-Contribute">https://github.com/kimchi-project/kimchi/wiki/How-to-Contribute</a></p>
+<p>Patches should be sent using git-send-email to <a href="mailto:kimchi-devel@ovirt.org">kimchi-devel@ovirt.org</a>.</p>
         </section>
 
         <aside id="sidebar">
-          <a href="http://kimchi-project.github.io/kimchi/downloads/" class="button">
-            <small>Download</small>
-            Packages
-          </a>
           <a href="https://github.com/kimchi-project/kimchi/zipball/master" class="button">
             <small>Download</small>
             .zip file
@@ -207,11 +291,13 @@ More information can be found at:</p>
             .tar.gz file
           </a>
 
-          <p class="repo-owner"><a href="https://github.com/kimchi-project/kimchi">Kimchi</a> is maintained by <a href="https://github.com/kimchi-project">kimchi-project</a>.</p>
+          <p class="repo-owner"><a href="https://github.com/kimchi-project/kimchi"></a> is maintained by <a href="https://github.com/kimchi-project">kimchi-project</a>.</p>
 
           <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
         </aside>
       </div>
     </div>
+
+  
   </body>
 </html>
