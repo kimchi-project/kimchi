@@ -295,7 +295,7 @@ kimchi.listVmsAuto = function() {
             kimchi.getTasksByFilter('status=running&target_uri=' + encodeURIComponent('^/plugins/kimchi/vms/[^/]+$'), function(tasks) {
                 for (var i = 0; i < tasks.length; i++) {
                     var guestUri = tasks[i].target_uri;
-                    var guestName = guestUri.split('/')[2]
+                    var guestName = guestUri.split('/')[4]
                     guests.push($.extend({}, kimchi.sampleGuestObject, {
                         name: guestName,
                         isCreating: true
@@ -313,7 +313,7 @@ kimchi.listVmsAuto = function() {
             kimchi.getTasksByFilter('status=running&target_uri=' + encodeURIComponent('^/plugins/kimchi/vms/.+/clone'), function(tasks) {
                 for (var i = 0; i < tasks.length; i++) {
                     var guestUri = tasks[i].target_uri;
-                    var guestName = guestUri.split('/')[2]
+                    var guestName = guestUri.split('/')[4]
                     guests.push($.extend({}, kimchi.sampleGuestObject, {
                         name: guestName,
                         isCloning: true
