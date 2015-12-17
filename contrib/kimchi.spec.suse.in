@@ -30,6 +30,7 @@ Requires:	open-iscsi
 Requires:	python-libguestfs
 Requires:	guestfs-tools
 Requires:	python-magic
+Requires:	python-paramiko
 BuildRequires:	gettext-tools
 BuildRequires:	libxslt-tools
 BuildRequires:	python-lxml

@@ -93,7 +93,7 @@ channel at RHN Classic or Red Hat Satellite.
                           kvm python-ethtool python-ipaddr nfs-client \
                           open-iscsi python-parted python-libguestfs \
                           python-configobj guestfs-tools python-websockify \
-                          novnc python-magic
+                          novnc python-magic python-paramiko
 
     # These dependencies are only required if you want to run the tests:
     $ sudo zypper install python-pyflakes python-pep8 python-requests python-mock
