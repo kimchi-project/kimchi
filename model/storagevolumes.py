@@ -261,11 +261,9 @@ class StorageVolumesModel(object):
             raise InvalidOperation("KCHVOL0006E", {'pool': pool_name})
         try:
             pool.refresh(0)
-            return sorted(map(lambda x: x.decode('utf-8'), pool.listVolumes()))
-        except libvirt.libvirtError as e:
-            raise OperationFailed("KCHVOL0008E",
-                                  {'pool': pool_name,
-                                   'err': e.get_error_message()})
+        except Exception, e:
+            wok_log.error("Pool refresh failed: %s" % str(e))
+        return sorted(map(lambda x: x.decode('utf-8'), pool.listVolumes()))
 
 
 class StorageVolumeModel(object):

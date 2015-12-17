@@ -283,25 +283,16 @@ class StoragePoolModel(object):
                 raise
 
     def _get_storagepool_vols_num(self, pool):
-        try:
-            if pool.isActive():
-                pool.refresh(0)
-                return pool.numOfVolumes()
-            else:
-                return 0
-        except libvirt.libvirtError as e:
-            # If something (say a busy pool) prevents the refresh,
-            # throwing an Exception here would prevent all pools from
-            # displaying information -- so return None for busy
-            wok_log.error("ERROR: Storage Pool get vol count: %s "
-                          % e.get_error_message())
-            wok_log.error("ERROR: Storage Pool get vol count error no: %s "
-                          % e.get_error_code())
+        if not pool.isActive():
             return 0
-        except Exception as e:
-            raise OperationFailed("KCHPOOL0008E",
-                                  {'name': pool.name(),
-                                   'err': e.get_error_message()})
+
+        try:
+            pool.refresh(0)
+
+        except Exception, e:
+            wok_log.error("Pool refresh failed: %s" % str(e))
+
+        return pool.numOfVolumes()
 
     def _get_storage_source(self, pool_type, pool_xml):
         source = {}
