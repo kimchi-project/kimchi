@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-18 10:40-0300\n"
+"POT-Creation-Date: 2015-12-17 17:26-0200\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -23,60 +23,24 @@ msgid "Unknown parameter %(value)s"
 msgstr "Неизвестный параметр %(value)s"
 
 #, python-format
-msgid "Delete is not allowed for %(resource)s"
-msgstr "Удаление запрещено для %(resource)s"
-
-#, python-format
-msgid "%(resource)s does not implement update method"
-msgstr "%(resource)s не имеет реализации метода обновления"
-
-#, python-format
-msgid "Create is not allowed for %(resource)s"
-msgstr "Создание запрещено для %(resource)s"
-
-msgid "Unable to parse JSON request"
-msgstr "Ошибка анализа запроса JSON"
-
-msgid "This API only supports JSON"
-msgstr "Эта функция API поддерживает только JSON"
-
-#, python-format
-msgid "Parameters does not match requirement in schema: %(err)s"
-msgstr "Параметры не соответствуют требованиям схемы: %(err)s"
-
-msgid "You don't have permission to perform this operation."
-msgstr "Недостаточно прав доступа для выполнения этой операции."
-
-msgid "Datastore is not initiated in the model object."
-msgstr "Хранилище данных в объекте модели не инициализировано."
-
-#, python-format
-msgid "Unable to start task due error: %(err)s"
-msgstr "Не удалось запустить задачу из-за ошибки: %(err)s"
-
-#, python-format
-msgid "Timeout of %(seconds)s seconds expired while running task '%(task)s."
-msgstr "Во время выполнения задачи %(task)s истек тайм-аут (%(seconds)s с)."
-
-#, python-format
-msgid "Authentication failed for user '%(username)s'. [Error code: %(code)s]"
-msgstr ""
-"Сбой идентификации для пользователя %(username)s. [Код ошибки: %(code)s]"
-
-msgid "You are not authorized to access Kimchi"
-msgstr "Нет прав доступа к Kimchi"
-
-#, python-format
-msgid "Specify %(item)s to login into Kimchi"
-msgstr "Укажите %(item)s для входа в Kimchi"
-
-#, python-format
 msgid "User %(user_id)s not found with given LDAP settings."
 msgstr "Пользователь %(user_id)s не найден с указанными параметрами LDAP."
 
 #, python-format
-msgid "Invalid LDAP configuration: %(item)s : %(value)s"
-msgstr "Недопустимая конфигурация LDAP: %(item)s : %(value)s"
+msgid "Error while getting block devices. Details: %(err)s"
+msgstr "Ошибка получения блочных устройств. Сведения: %(err)s"
+
+#, python-format
+msgid "Error while getting block device information for %(device)s."
+msgstr "Ошибка получения информации о блочных устройствах для %(device)s."
+
+#, python-format
+msgid "Unable to retrieve LVM information. Details: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Partition %(name)s does not exist in the host"
+msgstr "Раздел %(name)s не существует на хосте"
 
 msgid "Unknown \"_cap\" specified"
 msgstr "Указано неизвестное значение \"_cap\""
@@ -90,14 +54,6 @@ msgstr ""
 
 msgid "\"_available_only\" should be \"true\" or \"false\""
 msgstr "Допустимые значения для \"_available_only\": \"true\" или \"false\""
-
-#, python-format
-msgid "Error while getting block devices. Details: %(err)s"
-msgstr "Ошибка получения блочных устройств. Сведения: %(err)s"
-
-#, python-format
-msgid "Error while getting block device information for %(device)s."
-msgstr "Ошибка получения информации о блочных устройствах для %(device)s."
 
 #, python-format
 msgid "Unable to find distro file: %(filename)s"
@@ -162,9 +118,6 @@ msgstr ""
 
 msgid "An error occurred when probing image OS information."
 msgstr "Ошибка проверки информации об ОС образа."
-
-msgid "No OS information found in given image."
-msgstr "В данном образе не найдена информация об ОС."
 
 #, python-format
 msgid "Unable to read image file %(filename)s"
@@ -334,9 +287,11 @@ msgstr ""
 "Не удалось возобновить выполнение виртуальной машины '%(name)s'. Сведения: "
 "%(err)s"
 
-msgid "Memory assigned is higher then the maximum allowed in the host."
+#, python-format
+msgid ""
+"Memory assigned is higher then the maximum allowed in the host: "
+"%(maxmem)sMib."
 msgstr ""
-"Присвоенный объем памяти превышает максимально разрешенный объем на хосте."
 
 #, python-format
 msgid ""
@@ -386,6 +341,99 @@ msgstr "Не удается завершить работу %(name)s. Вирту
 #, python-format
 msgid "Cannot reset %(name)s. Virtual machine is already shut off."
 msgstr "Не удается выполнить сброс %(name)s. Виртуальная машина уже выключена."
+
+#, python-format
+msgid "Migrate to localhost %(host)s is not allowed."
+msgstr ""
+
+#, python-format
+msgid ""
+"To migrate a virtual machine to the remote host %(host)s the user %(user)s "
+"must have password-less login to the remote host."
+msgstr ""
+
+#, python-format
+msgid "Can not migrate virtual machine %(name)s when its in %(state)s state."
+msgstr ""
+
+#, python-format
+msgid "Failed to migrate virtual machine %(name)s due error: %(err)s"
+msgstr ""
+
+msgid "User name of the remote server must be a string."
+msgstr ""
+
+msgid "Destination host of the migration must be a string."
+msgstr ""
+
+#, python-format
+msgid "Unable to create file %(path)s at %(host)s using user %(user)s."
+msgstr ""
+
+#, python-format
+msgid "Unable to read disk size of %(path)s, error: %(error)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to create disk image %(path)s at %(host)s using user %(user)s. Error: "
+"%(error)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to migrate virtual machine to remote host %(host)s with arch "
+"%(destarch)s using localhost with arch %(srcarch)s."
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to migrate virtual machine to remote host %(host)s with hypervisor "
+"%(desthyp)s because localhost uses hypervisor %(srchyp)s."
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to determine remote host hypervisor and architecture. Error: %(error)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to migrate virtual machine: subcores per core setting from "
+"localhostand remote host %(host)s differs."
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to setup password-less login at remote host %(host)s using user "
+"%(user)s. Error: %(error)s"
+msgstr ""
+
+msgid "Password field must be a string."
+msgstr ""
+
+msgid "Error creating local host ssh rsa key of user 'root'."
+msgstr ""
+
+#, python-format
+msgid "Memory value %(mem)s must be aligned to %(alignment)sMiB."
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to update the following parameters while the VM is offline: %(params)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to update the following parameters while the VM is online: %(params)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Cannot change VCPU value because '%(vm)s' has a topology defined - sockets: "
+"%(sockets)s, cores: %(cores)s, threads: %(threads)s."
+msgstr ""
 
 #, python-format
 msgid ""
@@ -563,6 +611,14 @@ msgstr ""
 "Недопустимый формат образа диска. Допустимые форматы: bochs, cloop, cow, "
 "dmg, qcow, qcow2, qed, raw, vmdk, vpc."
 
+msgid ""
+"When setting template disks, following parameters are required: 'index', "
+"'pool name', 'format', 'size' or 'volume' (for scsi/iscsi pools)"
+msgstr ""
+
+msgid "Disk format must be 'raw', for logical, iscsi, and scsi pools."
+msgstr ""
+
 #, python-format
 msgid "Storage pool %(name)s already exists"
 msgstr "Пул памяти %(name)s уже существует"
@@ -724,6 +780,12 @@ msgid "Unable to update database with deep scan information due error: %(err)s"
 msgstr ""
 "Не удалось обновить базу данных информацией глубокого сканирования из-за "
 "следующей ошибки: %(err)s"
+
+#, python-format
+msgid ""
+"No volume group '%(name)s' found. Please, specify an existing volume group "
+"to create the logical pool from."
+msgstr ""
 
 #, python-format
 msgid "Storage volume %(name)s already exists"
@@ -904,8 +966,8 @@ msgid "Network name must be a string without slashes (/) or quotes (\")"
 msgstr ""
 "Имя сети должно быть строкой без символов косой черты (/) и кавычек (\")"
 
-msgid "Supported network types are isolated, NAT and bridge"
-msgstr "Поддерживаемые типы сетей: isolated, NAT и bridge"
+msgid "Supported network types are isolated, NAT, macvtap and bridge"
+msgstr ""
 
 msgid "Network subnet must be a string with IP address and prefix or netmask"
 msgstr ""
@@ -958,40 +1020,15 @@ msgid "Failed to start network %(name)s. Details: %(err)s"
 msgstr "Не удалось запустить сеть %(name)s. Сведения: %(err)s"
 
 #, python-format
-msgid "Debug report %(name)s does not exist"
-msgstr "Отладочный отчет %(name)s не существует"
-
-msgid "Debug report tool not found in system"
-msgstr "Инструмент отладочного отчета не найден в системе"
-
-#, python-format
-msgid "Unable to create debug report %(name)s. Details: %(err)s."
-msgstr "Не удалось создать отладочный отчет %(name)s. Сведения: %(err)s."
-
-#, python-format
-msgid "Can not find any debug report with the given name %(name)s"
-msgstr "Не найден отладочный отчет с именем %(name)s"
-
-#, python-format
-msgid "Unable to generate debug report %(name)s. Details: %(err)s"
-msgstr "Не удалось создать отладочный отчет %(name)s. Сведения: %(err)s"
-
-msgid "You should give a name for the debug report file."
-msgstr "Необходимо присвоить имя файлу отладочного отчета."
-
-msgid ""
-"Debug report name must be a string. Only letters, digits, underscore ('_') "
-"and hyphen ('-') are allowed."
+msgid "Unable to redefine interface %(name)s. Details: %(err)s"
 msgstr ""
-"Имя отладочного отчета должно быть строкой. Только буквы, цифры, "
-"подчеркивание ('_') и дефис ('-') допустимы."
 
 #, python-format
-msgid ""
-"The debug report with specified name \"%(name)s\" already exists. Please use "
-"another one."
+msgid "Unable to create bridge %(name)s. Details: %(err)s"
 msgstr ""
-"Отладочный отчет с именем \"%(name)s\" уже существует. Укажите другое имя."
+
+msgid "Open VSwitch bridges can only host bridged networks."
+msgstr ""
 
 #, python-format
 msgid "Storage server %(server)s was not used by Kimchi"
@@ -1002,60 +1039,17 @@ msgid "Distro '%(name)s' does not exist"
 msgstr "Вариант ОС '%(name)s' не существует"
 
 #, python-format
-msgid "Partition %(name)s does not exist in the host"
-msgstr "Раздел %(name)s не существует на хосте"
-
-msgid "Unable to shutdown host machine as there are running virtual machines"
-msgstr ""
-"Не удалось завершить работу системы хоста: выполняются виртуальные машины"
-
-msgid "Unable to reboot host machine as there are running virtual machines"
-msgstr "Не удалось перезагрузить систему хоста: выполняются виртуальные машины"
-
-#, python-format
 msgid "Node device '%(name)s' not found"
 msgstr "Устройство узла '%(name)s' не найдено"
 
 msgid "Conflicting flag filters specified."
 msgstr "Фильтры конфликтующих меток указаны."
 
-msgid "No packages marked for update"
-msgstr "Нет пакетов, помеченных для обновления"
-
-#, python-format
-msgid "Package %(name)s is not marked to be updated."
-msgstr "Пакет %(name)s не помечен для обновления."
-
-#, python-format
-msgid "Error while getting packages marked to be updated. Details: %(err)s"
-msgstr "Ошибка получения пакетов, помеченных для обновления. Сведения: %(err)s"
-
-msgid "There is no compatible package manager for this system."
-msgstr "Нет совместимого администратора пакетов для этой системы."
-
-#, python-format
-msgid "Unable to find %(item)s in datastore"
-msgstr "Не найден %(item)s в хранилище данных"
-
-#, python-format
-msgid "Invalid URI %(uri)s"
-msgstr "Недопустимый URI %(uri)s"
-
-#, python-format
-msgid "Timeout while running command '%(cmd)s' after %(seconds)s seconds"
-msgstr ""
-"Истек тайм-аут во время выполнения команды '%(cmd)s' через %(seconds)s с"
-
 msgid "Unable to choose a virtual machine name"
 msgstr "Не удалось выбрать имя виртуальной машины"
 
-#, python-format
-msgid "Invalid data value '%(value)s'"
-msgstr "Недопустимое значение данных '%(value)s'"
-
-#, python-format
-msgid "Invalid data unit '%(unit)s'"
-msgstr "Недопустимая единица измерения данных '%(unit)s'"
+msgid "Cannot upgrade objectstore data."
+msgstr ""
 
 msgid "Invalid storage type. Types supported: 'cdrom', 'disk'"
 msgstr "Недопустимый тип памяти. Поддерживаемые типы: 'cdrom', 'disk'"
@@ -1130,122 +1124,6 @@ msgid ""
 "%(type)s"
 msgstr ""
 "Выбранный том с форматом %(format)s не подходит для типа памяти %(type)s"
-
-msgid "YUM Repository ID must be one word only string."
-msgstr ""
-"ИД хранилища YUM должен быть строкой, состоящей только из одного слова."
-
-msgid "Repository URL must be an http://, ftp:// or file:// URL."
-msgstr "URL хранилища должен быть http://, ftp:// или file:// ."
-
-msgid ""
-"Repository configuration is a dictionary with specific values according to "
-"repository type."
-msgstr ""
-"Конфигурация хранилища представляет собой словарь значений, определяемых "
-"типом хранилища."
-
-msgid "Distribution to DEB repository must be a string"
-msgstr "Вариант для хранилища DEB должен быть строкой"
-
-msgid "Components to DEB repository must be listed in a array"
-msgstr "Компоненты для хранилища DEB должны быть перечислены в массиве"
-
-msgid "Components to DEB repository must be a string"
-msgstr "Компоненты для хранилища DEB должны быть строкой"
-
-msgid "Mirror list to repository must be a string"
-msgstr "Список зеркальных копий для хранилища должен быть строкой"
-
-msgid "YUM Repository name must be string."
-msgstr "Имя хранилища YUM должно быть строкой."
-
-msgid "GPG check must be a boolean value."
-msgstr "Проверка GPG должна быть булевским значением."
-
-msgid "GPG key must be a URL pointing to the ASCII-armored file."
-msgstr ""
-"Ключ GPG должен быть URL, указывающим на защищенный файл с кодированием "
-"ASCII."
-
-#, python-format
-msgid "Could not update repository %(repo_id)s."
-msgstr "Не удалось обновить хранилище %(repo_id)s."
-
-#, python-format
-msgid "Repository %(repo_id)s does not exist."
-msgstr "Хранилище %(repo_id)s не существует."
-
-msgid ""
-"Specify repository base URL,  mirror list or metalink in order to create or "
-"update a YUM repository."
-msgstr ""
-"Укажите базовый URL хранилища, список зеркал и метассылку для создания или "
-"изменения хранилища YUM."
-
-msgid "Repository management tool was not recognized for your system."
-msgstr "Не распознан инструмент управления хранилищем для системы."
-
-#, python-format
-msgid "Repository %(repo_id)s is already enabled."
-msgstr "Хранилище %(repo_id)s уже включено."
-
-#, python-format
-msgid "Repository %(repo_id)s is already disabled."
-msgstr "Хранилище %(repo_id)s уже выключено."
-
-#, python-format
-msgid "Could not remove repository %(repo_id)s."
-msgstr "Не удалось удалить хранилище %(repo_id)s."
-
-#, python-format
-msgid "Could not write repository configuration file %(repo_file)s"
-msgstr "Не удалось записать в файл конфигурации хранилища %(repo_file)s"
-
-msgid "Specify repository distribution in order to create a DEB repository."
-msgstr "Укажите вариант хранилища для создания хранилища DEB."
-
-#, python-format
-msgid "Could not enable repository %(repo_id)s."
-msgstr "Не удалось включить хранилище %(repo_id)s."
-
-#, python-format
-msgid "Could not disable repository %(repo_id)s."
-msgstr "Не удалось выключить хранилище %(repo_id)s."
-
-msgid "YUM Repository ID already exists"
-msgstr "ИД хранилища YUM уже существует"
-
-msgid "YUM Repository name must be a string"
-msgstr "Имя хранилища YUM должно быть строкой"
-
-#, python-format
-msgid "Unable to list repositories. Details: '%(err)s'"
-msgstr "Не удалось вывести список хранилищ. Сведения: %(err)s"
-
-#, python-format
-msgid "Unable to retrieve repository information. Details: '%(err)s'"
-msgstr "Не удалось получить информацию хранилища. Сведения: %(err)s"
-
-#, python-format
-msgid "Unable to add repository. Details: '%(err)s'"
-msgstr "Не удалось добавить хранилище. Сведения: %(err)s"
-
-#, python-format
-msgid "Unable to remove repository. Details: '%(err)s'"
-msgstr "Не удалось удалить хранилище. Сведения: %(err)s"
-
-#, python-format
-msgid ""
-"Configuration items: '%(items)s' are not supported by repository manager"
-msgstr ""
-"Элементы конфигурации '%(items)s' не поддерживаются администратором хранилища"
-
-msgid "Repository metalink must be an http://, ftp:// or file:// URL."
-msgstr "Метассылка хранилища должна быть URL http://, ftp:// или file://."
-
-msgid "Cannot specify mirrorlist and metalink at the same time."
-msgstr "Список зеркал и метассылку нельзя указывать одновременно."
 
 #, python-format
 msgid ""
@@ -1324,17 +1202,9 @@ msgstr ""
 "На этом хосте (или в текущей конфигурации) не разрешена топология "
 "процессоров."
 
-msgid "ERROR CODE"
-msgstr "Код ошибки"
-
-msgid "REASON"
-msgstr "ПРИЧИНА"
-
-msgid "STACK"
-msgstr "Стек"
-
-msgid "Go to Homepage"
-msgstr "Перейти на домашнюю страницу"
+#, python-format
+msgid "Invalid volume group name parameter: %(name)s."
+msgstr ""
 
 msgid "Create a New Virtual Machine"
 msgstr "Создать новую виртуальную машину"
@@ -1349,9 +1219,6 @@ msgstr ""
 "Имя для идентификации виртуальной машины. Если не указано, имя будет выбрано "
 "в зависимости от используемого шаблона."
 
-msgid "Template"
-msgstr "Шаблон"
-
 msgid "Please create a template first."
 msgstr "Сначала создайте шаблон."
 
@@ -1361,11 +1228,11 @@ msgstr "Создать шаблон"
 msgid "Please choose a template."
 msgstr "Выберите шаблон."
 
-msgid "OS"
-msgstr "ОС"
+msgid "OS: "
+msgstr "ОС: "
 
-msgid "OS Version"
-msgstr "Версия ОС"
+msgid "Version: "
+msgstr "Версия: "
 
 msgid "CPUS"
 msgstr "Процессоры"
@@ -1379,26 +1246,11 @@ msgstr "Создать"
 msgid "Creating..."
 msgstr "Создание..."
 
+msgid "Cancel"
+msgstr "Отмена"
+
 msgid "Edit Guest"
 msgstr "Изменить гостевую систему"
-
-msgid "General"
-msgstr "Общие"
-
-msgid "Storage"
-msgstr "Дисковая память"
-
-msgid "Interface"
-msgstr "Интерфейс"
-
-msgid "Permission"
-msgstr "Права доступа"
-
-msgid "Host PCI Device"
-msgstr "Устройство PCI хоста"
-
-msgid "Snapshot"
-msgstr "Моментальная копия"
 
 msgid "Name"
 msgstr "Имя"
@@ -1412,11 +1264,17 @@ msgstr "Объем памяти (МБ)"
 msgid "Icon"
 msgstr "Значок"
 
+msgid "Add"
+msgstr "Добавить"
+
 msgid "Device"
 msgstr "Устройство"
 
 msgid "Path"
 msgstr "Путь"
+
+msgid "Actions"
+msgstr "Действия"
 
 msgid "Network"
 msgstr "Сеть"
@@ -1426,6 +1284,9 @@ msgstr "Тип"
 
 msgid "MAC Address"
 msgstr "MAC-адрес"
+
+msgid "IP Address"
+msgstr ""
 
 msgid "Available system users and groups"
 msgstr "Доступные системные пользователи и группы"
@@ -1451,8 +1312,11 @@ msgstr "Добавить"
 msgid "Added"
 msgstr "Добавлено"
 
-msgid "filter"
-msgstr "фильтр"
+msgid "Filter"
+msgstr ""
+
+msgid "Status"
+msgstr ""
 
 msgid "Product"
 msgstr "Продукт"
@@ -1472,14 +1336,17 @@ msgstr "Заменить"
 msgid "Detach"
 msgstr "Отключить"
 
-msgid "Cancel"
-msgstr "Отмена"
+msgid "Remove"
+msgstr "Удалить"
+
+msgid "Edit"
+msgstr "Изменить"
 
 msgid "LDAP User ID,e.g.foo@foo.com"
 msgstr "ИД пользователя LDAP, например foo@foo.com"
 
-msgid "revert"
-msgstr "восстановить"
+msgid "Revert"
+msgstr ""
 
 msgid "Add a Storage Device to VM"
 msgstr "Добавить устройство хранения в VM"
@@ -1487,8 +1354,8 @@ msgstr "Добавить устройство хранения в VM"
 msgid "Device Type"
 msgstr "Тип устройства"
 
-msgid "The device type. Currently,  \"cdrom\" and \"disk\" are supported."
-msgstr "Тип устройства. В данный момент поддерживается \"cdrom\" и \"disk\"."
+msgid "The device type. Currently, \"cdrom\" and \"disk\" are supported."
+msgstr ""
 
 msgid "Storage Pool"
 msgstr "Пул памяти"
@@ -1511,8 +1378,14 @@ msgstr "Путь к файлу ISO для CDROM на сервере."
 msgid "Attach"
 msgstr "Подключить"
 
-msgid "Start"
-msgstr "Запустить"
+msgid "Connect VNC"
+msgstr ""
+
+msgid "View VNC Console"
+msgstr ""
+
+msgid "Clone"
+msgstr "Дублировать"
 
 msgid "Reset"
 msgstr "Сброс"
@@ -1523,38 +1396,32 @@ msgstr "Приостановить"
 msgid "Resume"
 msgstr "Возобновить"
 
-msgid "Power Off"
-msgstr "Выключить питание"
-
-msgid "Actions"
-msgstr "Действия"
-
-msgid "Connect"
-msgstr "Подключить"
-
-msgid "Clone"
-msgstr "Дублировать"
-
-msgid "Edit"
-msgstr "Изменить"
-
 msgid "Shut Down"
 msgstr "Завершить работу"
+
+msgid "Start"
+msgstr "Запустить"
+
+msgid "Power Off"
+msgstr "Выключить питание"
 
 msgid "Delete"
 msgstr "Удалить"
 
-msgid "The username or password you entered is incorrect. Please try again."
-msgstr "Указано неверное имя пользователя или пароль. Введите еще раз."
+msgid "View Console"
+msgstr ""
 
-msgid "This field is required."
-msgstr "Это обязательное поле."
+msgid "Processors Used"
+msgstr ""
 
-msgid "Log in"
-msgstr "Вход в систему"
+msgid "Memory Available"
+msgstr ""
 
-msgid "Logging in..."
-msgstr "Вход..."
+msgid "Storage I/O"
+msgstr ""
+
+msgid "Network I/O"
+msgstr "Сетевой ввод-вывод"
 
 msgid "Host"
 msgstr "Хост"
@@ -1565,6 +1432,9 @@ msgstr "Гостевые системы"
 msgid "Templates"
 msgstr "Шаблоны"
 
+msgid "Storage"
+msgstr "Дисковая память"
+
 msgid "Failed to get application configuration"
 msgstr "Не удалось получить конфигурацию приложения"
 
@@ -1573,16 +1443,6 @@ msgstr "Этот недопустимый путь в Linux"
 
 msgid "This is not a valid URL."
 msgstr "Это недопустимый URL."
-
-msgid "No such data available."
-msgstr "Нет таких данных."
-
-msgid ""
-"Can not contact the host system. Verify the host system is up and that you "
-"have network connectivity to it. HTTP request response %1. "
-msgstr ""
-"Нет связи с системой хоста. Убедитесь, что система хоста работает и доступна "
-"для подключения. Ответ на запрос HTTP: %1. "
 
 msgid "Unable to read file."
 msgstr "Не удалось прочитать файл."
@@ -1605,167 +1465,14 @@ msgstr "Предупреждение"
 msgid "Cloning..."
 msgstr "Дублирование..."
 
-msgid "Loading..."
-msgstr "Загружается..."
-
-msgid "An error occurred while retrieving system information."
-msgstr "Ошибка получения системной информации."
-
-msgid "Retry"
-msgstr "Повторить"
-
-msgid "Detailed message:"
-msgstr "Подробное сообщение:"
-
 msgid "No ISO found"
 msgstr "Не найден образ ISO"
-
-msgid "This is not a valid ISO file."
-msgstr "Этот файл не является допустимым образом ISO."
 
 msgid "This may take a long time. Do you want to continue?"
 msgstr "Это может занять много времени. Продолжить?"
 
 msgid "This will permanently delete the template. Would you like to continue?"
 msgstr "Шаблон будет безвозвратно удален. Продолжить?"
-
-msgid "Unable to shut down system as there are some virtual machines running!"
-msgstr ""
-"Невозможно завершить работу системы, поскольку в ней работают виртуальные "
-"машины!"
-
-msgid "Max:"
-msgstr "Макс.:"
-
-msgid "Utilization"
-msgstr "Использование"
-
-msgid "Available"
-msgstr "Доступно"
-
-msgid "Read Rate"
-msgstr "Скорость чтения"
-
-msgid "Write Rate"
-msgstr "Скорость записи"
-
-msgid "Received"
-msgstr "Получено"
-
-msgid "Sent"
-msgstr "Отправлено"
-
-msgid ""
-"Shutting down or restarting host will cause unsaved work lost. Continue to "
-"shut down/restarting?"
-msgstr ""
-"Завершение работы и перезапуск хоста приведут к потере несохраненной работы. "
-"Продолжить завершение работы/перезапуск?"
-
-msgid ""
-"Repository will be removed permanently and can't be recovered. Do you want "
-"to continue?"
-msgstr "Хранилище будет удалено без возможности восстановления. Продолжить?"
-
-msgid "Repositories"
-msgstr "Хранилища"
-
-msgid "ID"
-msgstr "ИД"
-
-msgid "Base URL"
-msgstr "Базовый URL"
-
-msgid "Is Mirror"
-msgstr "Зеркальная копия"
-
-msgid "URL Args"
-msgstr "Аргументы URL"
-
-msgid "Enabled"
-msgstr "Включено"
-
-msgid "GPG Check"
-msgstr "Проверка GPG"
-
-msgid "GPG Key"
-msgstr "Ключ GPG"
-
-msgid "Add"
-msgstr "Добавить"
-
-msgid "Remove"
-msgstr "Удалить"
-
-msgid "Enable"
-msgstr "Включить"
-
-msgid "Disable"
-msgstr "Выключить"
-
-msgid "Software Updates"
-msgstr "Обновления программного обеспечения"
-
-msgid "Package Name"
-msgstr "Имя пакета"
-
-msgid "Version"
-msgstr "Версия"
-
-msgid "Architecture"
-msgstr "Архитектура"
-
-msgid "Repository"
-msgstr "Хранилище"
-
-msgid "Update All"
-msgstr "Обновить все"
-
-msgid "Updating..."
-msgstr "Обновление..."
-
-msgid "Failed to retrieve packages update information."
-msgstr "Ошибка получения информации для обновления пакетов."
-
-msgid "Failed to update package(s)."
-msgstr "Не удалось обновить пакеты."
-
-msgid ""
-"Debug report will be removed permanently and can't be recovered. Do you want "
-"to continue?"
-msgstr ""
-"Отладочный отчет будет удален без возможности восстановления. Продолжить?"
-
-msgid "Debug Reports"
-msgstr "Отладочные отчеты"
-
-msgid "Generated Time"
-msgstr "Время создания"
-
-msgid "Generate"
-msgstr "Создать"
-
-msgid "Generating..."
-msgstr "Создание..."
-
-msgid "Rename"
-msgstr "Переименовать"
-
-msgid "Download"
-msgstr "Загрузить"
-
-msgid ""
-"Report name should contain only letters, digits, underscore ('_') and/or "
-"hyphen ('-')."
-msgstr ""
-"Имя отчета должно содержать только буквы, цифры, подчеркивания ('_') и "
-"дефисы ('-')."
-
-msgid "Pending..."
-msgstr "Ожидание..."
-
-msgid "Report name is the same as the original one."
-msgstr "Имя отчета совпадает с исходным."
 
 msgid ""
 "This will delete the virtual machine and its virtual disks. This operation "
@@ -1830,18 +1537,6 @@ msgstr ""
 msgid "Attaching..."
 msgstr "Подключение..."
 
-msgid "Replacing..."
-msgstr "Замена..."
-
-msgid "Successfully attached!"
-msgstr "Успешно подключен!"
-
-msgid "Successfully replaced!"
-msgstr "Успешно заменен!"
-
-msgid "Successfully detached!"
-msgstr "Успешно отключен!"
-
 msgid ""
 "This disk will be detached permanently and you can re-attach it. Continue to "
 "detach it?"
@@ -1880,9 +1575,6 @@ msgid ""
 msgstr ""
 "Это действие нарушит сетевые соединения у всех виртуальных машин, которые "
 "зависят от этой сети."
-
-msgid "Create a network"
-msgstr "Создать сеть"
 
 msgid ""
 "This network is not persistent. Instead of stop, this action will "
@@ -1927,32 +1619,14 @@ msgstr "Не найден iSCSI. Введите."
 msgid "Failed to load iSCSI targets."
 msgstr "Не удалось загрузить целевые объекты iSCSI."
 
-msgid "The storage pool name can not be blank."
-msgstr "Не указано имя пула памяти."
-
-msgid "The storage pool path can not be blank."
-msgstr "Не указан путь к пулу памяти."
-
-msgid "NFS server mount path can not be blank."
-msgstr "Не указан путь монтирования сервера NFS."
-
 msgid "Invalid NFS mount path."
 msgstr "Недопустимый путь монтирования NFS."
 
 msgid "No logical device selected."
 msgstr "Не выбрано логическое устройство."
 
-msgid "The iSCSI target can not be blank."
-msgstr "Не указан целевой объект iSCSI."
-
-msgid "Server name can not be blank."
-msgstr "Не указано имя сервера."
-
 msgid "This is not a valid Server Name or IP. Please, modify it."
 msgstr "Это не допустимое имя или IP-адрес сервера. Измените его."
-
-msgid "Looking for available partitions ..."
-msgstr "Поиск доступных разделов..."
 
 msgid "No available partitions found."
 msgstr "Не найдены доступные разделы."
@@ -1981,111 +1655,38 @@ msgstr ""
 msgid "Disk pool or volume cannot be blank."
 msgstr "Не указан пул или том диска."
 
-msgid "Peers"
-msgstr "Равноправные узлы"
+msgid "Create a network"
+msgstr "Создать сеть"
 
-msgid "Searching"
-msgstr "Поиск"
+msgid "Network Name"
+msgstr "Имя сети"
 
-msgid "No peers found."
-msgstr "Не найдены равноправные узлы."
+msgid "Name should not contain '/' and '\"'."
+msgstr "Имя не должно содержать '/' и '\"'."
 
-msgid "Help"
-msgstr "Справка"
+msgid "Network Type"
+msgstr "Тип сети"
 
-msgid "About"
-msgstr "О программе"
+msgid "Isolated: no external network connection"
+msgstr "Изолированный: без внешних сетевых соединений"
 
-msgid "Log out"
-msgstr "Закрыть сеанс"
+msgid "NAT: outbound physical network connection only"
+msgstr "NAT (только исходящее физическое сетевое соединение)"
 
-msgid "Version:"
-msgstr "Версия:"
+msgid "Bridged: Virtual machines are connected to physical network directly"
+msgstr "Через мост (прямое подключение виртуальных машин к физической сети)"
 
-msgid "Session timeout, please re-login."
-msgstr "Тайм-аут сеанса. Пожалуйста, войдите заново."
+msgid "(No interfaces found)"
+msgstr "(Интерфейсы не найдены)"
 
-msgid "User Name"
-msgstr "Имя пользователя"
+msgid "Destination"
+msgstr "Целевое расположение"
 
-msgid "Password"
-msgstr "Пароль"
+msgid "Enable VLAN"
+msgstr "Включить VLAN"
 
-msgid "Generate a New Debug Report"
-msgstr "Создать новый отладочный отчет"
-
-msgid "Report Name"
-msgstr "Имя отчета"
-
-msgid ""
-"The name used to identify the report. If omitted, a name will be chosen "
-"based on current time. Name can contain: letters, digits, underscore (\"_\") "
-"and hyphen (\"-\")."
-msgstr ""
-"Имя, используемое для идентификации отчета. Если не указано, то имя будет "
-"сформировано на основе текущего времени. Имя может включать буквы, цифры, "
-"подчеркивания (\"_\") и дефисы (\"-\")."
-
-msgid "Rename a Debug Report"
-msgstr "Переименовать отладочный отчет"
-
-msgid ""
-"The name used to identify the report. Name can contain: letters, digits and "
-"hyphen (\"-\")."
-msgstr ""
-"Имя, используемое для идентификации отчета. Имя может включать буквы, цифры "
-"и подчеркивания (\"-\")."
-
-msgid "Submit"
-msgstr "Отправить"
-
-msgid "Add a Repository"
-msgstr "Добавить хранилище"
-
-msgid "Identifier"
-msgstr "Идентификатор"
-
-msgid "Single word, unique identifier for the repository."
-msgstr "Одиночное слово - уникальный идентификатор хранилища."
-
-msgid "Textual name for the repository."
-msgstr "Текстовое имя хранилища."
-
-msgid "URL"
-msgstr "URL"
-
-msgid "Required Field"
-msgstr "Обязательное поле"
-
-msgid "URL to the repository. Supported protocols are http, ftp, and file."
-msgstr "URL хранилища. Поддерживаемые протоколы: http, ftp, file."
-
-msgid "Repository is a mirror"
-msgstr "Хранилище является зеркальной копией"
-
-msgid "Distribution"
-msgstr "Вариант"
-
-msgid "Distribution of the DEB repository."
-msgstr "Вариант хранилища DEB."
-
-msgid "Components"
-msgstr "Компоненты"
-
-msgid "List of components in DEB repository."
-msgstr "Список компонентов в хранилище DEB."
-
-msgid "Edit Repository"
-msgstr "Изменить хранилище"
-
-msgid "Mirror List URL"
-msgstr "URL списка зеркальных копий"
-
-msgid "Yes"
-msgstr "Да"
-
-msgid "No"
-msgstr "Нет"
+msgid "VLAN ID"
+msgstr "Идентификатор VLAN"
 
 msgid "Add a Volume to Storage Pool"
 msgstr "Добавить том в пул памяти"
@@ -2144,17 +1745,20 @@ msgstr "Экспортированный путь NFS на сервере NFS."
 msgid "Device path"
 msgstr "Путь к устройству"
 
+msgid "Looking for available partitions ..."
+msgstr "Поиск доступных разделов..."
+
 msgid "iSCSI Server"
 msgstr "Сервер iSCSI"
-
-msgid "iSCSI server IP or hostname. It should not be empty."
-msgstr "IP-адрес или имя хоста сервера iSCSI. Не может быть пустым."
 
 msgid "Server"
 msgstr "Сервер"
 
 msgid "Port"
 msgstr "Порт"
+
+msgid "iSCSI server IP or hostname. It should not be empty."
+msgstr "IP-адрес или имя хоста сервера iSCSI. Не может быть пустым."
 
 msgid "Target"
 msgstr "Целевой объект"
@@ -2165,8 +1769,11 @@ msgstr "Целевой объект iSCSI на сервере iSCSI"
 msgid "Add iSCSI Authentication"
 msgstr "Добавить идентификацию iSCSI"
 
-msgid "iSCSI Authentication"
-msgstr "Идентификация iSCSI"
+msgid "User Name"
+msgstr "Имя пользователя"
+
+msgid "Password"
+msgstr "Пароль"
 
 msgid "SCSI Adapter"
 msgstr "Адаптер SCSI"
@@ -2189,44 +1796,47 @@ msgstr "Локальный файл образа"
 msgid "Remote ISO Image"
 msgstr "Удаленный образ ISO"
 
+msgid "Provide a File Path for a specific ISO image:"
+msgstr ""
+
 msgid "Search ISOs"
 msgstr "Поиск образов ISO"
 
 msgid "The following ISOs are available:"
 msgstr "Доступные образы ISO:"
 
-msgid "OS: "
-msgstr "ОС: "
+msgid "OS"
+msgstr "ОС"
 
-msgid "Version: "
-msgstr "Версия: "
+msgid "Version"
+msgstr "Версия"
 
-msgid "Size: "
-msgstr "Размер: "
+msgid "Size"
+msgstr ""
 
 msgid "Search more ISOs"
 msgstr "Поиск дополнительных образов ISO"
 
-msgid "Create Templates from Selected ISO"
-msgstr "Создать шаблоны из выбранных образов ISO"
-
-msgid "I want to use a specific ISO file"
-msgstr "Использовать конкретный файл ISO"
-
 msgid "File Path:"
 msgstr "Путь к файлу:"
+
+msgid "Provide a URL for a specific ISO image:"
+msgstr ""
 
 msgid "Loading default remote ISOs ..."
 msgstr "Загрузка удаленных ISO по умолчанию..."
 
-msgid "Arch: "
-msgstr "Архитектура: "
-
-msgid "I want to use a custom URL"
-msgstr "Использовать другой URL"
+msgid "Arch"
+msgstr ""
 
 msgid "Edit Template"
 msgstr "Изменить шаблон"
+
+msgid "General"
+msgstr "Общие"
+
+msgid "Interface"
+msgstr "Интерфейс"
 
 msgid "Processor"
 msgstr "Процессор"
@@ -2246,6 +1856,12 @@ msgstr "Диск (ГБ)"
 msgid "Disk Format"
 msgstr "Формат диска"
 
+msgid "Add Storage"
+msgstr ""
+
+msgid "Add Interface"
+msgstr ""
+
 msgid "CPU Number"
 msgstr "Количество процессоров"
 
@@ -2257,123 +1873,3 @@ msgstr "Ядра"
 
 msgid "Threads"
 msgstr "Нити"
-
-msgid "CPU"
-msgstr "Процессор"
-
-msgid "Disk I/O"
-msgstr "Дисковый ввод-вывод"
-
-msgid "Network I/O"
-msgstr "Сетевой ввод-вывод"
-
-msgid "Livetile"
-msgstr "Livetile"
-
-msgid "No guests found."
-msgstr "Не найдены гостевые системы."
-
-msgid "Shut down"
-msgstr "Выключен"
-
-msgid "Restart"
-msgstr "Перезапуск"
-
-msgid "Basic Information"
-msgstr "Базовая информация"
-
-msgid "OS Distro"
-msgstr "Вариант ОС"
-
-msgid "OS Code Name"
-msgstr "Кодовое имя ОС"
-
-msgid "CPU(s)"
-msgstr "Процессоры"
-
-msgid "System Statistics"
-msgstr "Системная статистика"
-
-msgid "Update Progress"
-msgstr "Ход обновления"
-
-msgid "Network Name"
-msgstr "Имя сети"
-
-msgid "State"
-msgstr "Состояние"
-
-msgid "Network Type"
-msgstr "Тип сети"
-
-msgid "Address Space"
-msgstr "Адресное пространство"
-
-msgid "Name should not contain '/' and '\"'."
-msgstr "Имя не должно содержать '/' и '\"'."
-
-msgid "Isolated: no external network connection"
-msgstr "Изолированный: без внешних сетевых соединений"
-
-msgid "NAT: outbound physical network connection only"
-msgstr "NAT (только исходящее физическое сетевое соединение)"
-
-msgid "Bridged: Virtual machines are connected to physical network directly"
-msgstr "Через мост (прямое подключение виртуальных машин к физической сети)"
-
-msgid "(No interfaces found)"
-msgstr "(Интерфейсы не найдены)"
-
-msgid "Destination"
-msgstr "Целевое расположение"
-
-msgid "Enable VLAN"
-msgstr "Включить VLAN"
-
-msgid "VLAN ID"
-msgstr "Идентификатор VLAN"
-
-msgid "Stop"
-msgstr "Завершить"
-
-msgid "%Used"
-msgstr "%Используется"
-
-msgid "Location"
-msgstr "Расположение"
-
-msgid "Capacity"
-msgstr "Емкость"
-
-msgid "Allocated"
-msgstr "Выделено"
-
-msgid "active"
-msgstr "активен"
-
-msgid "inactive"
-msgstr "неактивен"
-
-msgid "Deactivate"
-msgstr "Выключить"
-
-msgid "Activate"
-msgstr "Активировать"
-
-msgid "Add Volume"
-msgstr "Добавить том"
-
-msgid "Extend"
-msgstr "Расширить"
-
-msgid "Undefine"
-msgstr "Удалить"
-
-msgid "Format"
-msgstr "Формат"
-
-msgid "Allocation"
-msgstr "Выделение"
-
-msgid "No templates found."
-msgstr "Не найдены шаблоны."

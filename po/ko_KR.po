@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-18 10:40-0300\n"
+"POT-Creation-Date: 2015-12-17 17:26-0200\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -22,59 +22,24 @@ msgid "Unknown parameter %(value)s"
 msgstr "Unknown parameter %(value)s"
 
 #, python-format
-msgid "Delete is not allowed for %(resource)s"
-msgstr "%(resource)s의 삭제는 허용되지 않습니다."
-
-#, python-format
-msgid "%(resource)s does not implement update method"
-msgstr "%(resource)s에서는 업데이트 메소드를 구현하지 않습니다."
-
-#, python-format
-msgid "Create is not allowed for %(resource)s"
-msgstr "%(resource)s의 작성은 허용되지 않습니다."
-
-msgid "Unable to parse JSON request"
-msgstr "JSON 요청을 구문 분석할 수 없습니다."
-
-msgid "This API only supports JSON"
-msgstr "이 API는 JSON만 지원합니다."
-
-#, python-format
-msgid "Parameters does not match requirement in schema: %(err)s"
-msgstr "매개변수가 스키마의 요구사항과 일치하지 않음: %(err)s"
-
-msgid "You don't have permission to perform this operation."
-msgstr "이 조작을 수행할 수 있는 권한이 없습니다."
-
-msgid "Datastore is not initiated in the model object."
-msgstr "데이터 저장소가 모델 오브젝트에서 시작되지 않았습니다."
-
-#, python-format
-msgid "Unable to start task due error: %(err)s"
-msgstr "오류 때문에 작업을 시작할 수 없음: %(err)s"
-
-#, python-format
-msgid "Timeout of %(seconds)s seconds expired while running task '%(task)s."
-msgstr "Timeout of %(seconds)s seconds expired while running task '%(task)s."
-
-#, python-format
-msgid "Authentication failed for user '%(username)s'. [Error code: %(code)s]"
-msgstr "'%(username)s' 사용자 인증에 실패했습니다. [오류 코드: %(code)s]"
-
-msgid "You are not authorized to access Kimchi"
-msgstr "Kimchi에 액세스할 권한이 없습니다."
-
-#, python-format
-msgid "Specify %(item)s to login into Kimchi"
-msgstr "Kimchi에 로그인하려면 %(item)s을(를) 지정하십시오."
-
-#, python-format
 msgid "User %(user_id)s not found with given LDAP settings."
 msgstr "지정한 LDAP 설정에서 %(user_id)s 사용자를 찾지 못했습니다."
 
 #, python-format
-msgid "Invalid LDAP configuration: %(item)s : %(value)s"
-msgstr "올바르지 않은 LDAP 구성: %(item)s : %(value)s"
+msgid "Error while getting block devices. Details: %(err)s"
+msgstr "블록 장치를 가져오는 중에 오류가 발생했습니다. 세부사항: %(err)s"
+
+#, python-format
+msgid "Error while getting block device information for %(device)s."
+msgstr "%(device)s에 대한 블록 장치 정보를 가져오는 중에 오류가 발생했습니다."
+
+#, python-format
+msgid "Unable to retrieve LVM information. Details: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Partition %(name)s does not exist in the host"
+msgstr "파티션 %(name)s이(가) 호스트에 없습니다."
 
 msgid "Unknown \"_cap\" specified"
 msgstr "알 수 없는 \"_cap\"이 지정되었습니다."
@@ -87,14 +52,6 @@ msgstr "\"_passthrough_affected_by\"는 장치 이름 문자열이어야 합니�
 
 msgid "\"_available_only\" should be \"true\" or \"false\""
 msgstr "\"_available_only\"는 \"true\" 또는 \"false\"여야 합니다."
-
-#, python-format
-msgid "Error while getting block devices. Details: %(err)s"
-msgstr "블록 장치를 가져오는 중에 오류가 발생했습니다. 세부사항: %(err)s"
-
-#, python-format
-msgid "Error while getting block device information for %(device)s."
-msgstr "%(device)s에 대한 블록 장치 정보를 가져오는 중에 오류가 발생했습니다."
 
 #, python-format
 msgid "Unable to find distro file: %(filename)s"
@@ -161,9 +118,6 @@ msgstr ""
 
 msgid "An error occurred when probing image OS information."
 msgstr "이미지 OS 정보를 프로브하는 중에 오류가 발생했습니다."
-
-msgid "No OS information found in given image."
-msgstr "지정된 이미지에 OS 정보가 없습니다."
 
 #, python-format
 msgid "Unable to read image file %(filename)s"
@@ -321,8 +275,11 @@ msgstr "VM '%(name)s'이(가) 일시정지되지 않았기 때문에 재개할 �
 msgid "Unable to resume VM '%(name)s'. Details: %(err)s"
 msgstr "VM '%(name)s'을(를) 재개할 수 없습니다. 세부사항: %(err)s"
 
-msgid "Memory assigned is higher then the maximum allowed in the host."
-msgstr "지정된 메모리가 호스트에서 허용되는 최대 크기보다 큽니다."
+#, python-format
+msgid ""
+"Memory assigned is higher then the maximum allowed in the host: "
+"%(maxmem)sMib."
+msgstr ""
 
 #, python-format
 msgid ""
@@ -372,6 +329,99 @@ msgstr "%(name)s을(를) 종료할 수 없습니다. 가상 머신이 꺼진 상
 msgid "Cannot reset %(name)s. Virtual machine is already shut off."
 msgstr ""
 "%(name)s을(를) 다시 설정할 수 없습니다. 가상 머신이 이미 꺼진 상태입니다."
+
+#, python-format
+msgid "Migrate to localhost %(host)s is not allowed."
+msgstr ""
+
+#, python-format
+msgid ""
+"To migrate a virtual machine to the remote host %(host)s the user %(user)s "
+"must have password-less login to the remote host."
+msgstr ""
+
+#, python-format
+msgid "Can not migrate virtual machine %(name)s when its in %(state)s state."
+msgstr ""
+
+#, python-format
+msgid "Failed to migrate virtual machine %(name)s due error: %(err)s"
+msgstr ""
+
+msgid "User name of the remote server must be a string."
+msgstr ""
+
+msgid "Destination host of the migration must be a string."
+msgstr ""
+
+#, python-format
+msgid "Unable to create file %(path)s at %(host)s using user %(user)s."
+msgstr ""
+
+#, python-format
+msgid "Unable to read disk size of %(path)s, error: %(error)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to create disk image %(path)s at %(host)s using user %(user)s. Error: "
+"%(error)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to migrate virtual machine to remote host %(host)s with arch "
+"%(destarch)s using localhost with arch %(srcarch)s."
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to migrate virtual machine to remote host %(host)s with hypervisor "
+"%(desthyp)s because localhost uses hypervisor %(srchyp)s."
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to determine remote host hypervisor and architecture. Error: %(error)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to migrate virtual machine: subcores per core setting from "
+"localhostand remote host %(host)s differs."
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to setup password-less login at remote host %(host)s using user "
+"%(user)s. Error: %(error)s"
+msgstr ""
+
+msgid "Password field must be a string."
+msgstr ""
+
+msgid "Error creating local host ssh rsa key of user 'root'."
+msgstr ""
+
+#, python-format
+msgid "Memory value %(mem)s must be aligned to %(alignment)sMiB."
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to update the following parameters while the VM is offline: %(params)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to update the following parameters while the VM is online: %(params)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Cannot change VCPU value because '%(vm)s' has a topology defined - sockets: "
+"%(sockets)s, cores: %(cores)s, threads: %(threads)s."
+msgstr ""
 
 #, python-format
 msgid ""
@@ -546,6 +596,14 @@ msgstr ""
 "올바르지 않은 디스크 이미지 형식입니다. 올바른 형식은 bochs, cloop, cow, "
 "dmg, qcow, qcow2, qed, raw, vmdk, vpc입니다."
 
+msgid ""
+"When setting template disks, following parameters are required: 'index', "
+"'pool name', 'format', 'size' or 'volume' (for scsi/iscsi pools)"
+msgstr ""
+
+msgid "Disk format must be 'raw', for logical, iscsi, and scsi pools."
+msgstr ""
+
 #, python-format
 msgid "Storage pool %(name)s already exists"
 msgstr "스토리지 풀 %(name)s이(가) 이미 존재합니다."
@@ -704,6 +762,12 @@ msgstr ""
 msgid "Unable to update database with deep scan information due error: %(err)s"
 msgstr ""
 "오류 때문에 자세한 스캔 정보로 데이터베이스를 업데이트할 수 없음: %(err)s"
+
+#, python-format
+msgid ""
+"No volume group '%(name)s' found. Please, specify an existing volume group "
+"to create the logical pool from."
+msgstr ""
 
 #, python-format
 msgid "Storage volume %(name)s already exists"
@@ -885,8 +949,8 @@ msgstr ""
 "네트워크 이름은 슬래시(/) 또는 따옴표(\")를 포함하지 않는 문자열이어야 합니"
 "다."
 
-msgid "Supported network types are isolated, NAT and bridge"
-msgstr "지원되는 네트워크 유형은 격리, NAT 및 브릿지입니다."
+msgid "Supported network types are isolated, NAT, macvtap and bridge"
+msgstr ""
 
 msgid "Network subnet must be a string with IP address and prefix or netmask"
 msgstr ""
@@ -937,41 +1001,15 @@ msgid "Failed to start network %(name)s. Details: %(err)s"
 msgstr "%(name)s 네트워크를 시작할 수 없습니다. 세부사항: %(err)s"
 
 #, python-format
-msgid "Debug report %(name)s does not exist"
-msgstr "디버그 보고서 %(name)s이(가) 없습니다."
-
-msgid "Debug report tool not found in system"
-msgstr "디버그 보고서 도구가 시스템에 없습니다."
-
-#, python-format
-msgid "Unable to create debug report %(name)s. Details: %(err)s."
-msgstr "디버그 보고서 %(name)s을(를) 작성할 수 없습니다. 세부사항: %(err)s."
-
-#, python-format
-msgid "Can not find any debug report with the given name %(name)s"
-msgstr "지정된 이름 %(name)s의 디버그 보고서를 찾을 수 없습니다."
-
-#, python-format
-msgid "Unable to generate debug report %(name)s. Details: %(err)s"
-msgstr "디버그 보고서 %(name)s을(를) 생성할 수 없습니다. 세부사항: %(err)s"
-
-msgid "You should give a name for the debug report file."
-msgstr "디버그 보고서 파일의 이름을 제공해야 합니다."
-
-msgid ""
-"Debug report name must be a string. Only letters, digits, underscore ('_') "
-"and hyphen ('-') are allowed."
+msgid "Unable to redefine interface %(name)s. Details: %(err)s"
 msgstr ""
-"디버그 보고서 이름은 문자열이어야 합니다. 문자, 숫자, 밑줄('_')및 하이픈('-')"
-"만 허용됩니다."
 
 #, python-format
-msgid ""
-"The debug report with specified name \"%(name)s\" already exists. Please use "
-"another one."
+msgid "Unable to create bridge %(name)s. Details: %(err)s"
 msgstr ""
-"지정된 이름 \"%(name)s\"의 디버그 보고서가 이미 있습니다. 다른 이름을사용하십"
-"시오."
+
+msgid "Open VSwitch bridges can only host bridged networks."
+msgstr ""
 
 #, python-format
 msgid "Storage server %(server)s was not used by Kimchi"
@@ -982,60 +1020,17 @@ msgid "Distro '%(name)s' does not exist"
 msgstr "Distro '%(name)s'이(가) 없습니다."
 
 #, python-format
-msgid "Partition %(name)s does not exist in the host"
-msgstr "파티션 %(name)s이(가) 호스트에 없습니다."
-
-msgid "Unable to shutdown host machine as there are running virtual machines"
-msgstr "가상 머신을 실행 중인 호스트 머신을 종료할 수 없습니다."
-
-msgid "Unable to reboot host machine as there are running virtual machines"
-msgstr "가상 머신을 실행 중인 호스트 머신을 다시 부팅할 수 없습니다."
-
-#, python-format
 msgid "Node device '%(name)s' not found"
 msgstr "노드 장치 '%(name)s'이(가) 없습니다."
 
 msgid "Conflicting flag filters specified."
 msgstr "충돌하는 플래그 필터를 지정했습니다."
 
-msgid "No packages marked for update"
-msgstr "업데이트 표시된 패키지가 없습니다."
-
-#, python-format
-msgid "Package %(name)s is not marked to be updated."
-msgstr "패키지 %(name)s은(는) 업데이트되도록 표시되지 않았습니다."
-
-#, python-format
-msgid "Error while getting packages marked to be updated. Details: %(err)s"
-msgstr ""
-"업데이트되도록 표시된 패키지를 가져오는 중에 오류가 발생했습니다. 세부사항: "
-"%(err)s"
-
-msgid "There is no compatible package manager for this system."
-msgstr "이 시스템에 대해 호환 가능한 패키지 관리자가 없습니다."
-
-#, python-format
-msgid "Unable to find %(item)s in datastore"
-msgstr "데이터 저장소에서 %(item)s을(를) 찾을 수 없습니다."
-
-#, python-format
-msgid "Invalid URI %(uri)s"
-msgstr "올바르지 않은 URI %(uri)s"
-
-#, python-format
-msgid "Timeout while running command '%(cmd)s' after %(seconds)s seconds"
-msgstr "%(seconds)s초 후에 '%(cmd)s' 명령 실행 중 제한시간이 초과되었습니다."
-
 msgid "Unable to choose a virtual machine name"
 msgstr "가상 머신 이름을 선택할 수 없습니다."
 
-#, python-format
-msgid "Invalid data value '%(value)s'"
-msgstr "올바르지 않은 데이터 값 '%(value)s'입니다."
-
-#, python-format
-msgid "Invalid data unit '%(unit)s'"
-msgstr "올바르지 않은 데이터 단위 '%(unit)s'입니다."
+msgid "Cannot upgrade objectstore data."
+msgstr ""
 
 msgid "Invalid storage type. Types supported: 'cdrom', 'disk'"
 msgstr "올바르지 않은 스토리지 유형입니다. 지원되는 유형: 'cdrom', 'disk'"
@@ -1100,116 +1095,6 @@ msgid ""
 "Volume chosen with format %(format)s does not fit in the storage type "
 "%(type)s"
 msgstr "%(format)s 형식으로 선택한 볼륨이 스토리지 유형%(type)s"
-
-msgid "YUM Repository ID must be one word only string."
-msgstr "YUM 저장소 ID는 단일 단어의 문자열이어야 합니다."
-
-msgid "Repository URL must be an http://, ftp:// or file:// URL."
-msgstr "저장소 URL은 http://, ftp:// 또는 file:// URL이어야 합니다."
-
-msgid ""
-"Repository configuration is a dictionary with specific values according to "
-"repository type."
-msgstr "저장소 구성은 저장소 유형에 따른 특정 값이 있는 사전입니다."
-
-msgid "Distribution to DEB repository must be a string"
-msgstr "DEB 저장소에 대한 배포는 문자열이어야 합니다."
-
-msgid "Components to DEB repository must be listed in a array"
-msgstr "DEB 저장소에 대한 구성요소는 배열에 나열되어야 합니다."
-
-msgid "Components to DEB repository must be a string"
-msgstr "DEB 저장소에 대한 구성요소는 문자열이어야 합니다."
-
-msgid "Mirror list to repository must be a string"
-msgstr "저장소에 대한 미러 목록은 문자열이어야 합니다."
-
-msgid "YUM Repository name must be string."
-msgstr "YUM 저장소 이름은 문자열이어야 합니다."
-
-msgid "GPG check must be a boolean value."
-msgstr "GPG 검사는 부울 값이어야 합니다."
-
-msgid "GPG key must be a URL pointing to the ASCII-armored file."
-msgstr "GPG 키는 ASCII 보호 파일을 가리키는 URL이어야 합니다."
-
-#, python-format
-msgid "Could not update repository %(repo_id)s."
-msgstr "'%(repo_id)s' 저장소를 업데이트하지 못했습니다."
-
-#, python-format
-msgid "Repository %(repo_id)s does not exist."
-msgstr "%(repo_id)s 저장소가 없습니다."
-
-msgid ""
-"Specify repository base URL,  mirror list or metalink in order to create or "
-"update a YUM repository."
-msgstr ""
-"YUM 저장소를 작성 또는 업데이트하려면 저장소 기본 URL, 미러 목록 또는  "
-"metalink를 지정하십시오."
-
-msgid "Repository management tool was not recognized for your system."
-msgstr "해당 시스템에 대한 저장소 관리 도구가 인식되지 않았습니다."
-
-#, python-format
-msgid "Repository %(repo_id)s is already enabled."
-msgstr "%(repo_id)s 저장소가 이미 사용으로 설정되어 있습니다."
-
-#, python-format
-msgid "Repository %(repo_id)s is already disabled."
-msgstr "%(repo_id)s 저장소가 이미 사용 안함으로 설정되어 있습니다."
-
-#, python-format
-msgid "Could not remove repository %(repo_id)s."
-msgstr "%(repo_id)s 저장소를 제거하지 못했습니다."
-
-#, python-format
-msgid "Could not write repository configuration file %(repo_file)s"
-msgstr "저장소 구성 파일 %(repo_file)s을(를) 작성할 수 없습니다."
-
-msgid "Specify repository distribution in order to create a DEB repository."
-msgstr "DEB 저장소를 작성하려면 저장소 배포를 지정하십시오."
-
-#, python-format
-msgid "Could not enable repository %(repo_id)s."
-msgstr "%(repo_id)s 저장소를 사용으로 설정하지 못했습니다."
-
-#, python-format
-msgid "Could not disable repository %(repo_id)s."
-msgstr "%(repo_id)s 저장소를 사용 안함으로 설정하지 못했습니다."
-
-msgid "YUM Repository ID already exists"
-msgstr "YUM 저장소 ID가 이미 존재합니다."
-
-msgid "YUM Repository name must be a string"
-msgstr "YUM 저장소 이름은 문자열이어야 합니다."
-
-#, python-format
-msgid "Unable to list repositories. Details: '%(err)s'"
-msgstr "저장소를 나열할 수 없습니다. 세부사항: '%(err)s'"
-
-#, python-format
-msgid "Unable to retrieve repository information. Details: '%(err)s'"
-msgstr "저장소 정보를 검색할 수 없습니다. 세부사항: '%(err)s'"
-
-#, python-format
-msgid "Unable to add repository. Details: '%(err)s'"
-msgstr "저장소를 추가할 수 없습니다. 세부사항: '%(err)s'"
-
-#, python-format
-msgid "Unable to remove repository. Details: '%(err)s'"
-msgstr "저장소를 제거할 수 없습니다. 세부사항: '%(err)s'"
-
-#, python-format
-msgid ""
-"Configuration items: '%(items)s' are not supported by repository manager"
-msgstr "구성 항목: '%(items)s'은(는) 저장소 관리자에 의해 지원되지 않습니다."
-
-msgid "Repository metalink must be an http://, ftp:// or file:// URL."
-msgstr "저장소 metalink는 http://, ftp:// 또는 file:// URL이어야 합니다."
-
-msgid "Cannot specify mirrorlist and metalink at the same time."
-msgstr "mirrorlist 및 metalink를 동시에 지정할 수 없습니다."
 
 #, python-format
 msgid ""
@@ -1280,17 +1165,9 @@ msgstr "올바르지 않은 vCPU/토폴로지 조합입니다."
 msgid "This host (or current configuration) does not allow CPU topology."
 msgstr "이 호스트(또는 현재 구성)에서는 CPU 토폴로지가 허용되지 않습니다."
 
-msgid "ERROR CODE"
-msgstr "오류 코드"
-
-msgid "REASON"
-msgstr "이유"
-
-msgid "STACK"
-msgstr "스택"
-
-msgid "Go to Homepage"
-msgstr "홈 페이지로 이동"
+#, python-format
+msgid "Invalid volume group name parameter: %(name)s."
+msgstr ""
 
 msgid "Create a New Virtual Machine"
 msgstr "새 가상 머신 작성"
@@ -1305,9 +1182,6 @@ msgstr ""
 "가상 머신을 식별하는 데 사용되는 이름입니다. 생략되면 이름은 사용된 템플리트"
 "를 기반으로 선택됩니다."
 
-msgid "Template"
-msgstr "템플리트"
-
 msgid "Please create a template first."
 msgstr "템플리트를 먼저 작성하십시오."
 
@@ -1317,11 +1191,11 @@ msgstr "템플리트 작성"
 msgid "Please choose a template."
 msgstr "템플리트를 선택하십시오."
 
-msgid "OS"
-msgstr "OS"
+msgid "OS: "
+msgstr "OS: "
 
-msgid "OS Version"
-msgstr "OS 버전"
+msgid "Version: "
+msgstr "버전: "
 
 msgid "CPUS"
 msgstr "CPUS"
@@ -1335,26 +1209,11 @@ msgstr "작성"
 msgid "Creating..."
 msgstr "작성 중..."
 
+msgid "Cancel"
+msgstr "취소"
+
 msgid "Edit Guest"
 msgstr "게스트 편집"
-
-msgid "General"
-msgstr "일반"
-
-msgid "Storage"
-msgstr "스토리지"
-
-msgid "Interface"
-msgstr "인터페이스"
-
-msgid "Permission"
-msgstr "권한"
-
-msgid "Host PCI Device"
-msgstr "호스트 PCI 장치"
-
-msgid "Snapshot"
-msgstr "스냅샷"
 
 msgid "Name"
 msgstr "이름"
@@ -1368,11 +1227,17 @@ msgstr "메모리(MB)"
 msgid "Icon"
 msgstr "아이콘"
 
+msgid "Add"
+msgstr "추가"
+
 msgid "Device"
 msgstr "장치"
 
 msgid "Path"
 msgstr "경로"
+
+msgid "Actions"
+msgstr "조치"
 
 msgid "Network"
 msgstr "네트워크"
@@ -1382,6 +1247,9 @@ msgstr "유형"
 
 msgid "MAC Address"
 msgstr "MAC 주소"
+
+msgid "IP Address"
+msgstr ""
 
 msgid "Available system users and groups"
 msgstr "사용 가능한 시스템 사용자 및 그룹"
@@ -1407,8 +1275,11 @@ msgstr "추가 대상"
 msgid "Added"
 msgstr "추가됨"
 
-msgid "filter"
-msgstr "필터"
+msgid "Filter"
+msgstr ""
+
+msgid "Status"
+msgstr ""
 
 msgid "Product"
 msgstr "제품"
@@ -1428,14 +1299,17 @@ msgstr "교체"
 msgid "Detach"
 msgstr "분리"
 
-msgid "Cancel"
-msgstr "취소"
+msgid "Remove"
+msgstr "제거"
+
+msgid "Edit"
+msgstr "편집"
 
 msgid "LDAP User ID,e.g.foo@foo.com"
 msgstr "LDAP 사용자 ID, 예: foo@foo.com"
 
-msgid "revert"
-msgstr "되돌리기"
+msgid "Revert"
+msgstr ""
 
 msgid "Add a Storage Device to VM"
 msgstr "스토리지 장치를 VM에 추가"
@@ -1443,8 +1317,8 @@ msgstr "스토리지 장치를 VM에 추가"
 msgid "Device Type"
 msgstr "장치 유형"
 
-msgid "The device type. Currently,  \"cdrom\" and \"disk\" are supported."
-msgstr "장치 유형. 현재 \"cdrom\" 및 \"disk\"가 지원됩니다."
+msgid "The device type. Currently, \"cdrom\" and \"disk\" are supported."
+msgstr ""
 
 msgid "Storage Pool"
 msgstr "스토리지 풀"
@@ -1467,8 +1341,14 @@ msgstr "CDROM을 위한 서버의 ISO 파일 경로입니다."
 msgid "Attach"
 msgstr "연결"
 
-msgid "Start"
-msgstr "시작"
+msgid "Connect VNC"
+msgstr ""
+
+msgid "View VNC Console"
+msgstr ""
+
+msgid "Clone"
+msgstr "복제"
 
 msgid "Reset"
 msgstr "다시 설정"
@@ -1479,39 +1359,32 @@ msgstr "일시정지"
 msgid "Resume"
 msgstr "재개"
 
-msgid "Power Off"
-msgstr "전원 끄기"
-
-msgid "Actions"
-msgstr "조치"
-
-msgid "Connect"
-msgstr "연결"
-
-msgid "Clone"
-msgstr "복제"
-
-msgid "Edit"
-msgstr "편집"
-
 msgid "Shut Down"
 msgstr "종료"
+
+msgid "Start"
+msgstr "시작"
+
+msgid "Power Off"
+msgstr "전원 끄기"
 
 msgid "Delete"
 msgstr "삭제"
 
-msgid "The username or password you entered is incorrect. Please try again."
+msgid "View Console"
 msgstr ""
-"입력한 사용자 이름 또는 비밀번호가 올바르지 않습니다. 다시 시도하십시오."
 
-msgid "This field is required."
-msgstr "이 필드는 필수입니다."
+msgid "Processors Used"
+msgstr ""
 
-msgid "Log in"
-msgstr "로그인"
+msgid "Memory Available"
+msgstr ""
 
-msgid "Logging in..."
-msgstr "로그인 중..."
+msgid "Storage I/O"
+msgstr ""
+
+msgid "Network I/O"
+msgstr "네트워크 I/O"
 
 msgid "Host"
 msgstr "호스트"
@@ -1522,6 +1395,9 @@ msgstr "게스트"
 msgid "Templates"
 msgstr "템플리트"
 
+msgid "Storage"
+msgstr "스토리지"
+
 msgid "Failed to get application configuration"
 msgstr "애플리케이션 구성을 가져오지 못했습니다."
 
@@ -1530,16 +1406,6 @@ msgstr "올바른 Linux 경로가 아닙니다."
 
 msgid "This is not a valid URL."
 msgstr "올바른 URL이 아닙니다."
-
-msgid "No such data available."
-msgstr "해당 데이터가 없습니다."
-
-msgid ""
-"Can not contact the host system. Verify the host system is up and that you "
-"have network connectivity to it. HTTP request response %1. "
-msgstr ""
-"호스트 시스템에 접속할 수 없습니다. 호스트 시스템이 가동되었고 이에 대한 네트"
-"워크 연결이 있는지 확인하십시오. HTTP 요청 응답 %1입니다. "
 
 msgid "Unable to read file."
 msgstr "파일을 읽을 수 없습니다. "
@@ -1562,164 +1428,14 @@ msgstr "경고"
 msgid "Cloning..."
 msgstr "복제 중..."
 
-msgid "Loading..."
-msgstr "로드 중..."
-
-msgid "An error occurred while retrieving system information."
-msgstr "시스템 정보를 검색하는 중에 오류가 발생했습니다."
-
-msgid "Retry"
-msgstr "재시도"
-
-msgid "Detailed message:"
-msgstr "세부 메시지:"
-
 msgid "No ISO found"
 msgstr "ISO가 없습니다."
-
-msgid "This is not a valid ISO file."
-msgstr "올바른 ISO 파일이 아닙니다."
 
 msgid "This may take a long time. Do you want to continue?"
 msgstr "시간이 오래 걸릴 수 있습니다. 계속하시겠습니까?"
 
 msgid "This will permanently delete the template. Would you like to continue?"
 msgstr "템플리트가 영구적으로 삭제됩니다. 계속하시겠습니까?"
-
-msgid "Unable to shut down system as there are some virtual machines running!"
-msgstr "일부 가상 머신이 실행 중이므로 시스템을 종료할 수 없습니다."
-
-msgid "Max:"
-msgstr "최대:"
-
-msgid "Utilization"
-msgstr "이용률"
-
-msgid "Available"
-msgstr "사용 가능"
-
-msgid "Read Rate"
-msgstr "읽기 속도"
-
-msgid "Write Rate"
-msgstr "쓰기 속도"
-
-msgid "Received"
-msgstr "받음"
-
-msgid "Sent"
-msgstr "보냄"
-
-msgid ""
-"Shutting down or restarting host will cause unsaved work lost. Continue to "
-"shut down/restarting?"
-msgstr ""
-"호스트를 종료하거나 다시 시작하면 저장되지 않은 작업이 손실됩니다. 시스템 종"
-"료/다시 시작을 계속하시겠습니까?"
-
-msgid ""
-"Repository will be removed permanently and can't be recovered. Do you want "
-"to continue?"
-msgstr "저장소가 영구적으로 제거되어 복구할 수 없습니다. 계속하시겠습니까?"
-
-msgid "Repositories"
-msgstr "저장소"
-
-msgid "ID"
-msgstr "ID"
-
-msgid "Base URL"
-msgstr "기본 URL"
-
-msgid "Is Mirror"
-msgstr "미러임"
-
-msgid "URL Args"
-msgstr "URL 인수"
-
-msgid "Enabled"
-msgstr "사용함"
-
-msgid "GPG Check"
-msgstr "GPG 검사"
-
-msgid "GPG Key"
-msgstr "GPG 키"
-
-msgid "Add"
-msgstr "추가"
-
-msgid "Remove"
-msgstr "제거"
-
-msgid "Enable"
-msgstr "사용"
-
-msgid "Disable"
-msgstr "사용 안함"
-
-msgid "Software Updates"
-msgstr "소프트웨어 업데이트"
-
-msgid "Package Name"
-msgstr "패키지 이름"
-
-msgid "Version"
-msgstr "버전"
-
-msgid "Architecture"
-msgstr "아키텍처"
-
-msgid "Repository"
-msgstr "저장소"
-
-msgid "Update All"
-msgstr "모두 업데이트"
-
-msgid "Updating..."
-msgstr "업데이트 중..."
-
-msgid "Failed to retrieve packages update information."
-msgstr "패키지 업데이트 정보가 검색되지 않았습니다."
-
-msgid "Failed to update package(s)."
-msgstr "패키지를 업데이트하지 못했습니다."
-
-msgid ""
-"Debug report will be removed permanently and can't be recovered. Do you want "
-"to continue?"
-msgstr ""
-"디버그 보고서가 영구적으로 제거되어 복구할 수 없습니다. 계속하시겠습니까?"
-
-msgid "Debug Reports"
-msgstr "디버그 보고서"
-
-msgid "Generated Time"
-msgstr "생성 시간"
-
-msgid "Generate"
-msgstr "생성"
-
-msgid "Generating..."
-msgstr "생성 중..."
-
-msgid "Rename"
-msgstr "이름 바꾸기"
-
-msgid "Download"
-msgstr "다운로드"
-
-msgid ""
-"Report name should contain only letters, digits, underscore ('_') and/or "
-"hyphen ('-')."
-msgstr ""
-"보고서 이름에는 문자, 숫자, 밑줄('_') 및 또는하이픈('-')만 포함되어야 합니다."
-
-msgid "Pending..."
-msgstr "보류 중..."
-
-msgid "Report name is the same as the original one."
-msgstr "보고서 이름은 원본과 동일합니다."
 
 msgid ""
 "This will delete the virtual machine and its virtual disks. This operation "
@@ -1782,18 +1498,6 @@ msgstr ""
 msgid "Attaching..."
 msgstr "연결 중..."
 
-msgid "Replacing..."
-msgstr "교체 중..."
-
-msgid "Successfully attached!"
-msgstr "연결되었습니다."
-
-msgid "Successfully replaced!"
-msgstr "교체되었습니다."
-
-msgid "Successfully detached!"
-msgstr "분리되었습니다."
-
 msgid ""
 "This disk will be detached permanently and you can re-attach it. Continue to "
 "detach it?"
@@ -1833,9 +1537,6 @@ msgid ""
 "depend on this network."
 msgstr ""
 "이 조치는 이 네트워크에 의존하는 가상 머신의 네트워크 연결을 인터럽트합니다."
-
-msgid "Create a network"
-msgstr "네트워크 작성"
 
 msgid ""
 "This network is not persistent. Instead of stop, this action will "
@@ -1878,32 +1579,14 @@ msgstr "iSCSI가 없습니다. 입력하십시오."
 msgid "Failed to load iSCSI targets."
 msgstr "iSCSI 대상을 로드하지 못했습니다."
 
-msgid "The storage pool name can not be blank."
-msgstr "스토리지 풀 이름은 비워둘 수 없습니다."
-
-msgid "The storage pool path can not be blank."
-msgstr "스토리지 풀 경로는 비워둘 수 없습니다."
-
-msgid "NFS server mount path can not be blank."
-msgstr "NFS 서버 마운트 경로는 비워둘 수 없습니다."
-
 msgid "Invalid NFS mount path."
 msgstr "올바르지 않은 NFS 마운트 경로입니다."
 
 msgid "No logical device selected."
 msgstr "논리 장치가 선택되지 않았습니다."
 
-msgid "The iSCSI target can not be blank."
-msgstr "iSCSI 대상은 비워둘 수 없습니다."
-
-msgid "Server name can not be blank."
-msgstr "서버 이름은 비워둘 수 없습니다."
-
 msgid "This is not a valid Server Name or IP. Please, modify it."
 msgstr "유효한 서버 이름 또는 IP가 아닙니다.  수정하십시오."
-
-msgid "Looking for available partitions ..."
-msgstr "사용 가능한 파티션을 찾는 중..."
 
 msgid "No available partitions found."
 msgstr "사용 가능한 파티션이 없습니다."
@@ -1930,111 +1613,38 @@ msgstr "CDROM 경로는 올바른 로컬/원격 경로여야 하며 비워둘 �
 msgid "Disk pool or volume cannot be blank."
 msgstr "디스크 풀 또는 볼륨은 비워둘 수 없습니다."
 
-msgid "Peers"
-msgstr "피어"
+msgid "Create a network"
+msgstr "네트워크 작성"
 
-msgid "Searching"
-msgstr "검색 중"
+msgid "Network Name"
+msgstr "네트워크 이름"
 
-msgid "No peers found."
-msgstr "피어가 없습니다."
+msgid "Name should not contain '/' and '\"'."
+msgstr "이름에는 '/' 및 '\"'를 포함하지 않아야 합니다."
 
-msgid "Help"
-msgstr "도움말"
+msgid "Network Type"
+msgstr "네트워크 유형"
 
-msgid "About"
-msgstr "정보"
+msgid "Isolated: no external network connection"
+msgstr "격리됨: 외부 네트워크 연결 없음"
 
-msgid "Log out"
-msgstr "로그아웃"
+msgid "NAT: outbound physical network connection only"
+msgstr "NAT: 아웃바운드 물리적 네트워크 연결만"
 
-msgid "Version:"
-msgstr "버전: "
+msgid "Bridged: Virtual machines are connected to physical network directly"
+msgstr "브릿지됨: 가상 머신이 물리적 네트워크에 직접 연결됨"
 
-msgid "Session timeout, please re-login."
-msgstr "세션 제한시간이 초과되었습니다. 다시 로그인하십시오."
+msgid "(No interfaces found)"
+msgstr "(인터페이스를 찾을 수 없음)"
 
-msgid "User Name"
-msgstr "사용자 이름"
+msgid "Destination"
+msgstr "목적지"
 
-msgid "Password"
-msgstr "비밀번호"
+msgid "Enable VLAN"
+msgstr "VLAN 사용"
 
-msgid "Generate a New Debug Report"
-msgstr "새 디버그 보고서 생성"
-
-msgid "Report Name"
-msgstr "보고서 이름"
-
-msgid ""
-"The name used to identify the report. If omitted, a name will be chosen "
-"based on current time. Name can contain: letters, digits, underscore (\"_\") "
-"and hyphen (\"-\")."
-msgstr ""
-"보고서를 식별하는 데 사용하는 이름입니다. 생략하는 경우 현재 시간을 기반으로 "
-"이름이 선택됩니다. 이름에는 문자, 숫자, 밑줄(\"_\")및 하이픈(\"-\")을 포함할 "
-"수 있습니다."
-
-msgid "Rename a Debug Report"
-msgstr "디버그 보고서 이름 바꾸기"
-
-msgid ""
-"The name used to identify the report. Name can contain: letters, digits and "
-"hyphen (\"-\")."
-msgstr ""
-"보고서를 식별하는 데 사용하는 이름입니다. 이름에는 문자, 숫자 및하이픈(\"-\")"
-"을 포함할 수 있습니다."
-
-msgid "Submit"
-msgstr "제출"
-
-msgid "Add a Repository"
-msgstr "저장소 추가"
-
-msgid "Identifier"
-msgstr "ID"
-
-msgid "Single word, unique identifier for the repository."
-msgstr "저장소에 대한 단일 단어의 고유 ID입니다."
-
-msgid "Textual name for the repository."
-msgstr "저장소에 대한 텍스트 이름입니다."
-
-msgid "URL"
-msgstr "URL"
-
-msgid "Required Field"
-msgstr "필수 필드"
-
-msgid "URL to the repository. Supported protocols are http, ftp, and file."
-msgstr "저장소에 대한 URL입니다. 지원되는 프로토콜은 http, ftp 및 file입니다."
-
-msgid "Repository is a mirror"
-msgstr "저장소가 미러입니다."
-
-msgid "Distribution"
-msgstr "배포"
-
-msgid "Distribution of the DEB repository."
-msgstr "DEB 저장소의 배포입니다."
-
-msgid "Components"
-msgstr "구성요소"
-
-msgid "List of components in DEB repository."
-msgstr "DEB 저장소의 구성요소 목록입니다."
-
-msgid "Edit Repository"
-msgstr "저장소 편집"
-
-msgid "Mirror List URL"
-msgstr "미러 목록 URL"
-
-msgid "Yes"
-msgstr "예"
-
-msgid "No"
-msgstr "아니오"
+msgid "VLAN ID"
+msgstr "VLAN ID"
 
 msgid "Add a Volume to Storage Pool"
 msgstr "스토리지 풀에 볼륨 추가"
@@ -2094,17 +1704,20 @@ msgstr "NFS 서버에서 NFS의 내보낸 경로입니다."
 msgid "Device path"
 msgstr "장치 경로"
 
+msgid "Looking for available partitions ..."
+msgstr "사용 가능한 파티션을 찾는 중..."
+
 msgid "iSCSI Server"
 msgstr "iSCSI 서버"
-
-msgid "iSCSI server IP or hostname. It should not be empty."
-msgstr "iSCSI 서버 IP 또는 호스트 이름입니다. 비어 있지 않아야 합니다."
 
 msgid "Server"
 msgstr "서버"
 
 msgid "Port"
 msgstr "포트"
+
+msgid "iSCSI server IP or hostname. It should not be empty."
+msgstr "iSCSI 서버 IP 또는 호스트 이름입니다. 비어 있지 않아야 합니다."
 
 msgid "Target"
 msgstr "대상"
@@ -2115,8 +1728,11 @@ msgstr "iSCSI 서버의 iSCSI 대상"
 msgid "Add iSCSI Authentication"
 msgstr "iSCSI 인증 추가"
 
-msgid "iSCSI Authentication"
-msgstr "iSCSI 인증"
+msgid "User Name"
+msgstr "사용자 이름"
+
+msgid "Password"
+msgstr "비밀번호"
 
 msgid "SCSI Adapter"
 msgstr "SCSI 어댑터"
@@ -2139,44 +1755,47 @@ msgstr "로컬 이미지 파일"
 msgid "Remote ISO Image"
 msgstr "원격 ISO 이미지"
 
+msgid "Provide a File Path for a specific ISO image:"
+msgstr ""
+
 msgid "Search ISOs"
 msgstr "ISO 검색"
 
 msgid "The following ISOs are available:"
 msgstr "다음 ISO가 사용 가능합니다."
 
-msgid "OS: "
-msgstr "OS: "
+msgid "OS"
+msgstr "OS"
 
-msgid "Version: "
-msgstr "버전: "
+msgid "Version"
+msgstr "버전"
 
-msgid "Size: "
-msgstr "크기: "
+msgid "Size"
+msgstr ""
 
 msgid "Search more ISOs"
 msgstr "추가 ISO 검색"
 
-msgid "Create Templates from Selected ISO"
-msgstr "선택한 ISO로부터 템플리트 작성"
-
-msgid "I want to use a specific ISO file"
-msgstr "특정 ISO 파일을 사용하려고 합니다."
-
 msgid "File Path:"
 msgstr "파일 경로:"
+
+msgid "Provide a URL for a specific ISO image:"
+msgstr ""
 
 msgid "Loading default remote ISOs ..."
 msgstr "기본 원격 ISO 로드 중..."
 
-msgid "Arch: "
-msgstr "Arch: "
-
-msgid "I want to use a custom URL"
-msgstr "사용자 정의 URL을 사용하려고 합니다."
+msgid "Arch"
+msgstr ""
 
 msgid "Edit Template"
 msgstr "템플리트 편집"
+
+msgid "General"
+msgstr "일반"
+
+msgid "Interface"
+msgstr "인터페이스"
 
 msgid "Processor"
 msgstr "프로세서"
@@ -2196,6 +1815,12 @@ msgstr "디스크(GB)"
 msgid "Disk Format"
 msgstr "디스크 형식"
 
+msgid "Add Storage"
+msgstr ""
+
+msgid "Add Interface"
+msgstr ""
+
 msgid "CPU Number"
 msgstr "CPU 번호"
 
@@ -2207,123 +1832,3 @@ msgstr "코어"
 
 msgid "Threads"
 msgstr "스레드"
-
-msgid "CPU"
-msgstr "CPU"
-
-msgid "Disk I/O"
-msgstr "디스크 I/O"
-
-msgid "Network I/O"
-msgstr "네트워크 I/O"
-
-msgid "Livetile"
-msgstr "라이브타일"
-
-msgid "No guests found."
-msgstr "게스트가 없습니다."
-
-msgid "Shut down"
-msgstr "시스템 종료"
-
-msgid "Restart"
-msgstr "다시 시작"
-
-msgid "Basic Information"
-msgstr "기본 정보"
-
-msgid "OS Distro"
-msgstr "OS Distro"
-
-msgid "OS Code Name"
-msgstr "OS 코드 이름"
-
-msgid "CPU(s)"
-msgstr "CPU"
-
-msgid "System Statistics"
-msgstr "시스템 통계"
-
-msgid "Update Progress"
-msgstr "진행상태 업데이트"
-
-msgid "Network Name"
-msgstr "네트워크 이름"
-
-msgid "State"
-msgstr "상태"
-
-msgid "Network Type"
-msgstr "네트워크 유형"
-
-msgid "Address Space"
-msgstr "주소 공간"
-
-msgid "Name should not contain '/' and '\"'."
-msgstr "이름에는 '/' 및 '\"'를 포함하지 않아야 합니다."
-
-msgid "Isolated: no external network connection"
-msgstr "격리됨: 외부 네트워크 연결 없음"
-
-msgid "NAT: outbound physical network connection only"
-msgstr "NAT: 아웃바운드 물리적 네트워크 연결만"
-
-msgid "Bridged: Virtual machines are connected to physical network directly"
-msgstr "브릿지됨: 가상 머신이 물리적 네트워크에 직접 연결됨"
-
-msgid "(No interfaces found)"
-msgstr "(인터페이스를 찾을 수 없음)"
-
-msgid "Destination"
-msgstr "목적지"
-
-msgid "Enable VLAN"
-msgstr "VLAN 사용"
-
-msgid "VLAN ID"
-msgstr "VLAN ID"
-
-msgid "Stop"
-msgstr "중지"
-
-msgid "%Used"
-msgstr "사용량(%)"
-
-msgid "Location"
-msgstr "위치"
-
-msgid "Capacity"
-msgstr "용량"
-
-msgid "Allocated"
-msgstr "할당됨"
-
-msgid "active"
-msgstr "활성"
-
-msgid "inactive"
-msgstr "비활성"
-
-msgid "Deactivate"
-msgstr "비활성화"
-
-msgid "Activate"
-msgstr "활성화"
-
-msgid "Add Volume"
-msgstr "볼륨 추가"
-
-msgid "Extend"
-msgstr "확장"
-
-msgid "Undefine"
-msgstr "정의 취소"
-
-msgid "Format"
-msgstr "형식"
-
-msgid "Allocation"
-msgstr "할당"
-
-msgid "No templates found."
-msgstr "템플리트가 없습니다."

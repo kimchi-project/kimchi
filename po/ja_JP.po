@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-18 10:40-0300\n"
+"POT-Creation-Date: 2015-12-17 17:26-0200\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -22,61 +22,24 @@ msgid "Unknown parameter %(value)s"
 msgstr "パラメーター %(value)s が不明です"
 
 #, python-format
-msgid "Delete is not allowed for %(resource)s"
-msgstr "%(resource)s に対して削除は許可されません"
-
-#, python-format
-msgid "%(resource)s does not implement update method"
-msgstr "%(resource)s は更新メソッドを実装していません"
-
-#, python-format
-msgid "Create is not allowed for %(resource)s"
-msgstr "%(resource)s に対して作成は許可されません"
-
-msgid "Unable to parse JSON request"
-msgstr "JSON 要求を解析できません"
-
-msgid "This API only supports JSON"
-msgstr "この API は JSON のみサポートします"
-
-#, python-format
-msgid "Parameters does not match requirement in schema: %(err)s"
-msgstr "パラメーターがスキーマでの要件に適合しません: %(err)s"
-
-msgid "You don't have permission to perform this operation."
-msgstr "この操作を実行する権限がありません。"
-
-msgid "Datastore is not initiated in the model object."
-msgstr "データ・ストアは、モデル・オブジェクトで開始されていません。"
-
-#, python-format
-msgid "Unable to start task due error: %(err)s"
-msgstr "次のエラーのため、タスクを開始できません: %(err)s"
-
-#, python-format
-msgid "Timeout of %(seconds)s seconds expired while running task '%(task)s."
-msgstr ""
-"タスク %(task)s の実行中に %(seconds)s 秒のタイムアウトが満了しました。"
-
-#, python-format
-msgid "Authentication failed for user '%(username)s'. [Error code: %(code)s]"
-msgstr ""
-"ユーザー「%(username)s」の認証に失敗しました。[エラー・コード: %(code)s]"
-
-msgid "You are not authorized to access Kimchi"
-msgstr "Kimchi へのアクセスを許可されていません"
-
-#, python-format
-msgid "Specify %(item)s to login into Kimchi"
-msgstr "Kimchi にログインするには、%(item)s を指定します"
-
-#, python-format
 msgid "User %(user_id)s not found with given LDAP settings."
 msgstr "指定の LDAP 設定を持つユーザー %(user_id)s が見つかりません。"
 
 #, python-format
-msgid "Invalid LDAP configuration: %(item)s : %(value)s"
-msgstr "LDAP 構成が無効です: %(item)s : %(value)s"
+msgid "Error while getting block devices. Details: %(err)s"
+msgstr "ブロック・デバイスの取得中にエラーが発生しました。詳細: %(err)s"
+
+#, python-format
+msgid "Error while getting block device information for %(device)s."
+msgstr "%(device)s のブロック・デバイス情報の取得中にエラーが発生しました。"
+
+#, python-format
+msgid "Unable to retrieve LVM information. Details: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Partition %(name)s does not exist in the host"
+msgstr "パーティション %(name)s はホストに存在しません"
 
 msgid "Unknown \"_cap\" specified"
 msgstr "不明な「_cap」が指定されました"
@@ -89,14 +52,6 @@ msgstr "「_passthrough_affected_by」はデバイス名ストリングでなけ
 
 msgid "\"_available_only\" should be \"true\" or \"false\""
 msgstr "「_available_only」は「true」または「false」でなければなりません"
-
-#, python-format
-msgid "Error while getting block devices. Details: %(err)s"
-msgstr "ブロック・デバイスの取得中にエラーが発生しました。詳細: %(err)s"
-
-#, python-format
-msgid "Error while getting block device information for %(device)s."
-msgstr "%(device)s のブロック・デバイス情報の取得中にエラーが発生しました。"
 
 #, python-format
 msgid "Unable to find distro file: %(filename)s"
@@ -165,9 +120,6 @@ msgstr ""
 
 msgid "An error occurred when probing image OS information."
 msgstr "イメージ OS 情報のプローブ時にエラーが発生しました。"
-
-msgid "No OS information found in given image."
-msgstr "OS 情報が指定のイメージに見つかりません。"
 
 #, python-format
 msgid "Unable to read image file %(filename)s"
@@ -326,8 +278,11 @@ msgstr "VM「%(name)s」は一時停止されていないため、再開でき�
 msgid "Unable to resume VM '%(name)s'. Details: %(err)s"
 msgstr "VM「%(name)s」を再開できません。詳細: %(err)s"
 
-msgid "Memory assigned is higher then the maximum allowed in the host."
-msgstr "割り当てられたメモリーはホストで許可された最大を超えています。"
+#, python-format
+msgid ""
+"Memory assigned is higher then the maximum allowed in the host: "
+"%(maxmem)sMib."
+msgstr ""
 
 #, python-format
 msgid ""
@@ -379,6 +334,99 @@ msgstr ""
 msgid "Cannot reset %(name)s. Virtual machine is already shut off."
 msgstr ""
 "%(name)s をリセットできません。仮想マシンは既にシャットオフされています。"
+
+#, python-format
+msgid "Migrate to localhost %(host)s is not allowed."
+msgstr ""
+
+#, python-format
+msgid ""
+"To migrate a virtual machine to the remote host %(host)s the user %(user)s "
+"must have password-less login to the remote host."
+msgstr ""
+
+#, python-format
+msgid "Can not migrate virtual machine %(name)s when its in %(state)s state."
+msgstr ""
+
+#, python-format
+msgid "Failed to migrate virtual machine %(name)s due error: %(err)s"
+msgstr ""
+
+msgid "User name of the remote server must be a string."
+msgstr ""
+
+msgid "Destination host of the migration must be a string."
+msgstr ""
+
+#, python-format
+msgid "Unable to create file %(path)s at %(host)s using user %(user)s."
+msgstr ""
+
+#, python-format
+msgid "Unable to read disk size of %(path)s, error: %(error)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to create disk image %(path)s at %(host)s using user %(user)s. Error: "
+"%(error)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to migrate virtual machine to remote host %(host)s with arch "
+"%(destarch)s using localhost with arch %(srcarch)s."
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to migrate virtual machine to remote host %(host)s with hypervisor "
+"%(desthyp)s because localhost uses hypervisor %(srchyp)s."
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to determine remote host hypervisor and architecture. Error: %(error)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to migrate virtual machine: subcores per core setting from "
+"localhostand remote host %(host)s differs."
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to setup password-less login at remote host %(host)s using user "
+"%(user)s. Error: %(error)s"
+msgstr ""
+
+msgid "Password field must be a string."
+msgstr ""
+
+msgid "Error creating local host ssh rsa key of user 'root'."
+msgstr ""
+
+#, python-format
+msgid "Memory value %(mem)s must be aligned to %(alignment)sMiB."
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to update the following parameters while the VM is offline: %(params)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to update the following parameters while the VM is online: %(params)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Cannot change VCPU value because '%(vm)s' has a topology defined - sockets: "
+"%(sockets)s, cores: %(cores)s, threads: %(threads)s."
+msgstr ""
 
 #, python-format
 msgid ""
@@ -580,6 +628,14 @@ msgstr ""
 "ディスク・イメージ・フォーマットが無効です。有効なフォーマットはbochs、"
 "cloop、cow、dmg、qcow、qcow2、qed、raw、vmdk、vpc です。"
 
+msgid ""
+"When setting template disks, following parameters are required: 'index', "
+"'pool name', 'format', 'size' or 'volume' (for scsi/iscsi pools)"
+msgstr ""
+
+msgid "Disk format must be 'raw', for logical, iscsi, and scsi pools."
+msgstr ""
+
 #, python-format
 msgid "Storage pool %(name)s already exists"
 msgstr "ストレージ・プール %(name)s は既に存在します"
@@ -753,6 +809,12 @@ msgid "Unable to update database with deep scan information due error: %(err)s"
 msgstr ""
 "次のエラーのため、データベースをディープ・スキャン情報で更新できません:"
 "%(err)s"
+
+#, python-format
+msgid ""
+"No volume group '%(name)s' found. Please, specify an existing volume group "
+"to create the logical pool from."
+msgstr ""
 
 #, python-format
 msgid "Storage volume %(name)s already exists"
@@ -954,8 +1016,8 @@ msgstr ""
 "ネットワーク名はスラッシュ (/) または引用符 (\") のないストリングでなければな"
 "りません"
 
-msgid "Supported network types are isolated, NAT and bridge"
-msgstr "サポートされているネットワーク・タイプは隔離、NAT、およびブリッジです"
+msgid "Supported network types are isolated, NAT, macvtap and bridge"
+msgstr ""
 
 msgid "Network subnet must be a string with IP address and prefix or netmask"
 msgstr ""
@@ -1010,41 +1072,15 @@ msgid "Failed to start network %(name)s. Details: %(err)s"
 msgstr "ネットワーク %(name)s の開始に失敗しました。詳細: %(err)s"
 
 #, python-format
-msgid "Debug report %(name)s does not exist"
-msgstr "デバッグ・レポート %(name)s は存在しません"
-
-msgid "Debug report tool not found in system"
-msgstr "デバッグ・レポート・ツールがシステムに見つかりません"
-
-#, python-format
-msgid "Unable to create debug report %(name)s. Details: %(err)s."
-msgstr "デバッグ・レポート %(name)s を作成できません。詳細: %(err)s。"
-
-#, python-format
-msgid "Can not find any debug report with the given name %(name)s"
-msgstr "指定された名前 %(name)s のデバッグ・レポートが見つかりません"
-
-#, python-format
-msgid "Unable to generate debug report %(name)s. Details: %(err)s"
-msgstr "デバッグ・レポート %(name)s を生成できません。詳細: %(err)s"
-
-msgid "You should give a name for the debug report file."
-msgstr "デバッグ・レポート・ファイルに名前を付ける必要があります。"
-
-msgid ""
-"Debug report name must be a string. Only letters, digits, underscore ('_') "
-"and hyphen ('-') are allowed."
+msgid "Unable to redefine interface %(name)s. Details: %(err)s"
 msgstr ""
-"デバッグ・レポート名はストリングでなければなりません。文字、数字、下線 "
-"(「_」)、およびハイフン (「-」) のみを使用できます。"
 
 #, python-format
-msgid ""
-"The debug report with specified name \"%(name)s\" already exists. Please use "
-"another one."
+msgid "Unable to create bridge %(name)s. Details: %(err)s"
 msgstr ""
-"指定の名前「%(name)s」を持つデバッグ・レポートは既に存在します。別の名前を使"
-"用してください。"
+
+msgid "Open VSwitch bridges can only host bridged networks."
+msgstr ""
 
 #, python-format
 msgid "Storage server %(server)s was not used by Kimchi"
@@ -1055,60 +1091,17 @@ msgid "Distro '%(name)s' does not exist"
 msgstr "Distro「%(name)s」は存在しません"
 
 #, python-format
-msgid "Partition %(name)s does not exist in the host"
-msgstr "パーティション %(name)s はホストに存在しません"
-
-msgid "Unable to shutdown host machine as there are running virtual machines"
-msgstr "稼働中の仮想マシンがあるため、ホスト・マシンをシャットダウンできません"
-
-msgid "Unable to reboot host machine as there are running virtual machines"
-msgstr "稼働中の仮想マシンがあるため、ホスト・マシンをリブートできません"
-
-#, python-format
 msgid "Node device '%(name)s' not found"
 msgstr "ノード・デバイス「%(name)s」が見つかりません"
 
 msgid "Conflicting flag filters specified."
 msgstr "競合するフラグ・フィルターが指定されました。"
 
-msgid "No packages marked for update"
-msgstr "更新の対象としてマークされているパッケージはありません"
-
-#, python-format
-msgid "Package %(name)s is not marked to be updated."
-msgstr "パッケージ %(name)s には更新対象のマークが付けられていません。"
-
-#, python-format
-msgid "Error while getting packages marked to be updated. Details: %(err)s"
-msgstr ""
-"更新対象のマークが付けられたパッケージを取得中にエラーが発生しました。詳細: "
-"%(err)s"
-
-msgid "There is no compatible package manager for this system."
-msgstr "このシステム用の互換パッケージ・マネージャーがありません。"
-
-#, python-format
-msgid "Unable to find %(item)s in datastore"
-msgstr "%(item)s がデータ・ストアに見つかりません"
-
-#, python-format
-msgid "Invalid URI %(uri)s"
-msgstr "URI %(uri)s が無効です"
-
-#, python-format
-msgid "Timeout while running command '%(cmd)s' after %(seconds)s seconds"
-msgstr "「%(cmd)s」コマンドの実行中、%(seconds)s 秒後にタイムアウトになります"
-
 msgid "Unable to choose a virtual machine name"
 msgstr "仮想マシン名を選択できません"
 
-#, python-format
-msgid "Invalid data value '%(value)s'"
-msgstr "データ値「%(value)s」が無効です"
-
-#, python-format
-msgid "Invalid data unit '%(unit)s'"
-msgstr "データ単位「%(unit)s」が無効です"
+msgid "Cannot upgrade objectstore data."
+msgstr ""
 
 msgid "Invalid storage type. Types supported: 'cdrom', 'disk'"
 msgstr ""
@@ -1183,129 +1176,6 @@ msgstr ""
 "フォーマット %(format)s で選択されたボリュームがストレージ・タイプ%(type)s に"
 "適合しません"
 
-msgid "YUM Repository ID must be one word only string."
-msgstr "YUM リポジトリー ID は、1 ワードのみのストリングでなければなりません"
-
-msgid "Repository URL must be an http://, ftp:// or file:// URL."
-msgstr ""
-"リポジトリー URL は http://、ftp://、または file:// URL でなければなりませ"
-"ん。"
-
-msgid ""
-"Repository configuration is a dictionary with specific values according to "
-"repository type."
-msgstr ""
-"リポジトリー構成とは、リポジトリー・タイプに応じて特定の値が入ったディクショ"
-"ナリーです。"
-
-msgid "Distribution to DEB repository must be a string"
-msgstr ""
-"DEB リポジトリーへのディストリビューションは、ストリングでなければなりません"
-
-msgid "Components to DEB repository must be listed in a array"
-msgstr ""
-"DEB リポジトリーへのコンポーネントは、配列としてリストされていなければなりま"
-"せん"
-
-msgid "Components to DEB repository must be a string"
-msgstr "DEB リポジトリーへのコンポーネントは、ストリングでなければなりません"
-
-msgid "Mirror list to repository must be a string"
-msgstr "リポジトリーに対するミラー・リストはストリングでなければなりません"
-
-msgid "YUM Repository name must be string."
-msgstr "YUM リポジトリー名はストリングでなければなりません。"
-
-msgid "GPG check must be a boolean value."
-msgstr "GPG チェックはブール値でなければなりません。"
-
-msgid "GPG key must be a URL pointing to the ASCII-armored file."
-msgstr "GPG 鍵は、ASCII で保存されたファイルを指す URL でなければなりません。"
-
-#, python-format
-msgid "Could not update repository %(repo_id)s."
-msgstr "リポジトリー %(repo_id)s を更新できませんでした。"
-
-#, python-format
-msgid "Repository %(repo_id)s does not exist."
-msgstr "リポジトリー %(repo_id)s は存在しません。"
-
-msgid ""
-"Specify repository base URL,  mirror list or metalink in order to create or "
-"update a YUM repository."
-msgstr ""
-"YUM リポジトリーを作成または更新するには、リポジトリー・ベース URL、ミラー・"
-"リスト、またはメタリンクを指定してください。"
-
-msgid "Repository management tool was not recognized for your system."
-msgstr "システム用のリポジトリー管理ツールが認識されませんでした。"
-
-#, python-format
-msgid "Repository %(repo_id)s is already enabled."
-msgstr "リポジトリー %(repo_id)s は既に使用可能になっています。"
-
-#, python-format
-msgid "Repository %(repo_id)s is already disabled."
-msgstr "リポジトリー %(repo_id)s は既に使用不可になっています。"
-
-#, python-format
-msgid "Could not remove repository %(repo_id)s."
-msgstr "リポジトリー %(repo_id)s を除去できませんでした。"
-
-#, python-format
-msgid "Could not write repository configuration file %(repo_file)s"
-msgstr ""
-"リポジトリー構成ファイル %(repo_file)s を書き込むことができませんでした"
-
-msgid "Specify repository distribution in order to create a DEB repository."
-msgstr ""
-"DEB リポジトリーを作成するには、リポジトリー・ディストリビューションを指定し"
-"てください。"
-
-#, python-format
-msgid "Could not enable repository %(repo_id)s."
-msgstr "リポジトリー %(repo_id)s を使用可能にできませんでした。"
-
-#, python-format
-msgid "Could not disable repository %(repo_id)s."
-msgstr "リポジトリー %(repo_id)s を使用不可にできませんでした。"
-
-msgid "YUM Repository ID already exists"
-msgstr "YUM リポジトリー ID は既に存在します"
-
-msgid "YUM Repository name must be a string"
-msgstr "YUM リポジトリー名はストリングでなければなりません"
-
-#, python-format
-msgid "Unable to list repositories. Details: '%(err)s'"
-msgstr "リポジトリーをリストできません。詳細: 「%(err)s」"
-
-#, python-format
-msgid "Unable to retrieve repository information. Details: '%(err)s'"
-msgstr "リポジトリー情報を取得できません。詳細: 「%(err)s」"
-
-#, python-format
-msgid "Unable to add repository. Details: '%(err)s'"
-msgstr "リポジトリーを追加できません。詳細: 「%(err)s」"
-
-#, python-format
-msgid "Unable to remove repository. Details: '%(err)s'"
-msgstr "リポジトリーを除去できません。詳細: 「%(err)s」"
-
-#, python-format
-msgid ""
-"Configuration items: '%(items)s' are not supported by repository manager"
-msgstr ""
-"構成アイテム「%(items)s」はリポジトリー・マネージャーでサポートされていません"
-
-msgid "Repository metalink must be an http://, ftp:// or file:// URL."
-msgstr ""
-"リポジトリー・メタリンクは http://、ftp://、または file:// URL でなければなり"
-"ません。"
-
-msgid "Cannot specify mirrorlist and metalink at the same time."
-msgstr "ミラー・リストとメタリンクを同時に指定することはできません。"
-
 #, python-format
 msgid ""
 "Virtual machine '%(vm)s' must be stopped before creating a snapshot of it."
@@ -1379,17 +1249,9 @@ msgstr "vCPU/トポロジーの組み合わせが無効です。"
 msgid "This host (or current configuration) does not allow CPU topology."
 msgstr "このホスト (または現行構成) では CPU トポロジーは許可されていません。"
 
-msgid "ERROR CODE"
-msgstr "エラー・コード"
-
-msgid "REASON"
-msgstr "理由"
-
-msgid "STACK"
-msgstr "スタック"
-
-msgid "Go to Homepage"
-msgstr "ホーム・ページに移動する"
+#, python-format
+msgid "Invalid volume group name parameter: %(name)s."
+msgstr ""
 
 msgid "Create a New Virtual Machine"
 msgstr "新規仮想マシンの作成"
@@ -1404,9 +1266,6 @@ msgstr ""
 "名前は仮想マシンを識別するために使用されます。省略すると、使用されているテン"
 "プレートに基づいて選択されます。"
 
-msgid "Template"
-msgstr "テンプレート"
-
 msgid "Please create a template first."
 msgstr "まずテンプレートを作成してください。"
 
@@ -1416,11 +1275,11 @@ msgstr "テンプレートの作成"
 msgid "Please choose a template."
 msgstr "テンプレートを選択してください。"
 
-msgid "OS"
-msgstr "OS"
+msgid "OS: "
+msgstr "OS: "
 
-msgid "OS Version"
-msgstr "OS バージョン"
+msgid "Version: "
+msgstr "バージョン: "
 
 msgid "CPUS"
 msgstr "CPU"
@@ -1434,26 +1293,11 @@ msgstr "作成"
 msgid "Creating..."
 msgstr "作成中..."
 
+msgid "Cancel"
+msgstr "取消"
+
 msgid "Edit Guest"
 msgstr "ゲストの編集"
-
-msgid "General"
-msgstr "一般"
-
-msgid "Storage"
-msgstr "ストレージ"
-
-msgid "Interface"
-msgstr "インターフェース"
-
-msgid "Permission"
-msgstr "許可"
-
-msgid "Host PCI Device"
-msgstr "ホスト PCI デバイス"
-
-msgid "Snapshot"
-msgstr "スナップショット"
 
 msgid "Name"
 msgstr "名前"
@@ -1467,11 +1311,17 @@ msgstr "メモリー (MB)"
 msgid "Icon"
 msgstr "アイコン"
 
+msgid "Add"
+msgstr "追加"
+
 msgid "Device"
 msgstr "デバイス"
 
 msgid "Path"
 msgstr "パス"
+
+msgid "Actions"
+msgstr "アクション"
 
 msgid "Network"
 msgstr " ネットワーク"
@@ -1481,6 +1331,9 @@ msgstr "タイプ"
 
 msgid "MAC Address"
 msgstr "MAC アドレス"
+
+msgid "IP Address"
+msgstr ""
 
 msgid "Available system users and groups"
 msgstr "使用可能なシステム・ユーザーおよびグループ"
@@ -1506,8 +1359,11 @@ msgstr "追加予定"
 msgid "Added"
 msgstr "追加済み"
 
-msgid "filter"
-msgstr "フィルター"
+msgid "Filter"
+msgstr ""
+
+msgid "Status"
+msgstr ""
 
 msgid "Product"
 msgstr "製品"
@@ -1527,14 +1383,17 @@ msgstr "交換"
 msgid "Detach"
 msgstr "切り離し"
 
-msgid "Cancel"
-msgstr "取消"
+msgid "Remove"
+msgstr "除去"
+
+msgid "Edit"
+msgstr "編集"
 
 msgid "LDAP User ID,e.g.foo@foo.com"
 msgstr "LDAP ユーザー ID (例: foo@foo.com)"
 
-msgid "revert"
-msgstr "戻す"
+msgid "Revert"
+msgstr ""
 
 msgid "Add a Storage Device to VM"
 msgstr "VM にストレージ・デバイスを追加"
@@ -1542,8 +1401,8 @@ msgstr "VM にストレージ・デバイスを追加"
 msgid "Device Type"
 msgstr "デバイス・タイプ"
 
-msgid "The device type. Currently,  \"cdrom\" and \"disk\" are supported."
-msgstr "デバイス・タイプ。現在、「cdrom」と「disk」がサポートされています。"
+msgid "The device type. Currently, \"cdrom\" and \"disk\" are supported."
+msgstr ""
 
 msgid "Storage Pool"
 msgstr "ストレージ・プール"
@@ -1566,8 +1425,14 @@ msgstr "サーバー内での CDROM の ISO ファイル・パス。"
 msgid "Attach"
 msgstr "接続"
 
-msgid "Start"
-msgstr "開始"
+msgid "Connect VNC"
+msgstr ""
+
+msgid "View VNC Console"
+msgstr ""
+
+msgid "Clone"
+msgstr "クローン"
 
 msgid "Reset"
 msgstr "リセット"
@@ -1578,38 +1443,32 @@ msgstr "一時停止"
 msgid "Resume"
 msgstr "再開"
 
-msgid "Power Off"
-msgstr "電源オフ"
-
-msgid "Actions"
-msgstr "アクション"
-
-msgid "Connect"
-msgstr "接続"
-
-msgid "Clone"
-msgstr "クローン"
-
-msgid "Edit"
-msgstr "編集"
-
 msgid "Shut Down"
 msgstr "シャットダウン"
+
+msgid "Start"
+msgstr "開始"
+
+msgid "Power Off"
+msgstr "電源オフ"
 
 msgid "Delete"
 msgstr "削除"
 
-msgid "The username or password you entered is incorrect. Please try again."
-msgstr "入力したユーザー名またはパスワードが誤っています。やり直してください。"
+msgid "View Console"
+msgstr ""
 
-msgid "This field is required."
-msgstr "このフィールドは必須です。"
+msgid "Processors Used"
+msgstr ""
 
-msgid "Log in"
-msgstr "ログイン"
+msgid "Memory Available"
+msgstr ""
 
-msgid "Logging in..."
-msgstr "ログイン中..."
+msgid "Storage I/O"
+msgstr ""
+
+msgid "Network I/O"
+msgstr "ネットワーク入出力"
 
 msgid "Host"
 msgstr "ホスト"
@@ -1620,6 +1479,9 @@ msgstr "ゲスト"
 msgid "Templates"
 msgstr "テンプレート"
 
+msgid "Storage"
+msgstr "ストレージ"
+
 msgid "Failed to get application configuration"
 msgstr "アプリケーション構成を取得できませんでした"
 
@@ -1628,16 +1490,6 @@ msgstr "有効な Linux パスではありません"
 
 msgid "This is not a valid URL."
 msgstr "有効な URL ではありません。"
-
-msgid "No such data available."
-msgstr "そのようなデータはありません。"
-
-msgid ""
-"Can not contact the host system. Verify the host system is up and that you "
-"have network connectivity to it. HTTP request response %1. "
-msgstr ""
-"ホスト・システムに接続できません。ホスト・システムが稼働しており、ネットワー"
-"クに接続していることを確認してください。HTTP 要求応答 %1。"
 
 msgid "Unable to read file."
 msgstr "ファイルを読み取ることができません。"
@@ -1660,167 +1512,14 @@ msgstr "警告"
 msgid "Cloning..."
 msgstr "クローン作成中..."
 
-msgid "Loading..."
-msgstr "ロード中..."
-
-msgid "An error occurred while retrieving system information."
-msgstr "システム情報の取得中にエラーが発生しました。"
-
-msgid "Retry"
-msgstr "再試行"
-
-msgid "Detailed message:"
-msgstr "詳細メッセージ:"
-
 msgid "No ISO found"
 msgstr "ISO が見つかりません"
-
-msgid "This is not a valid ISO file."
-msgstr "有効な ISO ファイルではありません。"
 
 msgid "This may take a long time. Do you want to continue?"
 msgstr "これには時間がかかることがあります。続行しますか ?"
 
 msgid "This will permanently delete the template. Would you like to continue?"
 msgstr "これにより、テンプレートが永続的に削除されます。続行しますか?"
-
-msgid "Unable to shut down system as there are some virtual machines running!"
-msgstr ""
-"いくつかの仮想マシンが稼働しているため、システムをシャットダウンできません"
-
-msgid "Max:"
-msgstr "最大:"
-
-msgid "Utilization"
-msgstr "使用率"
-
-msgid "Available"
-msgstr "使用可能"
-
-msgid "Read Rate"
-msgstr "読み取り速度"
-
-msgid "Write Rate"
-msgstr "書き込み速度"
-
-msgid "Received"
-msgstr "受信済み"
-
-msgid "Sent"
-msgstr "送信済み"
-
-msgid ""
-"Shutting down or restarting host will cause unsaved work lost. Continue to "
-"shut down/restarting?"
-msgstr ""
-"ホストをシャットダウンまたは再始動すると、保存されていない作業は失われます。"
-"シャットダウン/再始動を続行しますか?"
-
-msgid ""
-"Repository will be removed permanently and can't be recovered. Do you want "
-"to continue?"
-msgstr ""
-"リポジトリーは完全に削除され、リカバリーできなくなります。続行しますか?"
-
-msgid "Repositories"
-msgstr "リポジトリー"
-
-msgid "ID"
-msgstr "ID"
-
-msgid "Base URL"
-msgstr "ベース URL"
-
-msgid "Is Mirror"
-msgstr "ミラー"
-
-msgid "URL Args"
-msgstr "URL 引数"
-
-msgid "Enabled"
-msgstr "使用可能"
-
-msgid "GPG Check"
-msgstr "GPG チェック"
-
-msgid "GPG Key"
-msgstr "GPG 鍵"
-
-msgid "Add"
-msgstr "追加"
-
-msgid "Remove"
-msgstr "除去"
-
-msgid "Enable"
-msgstr "使用可能"
-
-msgid "Disable"
-msgstr "使用不可"
-
-msgid "Software Updates"
-msgstr "ソフトウェア更新"
-
-msgid "Package Name"
-msgstr "パッケージ名"
-
-msgid "Version"
-msgstr "バージョン"
-
-msgid "Architecture"
-msgstr "アーキテクチャー"
-
-msgid "Repository"
-msgstr "リポジトリー"
-
-msgid "Update All"
-msgstr "すべて更新"
-
-msgid "Updating..."
-msgstr "更新中..."
-
-msgid "Failed to retrieve packages update information."
-msgstr "パッケージ更新情報の取得に失敗しました。"
-
-msgid "Failed to update package(s)."
-msgstr "パッケージを更新できませんでした。"
-
-msgid ""
-"Debug report will be removed permanently and can't be recovered. Do you want "
-"to continue?"
-msgstr ""
-"デバッグ・レポートは完全に削除され、リカバリーできなくなります。続行しますか?"
-
-msgid "Debug Reports"
-msgstr "デバッグ・レポート"
-
-msgid "Generated Time"
-msgstr "生成時刻"
-
-msgid "Generate"
-msgstr "生成"
-
-msgid "Generating..."
-msgstr "生成中..."
-
-msgid "Rename"
-msgstr "名前変更"
-
-msgid "Download"
-msgstr "ダウンロード"
-
-msgid ""
-"Report name should contain only letters, digits, underscore ('_') and/or "
-"hyphen ('-')."
-msgstr ""
-"レポート名には文字、数字、下線 (「_」)、およびハイフン (「-」) のみを使用でき"
-"ます。"
-
-msgid "Pending..."
-msgstr "保留..."
-
-msgid "Report name is the same as the original one."
-msgstr "レポート名はオリジナルの名前と同じです。"
 
 msgid ""
 "This will delete the virtual machine and its virtual disks. This operation "
@@ -1887,18 +1586,6 @@ msgstr ""
 msgid "Attaching..."
 msgstr "接続中..."
 
-msgid "Replacing..."
-msgstr "交換中..."
-
-msgid "Successfully attached!"
-msgstr "正常に接続しました"
-
-msgid "Successfully replaced!"
-msgstr "正常に置換されました"
-
-msgid "Successfully detached!"
-msgstr "正常に切り離されました"
-
 msgid ""
 "This disk will be detached permanently and you can re-attach it. Continue to "
 "detach it?"
@@ -1938,9 +1625,6 @@ msgid ""
 msgstr ""
 "このアクションは、このネットワークに依存している仮想マシンのネットワーク接続"
 "を妨げます。"
-
-msgid "Create a network"
-msgstr "ネットワークの作成"
 
 msgid ""
 "This network is not persistent. Instead of stop, this action will "
@@ -1984,32 +1668,14 @@ msgstr "iSCSI が見つかりません。入力してください。"
 msgid "Failed to load iSCSI targets."
 msgstr "iSCSI ターゲットのロードに失敗しました。"
 
-msgid "The storage pool name can not be blank."
-msgstr "ストレージ・プール名をブランクにすることはできません。"
-
-msgid "The storage pool path can not be blank."
-msgstr "ストレージ・プール・パスをブランクにすることはできません。"
-
-msgid "NFS server mount path can not be blank."
-msgstr "NFS サーバー・マウント・パスをブランクにすることはできません。"
-
 msgid "Invalid NFS mount path."
 msgstr "NFS マウント・パスが無効です。"
 
 msgid "No logical device selected."
 msgstr "論理デバイスが選択されていません。"
 
-msgid "The iSCSI target can not be blank."
-msgstr "iSCSI ターゲットをブランクにすることはできません。"
-
-msgid "Server name can not be blank."
-msgstr "サーバー名をブランクにすることはできません。"
-
 msgid "This is not a valid Server Name or IP. Please, modify it."
 msgstr "これは有効なサーバー名または IP ではありません。変更してください。"
-
-msgid "Looking for available partitions ..."
-msgstr "愛用可能なパーティションを検索中..."
 
 msgid "No available partitions found."
 msgstr "使用可能なパーティションが見つかりません。"
@@ -2038,113 +1704,38 @@ msgstr ""
 msgid "Disk pool or volume cannot be blank."
 msgstr "ディスク・プールまたはボリュームはブランクにはできません。"
 
-msgid "Peers"
-msgstr "ピア"
+msgid "Create a network"
+msgstr "ネットワークの作成"
 
-msgid "Searching"
-msgstr "検索"
+msgid "Network Name"
+msgstr "ネットワーク名"
 
-msgid "No peers found."
-msgstr "ピアが見つかりません。"
+msgid "Name should not contain '/' and '\"'."
+msgstr "「/」や「\"」は名前に使用しないでください。"
 
-msgid "Help"
-msgstr "ヘルプ"
+msgid "Network Type"
+msgstr "ネットワーク・タイプ"
 
-msgid "About"
-msgstr "製品情報"
+msgid "Isolated: no external network connection"
+msgstr "隔離: 外部ネットワーク接続がありません"
 
-msgid "Log out"
-msgstr "ログアウト"
+msgid "NAT: outbound physical network connection only"
+msgstr "NAT: アウトバウンド物理ネットワーク接続のみ"
 
-msgid "Version:"
-msgstr "バージョン: "
+msgid "Bridged: Virtual machines are connected to physical network directly"
+msgstr "ブリッジ: 仮想マシンが直接物理ネットワークに接続される"
 
-msgid "Session timeout, please re-login."
-msgstr "セッションがタイムアウトになりました。再度ログインしてください。"
+msgid "(No interfaces found)"
+msgstr "(インターフェースが見つかりません)"
 
-msgid "User Name"
-msgstr "ユーザー名"
+msgid "Destination"
+msgstr "宛先"
 
-msgid "Password"
-msgstr "パスワード"
+msgid "Enable VLAN"
+msgstr "VLAN を使用可能にしてください"
 
-msgid "Generate a New Debug Report"
-msgstr "新規デバッグ・レポートの生成"
-
-msgid "Report Name"
-msgstr "レポート名"
-
-msgid ""
-"The name used to identify the report. If omitted, a name will be chosen "
-"based on current time. Name can contain: letters, digits, underscore (\"_\") "
-"and hyphen (\"-\")."
-msgstr ""
-"名前はレポートの識別に使用されます。省略すると、名前は現在時刻に基づいて選択"
-"されます。名前には文字、数字、下線 (「_」)、およびハイフン (「-」) を使用でき"
-"ます。"
-
-msgid "Rename a Debug Report"
-msgstr "デバッグ・レポートの名前変更"
-
-msgid ""
-"The name used to identify the report. Name can contain: letters, digits and "
-"hyphen (\"-\")."
-msgstr ""
-"名前はレポートの識別に使用されます。名前には文字、数字、およびハイフン "
-"(「-」) を使用できます。"
-
-msgid "Submit"
-msgstr "実行依頼"
-
-msgid "Add a Repository"
-msgstr "リポジトリーの追加"
-
-msgid "Identifier"
-msgstr "ID"
-
-msgid "Single word, unique identifier for the repository."
-msgstr "リポジトリーの固有 ID を示す単一のワード。"
-
-msgid "Textual name for the repository."
-msgstr "リポジトリーのテキスト名。"
-
-msgid "URL"
-msgstr "URL"
-
-msgid "Required Field"
-msgstr "必須フィールド"
-
-msgid "URL to the repository. Supported protocols are http, ftp, and file."
-msgstr ""
-"リポジトリーの URL で、サポートされているプロトコルは http、ftp、およびfile "
-"です。"
-
-msgid "Repository is a mirror"
-msgstr "リポジトリーはミラーです"
-
-msgid "Distribution"
-msgstr "ディストリビューション"
-
-msgid "Distribution of the DEB repository."
-msgstr "DEB リポジトリーのディストリビューション。"
-
-msgid "Components"
-msgstr "コンポーネント"
-
-msgid "List of components in DEB repository."
-msgstr "DEB リポジトリー内のコンポーネントのリスト。"
-
-msgid "Edit Repository"
-msgstr "リポジトリーの編集"
-
-msgid "Mirror List URL"
-msgstr "ミラー・リスト URL"
-
-msgid "Yes"
-msgstr " はい"
-
-msgid "No"
-msgstr " いいえ"
+msgid "VLAN ID"
+msgstr "VLAN ID"
 
 msgid "Add a Volume to Storage Pool"
 msgstr "ボリュームをストレージ・プールに追加"
@@ -2206,17 +1797,20 @@ msgstr "NFS がパスを NFS サーバーにエクスポートしました。"
 msgid "Device path"
 msgstr "デバイス・パス"
 
+msgid "Looking for available partitions ..."
+msgstr "愛用可能なパーティションを検索中..."
+
 msgid "iSCSI Server"
 msgstr "iSCSI サーバー"
-
-msgid "iSCSI server IP or hostname. It should not be empty."
-msgstr "iSCSI サーバー IP またはホスト名。空にすることはできません。"
 
 msgid "Server"
 msgstr "サーバー"
 
 msgid "Port"
 msgstr "ポート"
+
+msgid "iSCSI server IP or hostname. It should not be empty."
+msgstr "iSCSI サーバー IP またはホスト名。空にすることはできません。"
 
 msgid "Target"
 msgstr "ターゲット"
@@ -2227,8 +1821,11 @@ msgstr "iSCSI サーバー上の iSCSI ターゲット"
 msgid "Add iSCSI Authentication"
 msgstr "iSCSI 認証の追加"
 
-msgid "iSCSI Authentication"
-msgstr "iSCSI 認証"
+msgid "User Name"
+msgstr "ユーザー名"
+
+msgid "Password"
+msgstr "パスワード"
 
 msgid "SCSI Adapter"
 msgstr "SCSI アダプター"
@@ -2251,44 +1848,47 @@ msgstr "ローカル・イメージ・ファイル"
 msgid "Remote ISO Image"
 msgstr "リモート ISO イメージ"
 
+msgid "Provide a File Path for a specific ISO image:"
+msgstr ""
+
 msgid "Search ISOs"
 msgstr "ISO の検索"
 
 msgid "The following ISOs are available:"
 msgstr "次の ISO が使用可能です:"
 
-msgid "OS: "
-msgstr "OS: "
+msgid "OS"
+msgstr "OS"
 
-msgid "Version: "
-msgstr "バージョン: "
+msgid "Version"
+msgstr "バージョン"
 
-msgid "Size: "
-msgstr "サイズ: "
+msgid "Size"
+msgstr ""
 
 msgid "Search more ISOs"
 msgstr "ISO をさらに検索"
 
-msgid "Create Templates from Selected ISO"
-msgstr "選択した ISO からテンプレートを作成"
-
-msgid "I want to use a specific ISO file"
-msgstr "特定の ISO ファイルを使用する"
-
 msgid "File Path:"
 msgstr "ファイル・パス:"
+
+msgid "Provide a URL for a specific ISO image:"
+msgstr ""
 
 msgid "Loading default remote ISOs ..."
 msgstr "デフォルトのリモート ISO をロード中..."
 
-msgid "Arch: "
-msgstr "アーキテクチャー: "
-
-msgid "I want to use a custom URL"
-msgstr "カスタム URL を使用する"
+msgid "Arch"
+msgstr ""
 
 msgid "Edit Template"
 msgstr "テンプレートの編集"
+
+msgid "General"
+msgstr "一般"
+
+msgid "Interface"
+msgstr "インターフェース"
 
 msgid "Processor"
 msgstr "プロセッサー"
@@ -2308,6 +1908,12 @@ msgstr "ディスク (GB)"
 msgid "Disk Format"
 msgstr "ディスク・フォーマット"
 
+msgid "Add Storage"
+msgstr ""
+
+msgid "Add Interface"
+msgstr ""
+
 msgid "CPU Number"
 msgstr "CPU 数"
 
@@ -2319,123 +1925,3 @@ msgstr "コア"
 
 msgid "Threads"
 msgstr "スレッド"
-
-msgid "CPU"
-msgstr "CPU"
-
-msgid "Disk I/O"
-msgstr "ディスク入出力"
-
-msgid "Network I/O"
-msgstr "ネットワーク入出力"
-
-msgid "Livetile"
-msgstr "ライブタイル"
-
-msgid "No guests found."
-msgstr "ゲストが見つかりません。"
-
-msgid "Shut down"
-msgstr "シャットダウン"
-
-msgid "Restart"
-msgstr "再始動"
-
-msgid "Basic Information"
-msgstr "基本情報"
-
-msgid "OS Distro"
-msgstr "OS ディストリビューション"
-
-msgid "OS Code Name"
-msgstr "OS コード名"
-
-msgid "CPU(s)"
-msgstr "CPU"
-
-msgid "System Statistics"
-msgstr "システム統計情報"
-
-msgid "Update Progress"
-msgstr "更新の進行状況"
-
-msgid "Network Name"
-msgstr "ネットワーク名"
-
-msgid "State"
-msgstr "状態"
-
-msgid "Network Type"
-msgstr "ネットワーク・タイプ"
-
-msgid "Address Space"
-msgstr "アドレス・スペース"
-
-msgid "Name should not contain '/' and '\"'."
-msgstr "「/」や「\"」は名前に使用しないでください。"
-
-msgid "Isolated: no external network connection"
-msgstr "隔離: 外部ネットワーク接続がありません"
-
-msgid "NAT: outbound physical network connection only"
-msgstr "NAT: アウトバウンド物理ネットワーク接続のみ"
-
-msgid "Bridged: Virtual machines are connected to physical network directly"
-msgstr "ブリッジ: 仮想マシンが直接物理ネットワークに接続される"
-
-msgid "(No interfaces found)"
-msgstr "(インターフェースが見つかりません)"
-
-msgid "Destination"
-msgstr "宛先"
-
-msgid "Enable VLAN"
-msgstr "VLAN を使用可能にしてください"
-
-msgid "VLAN ID"
-msgstr "VLAN ID"
-
-msgid "Stop"
-msgstr "停止"
-
-msgid "%Used"
-msgstr "使用率 (%)"
-
-msgid "Location"
-msgstr "ロケーション"
-
-msgid "Capacity"
-msgstr "容量"
-
-msgid "Allocated"
-msgstr "割り当て済み"
-
-msgid "active"
-msgstr "アクティブ"
-
-msgid "inactive"
-msgstr "非アクティブ"
-
-msgid "Deactivate"
-msgstr "非アクティブ化"
-
-msgid "Activate"
-msgstr "アクティブ化"
-
-msgid "Add Volume"
-msgstr "ボリュームの追加"
-
-msgid "Extend"
-msgstr "拡張"
-
-msgid "Undefine"
-msgstr "定義の解除"
-
-msgid "Format"
-msgstr "フォーマット"
-
-msgid "Allocation"
-msgstr "割り振り"
-
-msgid "No templates found."
-msgstr "テンプレートが見つかりません。"
