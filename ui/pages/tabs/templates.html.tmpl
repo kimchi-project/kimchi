@@ -51,6 +51,9 @@
     <div class="templates">
         <div id="templates-container" class="container hidden">
             <div class="row grid-control empty-when-logged-off">
+                <div class="pull-left">
+                    <button type="button" id="gallery-table-button" class="btn btn-default">$_("View Gallery") <i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></button>
+                </div>
                 <div class="pull-right">
                     <label for="search_input" class="sr-only">$_("Filter"):</label>
                     <input type="text" class="filter form-control search" id="search_input" placeholder="$_("Filter")">
@@ -92,7 +95,7 @@
     </script>
     <script id="templateTmpl" type="html/text">
         <li class="wok-vm-body">
-            <span class='column-name' title="{name}" val="{name}">{name}</span><!--
+            <span class='column-name name-distro-icon icon-{os_distro}' title="{name}" val="{name}">{name}</span><!--
             --><span class='column-action pull-right'>
                 <span class="pull-right">
                     <div class="dropdown menu-flat">
@@ -106,14 +109,14 @@
                     </div>
                 </span>
             </span><!--
-            --><span class='column-type os-type-filter distro-icon icon-{os_distro}' val="{os_distro}">{os_distro}</span><!--
-            --><span class="item-hidden">$_("OS")</span><!--
-            --><span class='column-version os-version-filter' val="{os_version}">{os_version}</span><!--
-            --><span class="item-hidden">$_("Version")</span><!--
+            --><span class='column-type os-type-filter distro-icon icon-{os_distro} font-bold' val="{os_distro}">{os_distro}</span><!--
+            --><span class="item-hidden column-type os-type-filter">$_("OS")</span><!--
+            --><span class='column-version os-version-filter font-bold' val="{os_version}">{os_version}</span><!--
+            --><span class="item-hidden column-version os-version-filter">$_("Version")</span><!--
             --><span class='column-processors cpus-filter' val="{cpus}"><strong>{cpus}</strong> $_("cores")</span><!--
-            --><span class="item-hidden">$_("CPUs")</span><!--
+            --><span class="item-hidden column-processors cpus-filter">$_("CPUs")</span><!--
             --><span class='column-memory memory-filter' val="{memory}"><strong>{memory}</strong> $_("M")</span><!--
-            --><span class="item-hidden">$_("Memory")</span>
+            --><span class="item-hidden column-memory memory-filter">$_("Memory")</span>
         </li>
     </script>
 </body>

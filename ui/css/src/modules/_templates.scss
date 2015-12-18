@@ -198,6 +198,7 @@
     }
 }
 
+
 /* VM List View classes*/
 
 #templates-root-container {
@@ -244,18 +245,18 @@
             }
         }
         .ul-body {
-            display:  block;
+            display: block;
             width: 100%;
             clear: both;
             padding: 0;
             margin: 0;
             list-style: none;
-                    > li:nth-child(even) {
-                        background-color: $table-bg-accent;
-                    }
-                    > li:nth-child(odd) {
-                        background-color: $table-bg;
-                    }
+            > li:nth-child(even) {
+                background-color: $table-bg-accent;
+            }
+            > li:nth-child(odd) {
+                background-color: $table-bg;
+            }
         }
         .column-name {
             width: 17.4900%;
@@ -289,6 +290,104 @@
             background-size: 27px 27px;
             background-repeat: no-repeat;
             background-position: 8px 50%;
+            &.icon-centos {
+                background-image: url('#{$wok-icon-path}/icon-centos.png');
+            }
+            &.icon-debian {
+                background-image: url('#{$wok-icon-path}/icon-debian.png');
+            }
+            &.icon-fedora {
+                background-image: url('#{$wok-icon-path}/icon-fedora.png');
+            }
+            &.icon-opensuse {
+                background-image: url('#{$wok-icon-path}/icon-opensuse.png');
+            }
+            &.icon-ubuntu {
+                background-image: url('#{$wok-icon-path}/icon-ubuntu.png');
+            }
+            &.icon-gentoo {
+                background-image: url('#{$wok-icon-path}/icon-gentoo.png');
+            }
+            &.icon-unknown {
+                background-image: url('#{$wok-icon-path}/icon-unknown.png');
+            }
+        }
+    }
+    .wok-vm-gallery {
+        display: block;
+        width: 100%;
+        list-style-type: none;
+        margin: 0;
+        padding-left: 5px;
+        .wok-vm-header {
+            display: none;
+        }
+        .wok-vm-body {
+            padding: 0 20px 0 20px;
+            width: 240px;
+            display: inline-block;
+            border: 1px solid $table-first-row-border-color;
+            margin-right: 20px;
+            > span {
+                display: inline-block;
+                width: 100%;
+                font-family: $font-family-sans-serif;
+                font-size: 12.5pt;
+                line-height: $line-height-base;
+                font-weight: 400;
+            }
+        }
+        .ul-body {
+            display: inline-block;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        .column-name {
+            line-height: 2.5 !important;
+            font-size: 15.3pt !important;
+            font-weight: 500 !important;
+            text-overflow: ellipsis !important;
+            overflow: hidden !important;
+            padding-right: 35px !important;
+        }
+        .item-hidden {
+            &.column-type,
+            &.column-version,
+            &.column-processors {
+                padding-bottom: 11px;
+            }
+        }
+        .item-hidden {
+            &.column-memory {
+                padding-bottom: 38px;
+            }
+        }
+        .font-bold {
+            font-weight: bold !important;
+        }
+        .pull-right {
+            float: none !important;
+            padding-bottom: 22px;
+        }
+        .dropdown-menu {
+            width: 100%;
+        }
+        .menu-flat {
+            width: 239px;
+            margin-left: -20px;
+        }
+        .btn {
+            width: 100%;
+            text-align: left;
+            padding-left: 42px;
+            border-radius: 0;
+        }
+        .name-distro-icon {
+            background-color: transparent;
+            background-size: 32px 32px;
+            background-repeat: no-repeat;
+            background-position: 100% 50%;
             &.icon-centos {
                 background-image: url('#{$wok-icon-path}/icon-centos.png');
             }
