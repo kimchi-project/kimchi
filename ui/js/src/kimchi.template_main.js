@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
- kimchi.doListTemplates = function() {
+kimchi.doListTemplates = function() {
     $('.wok-mask').removeClass('hidden');
     kimchi.listTemplates(function(result) {
         if (result && result.length) {
@@ -39,7 +39,9 @@
             $('.wok-mask').fadeOut(300, function() {});
         }
 
-        var options = { valueNames: ['name-filter', 'os-type-filter', 'os-version-filter', 'cpus-filter', 'memory-filter'] };
+        var options = {
+            valueNames: ['name-filter', 'os-type-filter', 'os-version-filter', 'cpus-filter', 'memory-filter']
+        };
         var templatesList = new List('templates-container', options);
 
     }, function(err) {
@@ -84,7 +86,19 @@ kimchi.templateBindClick = function() {
             }, function(err) {
                 wok.message.error(err.responseJSON.reason);
             });
-        }, function(){});
+        }, function() {});
+    });
+
+    $('#gallery-table-button').on('click', function(event) {
+        if ($("#templates-grid").hasClass('wok-vm-list')) {
+            $("#templates-grid").removeClass("wok-vm-list");
+            $("#templates-grid").addClass("wok-vm-gallery");
+            $("#gallery-table-button").html("View Table <i class='fa fa-angle-right'></i><i class='fa fa-angle-right'></i><i class='fa fa-angle-right'></i>");
+        } else {
+            $("#templates-grid").removeClass("wok-vm-gallery");
+            $("#templates-grid").addClass("wok-vm-list");
+            $("#gallery-table-button").html("View Gallery <i class='fa fa-angle-right'></i><i class='fa fa-angle-right'></i><i class='fa fa-angle-right'></i>");
+        }
     });
 }
 kimchi.hideTitle = function() {
