@@ -105,7 +105,7 @@ clique em <uicontrol>Salvar</uicontrol>. </p>
 <p>Para clonar um convidado:</p>
 <ol>
 <li>Selecione <uicontrol>Clonar</uicontrol> no menu Ação de um convidado.</li>
-<li>Aceite o aviso. <note>Quando um convidado de destino está usando volumes SCSI ou iSCSI ou se o conjunto de destino não tiver espaço suficiente, o clone será criado em um conjunto de armazenamentos padrão. </note></li>
+<li>Aceite o aviso. <note>Quando um convidado de destino está usando volumes SCSI ou iSCSI ou se o conjunto de destino não tiver espaço suficiente, o clone será criado em um banco de armazenamento padrão. </note></li>
 </ol>
 <p>Um convidado aparece na sua lista com o rótulo <uicontrol>Clonando...</uicontrol> Quando o processo for concluído, o convidado clonado estará disponível para uso.</p>
 
