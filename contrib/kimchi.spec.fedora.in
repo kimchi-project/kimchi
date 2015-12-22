@@ -34,8 +34,6 @@ Requires:	python-paramiko
 BuildRequires:	gettext-devel
 BuildRequires:	libxslt
 BuildRequires:	python-lxml
-BuildRequires:	python-devel
-BuildRequires:	python-pip
 
 %if 0%{?rhel} >= 6 || 0%{?fedora} >= 19
 Requires:	spice-html5

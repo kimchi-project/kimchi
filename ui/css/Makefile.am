@@ -18,8 +18,6 @@
 cssdir = $(datadir)/wok/plugins/kimchi/ui/css
 dist_css_DATA = kimchi.css
 
-%.css: src/%.scss
+css: src/*.scss src/modules/*.scss
 	echo "Compiling .scss file $<"
-	sassc -s expanded $< $(@:.scss=.css)
-
-CLEANFILES = kimchi.css
+	sassc -s expanded $< kimchi.css

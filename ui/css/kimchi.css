@@ -1,0 +1,2036 @@
+/*
+ * Project Kimchi
+ *
+ * Copyright IBM, Corp. 2015
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/*
+ * A partial implementation of the Ruby list functions from Compass:
+ * https://github.com/Compass/compass/blob/stable/lib/compass/sass_extensions/functions/lists.rb
+ */
+/*
+ * A partial implementation of the Ruby constants functions from Compass:
+ * https://github.com/Compass/compass/blob/stable/lib/compass/sass_extensions/functions/constants.rb
+ */
+/*
+ * A partial implementation of the Ruby display functions from Compass:
+ * https://github.com/Compass/compass/blob/stable/core/lib/compass/core/sass_extensions/functions/display.rb
+ */
+.absolute-middle {
+  margin: auto;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+}
+
+.animate-spin {
+  -webkit-animation: spin 2s infinite linear;
+  -o-animation: spin 2s infinite linear;
+  animation: spin 2s infinite linear;
+  display: inline-block;
+}
+
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    -moz-transform: rotate(359deg);
+    -ms-transform: rotate(359deg);
+    -o-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+
+/* Template & Guests Modal Windows */
+#template-add-window.modal-content label.box-iso-outer,
+#guest-add-window.modal-content label.box-iso-outer {
+  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-size: 14px !important;
+  font-weight: 400;
+  border-radius: 3px;
+  overflow: hidden;
+  display: block;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#template-add-window.modal-content label.box-iso-outer span.box-iso-border,
+#guest-add-window.modal-content label.box-iso-outer span.box-iso-border {
+  display: block;
+  border: 3px solid transparent;
+  transition: all .1s ease-in-out;
+}
+
+#template-add-window.modal-content label.box-iso-outer .iso-radio-hidden:checked + span.box-iso-border,
+#template-add-window.modal-content label.box-iso-outer .iso-checkbox-hidden:checked + span.box-iso-border,
+#guest-add-window.modal-content label.box-iso-outer .iso-radio-hidden:checked + span.box-iso-border,
+#guest-add-window.modal-content label.box-iso-outer .iso-checkbox-hidden:checked + span.box-iso-border {
+  border-color: #8cc63f;
+}
+
+#template-add-window.modal-content label.box-iso-outer .iso-radio-hidden:checked + span.box-iso-border > .box-iso-inner,
+#template-add-window.modal-content label.box-iso-outer .iso-checkbox-hidden:checked + span.box-iso-border > .box-iso-inner,
+#guest-add-window.modal-content label.box-iso-outer .iso-radio-hidden:checked + span.box-iso-border > .box-iso-inner,
+#guest-add-window.modal-content label.box-iso-outer .iso-checkbox-hidden:checked + span.box-iso-border > .box-iso-inner {
+  border-color: #000;
+}
+
+#template-add-window.modal-content label.box-iso-outer span.box-iso-inner,
+#guest-add-window.modal-content label.box-iso-outer span.box-iso-inner {
+  display: block;
+  border: 1px solid transparent;
+  background: #fff;
+  transition: all .1s ease-in-out;
+}
+
+#template-add-window.modal-content ul.list-template,
+#template-add-window.modal-content ul.list-iso,
+#guest-add-window.modal-content ul.list-template,
+#guest-add-window.modal-content ul.list-iso {
+  display: block;
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 462px;
+  list-style: none;
+  margin: 0 -5px 10px -5px;
+  padding: 0;
+}
+
+#template-add-window.modal-content label.box-iso-outer span.box-iso-inner dl,
+#guest-add-window.modal-content label.box-iso-outer span.box-iso-inner dl {
+  margin-bottom: 16px;
+}
+
+#template-add-window.modal-content label.box-iso-outer span.box-iso-inner dt,
+#template-add-window.modal-content label.box-iso-outer span.box-iso-inner dd,
+#guest-add-window.modal-content label.box-iso-outer span.box-iso-inner dt,
+#guest-add-window.modal-content label.box-iso-outer span.box-iso-inner dd {
+  padding: 0 12px 0 20px;
+}
+
+#template-add-window.modal-content label.box-iso-outer span.box-iso-inner dt,
+#guest-add-window.modal-content label.box-iso-outer span.box-iso-inner dt {
+  padding-top: 5px;
+  text-transform: capitalize;
+}
+
+#template-add-window.modal-content label.box-iso-outer span.box-iso-inner dd,
+#guest-add-window.modal-content label.box-iso-outer span.box-iso-inner dd {
+  padding-bottom: 5px;
+}
+
+#template-add-window.modal-content ul#templateTile input[type="radio"].iso-radio-hidden,
+#template-add-window.modal-content ul#list-local-iso input[type="checkbox"].iso-checkbox-hidden,
+#template-add-window.modal-content ul#list-remote-iso input[type="checkbox"].iso-checkbox-hidden,
+#guest-add-window.modal-content ul#templateTile input[type="radio"].iso-radio-hidden,
+#guest-add-window.modal-content ul#list-local-iso input[type="checkbox"].iso-checkbox-hidden,
+#guest-add-window.modal-content ul#list-remote-iso input[type="checkbox"].iso-checkbox-hidden {
+  display: none;
+}
+
+#template-add-window.modal-content label.box-iso-outer,
+#guest-add-window.modal-content label.box-iso-outer {
+  cursor: pointer;
+}
+
+#template-add-window.modal-content ul#list-local-iso li.col-md-3,
+#template-add-window.modal-content ul#list-remote-iso li.col-md-3,
+#guest-add-window.modal-content ul#list-local-iso li.col-md-3,
+#guest-add-window.modal-content ul#list-remote-iso li.col-md-3 {
+  width: 241px;
+  margin: 10px 5px 0;
+}
+
+#template-add-window.modal-content h3.iso-title,
+#guest-add-window.modal-content h3.iso-title {
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 22px;
+  margin: 0;
+  padding: 13px 40px 13px 20px;
+  background-color: transparent;
+  background-position: right 10px center;
+  background-repeat: no-repeat;
+  background-size: auto 27px;
+  background-origin: padding-box;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#template-add-window.modal-content h3.iso-title.centos,
+#guest-add-window.modal-content h3.iso-title.centos {
+  background-image: url("/images/theme-default/icon-centos.png");
+}
+
+#template-add-window.modal-content h3.iso-title.debian,
+#guest-add-window.modal-content h3.iso-title.debian {
+  background-image: url("/images/theme-default/icon-debian.png");
+}
+
+#template-add-window.modal-content h3.iso-title.fedora,
+#guest-add-window.modal-content h3.iso-title.fedora {
+  background-image: url("/images/theme-default/icon-fedora.png");
+}
+
+#template-add-window.modal-content h3.iso-title.opensuse,
+#guest-add-window.modal-content h3.iso-title.opensuse {
+  background-image: url("/images/theme-default/icon-opensuse.png");
+}
+
+#template-add-window.modal-content h3.iso-title.ubuntu,
+#guest-add-window.modal-content h3.iso-title.ubuntu {
+  background-image: url("/images/theme-default/icon-ubuntu.png");
+}
+
+#template-add-window.modal-content h3.iso-title.gentoo,
+#guest-add-window.modal-content h3.iso-title.gentoo {
+  background-image: url("/images/theme-default/icon-gentoo.png");
+}
+
+#template-add-window.modal-content h3.iso-title.unknown,
+#guest-add-window.modal-content h3.iso-title.unknown {
+  background-image: url("/images/theme-default/icon-unknown.png");
+}
+
+/* Create Guest Modal */
+.guests-modal .modal-dialog {
+  width: 1100px;
+}
+
+.guests-modal .page-list {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+
+.guests-modal .page {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  padding: 10px 30px;
+}
+
+#guest-add-window .modal-body {
+  margin: 0;
+  padding: 0;
+}
+
+#guest-add-window .modal-footer {
+  margin-top: 0;
+}
+
+#guest-add-window .modal-footer .btn + .btn {
+  margin-left: 0;
+}
+
+#guest-add-window .modal-footer .btn {
+  margin-right: 5px;
+}
+
+#guest-add-window .modal-dialog {
+  width: 900px;
+}
+
+#guest-add-window .guest-modal-container {
+  padding: 10px 30px;
+  position: relative;
+}
+
+#guest-add-window .guest-pager {
+  background: #eee;
+  overflow: hidden;
+  position: relative;
+  height: 530px;
+}
+
+#guest-add-window.modal-content p {
+  margin: 0 0 10px 0;
+}
+
+#guest-add-window.modal-content h5 {
+  font-size: 13pt;
+  font-weight: 400;
+  margin-top: 0;
+}
+
+#guest-add-window.modal-content label {
+  font-size: 16px;
+  font-weight: 400;
+  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+#guest-add-window form#form-vm-add {
+  margin: 0;
+}
+
+#guest-add-window input#guest-vm-name,
+#guest-add-window p.help-block {
+  width: 592px;
+}
+
+#guest-content-container .wok-guest-list {
+  display: block;
+  width: 100%;
+  padding: 0;
+  list-style-type: none;
+}
+
+#guest-content-container .wok-guest-list > li:nth-child(even) {
+  background-color: #fcfcfc;
+}
+
+#guest-content-container .wok-guest-list > li:nth-child(odd) {
+  background-color: #fff;
+}
+
+#guest-content-container .wok-guest-list > li:first-child {
+  border-top: 0;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-header {
+  border-top: 0 none;
+  height: 36px;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-header > span {
+  height: 36px;
+  padding: 6px 2px;
+  display: inline-block;
+  vertical-align: middle;
+  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+  font-size: 12.5pt;
+  line-height: 1.42857;
+  border-bottom: none;
+  border-top: 0;
+  overflow: hidden;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-header > span > span {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-body {
+  border-top: 1px solid #eee;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-body > span {
+  padding: 6px 2px;
+  display: inline-block;
+  vertical-align: middle;
+  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-size: 12.5pt;
+  line-height: 2.42857;
+  font-weight: 400;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-body .progress {
+  display: inline-block;
+  width: 60%;
+  position: relative;
+  vertical-align: top;
+  margin-top: 15px;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-body .progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-body .progress-bar.dark-grey {
+  background-color: #929497;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-body .progress-bar.medium-grey {
+  background-color: #bbbdbf;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-body .progress-bar.light-grey {
+  background-color: #e6e7e8;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-body div.percentage-label {
+  display: inline-block;
+  width: 25%;
+  margin-top: 6px;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-body div.measure-label {
+  display: inline-block;
+  width: 35%;
+  margin-top: 6px;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state,
+#guest-content-container .wok-guest-list .wok-guest-list-body > span.column-state {
+  width: 40px;
+  text-align: center;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state,
+#guest-content-container .wok-guest-list .wok-guest-list-body > span.column-state > span.guest-state {
+  font-size: 22px;
+  position: relative;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.running > .fa-ban,
+#guest-content-container .wok-guest-list .wok-guest-list-body > span.column-state > span.guest-state.running > .fa-ban {
+  display: none;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.running > .fa-power-off,
+#guest-content-container .wok-guest-list .wok-guest-list-body > span.column-state > span.guest-state.running > .fa-power-off {
+  color: #a8d46f;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.running > .fa-undo,
+#guest-content-container .wok-guest-list .wok-guest-list-body > span.column-state > span.guest-state.running > .fa-undo {
+  display: none;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.running > .fa-refresh,
+#guest-content-container .wok-guest-list .wok-guest-list-body > span.column-state > span.guest-state.running > .fa-refresh {
+  display: none;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.shutoff > .fa-ban,
+#guest-content-container .wok-guest-list .wok-guest-list-body > span.column-state > span.guest-state.shutoff > .fa-ban {
+  color: #999;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.shutoff > .fa-power-off,
+#guest-content-container .wok-guest-list .wok-guest-list-body > span.column-state > span.guest-state.shutoff > .fa-power-off {
+  display: none;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.shutoff > .fa-undo,
+#guest-content-container .wok-guest-list .wok-guest-list-body > span.column-state > span.guest-state.shutoff > .fa-undo {
+  display: none;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.shutoff > .fa-refresh,
+#guest-content-container .wok-guest-list .wok-guest-list-body > span.column-state > span.guest-state.shutoff > .fa-refresh {
+  display: none;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.starting > .fa-ban,
+#guest-content-container .wok-guest-list .wok-guest-list-body > span.column-state > span.guest-state.starting > .fa-ban {
+  display: none;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.starting > .fa-power-off,
+#guest-content-container .wok-guest-list .wok-guest-list-body > span.column-state > span.guest-state.starting > .fa-power-off {
+  display: none;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.starting > .fa-undo,
+#guest-content-container .wok-guest-list .wok-guest-list-body > span.column-state > span.guest-state.starting > .fa-undo {
+  color: #999;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.starting > .fa-refresh,
+#guest-content-container .wok-guest-list .wok-guest-list-body > span.column-state > span.guest-state.starting > .fa-refresh {
+  display: none;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.resetting > .fa-ban,
+#guest-content-container .wok-guest-list .wok-guest-list-body > span.column-state > span.guest-state.resetting > .fa-ban {
+  display: none;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.resetting > .fa-power-off,
+#guest-content-container .wok-guest-list .wok-guest-list-body > span.column-state > span.guest-state.resetting > .fa-power-off {
+  display: none;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.resetting > .fa-undo,
+#guest-content-container .wok-guest-list .wok-guest-list-body > span.column-state > span.guest-state.resetting > .fa-undo {
+  display: none;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.resetting > .fa-refresh,
+#guest-content-container .wok-guest-list .wok-guest-list-body > span.column-state > span.guest-state.resetting > .fa-refresh {
+  color: #a8d46f;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.paused > .fa,
+#guest-content-container .wok-guest-list .wok-guest-list-body > span.column-state > span.guest-state.paused > .fa {
+  display: none;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-name,
+#guest-content-container .wok-guest-list .wok-guest-list-body > span.column-name {
+  width: 13.7%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@media (min-width: 1330px) {
+  #guest-content-container .wok-guest-list .wok-guest-list-header > span.column-name,
+  #guest-content-container .wok-guest-list .wok-guest-list-body > span.column-name {
+    width: 9.7%;
+  }
+}
+
+@media (min-width: 1540px) {
+  #guest-content-container .wok-guest-list .wok-guest-list-header > span.column-name,
+  #guest-content-container .wok-guest-list .wok-guest-list-body > span.column-name {
+    width: 14.15%;
+  }
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-type,
+#guest-content-container .wok-guest-list .wok-guest-list-body > span.column-type {
+  width: 11.74%;
+  background-position: 0 50%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+@media (min-width: 1330px) {
+  #guest-content-container .wok-guest-list .wok-guest-list-header > span.column-type,
+  #guest-content-container .wok-guest-list .wok-guest-list-body > span.column-type {
+    width: 10.74%;
+  }
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-vnc,
+#guest-content-container .wok-guest-list .wok-guest-list-body > span.column-vnc {
+  display: none;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-vnc > a,
+#guest-content-container .wok-guest-list .wok-guest-list-body > span.column-vnc > a {
+  font-weight: normal;
+  color: #5ab3d4 !important;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-vnc .fa-spin,
+#guest-content-container .wok-guest-list .wok-guest-list-body > span.column-vnc .fa-spin {
+  display: none;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-vnc .fa-spin.active,
+#guest-content-container .wok-guest-list .wok-guest-list-body > span.column-vnc .fa-spin.active {
+  display: inline-block;
+  margin-right: 8px;
+  font-size: 22px;
+  color: #5ab3d4 !important;
+}
+
+@media (min-width: 1330px) {
+  #guest-content-container .wok-guest-list .wok-guest-list-header > span.column-vnc,
+  #guest-content-container .wok-guest-list .wok-guest-list-body > span.column-vnc {
+    width: 10.84%;
+    display: inline-block;
+  }
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-processors,
+#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-memory,
+#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-storage,
+#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-network,
+#guest-content-container .wok-guest-list .wok-guest-list-body > span.column-processors,
+#guest-content-container .wok-guest-list .wok-guest-list-body > span.column-memory,
+#guest-content-container .wok-guest-list .wok-guest-list-body > span.column-storage,
+#guest-content-container .wok-guest-list .wok-guest-list-body > span.column-network {
+  width: 12.5%;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-processors > div > div.progress-bar.cpu-progress-bar,
+#guest-content-container .wok-guest-list .wok-guest-list-body > span.column-processors > div > div.progress-bar.cpu-progress-bar {
+  background-color: #d9182d;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-memory > div > div.progress-bar.memory-progress-bar,
+#guest-content-container .wok-guest-list .wok-guest-list-body > span.column-memory > div > div.progress-bar.memory-progress-bar {
+  background-color: #008abf;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-storage > div > div.progress-bar.storage-progress-bar,
+#guest-content-container .wok-guest-list .wok-guest-list-body > span.column-storage > div > div.progress-bar.storage-progress-bar {
+  background-color: #fdb813;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-network > div > div.progress-bar.network-progress-bar,
+#guest-content-container .wok-guest-list .wok-guest-list-body > span.column-network > div > div.progress-bar.network-progress-bar {
+  background-color: #7f1c7d;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-action,
+#guest-content-container .wok-guest-list .wok-guest-list-body > span.column-action {
+  width: 165px;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-header > span.item-hidden,
+#guest-content-container .wok-guest-list .wok-guest-list-body > span.item-hidden {
+  display: none !important;
+}
+
+#guest-content-container .wok-guest-list .distro-icon {
+  background-color: transparent;
+  background-size: 27px 27px;
+  background-repeat: no-repeat;
+  background-position: left;
+}
+
+#guest-content-container .wok-guest-list .distro-icon.inactive {
+  -webkit-filter: grayscale(100%) contrast(0.8) brightness(110%);
+  -moz-filter: grayscale(100%) contrast(0.8) brightness(110%);
+  filter: grayscale(100%) contrast(0.8) brightness(110%);
+}
+
+#guest-content-container .wok-guest-list .distro-icon.icon-centos {
+  background-image: url("/images/theme-default/icon-centos.png");
+}
+
+#guest-content-container .wok-guest-list .distro-icon.icon-debian {
+  background-image: url("/images/theme-default/icon-debian.png");
+}
+
+#guest-content-container .wok-guest-list .distro-icon.icon-fedora {
+  background-image: url("/images/theme-default/icon-fedora.png");
+}
+
+#guest-content-container .wok-guest-list .distro-icon.icon-opensuse {
+  background-image: url("/images/theme-default/icon-opensuse.png");
+}
+
+#guest-content-container .wok-guest-list .distro-icon.icon-ubuntu {
+  background-image: url("/images/theme-default/icon-ubuntu.png");
+}
+
+#guest-content-container .wok-guest-list .distro-icon.icon-gentoo {
+  background-image: url("/images/theme-default/icon-gentoo.png");
+}
+
+#guest-content-container .wok-guest-list .distro-icon.icon-unknown {
+  background-image: url("/images/theme-default/icon-unknown.png");
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-body.inactive {
+  color: #999 !important;
+}
+
+#guest-edit-window .tab-content {
+  overflow: hidden;
+  height: 559px;
+}
+
+#guest-edit-window .tab-content .tab-pane {
+  position: relative;
+}
+
+#guest-edit-window #form-guest-edit-interface .column-actions {
+  width: 23%;
+}
+
+#guest-edit-window #form-guest-edit-storage .column-actions {
+  width: 26%;
+}
+
+#guest-edit-window #form-guest-edit-snapshot .column-actions {
+  width: 22%;
+}
+
+#guest-edit-window #form-guest-edit-pci .column-actions {
+  width: 4.47%;
+}
+
+#guest-edit-window form {
+  margin: 15px 0 0;
+}
+
+#guest-edit-window form .header .column-actions,
+#guest-edit-window form .task .column-actions,
+#guest-edit-window form .body .column-actions {
+  text-align: right;
+}
+
+#guest-edit-window form .header .column-device,
+#guest-edit-window form .task .column-device,
+#guest-edit-window form .body .column-device {
+  width: 12.7%;
+}
+
+#guest-edit-window form .header .column-path,
+#guest-edit-window form .task .column-path,
+#guest-edit-window form .body .column-path {
+  width: 60.25%;
+}
+
+#guest-edit-window form .header .cell.column-network,
+#guest-edit-window form .task .cell.column-network,
+#guest-edit-window form .body .cell.column-network {
+  width: 18%;
+}
+
+#guest-edit-window form .header .cell.column-network > span,
+#guest-edit-window form .task .cell.column-network > span,
+#guest-edit-window form .body .cell.column-network > span {
+  width: 100%;
+  display: inline-block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+#guest-edit-window form .header .cell.column-network .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn),
+#guest-edit-window form .task .cell.column-network .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn),
+#guest-edit-window form .body .cell.column-network .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+  width: 180px;
+}
+
+#guest-edit-window form .header .cell.column-type,
+#guest-edit-window form .task .cell.column-type,
+#guest-edit-window form .body .cell.column-type {
+  width: 11.35%;
+}
+
+#guest-edit-window form .header .cell.column-mac,
+#guest-edit-window form .task .cell.column-mac,
+#guest-edit-window form .body .cell.column-mac {
+  width: 14.5%;
+}
+
+#guest-edit-window form .header .cell.column-ip,
+#guest-edit-window form .task .cell.column-ip,
+#guest-edit-window form .body .cell.column-ip {
+  width: 31%;
+}
+
+#guest-edit-window form .header .cell.column-sel,
+#guest-edit-window form .task .cell.column-sel,
+#guest-edit-window form .body .cell.column-sel {
+  width: 1.77%;
+}
+
+#guest-edit-window form .header .cell.column-snapshot-name,
+#guest-edit-window form .task .cell.column-snapshot-name,
+#guest-edit-window form .body .cell.column-snapshot-name {
+  width: 58%;
+}
+
+#guest-edit-window form .header .cell.column-snapshot-created,
+#guest-edit-window form .task .cell.column-snapshot-created,
+#guest-edit-window form .body .cell.column-snapshot-created {
+  width: 16.5%;
+}
+
+#guest-edit-window form .header .cell.column-pci-status,
+#guest-edit-window form .task .cell.column-pci-status,
+#guest-edit-window form .body .cell.column-pci-status {
+  width: 3.7%;
+}
+
+#guest-edit-window form .header .cell.column-pci-status .fa,
+#guest-edit-window form .task .cell.column-pci-status .fa,
+#guest-edit-window form .body .cell.column-pci-status .fa {
+  color: #8cc63f;
+  font-size: 24px;
+}
+
+#guest-edit-window form .header .cell.column-pci-name,
+#guest-edit-window form .task .cell.column-pci-name,
+#guest-edit-window form .body .cell.column-pci-name {
+  width: 21%;
+}
+
+#guest-edit-window form .header .cell.column-product,
+#guest-edit-window form .task .cell.column-product,
+#guest-edit-window form .body .cell.column-product {
+  width: 45%;
+}
+
+#guest-edit-window form .header .cell.column-vendor,
+#guest-edit-window form .task .cell.column-vendor,
+#guest-edit-window form .body .cell.column-vendor {
+  width: 24.1%;
+}
+
+#guest-edit-window form .header {
+  background: #fff;
+  display: block;
+  border-bottom: 1px solid #eee;
+  overflow: hidden;
+  clear: both;
+}
+
+#guest-edit-window form .header > span {
+  padding: 6px 2px;
+  display: inline-block;
+  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 400;
+  font-size: 12.5pt;
+  vertical-align: bottom;
+  border-bottom: none;
+  border-top: 0;
+  line-height: 1.42857;
+}
+
+#guest-edit-window form .header > span.column-actions {
+  height: 36px;
+}
+
+#guest-edit-window form .body {
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 471px;
+}
+
+#guest-edit-window form .body .item,
+#guest-edit-window form .task .item {
+  border-top: 1px solid #eee;
+  height: 53px;
+}
+
+#guest-edit-window form .body .item:first-child,
+#guest-edit-window form .task .item:first-child {
+  border-top: 0;
+}
+
+#guest-edit-window form .body .item:nth-child(even),
+#guest-edit-window form .task .item:nth-child(even) {
+  background-color: #fcfcfc;
+}
+
+#guest-edit-window form .body .item:nth-child(odd),
+#guest-edit-window form .task .item:nth-child(odd) {
+  background-color: #fff;
+}
+
+#guest-edit-window form .body .item > span,
+#guest-edit-window form .task .item > span {
+  padding: 6px 2px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#guest-edit-window form .body .item > span input[type="text"],
+#guest-edit-window form .task .item > span input[type="text"] {
+  height: 40px;
+}
+
+#guest-edit-window form .body .item > span input[readonly],
+#guest-edit-window form .body .item > span input[readonly]:hover,
+#guest-edit-window form .body .item > span input[readonly]:focus,
+#guest-edit-window form .body .item > span input[readonly]:active,
+#guest-edit-window form .task .item > span input[readonly],
+#guest-edit-window form .task .item > span input[readonly]:hover,
+#guest-edit-window form .task .item > span input[readonly]:focus,
+#guest-edit-window form .task .item > span input[readonly]:active {
+  background-color: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  text-overflow: ellipsis;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+  width: 100%;
+}
+
+.guest-edit-snapshot .hide,
+.guest-edit-interface .hide {
+  display: none !important;
+}
+
+.guest-edit-pci .filter {
+  height: 40px;
+  overflow: visible;
+  clear: both;
+}
+
+.guest-edit-pci .pull-right .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+  width: 133px;
+}
+
+.guest-edit-pci .filter input[type="text"].form-control {
+  width: 460px;
+  height: 40px;
+  float: right;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.guest-edit-pci .filter .bootstrap-select.btn-group .btn .caret {
+  border-left: 0;
+}
+
+.guest-edit-pci .filter button.btn.dropdown-toggle.form-control.selectpicker.btn-default {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  background: #fcfcfc;
+  border-right: 0;
+}
+
+.guest-edit-pci .body {
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 442px !important;
+}
+
+.guest-edit-pci .body .item.disabled input[type="text"].form-control {
+  color: #999;
+}
+
+.guest-edit-pci .body .item.disabled span.column-pci-status i {
+  display: none;
+}
+
+.guest-edit-permission .pam {
+  height: 540px;
+}
+
+.guest-edit-permission .pam .column {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.guest-edit-permission .pam .v-center {
+  min-height: 532px;
+  display: flex;
+  justify-content: center;
+  flex-flow: column wrap;
+}
+
+.guest-edit-permission .pam .center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.guest-edit-permission .pam .center-block + .center-block {
+  margin-top: 5px;
+}
+
+.guest-edit-permission .pam .title {
+  font-size: 13pt;
+}
+
+.guest-edit-permission .pam .body {
+  margin-top: 4px;
+  border-radius: 3px;
+  border: 1px solid #eee;
+  height: 460px !important;
+}
+
+.guest-edit-permission .pam .body .head .item {
+  display: block;
+  padding: 6px 2px;
+  margin-bottom: 5px;
+  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 400;
+  font-size: 12.5pt;
+  vertical-align: bottom;
+  line-height: 1.42857;
+  height: auto !important;
+  background: #fff;
+  border-top: 0;
+  border-bottom: 1px solid #eee;
+  cursor: default;
+}
+
+.guest-edit-permission .pam .body > .column-user .item,
+.guest-edit-permission .pam .body > .column-group .item {
+  height: auto !important;
+  margin-bottom: 0;
+  margin-left: 5px;
+}
+
+.guest-edit-permission .pam .body > .column-group .item {
+  margin-right: 5px;
+}
+
+.guest-edit-permission .pam .column-user label,
+.guest-edit-permission .pam .column-group label {
+  cursor: pointer;
+  margin-bottom: 0;
+  margin-left: 5px;
+  width: 160px;
+  height: 24px;
+  line-height: 22px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+}
+
+.guest-edit-permission .pam .body > .column .item {
+  background-color: #fff !important;
+  border: 1px solid #eee !important;
+  margin-bottom: 3px;
+  display: block;
+  padding: .2em .6em .3em;
+  font-weight: 700;
+  line-height: 1;
+  text-align: left;
+  white-space: nowrap;
+  vertical-align: middle;
+  border-radius: .25em;
+  overflow: hidden;
+}
+
+.guest-edit-permission .pam .body > .column .item:hover {
+  color: #444 !important;
+  background-color: #e6e6e6 !important;
+  border-color: #adadad !important;
+}
+
+.guest-edit-permission .pam .body > .column .item:hover label {
+  color: #444 !important;
+}
+
+.guest-edit-permission .pam .body > .column .item.item-picked {
+  color: #fff !important;
+  background-color: #3a393b !important;
+  border-color: #1b1b1c !important;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+.guest-edit-permission .pam .body > .column .item.item-picked label {
+  color: #fff !important;
+}
+
+.guest-edit-permission .hide {
+  display: none;
+}
+
+#form-guest-edit-permission .ldap .body .item {
+  margin: 8px 0;
+}
+
+#form-guest-edit-permission .ldap .cell {
+  width: 250px;
+}
+
+#form-guest-edit-permission .ldap .action-area {
+  float: right;
+  line-height: 24px;
+}
+
+#form-guest-edit-permission .ldap .header button {
+  margin-bottom: 1px;
+}
+
+#form-guest-edit-permission .ldap .checked {
+  border-color: red;
+  border-style: solid;
+  border-width: 1px;
+}
+
+#form-guest-edit-permission .ldap .checked.hide {
+  display: none;
+}
+
+#form-guest-storage-add .form-section .field {
+  overflow: visible;
+}
+
+/* Add Template Modal Window */
+.templates-modal .modal-dialog {
+  width: 1100px;
+}
+
+.templates-modal .page-list {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+
+.templates-modal .page {
+  position: absolute;
+  left: 100%;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  padding: 10px 30px;
+}
+
+#template-edit-window .tab-content .tab-pane {
+  position: relative;
+}
+
+#template-edit-window form {
+  margin: 15px 0 0;
+}
+
+#template-edit-window .hide {
+  display: none;
+}
+
+#template-edit-window .form-template-inline-wrapper {
+  display: inline-block;
+  vertical-align: top;
+}
+
+#template-edit-window .template-edit-wrapper-label {
+  vertical-align: top;
+  min-width: 100px;
+  height: 35px;
+  line-height: 35px;
+  margin: 7px 0 8px;
+}
+
+#template-edit-window .template-edit-wrapper-controls {
+  vertical-align: top;
+  width: 400px;
+  vertical-align: top;
+  min-width: 100px;
+  height: 35px;
+  line-height: 35px;
+  margin: 7px 0 8px;
+}
+
+#template-edit-window .template-tab-header {
+  background: #fff;
+  display: block;
+  border-bottom: 1px solid #eee;
+}
+
+#template-edit-window .template-tab-header > span {
+  padding: 6px 2px;
+  display: inline-block;
+  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 400;
+  font-size: 12.5pt;
+  vertical-align: baseline;
+  border-bottom: none;
+  border-top: 0;
+  line-height: 42px;
+  height: 42px;
+}
+
+#template-edit-window .template-tab-body .item {
+  border-top: 1px solid #eee;
+  height: 53px;
+}
+
+#template-edit-window .template-tab-body .item:first-child {
+  border-top: 0;
+}
+
+#template-edit-window .template-tab-body .item:nth-child(even) {
+  background-color: #fcfcfc;
+}
+
+#template-edit-window .template-tab-body .item:nth-child(odd) {
+  background-color: #fff;
+}
+
+#template-edit-window .template-tab-body .item > span {
+  padding: 6px 2px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#template-edit-window .template-tab-body .item > span input[type="text"].form-control {
+  height: 40px;
+}
+
+#template-edit-window .manual {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+#template-edit-window .topology {
+  margin: 0 24px;
+}
+
+#template-edit-window .topology .form-inline {
+  margin-bottom: 10px;
+}
+
+#template-edit-window .template-storage-cell.storage-pool {
+  width: 220px !important;
+}
+
+#template-edit-window .template-storage-cell.type {
+  width: 100px;
+}
+
+#template-edit-window .template-storage-cell.disk {
+  width: 100px;
+}
+
+#template-edit-window .template-storage-cell.format {
+  width: 320px;
+}
+
+#template-edit-window .template-interface-cell.network {
+  width: 220px;
+}
+
+#template-edit-window .template-interface-cell.type {
+  width: 250px;
+}
+
+#template-add-window .modal-body {
+  margin: 0;
+  padding: 0;
+}
+
+#template-add-window .modal-footer {
+  margin-top: 0;
+}
+
+#template-add-window .modal-footer .btn + .btn {
+  margin-left: 0;
+}
+
+#template-add-window .modal-footer .btn {
+  margin-right: 5px;
+}
+
+#template-add-window .template-modal-container {
+  padding: 10px 30px;
+  position: relative;
+}
+
+#template-add-window .template-pager {
+  background: #eee;
+  width: 1082px;
+  height: 689px;
+  position: relative;
+  overflow: hidden;
+}
+
+#template-add-window .template-pager-container {
+  position: absolute;
+  height: 664px;
+  width: 2164px;
+  left: 0;
+  transition: left .2s ease-in-out;
+}
+
+#template-add-window.modal-content p {
+  margin: 0;
+}
+
+#template-add-window.modal-content h5 {
+  font-size: 13pt;
+  font-weight: 400;
+  margin-top: 0;
+}
+
+#template-add-window.modal-content label {
+  font-size: 16px;
+  font-weight: 400;
+  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+#template-add-window.modal-content button#iso-more,
+#template-add-window.modal-content button#iso-more-loading {
+  margin-bottom: 17px;
+  clear: both;
+}
+
+#template-add-window.modal-content div#iso-remote-box {
+  left: 1082px;
+}
+
+#template-add-window.modal-content div#iso-local-box {
+  left: 0;
+}
+
+/* VM List View classes*/
+#templates-root-container .wok-vm-list {
+  display: block;
+  width: 100%;
+  list-style-type: none;
+  margin: 0;
+  padding-left: 0;
+  background: #fff;
+}
+
+#templates-root-container .wok-vm-list .wok-vm-header {
+  border-bottom: 1px solid #e3e3e3;
+}
+
+#templates-root-container .wok-vm-list .wok-vm-header > span {
+  padding: 6px 2px;
+  display: inline-block;
+  vertical-align: bottom;
+  height: 36px;
+  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+  font-size: 12.5pt;
+  line-height: 1.42857;
+  border-bottom: none;
+  border-top: 0;
+  background-color: #fff;
+}
+
+#templates-root-container .wok-vm-list .wok-vm-body {
+  clear: both;
+  border-top: 1px solid #eee;
+}
+
+#templates-root-container .wok-vm-list .wok-vm-body:first-child {
+  border-top: 0;
+}
+
+#templates-root-container .wok-vm-list .wok-vm-body > span {
+  padding: 6px 2px;
+  display: inline-block;
+  vertical-align: top;
+  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-size: 12.5pt;
+  line-height: 2.42857;
+  font-weight: 400;
+}
+
+#templates-root-container .wok-vm-list .wok-vm-body .column-type {
+  padding-left: 40px !important;
+}
+
+#templates-root-container .wok-vm-list .ul-body {
+  display: block;
+  width: 100%;
+  clear: both;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+#templates-root-container .wok-vm-list .ul-body > li:nth-child(even) {
+  background-color: #fcfcfc;
+}
+
+#templates-root-container .wok-vm-list .ul-body > li:nth-child(odd) {
+  background-color: #fff;
+}
+
+#templates-root-container .wok-vm-list .column-name {
+  width: 17.4900%;
+  font-weight: bold;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+#templates-root-container .wok-vm-list .column-type {
+  width: 14.2435%;
+  font-weight: bold;
+}
+
+#templates-root-container .wok-vm-list .column-version {
+  width: 14.2435%;
+  font-weight: bold;
+}
+
+#templates-root-container .wok-vm-list .column-processors {
+  width: 12.8413%;
+}
+
+#templates-root-container .wok-vm-list .column-memory {
+  width: 7.3800%;
+}
+
+#templates-root-container .wok-vm-list .column-action {
+  width: 33.8000%;
+}
+
+#templates-root-container .wok-vm-list .item-hidden {
+  display: none !important;
+}
+
+#templates-root-container .wok-vm-list .distro-icon {
+  background-color: transparent;
+  background-size: 27px 27px;
+  background-repeat: no-repeat;
+  background-position: 8px 50%;
+}
+
+#templates-root-container .wok-vm-list .distro-icon.icon-centos {
+  background-image: url("/images/theme-default/icon-centos.png");
+}
+
+#templates-root-container .wok-vm-list .distro-icon.icon-debian {
+  background-image: url("/images/theme-default/icon-debian.png");
+}
+
+#templates-root-container .wok-vm-list .distro-icon.icon-fedora {
+  background-image: url("/images/theme-default/icon-fedora.png");
+}
+
+#templates-root-container .wok-vm-list .distro-icon.icon-opensuse {
+  background-image: url("/images/theme-default/icon-opensuse.png");
+}
+
+#templates-root-container .wok-vm-list .distro-icon.icon-ubuntu {
+  background-image: url("/images/theme-default/icon-ubuntu.png");
+}
+
+#templates-root-container .wok-vm-list .distro-icon.icon-gentoo {
+  background-image: url("/images/theme-default/icon-gentoo.png");
+}
+
+#templates-root-container .wok-vm-list .distro-icon.icon-unknown {
+  background-image: url("/images/theme-default/icon-unknown.png");
+}
+
+#templates-root-container .wok-vm-gallery {
+  display: block;
+  width: 100%;
+  list-style-type: none;
+  margin: 0;
+  padding-left: 5px;
+}
+
+#templates-root-container .wok-vm-gallery .wok-vm-header {
+  display: none;
+}
+
+#templates-root-container .wok-vm-gallery .wok-vm-body {
+  padding: 0 20px 0 20px;
+  width: 240px;
+  display: inline-block;
+  border: 1px solid #e3e3e3;
+  margin-right: 20px;
+}
+
+#templates-root-container .wok-vm-gallery .wok-vm-body > span {
+  display: inline-block;
+  width: 100%;
+  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-size: 12.5pt;
+  line-height: 1.42857;
+  font-weight: 400;
+}
+
+#templates-root-container .wok-vm-gallery .ul-body {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+#templates-root-container .wok-vm-gallery .column-name {
+  line-height: 2.5 !important;
+  font-size: 15.3pt !important;
+  font-weight: 500 !important;
+  text-overflow: ellipsis !important;
+  overflow: hidden !important;
+  padding-right: 35px !important;
+}
+
+#templates-root-container .wok-vm-gallery .item-hidden.column-type, #templates-root-container .wok-vm-gallery .item-hidden.column-version, #templates-root-container .wok-vm-gallery .item-hidden.column-processors {
+  padding-bottom: 11px;
+}
+
+#templates-root-container .wok-vm-gallery .item-hidden.column-memory {
+  padding-bottom: 38px;
+}
+
+#templates-root-container .wok-vm-gallery .font-bold {
+  font-weight: bold !important;
+}
+
+#templates-root-container .wok-vm-gallery .pull-right {
+  float: none !important;
+  padding-bottom: 22px;
+}
+
+#templates-root-container .wok-vm-gallery .dropdown-menu {
+  width: 100%;
+}
+
+#templates-root-container .wok-vm-gallery .menu-flat {
+  width: 239px;
+  margin-left: -20px;
+}
+
+#templates-root-container .wok-vm-gallery .btn {
+  width: 100%;
+  text-align: left;
+  padding-left: 42px;
+  border-radius: 0;
+}
+
+#templates-root-container .wok-vm-gallery .name-distro-icon {
+  background-color: transparent;
+  background-size: 32px 32px;
+  background-repeat: no-repeat;
+  background-position: 100% 50%;
+}
+
+#templates-root-container .wok-vm-gallery .name-distro-icon.icon-centos {
+  background-image: url("/images/theme-default/icon-centos.png");
+}
+
+#templates-root-container .wok-vm-gallery .name-distro-icon.icon-debian {
+  background-image: url("/images/theme-default/icon-debian.png");
+}
+
+#templates-root-container .wok-vm-gallery .name-distro-icon.icon-fedora {
+  background-image: url("/images/theme-default/icon-fedora.png");
+}
+
+#templates-root-container .wok-vm-gallery .name-distro-icon.icon-opensuse {
+  background-image: url("/images/theme-default/icon-opensuse.png");
+}
+
+#templates-root-container .wok-vm-gallery .name-distro-icon.icon-ubuntu {
+  background-image: url("/images/theme-default/icon-ubuntu.png");
+}
+
+#templates-root-container .wok-vm-gallery .name-distro-icon.icon-gentoo {
+  background-image: url("/images/theme-default/icon-gentoo.png");
+}
+
+#templates-root-container .wok-vm-gallery .name-distro-icon.icon-unknown {
+  background-image: url("/images/theme-default/icon-unknown.png");
+}
+
+.network-config input.invalid-field[type="text"] {
+  border-color: #FF4444;
+}
+
+.network-config input.invalid-field[type="text"][disabled] {
+  border-color: #666666;
+}
+
+#add-network-window #vlan-enabled {
+  padding-left: 26px;
+}
+
+#add-network-window #vlan-enabled label, #add-network-window #vlan-enabled input[type="text"] {
+  display: block;
+}
+
+#network-root-container .wok-nw-loading-icon {
+  background: transparent url("/images/theme-default/spin5.svg") no-repeat 50% 50%;
+  -webkit-animation: spin 3s infinite linear;
+  -o-animation: spin 3s infinite linear;
+  animation: spin 3s infinite linear;
+  height: 16px;
+  width: 16px;
+  background-size: 100%;
+  display: block;
+  position: relative;
+  top: 12px;
+  left: 50%;
+  margin-left: -8px;
+}
+
+#network-root-container .up .wok-nw-loading-icon,
+#network-root-container .down .wok-nw-loading-icon {
+  display: none;
+}
+
+#network-root-container .wok-datagrid-body span > .fa {
+  font-size: 22px;
+  width: 20px;
+  height: 20px;
+  position: relative;
+}
+
+#network-root-container .wok-datagrid-body .up .fa {
+  color: #a8d46f;
+}
+
+#network-root-container .wok-datagrid-body .loading > .fa,
+#network-root-container .wok-datagrid-body .down .fa {
+  display: none;
+}
+
+#network-root-container .wok-datagrid > .wok-datagrid-header > span.column-state,
+#network-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-state {
+  width: 2.92207%;
+  text-align: center;
+}
+
+#network-root-container .wok-datagrid > .wok-datagrid-header > span.column-name,
+#network-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-name {
+  width: 19.2207%;
+}
+
+#network-root-container .wok-datagrid > .wok-datagrid-header > span.column-type,
+#network-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-type {
+  width: 11.3896%;
+}
+
+#network-root-container .wok-datagrid > .wok-datagrid-header > span.column-interface,
+#network-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-interface {
+  width: 10.3896%;
+}
+
+#network-root-container .wok-datagrid > .wok-datagrid-header > span.column-space,
+#network-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-space {
+  width: 30%;
+}
+
+#network-root-container .wok-datagrid > .wok-datagrid-header > span.column-action,
+#network-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-action {
+  width: 25.909%;
+  text-align: right;
+}
+
+#network-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-state {
+  height: 53px;
+  vertical-align: middle;
+}
+
+#storage-root-container .wok-datagrid-body span > .fa {
+  font-size: 22px;
+  width: 20px;
+  height: 20px;
+  position: relative;
+}
+
+#storage-root-container .wok-datagrid-body .handle {
+  user-select: none;
+  position: relative;
+}
+
+#storage-root-container .wok-datagrid-body .active .handle {
+  cursor: pointer;
+}
+
+#storage-root-container .wok-datagrid-body .active .fa-power-off {
+  color: #a8d46f;
+}
+
+#storage-root-container .wok-datagrid-body .inactive .handle {
+  cursor: default;
+}
+
+#storage-root-container .wok-datagrid-body .inactive .fa-power-off {
+  display: none;
+}
+
+#storage-root-container .wok-datagrid-body .inactive .usage-icon.icon-high {
+  background-image: url("/images/theme-default/high_disabled.png") !important;
+}
+
+#storage-root-container .wok-datagrid-body .inactive .usage-icon.icon-med {
+  background-image: url("/images/theme-default/med_disabled.png") !important;
+}
+
+#storage-root-container .wok-datagrid-body .inactive .usage-icon.icon-low {
+  background-image: url("/images/theme-default/low_disabled.png") !important;
+}
+
+#storage-root-container .volumes {
+  width: 100%;
+  background: #ddd;
+  display: none;
+}
+
+#storage-root-container .volumes > .footer {
+  z-index: 100;
+}
+
+#storage-root-container .volumes .volumeslist {
+  padding: 11px;
+  max-height: 285px;
+  min-height: 136px;
+  overflow: auto;
+}
+
+#storage-root-container .volumes .volume-box {
+  background: #fff;
+  padding: 4px 20px;
+  margin: 11px;
+  display: inline-block;
+  width: 409px;
+  height: 110px;
+}
+
+#storage-root-container .volumes .volume-title {
+  height: 46px;
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+  position: relative;
+}
+
+#storage-root-container .volumes .volume-name {
+  font-size: 15pt;
+  font-weight: 300;
+  width: 274px;
+  line-height: 46px;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#storage-root-container .volumes .volume-utilization {
+  vertical-align: top;
+  text-align: right;
+  display: inline-block;
+  width: 90px;
+  height: 46px;
+  line-height: 46px;
+}
+
+#storage-root-container .volumes .volume-icon {
+  display: inline-block;
+  width: 27px;
+  height: 46px;
+  line-height: 46px;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-color: transparent;
+}
+
+#storage-root-container .volumes .volume-usage {
+  vertical-align: top;
+  font-size: 15pt;
+  font-weight: 400;
+  display: inline-block;
+  text-align: right;
+  line-height: 46px;
+  padding-left: 0;
+  margin-left: 5px;
+}
+
+#storage-root-container .volumes .volume-icon.icon-high {
+  background-image: url("/images/theme-default/high.png");
+}
+
+#storage-root-container .volumes .volume-icon.icon-med {
+  background-image: url("/images/theme-default/med.png");
+}
+
+#storage-root-container .volumes .volume-icon.icon-low {
+  background-image: url("/images/theme-default/low.png");
+}
+
+#storage-root-container .volumes .volume-progress {
+  position: absolute;
+  margin: 0;
+  width: 409px;
+  top: -4px;
+  left: -20px;
+}
+
+#storage-root-container .volumes .volume-progress .progress-bar-outer {
+  background: transparent;
+  height: 6px;
+  overflow: hidden;
+  width: 100%;
+}
+
+#storage-root-container .volumes .volume-progress .progress-bar-inner {
+  background: #8BC53E;
+  height: 100%;
+  width: 100%;
+}
+
+#storage-root-container .volumes .volume-data {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#storage-root-container .volumes .volume-data > li {
+  display: inline-block;
+  width: 89px;
+}
+
+#storage-root-container .volumes .volume-data > li span {
+  display: block;
+  font-size: 12pt;
+}
+
+#storage-root-container .volumes .volume-data > li span.value {
+  font-weight: 600;
+}
+
+#storage-root-container .volumes .volume-data > li span.key {
+  font-weight: 300;
+}
+
+#storage-root-container .volumes .pool-empty {
+  text-align: center;
+  line-height: 136px;
+}
+
+#storage-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row[data-stat="inactive"] {
+  color: #999 !important;
+}
+
+#storage-root-container .wok-datagrid > .wok-datagrid-header > span.column-state,
+#storage-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-state {
+  width: 3.0519%;
+  text-align: center;
+}
+
+#storage-root-container .wok-datagrid > .wok-datagrid-header > span.column-name,
+#storage-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-name {
+  width: 12.7272%;
+  text-overflow: ellipsis;
+}
+
+#storage-root-container .wok-datagrid > .wok-datagrid-header > span.column-type,
+#storage-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-type {
+  width: 11.6883%;
+}
+
+#storage-root-container .wok-datagrid > .wok-datagrid-header > span.column-location,
+#storage-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-location {
+  width: 21.4285%;
+}
+
+#storage-root-container .wok-datagrid > .wok-datagrid-header > span.column-usage,
+#storage-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-usage {
+  width: 9.41558%;
+}
+
+#storage-root-container .wok-datagrid > .wok-datagrid-header > span.column-usage .usage-icon,
+#storage-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-usage .usage-icon {
+  padding-left: 35px;
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-position: 0 50%;
+  background-color: transparent;
+}
+
+#storage-root-container .wok-datagrid > .wok-datagrid-header > span.column-usage .usage-icon.icon-high,
+#storage-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-usage .usage-icon.icon-high {
+  background-image: url("/images/theme-default/high.png");
+}
+
+#storage-root-container .wok-datagrid > .wok-datagrid-header > span.column-usage .usage-icon.icon-med,
+#storage-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-usage .usage-icon.icon-med {
+  background-image: url("/images/theme-default/med.png");
+}
+
+#storage-root-container .wok-datagrid > .wok-datagrid-header > span.column-usage .usage-icon.icon-low,
+#storage-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-usage .usage-icon.icon-low {
+  background-image: url("/images/theme-default/low.png");
+}
+
+#storage-root-container .wok-datagrid > .wok-datagrid-header > span.column-capacity,
+#storage-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-capacity {
+  width: 8.701298%;
+}
+
+#storage-root-container .wok-datagrid > .wok-datagrid-header > span.column-allocated,
+#storage-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-allocated {
+  width: 9.35064%;
+}
+
+#storage-root-container .wok-datagrid > .wok-datagrid-header > span.column-disks,
+#storage-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-disks {
+  text-align: center;
+  width: 2.9870%;
+}
+
+#storage-root-container .wok-datagrid > .wok-datagrid-header > span.column-action,
+#storage-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-action {
+  width: 20.64%;
+  text-align: right;
+}
+
+#storage-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-state {
+  height: 53px;
+  vertical-align: middle;
+}
+
+#storage-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-disks {
+  height: 53px;
+  vertical-align: middle;
+}
+
+#storage-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-disks .arrow-down,
+#storage-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-disks .arrow-up {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#storage-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-disks .arrow-down:before {
+  content: "\f078";
+}
+
+#storage-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-disks .arrow-up:before {
+  content: "\f077";
+}
+
+#storage-root-container #logicalPoolExtend .modal-body {
+  max-height: 438px;
+}
+
+#storage-root-container #logicalPoolExtend .modal-body p span {
+  vertical-align: middle !important;
+}
+
+#storage-root-container #logicalPoolExtend form,
+.storage-modal form {
+  margin: 0 !important;
+}
+
+#storage-root-container #logicalPoolExtend .host-partition,
+.storage-modal .host-partition {
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 430px;
+}
+
+#storage-root-container #logicalPoolExtend .host-partition label,
+.storage-modal .host-partition label {
+  display: block;
+}
+
+#storage-root-container #logicalPoolExtend .host-partition label > div,
+.storage-modal .host-partition label > div {
+  vertical-align: top;
+  display: inline-block;
+}
+
+#storage-root-container #logicalPoolExtend .host-partition label span.device-name,
+#storage-root-container #logicalPoolExtend .host-partition label span.device-path,
+.storage-modal .host-partition label span.device-name,
+.storage-modal .host-partition label span.device-path {
+  display: block;
+}
+
+#storage-root-container #logicalPoolExtend .host-partition label span.device-name,
+.storage-modal .host-partition label span.device-name {
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#storage-root-container #logicalPoolExtend .host-partition label span.device-path,
+.storage-modal .host-partition label span.device-path {
+  font-weight: 400;
+  word-wrap: break-word;
+}
+
+#storage-root-container #logicalPoolExtend .host-partition label > div {
+  width: 388px;
+}
+
+#storage-root-container #logicalPoolExtend .host-partition label > div span.device-path {
+  width: 388px;
+}
+
+.storage-modal .filter-select.popable .popover,
+.storage-modal .storage-target-input .popover,
+.storage-modal .storage-add-input .popover {
+  max-width: 100% !important;
+  width: 100%;
+  top: 34px;
+  left: -2px;
+  border: 0 !important;
+  background: 0 !important;
+  box-shadow: none !important;
+}
+
+.storage-modal .filter-select.popable .popover ul,
+.storage-modal .storage-target-input .popover ul,
+.storage-modal .storage-add-input .popover ul {
+  z-index: 1000;
+  padding: 5px 0;
+  margin: 2px 2px 0;
+  list-style: none;
+  font-size: 14px;
+  text-align: left;
+  background-color: #fcfcfc;
+  border: 1px solid #ccc;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  -webkit-box-shadow: compact(0 6px 12px rgba(0, 0, 0, 0.175));
+  -moz-box-shadow: compact(0 6px 12px rgba(0, 0, 0, 0.175));
+  box-shadow: compact(0 6px 12px rgba(0, 0, 0, 0.175));
+  background-clip: padding-box;
+}
+
+.storage-modal .filter-select.popable .popover ul li,
+.storage-modal .storage-target-input .popover ul li,
+.storage-modal .storage-add-input .popover ul li {
+  cursor: pointer;
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.42857;
+  color: #222;
+  white-space: nowrap;
+}
+
+.storage-modal .filter-select.popable .popover ul li:hover, .storage-modal .filter-select.popable .popover ul li:focus,
+.storage-modal .storage-target-input .popover ul li:hover,
+.storage-modal .storage-target-input .popover ul li:focus,
+.storage-modal .storage-add-input .popover ul li:hover,
+.storage-modal .storage-add-input .popover ul li:focus {
+  text-decoration: none;
+  color: #151515;
+  background-color: #f5f5f5;
+}
+
+.storage-modal #nfspathId[style],
+.storage-modal #nfsserverId[style] {
+  width: 100% !important;
+}
+
+.storage-modal .iscsi-section .form-group > .col-md-12 > .col-md-10 + .col-md-2 {
+  padding-left: 5px;
+}
+
+.storage-modal .iscsi-section .form-group > .col-md-12 > .col-md-10 {
+  padding-right: 5px;
+}
+
+.storage-modal .authenticationfield > div > .col-md-6 + .col-md-6 {
+  padding-left: 5px;
+}
+
+.storage-modal .authenticationfield > div > .col-md-6 {
+  padding-right: 5px;
+}
+
+.storage-modal .host-partition label > div {
+  width: 688px;
+}
+
+.storage-modal .host-partition label > div span.device-path {
+  width: 688px;
+}

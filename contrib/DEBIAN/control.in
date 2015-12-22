@@ -29,8 +29,6 @@ Depends: wok,
          python-paramiko
 Build-Depends: xsltproc,
                gettext,
-               python-lxml,
-               python-dev,
-               python-pip
+               python-lxml
 Maintainer: Aline Manera <alinefm@br.ibm.com>
 Description: Kimchi web application
