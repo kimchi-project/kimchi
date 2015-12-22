@@ -56,14 +56,18 @@ Install Dependencies
                         python-websockify novnc spice-html5 \
                         python-configobj python-magic python-paramiko
 
-     # If using RHEL, install the following additional packages:
-     $ sudo yum install python-unittest2 python-ordereddict
+    # If using RHEL, install the following additional packages:
+    $ sudo yum install python-unittest2 python-ordereddict
 
-     # Restart libvirt to allow configuration changes to take effect
-     $ sudo service libvirtd restart
+    # Restart libvirt to allow configuration changes to take effect
+    $ sudo service libvirtd restart
 
     # These dependencies are only required if you want to run the tests:
     $ sudo yum install pyflakes python-pep8 python-requests python-mock
+
+    # For UI development
+    $ sudo yum install gcc-c++ python-devel python pip
+    $ sudo pip install cython libsass
 
 
 *Note for RHEL users*: Some of the above packages are located in the Red Hat
@@ -86,6 +90,10 @@ channel at RHN Classic or Red Hat Satellite.
     # These dependencies are only required if you want to run the tests:
     $ sudo apt-get install pep8 pyflakes python-requests python-mock
 
+    # For UI development
+    $ sudo apt-get install g++ python-dev python pip
+    $ sudo pip install cython libsass
+
 **For openSUSE:**
 
     $ sudo zypper install wok libvirt-python libvirt gettext-tools \
@@ -97,6 +105,10 @@ channel at RHN Classic or Red Hat Satellite.
 
     # These dependencies are only required if you want to run the tests:
     $ sudo zypper install python-pyflakes python-pep8 python-requests python-mock
+
+    # For UI development
+    $ sudo zypper install python-devel python pip
+    $ sudo pip install cython libsass
 
 *Note for openSUSE users*: Some of the above packages are located in different
 openSUSE repositories. See
@@ -172,6 +184,14 @@ Test
 
 After all tests are executed, a summary will be displayed containing any
 errors/failures which might have occurred.
+
+
+UI Development
+----
+Make sure to update the CSS files when modifying the SCSS files by running:
+
+    $ sudo make -C ui/css css
+
 
 Usage
 -----
