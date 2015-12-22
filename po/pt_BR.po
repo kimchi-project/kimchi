@@ -192,8 +192,8 @@ msgstr "URI do modelo %(value)s inválido especificado para máquina virtual"
 #, python-format
 msgid "Invalid storage pool URI %(value)s specified for virtual machine"
 msgstr ""
-"URI do conjunto de armazenamentos %(value)s inválido especificado para "
-"máquina virtual"
+"URI do banco de armazenamento %(value)s inválido especificado para máquina "
+"virtual"
 
 msgid "Supported virtual machine graphics are Spice or VNC"
 msgstr "Os gráficos de máquina virtual suportados são Spice ou VNC"
@@ -526,14 +526,14 @@ msgstr ""
 msgid ""
 "Storage pool %(pool)s specified for template %(template)s does not exist"
 msgstr ""
-"O conjunto de armazenamentos %(pool)s especificado para o modelo "
-"%(template)s não existe"
+"O banco de armazenamento %(pool)s especificado para o modelo %(template)s não "
+"existe"
 
 #, python-format
 msgid "Storage pool %(pool)s specified for template %(template)s is not active"
 msgstr ""
-"O conjunto de armazenamentos %(pool)s especificado para o modelo "
-"%(template)s não está ativo"
+"O banco de armazenamento %(pool)s especificado para o modelo %(template)s não "
+"está ativo"
 
 #, python-format
 msgid "Invalid parameter '%(param)s' specified for CDROM."
@@ -570,7 +570,7 @@ msgstr "O modelo CD-ROM deve ser um arquivo ISO local ou remoto"
 #, python-format
 msgid "Invalid storage pool URI %(value)s specified for template"
 msgstr ""
-"URI do conjunto de armazenamentos %(value)s inválido especificado para modelo"
+"URI do banco de armazenamento %(value)s inválido especificado para modelo"
 
 msgid "Specify an ISO image as CDROM or a base image to create a template"
 msgstr ""
@@ -582,12 +582,12 @@ msgstr "Todas as redes para o modelo devem ser especificadas em uma lista."
 
 msgid "Specify a volume to a template when storage pool is iSCSI or SCSI"
 msgstr ""
-"Especifique um volume para um modelo quando o conjunto de armazenamentos for "
+"Especifique um volume para um modelo quando o banco de armazenamento for "
 "iSCSI ou SCSI"
 
 #, python-format
 msgid "The volume %(volume)s is not in storage pool %(pool)s"
-msgstr "O volume %(volume)s não está no conjunto de armazenamentos %(pool)s"
+msgstr "O volume %(volume)s não está no banco de armazenamento %(pool)s"
 
 #, python-format
 msgid "Unable to create template due error: %(err)s"
@@ -638,104 +638,102 @@ msgstr ""
 
 #, python-format
 msgid "Storage pool %(name)s already exists"
-msgstr "O conjunto de armazenamentos %(name)s já existe"
+msgstr "O banco de armazenamento %(name)s já existe"
 
 #, python-format
 msgid "Storage pool %(name)s does not exist"
-msgstr "O conjunto de armazenamentos %(name)s não existe"
+msgstr "O banco de armazenamento %(name)s não existe"
 
 #, python-format
 msgid "Specify %(item)s in order to create the storage pool %(name)s"
-msgstr "Especifique %(item)s para criar o conjunto de armazenamentos %(name)s"
+msgstr "Especifique %(item)s para criar o banco de armazenamento %(name)s"
 
 #, python-format
 msgid "Unable to delete active storage pool %(name)s"
-msgstr "Não é possível excluir o conjunto de armazenamentos ativo %(name)s"
+msgstr "Não é possível excluir o banco de armazenamento ativo %(name)s"
 
 #, python-format
 msgid "Unable to list storage pools. Details: %(err)s"
 msgstr ""
-"Não é possível listar os conjuntos de armazenamentos. Detalhes: %(err)s"
+"Não é possível listar os bancos de armazenamento. Detalhes: %(err)s"
 
 #, python-format
 msgid "Unable to create storage pool %(name)s. Details: %(err)s"
 msgstr ""
-"Não é possível criar o conjunto de armazenamentos %(name)s. Detalhes: %(err)s"
+"Não é possível criar o banco de armazenamento %(name)s. Detalhes: %(err)s"
 
 #, python-format
 msgid ""
 "Unable to get number of storage volumes in storage pool %(name)s. Details: "
 "%(err)s"
 msgstr ""
-"Não é possível obter o número de volumes de armazenamento no conjunto de "
-"armazenamentos %(name)s. Detalhes: %(err)s"
+"Não é possível obter o número de volumes de armazenamento no banco de "
+"armazenamento %(name)s. Detalhes: %(err)s"
 
 #, python-format
 msgid "Unable to activate storage pool %(name)s. Details: %(err)s"
 msgstr ""
-"Não é possível ativar o conjunto de armazenamentos %(name)s. Detalhes: "
-"%(err)s"
+"Não é possível ativar o banco de armazenamento %(name)s. Detalhes: %(err)s"
 
 #, python-format
 msgid "Unable to deactivate storage pool %(name)s. Details: %(err)s"
 msgstr ""
-"Não é possível desativar o conjunto de armazenamentos %(name)s. Detalhes: "
-"%(err)s"
+"Não é possível desativar o banco de armazenamento %(name)s. Detalhes: %(err)s"
 
 #, python-format
 msgid "Unable to delete storage pool %(name)s. Details: %(err)s"
 msgstr ""
-"Não é possível excluir o conjunto de armazenamentos %(name)s. Detalhes: "
-"%(err)s"
+"Não é possível excluir o banco de armazenamento %(name)s. Detalhes: %(err)s"
 
 #, python-format
 msgid ""
 "Unable to create NFS Pool as export path %(path)s may block during mount"
 msgstr ""
-"Não é possível criar o Conjunto NFS porque o caminho de exportação %(path)s "
+"Não é possível criar o Banco NFS porque o caminho de exportação %(path)s "
 "pode bloquear durante a montagem"
 
 #, python-format
 msgid "Unable to create NFS Pool as export path %(path)s mount failed"
 msgstr ""
-"Não é possível criar o Conjunto NFS porque a montagem do caminho de "
+"Não é possível criar o Banco NFS porque a montagem do caminho de "
 "exportação %(path)s falhou"
 
 #, python-format
 msgid "Unsupported storage pool type: %(type)s"
-msgstr "Tipo de conjunto de armazenamentos não suportado: %(type)s"
+msgstr "Tipo de banco de armazenamento não suportado: %(type)s"
 
 #, python-format
 msgid "Error while retrieving storage pool XML to %(pool)s"
-msgstr "Erro ao recuperar o conjunto de armazenamentos XML para %(pool)s"
+msgstr "Erro ao recuperar o banco de armazenamento XML para %(pool)s"
 
 msgid "Storage pool name must be a string without slashes (/)"
 msgstr ""
-"O nome do conjunto de armazenamentos deve ser uma sequência sem barras (/)"
+"O nome do banco de armazenamento deve ser uma sequência sem barras (/)"
 
 msgid ""
 "Supported storage pool types are dir, netfs, logical, iscsi, isci and kimchi-"
 "iso"
 msgstr ""
-"Os tipos de conjunto de armazenamentos suportados são dir, netfs, lógico, "
-"iscsi, isci e kimchiiso"
+"Os tipos de banco de armazenamento suportados são dir, netfs, lógico, iscsi, "
+"isci e kimchiiso"
 
 msgid "Storage pool path must be a string"
-msgstr "O caminho do storage pool deve ser um texto"
+msgstr "O caminho do banco de armazenamento deve ser um texto"
 
 msgid "Storage pool host must be a IP or hostname"
-msgstr "O host do storage pool deve ser um IP ou nome do host"
+msgstr "O host do banco de armazenamento deve ser um IP ou nome do host"
 
 msgid "Storage pool device must be the absolute path to the block device"
 msgstr ""
-"O dispositivo do conjunto de armazenamentos deve ser o caminho absoluto para "
-"o dispositivo de bloco"
+"O dispositivo do banco de armazenamento deve ser o caminho absoluto para o "
+"dispositivo de bloco"
 
 msgid "Storage pool devices parameter must be a list"
-msgstr "O parâmetro de dispositivos do storage pool deve ser uma lista"
+msgstr "O parâmetro de dispositivos do banco de armazenamento deve ser uma "
+"lista"
 
 msgid "Target IQN of an iSCSI pool must be a string"
-msgstr "O IQN de destino de um conjunto iSCSI deve ser um texto"
+msgstr "O IQN de destino de um banco iSCSI deve ser um texto"
 
 msgid "Port of a remote storage server must be an integer between 1 and 65535"
 msgstr ""
@@ -749,7 +747,7 @@ msgid "iSCSI target password must be a string"
 msgstr "A senha de destino iSCSI deve ser uma sequência"
 
 msgid "Specify name and type to create a storage pool"
-msgstr "Especifique o nome e o tipo para criar um storage pool"
+msgstr "Especifique o nome e o tipo para criar um banco de armazenamento"
 
 #, python-format
 msgid ""
@@ -757,48 +755,49 @@ msgid ""
 "%(pool)s."
 msgstr ""
 "%(disk)s não é um disco/partição válido. Não foi possível incluí-lo no "
-"conjunto %(pool)s."
+"banco %(pool)s."
 
 #, python-format
 msgid "Unable to extend logical pool %(pool)s. Details: %(err)s"
-msgstr "Não é possível estender o conjunto lógico %(pool)s. Detalhes: %(err)s"
+msgstr "Não é possível estender o banco lógico %(pool)s. Detalhes: %(err)s"
 
 msgid "The parameter disks only can be updated for logical storage pool."
-msgstr "O parâmetro disks só pode ser atualizado para o storage pool lógico."
+msgstr "O parâmetro discos só pode ser atualizado para o banco de "
+"armazenamento lógico."
 
 msgid "The SCSI host adapter name must be a string."
 msgstr "O nome do adaptador de host SCSI deve ser um texto."
 
 msgid "The storage pool kimchi_isos is reserved for internal use"
-msgstr "O storage pool kimchi_isos está reservado para uso interno"
+msgstr "O banco de armazenamento kimchi_isos está reservado para uso interno"
 
 #, python-format
 msgid ""
 "Unable to activate NFS storage pool %(name)s. NFS server %(server)s is "
 "unreachable."
 msgstr ""
-"Não é possível ativar o conjunto de armazenamentos NFS %(name)s. O servidor "
-"NFS %(server)s é inacessível."
+"Não é possível ativar o banco de armazenamento NFS %(name)s. O servidor NFS "
+"%(server)s é inacessível."
 
 #, python-format
 msgid ""
 "Unable to deactivate NFS storage pool %(name)s. NFS server %(server)s is "
 "unreachable."
 msgstr ""
-"Não é possível desativar o conjunto de armazenamentos NFS %(name)s. O "
-"servidor NFS %(server)s é inacessível."
+"Não é possível desativar o banco de armazenamento NFS %(name)s. O servidor "
+"NFS %(server)s é inacessível."
 
 #, python-format
 msgid ""
 "Unable to deactivate pool %(name)s as it is associated with some templates"
 msgstr ""
-"Não é possível desativar o conjunto %(name)s porque ele está associado com "
+"Não é possível desativar o banco %(name)s porque ele está associado com "
 "alguns modelos"
 
 #, python-format
 msgid "Unable to delete pool %(name)s as it is associated with some templates"
 msgstr ""
-"Não é possível excluir o conjunto %(name)s porque ele está associado com "
+"Não é possível excluir o banco %(name)s porque ele está associado com "
 "alguns modelos"
 
 #, python-format
@@ -807,7 +806,7 @@ msgid ""
 "to create the logical pool."
 msgstr ""
 "Um grupo de volumes nomeado '%(name)s' já existe. Escolha outro nome para "
-"criar o conjunto lógico."
+"criar o banco lógico."
 
 #, python-format
 msgid "Unable to update database with deep scan information due error: %(err)s"
@@ -828,7 +827,7 @@ msgstr "O volume de armazenamento %(name)s já existe"
 #, python-format
 msgid "Storage volume %(name)s does not exist in storage pool %(pool)s"
 msgstr ""
-"O volume de armazenamento %(name)s não existe no conjunto de armazenamentos "
+"O volume de armazenamento %(name)s não existe no banco de armazenamento "
 "%(pool)s"
 
 #, python-format
@@ -836,33 +835,33 @@ msgid ""
 "Unable to create storage volume %(volume)s because storage pool %(pool)s is "
 "not active"
 msgstr ""
-"Não é possível criar o volume de armazenamento %(volume)s porque o conjunto "
-"de armazenamentos %(pool)s não está ativo"
+"Não é possível criar o volume de armazenamento %(volume)s porque o banco de "
+"armazenamento %(pool)s não está ativo"
 
 #, python-format
 msgid "Specify %(item)s in order to create storage volume %(volume)s"
-msgstr "Especifique %(item)s para criar o volume de armazenamentos %(volume)s"
+msgstr "Especifique %(item)s para criar o volume de armazenamento %(volume)s"
 
 #, python-format
 msgid ""
 "Unable to list storage volumes because storage pool %(pool)s is not active"
 msgstr ""
-"Não é possível listar os volumes de armazenamento porque o conjunto de "
-"armazenamentos %(pool)s não está ativo"
+"Não é possível listar os volumes de armazenamento porque o banco de "
+"armazenamento %(pool)s não está ativo"
 
 #, python-format
 msgid ""
 "Unable to create storage volume %(name)s in storage pool %(pool)s. Details: "
 "%(err)s"
 msgstr ""
-"Não é possível criar o volume de armazenamento %(name)s no conjunto de "
-"armazenamentos %(pool)s. Detalhes: %(err)s"
+"Não é possível criar o volume de armazenamento %(name)s no banco de "
+"armazenamento %(pool)s. Detalhes: %(err)s"
 
 #, python-format
 msgid ""
 "Unable to list storage volumes in storage pool %(pool)s. Details: %(err)s"
 msgstr ""
-"Não é possível listar volumes de armazenamento no conjunto de armazenamentos "
+"Não é possível listar volumes de armazenamento no banco de armazenamento "
 "%(pool)s. Detalhes: %(err)s"
 
 #, python-format
@@ -934,7 +933,7 @@ msgid ""
 "Unable to clone storage volume '%(name)s' in pool '%(pool)s'. Details: "
 "%(err)s"
 msgstr ""
-"Não é possível clonar o volume de armazenamento '%(name)s' no conjunto "
+"Não é possível clonar o volume de armazenamento '%(name)s' no banco "
 "'%(pool)s'. Detalhes: %(err)s"
 
 msgid "Specify chunk data and its size to upload a file."
@@ -1140,7 +1139,7 @@ msgid ""
 "Specify type and path or type and pool/volume to add a new virtual machine "
 "disk"
 msgstr ""
-"Especificar tipo e caminho ou tipo e conjunto/volume para incluir um novo "
+"Especificar tipo e caminho ou tipo e banco/volume para incluir um novo "
 "disco de máquina virtual"
 
 msgid "Specify path to update virtual machine disk"
@@ -1154,7 +1153,7 @@ msgstr ""
 #, python-format
 msgid "Cannot retrieve disk path information for given pool/volume: %(error)s"
 msgstr ""
-"Não é possível recuperar informações de caminho do disco para o conjunto/"
+"Não é possível recuperar informações de caminho do disco para o banco/"
 "volume fornecido: %(error)s"
 
 msgid "Volume already in use by other virtual machine."
@@ -1164,7 +1163,7 @@ msgid ""
 "Only one of path or pool/volume can be specified to add a new virtual "
 "machine disk"
 msgstr ""
-"Apenas um caminho ou conjunto/volume podem ser especificados para inclusão "
+"Apenas um caminho ou banco/volume podem ser especificados para inclusão "
 "de um novo disco de máquina virtual"
 
 #, python-format
@@ -1407,10 +1406,10 @@ msgid "The device type. Currently, \"cdrom\" and \"disk\" are supported."
 msgstr ""
 
 msgid "Storage Pool"
-msgstr "Storage Pool"
+msgstr "Banco de Armazenamento"
 
 msgid "Storage pool which volume located in"
-msgstr "Conjunto de armazenamentos no qual o volume está localizado"
+msgstr "Banco de armazenamento no qual o volume está localizado"
 
 msgid "Storage Volume"
 msgstr "Volume de Armazenamento"
@@ -1573,9 +1572,9 @@ msgid ""
 "have enough space to clone the volumes. Do you want to continue?"
 msgstr ""
 "Quando a máquina guest de destino tiver volumes SCSI ou iSCSI, eles serão "
-"clonados no conjunto de armazenamentos padrão. O mesmo ocorrerá quando o "
-"conjunto de destino não tiver espaço suficiente para clonar os volumes. "
-"Deseja continuar?"
+"clonados no banco de armazenamento padrão. O mesmo ocorrerá quando o banco "
+"de destino não tiver espaço suficiente para clonar os volumes. Deseja "
+"continuar?"
 
 msgid ""
 "This CDROM will be detached permanently and you can re-attach it. Continue "
@@ -1645,10 +1644,10 @@ msgstr ""
 msgid ""
 "This will permanently delete the storage pool. Would you like to continue?"
 msgstr ""
-"Isso excluirá permanentemente o conjunto de armazenamentos. Deseja continuar?"
+"Isso excluirá permanentemente o banco de armazenamento. Deseja continuar?"
 
 msgid "This storage pool is empty."
-msgstr "Este storage pool está vazio."
+msgstr "Este banco de armazenamento está vazio."
 
 msgid ""
 "It will format your disk and you will loose any data in there, are you sure "
@@ -1688,8 +1687,8 @@ msgid ""
 "This storage pool is not persistent. Instead of deactivate, this action will "
 "permanently delete it. Would you like to continue?"
 msgstr ""
-"Este storage pool não é persistente. Em vez de desativar, esta ação o "
-"excluirá permanentemente. Deseja continuar?"
+"Este banco de armazenamento não é persistente. Em vez de desativar, esta ação "
+"o excluirá permanentemente. Deseja continuar?"
 
 msgid "Unable to retrieve partitions information."
 msgstr "Não é possível recuperar as informações da partição."
@@ -1706,7 +1705,7 @@ msgstr ""
 "em branco."
 
 msgid "Disk pool or volume cannot be blank."
-msgstr "O volume ou conjunto de discos não pode estar em branco."
+msgstr "O volume ou banco de discos não pode estar em branco."
 
 msgid "Create a network"
 msgstr "Criar uma rede"
@@ -1742,7 +1741,7 @@ msgid "VLAN ID"
 msgstr "ID de VLAN"
 
 msgid "Add a Volume to Storage Pool"
-msgstr "Incluir um volume no conjunto de armazenamentos"
+msgstr "Incluir um volume no banco de armazenamento"
 
 msgid "Fetch from remote URL"
 msgstr "Buscar a partir da URL remota"
@@ -1757,19 +1756,19 @@ msgid "Choose the file you want to upload."
 msgstr "Escolher o arquivo do qual você deseja fazer upload."
 
 msgid "Define a New Storage Pool"
-msgstr "Definir um novo storage pool"
+msgstr "Definir um novo banco de armazenamento"
 
 msgid "Storage Pool Name"
-msgstr "Nome do storage pool"
+msgstr "Nome do banco de armazenamento"
 
 msgid ""
 "The name used to identify the storage pools, and it should not be empty."
 msgstr ""
-"O nome usado para identificar os conjuntos de armazenamentos e não deve ser "
+"O nome usado para identificar os bancos de armazenamento e não deve ser "
 "vazio."
 
 msgid "Storage Pool Type"
-msgstr "Tipo do storage pool"
+msgstr "Tipo do banco de armazenamento"
 
 msgid "Storage Path"
 msgstr "Caminho do armazenamento"
@@ -1777,7 +1776,8 @@ msgstr "Caminho do armazenamento"
 msgid ""
 "The path of the Storage Pool. Each Storage Pool must have a unique path."
 msgstr ""
-"O caminho do storage pool. Cada storage pool deve ter um caminho exclusivo."
+"O caminho do banco de armazenamento. Cada banco de armazenamento deve ter um "
+"caminho exclusivo."
 
 msgid ""
 "Kimchi will try to create the directory when it does not already exist in "
@@ -1914,7 +1914,7 @@ msgid "Disk Format"
 msgstr "Formato do disco"
 
 msgid "Add Storage"
-msgstr "Incluir Storage"
+msgstr "Incluir Armazenamento"
 
 msgid "Add Interface"
 msgstr "Incluir Interface"

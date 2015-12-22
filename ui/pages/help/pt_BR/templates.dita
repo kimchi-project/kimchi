@@ -44,7 +44,7 @@ máquina virtual definidos que podem ser usados para criar Máquinas Virtuais do
 <dd>Exibe o nome, distribuição do fornecedor, versão, memória, caminho do arquivo para arquivo ISO e preferências de gráfico.</dd>
 </dlentry><dlentry>
 <dt>Armazenamento</dt>
-<dd>Especifique as informações do conjunto de armazenamentos para o modelo.</dd>
+<dd>Especifique as informações do banco de armazenamento para o modelo.</dd>
 </dlentry><dlentry>
 <dt>Interface</dt>
 <dd>Exibe as interfaces de rede padrão disponíveis ao convidado KVM.
@@ -59,12 +59,12 @@ selecionar diversas redes.</dd>
 </cshelp>
 <cshelp id="kimhaddtempl">
 <title>Incluir modelo</title>
-<shortdesc>Inclua um modelo a partir da mídia de origem. É possível incluir sua própria imagem ISO em seu conjunto de armazenamentos 'ISO' para a descoberta a seguir.</shortdesc>
+<shortdesc>Inclua um modelo a partir da mídia de origem. É possível incluir sua própria imagem ISO em seu banco de armazenamento 'ISO' para a descoberta a seguir.</shortdesc>
 <csbody>
 <p>Selecione o local da mídia de origem a partir das opções a seguir:</p>
 <dl><dlentry>
 <dt>Imagem ISO local</dt>
-<dd>Selecione para varrer conjuntos de armazenamentos para imagens ISO de instalação disponíveis
+<dd>Selecione para varrer banco de armazenamento para imagens ISO de instalação disponíveis
 no sistema.</dd>
 </dlentry><dlentry>
 <dt>Arquivo da imagem local</dt>
