@@ -282,6 +282,12 @@ kimchi.template_edit_main = function() {
     kimchi.retrieveTemplate(kimchi.selectedTemplate, initTemplate);
 
     $('#tmpl-edit-button-save').on('click', function() {
+        $button = $(this);
+        $button.html('<span class="wok-loading-icon" /> '+i18n['KCHAPI6010M']);
+        $('.modal input[type="text"]').prop('disabled', true);
+        $('.modal input[type="checkbox"]').prop('disabled', true);
+        $('.modal select').prop('disabled', true);
+        $('.modal .selectpicker').addClass('disabled');
         var editableFields = [ 'name', 'memory', 'graphics'];
         var data = {};
         var disks = $('.template-tab-body .item', '#form-template-storage');
@@ -344,6 +350,11 @@ kimchi.template_edit_main = function() {
             kimchi.doListTemplates();
             wok.window.close();
         }, function(err) {
+            $button.html(i18n['KCHAPI6007M']);
+            $('.modal input[type="text"]').prop('disabled', false);
+            $('.modal input[type="checkbox"]').prop('disabled', false);
+            $('.modal select').prop('disabled', false);
+            $('.modal .selectpicker').removeClass('disabled');
             wok.message.error(err.responseJSON.reason,'#alert-modal-container');
         });
     });
