@@ -55,4 +55,4 @@ done
 # ../../../../../ refers to the project root
 # ../../../../ refers to wok directory
 # ../../../ refers to plugins directory
-PYTHONPATH=../../../../../:../../../../:../../../ $CMD $OPTS ${MODEL_LIST[@]} ${MOCK_LIST[@]}
+PYTHONPATH=../../../../../:../../../../:../../../ PYTHONWARNINGS="ignore:Unverified HTTPS request" $CMD $OPTS ${MODEL_LIST[@]} ${MOCK_LIST[@]}
