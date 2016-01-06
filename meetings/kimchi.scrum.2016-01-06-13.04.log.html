@@ -1,0 +1,382 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:04:33</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:04:33</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Jan  6 13:04:33 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:04:33</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:04:35</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:04:35</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:04:58</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Agenda</span>
+<a name="l-7"></a><span class="tm">13:05:30</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Scrum meeting format</span>
+<a name="l-8"></a><span class="tm">13:05:38</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">2.1 releases</span>
+<a name="l-9"></a><span class="tm">13:05:41</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Status</span>
+<a name="l-10"></a><span class="tm">13:05:45</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Open Discussion</span>
+<a name="l-11"></a><span class="tm">13:05:58</span><span class="nk"> &lt;alinefm&gt;</span> anything else to add to the agenda?
+<a name="l-12"></a><span class="tm">13:06:13</span><span class="nk"> &lt;pvital&gt;</span> no
+<a name="l-13"></a><span class="tm">13:07:15</span><span class="nk"> &lt;alinefm&gt;</span> so let's get started
+<a name="l-14"></a><span class="tm">13:07:22</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Scrum meeting format</span>
+<a name="l-15"></a><span class="tm">13:08:03</span><span class="nk"> &lt;alinefm&gt;</span> First of all, the scrum meetings from now on will be on every Wed (as you may know from my email to the ML)
+<a name="l-16"></a><span class="tm">13:08:24</span><span class="nk"> &lt;alinefm&gt;</span> And as we have my projects now, I'd like to discuss the best format for this meeting
+<a name="l-17"></a><span class="tm">13:08:54</span><span class="nk"> &lt;alinefm&gt;</span> I don't think we have topics to have a separated scrum meeting per project and as they depend on each other I'd like to continue with only one scrum meeting
+<a name="l-18"></a><span class="tm">13:09:18</span><span class="nk"> &lt;alinefm&gt;</span> my proposal is to separate the status per projects
+<a name="l-19"></a><span class="tm">13:09:25</span><span class="nk"> &lt;alinefm&gt;</span> one status topic per project
+<a name="l-20"></a><span class="tm">13:09:29</span><span class="nk"> &lt;alinefm&gt;</span> what do you think about it?
+<a name="l-21"></a><span class="tm">13:09:38</span><span class="nk"> &lt;alinefm&gt;</span> more ideas? comments? concerns?
+<a name="l-22"></a><span class="tm">13:10:21</span><span class="nk"> &lt;samhenri&gt;</span> I agree
+<a name="l-23"></a><span class="tm">13:10:54</span><span class="nk"> &lt;lcorreia&gt;</span> agree
+<a name="l-24"></a><span class="tm">13:11:20</span><span class="nk"> &lt;ziviani&gt;</span> ok
+<a name="l-25"></a><span class="tm">13:11:24</span><span class="nk"> &lt;pvital&gt;</span> looks like good! let's do it
+<a name="l-26"></a><span class="tm">13:12:10</span><span class="nk"> &lt;OtavioLF&gt;</span> ok
+<a name="l-27"></a><span class="tm">13:12:25</span><span class="nk"> &lt;alteodoro&gt;</span> agree
+<a name="l-28"></a><span class="tm">13:13:07</span><span class="nk"> &lt;rotru&gt;</span> +1
+<a name="l-29"></a><span class="tm">13:13:37</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, do you think ginger/gingerbase may be included in this scrum meeting?
+<a name="l-30"></a><span class="tm">13:14:57</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  should we have subtopics , per project ?
+<a name="l-31"></a><span class="tm">13:15:12</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, I have nothing against it, but we need to consider that at least half of the active ginger community is in India. I don't know if this timeslot works for them
+<a name="l-32"></a><span class="tm">13:15:48</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, good point! I am open to discuss a new time for this meeting if needed
+<a name="l-33"></a><span class="tm">13:16:01</span><span class="nk"> &lt;alinefm&gt;</span> rotru, I haven't thought about it yet
+<a name="l-34"></a><span class="tm">13:16:05</span><span class="nk"> &lt;alinefm&gt;</span> rotru, any suggestion?
+<a name="l-35"></a><span class="tm">13:16:29</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, this discussion would be suitable for the ML
+<a name="l-36"></a><span class="tm">13:16:55</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, yeap!
+<a name="l-37"></a><span class="tm">13:17:06</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  thinking
+<a name="l-38"></a><span class="tm">13:17:09</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, on which ML? hehe
+<a name="l-39"></a><span class="tm">13:17:24</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, ginger
+<a name="l-40"></a><span class="tm">13:17:28</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, ok
+<a name="l-41"></a><span class="tm">13:17:37</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, and if a new timeslot is required, then we'll need to use kimchi's
+<a name="l-42"></a><span class="tm">13:17:45</span><span class="nk"> &lt;alinefm&gt;</span> ok ok
+<a name="l-43"></a><span class="tm">13:17:58</span><span class="nk"> &lt;alinefm&gt;</span> moving on...
+<a name="l-44"></a><span class="tm">13:18:07</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">2.1 releases</span>
+<a name="l-45"></a><span class="tm">13:18:22</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Wok schedule: https://github.com/kimchi-project/wok/wiki/Planning-2.1</span>
+<a name="l-46"></a><span class="tm">13:18:38</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Kimchi schedule: https://github.com/kimchi-project/kimchi/wiki/Planning-2.1</span>
+<a name="l-47"></a><span class="tm">13:19:01</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, do you want to share the ginger/gingerbase schedules too?
+<a name="l-48"></a><span class="tm">13:19:18</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, sure
+<a name="l-49"></a><span class="tm">13:19:43</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">Ginger schedule https://github.com/kimchi-project/ginger/wiki/Planning-2.1</span>
+<a name="l-50"></a><span class="tm">13:19:53</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">Ginger-base schedule https://github.com/kimchi-project/gingerbase/wiki/Planning-2.1</span>
+<a name="l-51"></a><span class="tm">13:20:52</span><span class="nk"> &lt;alinefm&gt;</span> I also created a todo list for wok and kimchi
+<a name="l-52"></a><span class="tm">13:21:08</span><span class="nk"> &lt;alinefm&gt;</span> feel free to update it when needed
+<a name="l-53"></a><span class="tm">13:21:23</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  something like:
+<a name="l-54"></a><span class="tm">13:21:25</span><span class="nk"> &lt;rotru&gt;</span> Wok:
+<a name="l-55"></a><span class="tm">13:21:25</span><span class="nk"> &lt;rotru&gt;</span> Community Status (new patches included / bugs fixed / changes in community behavior)
+<a name="l-56"></a><span class="tm">13:21:25</span><span class="nk"> &lt;rotru&gt;</span> Critical Issues
+<a name="l-57"></a><span class="tm">13:21:25</span><span class="nk"> &lt;rotru&gt;</span> Features/RFCs (discuss about new features, new ideas from mailing list)
+<a name="l-58"></a><span class="tm">13:21:25</span><span class="nk"> &lt;rotru&gt;</span> Kimchi:
+<a name="l-59"></a><span class="tm">13:21:25</span><span class="nk"> &lt;alinefm&gt;</span> by now I have only listed what have missed from 2.0 releases
+<a name="l-60"></a><span class="tm">13:21:27</span><span class="nk"> &lt;rotru&gt;</span> Community Status
+<a name="l-61"></a><span class="tm">13:21:28</span><span class="nk"> &lt;rotru&gt;</span> Critical Issues
+<a name="l-62"></a><span class="tm">13:21:30</span><span class="nk"> &lt;rotru&gt;</span> Features / RFCs
+<a name="l-63"></a><span class="tm">13:22:11</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Wok 2.1 todo: https://github.com/kimchi-project/wok/wiki/Todo-2.1</span>
+<a name="l-64"></a><span class="tm">13:22:21</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Kimchi 2.1 todo: https://github.com/kimchi-project/kimchi/wiki/Todo-2.1</span>
+<a name="l-65"></a><span class="tm">13:22:44</span><span class="nk"> &lt;alinefm&gt;</span> rotru, maybe join status + issues into one sub-topic
+<a name="l-66"></a><span class="tm">13:23:14</span><span class="nk"> &lt;rotru&gt;</span> sure
+<a name="l-67"></a><span class="tm">13:23:15</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, do you have a todo list for ginger/gingerbase?
+<a name="l-68"></a><span class="tm">13:23:39</span><span class="nk"> &lt;pvital&gt;</span> rotru, alinefm: nice idea, but this kind of division will take 2hrs to handle by IRC
+<a name="l-69"></a><span class="tm">13:24:43</span><span class="nk"> &lt;alinefm&gt;</span> heheh
+<a name="l-70"></a><span class="tm">13:25:16</span><span class="nk"> &lt;alinefm&gt;</span> or we keep only the status separated per project and discuss anything else on "Open Discussion" session
+<a name="l-71"></a><span class="tm">13:25:41</span><span class="nk"> &lt;alinefm&gt;</span> any question about the 2.1 schedules and todo list?
+<a name="l-72"></a><span class="tm">13:26:06</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">ramonn sent patches for installation media. We discussed some points and there are some things to consider before applying</span>
+<a name="l-73"></a><span class="tm">13:26:11</span><span class="nk"> &lt;alinefm&gt;</span> alteodoro, danielhb, lcorreia, pvital, ramonn, rotru, samhenri, ziviani ^
+<a name="l-74"></a><span class="tm">13:26:16</span><span class="nk"> &lt;samhenri&gt;</span> i think we may need to edit some of wok widgets as we develop the ui for the new features in Kimchi
+<a name="l-75"></a><span class="tm">13:26:22</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">ramonn got some errors with urllib. Sent patches for fixing it</span>
+<a name="l-76"></a><span class="tm">13:26:39</span><span class="nk"> &lt;lcorreia&gt;</span> no
+<a name="l-77"></a><span class="tm">13:26:44</span><span class="nk"> &lt;alinefm&gt;</span> PLEASE! focus on this topic "2.1 releases" first
+<a name="l-78"></a><span class="tm">13:26:53</span><span class="nk"> &lt;alinefm&gt;</span> we will move to status and open discussion soon
+<a name="l-79"></a><span class="tm">13:27:22</span><span class="nk"> &lt;samhenri&gt;</span> with the given deadlines we would have to create the wdigets first and then move to kimchi/ginger/gingerbase
+<a name="l-80"></a><span class="tm">13:27:37</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, ginger TODO for 2.1: https://github.com/kimchi-project/ginger/issues?q=is%3Aopen+is%3Aissue+milestone%3AGinger2.1
+<a name="l-81"></a><span class="tm">13:27:45</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, gingerbase TODO for 2.1: https://github.com/kimchi-project/gingerbase/issues?q=is%3Aopen+is%3Aissue+milestone%3AGingerbase2.1
+<a name="l-82"></a><span class="tm">13:28:05</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, 23 bugs and 7 bugs respectively
+<a name="l-83"></a><span class="tm">13:28:15</span><span class="nk"> &lt;alinefm&gt;</span> thanks, danielhb!
+<a name="l-84"></a><span class="tm">13:28:51</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, "create the wdigets first and then move to kimchi/ginger/gingerbase" ?
+<a name="l-85"></a><span class="tm">13:29:01</span><span class="nk"> &lt;alinefm&gt;</span> do you mean "then use on.." ?
+<a name="l-86"></a><span class="tm">13:29:10</span><span class="nk"> &lt;samhenri&gt;</span> yes
+<a name="l-87"></a><span class="tm">13:29:19</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-88"></a><span class="tm">13:29:31</span><span class="nk"> &lt;samhenri&gt;</span> what i meant is that wok development phase should end with kimchi
+<a name="l-89"></a><span class="tm">13:29:49</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, wok devel will end before Kimchi
+<a name="l-90"></a><span class="tm">13:30:02</span><span class="nk"> &lt;alinefm&gt;</span> just because wok needs to be stable for the plugins
+<a name="l-91"></a><span class="tm">13:30:19</span><span class="nk"> &lt;samhenri&gt;</span> but what if we find a critical bug in one of wok.*.js widgets?
+<a name="l-92"></a><span class="tm">13:30:39</span><span class="nk"> &lt;alinefm&gt;</span> critical bug can be solved untill hard code freeze
+<a name="l-93"></a><span class="tm">13:30:42</span><span class="nk"> &lt;lbianc&gt;</span> <span class="hi">alinefm:</span> There are some questions about the todo list, but on a technical way, like requirements. Are going to discuss these kind of things in this meeting?
+<a name="l-94"></a><span class="tm">13:31:04</span><span class="nk"> &lt;alinefm&gt;</span> lbianc, yeap!
+<a name="l-95"></a><span class="tm">13:31:07</span><span class="nk"> &lt;alinefm&gt;</span> just a second =)
+<a name="l-96"></a><span class="tm">13:31:13</span><span class="nk"> &lt;lbianc&gt;</span> <span class="hi">alinefm:</span> ok :)
+<a name="l-97"></a><span class="tm">13:31:24</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, the devel phase is for new features
+<a name="l-98"></a><span class="tm">13:32:04</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, code freeze =&gt; NO new feature will be accepted on master branch ONLY BUG FIXES
+<a name="l-99"></a><span class="tm">13:32:18</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, hard code freeze =&gt; ONLY critial bug fixes are accepted on master branch
+<a name="l-100"></a><span class="tm">13:32:24</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, makes sense?
+<a name="l-101"></a><span class="tm">13:32:47</span><span class="nk"> &lt;samhenri&gt;</span> yes it does
+<a name="l-102"></a><span class="tm">13:33:40</span><span class="nk"> &lt;alinefm&gt;</span> do you still see problems in having wok devel ending one week before kimchi's?
+<a name="l-103"></a><span class="tm">13:34:26</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, ^
+<a name="l-104"></a><span class="tm">13:34:39</span><span class="nk"> &lt;samhenri&gt;</span> we still have to fix wok.list and wok.grid for gingerbase and...
+<a name="l-105"></a><span class="tm">13:34:58</span><span class="nk"> &lt;samhenri&gt;</span> we currently have some mockups for networks that I think we we'll have to create new widgets
+<a name="l-106"></a><span class="tm">13:35:33</span><span class="nk"> &lt;samhenri&gt;</span> there are some features that might need new widgets as well
+<a name="l-107"></a><span class="tm">13:35:49</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-108"></a><span class="tm">13:36:02</span><span class="nk"> &lt;samhenri&gt;</span> or at least the current widgets will have new parameters to maintain compatibility
+<a name="l-109"></a><span class="tm">13:36:07</span><span class="nk"> &lt;alinefm&gt;</span> we first need to think about the new features and what it will require on wok
+<a name="l-110"></a><span class="tm">13:36:11</span><span class="nk"> &lt;alinefm&gt;</span> and do the wok devel first
+<a name="l-111"></a><span class="tm">13:36:47</span><span class="nk"> &lt;alinefm&gt;</span> if you already have a list of what is needed on wok, it is still better
+<a name="l-112"></a><span class="tm">13:36:55</span><span class="nk"> &lt;samhenri&gt;</span> i don't
+<a name="l-113"></a><span class="tm">13:37:09</span><span class="nk"> &lt;alinefm&gt;</span> can you do that?
+<a name="l-114"></a><span class="tm">13:37:39</span><span class="nk"> &lt;samhenri&gt;</span> i don't have mockups for all the features
+<a name="l-115"></a><span class="tm">13:37:58</span><span class="nk"> &lt;alinefm&gt;</span> what do you need to create the mockups?
+<a name="l-116"></a><span class="tm">13:38:06</span><span class="nk"> &lt;samhenri&gt;</span> the requirements
+<a name="l-117"></a><span class="tm">13:38:08</span><span class="nk"> &lt;alinefm&gt;</span> I mean, is there something blocking you?
+<a name="l-118"></a><span class="tm">13:38:37</span><span class="nk"> &lt;lbianc&gt;</span> alinefm, samhenri: It will be discussed better on the technical part
+<a name="l-119"></a><span class="tm">13:38:55</span><span class="nk"> &lt;lbianc&gt;</span> since there are some specification missing
+<a name="l-120"></a><span class="tm">13:38:56</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-121"></a><span class="tm">13:39:19</span><span class="nk"> &lt;alinefm&gt;</span> but I want to have an agreement in the schedule by now
+<a name="l-122"></a><span class="tm">13:40:46</span><span class="nk"> &lt;alinefm&gt;</span> is the silence an agreement? =)
+<a name="l-123"></a><span class="tm">13:41:04</span><span class="nk"> &lt;ziviani&gt;</span> ok
+<a name="l-124"></a><span class="tm">13:41:07</span><span class="nk"> &lt;OtavioLF&gt;</span> no
+<a name="l-125"></a><span class="tm">13:41:10</span><span class="nk"> &lt;lbianc&gt;</span> <span class="hi">alinefm:</span> Since can we discuss each item first?
+<a name="l-126"></a><span class="tm">13:41:19</span><span class="nk"> &lt;OtavioLF&gt;</span> silence is not na agree
+<a name="l-127"></a><span class="tm">13:41:33</span><span class="nk"> &lt;alinefm&gt;</span> so... what is the new schedule proposal?
+<a name="l-128"></a><span class="tm">13:41:52</span><span class="nk"> &lt;alinefm&gt;</span> why can't we end the wok devel one week before kimchi/ginger?
+<a name="l-129"></a><span class="tm">13:43:49</span><span class="nk"> &lt;lbianc&gt;</span> <span class="hi">alinefm:</span> yes, but since there is no dependency between them, samhenri, we have to be sure that no wodgets will be developed after the wok's freeze, right?
+<a name="l-130"></a><span class="tm">13:43:57</span><span class="nk"> &lt;samhenri&gt;</span> yes
+<a name="l-131"></a><span class="tm">13:44:01</span><span class="nk"> &lt;samhenri&gt;</span> correct
+<a name="l-132"></a><span class="tm">13:44:48</span><span class="nk"> &lt;pvital&gt;</span> alinefm, if the development items are only those listed in todo (I mean, the list will not increase), IMHO, there's no problem to close it one week before.
+<a name="l-133"></a><span class="tm">13:46:20</span><span class="nk"> &lt;pvital&gt;</span> lbianc, I guess the process is clear: no new features will be included during the two freeze slots
+<a name="l-134"></a><span class="tm">13:46:21</span><span class="nk"> &lt;alinefm&gt;</span> pvital, probably the **backend** list for kimchi will increase
+<a name="l-135"></a><span class="tm">13:47:22</span><span class="nk"> &lt;alinefm&gt;</span> OtavioLF, samhenri, lbianc, so... what is the conclusion?
+<a name="l-136"></a><span class="tm">13:47:32</span><span class="nk"> &lt;pvital&gt;</span> alinefm, so, I think this will dangerous, since the new items have dependencies with items on kimchi and other projects
+<a name="l-137"></a><span class="tm">13:48:02</span><span class="nk"> &lt;pvital&gt;</span> 1 week will be too short to test and adapt (or finish something)
+<a name="l-138"></a><span class="tm">13:48:04</span><span class="nk"> &lt;samhenri&gt;</span> pvital yes
+<a name="l-139"></a><span class="tm">13:48:10</span><span class="nk"> &lt;samhenri&gt;</span> pvital exactly
+<a name="l-140"></a><span class="tm">13:48:13</span><span class="nk"> &lt;alinefm&gt;</span> plopix, how dangerous a kimchi feature can be for wok or ginger or gingebase?
+<a name="l-141"></a><span class="tm">13:48:16</span><span class="nk"> &lt;alinefm&gt;</span> ops...
+<a name="l-142"></a><span class="tm">13:48:19</span><span class="nk"> &lt;alinefm&gt;</span> plopix, sorry
+<a name="l-143"></a><span class="tm">13:48:21</span><span class="nk"> &lt;alinefm&gt;</span> pvital, ^
+<a name="l-144"></a><span class="tm">13:48:38</span><span class="nk"> &lt;pvital&gt;</span> alinefm, no
+<a name="l-145"></a><span class="tm">13:48:45</span><span class="nk"> &lt;pvital&gt;</span> alinefm, it's the opposite
+<a name="l-146"></a><span class="tm">13:48:47</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, the same question for you and remember I am talking about increasing the BACKEND list
+<a name="l-147"></a><span class="tm">13:49:08</span><span class="nk"> &lt;alinefm&gt;</span> pvital, I said the BACKEND list for KIMCHI may increase
+<a name="l-148"></a><span class="tm">13:49:16</span><span class="nk"> &lt;pvital&gt;</span> alinefm, a wok item can be dangerous to finish a kimchi item in only 1 week before the end of devel slot]
+<a name="l-149"></a><span class="tm">13:49:20</span><span class="nk"> &lt;alinefm&gt;</span> I dind't say the WOK list will increase
+<a name="l-150"></a><span class="tm">13:50:00</span><span class="nk"> &lt;lbianc&gt;</span> <span class="hi">alinefm:</span> our concern is about the missing specifications, like, we dont know if there is a feature in kimchi that requires a new feature in wok yet
+<a name="l-151"></a><span class="tm">13:50:25</span><span class="nk"> &lt;samhenri&gt;</span> suppose we think we finished a new widget that is included in wok for a new feature, e.g. OVS or Linux bridge and it is included in Wok
+<a name="l-152"></a><span class="tm">13:50:55</span><span class="nk"> &lt;samhenri&gt;</span> but then between 02/24 and 03/02 we find out that something was missing
+<a name="l-153"></a><span class="tm">13:51:05</span><span class="nk"> &lt;alinefm&gt;</span> lbianc, all the specifications from what we have listed by now MUST be completed by the end of this week
+<a name="l-154"></a><span class="tm">13:51:23</span><span class="nk"> &lt;samhenri&gt;</span> not a bug, but that was completly off or wrong
+<a name="l-155"></a><span class="tm">13:52:01</span><span class="nk"> &lt;alinefm&gt;</span> why would it be completely off or wrong?
+<a name="l-156"></a><span class="tm">13:52:24</span><span class="nk"> &lt;samhenri&gt;</span> something like live migration delete function that doesn't work and had to be schedule to this release
+<a name="l-157"></a><span class="tm">13:52:25</span><span class="nk"> &lt;alinefm&gt;</span> I understand the concerns about the lack of specifications
+<a name="l-158"></a><span class="tm">13:52:48</span><span class="nk"> &lt;alinefm&gt;</span> but it must be solved by the end of this week
+<a name="l-159"></a><span class="tm">13:53:07</span><span class="nk"> &lt;alinefm&gt;</span> if, even after that, we devel a widget or anything else wrong, it will me our fault
+<a name="l-160"></a><span class="tm">13:53:16</span><span class="nk"> &lt;alinefm&gt;</span> s/me/be
+<a name="l-161"></a><span class="tm">13:53:35</span><span class="nk"> &lt;alinefm&gt;</span> it is not depend on one week more or less
+<a name="l-162"></a><span class="tm">13:53:38</span><span class="nk"> &lt;alinefm&gt;</span> makes sense?
+<a name="l-163"></a><span class="tm">13:53:56</span><span class="nk"> &lt;samhenri&gt;</span> my concern is that because of different development cycles we would have to postpone one feature if a widget is not working properly
+<a name="l-164"></a><span class="tm">13:54:14</span><span class="nk"> &lt;lbianc&gt;</span> alinefm samhenri: So, if the specifications be ready this week, we can give priority to the dependent wok items, ok? To be sure this problem will not happen.
+<a name="l-165"></a><span class="tm">13:54:28</span><span class="nk"> &lt;samhenri&gt;</span> yes
+<a name="l-166"></a><span class="tm">13:54:46</span><span class="nk"> &lt;alinefm&gt;</span> lbianc, exactly
+<a name="l-167"></a><span class="tm">13:55:26</span><span class="nk"> &lt;lbianc&gt;</span> <span class="hi">alinefm:</span> So, for me it's ok. samhenri?
+<a name="l-168"></a><span class="tm">13:56:18</span><span class="nk"> &lt;lbianc&gt;</span> <span class="hi">samhenri:</span> sorry. So, I agree
+<a name="l-169"></a><span class="tm">13:57:09</span><span class="nk"> &lt;samhenri&gt;</span> agreed
+<a name="l-170"></a><span class="tm">13:58:11</span><span class="nk"> &lt;alinefm&gt;</span> lbianc, samhenri, the idea behind having wok/gingerbase on freeze one week before kimchi/ginger is because they are dependency for other plugins
+<a name="l-171"></a><span class="tm">13:58:28</span><span class="nk"> &lt;alinefm&gt;</span> so if we can have them stable sooner it is better
+<a name="l-172"></a><span class="tm">13:59:14</span><span class="nk"> &lt;lbianc&gt;</span> <span class="hi">alinefm:</span> yes I agree, but just to keep in main that this kind of issue can happen if any specification be missing
+<a name="l-173"></a><span class="tm">13:59:24</span><span class="nk"> &lt;lbianc&gt;</span> mind*
+<a name="l-174"></a><span class="tm">13:59:42</span><span class="nk"> &lt;alinefm&gt;</span> lbianc, yeap! so let's solve all doubts and lack of specifications this week
+<a name="l-175"></a><span class="tm">13:59:48</span><span class="nk"> &lt;alinefm&gt;</span> let's move on
+<a name="l-176"></a><span class="tm">13:59:52</span><span class="nk"> &lt;lbianc&gt;</span> <span class="hi">alinefm:</span> good :)
+<a name="l-177"></a><span class="tm">14:00:11</span><span class="nk"> &lt;alinefm&gt;</span> (I plan to do that on open discussion session)
+<a name="l-178"></a><span class="tm">14:00:14</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-179"></a><span class="tm">14:00:18</span><span class="nk"> &lt;alinefm&gt;</span> ramonn, now it is time =)
+<a name="l-180"></a><span class="tm">14:00:23</span><span class="nk"> &lt;ramonn&gt;</span> alinefm, LOL
+<a name="l-181"></a><span class="tm">14:00:37</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani has been (and still is) testing kimchi and opening bugs</span>
+<a name="l-182"></a><span class="tm">14:00:47</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani sent some patches</span>
+<a name="l-183"></a><span class="tm">14:00:57</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">ramonn sent patches for installation media. We discussed some points and there are some things to consider before applying</span>
+<a name="l-184"></a><span class="tm">14:00:58</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">ramonn got some errors with urllib. Sent patches for fixing it</span>
+<a name="l-185"></a><span class="tm">14:00:59</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani reviewed some code</span>
+<a name="l-186"></a><span class="tm">14:01:13</span><span class="nk"> &lt;lcorreia&gt;</span> # info lcorreia made ginger RPM noarch
+<a name="l-187"></a><span class="tm">14:01:13</span><span class="nk"> &lt;lcorreia&gt;</span> # info lcorreia worked on wok, ginger, gingerbase, kimchi plugins package build tests and fixes
+<a name="l-188"></a><span class="tm">14:01:13</span><span class="nk"> &lt;lcorreia&gt;</span> # info lcorreia reviewed patches
+<a name="l-189"></a><span class="tm">14:01:13</span><span class="nk"> &lt;lcorreia&gt;</span> # info lcorreia tested Network tab in Fedora 23, Ubuntu 15.10 and Opensuse Leap 42.1 and reported issues
+<a name="l-190"></a><span class="tm">14:01:13</span><span class="nk"> &lt;lcorreia&gt;</span> # info lcorreia will test Network tab in RHEL 7.2
+<a name="l-191"></a><span class="tm">14:01:16</span><span class="nk"> &lt;lcorreia&gt;</span> # info lcorreia will work to include option to specify max_vcpu and current_vcpu separately per guest in kimchi backend
+<a name="l-192"></a><span class="tm">14:01:19</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">ramonn finishing tests on storage features</span>
+<a name="l-193"></a><span class="tm">14:01:19</span><span class="nk"> &lt;lcorreia&gt;</span> # info lcorreia will work to handle notifications for host ENOSPC from libvirt in kimchi backend
+<a name="l-194"></a><span class="tm">14:02:31</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patch to do not rely on python-pip to install dependencies. It changed the build for UI! The developer must run "sudo make -C ui/css css" before submitting a new patch to update the .css files accordingly</span>
+<a name="l-195"></a><span class="tm">14:02:47</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, alteodoro, this is important for you ^ (if you have not seen yet)
+<a name="l-196"></a><span class="tm">14:02:49</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">sent a patch to bootstrap-select in wok and another one for "Edit Templates" in Kimchi</span>
+<a name="l-197"></a><span class="tm">14:02:59</span><span class="nk"> &lt;samhenri&gt;</span> yes, I saw that
+<a name="l-198"></a><span class="tm">14:03:13</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, great! =)
+<a name="l-199"></a><span class="tm">14:03:30</span><span class="nk"> &lt;alteodoro&gt;</span> <span class="cmd">#info </span><span class="cmdline">alteodoro working on Gallery view sort for Templates Tab</span>
+<a name="l-200"></a><span class="tm">14:03:54</span><span class="nk"> &lt;alteodoro&gt;</span> ok
+<a name="l-201"></a><span class="tm">14:03:55</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">samhenri currently fixing my network environment to resume live migration development</span>
+<a name="l-202"></a><span class="tm">14:04:11</span><span class="nk"> &lt;alinefm&gt;</span> ramonn, please, update the kimchi 2.1 todo list with this feature you are working on
+<a name="l-203"></a><span class="tm">14:04:48</span><span class="nk"> &lt;ramonn&gt;</span> alinefm, ok
+<a name="l-204"></a><span class="tm">14:05:28</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital has been testing Ginger Base 2.0 on different distros and opening issues</span>
+<a name="l-205"></a><span class="tm">14:06:09</span><span class="nk"> &lt;pvital&gt;</span> # info pvital reviewed Wok, Kimchi, Ginger and Ginger Base patches
+<a name="l-206"></a><span class="tm">14:06:16</span><span class="nk"> &lt;ramonn&gt;</span> alinefm, done https://github.com/kimchi-project/kimchi/wiki/Todo-2.1
+<a name="l-207"></a><span class="tm">14:07:02</span><span class="nk"> &lt;alinefm&gt;</span> ramonn, thanks
+<a name="l-208"></a><span class="tm">14:07:10</span><span class="nk"> &lt;alinefm&gt;</span> rotru, anything else to share?
+<a name="l-209"></a><span class="tm">14:07:21</span><span class="nk"> &lt;ramonn&gt;</span> nop
+<a name="l-210"></a><span class="tm">14:08:16</span><span class="nk"> &lt;alinefm&gt;</span> ok... let's move on due the time
+<a name="l-211"></a><span class="tm">14:08:39</span><span class="nk"> &lt;alinefm&gt;</span> I know we are over time but I want to discuss the feature specifications
+<a name="l-212"></a><span class="tm">14:09:08</span><span class="nk"> &lt;alinefm&gt;</span> I will properly upload the meeting log the github.io, if anyone wants to check later
+<a name="l-213"></a><span class="tm">14:09:18</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discuss</span>
+<a name="l-214"></a><span class="tm">14:09:34</span><span class="nk"> &lt;alinefm&gt;</span> lbianc, samhenri, can we start item by item from the list?
+<a name="l-215"></a><span class="tm">14:09:42</span><span class="nk"> &lt;samhenri&gt;</span> yes
+<a name="l-216"></a><span class="tm">14:09:53</span><span class="nk"> &lt;alinefm&gt;</span> let's start from wok
+<a name="l-217"></a><span class="tm">14:10:04</span><span class="nk"> &lt;alinefm&gt;</span> - Create a new logo for Wok
+<a name="l-218"></a><span class="tm">14:10:16</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, lbianc, what do you need for it?
+<a name="l-219"></a><span class="tm">14:11:08</span><span class="nk"> &lt;samhenri&gt;</span> i know that we already discussed this before, but we need some sort of "briefing doc" so we can start with some ideas and present some options
+<a name="l-220"></a><span class="tm">14:12:05</span><span class="nk"> &lt;samhenri&gt;</span> i meant, the style, colors, images that you want to use as reference
+<a name="l-221"></a><span class="tm">14:13:34</span><span class="nk"> &lt;alinefm&gt;</span> oh... I am not good with that, but I can think in some options and share with you
+<a name="l-222"></a><span class="tm">14:13:50</span><span class="nk"> &lt;alinefm&gt;</span> I first have though on a pan for the logo
+<a name="l-223"></a><span class="tm">14:14:12</span><span class="nk"> &lt;alinefm&gt;</span> but some people said it should be abstract as Kimchi logo does not represents the kimchi food
+<a name="l-224"></a><span class="tm">14:14:28</span><span class="nk"> &lt;samhenri&gt;</span> exactly
+<a name="l-225"></a><span class="tm">14:15:52</span><span class="nk"> &lt;alinefm&gt;</span> so my only suggestion is, you have freedom to do the logo as you think it is better
+<a name="l-226"></a><span class="tm">14:15:56</span><span class="nk"> &lt;alinefm&gt;</span> =D
+<a name="l-227"></a><span class="tm">14:16:12</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, is it good or bad?
+<a name="l-228"></a><span class="tm">14:16:14</span><span class="nk"> &lt;alinefm&gt;</span> heheh
+<a name="l-229"></a><span class="tm">14:16:25</span><span class="nk"> &lt;OtavioLF&gt;</span> ok
+<a name="l-230"></a><span class="tm">14:16:25</span><span class="nk"> &lt;samhenri&gt;</span> ok
+<a name="l-231"></a><span class="tm">14:17:04</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, if you have doubts about colors or anything else, I can help on that area by giving my suggestion as user
+<a name="l-232"></a><span class="tm">14:17:26</span><span class="nk"> &lt;alinefm&gt;</span> next one:
+<a name="l-233"></a><span class="tm">14:17:31</span><span class="nk"> &lt;alinefm&gt;</span> - Display plugins logo on login page and "About" dialog
+<a name="l-234"></a><span class="tm">14:17:51</span><span class="nk"> &lt;samhenri&gt;</span> this is easy, i suggested using something like Juju Charms login page
+<a name="l-235"></a><span class="tm">14:18:00</span><span class="nk"> &lt;alinefm&gt;</span> yeap!
+<a name="l-236"></a><span class="tm">14:18:13</span><span class="nk"> &lt;alinefm&gt;</span> we only need to have the API done on backend to provide the logo for UI
+<a name="l-237"></a><span class="tm">14:18:40</span><span class="nk"> &lt;alinefm&gt;</span> I'd propose to have an API /plugins/&lt;name&gt;/logo to provide the logo image
+<a name="l-238"></a><span class="tm">14:18:48</span><span class="nk"> &lt;alinefm&gt;</span> so on UI you just need to request it
+<a name="l-239"></a><span class="tm">14:18:56</span><span class="nk"> &lt;samhenri&gt;</span> https://jujucharms.com/about
+<a name="l-240"></a><span class="tm">14:19:41</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, good pretty good for me
+<a name="l-241"></a><span class="tm">14:19:48</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, we can do the same on login page
+<a name="l-242"></a><span class="tm">14:21:11</span><span class="nk"> &lt;samhenri&gt;</span> we can use the tab-ext.xml for this I guess
+<a name="l-243"></a><span class="tm">14:21:34</span><span class="nk"> &lt;alinefm&gt;</span> for the logo image path?
+<a name="l-244"></a><span class="tm">14:21:52</span><span class="nk"> &lt;samhenri&gt;</span> yes
+<a name="l-245"></a><span class="tm">14:22:10</span><span class="nk"> &lt;alinefm&gt;</span> so is there no need to create a new API /plugins/&lt;name&gt;/logo ?
+<a name="l-246"></a><span class="tm">14:22:33</span><span class="nk"> &lt;alinefm&gt;</span> it is simpler to do that way (by using tab-ext)
+<a name="l-247"></a><span class="tm">14:22:39</span><span class="nk"> &lt;alinefm&gt;</span> if you agree, let's do that way
+<a name="l-248"></a><span class="tm">14:22:50</span><span class="nk"> &lt;samhenri&gt;</span> yes, something like this
+<a name="l-249"></a><span class="tm">14:23:09</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-250"></a><span class="tm">14:23:11</span><span class="nk"> &lt;alinefm&gt;</span> done for that?
+<a name="l-251"></a><span class="tm">14:23:21</span><span class="nk"> &lt;samhenri&gt;</span> yes
+<a name="l-252"></a><span class="tm">14:23:27</span><span class="nk"> &lt;alinefm&gt;</span> moving to kimchi
+<a name="l-253"></a><span class="tm">14:23:29</span><span class="nk"> &lt;alinefm&gt;</span> - Live migration
+<a name="l-254"></a><span class="tm">14:23:40</span><span class="nk"> &lt;alinefm&gt;</span> I saw some emails in the ML about that
+<a name="l-255"></a><span class="tm">14:23:43</span><span class="nk"> &lt;alinefm&gt;</span> what is missing there?
+<a name="l-256"></a><span class="tm">14:23:45</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, ^
+<a name="l-257"></a><span class="tm">14:24:16</span><span class="nk"> &lt;samhenri&gt;</span> well, i'm stuck with some environment issues
+<a name="l-258"></a><span class="tm">14:24:46</span><span class="nk"> &lt;samhenri&gt;</span> lbianc is helping me with that and once I figure this I'll resume working with the UI
+<a name="l-259"></a><span class="tm">14:25:21</span><span class="nk"> &lt;samhenri&gt;</span> the ui is finished, i just need to fix the Delete once the migration is finished and the passwordless login
+<a name="l-260"></a><span class="tm">14:27:12</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-261"></a><span class="tm">14:27:45</span><span class="nk"> &lt;alinefm&gt;</span> you can ping danielhb for help with the environment issues if you can not solve them soon
+<a name="l-262"></a><span class="tm">14:27:55</span><span class="nk"> &lt;samhenri&gt;</span> sure
+<a name="l-263"></a><span class="tm">14:28:03</span><span class="nk"> &lt;lbianc&gt;</span> <span class="hi">alinefm:</span> Ok, thanks!
+<a name="l-264"></a><span class="tm">14:28:05</span><span class="nk"> &lt;alinefm&gt;</span> - Memory hot plug
+<a name="l-265"></a><span class="tm">14:28:25</span><span class="nk"> &lt;alinefm&gt;</span> this is to enable the "Memory" edition when editing a running guest
+<a name="l-266"></a><span class="tm">14:28:27</span><span class="nk"> &lt;samhenri&gt;</span> we don't have any mockup for this
+<a name="l-267"></a><span class="tm">14:28:33</span><span class="nk"> &lt;samhenri&gt;</span> oh, ok
+<a name="l-268"></a><span class="tm">14:28:46</span><span class="nk"> &lt;samhenri&gt;</span> i was thinking that it would require a range slider
+<a name="l-269"></a><span class="tm">14:28:56</span><span class="nk"> &lt;samhenri&gt;</span> or numeric slider
+<a name="l-270"></a><span class="tm">14:28:59</span><span class="nk"> &lt;alinefm&gt;</span> it would be good to have too =)
+<a name="l-271"></a><span class="tm">14:29:09</span><span class="nk"> &lt;alinefm&gt;</span> we can discuss changes on that
+<a name="l-272"></a><span class="tm">14:29:59</span><span class="nk"> &lt;samhenri&gt;</span> ok, but first i need to know exactly how the rest api will be like
+<a name="l-273"></a><span class="tm">14:30:00</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, for hotplug the memory slot must be 256 (correct, rotru ?)
+<a name="l-274"></a><span class="tm">14:30:20</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, all the API is documented in docs/API.md
+<a name="l-275"></a><span class="tm">14:30:25</span><span class="nk"> &lt;samhenri&gt;</span> and for now when i try to edit a running guest I get some "ifaces" error
+<a name="l-276"></a><span class="tm">14:30:29</span><span class="nk"> &lt;alinefm&gt;</span> but ping me on problems to find it
+<a name="l-277"></a><span class="tm">14:30:43</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, on which OS?
+<a name="l-278"></a><span class="tm">14:31:24</span><span class="nk"> &lt;samhenri&gt;</span> centos for sure, i think i saw on ubuntu 15.04
+<a name="l-279"></a><span class="tm">14:31:59</span><span class="nk"> &lt;alinefm&gt;</span> I strongly recommend to use the last version of Fedora, Ubuntu, openSUSE or RHEL
+<a name="l-280"></a><span class="tm">14:32:13</span><span class="nk"> &lt;alinefm&gt;</span> at least, those are the distro most tested by the community
+<a name="l-281"></a><span class="tm">14:32:28</span><span class="nk"> &lt;alinefm&gt;</span> so it means on ubuntu 15.10
+<a name="l-282"></a><span class="tm">14:32:42</span><span class="nk"> &lt;alinefm&gt;</span> Fedora 23, RHEL 7.2 or OpenSUSE LEAP 42.1
+<a name="l-283"></a><span class="tm">14:32:59</span><span class="nk"> &lt;alinefm&gt;</span> if the problem persists, please, open an issue on github
+<a name="l-284"></a><span class="tm">14:33:11</span><span class="nk"> &lt;alinefm&gt;</span> is this error blocking you for the memory hot plug devel?
+<a name="l-285"></a><span class="tm">14:33:12</span><span class="nk"> &lt;samhenri&gt;</span> yes
+<a name="l-286"></a><span class="tm">14:33:20</span><span class="nk"> &lt;samhenri&gt;</span> but i can confirm its only on centos
+<a name="l-287"></a><span class="tm">14:33:23</span><span class="nk"> &lt;samhenri&gt;</span> ubuntu running ifne
+<a name="l-288"></a><span class="tm">14:33:29</span><span class="nk"> &lt;samhenri&gt;</span> fine*
+<a name="l-289"></a><span class="tm">14:33:58</span><span class="nk"> &lt;alinefm&gt;</span> not too bad so =)
+<a name="l-290"></a><span class="tm">14:34:14</span><span class="nk"> &lt;samhenri&gt;</span> well, for now I'll just enable the input field them
+<a name="l-291"></a><span class="tm">14:34:23</span><span class="nk"> &lt;samhenri&gt;</span> then*
+<a name="l-292"></a><span class="tm">14:34:43</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-293"></a><span class="tm">14:34:59</span><span class="nk"> &lt;alinefm&gt;</span> -  Create storage volume when attaching disk to a guest
+<a name="l-294"></a><span class="tm">14:35:25</span><span class="nk"> &lt;alinefm&gt;</span> when attacking a new disk to a guest the user (today) must specify the pool and the volume
+<a name="l-295"></a><span class="tm">14:35:39</span><span class="nk"> &lt;alinefm&gt;</span> the volume must exist in the pool
+<a name="l-296"></a><span class="tm">14:36:00</span><span class="nk"> &lt;alinefm&gt;</span> with this feature the user will select the pool + size of volume and the volume will be created and attached to the guest
+<a name="l-297"></a><span class="tm">14:36:11</span><span class="nk"> &lt;alinefm&gt;</span> I think I have already sent some ideas for the UI in the ML
+<a name="l-298"></a><span class="tm">14:36:19</span><span class="nk"> &lt;alinefm&gt;</span> anything missing there?
+<a name="l-299"></a><span class="tm">14:36:45</span><span class="nk"> &lt;samhenri&gt;</span> i've searched the mockups and couldn't find them
+<a name="l-300"></a><span class="tm">14:37:40</span><span class="nk"> &lt;alinefm&gt;</span> from now on, there will be no mockups =D
+<a name="l-301"></a><span class="tm">14:37:55</span><span class="nk"> &lt;alinefm&gt;</span> we only provide suggestion in a text way
+<a name="l-302"></a><span class="tm">14:38:02</span><span class="nk"> &lt;samhenri&gt;</span> oh, great
+<a name="l-303"></a><span class="tm">14:39:04</span><span class="nk"> &lt;alinefm&gt;</span> do you have doubts about what we have suggested in the ML?
+<a name="l-304"></a><span class="tm">14:39:48</span><span class="nk"> &lt;samhenri&gt;</span> i think we don't need mockups in high fidelity but we sure need some wireframes
+<a name="l-305"></a><span class="tm">14:39:57</span><span class="nk"> &lt;samhenri&gt;</span> like the network modal windows for Ginger
+<a name="l-306"></a><span class="tm">14:39:58</span><span class="nk"> &lt;lbianc&gt;</span> <span class="hi">alinefm:</span> so here we would need kind of fields, where they will be placed, can someone do that?
+<a name="l-307"></a><span class="tm">14:40:12</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  samhenri  slots are of 1GB
+<a name="l-308"></a><span class="tm">14:40:13</span><span class="nk"> &lt;alinefm&gt;</span> lbianc, it is already done
+<a name="l-309"></a><span class="tm">14:40:40</span><span class="nk"> &lt;alinefm&gt;</span> lbianc, I can find the link in the ML archives to you later, if you want
+<a name="l-310"></a><span class="tm">14:40:44</span><span class="nk"> &lt;lbianc&gt;</span> <span class="hi">alinefm:</span> where?
+<a name="l-311"></a><span class="tm">14:40:49</span><span class="nk"> &lt;lbianc&gt;</span> <span class="hi">alinefm:</span> yes, thanks
+<a name="l-312"></a><span class="tm">14:40:49</span><span class="nk"> &lt;alinefm&gt;</span> s/in the/to the
+<a name="l-313"></a><span class="tm">14:41:22</span><span class="nk"> &lt;samhenri&gt;</span> ok
+<a name="l-314"></a><span class="tm">14:41:35</span><span class="nk"> &lt;lbianc&gt;</span> <span class="hi">alinefm:</span> Wouldn't be better add a link ow a description on the todo list?
+<a name="l-315"></a><span class="tm">14:42:49</span><span class="nk"> &lt;alinefm&gt;</span> live migration UI proposal: http://lists.ovirt.org/pipermail/kimchi-devel/2015-November/012448.html
+<a name="l-316"></a><span class="tm">14:43:48</span><span class="nk"> &lt;samhenri&gt;</span> live migration is ok
+<a name="l-317"></a><span class="tm">14:45:22</span><span class="nk"> &lt;alinefm&gt;</span> create logical pool from existing VG: http://lists.ovirt.org/pipermail/kimchi-devel/2015-October/011988.html
+<a name="l-318"></a><span class="tm">14:48:36</span><span class="nk"> &lt;alinefm&gt;</span> I could not find the email for the disk yet
+<a name="l-319"></a><span class="tm">14:48:42</span><span class="nk"> &lt;samhenri&gt;</span> I have the RFC for Linux and OVS bridge here, no mockup / wireframe required
+<a name="l-320"></a><span class="tm">14:48:48</span><span class="nk"> &lt;alinefm&gt;</span> pvital, could you find that and resend to lbianc and samhenri?
+<a name="l-321"></a><span class="tm">14:49:06</span><span class="nk"> &lt;alinefm&gt;</span> I remember you sent that to the ML explaining the API and the UI proposal
+<a name="l-322"></a><span class="tm">14:49:28</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, ok
+<a name="l-323"></a><span class="tm">14:49:33</span><span class="nk"> &lt;alinefm&gt;</span> any more doubts?
+<a name="l-324"></a><span class="tm">14:49:40</span><span class="nk"> &lt;alinefm&gt;</span> I need to go in some minutes
+<a name="l-325"></a><span class="tm">14:49:49</span><span class="nk"> &lt;samhenri&gt;</span> list view for Storage volumes we have two different mockups, but this we can discuss later
+<a name="l-326"></a><span class="tm">14:50:17</span><span class="nk"> &lt;alinefm&gt;</span> 2 different mockups in the new UI spec?
+<a name="l-327"></a><span class="tm">14:50:32</span><span class="nk"> &lt;samhenri&gt;</span> we have the pdf guide and the older ones that Susan sent
+<a name="l-328"></a><span class="tm">14:50:43</span><span class="nk"> &lt;alinefm&gt;</span> oh ok
+<a name="l-329"></a><span class="tm">14:50:55</span><span class="nk"> &lt;samhenri&gt;</span> the older mockups enable multi-select volumes
+<a name="l-330"></a><span class="tm">14:51:09</span><span class="nk"> &lt;lbianc&gt;</span> <span class="hi">alinefm:</span> can we add the links in the wiki for each item to pint to these discussions?
+<a name="l-331"></a><span class="tm">14:51:12</span><span class="nk"> &lt;alinefm&gt;</span> hrm... I don't think it is good to enable now
+<a name="l-332"></a><span class="tm">14:51:19</span><span class="nk"> &lt;lbianc&gt;</span> point*
+<a name="l-333"></a><span class="tm">14:51:22</span><span class="nk"> &lt;alinefm&gt;</span> as the whole app does not allow it yet
+<a name="l-334"></a><span class="tm">14:51:32</span><span class="nk"> &lt;alinefm&gt;</span> lbianc, feel free to edit the wiki
+<a name="l-335"></a><span class="tm">14:51:54</span><span class="nk"> &lt;lbianc&gt;</span> <span class="hi">alinefm:</span> ok :)
+<a name="l-336"></a><span class="tm">14:52:09</span><span class="nk"> &lt;samhenri&gt;</span> ok
+<a name="l-337"></a><span class="tm">14:52:19</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, lbianc, are you done for today?
+<a name="l-338"></a><span class="tm">14:52:22</span><span class="nk"> &lt;alinefm&gt;</span> more questions?
+<a name="l-339"></a><span class="tm">14:52:24</span><span class="nk"> &lt;samhenri&gt;</span> Create UI support for creating template without specifying media type
+<a name="l-340"></a><span class="tm">14:53:29</span><span class="nk"> &lt;lbianc&gt;</span> <span class="hi">alinefm:</span> There are other items that we want to discuss, but probably you dont have tome for it now
+<a name="l-341"></a><span class="tm">14:53:30</span><span class="nk"> &lt;samhenri&gt;</span> and SR-IOV?
+<a name="l-342"></a><span class="tm">14:53:37</span><span class="nk"> &lt;lbianc&gt;</span> <span class="hi">alinefm:</span> Can we discuss it later?
+<a name="l-343"></a><span class="tm">14:53:43</span><span class="nk"> &lt;alinefm&gt;</span> please! =)
+<a name="l-344"></a><span class="tm">14:53:48</span><span class="nk"> &lt;alinefm&gt;</span> SRIOV is for ginger, right?
+<a name="l-345"></a><span class="tm">14:54:25</span><span class="nk"> &lt;samhenri&gt;</span> yes
+<a name="l-346"></a><span class="tm">14:55:05</span><span class="nk"> &lt;samhenri&gt;</span> but we can discuss this later
+<a name="l-347"></a><span class="tm">14:55:13</span><span class="nk"> &lt;alinefm&gt;</span> sure
+<a name="l-348"></a><span class="tm">14:55:24</span><span class="nk"> &lt;alinefm&gt;</span> but I think most of the specifications are done
+<a name="l-349"></a><span class="tm">14:55:35</span><span class="nk"> &lt;samhenri&gt;</span> ok
+<a name="l-350"></a><span class="tm">14:55:43</span><span class="nk"> &lt;alinefm&gt;</span> once we have all them done I will send a summary email to the ML
+<a name="l-351"></a><span class="tm">14:55:54</span><span class="nk"> &lt;alteodoro&gt;</span> ok
+<a name="l-352"></a><span class="tm">14:55:59</span><span class="nk"> &lt;alinefm&gt;</span> let's end the meeting for today
+<a name="l-353"></a><span class="tm">14:56:09</span><span class="nk"> &lt;lbianc&gt;</span> <span class="hi">alinefm:</span> OK, thanks!
+<a name="l-354"></a><span class="tm">14:56:10</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining and for the great discussions!
+<a name="l-355"></a><span class="tm">14:56:19</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
