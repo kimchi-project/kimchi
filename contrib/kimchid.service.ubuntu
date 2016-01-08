@@ -1,0 +1,7 @@
+[Unit]
+Requires=libvirt-bin.service wokd.service
+After=libvirt-bin.service wokd.service
+
+[Service]
+Nice=0
+PrivateTmp=yes
