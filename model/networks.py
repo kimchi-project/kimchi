@@ -32,6 +32,7 @@ from wok.xmlutils.utils import xpath_get_text
 
 from wok.plugins.kimchi import netinfo
 from wok.plugins.kimchi import network as knetwork
+from wok.plugins.kimchi.model.config import CapabilitiesModel
 from wok.plugins.kimchi.osinfo import defaults as tmpl_defaults
 from wok.plugins.kimchi.xmlutils.interface import get_iface_xml
 from wok.plugins.kimchi.xmlutils.network import create_linux_bridge_xml
@@ -48,6 +49,8 @@ class NetworksModel(object):
         self.conn = kargs['conn']
         if self.conn.isQemuURI():
             self._check_default_networks()
+
+        self.caps = CapabilitiesModel(**kargs)
 
     def _check_default_networks(self):
         networks = list(set(tmpl_defaults['networks']))
@@ -192,6 +195,11 @@ class NetworksModel(object):
 
         # User wants Linux bridge network, but didn't specify bridge interface
         elif params['connection'] == "bridge":
+
+            # libvirt will fail to create bridge if NetworkManager is enabled
+            if self.caps.nm_running:
+                raise InvalidParameter('KCHNET0027E')
+
             # create Linux bridge interface first and use it as actual iface
             iface = self._create_linux_bridge(iface)
             params['bridge'] = iface

@@ -273,6 +273,7 @@ messages = {
     "KCHNET0024E": _("Unable to redefine interface %(name)s. Details: %(err)s"),
     "KCHNET0025E": _("Unable to create bridge %(name)s. Details: %(err)s"),
     "KCHNET0026E": _("Open VSwitch bridges can only host bridged networks."),
+    "KCHNET0027E": _("Unable to create bridge with NetworkManager enabled. Disable it and try again."),
 
     "KCHSR0001E": _("Storage server %(server)s was not used by Kimchi"),
 
