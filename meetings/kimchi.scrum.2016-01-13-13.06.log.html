@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:06:01</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:06:01</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Jan 13 13:06:01 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:06:01</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:06:02</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:06:02</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:06:52</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda</span>
+<a name="l-7"></a><span class="tm">13:06:52</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">1) Wok Status</span>
+<a name="l-8"></a><span class="tm">13:06:52</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">2) Kimchi Status</span>
+<a name="l-9"></a><span class="tm">13:06:52</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">3) Ginger Base status</span>
+<a name="l-10"></a><span class="tm">13:06:52</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">4) Ginger status</span>
+<a name="l-11"></a><span class="tm">13:06:54</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">5) Open discussion</span>
+<a name="l-12"></a><span class="tm">13:06:57</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-13"></a><span class="tm">13:07:05</span><span class="nk"> &lt;ramonn&gt;</span> nop
+<a name="l-14"></a><span class="tm">13:07:54</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Wok Status</span>
+<a name="l-15"></a><span class="tm">13:08:28</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm is currently working on proxy websockets port to nginx so there will be no need to open 64667 port on firewall configuration</span>
+<a name="l-16"></a><span class="tm">13:10:21</span><span class="nk"> &lt;peterpennings&gt;</span> <span class="cmd">#info </span><span class="cmdline">peterpennings sent patch to ML to include typeahead library wich is needed by sysmodules and sr-iov in Ginger.</span>
+<a name="l-17"></a><span class="tm">13:10:27</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru Sent patch to change Wok backup log files rotation. Makes it a configurable option in /etc/wok.conf and set default number of backup log files to 10. Waiting for review/commit;</span>
+<a name="l-18"></a><span class="tm">13:11:09</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">danielhb sent a patch to turn run_command default language to English</span>
+<a name="l-19"></a><span class="tm">13:11:28</span><span class="nk"> &lt;lcorreia&gt;</span> # info lcorreia will work on user log functionality
+<a name="l-20"></a><span class="tm">13:11:36</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">lcorreia will work on user log functionality</span>
+<a name="l-21"></a><span class="tm">13:12:31</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-22"></a><span class="tm">13:13:34</span><span class="nk"> &lt;pvital&gt;</span> no
+<a name="l-23"></a><span class="tm">13:13:38</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Kimchi Status</span>
+<a name="l-24"></a><span class="tm">13:14:20</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani tested kimchi in all spported distros and opened bugs</span>
+<a name="l-25"></a><span class="tm">13:14:28</span><span class="nk"> &lt;peterpennings&gt;</span> <span class="cmd">#info </span><span class="cmdline">peterpennings is working on memory hot plug</span>
+<a name="l-26"></a><span class="tm">13:14:34</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm updated the github wiki pages for Kimchi project. An issue was open for each feature listed in the Backlog page and the Backlog page was deleted.</span>
+<a name="l-27"></a><span class="tm">13:14:57</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru Sent RFC for Configure Guest Max Memory (backend/frontend). Working in v2 of backend changes;</span>
+<a name="l-28"></a><span class="tm">13:14:57</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru Tested Template in Fedora. Issue #771 is still reproducible. Investigating backend returns;</span>
+<a name="l-29"></a><span class="tm">13:15:01</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">lcorreia tested Kimchi Network tab in RHEL 7.2</span>
+<a name="l-30"></a><span class="tm">13:15:01</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">lcorreia restarted work to include option to specify max_vcpu and current_vcpu separately per guest in Kimchi backend</span>
+<a name="l-31"></a><span class="tm">13:15:01</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">lcorreia will work to handle notifications for host ENOSPC from libvirt in kimchi backend</span>
+<a name="l-32"></a><span class="tm">13:15:22</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">samhenri working on Live Migration delete function. Passwordless login fixed.</span>
+<a name="l-33"></a><span class="tm">13:15:44</span><span class="nk"> &lt;alteodoro&gt;</span> <span class="cmd">#info </span><span class="cmdline">andreteodoro implemented sort for Templates tab</span>
+<a name="l-34"></a><span class="tm">13:16:19</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, please, do the same for templates (regarding the max vcpu values)
+<a name="l-35"></a><span class="tm">13:16:21</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">ramonn working on websockify update (trying to reach community for help)</span>
+<a name="l-36"></a><span class="tm">13:16:25</span><span class="nk"> &lt;alinefm&gt;</span> lcorreia, ^
+<a name="l-37"></a><span class="tm">13:16:32</span><span class="nk"> &lt;alinefm&gt;</span> lagarcia, sorry - the message was for lcorreia
+<a name="l-38"></a><span class="tm">13:16:39</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">ramonn did not worked last two days by college evaluation.</span>
+<a name="l-39"></a><span class="tm">13:17:10</span><span class="nk"> &lt;lcorreia&gt;</span> alinefm, sure
+<a name="l-40"></a><span class="tm">13:18:14</span><span class="nk"> &lt;alinefm&gt;</span> anything else for Kimchi?
+<a name="l-41"></a><span class="tm">13:19:04</span><span class="nk"> &lt;pvital&gt;</span> no
+<a name="l-42"></a><span class="tm">13:19:11</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Ginger Base Status</span>
+<a name="l-43"></a><span class="tm">13:19:35</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital submitted the patch: [Gingerbase] Issue #19: Fix HTTP return code of host updated.</span>
+<a name="l-44"></a><span class="tm">13:19:36</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital tested Dashboard and Update tabs of Gingerbase 2.0 in Fedora23, Ubuntu 15.10, OpenSUSE LEAP and RHEL 7.5</span>
+<a name="l-45"></a><span class="tm">13:20:45</span><span class="nk"> &lt;alteodoro&gt;</span> <span class="cmd">#info </span><span class="cmdline">andreteodoro is currently working on Sysmodules (SRIOV) tab</span>
+<a name="l-46"></a><span class="tm">13:24:16</span><span class="nk"> &lt;alinefm&gt;</span> moving on...
+<a name="l-47"></a><span class="tm">13:24:20</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Ginger Status</span>
+<a name="l-48"></a><span class="tm">13:25:13</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital submitted the patch: [Ginger] Add FirmwareProgress UI</span>
+<a name="l-49"></a><span class="tm">13:25:13</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital is working in V3 of the patch: [Ginger] Prevent AsyncTask timeout error during FW Update.</span>
+<a name="l-50"></a><span class="tm">13:25:50</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani opened bugs and sent patches</span>
+<a name="l-51"></a><span class="tm">13:26:29</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">danielhb reviewed/pushed gingerbase patches, fixed bugs and managed gingerbase Github issues</span>
+<a name="l-52"></a><span class="tm">13:28:16</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, more news about ginger?
+<a name="l-53"></a><span class="tm">13:28:45</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, sure
+<a name="l-54"></a><span class="tm">13:29:24</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">danielhb fixed half a dozen Ginger github issues, reviewed and pushed 64 patches upstream, engaged into several design discussions about current and future features</span>
+<a name="l-55"></a><span class="tm">13:30:11</span><span class="nk"> &lt;alinefm&gt;</span> anything else, guys?
+<a name="l-56"></a><span class="tm">13:31:15</span><span class="nk"> &lt;ziviani&gt;</span> no
+<a name="l-57"></a><span class="tm">13:31:33</span><span class="nk"> &lt;cbosdonnat&gt;</span> <span class="cmd">#info </span><span class="cmdline">cbosdonnat is getting last release in opensuse build service</span>
+<a name="l-58"></a><span class="tm">13:37:47</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-59"></a><span class="tm">13:37:54</span><span class="nk"> &lt;alinefm&gt;</span> any other topic for today?
+<a name="l-60"></a><span class="tm">13:38:20</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, lbianc, lcorreia, peterpennings, pvital, ramonn, samhenri, ziviani ^
+<a name="l-61"></a><span class="tm">13:38:30</span><span class="nk"> &lt;lcorreia&gt;</span> no
+<a name="l-62"></a><span class="tm">13:38:33</span><span class="nk"> &lt;samhenri&gt;</span> i'm facing some issues with live migration delete function
+<a name="l-63"></a><span class="tm">13:38:42</span><span class="nk"> &lt;samhenri&gt;</span> i need help with kimchi tasks api
+<a name="l-64"></a><span class="tm">13:40:02</span><span class="nk"> &lt;samhenri&gt;</span> i've tried to add a delete function if the user has checked the option to remove vm once the migration was finished and sometimes it works, most of the time it doesn't
+<a name="l-65"></a><span class="tm">13:40:22</span><span class="nk"> &lt;samhenri&gt;</span> i think kimchi is trying to delete the vm before the migration was finished
+<a name="l-66"></a><span class="tm">13:40:50</span><span class="nk"> &lt;samhenri&gt;</span> and then if i check the output by curl, it returns "Unexpected exception: KCHVM0058E: Failed to migrate virtual machine ubuntu-live-clone-10 due error: internal error: guest unexpectedly quit"
+<a name="l-67"></a><span class="tm">13:41:19</span><span class="nk"> &lt;samhenri&gt;</span> i don't know if a timeout would solve this, because the larger the disk the longer it would require to finish the migration, right?
+<a name="l-68"></a><span class="tm">13:41:20</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, you need to pool the task until it get completed
+<a name="l-69"></a><span class="tm">13:41:36</span><span class="nk"> &lt;alinefm&gt;</span> only when the status == finished, you can delete the vm
+<a name="l-70"></a><span class="tm">13:42:04</span><span class="nk"> &lt;alinefm&gt;</span> POST /plugins/vms/&lt;name&gt;/migrate {&lt;Task resource&gt;}
+<a name="l-71"></a><span class="tm">13:42:23</span><span class="nk"> &lt;samhenri&gt;</span> ok, is there any example of how to do that with tasks api? i mean, any other feature that does something similar?
+<a name="l-72"></a><span class="tm">13:42:25</span><span class="nk"> &lt;alinefm&gt;</span> GET /plugins/kimchi/tasks/&lt;task id&gt; on every 5 seconds
+<a name="l-73"></a><span class="tm">13:42:45</span><span class="nk"> &lt;alinefm&gt;</span> check the GET return and verify the 'status'
+<a name="l-74"></a><span class="tm">13:43:09</span><span class="nk"> &lt;alinefm&gt;</span> if it is "finished" =&gt; delete the vm (DELETE /plugins/vms/&lt;name&gt;
+<a name="l-75"></a><span class="tm">13:43:25</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, create/clone vms
+<a name="l-76"></a><span class="tm">13:43:40</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, you will need to use the trackTask() helper
+<a name="l-77"></a><span class="tm">13:44:13</span><span class="nk"> &lt;samhenri&gt;</span> ok, I will see what I can do
+<a name="l-78"></a><span class="tm">13:44:35</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-79"></a><span class="tm">13:44:39</span><span class="nk"> &lt;alinefm&gt;</span> ping me on any problem
+<a name="l-80"></a><span class="tm">13:45:14</span><span class="nk"> &lt;samhenri&gt;</span> sure
+<a name="l-81"></a><span class="tm">13:45:39</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-82"></a><span class="tm">13:46:36</span><span class="nk"> &lt;samhenri&gt;</span> we're also facing some issues with qemu driver for memory hotplug
+<a name="l-83"></a><span class="tm">13:46:38</span><span class="nk"> &lt;lbianc&gt;</span> <span class="hi">alinefm:</span> nop
+<a name="l-84"></a><span class="tm">13:46:44</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, which issues?
+<a name="l-85"></a><span class="tm">13:47:42</span><span class="nk"> &lt;samhenri&gt;</span> i know that ubuntu 14.04 is not supported but do you know if theres any workaround to install libvirt latest version?
+<a name="l-86"></a><span class="tm">13:48:40</span><span class="nk"> &lt;samhenri&gt;</span> the official repo points to 1.2.2 but memory hotplug requires &gt;= 1.2.14
+<a name="l-87"></a><span class="tm">13:50:00</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, you can download the latest libvirt packages provided by ubuntu
+<a name="l-88"></a><span class="tm">13:50:12</span><span class="nk"> &lt;alinefm&gt;</span> or add the ubuntu repositories which have the newer versions
+<a name="l-89"></a><span class="tm">13:50:20</span><span class="nk"> &lt;samhenri&gt;</span> ok
+<a name="l-90"></a><span class="tm">13:50:21</span><span class="nk"> &lt;alinefm&gt;</span> but I DO NOT recommend you do that
+<a name="l-91"></a><span class="tm">13:50:33</span><span class="nk"> &lt;alinefm&gt;</span> it is better to use ubuntu 15.10
+<a name="l-92"></a><span class="tm">13:51:36</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, anything else?
+<a name="l-93"></a><span class="tm">13:51:53</span><span class="nk"> &lt;samhenri&gt;</span> nope
+<a name="l-94"></a><span class="tm">13:52:47</span><span class="nk"> &lt;alinefm&gt;</span> so thanks everyone for joining!
+<a name="l-95"></a><span class="tm">13:52:50</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

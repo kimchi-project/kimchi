@@ -1,0 +1,95 @@
+13:06:01 <alinefm> #startmeeting
+13:06:01 <kimchi-bot> Meeting started Wed Jan 13 13:06:01 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:06:01 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:06:02 <alinefm> #meetingname scrum
+13:06:02 <kimchi-bot> The meeting name has been set to 'scrum'
+13:06:52 <alinefm> #info Agenda
+13:06:52 <alinefm> #info 1) Wok Status
+13:06:52 <alinefm> #info 2) Kimchi Status
+13:06:52 <alinefm> #info 3) Ginger Base status
+13:06:52 <alinefm> #info 4) Ginger status
+13:06:54 <alinefm> #info 5) Open discussion
+13:06:57 <alinefm> anything else?
+13:07:05 <ramonn> nop
+13:07:54 <alinefm> #topic Wok Status
+13:08:28 <alinefm> #info alinefm is currently working on proxy websockets port to nginx so there will be no need to open 64667 port on firewall configuration
+13:10:21 <peterpennings> #info peterpennings sent patch to ML to include typeahead library wich is needed by sysmodules and sr-iov in Ginger.
+13:10:27 <rotru> #info rotru Sent patch to change Wok backup log files rotation. Makes it a configurable option in /etc/wok.conf and set default number of backup log files to 10. Waiting for review/commit;
+13:11:09 <danielhb> #info danielhb sent a patch to turn run_command default language to English
+13:11:28 <lcorreia> # info lcorreia will work on user log functionality
+13:11:36 <lcorreia> #info lcorreia will work on user log functionality
+13:12:31 <alinefm> anything else?
+13:13:34 <pvital> no
+13:13:38 <alinefm> #topic Kimchi Status
+13:14:20 <ziviani> #info ziviani tested kimchi in all spported distros and opened bugs
+13:14:28 <peterpennings> #info peterpennings is working on memory hot plug
+13:14:34 <alinefm> #info alinefm updated the github wiki pages for Kimchi project. An issue was open for each feature listed in the Backlog page and the Backlog page was deleted.
+13:14:57 <rotru> #info rotru Sent RFC for Configure Guest Max Memory (backend/frontend). Working in v2 of backend changes;
+13:14:57 <rotru> #info rotru Tested Template in Fedora. Issue #771 is still reproducible. Investigating backend returns;
+13:15:01 <lcorreia> #info lcorreia tested Kimchi Network tab in RHEL 7.2
+13:15:01 <lcorreia> #info lcorreia restarted work to include option to specify max_vcpu and current_vcpu separately per guest in Kimchi backend
+13:15:01 <lcorreia> #info lcorreia will work to handle notifications for host ENOSPC from libvirt in kimchi backend
+13:15:22 <samhenri> #info samhenri working on Live Migration delete function. Passwordless login fixed.
+13:15:44 <alteodoro> #info andreteodoro implemented sort for Templates tab
+13:16:19 <alinefm> lagarcia, please, do the same for templates (regarding the max vcpu values)
+13:16:21 <ramonn> #info ramonn working on websockify update (trying to reach community for help)
+13:16:25 <alinefm> lcorreia, ^
+13:16:32 <alinefm> lagarcia, sorry - the message was for lcorreia
+13:16:39 <ramonn> #info ramonn did not worked last two days by college evaluation.
+13:17:10 <lcorreia> alinefm, sure
+13:18:14 <alinefm> anything else for Kimchi?
+13:19:04 <pvital> no
+13:19:11 <alinefm> #topic Ginger Base Status
+13:19:35 <pvital> #info pvital submitted the patch: [Gingerbase] Issue #19: Fix HTTP return code of host updated.
+13:19:36 <pvital> #info pvital tested Dashboard and Update tabs of Gingerbase 2.0 in Fedora23, Ubuntu 15.10, OpenSUSE LEAP and RHEL 7.5
+13:20:45 <alteodoro> #info andreteodoro is currently working on Sysmodules (SRIOV) tab
+13:24:16 <alinefm> moving on...
+13:24:20 <alinefm> #topic Ginger Status
+13:25:13 <pvital> #info pvital submitted the patch: [Ginger] Add FirmwareProgress UI
+13:25:13 <pvital> #info pvital is working in V3 of the patch: [Ginger] Prevent AsyncTask timeout error during FW Update.
+13:25:50 <ziviani> #info ziviani opened bugs and sent patches
+13:26:29 <danielhb> #info danielhb reviewed/pushed gingerbase patches, fixed bugs and managed gingerbase Github issues
+13:28:16 <alinefm> danielhb, more news about ginger?
+13:28:45 <danielhb> alinefm, sure
+13:29:24 <danielhb> #info danielhb fixed half a dozen Ginger github issues, reviewed and pushed 64 patches upstream, engaged into several design discussions about current and future features
+13:30:11 <alinefm> anything else, guys?
+13:31:15 <ziviani> no
+13:31:33 <cbosdonnat> #info cbosdonnat is getting last release in opensuse build service
+13:37:47 <alinefm> #topic Open Discussion
+13:37:54 <alinefm> any other topic for today?
+13:38:20 <alinefm> danielhb, lbianc, lcorreia, peterpennings, pvital, ramonn, samhenri, ziviani ^
+13:38:30 <lcorreia> no
+13:38:33 <samhenri> i'm facing some issues with live migration delete function
+13:38:42 <samhenri> i need help with kimchi tasks api
+13:40:02 <samhenri> i've tried to add a delete function if the user has checked the option to remove vm once the migration was finished and sometimes it works, most of the time it doesn't
+13:40:22 <samhenri> i think kimchi is trying to delete the vm before the migration was finished
+13:40:50 <samhenri> and then if i check the output by curl, it returns "Unexpected exception: KCHVM0058E: Failed to migrate virtual machine ubuntu-live-clone-10 due error: internal error: guest unexpectedly quit"
+13:41:19 <samhenri> i don't know if a timeout would solve this, because the larger the disk the longer it would require to finish the migration, right?
+13:41:20 <alinefm> samhenri, you need to pool the task until it get completed
+13:41:36 <alinefm> only when the status == finished, you can delete the vm
+13:42:04 <alinefm> POST /plugins/vms/<name>/migrate {<Task resource>}
+13:42:23 <samhenri> ok, is there any example of how to do that with tasks api? i mean, any other feature that does something similar?
+13:42:25 <alinefm> GET /plugins/kimchi/tasks/<task id> on every 5 seconds
+13:42:45 <alinefm> check the GET return and verify the 'status'
+13:43:09 <alinefm> if it is "finished" => delete the vm (DELETE /plugins/vms/<name>
+13:43:25 <alinefm> samhenri, create/clone vms
+13:43:40 <alinefm> samhenri, you will need to use the trackTask() helper
+13:44:13 <samhenri> ok, I will see what I can do
+13:44:35 <alinefm> ok
+13:44:39 <alinefm> ping me on any problem
+13:45:14 <samhenri> sure
+13:45:39 <alinefm> anything else?
+13:46:36 <samhenri> we're also facing some issues with qemu driver for memory hotplug
+13:46:38 <lbianc> alinefm: nop
+13:46:44 <alinefm> samhenri, which issues?
+13:47:42 <samhenri> i know that ubuntu 14.04 is not supported but do you know if theres any workaround to install libvirt latest version?
+13:48:40 <samhenri> the official repo points to 1.2.2 but memory hotplug requires >= 1.2.14
+13:50:00 <alinefm> samhenri, you can download the latest libvirt packages provided by ubuntu
+13:50:12 <alinefm> or add the ubuntu repositories which have the newer versions
+13:50:20 <samhenri> ok
+13:50:21 <alinefm> but I DO NOT recommend you do that
+13:50:33 <alinefm> it is better to use ubuntu 15.10
+13:51:36 <alinefm> samhenri, anything else?
+13:51:53 <samhenri> nope
+13:52:47 <alinefm> so thanks everyone for joining!
+13:52:50 <alinefm> #endmeeting
