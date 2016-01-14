@@ -2,7 +2,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2015
+# Copyright IBM, Corp. 2013-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -1226,7 +1226,7 @@ class RestTests(unittest.TestCase):
     def test_config(self):
         resp = self.request('/plugins/kimchi/config').read()
         conf = json.loads(resp)
-        keys = ["display_proxy_port", "version"]
+        keys = ["version"]
         self.assertEquals(keys, sorted(conf.keys()))
 
     def test_capabilities(self):

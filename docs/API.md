@@ -693,12 +693,11 @@ A interface represents available interface on host.
 
 **URI:** /plugins/kimchi/config
 
-Contains information about the application environment and configuration.
+Contains information about Kimchi configuration.
 
 **Methods:**
 
 * **GET**: Retrieve configuration information
-    * display_proxy_port: Port for vnc and spice's websocket proxy to listen on
     * version: The version of the kimchi service
 * **POST**: *See Configuration Actions*
 
