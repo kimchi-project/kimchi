@@ -1,7 +1,7 @@
 /*
  * Project Kimchi
  *
- * Copyright IBM, Corp. 2013-2015
+ * Copyright IBM, Corp. 2013-2016
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -293,20 +293,20 @@ var kimchi = {
 
     vncToVM : function(vm) {
         wok.requestJSON({
-            url : 'plugins/kimchi/config',
+            url : 'config/',
             type : 'GET',
             dataType : 'json'
         }).done(function(data, textStatus, xhr) {
-            proxy_port = data['display_proxy_port'];
+            proxy_port = data['websockets_port'];
+            ssl_port = data['ssl_port'];
             wok.requestJSON({
                 url : "plugins/kimchi/vms/" + encodeURIComponent(vm) + "/connect",
                 type : "POST",
                 dataType : "json"
             }).done(function() {
-                url = 'https://' + location.hostname + ':' + proxy_port;
-                url += "/console.html?url=";
-                url += encodeURIComponent("plugins/kimchi/novnc/vnc_auto.html");
-                url += "&port=" + proxy_port;
+                url = 'https://' + location.hostname + ':' + ssl_port;
+                url += "/plugins/kimchi/novnc/vnc_auto.html";
+                url += "?port=" + ssl_port;
                 /*
                  * From python documentation base64.urlsafe_b64encode(s)
                  * substitutes - instead of + and _ instead of / in the
@@ -314,8 +314,7 @@ var kimchi = {
                  * contain = which is not safe in a URL query component.
                  * So remove it when needed as base64 can work well without it.
                  * */
-                url += "&path=?token=" + wok.urlSafeB64Encode(vm).replace(/=*$/g, "");
-                url += "&wok=" + location.port;
+                url += "&path=websockify?token=" + wok.urlSafeB64Encode(vm).replace(/=*$/g, "");
                 url += '&encrypt=1';
                 window.open(url);
             });
@@ -326,19 +325,20 @@ var kimchi = {
 
     spiceToVM : function(vm) {
         wok.requestJSON({
-            url : 'plugins/kimchi/config',
+            url : 'config/',
             type : 'GET',
             dataType : 'json'
         }).done(function(data, textStatus, xhr) {
-            proxy_port = data['display_proxy_port'];
+            proxy_port = data['websockets_port'];
+            ssl_port = data['ssl_port'];
             wok.requestJSON({
                 url : "plugins/kimchi/vms/" + encodeURIComponent(vm) + "/connect",
                 type : "POST",
                 dataType : "json"
             }).done(function(data, textStatus, xhr) {
-                url = 'https://' + location.hostname + ':' + proxy_port;
-                url += "/console.html?url=plugins/kimchi/spice_auto.html";
-                url += "&port=" + proxy_port + "&listen=" + location.hostname;
+                url = 'https://' + location.hostname + ':' + ssl_port;
+                url += "/plugins/kimchi/spice_auto.html";
+                url += "?port=" + ssl_port + "&listen=" + location.hostname;
                 /*
                  * From python documentation base64.urlsafe_b64encode(s)
                  * substitutes - instead of + and _ instead of / in the
@@ -347,7 +347,6 @@ var kimchi = {
                  * So remove it when needed as base64 can work well without it.
                  * */
                 url += "&token=" + wok.urlSafeB64Encode(vm).replace(/=*$/g, "");
-                url += "&wok=" + location.port;
                 url += '&encrypt=1';
                 window.open(url);
             });

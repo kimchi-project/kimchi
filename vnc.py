@@ -2,7 +2,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2015
+# Copyright IBM, Corp. 2013-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -43,10 +43,10 @@ def new_ws_proxy():
         cert = '%s/wok-cert.pem' % paths.conf_dir
         key = '%s/wok-key.pem' % paths.conf_dir
 
-    params = {'web': os.path.join(paths.ui_dir, 'pages/websockify'),
-              'listen_port': config.get('display', 'display_proxy_port'),
+    params = {'listen_host': '127.0.0.1',
+              'listen_port': config.get('server', 'websockets_port'),
               'target_cfg': WS_TOKENS_DIR,
-              'key': key, 'cert': cert, 'ssl_only': True}
+              'ssl_only': False}
 
     def start_proxy():
         server = WebSocketProxy(**params)
