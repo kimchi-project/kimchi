@@ -666,6 +666,10 @@
   position: relative;
 }
 
+#guest-edit-window #form-guest-edit-general #guest-edit-memory-textbox {
+  width: 590px;
+}
+
 #guest-edit-window #form-guest-edit-interface .column-actions {
   width: 23%;
 }
