@@ -1,7 +1,7 @@
 #*
  * Project Kimchi
  *
- * Copyright IBM, Corp. 2013-2015
+ * Copyright IBM, Corp. 2013-2016
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,7 +50,7 @@
                 </div>
                 <div class="form-group">
                     <label for="guest-edit-memory-textbox">$_("Memory (MB)")</label>
-                    <input id="guest-edit-memory-textbox" class="form-control" name="memory" type="text" />
+                    <input id="guest-edit-memory-textbox" class="form-control" name="memory" type="number" min="1024" step="1024" />
                 </div>
                 <div class="form-group">
                     <label for="guest-edit-icon-textbox">$_("Icon")</label>
