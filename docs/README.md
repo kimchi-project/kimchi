@@ -1,210 +1,77 @@
-Kimchi Project
-==============
+* [What is Kimchi?](#what-is-kimchi)
+* [Browser Support](https://github.com/kimchi-project/wok/#browser-support)
+    * [Desktop Browser Support](https://github.com/kimchi-project/wok/#desktop-browser-support)
+    * [Mobile Browser Support](https://github.com/kimchi-project/wok/#mobile-browser-support)
+* [Linux Support](https://github.com/kimchi-project/wok/#linux-support)
+* [Getting started](#getting-started)
+    * [Install Dependencies](#install-dependencies)
+    * [Build and Install](#build-and-install)
+    * [Starting up Wok](https://github.com/kimchi-project/wok/#starting-up-wok)
+    * [Troubleshooting](#troubleshooting)
+    * [Testing](#testing)
+    * [Usage](#usage)
+* [Contributing to Kimchi Project](#contributing-to-kimchi-project)
+
+What is Kimchi?
+===============
 
 Kimchi is an HTML5 based management tool for KVM. It is designed to make it as
 easy as possible to get started with KVM and create your first guest.
 
-Kimchi runs as a Wok plugin. Wok runs as a daemon on the hypervisor host.
+Kimchi runs as a [Wok](https://github.com/kimchi-project/wok/wiki) plugin.
 
 Kimchi manages KVM guests through libvirt. The management interface is accessed
 over the web using a browser that supports HTML5.
-
-Browser Support
-===============
-
-Wok and its plugin can run in any web browser that supports HTML5. The
-Kimchi community (responsible for Wok project) makes an effort to
-test it with the latest versions of Chrome and Firefox browsers, but the
-following list can be used as reference to browser support.
-
-Desktop Browser Support:
------------------------
-* **Internet Explorer:** Current version
-* **Chrome:** Current version
-* **Firefox:** Current version
-* **Safari:** Current version
-* **Opera:** Current version
-
-Mobile Browser Support:
------------------------
-* **Safari iOS:** Current version
-* **Android Browser** Current version
-
-
-Hypervisor Distro Support
-=========================
-
-Kimchi might run on any GNU/Linux distribution that meets the conditions
-described on the 'Getting Started' section below.
-
-The Kimchi community makes an effort to test it with the latest versions of
-Fedora, RHEL, OpenSuSe, and Ubuntu.
 
 Getting Started
 ===============
 
 Install Dependencies
 --------------------
+First of all, make sure to [Wok](https://github.com/kimchi-project/wok/#getting-started)
+and [Ginger Base](https://github.com/kimchi-project/gingerbase/#getting-started) installed in your system.
+To add Kimchi plugin, please make sure to have all the dependencies installed
+before starting up the wokd service.
 
-**For fedora and RHEL:**
-
-     $ sudo yum install wok libvirt-python libvirt gettext-devel \
-                        libvirt-daemon-config-network python-imaging \
-                        qemu-kvm python-ethtool sos python-ipaddr \
-                        nfs-utils iscsi-initiator-utils pyparted \
-                        python-libguestfs libguestfs-tools \
-                        python-websockify novnc spice-html5 \
-                        python-configobj python-magic python-paramiko
-
-    # If using RHEL, install the following additional packages:
-    $ sudo yum install python-unittest2 python-ordereddict
-
-    # Restart libvirt to allow configuration changes to take effect
-    $ sudo service libvirtd restart
-
-    # These dependencies are only required if you want to run the tests:
-    $ sudo yum install pyflakes python-pep8 python-requests python-mock
-
-    # For UI development
-    $ sudo yum install gcc-c++ python-devel python pip
-    $ sudo pip install cython libsass
-
-
-*Note for RHEL users*: Some of the above packages are located in the Red Hat
-EPEL repositories.  See
-[this FAQ](http://fedoraproject.org/wiki/EPEL#How_can_I_use_these_extra_packages.3F)
-for more information on how to configure your system to access this repository.
-
-And for RHEL7 systems, you also need to subscribe to the "RHEL Server Optional"
-channel at RHN Classic or Red Hat Satellite.
-
-**For Ubuntu (Debian-based):**
-
-    $ sudo apt-get install wok python-imaging python-configobj websockify \
-                           novnc python-libvirt libvirt-bin nfs-common \
-                           qemu-kvm python-parted python-ethtool sosreport \
-                           xsltproc python-ipaddr python-lxml open-iscsi \
-                           python-guestfs libguestfs-tools spice-html5 \
-                           python-magic python-paramiko gettext \
-
-    # These dependencies are only required if you want to run the tests:
-    $ sudo apt-get install pep8 pyflakes python-requests python-mock
-
-    # For UI development
-    $ sudo apt-get install g++ python-dev python pip
-    $ sudo pip install cython libsass
-
-**For openSUSE:**
-
-    $ sudo zypper install wok libvirt-python libvirt gettext-tools \
-                          libvirt-daemon-config-network python-imaging \
-                          kvm python-ethtool python-ipaddr nfs-client \
-                          open-iscsi python-parted python-libguestfs \
-                          python-configobj guestfs-tools python-websockify \
-                          novnc python-magic python-paramiko
-
-    # These dependencies are only required if you want to run the tests:
-    $ sudo zypper install python-pyflakes python-pep8 python-requests python-mock
-
-    # For UI development
-    $ sudo zypper install python-devel python pip
-    $ sudo pip install cython libsass
-
-*Note for openSUSE users*: Some of the above packages are located in different
-openSUSE repositories. See
-[this FAQ](http://download.opensuse.org/repositories/home:GRNET:synnefo/) for
-python-parted, [this FAQ](http://download.opensuse.org/repositories/systemsmanagement:/spacewalk/)
-for python-ethtool, and [this FAQ](http://download.opensuse.org/repositories/home:/Simmphonie:/python/) for python-magic to get the correct repository based on your openSUSE version. And
-[this FAQ](http://en.opensuse.org/SDB:Add_package_repositories) for more
-information on how configure your system to access this repository.
+* [RHEL/Fedora systems](/docs/fedora-deps.md)
+* [Debian/Ubuntu systems](/docs/ubuntu-deps.md)
+* [openSUSE systems](/docs/opensuse-deps.md)
 
 Build and Install
 -----------------
 
-    Wok:
-    $ ./autogen.sh --system
-
-    $ make
-    $ sudo make install   # Optional if running from the source tree
-
-
-    Kimchi:
-    $ cd plugins/kimchi
-
-    For openSUSE 13.2:
+    For openSUSE:
     $ ./autogen.sh --with-spice-html5
 
     Otherwise:
     $ ./autogen.sh --system
 
     $ make
-    $ sudo make install   # Optional if running from the source tree
 
-Run
----
+    # Optional if running from the source tree
+    $ sudo make install
 
-    $ sudo wokd --host=0.0.0.0
+Testing
+-------
 
-If you cannot access Wok, take a look at these 2 points:
-
-1. Firewall
-Wok uses by default the ports 8000, 8001 and 64667. To allow incoming connections:
-
-    For system using firewalld, do:
-    sudo firewall-cmd --add-port=8000/tcp --permanent
-    sudo firewall-cmd --add-port=8001/tcp --permanent
-    sudo firewall-cmd --add-port=64667/tcp --permanent
-    sudo firewall-cmd --reload
-
-    For openSUSE systems, do:
-    sudo /sbin/SuSEfirewall2 open EXT TCP 8000
-    sudo /sbin/SuSEfirewall2 open EXT TCP 8001
-    sudo /sbin/SuSEfirewall2 open EXT TCP 64667
-
-    For system using iptables, do:
-    sudo iptables -A INPUT -p tcp --dport 8000 -j ACCEPT
-    sudo iptables -A INPUT -p tcp --dport 8001 -j ACCEPT
-    sudo iptables -A INPUT -p tcp --dport 64667 -j ACCEPT
-
-    Don't forget to correctly save the rules.
-
-
-2. SELinux
-Allow httpd_t context for Wok web server:
-
-    semanage permissive -a httpd_t
-
-
-Test
-----
-
-    $ cd plugins/kimchi
-    $ make check-local # check for i18n and formatting errors
+    $ make check-local
     $ sudo make check
 
 After all tests are executed, a summary will be displayed containing any
 errors/failures which might have occurred.
-
-
-UI Development
-----
-Make sure to update the CSS files when modifying the SCSS files by running:
-
-    $ sudo make -C ui/css css
-
 
 Usage
 -----
 
 Connect your browser to https://localhost:8001.  You should see a screen like:
 
-![Wok Login Screen](/docs/kimchi-login.png)
+![Wok Login Screen](/docs/wok-login.png)
 
-Wok uses PAM to authenticate users so you can log in with the same username
+By default, wok uses PAM to authenticate users so you can log in with the same username
 and password that you would use to log in to the machine itself.  Once logged in
 you will see a screen like:
 
-![Kimchi Guest View](/docs/kimchi-guest.png)
+![Kimchi Guest View](/docs/kimchi-guests.png)
 
 This shows you the list of running guests including a live screenshot of
 the guest session.  You can use the action buttons to shutdown the guests
@@ -223,27 +90,35 @@ The template screen looks like:
 From this view, you can change the parameters of a template or create a
 new template using the "+" button in the upper right corner.
 
-To create a template, you need an ISO on your host or using remote one.
+To create a template, you need an ISO or image file on your host or use a remote one.
 If you are willing to use your own ISO, please copy it to out of box storage
 pool (default path is: /var/lib/kimchi/isos).
 
-Known Issues
-------------
+Troubleshooting
+---------------
 
-1. When you are using NFS as storage pool, check the nfs export path permission
-is configured as:
-    (1) export path need to be squashed as kvm gid and libvirt uid:
-        /my_export_path *(all_squash,anongid=<kvm-gid>, anonuid=<libvirt-uid>,rw,sync)
-        So that root user can create volume with right user/group.
-    (2) Chown of export path as libvirt user, group as kvm group,
-        In order to make sure all mapped user can get into the mount point.
+#### Server access
+Please, check [Wok configuration](https://github.com/kimchi-project/wok/#troubleshooting)
+if you are getting problems to access Wok server.
 
-Participating
--------------
+#### NFS storage pool
+Please, check the NFS export path permission is configured like below:
 
-All patches are sent through our mailing list hosted by oVirt.  More
-information can be found at:
+1. Export path need to be squashed as kvm gid and libvirt uid:
+    /my_export_path *(all_squash,anongid=<kvm-gid>, anonuid=<libvirt-uid>,rw,sync)
 
-https://github.com/kimchi-project/kimchi/wiki/Communications
+    So that root user can create volume with right user/group.
 
-Patches should be sent using git-send-email to kimchi-devel@ovirt.org.
+2. Set libvirt user and kvm group for export path, in order to make sure all
+mapped user can get into the mount point.
+
+Contributing to Kimchi Project
+==============================
+
+There are a lof of ways to contribute to the Kimchi Project:
+
+* Issues can be reported at [Github](https://github.com/kimchi-project/kimchi/issues)
+* Patches are always welcome! Please, follow [these instructions](https://github.com/kimchi-project/kimchi/wiki/How-to-Contribute)
+ on how to send patches to the mailing list (kimchi-devel@ovirt.org).
+
+Find more information about Wok Project at https://github.com/kimchi-project/kimchi/wiki
