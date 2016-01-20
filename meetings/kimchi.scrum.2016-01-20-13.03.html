@@ -1,0 +1,271 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi Meeting</title>
+<style type="text/css">
+/* This is for the .html in the HTML2 writer */
+body {
+    font-family: Helvetica, sans-serif;
+    font-size:14px;
+}
+h1 {
+    text-align: center;
+}
+a {
+    color:navy;
+    text-decoration: none;
+    border-bottom:1px dotted navy;
+}
+a:hover {
+    text-decoration:none;
+    border-bottom: 0;
+    color:#0000B9;
+}
+hr {
+    border: 1px solid #ccc;
+}
+/* The (nick, time) item pairs, and other body text things. */
+.details {
+    font-size: 12px;
+    font-weight:bold;
+}
+/* The 'AGREED:', 'IDEA', etc, prefix to lines. */
+.itemtype {
+    font-style: normal;    /* un-italics it */
+    font-weight: bold;
+}
+/* Example: change single item types.  Capitalized command name.
+/* .TOPIC  {  color:navy;  } */
+/* .AGREED {  color:lime;  } */
+
+</style>
+</head>
+
+<body>
+<h1>#kimchi Meeting</h1>
+<span class="details">
+Meeting started by alinefm at 13:03:52 UTC
+(<a href="kimchi.scrum.2016-01-20-13.03.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Meeting summary</h3>
+<ol>
+<li>
+<ol type="a">
+  <li><span class="INFO">Agenda</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-20-13.03.log.html#l-5'>alinefm</a>,
+    13:03:52)</span></li>
+  <li><span class="INFO">1) Wok Status</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-20-13.03.log.html#l-6'>alinefm</a>,
+    13:03:52)</span></li>
+  <li><span class="INFO">2) Kimchi Status</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-01-20-13.03.log.html#l-7'>alinefm</a>,
+    13:03:52)</span></li>
+  <li><span class="INFO">3) Ginger Base status</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-01-20-13.03.log.html#l-8'>alinefm</a>,
+    13:03:52)</span></li>
+  <li><span class="INFO">4) Ginger status</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-01-20-13.03.log.html#l-10'>alinefm</a>,
+    13:03:53)</span></li>
+  <li><span class="INFO">5) Open discussion</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-01-20-13.03.log.html#l-11'>alinefm</a>,
+    13:03:58)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Wok Status</b> <span class="details">(<a href='kimchi.scrum.2016-01-20-13.03.log.html#l-15'>alinefm</a>, 13:04:50)</span>
+<ol type="a">
+  <li><span class="INFO">Please provide your status using the #info
+    command: #info &lt;nickname&gt; &lt;status&gt;</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-01-20-13.03.log.html#l-16'>alinefm</a>,
+    13:04:58)</span></li>
+  <li><span class="INFO">ziviani reviewed patches</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-01-20-13.03.log.html#l-17'>ziviani</a>,
+    13:05:24)</span></li>
+  <li><span class="INFO">alinefm sent patch to proxu websockets through
+    nginx so there is no need to open 64667 externally</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-01-20-13.03.log.html#l-18'>alinefm</a>,
+    13:05:24)</span></li>
+  <li><span class="INFO">alinefm is now working to remove any Kimchi
+    specific configuration from Wok and move to Kimchi</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-01-20-13.03.log.html#l-19'>alinefm</a>,
+    13:05:39)</span></li>
+  <li><span class="INFO">pvital reviewed patches</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-01-20-13.03.log.html#l-20'>pvital</a>,
+    13:05:42)</span></li>
+  <li><span class="INFO">danielhb rewiewed patches</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-01-20-13.03.log.html#l-21'>danielhb</a>,
+    13:06:24)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Kimchi Status</b> <span class="details">(<a href='kimchi.scrum.2016-01-20-13.03.log.html#l-22'>alinefm</a>, 13:07:10)</span>
+<ol type="a">
+  <li><span class="INFO">Please provide your status using the #info
+    command: #info &lt;nickname&gt; &lt;status&gt;</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-01-20-13.03.log.html#l-23'>alinefm</a>,
+    13:07:17)</span></li>
+  <li><span class="INFO">lcorreia working on inclusion of option to
+    specify max_vcpu and current_vcpu separately per guest/template in
+    Kimchi backend</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-20-13.03.log.html#l-24'>lcorreia</a>,
+    13:07:42)</span></li>
+  <li><span class="INFO">lcorreia will work to handle notifications for
+    host ENOSPC from libvirt in kimchi backend</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-01-20-13.03.log.html#l-25'>lcorreia</a>,
+    13:07:42)</span></li>
+  <li><span class="INFO">alinefm sent patch to start websockify on
+    localhost ( it is a complement of the wok patch )</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-01-20-13.03.log.html#l-26'>alinefm</a>,
+    13:07:45)</span></li>
+  <li><span class="INFO">ziviani sent a patch to allow 3D controllers
+    PCI passthrough in Kimchi</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-20-13.03.log.html#l-27'>ziviani</a>,
+    13:08:32)</span></li>
+  <li><span class="INFO">ziviani reviewed patches</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-01-20-13.03.log.html#l-28'>ziviani</a>,
+    13:08:35)</span></li>
+  <li><span class="INFO">pvital opened Kimchi issue #837: Clone one VM
+    multiple times at the same time</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-20-13.03.log.html#l-29'>pvital</a>,
+    13:08:42)</span></li>
+  <li><span class="INFO">pvital started to investigate solutions for
+    issue #817: Backend should tell the frontend when a PCI device is no
+    longer attached.</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-20-13.03.log.html#l-30'>pvital</a>,
+    13:08:42)</span></li>
+  <li><span class="INFO">pvital reviewed patches</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-01-20-13.03.log.html#l-31'>pvital</a>,
+    13:08:42)</span></li>
+  <li><span class="INFO">samhenri fixed issues with live migration.
+    Cleaning up some lines of code</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-20-13.03.log.html#l-32'>samhenri</a>,
+    13:08:55)</span></li>
+  <li><span class="INFO">ziviani is researching a solution for web
+    console for VMs</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-20-13.03.log.html#l-33'>ziviani</a>,
+    13:09:08)</span></li>
+  <li><span class="INFO">ziviani worked on cpu hotplug frontend
+    rfc</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-20-13.03.log.html#l-34'>ziviani</a>,
+    13:09:30)</span></li>
+  <li><span class="INFO">ramonn fixed websockify 0.7 support. Still
+    fixing patch to send to ML</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-20-13.03.log.html#l-35'>ramonn</a>,
+    13:09:35)</span></li>
+  <li><span class="INFO">ramonn need to apply code review comments in
+    Logrotate patch</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-20-13.03.log.html#l-36'>ramonn</a>,
+    13:09:56)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Ginger Base Status</b> <span class="details">(<a href='kimchi.scrum.2016-01-20-13.03.log.html#l-49'>alinefm</a>, 13:14:42)</span>
+<ol type="a">
+  <li><span class="INFO">Please provide your status using the #info
+    command: #info &lt;nickname&gt; &lt;status&gt;</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-01-20-13.03.log.html#l-50'>alinefm</a>,
+    13:14:47)</span></li>
+  <li><span class="INFO">pvital submitted V3 of the patch: [Ginger]
+    Prevent AsyncTask timeout error during FW Update.</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-01-20-13.03.log.html#l-51'>pvital</a>,
+    13:16:16)</span></li>
+  <li><span class="INFO">pvital reviewed patches</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-01-20-13.03.log.html#l-52'>pvital</a>,
+    13:16:16)</span></li>
+  <li><span class="INFO">danielhb reviewed and applied patches to
+    Ginger-base master branch. Several bugs were fixed</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-01-20-13.03.log.html#l-53'>danielhb</a>,
+    13:16:20)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Ginger Status</b> <span class="details">(<a href='kimchi.scrum.2016-01-20-13.03.log.html#l-54'>alinefm</a>, 13:16:52)</span>
+<ol type="a">
+  <li><span class="INFO">Please provide your status using the #info
+    command: #info &lt;nickname&gt; &lt;status&gt;</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-01-20-13.03.log.html#l-55'>alinefm</a>,
+    13:16:54)</span></li>
+  <li><span class="INFO">pvital is working in a fix to change Firmware
+    Update command from PUT to POST request.</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-01-20-13.03.log.html#l-56'>pvital</a>,
+    13:16:58)</span></li>
+  <li><span class="INFO">danielhb reviewed and applied patches to Ginger
+    master branch. Several bugs were fixed, UI and backend
+    related</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-20-13.03.log.html#l-67'>danielhb</a>,
+    13:20:05)</span></li>
+  <li><span class="INFO">samhenri helping Peter continue Andre's work on
+    System Modules and SR-IOV</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-20-13.03.log.html#l-71'>samhenri</a>,
+    13:21:22)</span></li>
+  <li><span class="INFO">WalterNik running end to end tests on ginger
+    and gingers390x</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-20-13.03.log.html#l-74'>WalterNik</a>,
+    13:22:08)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Open Discussion</b> <span class="details">(<a href='kimchi.scrum.2016-01-20-13.03.log.html#l-80'>alinefm</a>, 13:25:00)</span>
+</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">
+Meeting ended at 13:48:16 UTC
+(<a href="kimchi.scrum.2016-01-20-13.03.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Action items</h3>
+<ol>
+  <li>(none)</li>
+</ol>
+<br><br>
+
+
+
+<h3>People present (lines said)</h3>
+<ol>
+  <li>alinefm (66)</li>
+  <li>samhenri (28)</li>
+  <li>pvital (15)</li>
+  <li>lbianc (8)</li>
+  <li>danielhb (7)</li>
+  <li>ziviani (5)</li>
+  <li>ramonn (5)</li>
+  <li>lagarcia (3)</li>
+  <li>kimchi-bot (3)</li>
+  <li>lcorreia (2)</li>
+  <li>WalterNik (2)</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">Generated by <a href="http://wiki.debian.org/MeetBot">MeetBot</a> 0.1.4.</span>
+</body></html>

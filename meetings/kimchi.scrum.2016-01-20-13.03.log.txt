@@ -1,0 +1,144 @@
+13:03:52 <alinefm> #startmeeting
+13:03:52 <kimchi-bot> Meeting started Wed Jan 20 13:03:52 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:03:52 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:03:52 <alinefm> #meetingname scrum
+13:03:52 <alinefm> #info Agenda
+13:03:52 <alinefm> #info 1) Wok Status
+13:03:52 <alinefm> #info 2) Kimchi Status
+13:03:52 <alinefm> #info 3) Ginger Base status
+13:03:52 <kimchi-bot> The meeting name has been set to 'scrum'
+13:03:53 <alinefm> #info 4) Ginger status
+13:03:58 <alinefm> #info 5) Open discussion
+13:04:00 <alinefm> anything else?
+13:04:17 <pvital> no
+13:04:33 <alinefm> so let's get started
+13:04:50 <alinefm> #topic Wok Status
+13:04:58 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:05:24 <ziviani> #info ziviani reviewed patches
+13:05:24 <alinefm> #info alinefm sent patch to proxu websockets through nginx so there is no need to open 64667 externally
+13:05:39 <alinefm> #info alinefm is now working to remove any Kimchi specific configuration from Wok and move to Kimchi
+13:05:42 <pvital> #info pvital reviewed patches
+13:06:24 <danielhb> #info danielhb rewiewed patches
+13:07:10 <alinefm> #topic Kimchi Status
+13:07:17 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:07:42 <lcorreia> #info lcorreia working on inclusion of option to specify max_vcpu and current_vcpu separately per guest/template in Kimchi backend
+13:07:42 <lcorreia> #info lcorreia will work to handle notifications for host ENOSPC from libvirt in kimchi backend
+13:07:45 <alinefm> #info alinefm sent patch to start websockify on localhost ( it is a complement of the wok patch )
+13:08:32 <ziviani> #info ziviani sent a patch to allow 3D controllers PCI passthrough in Kimchi
+13:08:35 <ziviani> #info ziviani reviewed patches
+13:08:42 <pvital> #info pvital opened Kimchi issue #837: Clone one VM multiple times at the same time
+13:08:42 <pvital> #info pvital started to investigate solutions for issue #817: Backend should tell the frontend when a PCI device is no longer attached.
+13:08:42 <pvital> #info pvital reviewed patches
+13:08:55 <samhenri> #info samhenri fixed issues with live migration. Cleaning up some lines of code
+13:09:08 <ziviani> #info ziviani is researching a solution for web console for VMs
+13:09:30 <ziviani> #info ziviani worked on cpu hotplug frontend rfc
+13:09:35 <ramonn> #info ramonn fixed websockify 0.7 support. Still fixing patch to send to ML
+13:09:56 <ramonn> #info ramonn need to apply code review comments in Logrotate patch
+13:10:59 <alinefm> ramonn, it is about wok, right? =)
+13:11:30 <lagarcia> lol
+13:11:34 <ramonn> LOL
+13:11:40 <ramonn> alinefm, right :(
+13:12:49 <alinefm> samhenri, do you know about andre and peter?
+13:13:01 <samhenri> alinefm andre is not working with us anymore
+13:13:12 <samhenri> alinefm and peter had a dr appointment today
+13:13:26 <alinefm> samhenri, ok
+13:13:35 <alinefm> samhenri, who will take care about the andre's patches?
+13:14:10 <samhenri> alinefm yes, in fact I have the template sort v2 here
+13:14:29 <alinefm> samhenri, great
+13:14:36 <alinefm> let's move on
+13:14:42 <alinefm> #topic Ginger Base Status
+13:14:47 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:16:16 <pvital> #info pvital submitted V3 of the patch: [Ginger] Prevent AsyncTask timeout error during FW Update.
+13:16:16 <pvital> #info pvital reviewed patches
+13:16:20 <danielhb> #info danielhb reviewed and applied patches to Ginger-base master branch. Several bugs were fixed
+13:16:52 <alinefm> #topic Ginger Status
+13:16:54 <alinefm> #info Please provide your status using the #info command: #info <nickname> <status>
+13:16:58 <pvital> #info pvital is working in a fix to change Firmware Update command from PUT to POST request.
+13:17:01 <pvital> ops
+13:17:11 <pvital> this last one was regarding Ginger
+13:17:11 <alinefm> pvital, heheh
+13:17:17 <pvital> why so fast???
+13:17:19 <pvital> :-P
+13:17:29 <alinefm> pvital, you are so fast
+13:17:36 <alinefm> the previous topic was about Ginger Base =)
+13:17:46 <alinefm> I've just tried to help you hehe
+13:18:06 <pvital> really??? I saw Ginger and that was enough!!!!
+13:18:14 <pvital> :-P
+13:20:05 <danielhb> #info danielhb reviewed and applied patches to Ginger master branch. Several bugs were fixed, UI and backend related
+13:20:43 <alinefm> danielhb, I see a lot of patches in the Ginger ML
+13:21:06 <alinefm> but probably no one what to tell more about them
+13:21:06 <alinefm> hehehe
+13:21:22 <samhenri> #info samhenri helping Peter continue Andre's work on System Modules and SR-IOV
+13:21:47 <danielhb> alinefm, yeah, the bug fixes were delivered by the Z team mostly. pvital delivered a fix to Firmware Update (which I believe will require more work)
+13:22:06 <alinefm> ok
+13:22:08 <WalterNik> #info WalterNik running end to end tests on ginger and gingers390x
+13:22:23 <danielhb> alinefm, I am working in a Kimchi feature ATM so I didn't fix much Ginger issues this last week
+13:22:29 <alinefm> danielhb, np
+13:22:42 <alinefm> anything else, guys?
+13:22:54 <samhenri> I forgot to say that Peter sent a patch to Wok to include Typeahead.JS library that we'll use with the Load Modules modal window and if we have time I'm going to change old wok.combobox() instances with typeahead
+13:24:51 <alinefm> samhenri, ok
+13:25:00 <alinefm> #topic Open Discussion
+13:25:09 <alinefm> any more topics to discuss today?
+13:25:52 <pvital> no
+13:26:11 <WalterNik> no
+13:26:24 <alinefm> a quick meeting today =)
+13:26:32 <lbianc> alinefm: About live migration UI, we had some rework regarding the missing specification
+13:26:55 <alinefm> lbianc, what was missing there?
+13:26:57 <alinefm> danielhb, ^
+13:27:35 <lbianc> alinefm danielhb: Any suggestion to prevent it?
+13:27:38 <lbianc> samhenri: ^
+13:28:26 <alinefm> lbianc, what was missing there?
+13:28:31 <danielhb> alinefm, lbianc what missing specification ?
+13:28:48 <samhenri> the asynchronous process and the modal window, it wasn't very clear from the beginning that the progress had to be done outside the modal window
+13:29:17 <samhenri> and then there was that change in the back end that I had to do yesterday
+13:30:01 <alinefm> I thought we have mentioned it was similar to clone action
+13:30:06 <samhenri> exactly
+13:30:23 <danielhb> samhenri, the live migration backend had no change whatsover since dez/2015
+13:30:43 <samhenri> I was looking exaclty at the clone function
+13:30:45 <alinefm> danielhb, there is an issue there
+13:30:51 <samhenri> and the getCloninGuests
+13:30:52 <alinefm> danielhb, I checked with samhenri yesterday
+13:31:14 <samhenri> I thought that my environment was too fast and that's why it wasn't getting all the migrating guests
+13:31:34 <samhenri> but it turns out the getTasksByFilter() was returning nothing
+13:32:17 <samhenri> and there's another issue
+13:32:22 <samhenri> for instance
+13:32:28 <samhenri> wok.window.close() destroys the modal content
+13:32:45 <samhenri> so I had to find a way to keep the data from the input fields
+13:32:59 <alinefm> hrm?
+13:33:18 <alinefm> prior to close the model dialog, you should send the migrate request
+13:33:27 <samhenri> yes, that works just fine
+13:33:28 <alinefm> then, close the modal
+13:33:30 <samhenri> however the delete checkbox
+13:34:32 <samhenri> anyway, I've rewrote that part of the code and now it works as expected, i'm just cleanin up some console.log() outputs and performing more tests here
+13:34:40 <alinefm> ok
+13:35:16 <samhenri> I found a way to keep the modal input values after the window is closed and it is working
+13:35:34 <alinefm> good
+13:35:55 <alinefm> I don't see those issues as missing specification
+13:36:00 <alinefm> seems more like a development decision
+13:36:40 <samhenri> well, the initial design specification rfc meant that it was exactly like clone function, but clone function doesn't receive any parameters
+13:37:04 <samhenri> and the getCloningGuests wouldn't work if I just changed "clone" to "migrate"
+13:37:21 <samhenri> so it wasn't exactly like "clone" functions
+13:38:04 <alinefm> ok - that is not exactly the same
+13:38:08 <alinefm> but very similar =)
+13:38:19 <alinefm> I will take care about the right words on next time
+13:38:39 <samhenri> ok, thanks
+13:38:50 <alinefm> and please, on doubts, make questions prior to send the patch
+13:38:54 <lbianc> alinefm: ok, and I think both parts could talk more about the doubts
+13:39:04 <lbianc> alinefm: exactly
+13:39:04 <alinefm> lbianc, agree
+13:39:33 <alinefm> lbianc, samhenri, usually, who does the backend does not have a lot of UI expertise
+13:39:49 <alinefm> because of that we provide an idea about how the UI should look like
+13:39:58 <alinefm> but feel free to discuss and ask questions
+13:40:10 <lbianc> samhenri: If there is any, any doubt, ask alinefm and I think it's better put the questions here, so everyone can help.
+13:40:15 <lbianc> alinefm: ^
+13:41:37 <lagarcia> samhenri, you have to think that someone sending a UI RFC is looking at it only from a user perspective usually. They don't know how things work under the covers. From a user point of view, what we see in the screen, is probably the same for clone and migration
+13:42:02 <lagarcia> samhenri, any other development decisions/questions, should be discussed as lbianc and alinefm said
+13:42:41 <samhenri> lagarcia yes, this what i've been doing in the recent RFC discussions
+13:43:01 <samhenri> lagarcia for instance the max memory and vcpu rfcs
+13:43:20 <alinefm> great!
+13:44:41 <alinefm> anything else, guys?
+13:44:48 <samhenri> nope
+13:44:58 <lbianc> alinefm: nop, thanks
+13:46:46 <ramonn> nop
+13:48:14 <alinefm> thanks everyone for joining!
+13:48:16 <alinefm> #endmeeting

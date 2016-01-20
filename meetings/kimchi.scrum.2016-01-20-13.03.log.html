@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:03:52</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:03:52</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Jan 20 13:03:52 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:03:52</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:03:52</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:03:52</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda</span>
+<a name="l-6"></a><span class="tm">13:03:52</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">1) Wok Status</span>
+<a name="l-7"></a><span class="tm">13:03:52</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">2) Kimchi Status</span>
+<a name="l-8"></a><span class="tm">13:03:52</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">3) Ginger Base status</span>
+<a name="l-9"></a><span class="tm">13:03:52</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-10"></a><span class="tm">13:03:53</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">4) Ginger status</span>
+<a name="l-11"></a><span class="tm">13:03:58</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">5) Open discussion</span>
+<a name="l-12"></a><span class="tm">13:04:00</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-13"></a><span class="tm">13:04:17</span><span class="nk"> &lt;pvital&gt;</span> no
+<a name="l-14"></a><span class="tm">13:04:33</span><span class="nk"> &lt;alinefm&gt;</span> so let's get started
+<a name="l-15"></a><span class="tm">13:04:50</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Wok Status</span>
+<a name="l-16"></a><span class="tm">13:04:58</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-17"></a><span class="tm">13:05:24</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani reviewed patches</span>
+<a name="l-18"></a><span class="tm">13:05:24</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patch to proxu websockets through nginx so there is no need to open 64667 externally</span>
+<a name="l-19"></a><span class="tm">13:05:39</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm is now working to remove any Kimchi specific configuration from Wok and move to Kimchi</span>
+<a name="l-20"></a><span class="tm">13:05:42</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital reviewed patches</span>
+<a name="l-21"></a><span class="tm">13:06:24</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">danielhb rewiewed patches</span>
+<a name="l-22"></a><span class="tm">13:07:10</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Kimchi Status</span>
+<a name="l-23"></a><span class="tm">13:07:17</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-24"></a><span class="tm">13:07:42</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">lcorreia working on inclusion of option to specify max_vcpu and current_vcpu separately per guest/template in Kimchi backend</span>
+<a name="l-25"></a><span class="tm">13:07:42</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">lcorreia will work to handle notifications for host ENOSPC from libvirt in kimchi backend</span>
+<a name="l-26"></a><span class="tm">13:07:45</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patch to start websockify on localhost ( it is a complement of the wok patch )</span>
+<a name="l-27"></a><span class="tm">13:08:32</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani sent a patch to allow 3D controllers PCI passthrough in Kimchi</span>
+<a name="l-28"></a><span class="tm">13:08:35</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani reviewed patches</span>
+<a name="l-29"></a><span class="tm">13:08:42</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital opened Kimchi issue #837: Clone one VM multiple times at the same time</span>
+<a name="l-30"></a><span class="tm">13:08:42</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital started to investigate solutions for issue #817: Backend should tell the frontend when a PCI device is no longer attached.</span>
+<a name="l-31"></a><span class="tm">13:08:42</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital reviewed patches</span>
+<a name="l-32"></a><span class="tm">13:08:55</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">samhenri fixed issues with live migration. Cleaning up some lines of code</span>
+<a name="l-33"></a><span class="tm">13:09:08</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani is researching a solution for web console for VMs</span>
+<a name="l-34"></a><span class="tm">13:09:30</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani worked on cpu hotplug frontend rfc</span>
+<a name="l-35"></a><span class="tm">13:09:35</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">ramonn fixed websockify 0.7 support. Still fixing patch to send to ML</span>
+<a name="l-36"></a><span class="tm">13:09:56</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">ramonn need to apply code review comments in Logrotate patch</span>
+<a name="l-37"></a><span class="tm">13:10:59</span><span class="nk"> &lt;alinefm&gt;</span> ramonn, it is about wok, right? =)
+<a name="l-38"></a><span class="tm">13:11:30</span><span class="nk"> &lt;lagarcia&gt;</span> lol
+<a name="l-39"></a><span class="tm">13:11:34</span><span class="nk"> &lt;ramonn&gt;</span> LOL
+<a name="l-40"></a><span class="tm">13:11:40</span><span class="nk"> &lt;ramonn&gt;</span> alinefm, right :(
+<a name="l-41"></a><span class="tm">13:12:49</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, do you know about andre and peter?
+<a name="l-42"></a><span class="tm">13:13:01</span><span class="nk"> &lt;samhenri&gt;</span> alinefm andre is not working with us anymore
+<a name="l-43"></a><span class="tm">13:13:12</span><span class="nk"> &lt;samhenri&gt;</span> alinefm and peter had a dr appointment today
+<a name="l-44"></a><span class="tm">13:13:26</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, ok
+<a name="l-45"></a><span class="tm">13:13:35</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, who will take care about the andre's patches?
+<a name="l-46"></a><span class="tm">13:14:10</span><span class="nk"> &lt;samhenri&gt;</span> alinefm yes, in fact I have the template sort v2 here
+<a name="l-47"></a><span class="tm">13:14:29</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, great
+<a name="l-48"></a><span class="tm">13:14:36</span><span class="nk"> &lt;alinefm&gt;</span> let's move on
+<a name="l-49"></a><span class="tm">13:14:42</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Ginger Base Status</span>
+<a name="l-50"></a><span class="tm">13:14:47</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-51"></a><span class="tm">13:16:16</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital submitted V3 of the patch: [Ginger] Prevent AsyncTask timeout error during FW Update.</span>
+<a name="l-52"></a><span class="tm">13:16:16</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital reviewed patches</span>
+<a name="l-53"></a><span class="tm">13:16:20</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">danielhb reviewed and applied patches to Ginger-base master branch. Several bugs were fixed</span>
+<a name="l-54"></a><span class="tm">13:16:52</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Ginger Status</span>
+<a name="l-55"></a><span class="tm">13:16:54</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-56"></a><span class="tm">13:16:58</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">pvital is working in a fix to change Firmware Update command from PUT to POST request.</span>
+<a name="l-57"></a><span class="tm">13:17:01</span><span class="nk"> &lt;pvital&gt;</span> ops
+<a name="l-58"></a><span class="tm">13:17:11</span><span class="nk"> &lt;pvital&gt;</span> this last one was regarding Ginger
+<a name="l-59"></a><span class="tm">13:17:11</span><span class="nk"> &lt;alinefm&gt;</span> pvital, heheh
+<a name="l-60"></a><span class="tm">13:17:17</span><span class="nk"> &lt;pvital&gt;</span> why so fast???
+<a name="l-61"></a><span class="tm">13:17:19</span><span class="nk"> &lt;pvital&gt;</span> :-P
+<a name="l-62"></a><span class="tm">13:17:29</span><span class="nk"> &lt;alinefm&gt;</span> pvital, you are so fast
+<a name="l-63"></a><span class="tm">13:17:36</span><span class="nk"> &lt;alinefm&gt;</span> the previous topic was about Ginger Base =)
+<a name="l-64"></a><span class="tm">13:17:46</span><span class="nk"> &lt;alinefm&gt;</span> I've just tried to help you hehe
+<a name="l-65"></a><span class="tm">13:18:06</span><span class="nk"> &lt;pvital&gt;</span> really??? I saw Ginger and that was enough!!!!
+<a name="l-66"></a><span class="tm">13:18:14</span><span class="nk"> &lt;pvital&gt;</span> :-P
+<a name="l-67"></a><span class="tm">13:20:05</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">danielhb reviewed and applied patches to Ginger master branch. Several bugs were fixed, UI and backend related</span>
+<a name="l-68"></a><span class="tm">13:20:43</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, I see a lot of patches in the Ginger ML
+<a name="l-69"></a><span class="tm">13:21:06</span><span class="nk"> &lt;alinefm&gt;</span> but probably no one what to tell more about them
+<a name="l-70"></a><span class="tm">13:21:06</span><span class="nk"> &lt;alinefm&gt;</span> hehehe
+<a name="l-71"></a><span class="tm">13:21:22</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">samhenri helping Peter continue Andre's work on System Modules and SR-IOV</span>
+<a name="l-72"></a><span class="tm">13:21:47</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, yeah, the bug fixes were delivered by the Z team mostly. pvital delivered a fix to Firmware Update (which I believe will require more work)
+<a name="l-73"></a><span class="tm">13:22:06</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-74"></a><span class="tm">13:22:08</span><span class="nk"> &lt;WalterNik&gt;</span> <span class="cmd">#info </span><span class="cmdline">WalterNik running end to end tests on ginger and gingers390x</span>
+<a name="l-75"></a><span class="tm">13:22:23</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, I am working in a Kimchi feature ATM so I didn't fix much Ginger issues this last week
+<a name="l-76"></a><span class="tm">13:22:29</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, np
+<a name="l-77"></a><span class="tm">13:22:42</span><span class="nk"> &lt;alinefm&gt;</span> anything else, guys?
+<a name="l-78"></a><span class="tm">13:22:54</span><span class="nk"> &lt;samhenri&gt;</span> I forgot to say that Peter sent a patch to Wok to include Typeahead.JS library that we'll use with the Load Modules modal window and if we have time I'm going to change old wok.combobox() instances with typeahead
+<a name="l-79"></a><span class="tm">13:24:51</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, ok
+<a name="l-80"></a><span class="tm">13:25:00</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-81"></a><span class="tm">13:25:09</span><span class="nk"> &lt;alinefm&gt;</span> any more topics to discuss today?
+<a name="l-82"></a><span class="tm">13:25:52</span><span class="nk"> &lt;pvital&gt;</span> no
+<a name="l-83"></a><span class="tm">13:26:11</span><span class="nk"> &lt;WalterNik&gt;</span> no
+<a name="l-84"></a><span class="tm">13:26:24</span><span class="nk"> &lt;alinefm&gt;</span> a quick meeting today =)
+<a name="l-85"></a><span class="tm">13:26:32</span><span class="nk"> &lt;lbianc&gt;</span> <span class="hi">alinefm:</span> About live migration UI, we had some rework regarding the missing specification
+<a name="l-86"></a><span class="tm">13:26:55</span><span class="nk"> &lt;alinefm&gt;</span> lbianc, what was missing there?
+<a name="l-87"></a><span class="tm">13:26:57</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, ^
+<a name="l-88"></a><span class="tm">13:27:35</span><span class="nk"> &lt;lbianc&gt;</span> alinefm danielhb: Any suggestion to prevent it?
+<a name="l-89"></a><span class="tm">13:27:38</span><span class="nk"> &lt;lbianc&gt;</span> <span class="hi">samhenri:</span> ^
+<a name="l-90"></a><span class="tm">13:28:26</span><span class="nk"> &lt;alinefm&gt;</span> lbianc, what was missing there?
+<a name="l-91"></a><span class="tm">13:28:31</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, lbianc what missing specification ?
+<a name="l-92"></a><span class="tm">13:28:48</span><span class="nk"> &lt;samhenri&gt;</span> the asynchronous process and the modal window, it wasn't very clear from the beginning that the progress had to be done outside the modal window
+<a name="l-93"></a><span class="tm">13:29:17</span><span class="nk"> &lt;samhenri&gt;</span> and then there was that change in the back end that I had to do yesterday
+<a name="l-94"></a><span class="tm">13:30:01</span><span class="nk"> &lt;alinefm&gt;</span> I thought we have mentioned it was similar to clone action
+<a name="l-95"></a><span class="tm">13:30:06</span><span class="nk"> &lt;samhenri&gt;</span> exactly
+<a name="l-96"></a><span class="tm">13:30:23</span><span class="nk"> &lt;danielhb&gt;</span> samhenri, the live migration backend had no change whatsover since dez/2015
+<a name="l-97"></a><span class="tm">13:30:43</span><span class="nk"> &lt;samhenri&gt;</span> I was looking exaclty at the clone function
+<a name="l-98"></a><span class="tm">13:30:45</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, there is an issue there
+<a name="l-99"></a><span class="tm">13:30:51</span><span class="nk"> &lt;samhenri&gt;</span> and the getCloninGuests
+<a name="l-100"></a><span class="tm">13:30:52</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, I checked with samhenri yesterday
+<a name="l-101"></a><span class="tm">13:31:14</span><span class="nk"> &lt;samhenri&gt;</span> I thought that my environment was too fast and that's why it wasn't getting all the migrating guests
+<a name="l-102"></a><span class="tm">13:31:34</span><span class="nk"> &lt;samhenri&gt;</span> but it turns out the getTasksByFilter() was returning nothing
+<a name="l-103"></a><span class="tm">13:32:17</span><span class="nk"> &lt;samhenri&gt;</span> and there's another issue
+<a name="l-104"></a><span class="tm">13:32:22</span><span class="nk"> &lt;samhenri&gt;</span> for instance
+<a name="l-105"></a><span class="tm">13:32:28</span><span class="nk"> &lt;samhenri&gt;</span> wok.window.close() destroys the modal content
+<a name="l-106"></a><span class="tm">13:32:45</span><span class="nk"> &lt;samhenri&gt;</span> so I had to find a way to keep the data from the input fields
+<a name="l-107"></a><span class="tm">13:32:59</span><span class="nk"> &lt;alinefm&gt;</span> hrm?
+<a name="l-108"></a><span class="tm">13:33:18</span><span class="nk"> &lt;alinefm&gt;</span> prior to close the model dialog, you should send the migrate request
+<a name="l-109"></a><span class="tm">13:33:27</span><span class="nk"> &lt;samhenri&gt;</span> yes, that works just fine
+<a name="l-110"></a><span class="tm">13:33:28</span><span class="nk"> &lt;alinefm&gt;</span> then, close the modal
+<a name="l-111"></a><span class="tm">13:33:30</span><span class="nk"> &lt;samhenri&gt;</span> however the delete checkbox
+<a name="l-112"></a><span class="tm">13:34:32</span><span class="nk"> &lt;samhenri&gt;</span> anyway, I've rewrote that part of the code and now it works as expected, i'm just cleanin up some console.log() outputs and performing more tests here
+<a name="l-113"></a><span class="tm">13:34:40</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-114"></a><span class="tm">13:35:16</span><span class="nk"> &lt;samhenri&gt;</span> I found a way to keep the modal input values after the window is closed and it is working
+<a name="l-115"></a><span class="tm">13:35:34</span><span class="nk"> &lt;alinefm&gt;</span> good
+<a name="l-116"></a><span class="tm">13:35:55</span><span class="nk"> &lt;alinefm&gt;</span> I don't see those issues as missing specification
+<a name="l-117"></a><span class="tm">13:36:00</span><span class="nk"> &lt;alinefm&gt;</span> seems more like a development decision
+<a name="l-118"></a><span class="tm">13:36:40</span><span class="nk"> &lt;samhenri&gt;</span> well, the initial design specification rfc meant that it was exactly like clone function, but clone function doesn't receive any parameters
+<a name="l-119"></a><span class="tm">13:37:04</span><span class="nk"> &lt;samhenri&gt;</span> and the getCloningGuests wouldn't work if I just changed "clone" to "migrate"
+<a name="l-120"></a><span class="tm">13:37:21</span><span class="nk"> &lt;samhenri&gt;</span> so it wasn't exactly like "clone" functions
+<a name="l-121"></a><span class="tm">13:38:04</span><span class="nk"> &lt;alinefm&gt;</span> ok - that is not exactly the same
+<a name="l-122"></a><span class="tm">13:38:08</span><span class="nk"> &lt;alinefm&gt;</span> but very similar =)
+<a name="l-123"></a><span class="tm">13:38:19</span><span class="nk"> &lt;alinefm&gt;</span> I will take care about the right words on next time
+<a name="l-124"></a><span class="tm">13:38:39</span><span class="nk"> &lt;samhenri&gt;</span> ok, thanks
+<a name="l-125"></a><span class="tm">13:38:50</span><span class="nk"> &lt;alinefm&gt;</span> and please, on doubts, make questions prior to send the patch
+<a name="l-126"></a><span class="tm">13:38:54</span><span class="nk"> &lt;lbianc&gt;</span> <span class="hi">alinefm:</span> ok, and I think both parts could talk more about the doubts
+<a name="l-127"></a><span class="tm">13:39:04</span><span class="nk"> &lt;lbianc&gt;</span> <span class="hi">alinefm:</span> exactly
+<a name="l-128"></a><span class="tm">13:39:04</span><span class="nk"> &lt;alinefm&gt;</span> lbianc, agree
+<a name="l-129"></a><span class="tm">13:39:33</span><span class="nk"> &lt;alinefm&gt;</span> lbianc, samhenri, usually, who does the backend does not have a lot of UI expertise
+<a name="l-130"></a><span class="tm">13:39:49</span><span class="nk"> &lt;alinefm&gt;</span> because of that we provide an idea about how the UI should look like
+<a name="l-131"></a><span class="tm">13:39:58</span><span class="nk"> &lt;alinefm&gt;</span> but feel free to discuss and ask questions
+<a name="l-132"></a><span class="tm">13:40:10</span><span class="nk"> &lt;lbianc&gt;</span> <span class="hi">samhenri:</span> If there is any, any doubt, ask alinefm and I think it's better put the questions here, so everyone can help.
+<a name="l-133"></a><span class="tm">13:40:15</span><span class="nk"> &lt;lbianc&gt;</span> <span class="hi">alinefm:</span> ^
+<a name="l-134"></a><span class="tm">13:41:37</span><span class="nk"> &lt;lagarcia&gt;</span> samhenri, you have to think that someone sending a UI RFC is looking at it only from a user perspective usually. They don't know how things work under the covers. From a user point of view, what we see in the screen, is probably the same for clone and migration
+<a name="l-135"></a><span class="tm">13:42:02</span><span class="nk"> &lt;lagarcia&gt;</span> samhenri, any other development decisions/questions, should be discussed as lbianc and alinefm said
+<a name="l-136"></a><span class="tm">13:42:41</span><span class="nk"> &lt;samhenri&gt;</span> lagarcia yes, this what i've been doing in the recent RFC discussions
+<a name="l-137"></a><span class="tm">13:43:01</span><span class="nk"> &lt;samhenri&gt;</span> lagarcia for instance the max memory and vcpu rfcs
+<a name="l-138"></a><span class="tm">13:43:20</span><span class="nk"> &lt;alinefm&gt;</span> great!
+<a name="l-139"></a><span class="tm">13:44:41</span><span class="nk"> &lt;alinefm&gt;</span> anything else, guys?
+<a name="l-140"></a><span class="tm">13:44:48</span><span class="nk"> &lt;samhenri&gt;</span> nope
+<a name="l-141"></a><span class="tm">13:44:58</span><span class="nk"> &lt;lbianc&gt;</span> <span class="hi">alinefm:</span> nop, thanks
+<a name="l-142"></a><span class="tm">13:46:46</span><span class="nk"> &lt;ramonn&gt;</span> nop
+<a name="l-143"></a><span class="tm">13:48:14</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining!
+<a name="l-144"></a><span class="tm">13:48:16</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
