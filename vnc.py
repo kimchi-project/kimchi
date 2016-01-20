@@ -21,10 +21,18 @@
 import base64
 import errno
 import os
+
 from multiprocessing import Process
 from websockify import WebSocketProxy
 
 from wok.config import config, paths, PluginPaths
+
+
+try:
+    from websockify.token_plugins import TokenFile
+    tokenFile = True
+except ImportError:
+    tokenFile = False
 
 
 WS_TOKENS_DIR = os.path.join(PluginPaths('kimchi').state_dir, 'vnc-tokens')
@@ -45,8 +53,15 @@ def new_ws_proxy():
 
     params = {'listen_host': '127.0.0.1',
               'listen_port': config.get('server', 'websockets_port'),
-              'target_cfg': WS_TOKENS_DIR,
               'ssl_only': False}
+
+    # old websockify: do not use TokenFile
+    if not tokenFile:
+        params['target_cfg'] = WS_TOKENS_DIR
+
+    # websockify 0.7 and higher: use TokenFile
+    else:
+        params['token_plugin'] = TokenFile(src=WS_TOKENS_DIR)
 
     def start_proxy():
         server = WebSocketProxy(**params)
