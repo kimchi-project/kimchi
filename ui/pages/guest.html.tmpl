@@ -1,7 +1,7 @@
 #*
  * Project Kimchi
  *
- * Copyright IBM, Corp. 2013-2015
+ * Copyright IBM, Corp. 2013-2016
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,7 +40,8 @@
                             <li role="presentation"><a nwAct="connect-vnc" class='shutoff-disabled' name="vm-console" href="#"><i class="fa fa-list-alt"></i>$_("Connect VNC")</a></li>
                         <!--     <li role="presentation"><a nwAct="view-vnc" class='shutoff-disabled' name="vm-view-vnc" href="#"><i class="fa fa-eye"></i>$_("View VNC Console")</a></li> -->
                             <li role="presentation"><a nwAct="edit" name="vm-edit" href="#"><i class="fa fa-pencil"></i>$_("Edit")</a></li>
-                            <li role="presentation"><a href="#" nwAct="clone" class='running-disabled' name="vm-clone"><i class="fa fa-copy"></i>$_("Clone")</a></li>
+                            <li role="presentation"><a nwAct="clone" class='running-disabled' name="vm-clone" href="#"><i class="fa fa-copy"></i>$_("Clone")</a></li>
+                            <li role="presentation"><a nwAct="migrate" name="vm-migrate" href="#"><i class="fa fa-exchange"></i>$_("Migrate")</a></li>
                             <li role="presentation"><a nwAct="reset" class='shutoff-hidden non-persistent-disabled' name="vm-reset" href="#"><i class="fa fa-refresh"></i>$_("Reset")</a></li>
                             <li role="presentation"><a nwAct="pause" class='pause-hidden non-persistent-disabled' name="vm-pause" href="#"><i class="fa fa-pause"></i>$_("Pause")</a></li>
                             <li role="presentation"><a nwAct="resume" class='resume-hidden' name="vm-resume" href="#"><i class="fa fa-play-circle"></i>$_("Resume")</a></li>
@@ -96,5 +97,3 @@
             </span><!--
             --><span class="item-hidden">$_("Network I/O")</span>
         </li>
-
-

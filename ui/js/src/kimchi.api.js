@@ -1046,12 +1046,13 @@ var kimchi = {
         });
     },
 
-    migrateGuest: function(vm, suc, err) {
+    migrateGuest: function(vm, data, suc, err) {
         wok.requestJSON({
             url : 'plugins/kimchi/vms/' + encodeURIComponent(vm) + "/migrate",
             type : 'POST',
             contentType : 'application/json',
             dataType : 'json',
+            data : JSON.stringify(data),
             success : suc,
             error : err ? err : function(data) {
                 wok.message.error(data.responseJSON.reason);
