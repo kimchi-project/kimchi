@@ -1,7 +1,7 @@
 //
 // Project Kimchi
 //
-// Copyright IBM, Corp. 2015
+// Copyright IBM, Corp. 2015-2016
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -202,6 +202,55 @@
 /* VM List View classes*/
 
 #templates-root-container {
+    .grid-control input[type="text"] {
+        height: 38px;
+        display: inline-block;
+        vertical-align: top;
+    }
+    .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+        width: 162px;
+        margin-right: 10px;
+    }
+    .bootstrap-select.btn-group .dropdown-menu {
+        margin: 0px;
+        > li > a {
+            border-top: 1px solid $table-bg;
+            border-bottom: 1px solid $table-border-color;
+            height: 38px;
+            padding: 4px 12px;
+            font-family: $font-family-light;
+            font-size: 13pt;
+        }
+        > li:last-child > a {
+            border-bottom: 0;
+        }
+    }
+    .control.open > .dropdown-menu {
+        display: block;
+        display: block;
+        width: 188px;
+        margin-left: -26px;
+        border-radius: 0;
+    }
+    .control.open .caret {
+        background: #3a393b;
+    }
+    .control.open .caret:before {
+        content: '\f077';
+    }
+    .control.open > a {
+        outline: 0;
+    }
+    .sort-button {
+        height: 38px;
+        padding: 4px 12px;
+        .caret {
+            height: 36px;
+        }
+        .caret:before {
+            top: 6px;
+        }
+    }
     .wok-vm-list {
         display: block;
         width: 100%;
