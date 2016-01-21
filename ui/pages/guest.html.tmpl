@@ -34,7 +34,14 @@
             --><span class='column-action pull-right'>
                 <span class="pull-right">
                     <div class="dropdown menu-flat guest-actions" name="guest-actions" style="margin-top: 6px">
-                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"><span class="edit-alt"></span>$_("Actions")<span class="caret"></span>
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                            <span class="guest-done">
+                                <span class="edit-alt"></span>$_("Actions")<span class="caret"></span>
+                            </span>
+                            <span class="guest-pending hidden">
+                                <span class="wok-loading-icon"></span>
+                                <span class="text"></span>
+                            </span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li role="presentation"><a nwAct="connect-vnc" class='shutoff-disabled' name="vm-console" href="#"><i class="fa fa-list-alt"></i>$_("Connect VNC")</a></li>

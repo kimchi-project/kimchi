@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2014-2015
+# Copyright IBM, Corp. 2014-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -1729,7 +1729,8 @@ class VMModel(object):
                   'non_shared': non_shared,
                   'remote_host': remote_host,
                   'user': user}
-        task_id = add_task('/vms/%s/migrate' % name, self._migrate_task,
+        task_id = add_task('/plugins/kimchi/vms/%s/migrate' % name,
+                           self._migrate_task,
                            self.objstore, params)
 
         return self.task.lookup(task_id)
