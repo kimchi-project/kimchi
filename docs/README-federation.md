@@ -46,9 +46,9 @@ To enable it, do the following:
 4. Start slpd service and make sure it is up while running Wok
    sudo service slpd start
 
-5. Enable federation on Wok by editing the /etc/wok/wok.conf file:
+5. Enable federation on Wok by editing the /etc/wok/plugins.d/kimchi.conf file:
 
-   federation = on
+   federation = True
 
 6. Then start Wok service
    sudo service wokd start
