@@ -1234,7 +1234,7 @@ class RestTests(unittest.TestCase):
         conf = json.loads(resp)
 
         keys = [u'libvirt_stream_protocols', u'qemu_stream', u'qemu_spice',
-                u'screenshot', u'federation', u'kernel_vfio', u'auth',
+                u'screenshot', u'kernel_vfio', u'federation',
                 u'nm_running', u'mem_hotplug_support']
         self.assertEquals(sorted(keys), sorted(conf.keys()))
 
