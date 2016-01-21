@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2015
+# Copyright IBM, Corp. 2013-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -31,7 +31,7 @@ from wok.root import WokRoot
 from wok.utils import upgrade_objectstore_schema
 
 
-class KimchiRoot(WokRoot):
+class Kimchi(WokRoot):
     def __init__(self, wok_options):
         make_dirs = [
             os.path.dirname(os.path.abspath(config.get_object_store())),
@@ -50,7 +50,7 @@ class KimchiRoot(WokRoot):
             self.model = kimchiModel.Model()
 
         dev_env = wok_options.environment != 'production'
-        super(KimchiRoot, self).__init__(self.model, dev_env)
+        super(Kimchi, self).__init__(self.model, dev_env)
 
         for ident, node in sub_nodes.items():
             setattr(self, ident, node(self.model))
