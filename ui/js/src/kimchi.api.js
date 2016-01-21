@@ -292,66 +292,50 @@ var kimchi = {
     },
 
     vncToVM : function(vm) {
+        proxy_port = wok.config['websockets_port'];
+        ssl_port = wok.config['ssl_port'];
         wok.requestJSON({
-            url : 'config/',
-            type : 'GET',
-            dataType : 'json'
-        }).done(function(data, textStatus, xhr) {
-            proxy_port = data['websockets_port'];
-            ssl_port = data['ssl_port'];
-            wok.requestJSON({
-                url : "plugins/kimchi/vms/" + encodeURIComponent(vm) + "/connect",
-                type : "POST",
-                dataType : "json"
-            }).done(function() {
-                url = 'https://' + location.hostname + ':' + ssl_port;
-                url += "/plugins/kimchi/novnc/vnc_auto.html";
-                url += "?port=" + ssl_port;
-                /*
-                 * From python documentation base64.urlsafe_b64encode(s)
-                 * substitutes - instead of + and _ instead of / in the
-                 * standard Base64 alphabet, BUT the result can still
-                 * contain = which is not safe in a URL query component.
-                 * So remove it when needed as base64 can work well without it.
-                 * */
-                url += "&path=websockify?token=" + wok.urlSafeB64Encode(vm).replace(/=*$/g, "");
-                url += '&encrypt=1';
-                window.open(url);
-            });
-        }).error(function() {
-            wok.message.error.code('KCHAPI6002E');
+            url : "plugins/kimchi/vms/" + encodeURIComponent(vm) + "/connect",
+            type : "POST",
+            dataType : "json"
+        }).done(function() {
+            url = 'https://' + location.hostname + ':' + ssl_port;
+            url += "/plugins/kimchi/novnc/vnc_auto.html";
+            url += "?port=" + ssl_port;
+            /*
+             * From python documentation base64.urlsafe_b64encode(s)
+             * substitutes - instead of + and _ instead of / in the
+             * standard Base64 alphabet, BUT the result can still
+             * contain = which is not safe in a URL query component.
+             * So remove it when needed as base64 can work well without it.
+             * */
+            url += "&path=websockify?token=" + wok.urlSafeB64Encode(vm).replace(/=*$/g, "");
+            url += '&encrypt=1';
+            window.open(url);
         });
     },
 
     spiceToVM : function(vm) {
+        proxy_port = wok.config['websockets_port'];
+        ssl_port = wok.config['ssl_port'];
         wok.requestJSON({
-            url : 'config/',
-            type : 'GET',
-            dataType : 'json'
+            url : "plugins/kimchi/vms/" + encodeURIComponent(vm) + "/connect",
+            type : "POST",
+            dataType : "json"
         }).done(function(data, textStatus, xhr) {
-            proxy_port = data['websockets_port'];
-            ssl_port = data['ssl_port'];
-            wok.requestJSON({
-                url : "plugins/kimchi/vms/" + encodeURIComponent(vm) + "/connect",
-                type : "POST",
-                dataType : "json"
-            }).done(function(data, textStatus, xhr) {
-                url = 'https://' + location.hostname + ':' + ssl_port;
-                url += "/plugins/kimchi/spice_auto.html";
-                url += "?port=" + ssl_port + "&listen=" + location.hostname;
-                /*
-                 * From python documentation base64.urlsafe_b64encode(s)
-                 * substitutes - instead of + and _ instead of / in the
-                 * standard Base64 alphabet, BUT the result can still
-                 * contain = which is not safe in a URL query component.
-                 * So remove it when needed as base64 can work well without it.
-                 * */
-                url += "&token=" + wok.urlSafeB64Encode(vm).replace(/=*$/g, "");
-                url += '&encrypt=1';
-                window.open(url);
-            });
-        }).error(function() {
-            wok.message.error.code('KCHAPI6002E');
+            url = 'https://' + location.hostname + ':' + ssl_port;
+            url += "/plugins/kimchi/spice_auto.html";
+            url += "?port=" + ssl_port + "&listen=" + location.hostname;
+            /*
+             * From python documentation base64.urlsafe_b64encode(s)
+             * substitutes - instead of + and _ instead of / in the
+             * standard Base64 alphabet, BUT the result can still
+             * contain = which is not safe in a URL query component.
+             * So remove it when needed as base64 can work well without it.
+             * */
+            url += "&token=" + wok.urlSafeB64Encode(vm).replace(/=*$/g, "");
+            url += '&encrypt=1';
+            window.open(url);
         });
     },
 
