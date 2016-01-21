@@ -22,6 +22,22 @@ var kimchi = {
     trackingTasks: [],
 
     /**
+     * Get Kimchi details
+     */
+    getConfig : function(suc, err, done) {
+        done = typeof done !== 'undefined' ? done: function(){};
+        wok.requestJSON({
+            url : "plugins/kimchi/config",
+            type : "GET",
+            contentType : "application/json",
+            dataType : "json",
+            success: suc,
+            error: err,
+            complete: done
+        });
+    },
+
+    /**
      *
      * Get host capabilities
      * suc: callback if succeed err: callback if failed

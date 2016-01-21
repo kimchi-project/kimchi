@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2014-2015
+# Copyright IBM, Corp. 2014-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -22,13 +22,13 @@ import lxml.etree as ET
 import sys
 from lxml.builder import E
 
-from wok.config import config, PluginPaths
+from wok.config import PluginPaths
 from wok.exception import InvalidOperation, MissingParameter
 from wok.exception import NotFoundError, OperationFailed
 from wok.utils import add_task, run_command, wok_log
 from wok.xmlutils.utils import xpath_get_text
 
-from wok.plugins.kimchi.config import get_kimchi_version
+from wok.plugins.kimchi.config import config, get_kimchi_version
 from wok.plugins.kimchi.model.config import CapabilitiesModel
 from wok.plugins.kimchi.model.host import DeviceModel
 from wok.plugins.kimchi.model.libvirtstoragepool import StoragePoolDef
@@ -78,7 +78,7 @@ class StoragePoolsModel(object):
         if default_pool == 'default':
             pools[default_pool] = {'path': '/var/lib/libvirt/images'}
 
-        if config.get("server", "create_iso_pool") == "true":
+        if config.get('kimchi', {}).get('create_iso_pool', False):
             pools['ISO'] = {'path': '/var/lib/kimchi/isos'}
 
         error_msg = ("Please, check the configuration in %s/template.conf to "

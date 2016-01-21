@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2014-2015
+# Copyright IBM, Corp. 2014-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -21,19 +21,21 @@ import cherrypy
 import re
 import socket
 
-from wok.config import config
+from wok.config import config as wok_config
 from wok.utils import run_command, wok_log
+
+from wok.plugins.kimchi.config import config
 
 
 class PeersModel(object):
     def __init__(self, **kargs):
         # check federation feature is enabled on Kimchi server
-        if config.get("server", "federation") == "off":
+        if not config.get('kimchi', {}).get('federation', False):
             return
 
         # register server on openslp
-        hostname = socket.getfqdn(config.get("server", "host"))
-        port = config.get("server", "ssl_port")
+        hostname = socket.getfqdn(wok_config.get("server", "host"))
+        port = wok_config.get("server", "ssl_port")
         self.url = hostname + ":" + port
 
         cmd = ["slptool", "register",
@@ -54,7 +56,7 @@ class PeersModel(object):
 
     def get_list(self):
         # check federation feature is enabled on Kimchi server
-        if config.get("server", "federation") == "off":
+        if not config.get('kimchi', {}).get('federation', False):
             return []
 
         cmd = ["slptool", "findsrvs", "service:wokd"]

@@ -79,6 +79,10 @@ class ConfigTests(unittest.TestCase):
                 'enable': True,
                 'uri': '/plugins/kimchi'
             },
+            'kimchi': {
+                'federation': False,
+                'create_iso_pool': True
+            },
             '/': {
                 'tools.trailing_slash.on': False,
                 'request.methods_with_bodies': ('POST', 'PUT'),

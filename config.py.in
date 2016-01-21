@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2015
+# Copyright IBM, Corp. 2013-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -22,6 +22,7 @@ import libvirt
 import os
 import platform
 import threading
+from cherrypy.lib.reprconf import Parser
 
 from wok.config import CACHEEXPIRES, PluginConfig, PluginPaths
 from wok.xmlutils.utils import xpath_get_text
@@ -53,6 +54,14 @@ def get_object_store():
 
 def get_screenshot_path():
     return os.path.join(PluginPaths('kimchi').state_dir, 'screenshots')
+
+
+def get_config():
+    plugin_conf = PluginPaths('kimchi').conf_file
+    return Parser().dict_from_file(plugin_conf)
+
+
+config = get_config()
 
 
 def find_qemu_binary(find_emulator=False):

@@ -698,6 +698,7 @@ Contains information about Kimchi configuration.
 **Methods:**
 
 * **GET**: Retrieve configuration information
+    * federation: True if federation feature is enabled, False otherwise.
     * version: The version of the kimchi service
 * **POST**: *See Configuration Actions*
 
@@ -728,7 +729,6 @@ creation.
       system; False, otherwise
     * repo_mngt_tool: 'deb', 'yum' or None - when the repository management
       tool is not identified
-    * federation: 'on' if federation feature is enabled, 'off' otherwise.
 * **POST**: *See Configuration Actions*
 
 **Actions (POST):**

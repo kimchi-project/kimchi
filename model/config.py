@@ -21,12 +21,11 @@ import cherrypy
 from multiprocessing.pool import ThreadPool
 
 from wok.basemodel import Singleton
-from wok.config import config as kconfig
-
 from wok.exception import NotFoundError
 from wok.utils import run_command, wok_log
 
-from wok.plugins.kimchi.config import find_qemu_binary, get_kimchi_version
+from wok.plugins.kimchi.config import config, find_qemu_binary
+from wok.plugins.kimchi.config import get_kimchi_version
 from wok.plugins.kimchi.distroloader import DistroLoader
 from wok.plugins.kimchi.model.featuretests import FeatureTests
 from wok.plugins.kimchi.model.featuretests import FEATURETEST_POOL_NAME
@@ -40,7 +39,9 @@ class ConfigModel(object):
         pass
 
     def lookup(self, name):
-        return {'version': get_kimchi_version()}
+        kconfig = config.get('kimchi', {})
+        return {'federation': kconfig.get('federation', False),
+                'version': get_kimchi_version()}
 
 
 class CapabilitiesModel(object):
@@ -117,11 +118,9 @@ class CapabilitiesModel(object):
                 'qemu_spice': self._qemu_support_spice(),
                 'qemu_stream': self.qemu_stream,
                 'screenshot': VMScreenshot.get_stream_test_result(),
-                'federation': kconfig.get("server", "federation"),
                 'kernel_vfio': self.kernel_vfio,
                 'nm_running': FeatureTests.is_nm_running(),
-                'mem_hotplug_support': self.mem_hotplug_support
-                }
+                'mem_hotplug_support': self.mem_hotplug_support}
 
 
 class DistrosModel(object):

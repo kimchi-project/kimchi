@@ -1226,7 +1226,7 @@ class RestTests(unittest.TestCase):
     def test_config(self):
         resp = self.request('/plugins/kimchi/config').read()
         conf = json.loads(resp)
-        keys = ["version"]
+        keys = ["federation", "version"]
         self.assertEquals(keys, sorted(conf.keys()))
 
     def test_capabilities(self):
@@ -1234,8 +1234,8 @@ class RestTests(unittest.TestCase):
         conf = json.loads(resp)
 
         keys = [u'libvirt_stream_protocols', u'qemu_stream', u'qemu_spice',
-                u'screenshot', u'kernel_vfio', u'federation',
-                u'nm_running', u'mem_hotplug_support']
+                u'screenshot', u'kernel_vfio', u'nm_running',
+                u'mem_hotplug_support']
         self.assertEquals(sorted(keys), sorted(conf.keys()))
 
     def test_peers(self):
