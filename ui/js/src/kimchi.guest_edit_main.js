@@ -1,7 +1,7 @@
 /*
  * Project Kimchi
  *
- * Copyright IBM, Corp. 2013-2015
+ * Copyright IBM, Corp. 2013-2016
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -309,7 +309,7 @@ kimchi.guest_edit_main = function() {
         //set up for PAM
         var userNodes = {},
             groupNodes = {};
-        authType = kimchi.capabilities['auth'];
+        authType = wok.config['auth'];
         if (authType === 'pam') {
             $("#form-guest-edit-permission .ldap").hide();
             kimchi.retrieveVM(kimchi.selectedGuest, function(vm) {
@@ -725,7 +725,7 @@ kimchi.guest_edit_main = function() {
             users: [],
             groups: []
         };
-        authType = kimchi.capabilities['auth'];
+        authType = wok.config['auth'];
         if (authType === 'pam') {
             $("#permission-sel-users").children().each(function() {
                 content.users.push($("label", this).text());
