@@ -1,7 +1,7 @@
 /*
  * Project Kimchi
  *
- * Copyright IBM, Corp. 2014-2015
+ * Copyright IBM, Corp. 2014-2016
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -144,7 +144,10 @@ kimchi.guest_storage_add_main = function() {
 
     var validateCDROM = function(settings) {
         if (/^((https|http|ftp|ftps|tftp|\/).*)+$/.test(settings['path'])){
-                    return true;
+            // Delete pool and vol properties since they are not needed for cdrom
+            delete settings['pool'];
+            delete settings['vol'];
+            return true;
         }
         else {
             wok.message.error(i18n['KCHVMSTOR0001E'],'#alert-modal-container2');
@@ -154,7 +157,9 @@ kimchi.guest_storage_add_main = function() {
 
     var validateDisk = function(settings) {
         if (settings['pool'] && settings['vol']){
-                    return true;
+           // Delete path property since it's not needed for disk
+           delete settings['path'];
+           return true;
         }
         else {
             wok.message.error(i18n['KCHVMSTOR0002E'],'#alert-modal-container2');
@@ -172,15 +177,14 @@ kimchi.guest_storage_add_main = function() {
         var settings = {
             vm: kimchi.selectedGuest,
             type: typeTextbox.val(),
+            path: pathTextbox.val(),
+            pool: poolTextbox.val(),
+            vol: volTextbox.val()
         };
 
         $(submitButton).prop('disabled', true);
         $.each([pathTextbox, poolTextbox, volTextbox], function(i, c) {
             $(c).prop('disabled', true);
-            val = $(c).val();
-            if (val && val !== '') {
-                settings[$(c).attr('name')] = $(c).val();
-            }
         });
         // Validate form for cdrom and disk
         validateSpecifiedForm = validator[settings['type']];
