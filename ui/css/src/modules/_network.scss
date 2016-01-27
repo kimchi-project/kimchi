@@ -1,7 +1,7 @@
 //
 // Project Kimchi
 //
-// Copyright IBM, Corp. 2015
+// Copyright IBM, Corp. 2015-2016
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -41,7 +41,7 @@
 #network-root-container {
 
     .wok-nw-loading-icon {
-        background: transparent url('#{$wok-icon-path}/spin5.svg') no-repeat 50% 50%; 
+        background: transparent url('#{$wok-icon-path}/spin5.svg') no-repeat 50% 50%;
         @include animation(spin 3s infinite linear);
         height: 16px;
         width: 16px;
@@ -73,7 +73,7 @@
         .loading > .fa,
         .down .fa {
           display: none;
-        }        
+        }
     }
 
     .wok-datagrid > .wok-datagrid-header,
@@ -105,15 +105,15 @@
             text-align: right;
         }
 
-    } 
+    }
 
     .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span {
 
       &.column-state {
         height: 53px;
-        vertical-align: middle;        
+        vertical-align: middle;
       }
 
-    }   
+    }
 
 }
