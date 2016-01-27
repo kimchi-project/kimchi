@@ -59,13 +59,25 @@ I18N_FILES = ./i18n.py \
 
 check-local:
 	contrib/check_i18n.py $(I18N_FILES)
-	find . -path './.git' -prune -type f -o \
-		-name '*.py' -o -name '*.py.in'  | xargs $(PYFLAKES) | \
-		while read LINE; do echo "$$LINE"; false; done
-
+	@if [ -d '.git' ]; then                                        \
+		find . -path './.git' -prune -o                        \
+			-name '*.py' -o -name '*.py.in'  |             \
+			xargs $(PYFLAKES) |                            \
+			while read LINE; do echo "$$LINE"; false; done \
+	else                                                           \
+		find . -name '*.py' -o -name '*.py.in'  |              \
+			xargs $(PYFLAKES) |                            \
+			while read LINE; do echo "$$LINE"; false; done \
+	fi
 	$(PEP8) --version
 	$(PEP8) --filename '*.py,*.py.in' --exclude="$(PEP8_BLACKLIST)" .
 	./check_ui_code_errors.sh
+	@if $(GIT) rev-parse &> /dev/null ; then                         \
+		echo "Whitespace verification ...";                      \
+		git grep --cached -Il '' | grep -v '^ui/spice-html5/' |  \
+			xargs egrep '.* +$$'                             \
+			&& echo "ERROR: Whitespaces found" || echo "Ok"; \
+	fi
 
 # Link built mo files in the source tree to enable use of translations from
 # within the source tree
@@ -132,7 +144,7 @@ suse-rpm: contrib/kimchi.spec.suse
 	$(MAKE) rpm
 
 ChangeLog:
-	@if test -d .git; then                                   \
+	@if $(GIT) rev-parse &> /dev/null ; then                     \
 		$(top_srcdir)/build-aux/genChangelog --release > $@; \
 	fi
 
@@ -160,7 +172,7 @@ uninstall-local:
 	$(RM) -rf $(DESTDIR)/$(localstatedir)/lib/kimchi
 
 VERSION:
-	@if test -d .git; then                                \
+	@if $(GIT) rev-parse &> /dev/null ; then                  \
 		git describe --abbrev=0 --always > $@;            \
 	fi
 
