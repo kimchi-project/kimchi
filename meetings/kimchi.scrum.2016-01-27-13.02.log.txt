@@ -1,0 +1,59 @@
+13:02:13 <alinefm> #startmeeting
+13:02:13 <kimchi-bot> Meeting started Wed Jan 27 13:02:13 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:02:13 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:02:13 <alinefm> #meetingname scrum
+13:02:13 <kimchi-bot> The meeting name has been set to 'scrum'
+13:03:12 <alinefm> Instead of have one status topic per project I will suggest you to report your status with a tag [wok], [kimchi], [ginger
+13:03:21 <alinefm> [ginger] or [gingerbase]
+13:03:24 <ramonn> nice idea
+13:03:30 <alinefm> I think it will be faster
+13:03:56 <alinefm> let's try that way and see how it goes
+13:04:30 <alinefm> #info Agenda
+13:04:30 <alinefm> #info 1) Status
+13:04:30 <alinefm> #info 2) Open discussion
+13:04:30 <alinefm> anything else?
+13:05:20 <pvital> no
+13:05:43 <alinefm> #topic Status
+13:05:45 <alinefm> #info Please provide your status using the #info command: #info <nickname> **<project>** <status>
+13:06:01 <pvital> will be separated by projects?
+13:06:12 <alinefm> #info Please provide your status using the #info command: #info [<project>] <nickname> <status>
+13:06:15 <ramonn> #info ramonn understanding "patches" tool for [kimchi]
+13:06:31 <ramonn> #info [kimchi]  ramonn understanding "patches" tool
+13:06:45 <alinefm> pvital, I suggested to use tags that time as the last scrum meetings takes a long time to get all the status
+13:06:58 <pvital> yeah! I saw better!
+13:07:10 <danielhb> #info danielhb [kimchi] [wok] reviewed patches
+13:07:31 <danielhb> #info [s390x] [ginger] [gingerbase] reviewed and applied patches upstream, fixed a couple of Ginger bugs
+13:07:33 <samhenri> #info samhenri [kimchi] sent live migration v6 to ML last week
+13:07:34 <ziviani> #info ziviani [kimchi] [wok] reviewed code
+13:07:40 <alinefm> #info [wok] alinefm removed federation and create_iso_pool options from WOK and moved to Kimchi
+13:07:48 <lcorreia> #info [wok] lcorreia will work on user log functionality
+13:07:48 <lcorreia> #info [kimchi] lcorreia working on inclusion of option to specify max_vcpu and current_vcpu separately per guest/template in Kimchi backend
+13:07:48 <lcorreia> #info [kimchi] lcorreia will work to handle notifications for host ENOSPC from libvirt in kimchi backend
+13:07:48 <lcorreia> #info [kimchi] [ginger] lcorreia reviewed patches
+13:07:54 <ziviani> #info ziviani [kimchi] is working on a new feature
+13:08:12 <alinefm> #info [wok] alinefm sent patch to automatically load plugin sub_nodes to remove read-only information from the plugin configuration file
+13:08:17 <rotru> #info rotru Coding "update maxmemory" backend  [kimchi]
+13:08:29 <samhenri> #info samhenri [ginger] Finished SR-IOV CSS/SCSS, main page and Details accordion, sent patch to Ginger ML
+13:08:31 <peterpennings> #info peterpennings [kimchi] working on add network bridges
+13:08:41 <alinefm> #info [kimchi] alinefm sent patch to add federation and create_iso_pool options to Kimchi configuration file and updated it according to wok changes
+13:08:48 <pvital> #info [Wok] pvital submitted the patch: [Wok] Set returncode when run_command logging its output
+13:08:48 <pvital> #info [Wok] pvital tested Wok build and make check on Travis CI
+13:08:48 <pvital> #info [Wok] pvital is testing Wok on Docker
+13:08:48 <pvital> #info [Kimchi] pvital started to investigate solution to Kimchi inssue #817
+13:08:49 <pvital> #info [Ginger] pvital submitted the patch: [Ginger] Change Firmware Update command from PUT to POST
+13:08:50 <pvital> #info [Ginger] pvital submitted the patch: [Ginger] Update test_firmware.
+13:08:52 <pvital> #info [Wok] [Kimchi] [Ginger] [GingerBase] pvital reviewed patches
+13:09:11 <samhenri> #info samhenri [kimchi] creating max memory UI prototype
+13:09:28 <alinefm> #info [ginger] alinefm updated configuration file according to wok changes
+13:09:40 <alinefm> #info [gingerbase] alinefm updated configuration file according to wok changes and also removed federation references from the code
+13:09:47 <alinefm> #info [gingers390x] alinefm updated configuration file according to wok changes
+13:11:55 <alinefm> #info [ginger] alinefm is now working to add sub_nodes to ginger and then remove extra information from config file
+13:12:04 <alinefm> anything else, guys?
+13:12:39 <pvital> not from me
+13:13:04 <samhenri> nope
+13:13:40 <alinefm> moving on...
+13:13:44 <alinefm> #topic Open Discussion
+13:13:50 <alinefm> what do you want to discuss today?
+13:16:47 <alinefm> apparently not =)
+13:17:08 <alinefm> so thanks everyone for joining!
+13:17:13 <alinefm> #endmeeting

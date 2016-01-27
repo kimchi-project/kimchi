@@ -1,0 +1,253 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi Meeting</title>
+<style type="text/css">
+/* This is for the .html in the HTML2 writer */
+body {
+    font-family: Helvetica, sans-serif;
+    font-size:14px;
+}
+h1 {
+    text-align: center;
+}
+a {
+    color:navy;
+    text-decoration: none;
+    border-bottom:1px dotted navy;
+}
+a:hover {
+    text-decoration:none;
+    border-bottom: 0;
+    color:#0000B9;
+}
+hr {
+    border: 1px solid #ccc;
+}
+/* The (nick, time) item pairs, and other body text things. */
+.details {
+    font-size: 12px;
+    font-weight:bold;
+}
+/* The 'AGREED:', 'IDEA', etc, prefix to lines. */
+.itemtype {
+    font-style: normal;    /* un-italics it */
+    font-weight: bold;
+}
+/* Example: change single item types.  Capitalized command name.
+/* .TOPIC  {  color:navy;  } */
+/* .AGREED {  color:lime;  } */
+
+</style>
+</head>
+
+<body>
+<h1>#kimchi Meeting</h1>
+<span class="details">
+Meeting started by alinefm at 13:02:13 UTC
+(<a href="kimchi.scrum.2016-01-27-13.02.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Meeting summary</h3>
+<ol>
+<li>
+<ol type="a">
+  <li><span class="INFO">Agenda</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-27-13.02.log.html#l-11'>alinefm</a>,
+    13:04:30)</span></li>
+  <li><span class="INFO">1) Status</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-27-13.02.log.html#l-12'>alinefm</a>,
+    13:04:30)</span></li>
+  <li><span class="INFO">2) Open discussion</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-01-27-13.02.log.html#l-13'>alinefm</a>,
+    13:04:30)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Status</b> <span class="details">(<a href='kimchi.scrum.2016-01-27-13.02.log.html#l-16'>alinefm</a>, 13:05:43)</span>
+<ol type="a">
+  <li><span class="INFO">Please provide your status using the #info
+    command: #info &lt;nickname&gt; **&lt;project&gt;**
+    &lt;status&gt;</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-27-13.02.log.html#l-17'>alinefm</a>,
+    13:05:45)</span></li>
+  <li><span class="INFO">Please provide your status using the #info
+    command: #info [&lt;project&gt;] &lt;nickname&gt;
+    &lt;status&gt;</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-27-13.02.log.html#l-19'>alinefm</a>,
+    13:06:12)</span></li>
+  <li><span class="INFO">ramonn understanding "patches" tool for
+    [kimchi]</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-27-13.02.log.html#l-20'>ramonn</a>,
+    13:06:15)</span></li>
+  <li><span class="INFO">[kimchi]  ramonn understanding "patches"
+    tool</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-27-13.02.log.html#l-21'>ramonn</a>,
+    13:06:31)</span></li>
+  <li><span class="INFO">danielhb [kimchi] [wok] reviewed patches</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2016-01-27-13.02.log.html#l-24'>danielhb</a>,
+    13:07:10)</span></li>
+  <li><span class="INFO">[s390x] [ginger] [gingerbase] reviewed and
+    applied patches upstream, fixed a couple of Ginger bugs</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-01-27-13.02.log.html#l-25'>danielhb</a>,
+    13:07:31)</span></li>
+  <li><span class="INFO">samhenri [kimchi] sent live migration v6 to ML
+    last week</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-27-13.02.log.html#l-26'>samhenri</a>,
+    13:07:33)</span></li>
+  <li><span class="INFO">ziviani [kimchi] [wok] reviewed code</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2016-01-27-13.02.log.html#l-27'>ziviani</a>,
+    13:07:34)</span></li>
+  <li><span class="INFO">[wok] alinefm removed federation and
+    create_iso_pool options from WOK and moved to Kimchi</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-01-27-13.02.log.html#l-28'>alinefm</a>,
+    13:07:40)</span></li>
+  <li><span class="INFO">[wok] lcorreia will work on user log
+    functionality</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-27-13.02.log.html#l-29'>lcorreia</a>,
+    13:07:48)</span></li>
+  <li><span class="INFO">[kimchi] lcorreia working on inclusion of
+    option to specify max_vcpu and current_vcpu separately per
+    guest/template in Kimchi backend</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-27-13.02.log.html#l-30'>lcorreia</a>,
+    13:07:48)</span></li>
+  <li><span class="INFO">[kimchi] lcorreia will work to handle
+    notifications for host ENOSPC from libvirt in kimchi backend</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2016-01-27-13.02.log.html#l-31'>lcorreia</a>,
+    13:07:48)</span></li>
+  <li><span class="INFO">[kimchi] [ginger] lcorreia reviewed
+    patches</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-27-13.02.log.html#l-32'>lcorreia</a>,
+    13:07:48)</span></li>
+  <li><span class="INFO">ziviani [kimchi] is working on a new
+    feature</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-27-13.02.log.html#l-33'>ziviani</a>,
+    13:07:54)</span></li>
+  <li><span class="INFO">[wok] alinefm sent patch to automatically load
+    plugin sub_nodes to remove read-only information from the plugin
+    configuration file</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-27-13.02.log.html#l-34'>alinefm</a>,
+    13:08:12)</span></li>
+  <li><span class="INFO">rotru Coding "update maxmemory" backend
+    [kimchi]</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-27-13.02.log.html#l-35'>rotru</a>,
+    13:08:17)</span></li>
+  <li><span class="INFO">samhenri [ginger] Finished SR-IOV CSS/SCSS,
+    main page and Details accordion, sent patch to Ginger ML</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2016-01-27-13.02.log.html#l-36'>samhenri</a>,
+    13:08:29)</span></li>
+  <li><span class="INFO">peterpennings [kimchi] working on add network
+    bridges</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-27-13.02.log.html#l-37'>peterpennings</a>,
+    13:08:31)</span></li>
+  <li><span class="INFO">[kimchi] alinefm sent patch to add federation
+    and create_iso_pool options to Kimchi configuration file and updated
+    it according to wok changes</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-27-13.02.log.html#l-38'>alinefm</a>,
+    13:08:41)</span></li>
+  <li><span class="INFO">[Wok] pvital submitted the patch: [Wok] Set
+    returncode when run_command logging its output</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-01-27-13.02.log.html#l-39'>pvital</a>,
+    13:08:48)</span></li>
+  <li><span class="INFO">[Wok] pvital tested Wok build and make check on
+    Travis CI</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-27-13.02.log.html#l-40'>pvital</a>,
+    13:08:48)</span></li>
+  <li><span class="INFO">[Wok] pvital is testing Wok on Docker</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2016-01-27-13.02.log.html#l-41'>pvital</a>,
+    13:08:48)</span></li>
+  <li><span class="INFO">[Kimchi] pvital started to investigate solution
+    to Kimchi inssue #817</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-27-13.02.log.html#l-42'>pvital</a>,
+    13:08:48)</span></li>
+  <li><span class="INFO">[Ginger] pvital submitted the patch: [Ginger]
+    Change Firmware Update command from PUT to POST</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-01-27-13.02.log.html#l-43'>pvital</a>,
+    13:08:49)</span></li>
+  <li><span class="INFO">[Ginger] pvital submitted the patch: [Ginger]
+    Update test_firmware.</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-27-13.02.log.html#l-44'>pvital</a>,
+    13:08:50)</span></li>
+  <li><span class="INFO">[Wok] [Kimchi] [Ginger] [GingerBase] pvital
+    reviewed patches</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-27-13.02.log.html#l-45'>pvital</a>,
+    13:08:52)</span></li>
+  <li><span class="INFO">samhenri [kimchi] creating max memory UI
+    prototype</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-27-13.02.log.html#l-46'>samhenri</a>,
+    13:09:11)</span></li>
+  <li><span class="INFO">[ginger] alinefm updated configuration file
+    according to wok changes</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-27-13.02.log.html#l-47'>alinefm</a>,
+    13:09:28)</span></li>
+  <li><span class="INFO">[gingerbase] alinefm updated configuration file
+    according to wok changes and also removed federation references from
+    the code</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-27-13.02.log.html#l-48'>alinefm</a>,
+    13:09:40)</span></li>
+  <li><span class="INFO">[gingers390x] alinefm updated configuration
+    file according to wok changes</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-27-13.02.log.html#l-49'>alinefm</a>,
+    13:09:47)</span></li>
+  <li><span class="INFO">[ginger] alinefm is now working to add
+    sub_nodes to ginger and then remove extra information from config
+    file</span> <span class="details">(<a
+    href='kimchi.scrum.2016-01-27-13.02.log.html#l-50'>alinefm</a>,
+    13:11:55)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Open Discussion</b> <span class="details">(<a href='kimchi.scrum.2016-01-27-13.02.log.html#l-55'>alinefm</a>, 13:13:44)</span>
+</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">
+Meeting ended at 13:17:13 UTC
+(<a href="kimchi.scrum.2016-01-27-13.02.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Action items</h3>
+<ol>
+  <li>(none)</li>
+</ol>
+<br><br>
+
+
+
+<h3>People present (lines said)</h3>
+<ol>
+  <li>alinefm (28)</li>
+  <li>pvital (11)</li>
+  <li>lcorreia (4)</li>
+  <li>samhenri (4)</li>
+  <li>ramonn (3)</li>
+  <li>kimchi-bot (3)</li>
+  <li>danielhb (2)</li>
+  <li>ziviani (2)</li>
+  <li>peterpennings (1)</li>
+  <li>rotru (1)</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">Generated by <a href="http://wiki.debian.org/MeetBot">MeetBot</a> 0.1.4.</span>
+</body></html>

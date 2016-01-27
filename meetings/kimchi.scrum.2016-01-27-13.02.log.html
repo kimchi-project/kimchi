@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:02:13</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:02:13</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Jan 27 13:02:13 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:02:13</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:02:13</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:02:13</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:03:12</span><span class="nk"> &lt;alinefm&gt;</span> Instead of have one status topic per project I will suggest you to report your status with a tag [wok], [kimchi], [ginger
+<a name="l-7"></a><span class="tm">13:03:21</span><span class="nk"> &lt;alinefm&gt;</span> [ginger] or [gingerbase]
+<a name="l-8"></a><span class="tm">13:03:24</span><span class="nk"> &lt;ramonn&gt;</span> nice idea
+<a name="l-9"></a><span class="tm">13:03:30</span><span class="nk"> &lt;alinefm&gt;</span> I think it will be faster
+<a name="l-10"></a><span class="tm">13:03:56</span><span class="nk"> &lt;alinefm&gt;</span> let's try that way and see how it goes
+<a name="l-11"></a><span class="tm">13:04:30</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda</span>
+<a name="l-12"></a><span class="tm">13:04:30</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">1) Status</span>
+<a name="l-13"></a><span class="tm">13:04:30</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">2) Open discussion</span>
+<a name="l-14"></a><span class="tm">13:04:30</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-15"></a><span class="tm">13:05:20</span><span class="nk"> &lt;pvital&gt;</span> no
+<a name="l-16"></a><span class="tm">13:05:43</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-17"></a><span class="tm">13:05:45</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info &lt;nickname&gt; **&lt;project&gt;** &lt;status&gt;</span>
+<a name="l-18"></a><span class="tm">13:06:01</span><span class="nk"> &lt;pvital&gt;</span> will be separated by projects?
+<a name="l-19"></a><span class="tm">13:06:12</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info [&lt;project&gt;] &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-20"></a><span class="tm">13:06:15</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">ramonn understanding "patches" tool for [kimchi]</span>
+<a name="l-21"></a><span class="tm">13:06:31</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi]  ramonn understanding "patches" tool</span>
+<a name="l-22"></a><span class="tm">13:06:45</span><span class="nk"> &lt;alinefm&gt;</span> pvital, I suggested to use tags that time as the last scrum meetings takes a long time to get all the status
+<a name="l-23"></a><span class="tm">13:06:58</span><span class="nk"> &lt;pvital&gt;</span> yeah! I saw better!
+<a name="l-24"></a><span class="tm">13:07:10</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">danielhb [kimchi] [wok] reviewed patches</span>
+<a name="l-25"></a><span class="tm">13:07:31</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[s390x] [ginger] [gingerbase] reviewed and applied patches upstream, fixed a couple of Ginger bugs</span>
+<a name="l-26"></a><span class="tm">13:07:33</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">samhenri [kimchi] sent live migration v6 to ML last week</span>
+<a name="l-27"></a><span class="tm">13:07:34</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani [kimchi] [wok] reviewed code</span>
+<a name="l-28"></a><span class="tm">13:07:40</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] alinefm removed federation and create_iso_pool options from WOK and moved to Kimchi</span>
+<a name="l-29"></a><span class="tm">13:07:48</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] lcorreia will work on user log functionality</span>
+<a name="l-30"></a><span class="tm">13:07:48</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] lcorreia working on inclusion of option to specify max_vcpu and current_vcpu separately per guest/template in Kimchi backend</span>
+<a name="l-31"></a><span class="tm">13:07:48</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] lcorreia will work to handle notifications for host ENOSPC from libvirt in kimchi backend</span>
+<a name="l-32"></a><span class="tm">13:07:48</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] [ginger] lcorreia reviewed patches</span>
+<a name="l-33"></a><span class="tm">13:07:54</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">ziviani [kimchi] is working on a new feature</span>
+<a name="l-34"></a><span class="tm">13:08:12</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] alinefm sent patch to automatically load plugin sub_nodes to remove read-only information from the plugin configuration file</span>
+<a name="l-35"></a><span class="tm">13:08:17</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru Coding "update maxmemory" backend  [kimchi]</span>
+<a name="l-36"></a><span class="tm">13:08:29</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">samhenri [ginger] Finished SR-IOV CSS/SCSS, main page and Details accordion, sent patch to Ginger ML</span>
+<a name="l-37"></a><span class="tm">13:08:31</span><span class="nk"> &lt;peterpennings&gt;</span> <span class="cmd">#info </span><span class="cmdline">peterpennings [kimchi] working on add network bridges</span>
+<a name="l-38"></a><span class="tm">13:08:41</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] alinefm sent patch to add federation and create_iso_pool options to Kimchi configuration file and updated it according to wok changes</span>
+<a name="l-39"></a><span class="tm">13:08:48</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] pvital submitted the patch: [Wok] Set returncode when run_command logging its output</span>
+<a name="l-40"></a><span class="tm">13:08:48</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] pvital tested Wok build and make check on Travis CI</span>
+<a name="l-41"></a><span class="tm">13:08:48</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] pvital is testing Wok on Docker</span>
+<a name="l-42"></a><span class="tm">13:08:48</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] pvital started to investigate solution to Kimchi inssue #817</span>
+<a name="l-43"></a><span class="tm">13:08:49</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] pvital submitted the patch: [Ginger] Change Firmware Update command from PUT to POST</span>
+<a name="l-44"></a><span class="tm">13:08:50</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] pvital submitted the patch: [Ginger] Update test_firmware.</span>
+<a name="l-45"></a><span class="tm">13:08:52</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] [Kimchi] [Ginger] [GingerBase] pvital reviewed patches</span>
+<a name="l-46"></a><span class="tm">13:09:11</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">samhenri [kimchi] creating max memory UI prototype</span>
+<a name="l-47"></a><span class="tm">13:09:28</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] alinefm updated configuration file according to wok changes</span>
+<a name="l-48"></a><span class="tm">13:09:40</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[gingerbase] alinefm updated configuration file according to wok changes and also removed federation references from the code</span>
+<a name="l-49"></a><span class="tm">13:09:47</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[gingers390x] alinefm updated configuration file according to wok changes</span>
+<a name="l-50"></a><span class="tm">13:11:55</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] alinefm is now working to add sub_nodes to ginger and then remove extra information from config file</span>
+<a name="l-51"></a><span class="tm">13:12:04</span><span class="nk"> &lt;alinefm&gt;</span> anything else, guys?
+<a name="l-52"></a><span class="tm">13:12:39</span><span class="nk"> &lt;pvital&gt;</span> not from me
+<a name="l-53"></a><span class="tm">13:13:04</span><span class="nk"> &lt;samhenri&gt;</span> nope
+<a name="l-54"></a><span class="tm">13:13:40</span><span class="nk"> &lt;alinefm&gt;</span> moving on...
+<a name="l-55"></a><span class="tm">13:13:44</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-56"></a><span class="tm">13:13:50</span><span class="nk"> &lt;alinefm&gt;</span> what do you want to discuss today?
+<a name="l-57"></a><span class="tm">13:16:47</span><span class="nk"> &lt;alinefm&gt;</span> apparently not =)
+<a name="l-58"></a><span class="tm">13:17:08</span><span class="nk"> &lt;alinefm&gt;</span> so thanks everyone for joining!
+<a name="l-59"></a><span class="tm">13:17:13</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
