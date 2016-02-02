@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2014-2015
+# Copyright IBM, Corp. 2014-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -18,7 +18,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import lxml.etree as ET
-from distutils.version import LooseVersion
 from lxml.builder import E
 
 from wok.plugins.kimchi import osinfo
@@ -61,13 +60,5 @@ def get_iface_xml(params, arch=None, os_distro=None, os_version=None):
     mac = params.get('mac', None)
     if mac is not None:
         interface.append(E.mac(address=mac))
-
-    # Hack to disable vhost feature in Ubuntu LE and SLES LE (PPC)
-    if arch == 'ppc64' and \
-       ((os_distro == 'ubuntu' and
-         LooseVersion(os_version) >= LooseVersion('14.04')) or
-        (os_distro == 'sles' and
-         LooseVersion(os_version) >= LooseVersion('12'))):
-        interface.append(E.driver(name='qemu'))
 
     return ET.tostring(interface, encoding='utf-8', pretty_print=True)
