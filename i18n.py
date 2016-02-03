@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2014-2015
+# Copyright IBM, Corp. 2014-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -136,8 +136,8 @@ messages = {
     "KCHVMHDEV0002E": _("The host device %(dev_name)s is not allowed to directly assign to VM."),
     "KCHVMHDEV0003E": _("No IOMMU groups found. Host PCI pass through needs IOMMU group to function correctly. "
                         "Please enable Intel VT-d or AMD IOMMU in your BIOS, then verify the Kernel is compiled with IOMMU support. "
-                        "For Intel CPU, add intel_iommu=on to your Kernel parameter in /boot/grub2/grub.conf. "
-                        "For AMD CPU, add iommu=pt iommu=1."),
+                        "For Intel CPU, add 'intel_iommu=on' to GRUB_CMDLINE_LINUX parameter in /etc/default/grub file. "
+                        "For AMD CPU, add 'iommu=pt iommu=1'."),
     "KCHVMHDEV0004E": _('"name" should be a device name string'),
     "KCHVMHDEV0005E": _('The device %(name)s is probably in use by the host. Unable to attach it to the guest.'),
 
