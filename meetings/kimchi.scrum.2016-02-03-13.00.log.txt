@@ -1,0 +1,47 @@
+13:00:36 <alinefm> #startmeeting
+13:00:36 <kimchi-bot> Meeting started Wed Feb  3 13:00:36 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:00:36 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:00:37 <alinefm> #meetingname scrum
+13:00:37 <alinefm> #info Agenda
+13:00:37 <alinefm> #info 1) Status
+13:00:37 <alinefm> #info 2) Open discussion
+13:00:37 <kimchi-bot> The meeting name has been set to 'scrum'
+13:00:38 <alinefm> anything else?
+13:00:55 <pvital> no
+13:02:39 <ziviani> no
+13:02:48 <alinefm> so let's get started
+13:03:08 <alinefm> #topic Status
+13:03:08 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+13:03:27 <alinefm> #info [wok] alinefm fixed HTTP error code when login fails
+13:03:52 <lcorreia> #info [wok] lcorreia is working on user log functionality
+13:03:52 <lcorreia> #info [kimchi] lcorreia working on V2 for inclusion of option to specify max_vcpu and current_vcpu separately per guest/template in Kimchi backend
+13:03:52 <lcorreia> #info [kimchi] lcorreia will work to handle notifications for host ENOSPC from libvirt in kimchi backend
+13:04:08 <alinefm> #info [ginger] alinefm sent patch to protect Ginger APIs
+13:04:08 <ziviani> #info [kimchi] ziviani is working on a new feature (web serial console), almost ready for review
+13:04:11 <peterpennings> #info [kimchi] peterpennings working on network bridges UI
+13:04:23 <samhenri> #info [kimchi] samhenri sent max memory UI RFC patch
+13:04:39 <alinefm> #info [wok] alinefm is now working on a script to make all the code styling verification and reuse it in all plugins
+13:05:30 <pvital> #info [Kimchi] pvital is working in issue #817
+13:05:31 <pvital> #info [Wok] [Kimchi] [Ginger] [Gingerbase] [GingerS390x] pvital reviewed patches
+13:05:50 <samhenri> #info [ginger] samhenri fixed filtering and sorting in System Modules
+13:06:05 <samhenri> #info [ginger] samhenri finished flex box implementation on Details accordion for system modules
+13:06:29 <danielhb> #info [wok] [kimchi] [ginger*] danielhb reviewed and pushed patches upstream, fixed issues with the make check-local of the plug-ins
+13:07:15 <samhenri> #info [kimchi] samhenri was working on 'Create logical pool from existing VG' but had to stop it in order to fix issues with System modules / SR-IOV in Ginger
+13:07:55 <samhenri> [ginger] samhenri currently working on SR-IOV modal window
+13:08:36 <pvital> danielhb, [ginger*] nice catch! will use it next time.
+13:09:02 <danielhb> pvital, ;)
+13:10:03 <rotru> #info [Kimchi] rotru I am still finishing the max memory backend part.
+13:11:51 <alinefm> peterpennings, did you have the help you needed to configure the OVS bridges?
+13:12:13 <ramonn> #info ramonn working on backport logrotate patch, also looking for old bug about vm snapshot
+13:12:55 <peterpennings> #alinefm Yes, I asked #lcorreria to help me
+13:13:22 <alinefm> great
+13:13:27 <alinefm> anything else, team?
+13:15:20 <ramonn> nop
+13:15:41 <alinefm> moving on...
+13:15:45 <alinefm> #topic Open Discussion
+13:15:49 <alinefm> any topics for today?
+13:17:41 <lcorreia> no
+13:18:30 <pvital> not from my side
+13:18:39 <alinefm> ok
+13:18:44 <alinefm> thanks everyone for joining!
+13:18:46 <alinefm> #endmeeting

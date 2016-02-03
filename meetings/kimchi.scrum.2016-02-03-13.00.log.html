@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:00:36</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:00:36</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Feb  3 13:00:36 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:00:36</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:00:37</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:00:37</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda</span>
+<a name="l-6"></a><span class="tm">13:00:37</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">1) Status</span>
+<a name="l-7"></a><span class="tm">13:00:37</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">2) Open discussion</span>
+<a name="l-8"></a><span class="tm">13:00:37</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-9"></a><span class="tm">13:00:38</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-10"></a><span class="tm">13:00:55</span><span class="nk"> &lt;pvital&gt;</span> no
+<a name="l-11"></a><span class="tm">13:02:39</span><span class="nk"> &lt;ziviani&gt;</span> no
+<a name="l-12"></a><span class="tm">13:02:48</span><span class="nk"> &lt;alinefm&gt;</span> so let's get started
+<a name="l-13"></a><span class="tm">13:03:08</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-14"></a><span class="tm">13:03:08</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info [&lt;project] &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-15"></a><span class="tm">13:03:27</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] alinefm fixed HTTP error code when login fails</span>
+<a name="l-16"></a><span class="tm">13:03:52</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] lcorreia is working on user log functionality</span>
+<a name="l-17"></a><span class="tm">13:03:52</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] lcorreia working on V2 for inclusion of option to specify max_vcpu and current_vcpu separately per guest/template in Kimchi backend</span>
+<a name="l-18"></a><span class="tm">13:03:52</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] lcorreia will work to handle notifications for host ENOSPC from libvirt in kimchi backend</span>
+<a name="l-19"></a><span class="tm">13:04:08</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] alinefm sent patch to protect Ginger APIs</span>
+<a name="l-20"></a><span class="tm">13:04:08</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ziviani is working on a new feature (web serial console), almost ready for review</span>
+<a name="l-21"></a><span class="tm">13:04:11</span><span class="nk"> &lt;peterpennings&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] peterpennings working on network bridges UI</span>
+<a name="l-22"></a><span class="tm">13:04:23</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] samhenri sent max memory UI RFC patch</span>
+<a name="l-23"></a><span class="tm">13:04:39</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] alinefm is now working on a script to make all the code styling verification and reuse it in all plugins</span>
+<a name="l-24"></a><span class="tm">13:05:30</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] pvital is working in issue #817</span>
+<a name="l-25"></a><span class="tm">13:05:31</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] [Kimchi] [Ginger] [Gingerbase] [GingerS390x] pvital reviewed patches</span>
+<a name="l-26"></a><span class="tm">13:05:50</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] samhenri fixed filtering and sorting in System Modules</span>
+<a name="l-27"></a><span class="tm">13:06:05</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] samhenri finished flex box implementation on Details accordion for system modules</span>
+<a name="l-28"></a><span class="tm">13:06:29</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] [kimchi] [ginger*] danielhb reviewed and pushed patches upstream, fixed issues with the make check-local of the plug-ins</span>
+<a name="l-29"></a><span class="tm">13:07:15</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] samhenri was working on 'Create logical pool from existing VG' but had to stop it in order to fix issues with System modules / SR-IOV in Ginger</span>
+<a name="l-30"></a><span class="tm">13:07:55</span><span class="nk"> &lt;samhenri&gt;</span> [ginger] samhenri currently working on SR-IOV modal window
+<a name="l-31"></a><span class="tm">13:08:36</span><span class="nk"> &lt;pvital&gt;</span> danielhb, [ginger*] nice catch! will use it next time.
+<a name="l-32"></a><span class="tm">13:09:02</span><span class="nk"> &lt;danielhb&gt;</span> pvital, ;)
+<a name="l-33"></a><span class="tm">13:10:03</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] rotru I am still finishing the max memory backend part.</span>
+<a name="l-34"></a><span class="tm">13:11:51</span><span class="nk"> &lt;alinefm&gt;</span> peterpennings, did you have the help you needed to configure the OVS bridges?
+<a name="l-35"></a><span class="tm">13:12:13</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">ramonn working on backport logrotate patch, also looking for old bug about vm snapshot</span>
+<a name="l-36"></a><span class="tm">13:12:55</span><span class="nk"> &lt;peterpennings&gt;</span> <span class="cmd">#alinefm </span><span class="cmdline">Yes, I asked #lcorreria to help me</span>
+<a name="l-37"></a><span class="tm">13:13:22</span><span class="nk"> &lt;alinefm&gt;</span> great
+<a name="l-38"></a><span class="tm">13:13:27</span><span class="nk"> &lt;alinefm&gt;</span> anything else, team?
+<a name="l-39"></a><span class="tm">13:15:20</span><span class="nk"> &lt;ramonn&gt;</span> nop
+<a name="l-40"></a><span class="tm">13:15:41</span><span class="nk"> &lt;alinefm&gt;</span> moving on...
+<a name="l-41"></a><span class="tm">13:15:45</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-42"></a><span class="tm">13:15:49</span><span class="nk"> &lt;alinefm&gt;</span> any topics for today?
+<a name="l-43"></a><span class="tm">13:17:41</span><span class="nk"> &lt;lcorreia&gt;</span> no
+<a name="l-44"></a><span class="tm">13:18:30</span><span class="nk"> &lt;pvital&gt;</span> not from my side
+<a name="l-45"></a><span class="tm">13:18:39</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-46"></a><span class="tm">13:18:44</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining!
+<a name="l-47"></a><span class="tm">13:18:46</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
