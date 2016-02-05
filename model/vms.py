@@ -41,8 +41,8 @@ from wok.model.tasks import TaskModel
 from wok.rollbackcontext import RollbackContext
 from wok.utils import add_task, convert_data_size, get_next_clone_name
 from wok.utils import import_class, run_setfacl_set_attr, run_command, wok_log
-from wok.xmlutils.utils import xpath_get_text, xml_item_update
-from wok.xmlutils.utils import dictize
+from wok.xmlutils.utils import dictize, xpath_get_text, xml_item_insert
+from wok.xmlutils.utils import xml_item_remove, xml_item_update
 
 from wok.plugins.kimchi import model
 from wok.plugins.kimchi import vnc
@@ -60,6 +60,7 @@ from wok.plugins.kimchi.screenshot import VMScreenshot
 from wok.plugins.kimchi.utils import template_name_from_uri
 from wok.plugins.kimchi.vmtemplate import MAX_MEM_LIM, PPC_MEM_ALIGN
 from wok.plugins.kimchi.xmlutils.cpu import get_cpu_xml, get_numa_xml
+from wok.plugins.kimchi.xmlutils.cpu import get_topology_xml
 from wok.plugins.kimchi.xmlutils.disk import get_vm_disk_info, get_vm_disks
 
 
@@ -72,15 +73,12 @@ DOM_STATE_MAP = {0: 'nostate',
                  6: 'crashed',
                  7: 'pmsuspended'}
 
-VM_STATIC_UPDATE_PARAMS = {'name': './name', 'cpus': './vcpu'}
-
-VM_LIVE_UPDATE_PARAMS = {}
-
 # update parameters which are updatable when the VM is online
 VM_ONLINE_UPDATE_PARAMS = ['graphics', 'groups', 'memory', 'users']
+
 # update parameters which are updatable when the VM is offline
-VM_OFFLINE_UPDATE_PARAMS = ['cpus', 'graphics', 'groups', 'memory', 'name',
-                            'users']
+VM_OFFLINE_UPDATE_PARAMS = ['cpu_info', 'graphics', 'groups', 'memory',
+                            'name', 'users']
 
 XPATH_DOMAIN_DISK = "/domain/devices/disk[@device='disk']/source/@file"
 XPATH_DOMAIN_DISK_BY_FILE = "./devices/disk[@device='disk']/source[@file='%s']"
@@ -93,8 +91,11 @@ XPATH_DOMAIN_MEMORY_UNIT = '/domain/memory/@unit'
 XPATH_DOMAIN_UUID = '/domain/uuid'
 XPATH_DOMAIN_DEV_CPU_ID = '/domain/devices/spapr-cpu-socket/@id'
 
+XPATH_CPU = './cpu'
+XPATH_NAME = './name'
 XPATH_NUMA_CELL = './cpu/numa/cell'
 XPATH_TOPOLOGY = './cpu/topology'
+XPATH_VCPU = './vcpu'
 
 # key: VM name; value: lock object
 vm_locks = {}
@@ -241,23 +242,6 @@ class VMModel(object):
         threads = xpath_get_text(xml, XPATH_TOPOLOGY + '/@threads')
         return sockets and cores and threads
 
-    def get_vm_max_sockets(self, dom):
-        return int(xpath_get_text(dom.XMLDesc(0),
-                                  XPATH_TOPOLOGY + '/@sockets')[0])
-
-    def get_vm_sockets(self, dom):
-        current_vcpu = dom.vcpusFlags(libvirt.VIR_DOMAIN_AFFECT_CURRENT)
-        return (current_vcpu / self.get_vm_cores(dom) /
-                self.get_vm_threads(dom))
-
-    def get_vm_cores(self, dom):
-        return int(xpath_get_text(dom.XMLDesc(0),
-                                  XPATH_TOPOLOGY + '/@cores')[0])
-
-    def get_vm_threads(self, dom):
-        return int(xpath_get_text(dom.XMLDesc(0),
-                                  XPATH_TOPOLOGY + '/@threads')[0])
-
     def update(self, name, params):
         lock = vm_locks.get(name)
         if lock is None:
@@ -284,17 +268,6 @@ class VMModel(object):
                 if len(ext_params) > 0:
                     raise InvalidParameter('KCHVM0074E',
                                            {'params': ', '.join(ext_params)})
-
-            if 'cpus' in params and DOM_STATE_MAP[dom.info()[0]] == 'shutoff':
-                # user cannot change vcpu if topology is defined.
-                curr_vcpu = dom.vcpusFlags(libvirt.VIR_DOMAIN_AFFECT_CURRENT)
-                if self.has_topology(dom) and curr_vcpu != params['cpus']:
-                    raise InvalidOperation(
-                        'KCHVM0075E',
-                        {'vm': dom.name(),
-                         'sockets': self.get_vm_sockets(dom),
-                         'cores': self.get_vm_cores(dom),
-                         'threads': self.get_vm_threads(dom)})
 
             self._live_vm_update(dom, params)
             vm_name, dom = self._static_vm_update(name, dom, params)
@@ -751,6 +724,8 @@ class VMModel(object):
         old_xml = new_xml = dom.XMLDesc(0)
 
         params = copy.deepcopy(params)
+
+        # Update name
         name = params.get('name')
         nonascii_name = None
         if name is not None:
@@ -760,37 +735,41 @@ class VMModel(object):
                 raise InvalidParameter("KCHVM0003E", msg_args)
 
             params['name'], nonascii_name = get_ascii_nonascii_name(name)
+            new_xml = xml_item_update(new_xml, XPATH_NAME, name, None)
 
-        for key, val in params.items():
-            change_numa = True
-            if key in VM_STATIC_UPDATE_PARAMS:
-                if type(val) == int:
-                    val = str(val)
-                xpath = VM_STATIC_UPDATE_PARAMS[key]
-                attrib = None
-                if key == 'cpus':
-                    if self.has_topology(dom) or dom.isActive():
-                        change_numa = False
-                        continue
-                    # Update maxvcpu firstly
-                    new_xml = xml_item_update(new_xml, xpath,
-                                              str(self._get_host_maxcpu()),
-                                              attrib)
-                    # Update current vcpu
-                    attrib = 'current'
-                new_xml = xml_item_update(new_xml, xpath, val, attrib)
+        # Update CPU info
+        cpu_info = params.get('cpu_info', {})
+        cpu_info = self._update_cpu_info(new_xml, dom, cpu_info)
+
+        vcpus = str(cpu_info['vcpus'])
+        new_xml = xml_item_update(new_xml, XPATH_VCPU, vcpus, 'current')
+
+        maxvcpus = str(cpu_info['maxvcpus'])
+        new_xml = xml_item_update(new_xml, XPATH_VCPU, maxvcpus, None)
+
+        topology = cpu_info['topology']
+        if topology:
+            sockets = str(topology['sockets'])
+            cores = str(topology['cores'])
+            threads = str(topology['threads'])
+
+            if self.has_topology(dom):
+                # topology is being updated
+                xpath = XPATH_TOPOLOGY
+                new_xml = xml_item_update(new_xml, xpath, sockets, 'sockets')
+                new_xml = xml_item_update(new_xml, xpath, cores, 'cores')
+                new_xml = xml_item_update(new_xml, xpath, threads, 'threads')
+            else:
+                # topology is being added
+                new_xml = xml_item_insert(new_xml, XPATH_CPU,
+                                          get_topology_xml(topology))
+        elif self.has_topology(dom):
+            # topology is being undefined: remove it
+            new_xml = xml_item_remove(new_xml, XPATH_TOPOLOGY)
 
         # Updating memory and NUMA if necessary, if vm is offline
-        if not dom.isActive():
-            if 'memory' in params:
-                new_xml = self._update_memory_config(new_xml, params)
-            elif 'cpus' in params and change_numa and \
-                 (xpath_get_text(new_xml, XPATH_NUMA_CELL + '/@memory') != []):
-                new_xml = xml_item_update(
-                    new_xml,
-                    XPATH_NUMA_CELL,
-                    value='0',
-                    attr='cpus')
+        if 'memory' in params and not dom.isActive():
+            new_xml = self._update_memory_config(new_xml, params)
 
         if 'graphics' in params:
             new_xml = self._update_graphics(dom, new_xml, params)
@@ -834,10 +813,10 @@ class VMModel(object):
         # apropriated
         root = ET.fromstring(xml)
         numa_mem = xpath_get_text(xml, XPATH_NUMA_CELL + '/@memory')
-        vcpus = params.get('cpus')
+        maxvcpus = params.get('cpu_info', {}).get('maxvcpus')
         if numa_mem == []:
-            if vcpus is None:
-                vcpus = int(xpath_get_text(xml, 'vcpu')[0])
+            if maxvcpus is None:
+                maxvcpus = int(xpath_get_text(xml, XPATH_VCPU)[0])
             cpu = root.find('./cpu')
             if cpu is None:
                 cpu = get_cpu_xml(0, params['memory'] << 10)
@@ -846,7 +825,7 @@ class VMModel(object):
                 numa_element = get_numa_xml(0, params['memory'] << 10)
                 cpu.insert(0, ET.fromstring(numa_element))
         else:
-            if vcpus is not None:
+            if maxvcpus is not None:
                 xml = xml_item_update(
                     xml,
                     XPATH_NUMA_CELL,
@@ -927,6 +906,37 @@ class VMModel(object):
                                                    unit='Kib'))
 
         return ET.tostring(root, encoding="utf-8")
+
+    def _update_cpu_info(self, new_xml, dom, new_info):
+        topology = {}
+        if self.has_topology(dom):
+            sockets = xpath_get_text(new_xml, XPATH_TOPOLOGY + '/@sockets')[0]
+            cores = xpath_get_text(new_xml, XPATH_TOPOLOGY + '/@cores')[0]
+            threads = xpath_get_text(new_xml, XPATH_TOPOLOGY + '/@threads')[0]
+            topology = {
+                'sockets': int(sockets),
+                'cores': int(cores),
+                'threads': int(threads),
+            }
+
+        # if current is not defined in vcpu, vcpus is equal to maxvcpus
+        xml_maxvcpus = xpath_get_text(new_xml, 'vcpu')
+        maxvcpus = int(xml_maxvcpus[0])
+        xml_vcpus = xpath_get_text(new_xml, './vcpu/@current')
+        vcpus = int(xml_vcpus[0]) if xml_vcpus else maxvcpus
+
+        cpu_info = {
+            'maxvcpus': maxvcpus,
+            'vcpus': vcpus,
+            'topology': topology,
+        }
+        cpu_info.update(new_info)
+
+        # Revalidate cpu info - may raise CPUInfo exceptions
+        cpu_model = CPUInfoModel(conn=self.conn)
+        cpu_model.check_cpu_info(cpu_info)
+
+        return cpu_info
 
     def _live_vm_update(self, dom, params):
         self._vm_update_access_metadata(dom, params)
@@ -1140,8 +1150,27 @@ class VMModel(object):
         res['io_throughput_peak'] = vm_stats.get('max_disk_io', 100)
         users, groups = self._get_access_info(dom)
 
+        xml = dom.XMLDesc(0)
+        maxvcpus = int(xpath_get_text(xml, XPATH_VCPU)[0])
+
+        cpu_info = {
+            'vcpus': info[3],
+            'maxvcpus': maxvcpus,
+            'topology': {},
+        }
+
+        if self.has_topology(dom):
+            sockets = int(xpath_get_text(xml, XPATH_TOPOLOGY + '/@sockets')[0])
+            cores = int(xpath_get_text(xml, XPATH_TOPOLOGY + '/@cores')[0])
+            threads = int(xpath_get_text(xml, XPATH_TOPOLOGY + '/@threads')[0])
+
+            cpu_info['topology'] = {
+                'sockets': sockets,
+                'cores': cores,
+                'threads': threads,
+            }
+
         if state == 'shutoff':
-            xml = dom.XMLDesc(0)
             val = xpath_get_text(xml, XPATH_DOMAIN_MEMORY)[0]
             unit_list = xpath_get_text(xml, XPATH_DOMAIN_MEMORY_UNIT)
             if len(unit_list) > 0:
@@ -1157,7 +1186,7 @@ class VMModel(object):
                 'stats': res,
                 'uuid': dom.UUIDString(),
                 'memory': memory,
-                'cpus': info[3],
+                'cpu_info': cpu_info,
                 'screenshot': screenshot,
                 'icon': icon,
                 # (type, listen, port, passwd, passwdValidTo)

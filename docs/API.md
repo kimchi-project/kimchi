@@ -117,7 +117,13 @@ server.
         * io_throughput_peak: The highest recent value of 'io_throughput'.
     * uuid: UUID of the VM.
     * memory: The amount of memory assigned to the VM (in MB)
-    * cpus: The number of CPUs assigned to the VM
+    * cpu_info: CPU-specific information.
+        * vcpus: The number of CPUs assigned to the VM
+        * maxvcpus: The maximum number of CPUs that can be assigned to the VM
+        * topology: Processor topology, includes:
+            * sockets - The maximum number of sockets to use.
+            * cores   - The number of cores per socket.
+            * threads - The number of threads per core.
     * screenshot: A link to a recent capture of the screen in PNG format
     * icon: A link to an icon that represents the VM
     * graphics: A dict to show detail of VM graphics.
@@ -138,12 +144,10 @@ server.
     * groups: A list of system groups whose users have permission to access
       the VM. Default is: empty (i.e. no groups given access).
 * **DELETE**: Remove the Virtual Machine
-* **PUT**: update the parameters of existed VM
+* **PUT**: update the parameters of existing VM
     * name: New name for this VM (only applied for shutoff VM)
     * users: New list of system users.
     * groups: New list of system groups.
-    * cpus: New number of virtual cpus for this VM (if VM is running, new value
-            will take effect in next reboot)
     * memory: New amount of memory (MB) for this VM (if VM is running, new
               value will take effect in next reboot)
     * graphics: A dict to show detail of VM graphics.
@@ -152,6 +156,19 @@ server.
         * passwdValidTo *(optional)*: lifetime for the console password. When
                                       omitted the password will be valid just
                                       for 30 seconds.
+    * cpu_info *(optional)*: CPU-specific information.
+        * maxvcpus *(optional)*: The maximum number of vCPUs that can be
+              assigned to the VM. If topology is specified, maxvcpus must be a
+              product of sockets, cores and threads.
+        * vcpus *(optional)*: The number of vCPUs assigned to the VM. Default
+              is 1, unless a CPU topology is specified. In that case, vcpus
+              must be a multiple of a product of cores and threads, and will
+              default to maxvcpus value.
+        * topology *(optional)*: Specify sockets, threads, and cores to run the
+              virtual CPU threads on. All three are required.
+            * sockets - The maximum number of sockets to use.
+            * cores   - The number of cores per socket.
+            * threads - The number of threads per core.
 
 * **POST**: *See Virtual Machine Actions*
 

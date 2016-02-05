@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2015
+# Copyright IBM, Corp. 2015-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -45,7 +45,7 @@ def get_topology_xml(cpu_topo):
     return ET.tostring(xml)
 
 
-def get_cpu_xml(cpus, memory, cpu_topo=None):
+def get_cpu_xml(cpus, memory, cpu_topo={}):
     # Returns the libvirt CPU element based on given numa and topology
     # CPU element will always have numa element
     #   <cpu>
@@ -55,6 +55,6 @@ def get_cpu_xml(cpus, memory, cpu_topo=None):
     #      <topology sockets='1' cores='2' threads='1'/>
     #   </cpu>
     xml = E.cpu(ET.fromstring(get_numa_xml(cpus, memory)))
-    if cpu_topo is not None:
+    if cpu_topo:
         xml.insert(0, ET.fromstring(get_topology_xml(cpu_topo)))
     return ET.tostring(xml)
