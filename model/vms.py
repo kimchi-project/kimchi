@@ -107,17 +107,6 @@ class VMsModel(object):
         self.caps = CapabilitiesModel(**kargs)
         self.task = TaskModel(**kargs)
 
-    def _get_host_maxcpu(self):
-        if os.uname()[4] in ['ppc', 'ppc64', 'ppc64le']:
-            cpu_model = CPUInfoModel(conn=self.conn)
-            max_vcpu_val = (cpu_model.cores_available *
-                            cpu_model.threads_per_core)
-            if max_vcpu_val > 255:
-                max_vcpu_val = 255
-        else:
-            max_vcpu_val = self.conn.get().getMaxVcpus('kvm')
-        return max_vcpu_val
-
     def create(self, params):
         t_name = template_name_from_uri(params['template'])
         vm_list = self.get_list()
@@ -178,8 +167,7 @@ class VMsModel(object):
         stream_protocols = self.caps.libvirt_stream_protocols
         xml = t.to_vm_xml(name, vm_uuid,
                           libvirt_stream_protocols=stream_protocols,
-                          graphics=graphics,
-                          max_vcpus=self._get_host_maxcpu())
+                          graphics=graphics)
 
         cb('Defining new VM')
         try:
@@ -939,17 +927,6 @@ class VMModel(object):
                                                    unit='Kib'))
 
         return ET.tostring(root, encoding="utf-8")
-
-    def _get_host_maxcpu(self):
-        if os.uname()[4] in ['ppc', 'ppc64', 'ppc64le']:
-            cpu_model = CPUInfoModel(conn=self.conn)
-            max_vcpu_val = (cpu_model.cores_available *
-                            cpu_model.threads_per_core)
-            if max_vcpu_val > 255:
-                max_vcpu_val = 255
-        else:
-            max_vcpu_val = self.conn.get().getMaxVcpus('kvm')
-        return max_vcpu_val
 
     def _live_vm_update(self, dom, params):
         self._vm_update_access_metadata(dom, params)

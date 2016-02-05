@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2015
+# Copyright IBM, Corp. 2013-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -46,7 +46,6 @@ class Template(Resource):
             'invalid': self.info['invalid'],
             'os_distro': self.info['os_distro'],
             'os_version': self.info['os_version'],
-            'cpus': self.info['cpus'],
             'memory': self.info['memory'],
             'cdrom': self.info.get('cdrom', None),
             'disks': self.info['disks'],

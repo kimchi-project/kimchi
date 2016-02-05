@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2015
+# Copyright IBM, Corp. 2013-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -117,7 +117,7 @@ def _get_tmpl_defaults():
     {'main': {'networks': ['default'], 'memory': '1024'},
      'storage': { 'disk.0': {'format': 'qcow2', 'size': '10',
                              'pool': '/plugins/kimchi/storagepools/default'}},
-     'processor': {'cpus': '1'},
+     'processor': {'vcpus': '1',  'maxvcpus': 1},
      'graphics': {'type': 'spice', 'listen': '127.0.0.1'}}
     """
     # Create dict with default values
@@ -126,7 +126,8 @@ def _get_tmpl_defaults():
     tmpl_defaults['main']['memory'] = _get_default_template_mem()
     tmpl_defaults['storage']['disk.0'] = {'size': 10, 'format': 'qcow2',
                                           'pool': 'default'}
-    tmpl_defaults['processor']['cpus'] = 1
+    tmpl_defaults['processor']['vcpus'] = 1
+    tmpl_defaults['processor']['maxvcpus'] = 1
     tmpl_defaults['graphics'] = {'type': 'vnc', 'listen': '127.0.0.1'}
 
     default_config = ConfigObj(tmpl_defaults)
@@ -157,10 +158,10 @@ def _get_tmpl_defaults():
                         storage_section[disk].pop('pool')}
         defaults['disks'].append(data)
 
-    # Parse processor section to get cpus and cpu_topology values
+    # Parse processor section to get vcpus and cpu_topology values
     processor_section = default_config.pop('processor')
-    defaults['cpus'] = processor_section.pop('cpus')
-    defaults['cpu_info'] = {}
+    defaults['cpu_info'] = {'vcpus': processor_section.pop('vcpus'),
+                            'maxvcpus': processor_section.pop('maxvcpus')}
     if len(processor_section.keys()) > 0:
         defaults['cpu_info']['topology'] = processor_section
 

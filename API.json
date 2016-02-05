@@ -31,25 +31,34 @@
             "description": "Configure CPU specifics for a VM.",
             "type": "object",
             "properties": {
+                "vcpus": {
+                    "description": "The new number of virtual CPUs for the VM",
+                    "type": "integer",
+                    "minimum": 1,
+                    "error": "KCHTMPL0012E"
+                },
+                "maxvcpus": {
+                    "description": "The maximum number of virtual CPUs that can be assigned to the VM",
+                    "type": "integer",
+                    "minimum": 1,
+                    "error": "KCHTMPL0012E"
+                },
                 "topology": {
                     "description": "Configure the guest CPU topology.",
                     "type": "object",
                     "properties": {
                         "sockets": {
                             "type": "integer",
-                            "required": true,
                             "minimum": 1,
                             "error": "KCHTMPL0026E"
                         },
                         "cores": {
                             "type": "integer",
-                            "required": true,
                             "minimum": 1,
                             "error": "KCHTMPL0026E"
                         },
                         "threads": {
                             "type": "integer",
-                            "required": true,
                             "minimum": 1,
                             "error": "KCHTMPL0026E"
                         }
@@ -448,12 +457,6 @@
                     "minLength": 1,
                     "error": "KCHTMPL0011E"
                 },
-                "cpus": {
-                    "description": "Number of CPUs for the template",
-                    "type": "integer",
-                    "minimum": 1,
-                    "error": "KCHTMPL0012E"
-                },
                 "memory": {
                     "description": "Memory (MB) for the template",
                     "type": "integer",
@@ -630,12 +633,6 @@
                     "type": "string",
                     "minLength": 1,
                     "error": "KCHTMPL0011E"
-                },
-                "cpus": {
-                    "description": "Number of CPUs for the template",
-                    "type": "integer",
-                    "minimum": 1,
-                    "error": "KCHTMPL0012E"
                 },
                 "memory": {
                     "description": "Memory (MB) for the template",

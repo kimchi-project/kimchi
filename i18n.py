@@ -175,7 +175,6 @@ messages = {
     "KCHTMPL0022E": _("Disk size must be an integer greater than 1GB."),
     "KCHTMPL0023E": _("Template base image must be a valid local image file"),
     "KCHTMPL0024E": _("Cannot identify base image %(path)s format"),
-    "KCHTMPL0025E": _("When specifying CPU topology, VCPUs must be a product of sockets, cores, and threads."),
     "KCHTMPL0026E": _("When specifying CPU topology, each element must be an integer greater than zero."),
     "KCHTMPL0027E": _("Invalid disk image format. Valid formats: bochs, cloop, cow, dmg, qcow, qcow2, qed, raw, vmdk, vpc."),
     "KCHTMPL0028E": _("When setting template disks, following parameters are required: 'index', 'pool name', 'format', 'size' or 'volume' (for scsi/iscsi pools)"),
@@ -311,9 +310,13 @@ messages = {
     "KCHSNAP0009E": _("Unable to revert virtual machine '%(vm)s' to snapshot '%(name)s'. Details: %(err)s"),
     "KCHSNAP0010E": _("Unable to create snapshot of virtual machine '%(vm)s' because it contains a disk with format '%(format)s'; only 'qcow2' is supported."),
 
-    "KCHCPUINF0001E": _("The number of vCPUs is too large for this system."),
-    "KCHCPUINF0002E": _("Invalid vCPU/topology combination."),
+    "KCHCPUINF0001E": _("The number of vCPUs must be less than or equal the maximum number of vCPUs specified."),
+    "KCHCPUINF0002E": _("When CPU topology is defined, maximum number of vCPUs must be a product of sockets, cores, and threads."),
     "KCHCPUINF0003E": _("This host (or current configuration) does not allow CPU topology."),
+    "KCHCPUINF0004E": _("The maximum number of vCPUs is too large for this system."),
+    "KCHCPUINF0005E": _("When CPU topology is defined, vCPUs must be a multiple of a product of cores and threads."),
+    "KCHCPUINF0006E": _("The number of threads is too large for this system."),
+    "KCHCPUINF0007E": _("When CPU topology is specified, sockets, cores and threads are required paramaters."),
 
     "KCHLVMS0001E": _("Invalid volume group name parameter: %(name)s."),
 
