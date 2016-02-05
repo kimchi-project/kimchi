@@ -660,6 +660,7 @@ kimchi.guest_edit_main = function() {
     };
 
     var initContent = function(guest) {
+        guest['vcpus'] = guest['cpu_info']['vcpus']
         guest['icon'] = guest['icon'] || 'plugins/kimchi/images/icon-vm.png';
         $('#form-guest-edit-general').fillWithObject(guest);
         kimchi.thisVMState = guest['state'];
@@ -707,8 +708,11 @@ kimchi.guest_edit_main = function() {
         if (data['memory'] !== undefined) {
             data['memory'] = Number(data['memory']);
         }
-        if (data['cpus'] !== undefined) {
-            data['cpus'] = Number(data['cpus']);
+        if (data['vcpus'] !== undefined) {
+            data['cpu_info'] = {
+                vcpus: Number(data['vcpus'])
+            };
+            delete data['vcpus'];
         }
 
         kimchi.updateVM(kimchi.selectedGuest, data, function() {
