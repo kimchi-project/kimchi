@@ -324,12 +324,9 @@ class VMTemplate(object):
 
     def _get_cpu_xml(self):
         # Include CPU topology, if provided
-        cpu_info = self.info.get('cpu_info')
-        if cpu_info is not None:
-            cpu_topo = cpu_info.get('topology')
-        return get_cpu_xml(0,
-                           self.info.get('memory') << 10,
-                           cpu_topo)
+        cpu_topo = self.info.get('cpu_info', {}).get('topology', {})
+
+        return get_cpu_xml(0, self.info.get('memory') << 10, cpu_topo)
 
     def _get_max_memory(self, guest_memory):
         # Setting maxMemory of the VM, which will be lesser value between:
@@ -371,8 +368,6 @@ class VMTemplate(object):
         libvirt_stream_protocols = kwargs.get('libvirt_stream_protocols', [])
         cdrom_xml = self._get_cdrom_xml(libvirt_stream_protocols)
 
-        max_vcpus = kwargs.get('max_vcpus', 1)
-
         if not urlparse.urlparse(self.info.get('cdrom', "")).scheme in \
                 libvirt_stream_protocols and \
                 params.get('iso_stream', False):
@@ -402,23 +397,13 @@ class VMTemplate(object):
         # set a hard limit using max_memory + 1GiB
         params['hard_limit'] = params['max_memory'] + (1024 << 10)
 
-        cpu_topo = self.info.get('cpu_info').get('topology')
-        if (cpu_topo is not None):
-            sockets = int(max_vcpus / (cpu_topo['cores'] *
-                          cpu_topo['threads']))
-            self.info['cpu_info']['topology']['sockets'] = sockets
+        # vcpu element
+        cpus = params['cpu_info']['vcpus']
+        maxvcpus = params['cpu_info']['maxvcpus']
+        params['vcpus_xml'] = "<vcpu current='%d'>%d</vcpu>" % (cpus, maxvcpus)
 
-            # Reduce maxvcpu to fit number of sockets if necessary
-            total_max_vcpu = sockets * cpu_topo['cores'] * cpu_topo['threads']
-            if total_max_vcpu != max_vcpus:
-                max_vcpus = total_max_vcpu
-
-            params['vcpus'] = "<vcpu current='%s'>%d</vcpu>" % \
-                              (params['cpus'], max_vcpus)
-        else:
-            params['vcpus'] = "<vcpu current='%s'>%d</vcpu>" % \
-                              (params['cpus'], max_vcpus)
-        params['cpu_info'] = self._get_cpu_xml()
+        # cpu_info element
+        params['cpu_info_xml'] = self._get_cpu_xml()
 
         xml = """
         <domain type='%(domain)s'>
@@ -430,8 +415,8 @@ class VMTemplate(object):
           </memtune>
           <maxMemory slots='%(slots)s' unit='KiB'>%(max_memory)s</maxMemory>
           <memory unit='MiB'>%(memory)s</memory>
-          %(vcpus)s
-          %(cpu_info)s
+          %(vcpus_xml)s
+          %(cpu_info_xml)s
           <os>
             <type arch='%(arch)s'>hvm</type>
             <boot dev='hd'/>
