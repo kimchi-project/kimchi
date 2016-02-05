@@ -241,9 +241,9 @@ kimchi.template_edit_main = function() {
         var initProcessor = function(){
             var setCPUValue = function(){
                 if(!$('#cores').hasClass("invalid-field")&&$('#cores').val()!=""){
-                    $("#cpus").val(parseInt($("#cores").val())*parseInt($("#threads").val()));
+                    $("#vcpus").val(parseInt($("#cores").val())*parseInt($("#threads").val()));
                 }else{
-                    $("#cpus").val('');
+                    $("#vcpus").val('');
                 }
             };
             $("input:text", "#form-template-processor").on('keyup', function(){
@@ -252,7 +252,7 @@ kimchi.template_edit_main = function() {
             });
             $("input:checkbox", "#form-template-processor").click(function(){
                 $(".topology", "#form-template-processor").toggleClass("hide", !$(this).prop("checked"));
-                $("#cpus").attr("disabled", $(this).prop("checked"));
+                $("#vcpus").attr("disabled", $(this).prop("checked"));
                 setCPUValue();
             });
             $('select', '#form-template-processor').change(function(){
@@ -266,7 +266,7 @@ kimchi.template_edit_main = function() {
                 }
                 $('select', '#form-template-processor').append(options);
                 $('select', '#form-template-processor').selectpicker();
-                if(template.cpus) $("#cpus").val(template.cpus);
+                if(template.cpu_info.vcpus) $("#vcpus").val(template.cpu_info.vcpus);
                 var topo = template.cpu_info.topology;
                 if(topo&&topo.cores) $("#cores").val(topo.cores);
                 if(topo&&topo.threads){
@@ -320,9 +320,10 @@ kimchi.template_edit_main = function() {
             }
         });
         data['memory'] = Number(data['memory']);
-        data['cpus']   = parseInt($('#cpus').val());
         if($("input:checkbox", "#form-template-processor").prop("checked")){
             data['cpu_info'] = {
+                vcpus: parseInt($('#vcpus').val()),
+                maxvcpus: parseInt($('#vcpus').val()),
                 topology: {
                     sockets: 1,
                     cores: parseInt($("#cores").val()),
@@ -330,7 +331,9 @@ kimchi.template_edit_main = function() {
                 }
             };
         }else{
-            data['cpu_info'] = {};
+            data['cpu_info'] = {
+                vcpus: parseInt($('#vcpus').val())
+            };
         }
         var networks = $('.template-tab-body .item', '#form-template-interface');
         var networkForUpdate = new Array();
