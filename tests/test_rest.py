@@ -148,7 +148,7 @@ class RestTests(unittest.TestCase):
         vm = json.loads(self.request('/plugins/kimchi/vms/vm-1').read())
         self.assertEquals('vm-1', vm['name'])
 
-        req = json.dumps({'cpus': 3})
+        req = json.dumps({'cpu_info': {'maxvcpus': 5, 'vcpus': 3}})
         resp = self.request('/plugins/kimchi/vms/vm-1', req, 'PUT')
         self.assertEquals(200, resp.status)
 
@@ -164,7 +164,7 @@ class RestTests(unittest.TestCase):
         self.assertEquals(400, resp.status)
 
         # Unable to do CPU hotplug
-        req = json.dumps({'cpus': 5})
+        req = json.dumps({'cpu_info': {'vcpus': 5}})
         resp = self.request('/plugins/kimchi/vms/vm-1', req, 'PUT')
         self.assertEquals(400, resp.status)
 
@@ -203,11 +203,11 @@ class RestTests(unittest.TestCase):
         resp = self.request('/plugins/kimchi/vms/vm-1', req, 'PUT')
         self.assertEquals(400, resp.status)
 
-        req = json.dumps({'cpus': -2})
+        req = json.dumps({'cpu_info': {'vcpus': -2}})
         resp = self.request('/plugins/kimchi/vms/vm-1', req, 'PUT')
         self.assertEquals(400, resp.status)
 
-        req = json.dumps({'cpus': 'four'})
+        req = json.dumps({'cpu_info': {'vcpus': 'four'}})
         resp = self.request('/plugins/kimchi/vms/vm-1', req, 'PUT')
         self.assertEquals(400, resp.status)
 
@@ -219,11 +219,13 @@ class RestTests(unittest.TestCase):
         resp = self.request('/plugins/kimchi/vms/vm-1', req, 'PUT')
         self.assertEquals(400, resp.status)
 
-        req = json.dumps({'name': 'new-name', 'cpus': 5, 'UUID': 'notallowed'})
+        req = json.dumps({'name': 'new-name', 'cpu_info': {'vcpus': 5},
+                          'UUID': 'notallowed'})
         resp = self.request('/plugins/kimchi/vms/vm-1', req, 'PUT')
         self.assertEquals(400, resp.status)
 
-        params = {'name': u'∨м-црdαtеd', 'cpus': 5, 'memory': 3072}
+        params = {'name': u'∨м-црdαtеd', 'cpu_info': {'vcpus': 5},
+                  'memory': 3072}
         req = json.dumps(params)
         resp = self.request('/plugins/kimchi/vms/vm-1', req, 'PUT')
         self.assertEquals(303, resp.status)

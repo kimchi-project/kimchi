@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2015
+# Copyright IBM, Corp. 2013-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -45,12 +45,12 @@ class VMTemplateTests(unittest.TestCase):
         disk_bus = get_template_default('old', 'disk_bus')
         memory = get_template_default('old', 'memory')
         nic_model = get_template_default('old', 'nic_model')
-        fields = (('name', 'test'), ('os_distro', 'unknown'),
-                  ('os_version', 'unknown'), ('cpus', 1),
+        fields = (('name', 'test'), ('cdrom', self.iso),
+                  ('os_distro', 'unknown'), ('os_version', 'unknown'),
+                  ('cpu_info', {'vcpus': 1, 'maxvcpus': 1}),
                   ('memory', memory), ('networks', ['default']),
                   ('disk_bus', disk_bus), ('nic_model', nic_model),
-                  ('graphics', {'type': 'vnc', 'listen': '127.0.0.1'}),
-                  ('cdrom', self.iso))
+                  ('graphics', {'type': 'vnc', 'listen': '127.0.0.1'}))
 
         args = {'name': 'test', 'cdrom': self.iso}
         t = VMTemplate(args)
@@ -121,10 +121,11 @@ class VMTemplateTests(unittest.TestCase):
         """
         graphics = {'type': 'vnc', 'listen': '127.0.0.1'}
         args = {'name': 'test', 'os_distro': 'opensuse', 'os_version': '12.3',
-                'cpus': 2, 'memory': 2048, 'networks': ['foo'],
-                'cdrom': self.iso, 'graphics': graphics}
+                'cpu_info': {'vcpus': 2, 'maxvcpus': 4}, 'memory': 2048,
+                'networks': ['foo'], 'cdrom': self.iso, 'graphics': graphics}
         t = VMTemplate(args)
-        self.assertEquals(2, t.info.get('cpus'))
+        self.assertEquals(2, t.info.get('cpu_info', {}).get('vcpus'))
+        self.assertEquals(4, t.info.get('cpu_info', {}).get('maxvcpus'))
         self.assertEquals(2048, t.info.get('memory'))
         self.assertEquals(['foo'], t.info.get('networks'))
         self.assertEquals(self.iso, t.info.get('cdrom'))

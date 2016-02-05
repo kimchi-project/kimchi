@@ -2,7 +2,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2015
+# Copyright IBM, Corp. 2015-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -70,7 +70,7 @@ class TemplateTests(unittest.TestCase):
 
         # Create a template without cdrom and disk specified fails with 400
         t = {'name': 'test', 'os_distro': 'ImagineOS',
-             'os_version': '1.0', 'memory': 1024, 'cpus': 1}
+             'os_version': '1.0', 'memory': 1024, 'cpu_info': {'vcpus': 1}}
         req = json.dumps(t)
         resp = self.request('/plugins/kimchi/templates', req, 'POST')
         self.assertEquals(400, resp.status)
@@ -82,9 +82,8 @@ class TemplateTests(unittest.TestCase):
         self.assertEquals(201, resp.status)
 
         # Verify the template
-        keys = ['name', 'icon', 'invalid', 'os_distro', 'os_version', 'cpus',
-                'memory', 'cdrom', 'disks', 'networks',
-                'folder', 'graphics', 'cpu_info']
+        keys = ['name', 'icon', 'invalid', 'os_distro', 'os_version', 'memory',
+                'cdrom', 'disks', 'networks', 'folder', 'graphics', 'cpu_info']
         tmpl = json.loads(
             self.request('/plugins/kimchi/templates/test').read()
         )
@@ -193,12 +192,32 @@ class TemplateTests(unittest.TestCase):
         self.assertEquals('fedora', update_tmpl['os_distro'])
         self.assertEquals('21', update_tmpl['os_version'])
 
-        # Update cpus
-        req = json.dumps({'cpus': 2})
+        # Update maxvcpus only
+        req = json.dumps({'cpu_info': {'maxvcpus': 2}})
         resp = self.request(new_tmpl_uri, req, 'PUT')
         self.assertEquals(200, resp.status)
         update_tmpl = json.loads(resp.read())
-        self.assertEquals(2, update_tmpl['cpus'])
+        self.assertEquals(2, update_tmpl['cpu_info']['maxvcpus'])
+
+        # Update vcpus only
+        req = json.dumps({'cpu_info': {'vcpus': 2}})
+        resp = self.request(new_tmpl_uri, req, 'PUT')
+        self.assertEquals(200, resp.status)
+        update_tmpl = json.loads(resp.read())
+        self.assertEquals(2, update_tmpl['cpu_info']['vcpus'])
+
+        # Update cpu_info
+        cpu_info_data = {
+            'cpu_info': {
+                'maxvcpus': 2,
+                'vcpus': 2,
+                'topology': {'sockets': 1, 'cores': 2, 'threads': 1}
+            }
+        }
+        resp = self.request(new_tmpl_uri, json.dumps(cpu_info_data), 'PUT')
+        self.assertEquals(200, resp.status)
+        update_tmpl = json.loads(resp.read())
+        self.assertEquals(update_tmpl['cpu_info'], cpu_info_data['cpu_info'])
 
         # Update memory
         req = json.dumps({'memory': 2048})
@@ -206,20 +225,6 @@ class TemplateTests(unittest.TestCase):
         self.assertEquals(200, resp.status)
         update_tmpl = json.loads(resp.read())
         self.assertEquals(2048, update_tmpl['memory'])
-
-        # Update cpu_info
-        resp = self.request(new_tmpl_uri)
-        cpu_info = json.loads(resp.read())['cpu_info']
-        self.assertEquals(cpu_info, {})
-        self.assertEquals(cpu_info.get('topology'), None)
-
-        cpu_info_data = {'cpu_info': {'topology': {'sockets': 1,
-                                                   'cores': 2,
-                                                   'threads': 1}}}
-        resp = self.request(new_tmpl_uri, json.dumps(cpu_info_data), 'PUT')
-        self.assertEquals(200, resp.status)
-        update_tmpl = json.loads(resp.read())
-        self.assertEquals(update_tmpl['cpu_info'], cpu_info_data['cpu_info'])
 
         # Update cdrom
         cdrom_data = {'cdrom': '/tmp/mock2.iso'}

@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2015
+# Copyright IBM, Corp. 2013-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -122,7 +122,7 @@ class MockModelTests(unittest.TestCase):
         self.assertEquals(2, len(vms))
         self.assertIn(u'test-vm', vms)
 
-        keys = set(('name', 'state', 'stats', 'uuid', 'memory', 'cpus',
+        keys = set(('name', 'state', 'stats', 'uuid', 'memory', 'cpu_info',
                     'screenshot', 'icon', 'graphics', 'users', 'groups',
                     'access', 'persistent'))
 
@@ -136,7 +136,8 @@ class MockModelTests(unittest.TestCase):
         self.assertEquals('test-vm', info['name'])
         self.assertEquals(get_template_default('old', 'memory'),
                           info['memory'])
-        self.assertEquals(1, info['cpus'])
+        self.assertEquals(1, info['cpu_info']['vcpus'])
+        self.assertEquals(1, info['cpu_info']['maxvcpus'])
         self.assertEquals('plugins/kimchi/images/icon-vm.png', info['icon'])
         self.assertEquals(stats_keys, set(info['stats'].keys()))
         self.assertEquals('vnc', info['graphics']['type'])
