@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2015
+# Copyright IBM, Corp. 2013-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -466,6 +466,10 @@ class VMTemplate(object):
             self._storage_validate(pool_uri)
         self._network_validate()
         self._iso_validate()
+        self.cpuinfo_validate()
+
+    def cpuinfo_validate(self):
+        pass
 
     def _iso_validate(self):
         pass

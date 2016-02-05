@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2014-2015
+# Copyright IBM, Corp. 2014-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -54,22 +54,6 @@ class TemplatesModel(object):
                                            {'filename': iso, 'user': user,
                                             'err': excp})
 
-        cpu_info = params.get('cpu_info')
-        if cpu_info:
-            topology = cpu_info.get('topology')
-            # Check, even though currently only topology
-            #   is supported.
-            if topology:
-                sockets = topology['sockets']
-                cores = topology['cores']
-                threads = topology['threads']
-                if params.get('cpus') is None:
-                    params['cpus'] = sockets * cores * threads
-                # check_topoology will raise the appropriate
-                # exception if a topology is invalid.
-                CPUInfoModel(conn=self.conn).\
-                    check_topology(params['cpus'], topology)
-
         conn = self.conn.get()
         for net_name in params.get(u'networks', []):
             try:
@@ -81,6 +65,9 @@ class TemplatesModel(object):
         # Checkings will be done while creating this class, so any exception
         # will be raised here
         t = LibvirtVMTemplate(params, scan=True, conn=self.conn)
+
+        # Validate cpu info
+        t.cpuinfo_validate()
 
         # Validate max memory
         maxMem = (t._get_max_memory(t.info.get('memory')) >> 10)
@@ -178,10 +165,15 @@ class TemplateModel(object):
     def update(self, name, params):
         old_t = self.lookup(name)
         new_t = copy.copy(old_t)
-        new_t.update(params)
 
-        if not self._validate_updated_cpu_params(new_t):
-            raise InvalidParameter('KCHTMPL0025E')
+        # Merge cpu_info settings
+        new_cpu_info = params.get('cpu_info')
+        if new_cpu_info:
+            cpu_info = dict(new_t['cpu_info'])
+            cpu_info.update(new_cpu_info)
+            params['cpu_info'] = cpu_info
+
+        new_t.update(params)
 
         for net_name in params.get(u'networks', []):
             try:
@@ -199,22 +191,18 @@ class TemplateModel(object):
             raise
         return ident
 
-    def _validate_updated_cpu_params(self, info):
-        # Note: cpu_info is the parent of topology. cpus is vcpus
-        vcpus = info['cpus']
-        cpu_info = info.get('cpu_info')
-        # cpu_info will always be at least an empty dict
-        topology = cpu_info.get('topology')
-        if topology is None:
-            return True
-        return vcpus == topology['sockets'] * topology['cores'] * \
-            topology['threads']
-
 
 class LibvirtVMTemplate(VMTemplate):
     def __init__(self, args, scan=False, conn=None):
         self.conn = conn
         VMTemplate.__init__(self, args, scan)
+        self.set_cpu_info()
+
+    def cpuinfo_validate(self):
+        cpu_model = CPUInfoModel(conn=self.conn)
+
+        # validate CPU info values - will raise appropriate exceptions
+        cpu_model.check_cpu_info(self.info['cpu_info'])
 
     def _storage_validate(self, pool_uri):
         pool_name = pool_name_from_uri(pool_uri)
@@ -283,3 +271,32 @@ class LibvirtVMTemplate(VMTemplate):
         except libvirt.libvirtError as e:
             raise OperationFailed("KCHVMSTOR0008E", {'error': e.message})
         return vol_list
+
+    def set_cpu_info(self):
+        # undefined topology: consider these values to calculate maxvcpus
+        sockets = 1
+        cores = 1
+        threads = 1
+
+        # get topology values
+        cpu_info = self.info.get('cpu_info', {})
+        topology = cpu_info.get('topology', {})
+        if topology:
+            sockets = topology['sockets']
+            cores = topology['cores']
+            threads = topology['threads']
+
+        # maxvcpus not specified: use defaults
+        if 'maxvcpus' not in cpu_info:
+            vcpus = cpu_info.get('vcpus')
+            if vcpus and not topology:
+                cpu_info['maxvcpus'] = vcpus
+            else:
+                cpu_info['maxvcpus'] = sockets * cores * threads
+
+        # current vcpus not specified: defaults is maxvcpus
+        if 'vcpus' not in cpu_info:
+            cpu_info['vcpus'] = cpu_info['maxvcpus']
+
+        # update cpu_info
+        self.info['cpu_info'] = cpu_info
