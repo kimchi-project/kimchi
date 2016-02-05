@@ -2,7 +2,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2015
+# Copyright IBM, Corp. 2013-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -102,7 +102,7 @@ class ModelTests(unittest.TestCase):
         self.assertEquals(1, len(vms))
         self.assertEquals('test', vms[0])
 
-        keys = set(('name', 'state', 'stats', 'uuid', 'memory', 'cpus',
+        keys = set(('name', 'state', 'stats', 'uuid', 'memory', 'cpu_info',
                     'screenshot', 'icon', 'graphics', 'users', 'groups',
                     'access', 'persistent'))
 
@@ -114,7 +114,8 @@ class ModelTests(unittest.TestCase):
         self.assertEquals('running', info['state'])
         self.assertEquals('test', info['name'])
         self.assertEquals(2048, info['memory'])
-        self.assertEquals(2, info['cpus'])
+        self.assertEquals(2, info['cpu_info']['vcpus'])
+        self.assertEquals(2, info['cpu_info']['maxvcpus'])
         self.assertEquals(None, info['icon'])
         self.assertEquals(stats_keys, set(info['stats'].keys()))
         self.assertRaises(NotFoundError, inst.vm_lookup, 'nosuchvm')
@@ -267,10 +268,10 @@ class ModelTests(unittest.TestCase):
             # Create template based on IMG file
             tmpl_name = "img-tmpl"
             pool_uri = "/plugins/kimchi/storagepools/default"
-            tmpl_info = {"cpus": 1, "cdrom": "", "name": tmpl_name,
+            tmpl_info = {"cpu_info": {"vcpus": 1}, "name": tmpl_name,
                          "graphics": {"type": "vnc", "listen": "127.0.0.1"},
                          "networks": ["default"], "memory": 1024, "folder": [],
-                         "icon": "images/icon-vm.png",
+                         "icon": "images/icon-vm.png", "cdrom": "",
                          "os_distro": "unknown", "os_version": "unknown",
                          "disks": [{"base": vol_path, "size": 10,
                                     "format": "qcow2",
@@ -768,7 +769,8 @@ class ModelTests(unittest.TestCase):
 
         # template disk format must be qcow2 because vmsnapshot
         # only supports this format
-        orig_params = {'name': 'test', 'memory': 1024, 'cpus': 1,
+        orig_params = {'name': 'test', 'memory': 1024,
+                       'cpu_info': {'vcpus': 1},
                        'cdrom': UBUNTU_ISO,
                        'disks': [{'size': 1, 'format': 'qcow2', 'pool': {
                            'name': '/plugins/kimchi/storagepools/default'}}]}
@@ -827,18 +829,65 @@ class ModelTests(unittest.TestCase):
             vm_info = inst.vm_lookup(u'kimchi-vm1')
             self.assertEquals(['root'], vm_info['users'])
             self.assertEquals(['root'], vm_info['groups'])
+
             # change VM users and groups by removing all elements,
-            # when wm is running.
+            # when vm is running.
             inst.vm_update(u'kimchi-vm1', {'users': [], 'groups': []})
             vm_info = inst.vm_lookup(u'kimchi-vm1')
             self.assertEquals([], vm_info['users'])
             self.assertEquals([], vm_info['groups'])
 
+            # power off vm
             inst.vm_poweroff('kimchi-vm1')
             self.assertRaises(OperationFailed, inst.vm_update,
                               'kimchi-vm1', {'name': 'kimchi-vm2'})
 
-            params = {'name': u'пeω-∨м', 'cpus': 4, 'memory': 2048}
+            # update maxvcpus only
+            inst.vm_update(u'kimchi-vm1', {'cpu_info': {'maxvcpus': 8}})
+            vm_info = inst.vm_lookup(u'kimchi-vm1')
+            self.assertEquals(8, vm_info['cpu_info']['maxvcpus'])
+
+            # update vcpus only
+            inst.vm_update(u'kimchi-vm1', {'cpu_info': {'vcpus': 4}})
+            vm_info = inst.vm_lookup(u'kimchi-vm1')
+            self.assertEquals(4, vm_info['cpu_info']['vcpus'])
+
+            # vcpus > maxvcpus: failure
+            self.assertRaises(InvalidParameter, inst.vm_update, u'kimchi-vm1',
+                              {'cpu_info': {'vcpus': 10}})
+
+            # define CPU topology
+            inst.vm_update(u'kimchi-vm1', {'cpu_info': {'topology': {
+                           'sockets': 4, 'cores': 2, 'threads': 1}}})
+            vm_info = inst.vm_lookup(u'kimchi-vm1')
+            self.assertEquals({'sockets': 4, 'cores': 2, 'threads': 1},
+                              vm_info['cpu_info']['topology'])
+
+            # vcpus not a multiple of (cores * threads)
+            self.assertRaises(InvalidParameter, inst.vm_update, u'kimchi-vm1',
+                              {'cpu_info': {'vcpus': 1}})
+
+            # maxvcpus different of (sockets * cores * threads)
+            self.assertRaises(InvalidParameter, inst.vm_update, u'kimchi-vm1',
+                              {'cpu_info': {'maxvcpus': 4}})
+
+            # topology does not match maxvcpus (8 != 2 * 2 * 1)
+            self.assertRaises(InvalidParameter, inst.vm_update, u'kimchi-vm1',
+                              {'cpu_info': {'topology': {
+                               'sockets': 2, 'cores': 2, 'threads': 1}}})
+
+            # undefine CPU topology
+            inst.vm_update(u'kimchi-vm1', {'cpu_info': {'topology': {}}})
+            vm_info = inst.vm_lookup(u'kimchi-vm1')
+            self.assertEquals({}, vm_info['cpu_info']['topology'])
+
+            # reduce maxvcpus to same as vcpus
+            inst.vm_update(u'kimchi-vm1', {'cpu_info': {'maxvcpus': 4}})
+            vm_info = inst.vm_lookup(u'kimchi-vm1')
+            self.assertEquals(4, vm_info['cpu_info']['maxvcpus'])
+
+            # rename and increase memory when vm is not running
+            params = {'name': u'пeω-∨м', 'memory': 2048}
             inst.vm_update('kimchi-vm1', params)
             rollback.prependDefer(utils.rollback_wrapper, inst.vm_delete,
                                   u'пeω-∨м')
