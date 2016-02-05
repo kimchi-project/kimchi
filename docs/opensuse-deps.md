@@ -34,7 +34,7 @@ Runtime Dependencies
                             nfs-client open-iscsi python-parted \
                             python-libguestfs python-configobj guestfs-tools \
                             python-websockify novnc python-magic \
-                            python-paramiko
+                            python-paramiko python-pillow
 
 Packages required for UI development
 ------------------------------------
