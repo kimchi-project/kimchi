@@ -1,7 +1,7 @@
 #*
  * Project Kimchi
  *
- * Copyright IBM, Corp. 2014
+ * Copyright IBM, Corp. 2014-2016
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,18 +41,50 @@
                     </select>
                     <p class="help-block"><i class="fa fa-info-circle"></i> $_("The device type. Currently, \"cdrom\" and \"disk\" are supported.")</p>
                 </div>
-                <div class="volume-section hidden">
-                    <div class="form-group">
-                        <label>$_("Storage Pool")</label>
-                        <select id="guest-disk-pool" class="selectpicker col-md-12 col-lg-12">
-                        </select>
-                        <p class="help-block"><i class="fa fa-info-circle"></i> $_("Storage pool which volume located in")</p>
+                <div class="volume-section hidden form-group">
+                    <div class="template-modal-container">
+                        <div>
+                            <span id="alert-modal-container"></span>
+                            <input type="radio" checked="checked" name="disk-btn" id="new-disk" value="new-disk" class="wok-radio">
+                            <label for="new-disk">$_("Create a new disk")</label>
+                            <input type="radio" name="disk-btn" id="existing-disk" value="existing-disk" class="wok-radio">
+                            <label for="existing-disk">$_("Select an existing disk")</label>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label>$_("Storage Volume")</label>
-                        <select id="guest-disk-vol" class="selectpicker col-md-12 col-lg-12">
-                        </select>
-                        <p class="help-block"><i class="fa fa-info-circle"></i> $_("Storage volume to be attached")</p>
+                    <div class="template-pager">
+                        <div class="page" id="new-disk-box">
+                            <div class="form-group">
+                                <label>$_("Storage Pool")</label>
+                                <select id="guest-disk-pool-new" class="selectpicker col-md-12 col-lg-12">
+                                </select>
+                                <p class="help-block"><i class="fa fa-info-circle"></i> $_("Storage pool to create the volume in")</p>
+                            </div>
+                            <div class="form-group">
+                                <label>$_("Disk Size (GB)")</label>
+                                <input type="number" class="form-control" name="capacity" min="1" id="capacity" />
+                                <p class="help-block"><i class="fa fa-info-circle"></i> $_("New disk size to be created")</p>
+                            </div>
+                            <div class="form-group">
+                                <label>$_("Format")</label>
+                                <select id="guest-disk-format-new" class="selectpicker col-md-12 col-lg-12">
+                                </select>
+                                <p class="help-block"><i class="fa fa-info-circle"></i> $_("Format of the new disk to be created")</p>
+                            </div>
+                        </div>
+                        <div class="page" id="existing-disk-box">
+                            <div class="form-group">
+                                <label>$_("Storage Pool")</label>
+                                <select id="guest-disk-pool" class="selectpicker col-md-12 col-lg-12">
+                                </select>
+                                <p class="help-block"><i class="fa fa-info-circle"></i> $_("Storage pool in which the volume is located in")</p>
+                            </div>
+                            <div class="form-group">
+                                <label>$_("Storage Volume")</label>
+                                <select id="guest-disk-vol" class="selectpicker col-md-12 col-lg-12">
+                                </select>
+                                <p class="help-block"><i class="fa fa-info-circle"></i> $_("Storage volume to be attached")</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="path-section form-group">
