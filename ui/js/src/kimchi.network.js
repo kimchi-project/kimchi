@@ -17,6 +17,8 @@
  */
 
 kimchi.NETWORK_TYPE_MACVTAP = "macvtap";
+kimchi.NETWORK_TYPE_BRIDGED = "bridge";
+
 
 kimchi.initNetwork = function() {
     if(wok.tabMode['network'] === 'admin') {

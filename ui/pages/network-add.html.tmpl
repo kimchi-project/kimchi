@@ -40,7 +40,8 @@
             <select id="networkType" class="selectpicker col-md-12 col-lg-12">
                 <option value="isolated">$_("Isolated: no external network connection")</option>
                 <option value="nat">$_("NAT: outbound physical network connection only")</option>
-                <option value="macvtap">$_("Bridged: Virtual machines are connected to physical network directly")</option>
+                <option value="macvtap">$_("Macvtap: Virtual machines are connected to physical network directly")</option>
+                <option value="bridge">$_("Bridged: Virtual machines are connected through a network bridge")</option>
             </select>
         </div>
         <div id="networkBriDisabledLabel" class="form-group hidden">
@@ -52,7 +53,7 @@
                 <select id="networkDestinationID"  class="selectpicker col-md-12 col-lg-12">
                 </select>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="vlan">
                 <input id="enableVlan" class="wok-checkbox" type="checkbox" value="" />
                 <label for="enableVlan" id="labelEnableVlan">$_("Enable VLAN") </label>
                 <div id="vlan-enabled">

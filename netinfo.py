@@ -221,8 +221,7 @@ def is_bare_nic(iface):
 #  a slave of bond.
 #  The bridge will not be exposed when all it's port are tap.
 def all_favored_interfaces():
-    return list(set(aggregated_bridges() + bare_nics() + bondings()) -
-                set(ovs_bridges()))
+    return aggregated_bridges() + bare_nics() + bondings()
 
 
 def get_interface_type(iface):
