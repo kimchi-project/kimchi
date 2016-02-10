@@ -1,0 +1,73 @@
+13:00:34 <alinefm> #startmeeting
+13:00:34 <kimchi-bot> Meeting started Wed Feb 10 13:00:34 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:00:34 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:00:35 <alinefm> #meetingname scrum
+13:00:35 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:26 <alinefm> #info Agenda
+13:02:26 <alinefm> #info 1) Status
+13:02:26 <alinefm> #info 2) Open discussion
+13:02:26 <alinefm> anything else?
+13:03:09 <ramonn> nopo
+13:03:11 <ramonn> *nop
+13:03:15 <pvital> no
+13:03:27 <alinefm> let's get started
+13:03:27 <alinefm> #topic Status
+13:03:28 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+13:03:39 <pvital> #info [Kimchi] pvital is still working in issue #817
+13:03:40 <pvital> #info [Kimchi] submitted patches: "Fix error message for IOMMU configuration." and "Add python-pillow as RPM dependency."
+13:03:40 <pvital> #info [Wok] [Kimchi] [Ginger] [Gingerbase] [GingerS390x] pvital reviewed patches
+13:03:53 <alinefm> #info [wok] alinefm sent patches to verify IBM license header and copyright date on make check-local
+13:04:08 <alinefm> #info [wok] alinefm removed legacy widgets code
+13:04:20 <ziviani> #info [kimchi] ziviani sent patch (serial web console) for review
+13:04:22 <ramonn> #info [Ginger] ramonn working on bug about tuned service link on rpm installation
+13:04:26 <alinefm> #info [wok] alinefm sent patch to fix server redirection on resource update
+13:04:26 <Abhiram18> #info[Ginger] worked on issues #139,#141,#163
+13:04:42 <ziviani> #info [kimchi] reviewed code
+13:04:50 <lcorreia> #info [wok] lcorreia sent to ML RFC for user activity log functionality
+13:04:50 <lcorreia> #info [wok] lcorreia will start implementation of user activity log functionality
+13:04:50 <lcorreia> #info [kimchi] lcorreia got backend feature upstream: include option to specify max_vcpu and current_vcpu separately per guest/template
+13:04:50 <lcorreia> #info [kimchi] lcorreia working on fixing VLAN handling for bridged networks in backend
+13:04:50 <lcorreia> #info [kimchi] lcorreia will work to handle notifications for host ENOSPC from libvirt in kimchi backend
+13:05:10 <ziviani> #info [kimchi] ziviani applied code review to serial webconsole and sent for review again
+13:07:26 <alinefm> danielhb, rotru anything else?
+13:08:09 <rotru> alinefm,  yes
+13:08:33 <danielhb> #info [wok] [kimchi] danielhb reviewed patches
+13:08:39 <danielhb> #info [ginger*] danielhb reviewed patches and pushed them upstream
+13:09:09 <Abhiram18> daniel ginger* , nice one :)
+13:09:22 <chandra> #info sent patches on help content to reflect the latest UI for Ginger/GingerBase
+13:09:53 <WalterNik> #info WalterNik [wok] [Ginger] [Gingerbase] [GingerS390x] Trying to get some understanding on UI accessabilty requirements
+13:09:57 <rotru> #info rotru [kimchi] I am changing now the KIMCHI API to expose memory and maxmemory as  memory: { current: , maxmemory} . There are lots of changes in the tests.  I will also have to rebase my code with latest code of maxcpus.... still need more time
+13:10:28 <chandra> #info sent patch for having libvirtd service start first if ginger installed
+13:11:16 <rotru> #info rotru Reviewed/Tested maxmemory UI patch
+13:13:35 <alinefm> can we move on?
+13:13:46 <lagarcia> yep
+13:13:47 <rotru> yes
+13:13:48 <lagarcia> :P
+13:13:50 <alinefm> #topic Open Discussion
+13:13:58 <alinefm> any other topic for today?
+13:14:02 <pvital> nothing to discuss!
+13:14:11 <alinefm> pvital, heheh
+13:14:12 <rotru> no
+13:14:16 <alinefm> I have one topic
+13:14:22 <alinefm> about the scrum meeting time
+13:14:33 <alinefm> I have discussed with WalterNik and chandra to do it one hour earlier
+13:14:41 <alinefm> so 10AM (BRT/BRST)
+13:14:53 <alinefm> what do you think about it?
+13:15:15 <pvital> agree
+13:15:23 <ramonn> i prefer at 11 AM BRST, but if it's better for them, no problem
+13:15:36 <lcorreia> I'm ok with 10am
+13:16:21 <WalterNik> alinefm, the earlier slot is better for me, just wondering if we have any us folks ?
+13:17:09 <lagarcia> WalterNik, this time is bad for US folks already... so changing to an earlier time might not make any difference for them now :)
+13:17:14 <alinefm> WalterNik, at least, usually no US folks attend this meeting
+13:17:59 <WalterNik> alinefm, ok then we can go for the earlier slot :-) from my point of view
+13:18:09 <alinefm> ok
+13:18:17 <lagarcia> alinefm, I might want to suggest as well that you set the meeting time in UTC. That each one can track their eventual daylight saving times by theirselves :)
+13:18:35 <lagarcia> s/That each/That way each/
+13:18:37 <alinefm> lagarcia, ok - I can do that
+13:18:51 <alinefm> I will send an appropriate note to the ML later today
+13:18:55 <alinefm> thanks, guys!
+13:19:03 <alinefm> are we done for today?
+13:19:12 <WalterNik> alinefm, thank you for making our life easier :-)
+13:19:20 <alinefm> ;-)
+13:19:46 <alinefm> thanks everyone for joining!
+13:19:49 <alinefm> #endmeeting
