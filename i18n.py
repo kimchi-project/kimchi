@@ -248,8 +248,8 @@ messages = {
 
     "KCHNET0001E": _("Network %(name)s already exists"),
     "KCHNET0002E": _("Network %(name)s does not exist"),
-    "KCHNET0003E": _("Subnet %(subnet)s specified for network %(network)s  is not valid."),
-    "KCHNET0004E": _("Specify a network interface to create bridged network %(name)s"),
+    "KCHNET0003E": _("Subnet %(subnet)s specified for network %(network)s is not valid."),
+    "KCHNET0004E": _("Specify a network interface to create bridged or macvtap networks."),
     "KCHNET0005E": _("Unable to delete active network %(name)s"),
     "KCHNET0006E": _("Interface %(iface)s specified for network %(network)s is already in use"),
     "KCHNET0007E": _("Interface should be bare NIC, bonding or bridge device."),
@@ -270,8 +270,8 @@ messages = {
     "KCHNET0022E": _("Failed to start network %(name)s. Details: %(err)s"),
     "KCHNET0024E": _("Unable to redefine interface %(name)s. Details: %(err)s"),
     "KCHNET0025E": _("Unable to create bridge %(name)s. Details: %(err)s"),
-    "KCHNET0026E": _("Open VSwitch bridges can only host bridged networks."),
     "KCHNET0027E": _("Unable to create bridge with NetworkManager enabled. Disable it and try again."),
+    "KCHNET0028E": _("Interface should be bare NIC or bonding."),
 
     "KCHSR0001E": _("Storage server %(server)s was not used by Kimchi"),
 
