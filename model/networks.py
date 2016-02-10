@@ -86,21 +86,20 @@ class NetworksModel(object):
         if name in self.get_list():
             raise InvalidOperation("KCHNET0001E", {'name': name})
 
+        # handle connection type
         connection = params["connection"]
-        # set forward mode, isolated do not need forward
         if connection == 'macvtap':
-            params['forward'] = {'mode': 'bridge'}
-        elif connection != 'isolated':
-            params['forward'] = {'mode': connection}
+            self._set_network_macvtap(params)
+        elif connection == 'bridge':
+            self._set_network_bridge(params)
+        elif connection in ['nat', 'isolated']:
+            if connection == 'nat':
+                params['forward'] = {'mode': 'nat'}
 
-        # set subnet, bridge network do not need subnet
-        if connection in ["nat", 'isolated']:
+            # set subnet; bridge/macvtap networks do not need subnet
             self._set_network_subnet(params)
 
-        # only bridge network need bridge(linux bridge) or interface(macvtap)
-        if connection in ['bridge', 'macvtap']:
-            self._set_network_bridge(params)
-
+        # create network XML
         params['name'] = escape(params['name'])
         xml = to_network_xml(**params)
 
@@ -165,7 +164,7 @@ class NetworksModel(object):
             else:
                 raise OperationFailed("KCHNET0021E", {'iface': iface})
 
-    def _set_network_bridge(self, params):
+    def _check_network_interface(self, params):
         try:
             # fails if host interface is already in use by a libvirt network
             iface = params['interface']
@@ -175,9 +174,24 @@ class NetworksModel(object):
         except KeyError:
             raise MissingParameter("KCHNET0004E", {'name': params['name']})
 
-        # Linux bridges cannot be the trunk device of a VLAN
-        if 'vlan_id' in params and \
-           (netinfo.is_bridge(iface) or params['connection'] == "bridge"):
+    def _set_network_macvtap(self, params):
+        self._check_network_interface(params)
+
+        iface = params['interface']
+        if ('vlan_id' in params or not (netinfo.is_bare_nic(iface) or
+           netinfo.is_bonding(iface))):
+            raise InvalidParameter('KCHNET0028E', {'name': iface})
+
+        # set macvtap network
+        params['forward'] = {'mode': 'bridge', 'dev': iface}
+
+    def _set_network_bridge(self, params):
+        self._check_network_interface(params)
+        params['forward'] = {'mode': 'bridge'}
+
+        # Bridges cannot be the trunk device of a VLAN
+        iface = params['interface']
+        if 'vlan_id' in params and netinfo.is_bridge(iface):
             raise InvalidParameter('KCHNET0019E', {'name': iface})
 
         # User specified bridge interface, simply use it
@@ -189,29 +203,22 @@ class NetworksModel(object):
             if netinfo.is_ovs_bridge(iface):
                 params['ovs'] = True
 
-                # OVS bridges don't work with macvtap
-                if params['connection'] != "bridge":
-                    raise InvalidParameter('KCHNET0026E')
-
-        # User wants Linux bridge network, but didn't specify bridge interface
-        elif params['connection'] == "bridge":
-
-            # libvirt will fail to create bridge if NetworkManager is enabled
-            if self.caps.nm_running:
-                raise InvalidParameter('KCHNET0027E')
-
-            # create Linux bridge interface first and use it as actual iface
-            iface = self._create_linux_bridge(iface)
-            params['bridge'] = iface
-
         # connection == macvtap and iface is not bridge
         elif netinfo.is_bare_nic(iface) or netinfo.is_bonding(iface):
-            if params.get('vlan_id') is None:
-                params['forward']['dev'] = iface
-            else:
+            if 'vlan_id' in params:
                 params['bridge'] = \
                     self._create_vlan_tagged_bridge(str(iface),
                                                     str(params['vlan_id']))
+            else:
+                # libvirt bridge creation will fail with NetworkManager enabled
+                if self.caps.nm_running:
+                    raise InvalidParameter('KCHNET0027E')
+
+                # create Linux bridge interface and use it as actual iface
+                iface = self._create_linux_bridge(iface)
+                params['bridge'] = iface
+
+        # unrecognized interface type: fail
         else:
             raise InvalidParameter("KCHNET0007E")
 
