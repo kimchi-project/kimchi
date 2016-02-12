@@ -166,6 +166,13 @@ class TemplateModel(object):
         old_t = self.lookup(name)
         new_t = copy.copy(old_t)
 
+        # Merge graphics settings
+        graph_args = params.get('graphics')
+        if graph_args:
+            graphics = dict(new_t['graphics'])
+            graphics.update(graph_args)
+            params['graphics'] = graphics
+
         # Merge cpu_info settings
         new_cpu_info = params.get('cpu_info')
         if new_cpu_info:
