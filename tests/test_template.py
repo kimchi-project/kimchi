@@ -275,14 +275,23 @@ class TemplateTests(unittest.TestCase):
         update_tmpl = json.loads(resp.read())
         self.assertEquals(update_tmpl['folder'], folder_data['folder'])
 
-        # Update graphics
+        # Test graphics merge
         req = json.dumps({'graphics': {'type': 'spice'}})
         resp = self.request(new_tmpl_uri, req, 'PUT')
         self.assertEquals(200, resp.status)
         update_tmpl = json.loads(resp.read())
         self.assertEquals('spice', update_tmpl['graphics']['type'])
 
-        req = json.dumps({'graphics': {'type': 'vnc', 'listen': 'fe00::0'}})
+        # update only listen (type does not reset to default 'vnc')
+        req = json.dumps({'graphics': {'listen': 'fe00::0'}})
+        resp = self.request(new_tmpl_uri, req, 'PUT')
+        self.assertEquals(200, resp.status)
+        update_tmpl = json.loads(resp.read())
+        self.assertEquals('spice', update_tmpl['graphics']['type'])
+        self.assertEquals('fe00::0', update_tmpl['graphics']['listen'])
+
+        # update only type (listen does not reset to default '127.0.0.1')
+        req = json.dumps({'graphics': {'type': 'vnc'}})
         resp = self.request(new_tmpl_uri, req, 'PUT')
         self.assertEquals(200, resp.status)
         update_tmpl = json.loads(resp.read())
