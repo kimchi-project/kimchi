@@ -158,6 +158,12 @@ class ConfigTests(unittest.TestCase):
                 'tools.staticfile.filename': '%s/ui/config/tab-ext.xml' %
                 pluginPrefix,
             },
+            '/serial': {
+                'tools.nocache.on': True,
+                'tools.wokauth.on': True,
+                'tools.staticdir.dir': paths.serial_dir,
+                'tools.staticdir.on': True
+            },
         }
 
         kimchi_config = Parser().dict_from_file(KimchiPaths().conf_file)

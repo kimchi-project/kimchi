@@ -137,10 +137,10 @@ class ModelTests(unittest.TestCase):
             self.assertEquals('finished', task['status'])
             vol = inst.storagevolume_lookup(u'default', vol_params['name'])
 
-            params = {'name': 'test', 'disks': [{'base': vol['path'],
-                                                 'size': 1, 'pool': {
-                'name': '/plugins/kimchi/storagepools/default'}}],
-                'cdrom': UBUNTU_ISO}
+            params = {'name': 'test', 'disks':
+                      [{'base': vol['path'], 'size': 1, 'pool': {
+                          'name': '/plugins/kimchi/storagepools/default'}}],
+                      'cdrom': UBUNTU_ISO}
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
 
@@ -322,6 +322,26 @@ class ModelTests(unittest.TestCase):
             info = inst.vm_lookup('kimchi-spice')
             self.assertEquals('spice', info['graphics']['type'])
             self.assertEquals('127.0.0.1', info['graphics']['listen'])
+
+        inst.template_delete('test')
+
+    @unittest.skipUnless(utils.running_as_root(), "Must be run as root")
+    def test_vm_serial(self):
+        inst = model.Model(objstore_loc=self.tmp_store)
+        params = {'name': 'test', 'disks': [], 'cdrom': UBUNTU_ISO}
+        inst.templates_create(params)
+        with RollbackContext() as rollback:
+            params = {'name': 'kimchi-serial',
+                      'template': '/plugins/kimchi/templates/test'}
+            task1 = inst.vms_create(params)
+            inst.task_wait(task1['id'])
+            rollback.prependDefer(inst.vm_delete, 'kimchi-serial')
+
+            inst.vm_start('kimchi-serial')
+            rollback.prependDefer(inst.vm_poweroff, 'kimchi-serial')
+
+            inst.vm_serial('kimchi-serial')
+            self.assertTrue(os.path.exists('/tmp/kimchi-serial'))
 
         inst.template_delete('test')
 
