@@ -21,7 +21,7 @@ import json
 import os
 import cherrypy
 
-from wok.plugins.kimchi import config, mockmodel, vnc
+from wok.plugins.kimchi import config, mockmodel, websocket
 from wok.plugins.kimchi.i18n import messages
 from wok.plugins.kimchi.control import sub_nodes
 from wok.plugins.kimchi.model import model as kimchiModel
@@ -56,8 +56,8 @@ class Kimchi(WokRoot):
             setattr(self, ident, node(self.model))
 
         if isinstance(self.model, kimchiModel.Model):
-            vnc_ws_proxy = vnc.new_ws_proxy()
-            cherrypy.engine.subscribe('exit', vnc_ws_proxy.terminate)
+            ws_proxy = websocket.new_ws_proxy()
+            cherrypy.engine.subscribe('exit', ws_proxy.terminate)
 
         self.api_schema = json.load(open(os.path.join(os.path.dirname(
                                     os.path.abspath(__file__)), 'API.json')))
