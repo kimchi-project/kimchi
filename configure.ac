@@ -115,6 +115,9 @@ AC_CONFIG_FILES([
     ui/pages/help/ru_RU/Makefile
     ui/pages/help/zh_CN/Makefile
     ui/pages/help/zh_TW/Makefile
+    ui/serial/Makefile
+    ui/serial/libs/Makefile
+    ui/serial/html/Makefile
     contrib/Makefile
     contrib/DEBIAN/Makefile
     contrib/DEBIAN/control
