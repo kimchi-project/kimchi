@@ -34,8 +34,35 @@ try:
 except ImportError:
     tokenFile = False
 
+try:
+    from websockify import ProxyRequestHandler as request_proxy
+except:
+    from websockify import WebSocketProxy as request_proxy
+
 
 WS_TOKENS_DIR = os.path.join(PluginPaths('kimchi').state_dir, 'ws-tokens')
+
+
+class CustomHandler(request_proxy):
+
+    def get_target(self, target_plugin, path):
+        if issubclass(CustomHandler, object):
+            target = super(CustomHandler, self).get_target(target_plugin,
+                                                           path)
+        else:
+            target = request_proxy.get_target(self, target_plugin, path)
+
+        if target[0] == 'unix_socket':
+            try:
+                self.server.unix_target = target[1]
+            except:
+                self.unix_target = target[1]
+        else:
+            try:
+                self.server.unix_target = None
+            except:
+                self.unix_target = None
+        return target
 
 
 def new_ws_proxy():
@@ -64,7 +91,12 @@ def new_ws_proxy():
         params['token_plugin'] = TokenFile(src=WS_TOKENS_DIR)
 
     def start_proxy():
-        server = WebSocketProxy(**params)
+        try:
+            server = WebSocketProxy(RequestHandlerClass=CustomHandler,
+                                    **params)
+        except TypeError:
+            server = CustomHandler(**params)
+
         server.start_server()
 
     proc = Process(target=start_proxy)
@@ -72,7 +104,7 @@ def new_ws_proxy():
     return proc
 
 
-def add_proxy_token(name, port):
+def add_proxy_token(name, port, is_unix_socket=False):
     with open(os.path.join(WS_TOKENS_DIR, name), 'w') as f:
         """
         From python documentation base64.urlsafe_b64encode(s)
@@ -82,7 +114,10 @@ def add_proxy_token(name, port):
         So remove it when needed as base64 can work well without it.
         """
         name = base64.urlsafe_b64encode(name).rstrip('=')
-        f.write('%s: localhost:%s' % (name.encode('utf-8'), port))
+        if is_unix_socket:
+            f.write('%s: unix_socket:%s' % (name.encode('utf-8'), port))
+        else:
+            f.write('%s: localhost:%s' % (name.encode('utf-8'), port))
 
 
 def remove_proxy_token(name):

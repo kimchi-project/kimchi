@@ -46,6 +46,7 @@ from wok.xmlutils.utils import xml_item_remove, xml_item_update
 
 from wok.plugins.kimchi import model
 from wok.plugins.kimchi import websocket
+from wok.plugins.kimchi import serialconsole
 from wok.plugins.kimchi.config import READONLY_POOL_TYPE, get_kimchi_version
 from wok.plugins.kimchi.kvmusertests import UserTests
 from wok.plugins.kimchi.model.config import CapabilitiesModel
@@ -234,6 +235,7 @@ class VMModel(object):
         cls = import_class('plugins.kimchi.model.vmsnapshots.VMSnapshotsModel')
         self.vmsnapshots = cls(**kargs)
         self.stats = {}
+        self._serial_procs = []
 
     def has_topology(self, dom):
         xml = dom.XMLDesc(0)
@@ -1181,6 +1183,12 @@ class VMModel(object):
         else:
             memory = info[2] >> 10
 
+        # assure there is no zombie process left
+        for proc in self._serial_procs[:]:
+            if not proc.is_alive():
+                proc.join(1)
+                self._serial_procs.remove(proc)
+
         return {'name': name,
                 'state': state,
                 'stats': res,
@@ -1365,6 +1373,20 @@ class VMModel(object):
             raise OperationFailed("KCHVM0022E",
                                   {'name': name, 'err': e.get_error_message()})
 
+    def _vm_check_serial(self, name):
+        dom = self.get_vm(name, self.conn)
+        xml = dom.XMLDesc(libvirt.VIR_DOMAIN_XML_SECURE)
+
+        expr = "/domain/devices/serial/@type"
+        if not xpath_get_text(xml, expr):
+            return False
+
+        expr = "/domain/devices/console/@type"
+        if not xpath_get_text(xml, expr):
+            return False
+
+        return True
+
     def _vm_get_graphics(self, name):
         dom = self.get_vm(name, self.conn)
         xml = dom.XMLDesc(libvirt.VIR_DOMAIN_XML_SECURE)
@@ -1395,6 +1417,21 @@ class VMModel(object):
 
         return (graphics_type, graphics_listen, graphics_port,
                 graphics_passwd, graphics_passwdValidTo)
+
+    def serial(self, name):
+        if not self._vm_check_serial(name):
+            raise OperationFailed("KCHVM0076E", {'name': name})
+
+        websocket.add_proxy_token(name.encode('utf-8')+'-console',
+                                  '/tmp/%s' % name.encode('utf-8'), True)
+
+        try:
+            self._serial_procs.append(
+                serialconsole.main(name.encode('utf-8'),
+                                   self.conn.get().getURI()))
+        except Exception as e:
+            wok_log.error(e.message)
+            raise OperationFailed("KCHVM0077E", {'name': name})
 
     def connect(self, name):
         # (type, listen, port, passwd, passwdValidTo)

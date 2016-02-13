@@ -131,6 +131,9 @@ messages = {
     "KCHVM0073E": _("Unable to update the following parameters while the VM is offline: %(params)s"),
     "KCHVM0074E": _("Unable to update the following parameters while the VM is online: %(params)s"),
 
+    "KCHVM0076E": _("VM %(name)s must have serial and console defined to open a web serial console"),
+    "KCHVM0077E": _("Impossible to get the serial console of %(name)s"),
+
     "KCHVMHDEV0001E": _("VM %(vmid)s does not contain directly assigned host device %(dev_name)s."),
     "KCHVMHDEV0002E": _("The host device %(dev_name)s is not allowed to directly assign to VM."),
     "KCHVMHDEV0003E": _("No IOMMU groups found. Host PCI pass through needs IOMMU group to function correctly. "
