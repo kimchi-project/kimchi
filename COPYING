@@ -6,6 +6,8 @@ Apache License version 2.0.
 Kimchi makes use of different projects and they are placed as below:
 - the code under ui/spice-html5 is imported from spice-html5 project
 (http://cgit.freedesktop.org/spice/spice-html5);
+- the code under ui/serial/libs is imported from term.js project
+(https://github.com/chjj/term.js) under MIT license;
 
 The rest of this distribution is governed by the GNU Lesser General Public
 License version 2.1.
