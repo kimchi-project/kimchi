@@ -241,6 +241,12 @@ kimchi.vmmigrate = function(event) {
     wok.window.open('plugins/kimchi/guest-migration.html');
 };
 
+kimchi.openVmSerialConsole = function(event) {
+    var button = event.target;
+    var vm = $(button).closest('li[name=guest]');
+    kimchi.serialToVM($(vm).attr('id'));
+};
+
 kimchi.openVmConsole = function(event) {
     var button = event.target;
     var vm = $(button).closest('li[name=guest]');
@@ -636,6 +642,12 @@ kimchi.createGuestLi = function(vmObject, prevScreenImage, openMenu) {
         //Hide Resume
         guestActions.find(".resume-hidden").hide();
     }
+
+    var serialConsoleLinkActions = guestActions.find("[name=vm-serial-console]");
+    serialConsoleLinkActions.on("click", function(event) {
+        event.preventDefault();
+        kimchi.openVmSerialConsole(event);
+    });
 
     var consoleActions = guestActions.find("[name=vm-console]");
     var consoleLinkActions = result.find(".vnc-link");

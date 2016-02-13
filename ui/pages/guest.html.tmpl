@@ -44,7 +44,8 @@
                             </span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li role="presentation"><a nwAct="connect-vnc" class='shutoff-disabled' name="vm-console" href="#"><i class="fa fa-list-alt"></i>$_("Connect VNC")</a></li>
+                            <li role="presentation"><a nwAct="connect-vnc" class='shutoff-disabled' name="vm-console" href="#"><i class="fa fa-list-alt"></i>$_("View Console")</a></li>
+                            <li role="presentation"><a nwAct="connect-serial-console" class='shutoff-hidden' name="vm-serial-console" href="#"><i class="fa fa-list-alt"></i>$_("View Serial")</a></li>
                         <!--     <li role="presentation"><a nwAct="view-vnc" class='shutoff-disabled' name="vm-view-vnc" href="#"><i class="fa fa-eye"></i>$_("View VNC Console")</a></li> -->
                             <li role="presentation"><a nwAct="edit" name="vm-edit" href="#"><i class="fa fa-pencil"></i>$_("Edit")</a></li>
                             <li role="presentation"><a nwAct="clone" class='running-disabled' name="vm-clone" href="#"><i class="fa fa-copy"></i>$_("Clone")</a></li>
@@ -61,7 +62,7 @@
                 </span>
             </span><!--
             --><span class='column-type distro-icon' style='padding-left: 40px !important'></span><!--
-        --><span class='column-vnc'><i class="fa fa-spinner fa-spin"></i><a nwAct="connect-vnc" name="vm-console" class="vnc-link" href="#">$_("View Console")</a></span><!--
+            --><span class='column-vnc'><i class="fa fa-spinner fa-spin"></i><a nwAct="connect-vnc" name="vm-console" class="vnc-link" href="#">$_("View Console")</a></span><!--
             --><span class='column-processors'>
                 <div class="percentage-label processors-percentage">
                 </div>

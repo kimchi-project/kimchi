@@ -307,6 +307,33 @@ var kimchi = {
         });
     },
 
+    serialToVM : function(vm) {
+        wok.requestJSON({
+            url : 'config/',
+            type : 'GET',
+            dataType : 'json'
+        }).done(function(data, textStatus, xhr) {
+            proxy_port = data['websockets_port'];
+            ssl_port = data['ssl_port'];
+            wok.requestJSON({
+                url : "plugins/kimchi/vms/" + encodeURIComponent(vm) + "/serial",
+                type : "POST",
+                dataType : "json"
+            }).done(function() {
+                url = 'https://' + location.hostname + ':' + ssl_port;
+                url += "/plugins/kimchi/serial/html/serial.html";
+                url += "?port=" + ssl_port;
+                url += "&path=websockify?token=" + wok.urlSafeB64Encode(vm+'-console').replace(/=*$/g, "");
+                url += '&encrypt=1';
+                window.open(url);
+            }).error(function(data) {
+                wok.message.error(data.responseJSON.reason);
+            });
+        }).error(function(data) {
+            wok.message.error(data.responseJSON.reason);
+        });
+    },
+
     vncToVM : function(vm) {
         proxy_port = wok.config['websockets_port'];
         ssl_port = wok.config['ssl_port'];

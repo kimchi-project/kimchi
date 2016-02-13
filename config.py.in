@@ -117,6 +117,8 @@ class KimchiPaths(PluginPaths):
         else:
             self.spice_css_file = os.path.join(self.spice_dir, 'css/spice.css')
 
+        self.serial_dir = os.path.join(self.ui_dir, 'serial')
+
 
 kimchiPaths = KimchiPaths()
 
@@ -133,7 +135,9 @@ class KimchiConfig(PluginConfig):
             '/spice_auto.html': {'type': 'file',
                                  'path': kimchiPaths.spice_file},
             '/spice-html5/spice.css': {'type': 'file',
-                                       'path': kimchiPaths.spice_css_file}}
+                                       'path': kimchiPaths.spice_css_file},
+            '/serial': {'type': 'dir',
+                        'path': kimchiPaths.serial_dir}}
 
         custom_config = {}
         for uri, data in static_config.iteritems():
