@@ -45,7 +45,7 @@ from wok.xmlutils.utils import dictize, xpath_get_text, xml_item_insert
 from wok.xmlutils.utils import xml_item_remove, xml_item_update
 
 from wok.plugins.kimchi import model
-from wok.plugins.kimchi import vnc
+from wok.plugins.kimchi import websocket
 from wok.plugins.kimchi.config import READONLY_POOL_TYPE, get_kimchi_version
 from wok.plugins.kimchi.kvmusertests import UserTests
 from wok.plugins.kimchi.model.config import CapabilitiesModel
@@ -1301,7 +1301,7 @@ class VMModel(object):
             wok_log.error('Error deleting vm information from database: '
                           '%s', e.message)
 
-        vnc.remove_proxy_token(name)
+        websocket.remove_proxy_token(name)
 
     def start(self, name):
         # make sure the ISO file has read permission
@@ -1400,7 +1400,7 @@ class VMModel(object):
         # (type, listen, port, passwd, passwdValidTo)
         graphics_port = self._vm_get_graphics(name)[2]
         if graphics_port is not None:
-            vnc.add_proxy_token(name.encode('utf-8'), graphics_port)
+            websocket.add_proxy_token(name.encode('utf-8'), graphics_port)
         else:
             raise OperationFailed("KCHVM0010E", {'name': name})
 

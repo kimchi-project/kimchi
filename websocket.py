@@ -35,7 +35,7 @@ except ImportError:
     tokenFile = False
 
 
-WS_TOKENS_DIR = os.path.join(PluginPaths('kimchi').state_dir, 'vnc-tokens')
+WS_TOKENS_DIR = os.path.join(PluginPaths('kimchi').state_dir, 'ws-tokens')
 
 
 def new_ws_proxy():
