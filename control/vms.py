@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2015
+# Copyright IBM, Corp. 2013-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -55,6 +55,7 @@ class VM(Resource):
                                                           'password'])
         self.suspend = self.generate_action_handler('suspend')
         self.resume = self.generate_action_handler('resume')
+        self.serial = self.generate_action_handler('serial')
 
     @property
     def data(self):
