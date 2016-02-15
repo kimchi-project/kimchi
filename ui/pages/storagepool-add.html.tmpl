@@ -82,8 +82,18 @@
                         </div>
                 </div>
                 <div class="logical-section hidden row">
-                    <div class="form-group storageType">
-                        <label>$_("Device path")</label>
+                    <div>
+                        <input type="radio" class="wok-radio" id="existingLvm" name="logicalRadioSelection" value="existingLvm" />
+                        <label for="existingLvm">$_("Create from existing LVM")</label>
+                        <input type="radio" class="wok-radio" id="rawDisk" name="logicalRadioSelection" value="rawDisk" checked />
+                        <label for="rawDisk">$_("Create from raw disk")</label>
+                    </div>
+                    <div class="lvm-group hidden">
+                        <div class="lvm-partition">
+                            <span class="wok-loading-icon"></span><span>$_("Looking for existing lvms ...")</span>
+                        </div>
+                    </div>
+                    <div class="form-group disk-group storageType">
                         <div class="host-partition">
                             <span class="wok-loading-icon"></span><span>$_("Looking for available partitions ...")</span>
                         </div>
@@ -156,16 +166,23 @@
     <script>
         kimchi.storagepool_add_main();
     </script>
+
     <script id="partitionTmpl" type="html/text">
-    <div>
-        <input type="checkbox" class="wok-checkbox" id="{name}" value="{path}" name="devices">
-        <label for="{name}">
-            <div>
-                <span class="device-name">{name}</span>
-                <span class="device-path">{path}</span>
-            </div>
-        </label>
-    </div>
+    <tr>
+        <td><input type="checkbox" class="wok-checkbox" id="{name}" value="{path}" name="devices"><label for="{name}"></label></td>
+        <td>{name}</td>
+        <td>{path}</td>
+        <td>{size}</td>
+    </tr>
+    </script>
+
+    <script id="existingLvmTmpl" type="html/text">
+    <tr>
+        <td><input type="radio" class="wok-radio" id="{name}" name="lvmTmplRadioSelection" value="{name}" /><label for="{name}"></label></td>
+        <td>{name}</td>
+        <td>{size}</td>
+        <td>{free}</td>
+    </tr>
     </script>
 </body>
 </html>
