@@ -652,7 +652,8 @@ kimchi.createGuestLi = function(vmObject, prevScreenImage, openMenu) {
     var consoleActions = guestActions.find("[name=vm-console]");
     var consoleLinkActions = result.find(".vnc-link");
 
-    if ((vmObject.graphics['type'] == 'vnc') || (vmObject.graphics['type'] == 'spice')) {
+    if (((vmObject.graphics['type'] == 'vnc') || (vmObject.graphics['type'] == 'spice'))
+       && (!vmPoweredOffBool)) {
         consoleActions.on("click", function(event) {
             event.preventDefault();
             kimchi.openVmConsole(event);
