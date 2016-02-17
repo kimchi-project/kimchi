@@ -1,0 +1,180 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi Meeting</title>
+<style type="text/css">
+/* This is for the .html in the HTML2 writer */
+body {
+    font-family: Helvetica, sans-serif;
+    font-size:14px;
+}
+h1 {
+    text-align: center;
+}
+a {
+    color:navy;
+    text-decoration: none;
+    border-bottom:1px dotted navy;
+}
+a:hover {
+    text-decoration:none;
+    border-bottom: 0;
+    color:#0000B9;
+}
+hr {
+    border: 1px solid #ccc;
+}
+/* The (nick, time) item pairs, and other body text things. */
+.details {
+    font-size: 12px;
+    font-weight:bold;
+}
+/* The 'AGREED:', 'IDEA', etc, prefix to lines. */
+.itemtype {
+    font-style: normal;    /* un-italics it */
+    font-weight: bold;
+}
+/* Example: change single item types.  Capitalized command name.
+/* .TOPIC  {  color:navy;  } */
+/* .AGREED {  color:lime;  } */
+
+</style>
+</head>
+
+<body>
+<h1>#kimchi Meeting</h1>
+<span class="details">
+Meeting started by alinefm at 12:03:41 UTC
+(<a href="kimchi.scrum.2016-02-17-12.03.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Meeting summary</h3>
+<ol>
+<li>
+<ol type="a">
+  <li><span class="INFO">Agenda</span> <span class="details">(<a
+    href='kimchi.scrum.2016-02-17-12.03.log.html#l-6'>alinefm</a>,
+    12:04:02)</span></li>
+  <li><span class="INFO">1) Status</span> <span class="details">(<a
+    href='kimchi.scrum.2016-02-17-12.03.log.html#l-7'>alinefm</a>,
+    12:04:03)</span></li>
+  <li><span class="INFO">2) Open discussion</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-02-17-12.03.log.html#l-8'>alinefm</a>,
+    12:04:03)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Status</b> <span class="details">(<a href='kimchi.scrum.2016-02-17-12.03.log.html#l-12'>alinefm</a>, 12:07:03)</span>
+<ol type="a">
+  <li><span class="INFO">Please provide your status using the #info
+    command: #info [&lt;project] &lt;nickname&gt; &lt;status&gt;</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2016-02-17-12.03.log.html#l-13'>alinefm</a>,
+    12:07:05)</span></li>
+  <li><span class="INFO">[wok] alinefm sent patch to remove legacy code
+    from code</span> <span class="details">(<a
+    href='kimchi.scrum.2016-02-17-12.03.log.html#l-14'>alinefm</a>,
+    12:07:43)</span></li>
+  <li><span class="INFO">[wok] alinefm sent patch to update IBM
+    copyright on make check-local</span> <span class="details">(<a
+    href='kimchi.scrum.2016-02-17-12.03.log.html#l-15'>alinefm</a>,
+    12:07:58)</span></li>
+  <li><span class="INFO">[kimchi] peterpennings is working at maxmemory
+    UI for guest and templates</span> <span class="details">(<a
+    href='kimchi.scrum.2016-02-17-12.03.log.html#l-16'>peterpennings</a>,
+    12:08:10)</span></li>
+  <li><span class="INFO">[wok] alinefm sent patch to allow user disable
+    HTTP port</span> <span class="details">(<a
+    href='kimchi.scrum.2016-02-17-12.03.log.html#l-17'>alinefm</a>,
+    12:08:12)</span></li>
+  <li><span class="INFO">[kimchi] ziviani sent patch to fix bug 33:
+    Implement a multiprocess file handler for log system</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-02-17-12.03.log.html#l-18'>ziviani</a>,
+    12:08:41)</span></li>
+  <li><span class="INFO">[wok] lcorreia will implement: user activity
+    log functionality according to RFC sent to ML</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-02-17-12.03.log.html#l-19'>lcorreia</a>,
+    12:08:54)</span></li>
+  <li><span class="INFO">[kimchi] lcorreia fixed VLAN handling for
+    bridged virtual networks in backend</span> <span class="details">(<a
+    href='kimchi.scrum.2016-02-17-12.03.log.html#l-20'>lcorreia</a>,
+    12:08:54)</span></li>
+  <li><span class="INFO">[kimchi] lcorreia working on Kimchi feature:
+    handle notifications for host ENOSPC from libvirt</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-02-17-12.03.log.html#l-21'>lcorreia</a>,
+    12:08:54)</span></li>
+  <li><span class="INFO">[kimchi] ziviani sent patch to fix bug 30:
+    Duplicated log messages</span> <span class="details">(<a
+    href='kimchi.scrum.2016-02-17-12.03.log.html#l-22'>ziviani</a>,
+    12:08:57)</span></li>
+  <li><span class="INFO">ramonn [ginger] debugging rpm postun
+    scripts</span> <span class="details">(<a
+    href='kimchi.scrum.2016-02-17-12.03.log.html#l-23'>ramonn</a>,
+    12:09:11)</span></li>
+  <li><span class="INFO">[kimchi] ziviani sent Add sourceURL comment for
+    kimchi.min.js</span> <span class="details">(<a
+    href='kimchi.scrum.2016-02-17-12.03.log.html#l-24'>ziviani</a>,
+    12:09:18)</span></li>
+  <li><span class="INFO">[Ginger] Abhiram18 working on parsing issues in
+    ifcfg with extra spaces for ginger.</span> <span class="details">(<a
+    href='kimchi.scrum.2016-02-17-12.03.log.html#l-25'>Abhiram18</a>,
+    12:11:20)</span></li>
+  <li><span class="INFO">[Ginger] samhenri is working at SRIOV
+    rework</span> <span class="details">(<a
+    href='kimchi.scrum.2016-02-17-12.03.log.html#l-27'>peterpennings</a>,
+    12:15:23)</span></li>
+  <li><span class="INFO">[Ginger] Looking into vlan/bond ui defects
+    raised in the community</span> <span class="details">(<a
+    href='kimchi.scrum.2016-02-17-12.03.log.html#l-28'>chandra</a>,
+    12:16:03)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Open Discussion</b> <span class="details">(<a href='kimchi.scrum.2016-02-17-12.03.log.html#l-31'>alinefm</a>, 12:18:32)</span>
+</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">
+Meeting ended at 12:26:08 UTC
+(<a href="kimchi.scrum.2016-02-17-12.03.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Action items</h3>
+<ol>
+  <li>(none)</li>
+</ol>
+<br><br>
+
+
+
+<h3>People present (lines said)</h3>
+<ol>
+  <li>alinefm (29)</li>
+  <li>peterpennings (3)</li>
+  <li>lcorreia (3)</li>
+  <li>ziviani (3)</li>
+  <li>lbianc (3)</li>
+  <li>kimchi-bot (3)</li>
+  <li>pvital (2)</li>
+  <li>ramonn (2)</li>
+  <li>Abhiram18 (1)</li>
+  <li>chandra (1)</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">Generated by <a href="http://wiki.debian.org/MeetBot">MeetBot</a> 0.1.4.</span>
+</body></html>

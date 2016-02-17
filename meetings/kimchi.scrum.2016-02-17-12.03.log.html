@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">12:03:41</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">12:03:41</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Feb 17 12:03:41 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">12:03:41</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">12:03:43</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">12:03:43</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">12:04:02</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda</span>
+<a name="l-7"></a><span class="tm">12:04:03</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">1) Status</span>
+<a name="l-8"></a><span class="tm">12:04:03</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">2) Open discussion</span>
+<a name="l-9"></a><span class="tm">12:04:03</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-10"></a><span class="tm">12:04:11</span><span class="nk"> &lt;ramonn&gt;</span> nop
+<a name="l-11"></a><span class="tm">12:06:57</span><span class="nk"> &lt;alinefm&gt;</span> so let's get started
+<a name="l-12"></a><span class="tm">12:07:03</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-13"></a><span class="tm">12:07:05</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info [&lt;project] &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-14"></a><span class="tm">12:07:43</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] alinefm sent patch to remove legacy code from code</span>
+<a name="l-15"></a><span class="tm">12:07:58</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] alinefm sent patch to update IBM copyright on make check-local</span>
+<a name="l-16"></a><span class="tm">12:08:10</span><span class="nk"> &lt;peterpennings&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] peterpennings is working at maxmemory UI for guest and templates</span>
+<a name="l-17"></a><span class="tm">12:08:12</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] alinefm sent patch to allow user disable HTTP port</span>
+<a name="l-18"></a><span class="tm">12:08:41</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ziviani sent patch to fix bug 33: Implement a multiprocess file handler for log system</span>
+<a name="l-19"></a><span class="tm">12:08:54</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] lcorreia will implement: user activity log functionality according to RFC sent to ML</span>
+<a name="l-20"></a><span class="tm">12:08:54</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] lcorreia fixed VLAN handling for bridged virtual networks in backend</span>
+<a name="l-21"></a><span class="tm">12:08:54</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] lcorreia working on Kimchi feature: handle notifications for host ENOSPC from libvirt</span>
+<a name="l-22"></a><span class="tm">12:08:57</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ziviani sent patch to fix bug 30: Duplicated log messages</span>
+<a name="l-23"></a><span class="tm">12:09:11</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">ramonn [ginger] debugging rpm postun scripts</span>
+<a name="l-24"></a><span class="tm">12:09:18</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ziviani sent Add sourceURL comment for kimchi.min.js</span>
+<a name="l-25"></a><span class="tm">12:11:20</span><span class="nk"> &lt;Abhiram18&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] Abhiram18 working on parsing issues in ifcfg with extra spaces for ginger.</span>
+<a name="l-26"></a><span class="tm">12:13:19</span><span class="nk"> &lt;alinefm&gt;</span> anything else, guys?
+<a name="l-27"></a><span class="tm">12:15:23</span><span class="nk"> &lt;peterpennings&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] samhenri is working at SRIOV rework</span>
+<a name="l-28"></a><span class="tm">12:16:03</span><span class="nk"> &lt;chandra&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] Looking into vlan/bond ui defects raised in the community</span>
+<a name="l-29"></a><span class="tm">12:17:12</span><span class="nk"> &lt;alinefm&gt;</span> can we move on?
+<a name="l-30"></a><span class="tm">12:17:24</span><span class="nk"> &lt;peterpennings&gt;</span> yes
+<a name="l-31"></a><span class="tm">12:18:32</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-32"></a><span class="tm">12:18:47</span><span class="nk"> &lt;alinefm&gt;</span> I only want to remember you that the code freeze starts in 2 weeks
+<a name="l-33"></a><span class="tm">12:18:59</span><span class="nk"> &lt;alinefm&gt;</span> so all features must be upstream by this time
+<a name="l-34"></a><span class="tm">12:20:28</span><span class="nk"> &lt;pvital&gt;</span> alinefm, but only for wok and gingerbase, right? I remember that there is one week of difference between the freezes
+<a name="l-35"></a><span class="tm">12:21:15</span><span class="nk"> &lt;alinefm&gt;</span> pvital, no
+<a name="l-36"></a><span class="tm">12:21:22</span><span class="nk"> &lt;alinefm&gt;</span> for wok and gingerbase is next week
+<a name="l-37"></a><span class="tm">12:21:46</span><span class="nk"> &lt;alinefm&gt;</span> Code freeze for Wok and Ginger base starts on Feb 24th
+<a name="l-38"></a><span class="tm">12:22:03</span><span class="nk"> &lt;alinefm&gt;</span> Code freeze for Kimchi and Ginger starts on Mar 03rd
+<a name="l-39"></a><span class="tm">12:22:22</span><span class="nk"> &lt;alinefm&gt;</span> *Mar 02snd
+<a name="l-40"></a><span class="tm">12:22:29</span><span class="nk"> &lt;pvital&gt;</span> ok
+<a name="l-41"></a><span class="tm">12:22:40</span><span class="nk"> &lt;lbianc&gt;</span> <span class="hi">alinefm:</span> I don't know if you are aware about the SR-IOV, but it is still under development. There were some issues regarding the specification. I would like you check that to help to improve how it is specified. We are going to summarize it before start, but would be good everyone be aware about it.
+<a name="l-42"></a><span class="tm">12:23:08</span><span class="nk"> &lt;alinefm&gt;</span> lbianc, yeap! sounds good for me
+<a name="l-43"></a><span class="tm">12:23:21</span><span class="nk"> &lt;alinefm&gt;</span> it is also good to send a mockup prior to the devel
+<a name="l-44"></a><span class="tm">12:23:29</span><span class="nk"> &lt;alinefm&gt;</span> so we can see how the UI will looks like before the code
+<a name="l-45"></a><span class="tm">12:25:14</span><span class="nk"> &lt;lbianc&gt;</span> <span class="hi">alinefm:</span> Yes, but any help from everyone when specifying will help a lot! :) Thanks!
+<a name="l-46"></a><span class="tm">12:25:34</span><span class="nk"> &lt;alinefm&gt;</span> lbianc, sure
+<a name="l-47"></a><span class="tm">12:25:40</span><span class="nk"> &lt;alinefm&gt;</span> anything else for today?
+<a name="l-48"></a><span class="tm">12:25:51</span><span class="nk"> &lt;lbianc&gt;</span> <span class="hi">alinefm:</span> nop
+<a name="l-49"></a><span class="tm">12:26:06</span><span class="nk"> &lt;alinefm&gt;</span> so thanks everyone for joining!
+<a name="l-50"></a><span class="tm">12:26:08</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

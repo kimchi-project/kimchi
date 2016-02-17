@@ -1,0 +1,50 @@
+12:03:41 <alinefm> #startmeeting
+12:03:41 <kimchi-bot> Meeting started Wed Feb 17 12:03:41 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+12:03:41 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+12:03:43 <alinefm> #meetingname scrum
+12:03:43 <kimchi-bot> The meeting name has been set to 'scrum'
+12:04:02 <alinefm> #info Agenda
+12:04:03 <alinefm> #info 1) Status
+12:04:03 <alinefm> #info 2) Open discussion
+12:04:03 <alinefm> anything else?
+12:04:11 <ramonn> nop
+12:06:57 <alinefm> so let's get started
+12:07:03 <alinefm> #topic Status
+12:07:05 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+12:07:43 <alinefm> #info [wok] alinefm sent patch to remove legacy code from code
+12:07:58 <alinefm> #info [wok] alinefm sent patch to update IBM copyright on make check-local
+12:08:10 <peterpennings> #info [kimchi] peterpennings is working at maxmemory UI for guest and templates
+12:08:12 <alinefm> #info [wok] alinefm sent patch to allow user disable HTTP port
+12:08:41 <ziviani> #info [kimchi] ziviani sent patch to fix bug 33: Implement a multiprocess file handler for log system
+12:08:54 <lcorreia> #info [wok] lcorreia will implement: user activity log functionality according to RFC sent to ML
+12:08:54 <lcorreia> #info [kimchi] lcorreia fixed VLAN handling for bridged virtual networks in backend
+12:08:54 <lcorreia> #info [kimchi] lcorreia working on Kimchi feature: handle notifications for host ENOSPC from libvirt
+12:08:57 <ziviani> #info [kimchi] ziviani sent patch to fix bug 30: Duplicated log messages
+12:09:11 <ramonn> #info ramonn [ginger] debugging rpm postun scripts
+12:09:18 <ziviani> #info [kimchi] ziviani sent Add sourceURL comment for kimchi.min.js
+12:11:20 <Abhiram18> #info [Ginger] Abhiram18 working on parsing issues in ifcfg with extra spaces for ginger.
+12:13:19 <alinefm> anything else, guys?
+12:15:23 <peterpennings> #info [Ginger] samhenri is working at SRIOV rework
+12:16:03 <chandra> #info [Ginger] Looking into vlan/bond ui defects raised in the community
+12:17:12 <alinefm> can we move on?
+12:17:24 <peterpennings> yes
+12:18:32 <alinefm> #topic Open Discussion
+12:18:47 <alinefm> I only want to remember you that the code freeze starts in 2 weeks
+12:18:59 <alinefm> so all features must be upstream by this time
+12:20:28 <pvital> alinefm, but only for wok and gingerbase, right? I remember that there is one week of difference between the freezes
+12:21:15 <alinefm> pvital, no
+12:21:22 <alinefm> for wok and gingerbase is next week
+12:21:46 <alinefm> Code freeze for Wok and Ginger base starts on Feb 24th
+12:22:03 <alinefm> Code freeze for Kimchi and Ginger starts on Mar 03rd
+12:22:22 <alinefm> *Mar 02snd
+12:22:29 <pvital> ok
+12:22:40 <lbianc> alinefm: I don't know if you are aware about the SR-IOV, but it is still under development. There were some issues regarding the specification. I would like you check that to help to improve how it is specified. We are going to summarize it before start, but would be good everyone be aware about it.
+12:23:08 <alinefm> lbianc, yeap! sounds good for me
+12:23:21 <alinefm> it is also good to send a mockup prior to the devel
+12:23:29 <alinefm> so we can see how the UI will looks like before the code
+12:25:14 <lbianc> alinefm: Yes, but any help from everyone when specifying will help a lot! :) Thanks!
+12:25:34 <alinefm> lbianc, sure
+12:25:40 <alinefm> anything else for today?
+12:25:51 <lbianc> alinefm: nop
+12:26:06 <alinefm> so thanks everyone for joining!
+12:26:08 <alinefm> #endmeeting
