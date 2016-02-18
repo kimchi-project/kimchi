@@ -1,7 +1,7 @@
 /*
  * Project Kimchi
  *
- * Copyright IBM, Corp. 2013-2016
+ * Copyright IBM Corp, 2013-2016
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,13 +32,13 @@ kimchi.startNetworkCreation = function() {
     var data = {
         name : network.name,
         connection: network.type,
-        interface: network.interface,
+        interfaces: [ network.interface ],
         vlan_id: network.vlan_id
     };
 
     kimchi.createNetwork(data, function(result) {
         network.state = result.state === "active" ? "up" : "down";
-        network.interface = result.interface ? result.interface : i18n["KCHNET6001M"];
+        network.interface = result.interfaces ? result.interfaces[0] : i18n["KCHNET6001M"];
         network.addrSpace = result.subnet ? result.subnet : i18n["KCHNET6001M"];
         network.persistent = result.persistent;
         $('#networkGrid').dataGrid('addRow', kimchi.addNetworkItem(network));
