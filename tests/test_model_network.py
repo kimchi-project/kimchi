@@ -2,7 +2,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2015
+# Copyright IBM Corp, 2015-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -29,6 +29,7 @@ from tests.utils import run_server
 from wok.rollbackcontext import RollbackContext
 
 from wok.plugins.kimchi.model.model import Model
+from wok.plugins.kimchi.model.featuretests import FeatureTests
 
 
 model = None
@@ -124,7 +125,7 @@ class NetworkTests(unittest.TestCase):
             network = json.loads(
                 self.request('/plugins/kimchi/networks/network-1').read()
             )
-            keys = [u'name', u'connection', u'interface', u'subnet', u'dhcp',
+            keys = [u'name', u'connection', u'interfaces', u'subnet', u'dhcp',
                     u'vms', u'in_use', u'autostart', u'state', u'persistent']
             self.assertEquals(sorted(keys), sorted(network.keys()))
 
@@ -143,9 +144,36 @@ class NetworkTests(unittest.TestCase):
         if len(interfaces) > 0:
             iface = interfaces[0]['name']
             networks.append({'name': u'macvtap-network',
-                             'connection': 'macvtap', 'interface': iface})
-            networks.append({'name': u'bridge-network', 'connection': 'bridge',
-                             'interface': iface})
+                             'connection': 'macvtap', 'interfaces': [iface]})
+            if not FeatureTests.is_nm_running():
+                networks.append({'name': u'bridge-network',
+                                 'connection': 'bridge',
+                                 'interfaces': [iface]})
 
         for net in networks:
             _do_network_test(self, model, net)
+
+    def test_macvtap_network_create_fails_more_than_one_interface(self):
+        network = {
+            'name': u'macvtap-network',
+            'connection': 'macvtap',
+            'interfaces': ['fake_iface1', 'fake_iface2', 'fake_iface3']
+        }
+
+        expected_error_msg = "KCHNET0030E"
+        req = json.dumps(network)
+        resp = self.request('/plugins/kimchi/networks', req, 'POST')
+        self.assertEquals(400, resp.status)
+        self.assertIn(expected_error_msg, resp.read())
+
+    def test_bridge_network_create_fails_more_than_one_interface(self):
+        network = {
+            'name': u'bridge-network',
+            'connection': 'bridge',
+            'interfaces': ['fake_iface1', 'fake_iface2', 'fake_iface3']
+        }
+        expected_error_msg = "KCHNET0030E"
+        req = json.dumps(network)
+        resp = self.request('/plugins/kimchi/networks', req, 'POST')
+        self.assertEquals(400, resp.status)
+        self.assertIn(expected_error_msg, resp.read())

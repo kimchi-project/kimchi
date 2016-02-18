@@ -2,7 +2,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2015-2016
+# Copyright IBM Corp, 2015-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -28,6 +28,7 @@ from tests.utils import get_free_port, patch_auth, request, run_server
 
 from wok.plugins.kimchi.config import READONLY_POOL_TYPE
 from wok.plugins.kimchi.mockmodel import MockModel
+from wok.plugins.kimchi.model.featuretests import FeatureTests
 
 
 model = None
@@ -320,10 +321,11 @@ class TemplateTests(unittest.TestCase):
             iface = interfaces[0]['name']
             networks.append({'name': u'bridge-network',
                              'connection': 'macvtap',
-                             'interface': iface})
-            networks.append({'name': u'bridge-network',
-                             'connection': 'macvtap',
-                             'interface': iface, 'vlan_id': 987})
+                             'interfaces': [iface]})
+            if not FeatureTests.is_nm_running():
+                networks.append({'name': u'bridge-network-with-vlan',
+                                 'connection': 'bridge',
+                                 'interfaces': [iface], 'vlan_id': 987})
 
         tmpl_nets = []
         for net in networks:

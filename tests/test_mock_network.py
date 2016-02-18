@@ -26,7 +26,7 @@ from functools import partial
 from tests.utils import get_free_port, patch_auth, request, run_server
 
 from wok.plugins.kimchi.mockmodel import MockModel
-from wok.utils import run_command
+from wok.plugins.kimchi.model.featuretests import FeatureTests
 
 from test_model_network import _do_network_test
 
@@ -57,19 +57,12 @@ def tearDownModule():
     os.unlink('/tmp/obj-store-test')
 
 
-def is_network_manager_running():
-    out, err, rc = run_command(['nmcli', 'dev', 'status'])
-    if rc != 0:
-        return False
-    return True
-
-
 class MockNetworkTests(unittest.TestCase):
     def setUp(self):
         self.request = partial(request, host, ssl_port)
         model.reset()
 
-    @unittest.skipIf(is_network_manager_running(),
+    @unittest.skipIf(FeatureTests.is_nm_running(),
                      'test_vlan_tag_bridge skipped because Network '
                      'Manager is running.')
     def test_vlan_tag_bridge(self):
