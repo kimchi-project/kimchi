@@ -18,6 +18,7 @@
 
 kimchi.NETWORK_TYPE_MACVTAP = "macvtap";
 kimchi.NETWORK_TYPE_BRIDGED = "bridge";
+kimchi.NETWORK_TYPE_VEPA = "vepa";
 
 
 kimchi.initNetwork = function() {

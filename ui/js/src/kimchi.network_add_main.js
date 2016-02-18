@@ -82,7 +82,7 @@ kimchi.getNetworkDialogValues = function() {
         name : $("#networkName").val(),
         type : $("#networkType").val()
     };
-    if (network.type === kimchi.NETWORK_TYPE_MACVTAP) {
+    if (network.type === kimchi.NETWORK_TYPE_MACVTAP ||  network.type === kimchi.NETWORK_TYPE_VEPA) {
         network.interface = $("#networkDestinationID").val();
     }
     if (network.type === kimchi.NETWORK_TYPE_BRIDGED) {
@@ -106,7 +106,7 @@ kimchi.setupNetworkFormEvent = function() {
 
     $('#networkType').on('change', function() {
         var selectedType = $("#networkType").val();
-        if(selectedType === kimchi.NETWORK_TYPE_MACVTAP) {
+        if(selectedType === kimchi.NETWORK_TYPE_MACVTAP || selectedType === kimchi.NETWORK_TYPE_VEPA) {
             kimchi.loadInterfaces(new Array("nic", "bonding"));
         } else {
             kimchi.loadInterfaces();
