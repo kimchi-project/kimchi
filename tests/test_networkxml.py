@@ -1,7 +1,7 @@
 #
 # Kimchi
 #
-# Copyright IBM, Corp. 2013-2014
+# Copyright IBM Corp, 2013-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -152,6 +152,48 @@ class NetworkXmlTests(unittest.TestCase):
         netmask = xpath_get_text(xml, "/network/ip/@netmask")[0]
         self.assertEquals(netmask,
                           str(ipaddr.IPNetwork(params["net"]).netmask))
+
+    def test_vepa_network_singledev_xml(self):
+        expected_xml = """<network>\
+<name>test_vepa</name>\
+<forward mode="vepa" dev="vepa_switch_interface">\
+<interface dev="vepa_switch_interface"/>\
+</forward>\
+</network>"""
+
+        params = {
+            "name": "test_vepa",
+            "forward": {
+                "mode": "vepa",
+                "devs": ["vepa_switch_interface"]
+            }
+        }
+        xml_str = nxml.to_network_xml(**params)
+        self.assertEqual(xml_str, expected_xml)
+
+    def test_vepa_network_multipledevs_xml(self):
+        expected_xml = """<network>\
+<name>test_vepa</name>\
+<forward mode="vepa" dev="vepa_switch_interface1">\
+<interface dev="vepa_switch_interface1"/>\
+<interface dev="vepa_switch_interface2"/>\
+<interface dev="vepa_switch_interface3"/>\
+</forward>\
+</network>"""
+
+        params = {
+            "name": "test_vepa",
+            "forward": {
+                "mode": "vepa",
+                "devs": [
+                    "vepa_switch_interface1",
+                    "vepa_switch_interface2",
+                    "vepa_switch_interface3"
+                ]
+            }
+        }
+        xml_str = nxml.to_network_xml(**params)
+        self.assertEqual(xml_str, expected_xml)
 
 
 class InterfaceXmlTests(unittest.TestCase):
