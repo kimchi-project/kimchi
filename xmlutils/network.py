@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2014
+# Copyright IBM Corp, 2014-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -79,6 +79,14 @@ def _get_forward_elem(**kwargs):
     forward = E.forward()
     if 'mode' in kwargs.keys():
         forward.set('mode', kwargs['mode'])
+        if kwargs['mode'] == 'vepa':
+            devs = kwargs['devs']
+            forward.set('dev', devs[0])
+
+            for dev in devs:
+                interface = E.interface()
+                interface.set('dev', dev)
+                forward.append(interface)
 
     if 'dev' in kwargs.keys():
         forward.set('dev', kwargs['dev'])
