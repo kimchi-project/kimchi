@@ -670,6 +670,8 @@ A interface represents available interface on host.
         * nat: Outgoing traffic will be routed through the host.
         * macvtap: All traffic on this network will be bridged through the
                    specified interface.
+        * vepa: All traffic will be forward to one or more physical devices
+                directly connected to a VEPA-enabled switch.
         * bridge: All traffic on this network will be bridged through a Linux
                   bridged, which is created upon specified interface in case
                   it is not already a Linux bridge.
