@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2014-2015
+# Copyright IBM Corp, 2014-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -88,16 +88,18 @@ class NetworksModel(object):
 
         # handle connection type
         connection = params["connection"]
-        if connection == 'macvtap':
-            self._set_network_macvtap(params)
-        elif connection == 'bridge':
-            self._set_network_bridge(params)
-        elif connection in ['nat', 'isolated']:
+        if connection in ['nat', 'isolated']:
             if connection == 'nat':
                 params['forward'] = {'mode': 'nat'}
 
             # set subnet; bridge/macvtap networks do not need subnet
             self._set_network_subnet(params)
+        else:
+            self._check_network_interface(params)
+            if connection == 'macvtap':
+                self._set_network_macvtap(params)
+            elif connection == 'bridge':
+                self._set_network_bridge(params)
 
         # create network XML
         params['name'] = escape(params['name'])
@@ -165,19 +167,23 @@ class NetworksModel(object):
                 raise OperationFailed("KCHNET0021E", {'iface': iface})
 
     def _check_network_interface(self, params):
-        try:
-            # fails if host interface is already in use by a libvirt network
-            iface = params['interface']
+        if not params.get('interfaces'):
+            raise MissingParameter("KCHNET0004E", {'name': params['name']})
+
+        if len(params['interfaces']) == 0:
+            raise InvalidParameter("KCHNET0029E")
+
+        conn = params['connection']
+        if conn in ['bridge', 'macvtap'] and len(params['interfaces']) > 1:
+            raise InvalidParameter("KCHNET0030E")
+
+        for iface in params['interfaces']:
             if iface in self.get_all_networks_interfaces():
                 msg_args = {'iface': iface, 'network': params['name']}
                 raise InvalidParameter("KCHNET0006E", msg_args)
-        except KeyError:
-            raise MissingParameter("KCHNET0004E", {'name': params['name']})
 
     def _set_network_macvtap(self, params):
-        self._check_network_interface(params)
-
-        iface = params['interface']
+        iface = params['interfaces'][0]
         if ('vlan_id' in params or not (netinfo.is_bare_nic(iface) or
            netinfo.is_bonding(iface))):
             raise InvalidParameter('KCHNET0028E', {'name': iface})
@@ -186,11 +192,10 @@ class NetworksModel(object):
         params['forward'] = {'mode': 'bridge', 'dev': iface}
 
     def _set_network_bridge(self, params):
-        self._check_network_interface(params)
         params['forward'] = {'mode': 'bridge'}
 
         # Bridges cannot be the trunk device of a VLAN
-        iface = params['interface']
+        iface = params['interfaces'][0]
         if 'vlan_id' in params and netinfo.is_bridge(iface):
             raise InvalidParameter('KCHNET0019E', {'name': iface})
 
@@ -205,15 +210,15 @@ class NetworksModel(object):
 
         # connection == macvtap and iface is not bridge
         elif netinfo.is_bare_nic(iface) or netinfo.is_bonding(iface):
+            # libvirt bridge creation will fail with NetworkManager enabled
+            if self.caps.nm_running:
+                raise InvalidParameter('KCHNET0027E')
+
             if 'vlan_id' in params:
                 params['bridge'] = \
                     self._create_vlan_tagged_bridge(str(iface),
                                                     str(params['vlan_id']))
             else:
-                # libvirt bridge creation will fail with NetworkManager enabled
-                if self.caps.nm_running:
-                    raise InvalidParameter('KCHNET0027E')
-
                 # create Linux bridge interface and use it as actual iface
                 iface = self._create_linux_bridge(iface)
                 params['bridge'] = iface
@@ -353,7 +358,7 @@ class NetworkModel(object):
             subnet = "%s/%s" % (subnet.network, subnet.prefixlen)
 
         return {'connection': connection,
-                'interface': interface,
+                'interfaces': [interface],
                 'subnet': subnet,
                 'dhcp': dhcp,
                 'vms': self._get_vms_attach_to_a_network(name),
