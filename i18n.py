@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2014-2016
+# Copyright IBM Corp, 2014-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -262,7 +262,7 @@ messages = {
     "KCHNET0011E": _("Network name must be a string without slashes (/) or quotes (\")"),
     "KCHNET0012E": _("Supported network types are isolated, NAT, macvtap and bridge"),
     "KCHNET0013E": _("Network subnet must be a string with IP address and prefix or netmask"),
-    "KCHNET0014E": _("Network interface must be a string"),
+    "KCHNET0014E": _("Network interfaces must be an array."),
     "KCHNET0015E": _("Network VLAN ID must be an integer between 1 and 4094"),
     "KCHNET0016E": _("Specify name and type to create a Network"),
     "KCHNET0017E": _("Unable to delete network %(name)s. There are some virtual machines %(vms)s and/or templates linked to this network."),
@@ -275,6 +275,8 @@ messages = {
     "KCHNET0025E": _("Unable to create bridge %(name)s. Details: %(err)s"),
     "KCHNET0027E": _("Unable to create bridge with NetworkManager enabled. Disable it and try again."),
     "KCHNET0028E": _("Interface should be bare NIC or bonding."),
+    "KCHNET0029E": _("Network interfaces parameter must contain at least one interface."),
+    "KCHNET0030E": _("Only one interface is allowed for 'bridge' and 'macvtap' networks."),
 
     "KCHSR0001E": _("Storage server %(server)s was not used by Kimchi"),
 
