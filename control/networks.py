@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2013-2015
+# Copyright IBM Corp, 2013-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -47,7 +47,7 @@ class Network(Resource):
                 'in_use': self.info['in_use'],
                 'autostart': self.info['autostart'],
                 'connection': self.info['connection'],
-                'interface': self.info['interface'],
+                'interfaces': self.info['interfaces'],
                 'subnet': self.info['subnet'],
                 'dhcp': self.info['dhcp'],
                 'state': self.info['state'],
