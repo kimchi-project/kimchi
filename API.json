@@ -366,9 +366,9 @@
                     "type": "string",
                     "error": "KCHNET0013E"
                 },
-                "interface": {
-                    "description": "The name of a network interface on the host",
-                    "type": "string",
+                "interfaces": {
+                    "description": "An array of network interfaces of the host",
+                    "type": "array",
                     "error": "KCHNET0014E"
                 },
                 "vlan_id": {

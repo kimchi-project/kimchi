@@ -675,9 +675,9 @@ A interface represents available interface on host.
                   it is not already a Linux bridge.
     * subnet *(optional)*: Network segment in slash-separated format with ip address and
                            prefix or netmask used to create nat network.
-    * interface *(optional)*: The name of a network interface on the host.
-                              For "macvtap" and "bridge" connections, the
-                              interface can be a nic, bridge or bonding device.
+    * interfaces *(optional)*: An array of network interfaces of the host.
+                               For "macvtap" and "bridge" connections, only
+                               one interface will be allowed in this array.
     * vlan_id *(optional)*: VLAN tagging ID for the macvtap bridge network.
 
 ### Resource: Network
@@ -710,9 +710,9 @@ A interface represents available interface on host.
         * bridge: Aggregated Public Network.
                   The VM that joines this network is seen as a peer on this network
                   and it may offer network services such as HTTP or SSH.
-    * interface: The name of a bridge network interface on the host.  All traffic
-                 on this network will be bridged through the indicated interface.
-                 The interface is a bridge or ethernet/bonding device.
+    * interfaces: An array of bridge network interfaces that belongs to this network
+                  All traffic on this network will be bridged through the first
+                  interface. The interface is a bridge or ethernet/bonding device.
     * persistent: If 'true', network will persist after a system reboot or be stopped.
                   All networks created by Kimchi are persistent.
 
