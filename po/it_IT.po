@@ -1,5 +1,5 @@
-# English translations for kimchi package.
-# Copyright (C) 2013 ORGANIZATION
+# Italian translations for kimchi package.
+# Copyright IBM Corp, 2014-2016
 # Adam Litke <agl@us.ibm.com>, 2013.
 #
 msgid ""
