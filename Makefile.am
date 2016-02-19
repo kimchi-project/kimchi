@@ -77,6 +77,8 @@ check-local:
 		git grep --cached -Il '' | grep -v '^ui/spice-html5/' |  \
 			xargs egrep '.* +$$'                             \
 			&& echo "ERROR: Whitespaces found" || echo "Ok"; \
+		echo "IBM copyright year verification ..." ;              \
+		/bin/bash ../../../../check-IBM-license-header.sh ;       \
 	fi
 
 # Link built mo files in the source tree to enable use of translations from
