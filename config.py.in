@@ -128,6 +128,7 @@ class KimchiConfig(PluginConfig):
         super(KimchiConfig, self).__init__('kimchi')
 
         static_config = {
+
             '/novnc': {'type': 'dir',
                        'path': kimchiPaths.novnc_dir},
             '/spice-html5': {'type': 'dir',
@@ -139,7 +140,15 @@ class KimchiConfig(PluginConfig):
             '/serial': {'type': 'dir',
                         'path': kimchiPaths.serial_dir}}
 
-        custom_config = {}
+        custom_config = {
+            '/help': {'tools.nocache.on': True,
+                      'tools.staticdir.dir':
+                      os.path.join(kimchiPaths.ui_dir, 'pages/help'),
+                      'tools.staticdir.on': True},
+            '/data/screenshots': {'tools.nocache.on': False,
+                                  'tools.staticdir.dir':
+                                  get_screenshot_path(),
+                                  'tools.staticdir.on': True}}
         for uri, data in static_config.iteritems():
             custom_config[uri] = {'tools.nocache.on': True,
                                   'tools.wokauth.on': True}
