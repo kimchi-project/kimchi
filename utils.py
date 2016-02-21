@@ -29,6 +29,7 @@ from urlparse import urlparse
 
 from wok.exception import InvalidParameter, OperationFailed
 from wok.plugins.kimchi import config
+from wok.plugins.kimchi.osinfo import get_template_default
 from wok.utils import wok_log
 from wok.xmlutils.utils import xpath_get_text
 
@@ -178,3 +179,48 @@ def upgrade_objectstore_template_disks(libv_conn):
         if conn:
             conn.close()
         wok_log.info("%d 'template' entries upgraded in objectstore.", total)
+
+
+def upgrade_objectstore_memory():
+    """
+        Upgrade the value of a given JSON's item of all Templates.
+        Changes 'memory': XXX by 'memory': {'current': XXXX,
+                                            'maxmemory': XXXX}
+    """
+    total = 0
+    try:
+        conn = sqlite3.connect(config.get_object_store(), timeout=10)
+        cursor = conn.cursor()
+        sql = "SELECT id,json FROM objects WHERE type='template'"
+        cursor.execute(sql)
+        for row in cursor.fetchall():
+            template = json.loads(row[1])
+
+            # Get memory info
+            memory = template['memory']
+            # New memory is a dictionary with 'current' and 'maxmemory'
+            if type(memory) is not dict:
+                maxmem = get_template_default('modern',
+                                              'memory').get('maxmemory')
+                if maxmem < memory:
+                    maxmem = memory
+                template['memory'] = {'current': memory,
+                                      'maxmemory': maxmem}
+            else:
+                continue
+
+            sql = "UPDATE objects SET json=? WHERE id=?"
+            cursor.execute(sql, (json.dumps(template), row[0]))
+            conn.commit()
+            total += 1
+    except sqlite3.Error, e:
+        if conn:
+            conn.rollback()
+        raise OperationFailed("KCHUTILS0006E")
+        wok_log.error("Error while upgrading objectstore data:", e.args[0])
+    finally:
+        if conn:
+            conn.close()
+        if total > 0:
+            wok_log.info(
+                "%d 'template' memory entries upgraded in objectstore.", total)
