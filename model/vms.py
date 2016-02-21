@@ -52,8 +52,8 @@ from wok.plugins.kimchi.kvmusertests import UserTests
 from wok.plugins.kimchi.model.config import CapabilitiesModel
 from wok.plugins.kimchi.model.cpuinfo import CPUInfoModel
 from wok.plugins.kimchi.model.featuretests import FeatureTests
-from wok.plugins.kimchi.model.templates import TemplateModel
-from wok.plugins.kimchi.model.templates import MAX_MEM_LIM, PPC_MEM_ALIGN
+from wok.plugins.kimchi.model.templates import PPC_MEM_ALIGN
+from wok.plugins.kimchi.model.templates import TemplateModel, validate_memory
 from wok.plugins.kimchi.model.utils import get_ascii_nonascii_name, get_vm_name
 from wok.plugins.kimchi.model.utils import get_metadata_node
 from wok.plugins.kimchi.model.utils import remove_metadata_node
@@ -97,6 +97,7 @@ XPATH_NAME = './name'
 XPATH_NUMA_CELL = './cpu/numa/cell'
 XPATH_TOPOLOGY = './cpu/topology'
 XPATH_VCPU = './vcpu'
+XPATH_MAX_MEMORY = './maxMemory'
 
 # key: VM name; value: lock object
 vm_locks = {}
@@ -251,16 +252,12 @@ class VMModel(object):
             vm_locks[name] = lock
 
         with lock:
-            # make sure memory is alingned in 256MiB in PowerPC
-            distro, _, _ = platform.linux_distribution()
-            if 'memory' in params and distro == "IBM_PowerKVM":
-                if params['memory'] % PPC_MEM_ALIGN != 0:
-                    raise InvalidParameter('KCHVM0071E',
-                                           {'param': "Memory",
-                                            'mem': str(params['memory']),
-                                            'alignment': str(PPC_MEM_ALIGN)})
-
             dom = self.get_vm(name, self.conn)
+            # You can only change <maxMemory> offline, updating guest XML
+            if ("memory" in params) and ('maxmemory' in params['memory']) and\
+               (DOM_STATE_MAP[dom.info()[0]] != 'shutoff'):
+                raise InvalidParameter("KCHVM0080E")
+
             if DOM_STATE_MAP[dom.info()[0]] == 'shutoff':
                 ext_params = set(params.keys()) - set(VM_OFFLINE_UPDATE_PARAMS)
                 if len(ext_params) > 0:
@@ -725,14 +722,14 @@ class VMModel(object):
 
     def _static_vm_update(self, vm_name, dom, params):
         old_xml = new_xml = dom.XMLDesc(0)
-
         params = copy.deepcopy(params)
 
         # Update name
         name = params.get('name')
         nonascii_name = None
+        state = DOM_STATE_MAP[dom.info()[0]]
+
         if name is not None:
-            state = DOM_STATE_MAP[dom.info()[0]]
             if state != 'shutoff':
                 msg_args = {'name': vm_name, 'new_name': params['name']}
                 raise InvalidParameter("KCHVM0003E", msg_args)
@@ -771,7 +768,8 @@ class VMModel(object):
             new_xml = xml_item_remove(new_xml, XPATH_TOPOLOGY)
 
         # Updating memory and NUMA if necessary, if vm is offline
-        if 'memory' in params and not dom.isActive():
+        if (not dom.isActive() and 'memory' in params and
+           params['memory'] != {}):
             new_xml = self._update_memory_config(new_xml, params)
 
         if 'graphics' in params:
@@ -811,103 +809,113 @@ class VMModel(object):
         return (nonascii_name if nonascii_name is not None else vm_name, dom)
 
     def _update_memory_config(self, xml, params):
-        # Checks if NUMA memory is already configured, if not, checks if CPU
-        # element is already configured (topology). Then add NUMA element as
-        # apropriated
         root = ET.fromstring(xml)
-        numa_mem = xpath_get_text(xml, XPATH_NUMA_CELL + '/@memory')
-        maxvcpus = params.get('cpu_info', {}).get('maxvcpus')
-        if numa_mem == []:
-            if maxvcpus is None:
-                maxvcpus = int(xpath_get_text(xml, XPATH_VCPU)[0])
-            cpu = root.find('./cpu')
-            if cpu is None:
-                cpu = get_cpu_xml(0, params['memory'] << 10)
-                root.insert(0, ET.fromstring(cpu))
+        # MiB to KiB
+        hasMem = 'current' in params['memory']
+        hasMaxMem = 'maxmemory' in params['memory']
+        oldMem = int(xpath_get_text(xml, XPATH_DOMAIN_MEMORY)[0]) >> 10
+        maxMemTag = root.find(XPATH_MAX_MEMORY)
+        if maxMemTag is not None:
+            oldMaxMem = int(xpath_get_text(xml, XPATH_MAX_MEMORY)[0]) >> 10
+        else:
+            oldMaxMem = oldMem
+        newMem = (params['memory'].get('current', oldMem)) << 10
+        newMaxMem = (params['memory'].get('maxmemory', oldMaxMem)) << 10
+
+        validate_memory({'current': newMem >> 10,
+                         'maxmemory': newMaxMem >> 10})
+
+        def _get_slots(mem, maxMem):
+            slots = (maxMem - mem) >> 10 >> 10
+            # Libvirt does not accepts slots <= 1
+            if slots < 0:
+                raise InvalidParameter("KCHTMPL0031E",
+                                       {'mem': str(mem >> 10),
+                                        'maxmem': str(maxMem >> 10)})
+            elif slots == 0:
+                slots = 1
+
+            # max 32 slots on Power
+            distro, _, _ = platform.linux_distribution()
+            if distro == "IBM_PowerKVM" and slots > 32:
+                slots = 32
+            return slots
+        # End of _get_slots
+
+        # There is an issue in Libvirt/Qemu, where Guest does not start if
+        # memory and max memory are the same. So we decided to remove max
+        # memory and only add it if user explicitly provides it, willing to
+        # do memory hotplug
+        if hasMaxMem:
+            # Conditions:
+            if (maxMemTag is None) and (newMem != newMaxMem):
+                # Creates the maxMemory tag
+                max_mem_xml = E.maxMemory(
+                    str(newMaxMem),
+                    unit='Kib',
+                    slots=str(_get_slots(newMem, newMaxMem)))
+                root.insert(0, max_mem_xml)
+            elif (maxMemTag is None) and (newMem == newMaxMem):
+                # Nothing to do
+                pass
+            elif (maxMemTag is not None) and (newMem != newMaxMem):
+                # Just update value in max memory tag
+                maxMemTag.text = str(newMaxMem)
+                maxMemTag.set('slots', str(_get_slots(newMem, newMaxMem)))
+            elif (maxMemTag is not None) and (newMem == newMaxMem):
+                # Remove the tag
+                root.remove(maxMemTag)
+
+        # Update memory, if necessary
+        if hasMem:
+            # Remove currentMemory, automatically set later by libvirt, with
+            # memory value
+            currentMem = root.find('.currentMemory')
+            if currentMem is not None:
+                root.remove(currentMem)
+
+            memory = root.find('.memory')
+            # If host/guest does not support memory hot plug, then there is
+            # NUMA configure, we must update the tag directly
+            if not self.caps.mem_hotplug_support:
+                if memory is not None:
+                    memory.text = str(newMem)
             else:
-                numa_element = get_numa_xml(0, params['memory'] << 10)
+                if memory is not None:
+                    # Libvirt is going to set the value automatically with
+                    # the value configured in NUMA tag
+                    root.remove(memory)
+
+            if (maxMemTag is not None) and (not hasMaxMem):
+                if newMem == newMaxMem:
+                    root.remove(maxMemTag)
+                else:
+                    maxMemTag.set('slots', str(_get_slots(newMem, newMaxMem)))
+
+        # Set NUMA parameterers and create it if does not exist
+        # CPU tag DO NOT exist? Create it
+        cpu = root.find(XPATH_CPU)
+        if cpu is None:
+            cpu = get_cpu_xml(0, newMem)
+            root.insert(0, ET.fromstring(cpu))
+        else:
+            # Does NUMA tag exist ?
+            numaTag = cpu.find('./numa')
+            if numaTag is None:
+                numa_element = get_numa_xml(0, newMem)
                 cpu.insert(0, ET.fromstring(numa_element))
-        else:
-            if maxvcpus is not None:
-                xml = xml_item_update(
-                    xml,
-                    XPATH_NUMA_CELL,
-                    value='0',
-                    attr='cpus')
-            root = ET.fromstring(xml_item_update(xml, XPATH_NUMA_CELL,
-                                                 str(params['memory'] << 10),
-                                                 attr='memory'))
+            else:
+                cellTag = cpu.find('./numa/cell')
+                cellTag.set('memory', str(newMem))
 
-        # Remove currentMemory, automatically set later by libvirt
-        currentMem = root.find('.currentMemory')
-        if currentMem is not None:
-            root.remove(currentMem)
-
-        memory = root.find('.memory')
-        # Update/Adds maxMemory accordingly
-        if not self.caps.mem_hotplug_support:
-            if memory is not None:
-                memory.text = str(params['memory'] << 10)
-        else:
-            if memory is not None:
-                root.remove(memory)
-
-            def _get_slots(maxMem):
-                slots = (maxMem - params['memory']) >> 10
-                # Libvirt does not accepts slots <= 1
-                if slots < 0:
-                    raise OperationFailed("KCHVM0041E",
-                                          {'maxmem': str(maxMem)})
-                elif slots == 0:
-                    slots = 1
-
-                distro, _, _ = platform.linux_distribution()
-                if distro == "IBM_PowerKVM":
-                    # max 32 slots on Power
-                    if slots > 32:
-                        slots = 32
-                return slots
-            # End of _get_slots
-
-            def _get_newMaxMem():
-                # Setting max memory to 4x memory requested, host total memory,
-                # or 1 TB. This should avoid problems with live migration
-                newMaxMem = MAX_MEM_LIM
-                hostMem = self.conn.get().getInfo()[1] << 10
-                if hostMem < newMaxMem:
-                    newMaxMem = hostMem
-                mem = params.get('memory', 0)
-                if (mem != 0) and (((mem * 4) << 10) < newMaxMem):
-                    newMaxMem = (mem * 4) << 10
-
-                distro, _, _ = platform.linux_distribution()
-                if distro == "IBM_PowerKVM":
-                    # max memory 256MiB alignment
-                    newMaxMem -= (newMaxMem % 256)
-                return newMaxMem
-
-            maxMem = root.find('.maxMemory')
-            if maxMem is not None:
-                root.remove(maxMem)
-
-            # Setting maxMemory
-            newMaxMem = _get_newMaxMem()
-            slots = _get_slots(newMaxMem >> 10)
-            max_mem_xml = E.maxMemory(
-                str(newMaxMem),
-                unit='Kib',
-                slots=str(slots))
-            root.insert(0, max_mem_xml)
-
-            # Setting memory hard limit to max_memory + 1GiB
-            memtune = root.find('memtune')
-            if memtune is not None:
-                hl = memtune.find('hard_limit')
-                if hl is not None:
-                    memtune.remove(hl)
-                    memtune.insert(0, E.hard_limit(str(newMaxMem + 1048576),
-                                                   unit='Kib'))
-
+        # Setting memory hard limit to max_memory + 1GiB
+        memtune = root.find('memtune')
+        if memtune is not None:
+            hl = memtune.find('hard_limit')
+            if hl is not None:
+                memtune.remove(hl)
+                memtune.insert(0, E.hard_limit(str(newMaxMem + 1048576),
+                                               unit='Kib'))
         return ET.tostring(root, encoding="utf-8")
 
     def _update_cpu_info(self, new_xml, dom, new_info):
@@ -943,7 +951,8 @@ class VMModel(object):
 
     def _live_vm_update(self, dom, params):
         self._vm_update_access_metadata(dom, params)
-        if 'memory' in params and dom.isActive():
+        if (('memory' in params) and ('current' in params['memory']) and
+           dom.isActive()):
             self._update_memory_live(dom, params)
 
     def _update_memory_live(self, dom, params):
@@ -960,12 +969,20 @@ class VMModel(object):
             raise OperationFailed('KCHVM0042E', {'name': dom.name()})
 
         # Memory live update must be done in chunks of 1024 Mib or 1Gib
-        new_mem = params['memory']
+        new_mem = params['memory']['current']
         old_mem = int(xpath_get_text(xml, XPATH_DOMAIN_MEMORY)[0]) >> 10
         if new_mem < old_mem:
             raise OperationFailed('KCHVM0043E')
         if (new_mem - old_mem) % 1024 != 0:
             raise OperationFailed('KCHVM0044E')
+
+        # make sure memory is alingned in 256MiB in PowerPC
+        distro, _, _ = platform.linux_distribution()
+        if (distro == "IBM_PowerKVM" and new_mem % PPC_MEM_ALIGN != 0):
+            raise InvalidParameter('KCHVM0071E',
+                                   {'param': "Memory",
+                                    'mem': str(new_mem),
+                                    'alignment': str(PPC_MEM_ALIGN)})
 
         # Check slot spaces:
         total_slots = int(xpath_get_text(xml, './maxMemory/@slots')[0])
@@ -1190,11 +1207,18 @@ class VMModel(object):
                 proc.join(1)
                 self._serial_procs.remove(proc)
 
+        # Get max memory, or return "memory" if not set
+        maxmemory = xpath_get_text(xml, XPATH_MAX_MEMORY)
+        if len(maxmemory) > 0:
+            maxmemory = convert_data_size(maxmemory[0], 'KiB', 'MiB')
+        else:
+            maxmemory = memory
+
         return {'name': name,
                 'state': state,
                 'stats': res,
                 'uuid': dom.UUIDString(),
-                'memory': memory,
+                'memory': {'current': memory, 'maxmemory': maxmemory},
                 'cpu_info': cpu_info,
                 'screenshot': screenshot,
                 'icon': icon,
