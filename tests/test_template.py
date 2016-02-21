@@ -71,7 +71,8 @@ class TemplateTests(unittest.TestCase):
 
         # Create a template without cdrom and disk specified fails with 400
         t = {'name': 'test', 'os_distro': 'ImagineOS',
-             'os_version': '1.0', 'memory': 1024, 'cpu_info': {'vcpus': 1}}
+             'os_version': '1.0', 'memory': {'current': 1024},
+             'cpu_info': {'vcpus': 1}}
         req = json.dumps(t)
         resp = self.request('/plugins/kimchi/templates', req, 'POST')
         self.assertEquals(400, resp.status)
@@ -147,10 +148,11 @@ class TemplateTests(unittest.TestCase):
         else:
             max_mem = (psutil.TOTAL_PHYMEM >> 10 >> 10)
         memory = max_mem + 1024
-        t = {'name': 'test-maxmem', 'cdrom': '/tmp/mock.iso', 'memory': memory}
+        t = {'name': 'test-maxmem', 'cdrom': '/tmp/mock.iso',
+             'memory': {'current': memory}}
         req = json.dumps(t)
         resp = self.request('/plugins/kimchi/templates', req, 'POST')
-        self.assertEquals(500, resp.status)
+        self.assertEquals(400, resp.status)
         self.assertTrue(str(max_mem) in resp.read())
 
     def test_customized_tmpl(self):
@@ -220,12 +222,36 @@ class TemplateTests(unittest.TestCase):
         update_tmpl = json.loads(resp.read())
         self.assertEquals(update_tmpl['cpu_info'], cpu_info_data['cpu_info'])
 
-        # Update memory
-        req = json.dumps({'memory': 2048})
+        # Test memory and max memory
+        # - memory greated than max memory (1024 default)
+        req = json.dumps({'memory': {'current': 2048}})
+        resp = self.request(new_tmpl_uri, req, 'PUT')
+        self.assertEquals(400, resp.status)
+        # - max memory greater than 1TiB limit
+        req = json.dumps({'memory': {'maxmemory': 1073741824 + 1024}})
+        resp = self.request(new_tmpl_uri, req, 'PUT')
+        self.assertEquals(400, resp.status)
+        self.assertTrue('KCHVM0079E' in resp.read())
+        # - change only max memory
+        req = json.dumps({'memory': {'maxmemory': 3072}})
         resp = self.request(new_tmpl_uri, req, 'PUT')
         self.assertEquals(200, resp.status)
         update_tmpl = json.loads(resp.read())
-        self.assertEquals(2048, update_tmpl['memory'])
+        self.assertEquals(3072, update_tmpl['memory']['maxmemory'])
+        # - change only memory
+        req = json.dumps({'memory': {'current': 2048}})
+        resp = self.request(new_tmpl_uri, req, 'PUT')
+        self.assertEquals(200, resp.status)
+        update_tmpl = json.loads(resp.read())
+        self.assertEquals(2048, update_tmpl['memory']['current'])
+        self.assertEquals(3072, update_tmpl['memory']['maxmemory'])
+        # - change both values
+        req = json.dumps({'memory': {'current': 1024, 'maxmemory': 1024}})
+        resp = self.request(new_tmpl_uri, req, 'PUT')
+        self.assertEquals(200, resp.status)
+        update_tmpl = json.loads(resp.read())
+        self.assertEquals(1024, update_tmpl['memory']['current'])
+        self.assertEquals(1024, update_tmpl['memory']['maxmemory'])
 
         # Update cdrom
         cdrom_data = {'cdrom': '/tmp/mock2.iso'}

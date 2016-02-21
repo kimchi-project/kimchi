@@ -152,6 +152,19 @@ class RestTests(unittest.TestCase):
         resp = self.request('/plugins/kimchi/vms/vm-1', req, 'PUT')
         self.assertEquals(200, resp.status)
 
+        # Test max memory
+        req = json.dumps({'memory': {'maxmemory': 23}})
+        resp = self.request('/plugins/kimchi/vms/vm-1', req, 'PUT')
+        self.assertEquals(400, resp.status)
+
+        req = json.dumps({'memory': {'maxmemory': 'maxmem 80'}})
+        resp = self.request('/plugins/kimchi/vms/vm-1', req, 'PUT')
+        self.assertEquals(400, resp.status)
+
+        req = json.dumps({'memory': {'maxmemory': 3072}})
+        resp = self.request('/plugins/kimchi/vms/vm-1', req, 'PUT')
+        self.assertEquals(200, resp.status)
+
         resp = self.request('/plugins/kimchi/vms/vm-1/start', '{}', 'POST')
         self.assertEquals(200, resp.status)
 
@@ -171,7 +184,7 @@ class RestTests(unittest.TestCase):
         # Check if there is support to memory hotplug, once vm is running
         resp = self.request('/plugins/kimchi/config/capabilities').read()
         conf = json.loads(resp)
-        req = json.dumps({'memory': 2048})
+        req = json.dumps({'memory': {'current': 2048}})
         resp = self.request('/plugins/kimchi/vms/vm-1', req, 'PUT')
         if conf['mem_hotplug_support']:
             self.assertEquals(200, resp.status)
@@ -211,11 +224,11 @@ class RestTests(unittest.TestCase):
         resp = self.request('/plugins/kimchi/vms/vm-1', req, 'PUT')
         self.assertEquals(400, resp.status)
 
-        req = json.dumps({'memory': 100})
+        req = json.dumps({'memory': {'current': 100}})
         resp = self.request('/plugins/kimchi/vms/vm-1', req, 'PUT')
         self.assertEquals(400, resp.status)
 
-        req = json.dumps({'memory': 'ten gigas'})
+        req = json.dumps({'memory': {'current': 'ten gigas'}})
         resp = self.request('/plugins/kimchi/vms/vm-1', req, 'PUT')
         self.assertEquals(400, resp.status)
 
@@ -225,7 +238,7 @@ class RestTests(unittest.TestCase):
         self.assertEquals(400, resp.status)
 
         params = {'name': u'∨м-црdαtеd', 'cpu_info': {'vcpus': 5},
-                  'memory': 3072}
+                  'memory': {'current': 3072}}
         req = json.dumps(params)
         resp = self.request('/plugins/kimchi/vms/vm-1', req, 'PUT')
         self.assertEquals(303, resp.status)
@@ -233,7 +246,7 @@ class RestTests(unittest.TestCase):
             self.request('/plugins/kimchi/vms/∨м-црdαtеd', req).read()
         )
         # Memory was hot plugged
-        params['memory'] += 1024
+        params['memory']['current'] += 1024
         for key in params.keys():
             self.assertEquals(params[key], vm[key])
 

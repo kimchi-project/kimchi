@@ -98,21 +98,23 @@ class VMTemplateTests(unittest.TestCase):
         expr = "/domain/devices/graphics/@listen"
         self.assertEquals(graphics['listen'], xpath_get_text(xml, expr)[0])
         expr = "/domain/maxMemory/@slots"
-        self.assertEquals('3', xpath_get_text(xml, expr)[0])
-        expr = "/domain/maxMemory"
-        self.assertEquals(str((1024 * 4) << 10), xpath_get_text(xml, expr)[0])
+        # The default is memory and maxmemory have the same value, so
+        # max memory tag is not set
+        self.assertEquals(0, len(xpath_get_text(xml, expr)))
+        expr = "/domain/memory"
+        self.assertEquals(str(1024), xpath_get_text(xml, expr)[0])
 
         if hasattr(psutil, 'virtual_memory'):
             host_memory = psutil.virtual_memory().total >> 10
         else:
             host_memory = psutil.TOTAL_PHYMEM >> 10
         t = VMTemplate({'name': 'test-template', 'cdrom': self.iso,
-                        'memory': (host_memory >> 10) - 512})
-        xml = t.to_vm_xml('test-vm', vm_uuid, graphics=graphics)
-        expr = "/domain/maxMemory"
-        self.assertEquals(str(host_memory), xpath_get_text(xml, expr)[0])
-        expr = "/domain/maxMemory/@slots"
-        self.assertEquals('1', xpath_get_text(xml, expr)[0])
+                        'memory': {'current': (host_memory >> 10) - 512}})
+        try:
+            xml = t.to_vm_xml('test-vm', vm_uuid, graphics=graphics)
+        except Exception as e:
+            # Test current memory greater than maxmemory (1024/default)
+            self.assertTrue('KCHVM0041E' in e.message)
 
     def test_arg_merging(self):
         """
@@ -121,12 +123,14 @@ class VMTemplateTests(unittest.TestCase):
         """
         graphics = {'type': 'vnc', 'listen': '127.0.0.1'}
         args = {'name': 'test', 'os_distro': 'opensuse', 'os_version': '12.3',
-                'cpu_info': {'vcpus': 2, 'maxvcpus': 4}, 'memory': 2048,
+                'cpu_info': {'vcpus': 2, 'maxvcpus': 4},
+                'memory': {'current': 2048, 'maxmemory': 3072},
                 'networks': ['foo'], 'cdrom': self.iso, 'graphics': graphics}
         t = VMTemplate(args)
         self.assertEquals(2, t.info.get('cpu_info', {}).get('vcpus'))
         self.assertEquals(4, t.info.get('cpu_info', {}).get('maxvcpus'))
-        self.assertEquals(2048, t.info.get('memory'))
+        self.assertEquals(2048, t.info.get('memory').get('current'))
+        self.assertEquals(3072, t.info.get('memory').get('maxmemory'))
         self.assertEquals(['foo'], t.info.get('networks'))
         self.assertEquals(self.iso, t.info.get('cdrom'))
         self.assertEquals(graphics, t.info.get('graphics'))
