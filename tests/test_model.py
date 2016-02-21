@@ -113,7 +113,7 @@ class ModelTests(unittest.TestCase):
         self.assertEquals(keys, set(info.keys()))
         self.assertEquals('running', info['state'])
         self.assertEquals('test', info['name'])
-        self.assertEquals(2048, info['memory'])
+        self.assertEquals(2048, info['memory']['current'])
         self.assertEquals(2, info['cpu_info']['vcpus'])
         self.assertEquals(2, info['cpu_info']['maxvcpus'])
         self.assertEquals(None, info['icon'])
@@ -270,9 +270,10 @@ class ModelTests(unittest.TestCase):
             pool_uri = "/plugins/kimchi/storagepools/default"
             tmpl_info = {"cpu_info": {"vcpus": 1}, "name": tmpl_name,
                          "graphics": {"type": "vnc", "listen": "127.0.0.1"},
-                         "networks": ["default"], "memory": 1024, "folder": [],
-                         "icon": "images/icon-vm.png", "cdrom": "",
-                         "os_distro": "unknown", "os_version": "unknown",
+                         "networks": ["default"], "memory": {'current': 1024},
+                         "folder": [], "icon": "images/icon-vm.png",
+                         "cdrom": "", "os_distro": "unknown",
+                         "os_version": "unknown",
                          "disks": [{"base": vol_path, "size": 10,
                                     "format": "qcow2",
                                     "pool": {"name": pool_uri}}]}
@@ -755,7 +756,9 @@ class ModelTests(unittest.TestCase):
     def test_vm_memory_hotplug(self):
         config.set("authentication", "method", "pam")
         inst = model.Model(None, objstore_loc=self.tmp_store)
-        orig_params = {'name': 'test', 'memory': 1024, 'cdrom': UBUNTU_ISO}
+        orig_params = {'name': 'test',
+                       'memory': {'current': 1024, 'maxmemory': 3072},
+                       'cdrom': UBUNTU_ISO}
         inst.templates_create(orig_params)
 
         with RollbackContext() as rollback:
@@ -771,11 +774,12 @@ class ModelTests(unittest.TestCase):
                                   'kimchi-vm1')
 
             # Hotplug memory, only available in Libvirt >= 1.2.14
-            params = {'memory': 2048}
+            params = {'memory': {'current': 2048}}
             if inst.capabilities_lookup()['mem_hotplug_support']:
                 inst.vm_update('kimchi-vm1', params)
                 rollback.prependDefer(utils.rollback_wrapper, inst.vm_delete,
                                       'kimchi-vm1')
+                params['memory']['maxmemory'] = 3072
                 self.assertEquals(params['memory'],
                                   inst.vm_lookup('kimchi-vm1')['memory'])
             else:
@@ -789,7 +793,7 @@ class ModelTests(unittest.TestCase):
 
         # template disk format must be qcow2 because vmsnapshot
         # only supports this format
-        orig_params = {'name': 'test', 'memory': 1024,
+        orig_params = {'name': 'test', 'memory': {'current': 1024},
                        'cpu_info': {'vcpus': 1},
                        'cdrom': UBUNTU_ISO,
                        'disks': [{'size': 1, 'format': 'qcow2', 'pool': {
@@ -907,7 +911,9 @@ class ModelTests(unittest.TestCase):
             self.assertEquals(4, vm_info['cpu_info']['maxvcpus'])
 
             # rename and increase memory when vm is not running
-            params = {'name': u'пeω-∨м', 'memory': 2048}
+            params = {'name': u'пeω-∨м',
+                      'memory': {'current': 2048,
+                                 'maxmemory': 2048}}
             inst.vm_update('kimchi-vm1', params)
             rollback.prependDefer(utils.rollback_wrapper, inst.vm_delete,
                                   u'пeω-∨м')
