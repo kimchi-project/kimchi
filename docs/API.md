@@ -292,8 +292,11 @@ Represents a snapshot of the Virtual Machine's primary monitor.
     * name: The name of the Template.  Used to identify the Template in this API
     * os_distro *(optional)*: The operating system distribution
     * os_version *(optional)*: The version of the operating system distribution
-    * memory *(optional)*: The amount of memory assigned to the VM.
-      Default is 1024M.
+    * memory *(optional)*: The memory parameters of the template, specify one
+      or both. Default values are 1024MiB:
+        * current: The amount of memory that will be assigned to the VM.
+        * maxmemory: The maximum total of memory that the VM can have. Amount
+          over current will be used exclusively for memory hotplug
     * cdrom *(optional)*: A volume name or URI to an ISO image.
     * networks *(optional)*: list of networks will be assigned to the new VM.
       Default is '[default]'
@@ -396,7 +399,11 @@ A interface represents available network interface on VM.
     * icon: A URI to a PNG image representing this template
     * os_distro: The operating system distribution
     * os_version: The version of the operating system distribution
-    * memory: The amount of memory assigned to the VM in the unit of MB
+    * memory: The memory parameters of the template, that will be assigned to
+      the VM in the unit of MiB.
+        * current: The amount of memory that will be assigned to the VM.
+        * maxmemory: The maximum total of memory that the VM can have. Amount
+          over current will be used exclusively for memory hotplug
     * cdrom: A volume name or URI to an ISO image
     * storagepool: URI of the storagepool where template allocates vm storage.
     * networks *(optional)*: list of networks will be assigned to the new VM.
@@ -439,7 +446,10 @@ A interface represents available network interface on VM.
     * icon: A URI to a PNG image representing this template
     * os_distro: The operating system distribution
     * os_version: The version of the operating system distribution
-    * memory: The amount of memory assigned to the VM
+    * memory: The memory parameters of the template, specify one or both of:
+        * current: The amount of memory that will be assigned to the VM.
+        * maxmemory: The maximum total of memory that the VM can have. Amount
+          over current will be used exclusively for memory hotplug
     * cdrom: A volume name or URI to an ISO image
     * networks *(optional)*: list of networks will be assigned to the new VM.
     * disks: An array of requested disks with the following optional fields

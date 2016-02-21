@@ -127,12 +127,13 @@ messages = {
     "KCHVM0068E": _("Unable to setup password-less login at remote host %(host)s using user %(user)s. Error: %(error)s"),
     "KCHVM0069E": _("Password field must be a string."),
     "KCHVM0070E": _("Error creating local host ssh rsa key of user 'root'."),
-    "KCHVM0071E": _("Memory value %(mem)s must be aligned to %(alignment)sMiB."),
+    "KCHVM0071E": _("%(param)s value (%(mem)sMiB) must be aligned to %(alignment)sMiB."),
     "KCHVM0073E": _("Unable to update the following parameters while the VM is offline: %(params)s"),
     "KCHVM0074E": _("Unable to update the following parameters while the VM is online: %(params)s"),
-
     "KCHVM0076E": _("VM %(name)s must have serial and console defined to open a web serial console"),
     "KCHVM0077E": _("Impossible to get the serial console of %(name)s"),
+    "KCHVM0078E": _("Memory or Maximum Memory value is higher than amount supported by the host: %(memHost)sMiB."),
+    "KCHVM0079E": _("Memory or Maximum Memory value is higher than maximum amount recommended: 1TiB"),
 
     "KCHVMHDEV0001E": _("VM %(vmid)s does not contain directly assigned host device %(dev_name)s."),
     "KCHVMHDEV0002E": _("The host device %(dev_name)s is not allowed to directly assign to VM."),
@@ -166,7 +167,7 @@ messages = {
     "KCHTMPL0010E": _("Template distribution must be a string"),
     "KCHTMPL0011E": _("Template distribution version must be a string"),
     "KCHTMPL0012E": _("The number of CPUs must be an integer greater than 0"),
-    "KCHTMPL0013E": _("Amount of memory (MB) must be an integer greater than 512"),
+    "KCHTMPL0013E": _("Amount of memory and maximum memory (MB) must be an integer greater than 512"),
     "KCHTMPL0014E": _("Template CDROM must be a local or remote ISO file"),
     "KCHTMPL0015E": _("Invalid storage pool URI %(value)s specified for template"),
     "KCHTMPL0016E": _("Specify an ISO image as CDROM or a base image to create a template"),
@@ -182,6 +183,8 @@ messages = {
     "KCHTMPL0027E": _("Invalid disk image format. Valid formats: bochs, cloop, cow, dmg, qcow, qcow2, qed, raw, vmdk, vpc."),
     "KCHTMPL0028E": _("When setting template disks, following parameters are required: 'index', 'pool name', 'format', 'size' or 'volume' (for scsi/iscsi pools)"),
     "KCHTMPL0029E": _("Disk format must be 'raw', for logical, iscsi, and scsi pools."),
+    "KCHTMPL0030E": _("Memory expects an object with one or both parameters: 'current' and 'maxmemory'"),
+    "KCHTMPL0031E": _("Memory value (%(mem)sMiB) must be equal or lesser than maximum memory value (%(maxmem)sMiB)"),
 
     "KCHPOOL0001E": _("Storage pool %(name)s already exists"),
     "KCHPOOL0002E": _("Storage pool %(name)s does not exist"),

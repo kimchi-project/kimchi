@@ -19,7 +19,6 @@
 
 import os
 import platform
-import psutil
 import stat
 import time
 import urlparse
@@ -40,12 +39,6 @@ from wok.plugins.kimchi.xmlutils.graphics import get_graphics_xml
 from wok.plugins.kimchi.xmlutils.interface import get_iface_xml
 from wok.plugins.kimchi.xmlutils.qemucmdline import get_qemucmdline_xml
 from wok.plugins.kimchi.xmlutils.serial import get_serial_xml
-
-
-# In PowerPC, memories must be aligned to 256 MiB
-PPC_MEM_ALIGN = 256
-# Max memory 1TB, in KiB
-MAX_MEM_LIM = 1073741824
 
 
 class VMTemplate(object):
@@ -84,6 +77,14 @@ class VMTemplate(object):
             args['graphics'] = graphics
 
         default_disk = self.info['disks'][0]
+
+        # Complete memory args, because dict method update is not recursive
+        if 'memory' in args:
+            if 'current' not in args['memory']:
+                args['memory']['current'] = self.info['memory']['current']
+            if 'maxmemory' not in args['memory']:
+                args['memory']['maxmemory'] = self.info['memory']['maxmemory']
+
         # Override template values according to 'args'
         self.info.update(args)
         disks = self.info.get('disks')
@@ -325,29 +326,8 @@ class VMTemplate(object):
     def _get_cpu_xml(self):
         # Include CPU topology, if provided
         cpu_topo = self.info.get('cpu_info', {}).get('topology', {})
-
-        return get_cpu_xml(0, self.info.get('memory') << 10, cpu_topo)
-
-    def _get_max_memory(self, guest_memory):
-        # Setting maxMemory of the VM, which will be lesser value between:
-        # 1TB,  (Template Memory * 4),  Host Physical Memory.
-        max_memory = MAX_MEM_LIM
-        if hasattr(psutil, 'virtual_memory'):
-            host_memory = psutil.virtual_memory().total >> 10
-        else:
-            host_memory = psutil.TOTAL_PHYMEM >> 10
-        if host_memory < max_memory:
-            max_memory = host_memory
-        if (((guest_memory * 4) << 10) < max_memory):
-            max_memory = (guest_memory * 4) << 10
-
-        # set up arch to ppc64 instead of ppc64le due to libvirt compatibility
-        if self.info["arch"] == "ppc64":
-            # in Power, memory must be aligned in 256MiB
-            if (max_memory >> 10) % PPC_MEM_ALIGN != 0:
-                alignment = max_memory % (PPC_MEM_ALIGN << 10)
-                max_memory -= alignment
-        return max_memory
+        return get_cpu_xml(0, (self.info.get('memory').get('current')) << 10,
+                           cpu_topo)
 
     def to_vm_xml(self, vm_name, vm_uuid, **kwargs):
         params = dict(self.info)
@@ -375,27 +355,33 @@ class VMTemplate(object):
         else:
             params['cdroms'] = cdrom_xml
 
-        # max memory
-        params['max_memory'] = self._get_max_memory(params['memory'])
-
         # Setting maximum number of slots to avoid errors when hotplug memory
         # Number of slots are the numbers of chunks of 1GB that fit inside
         # the max_memory of the host minus memory assigned to the VM. It
         # cannot have more than 32 slots in Power.
-        params['slots'] = ((params['max_memory'] >> 10) -
-                           params['memory']) >> 10
-        if params['slots'] < 0:
+        memory = self.info['memory'].get('current')
+        maxmemory = self.info['memory'].get('maxmemory')
+
+        slots = (maxmemory - memory) >> 10
+        if slots < 0:
             raise OperationFailed("KCHVM0041E",
-                                  {'maxmem': str(params['max_memory'] >> 10)})
-        elif params['slots'] == 0:
-            params['slots'] = 1
-        elif params['slots'] > 32:
+                                  {'maxmem': str(maxmemory)})
+        elif slots == 0:
+            slots = 1
+        elif slots > 32:
             distro, _, _ = platform.linux_distribution()
             if distro == "IBM_PowerKVM":
-                params['slots'] = 32
+                slots = 32
+
+        # Rearrange memory parameters
+        params['memory'] = self.info['memory'].get('current')
+        params['max_memory'] = ""
+        if memory != maxmemory:
+            maxmem_xml = "<maxMemory slots='%s' unit='MiB'>%s</maxMemory>"
+            params['max_memory'] = maxmem_xml % (slots, maxmemory)
 
         # set a hard limit using max_memory + 1GiB
-        params['hard_limit'] = params['max_memory'] + (1024 << 10)
+        params['hard_limit'] = maxmemory + 1024
 
         # vcpu element
         cpus = params['cpu_info']['vcpus']
@@ -411,9 +397,9 @@ class VMTemplate(object):
           <name>%(name)s</name>
           <uuid>%(uuid)s</uuid>
           <memtune>
-            <hard_limit unit='KiB'>%(hard_limit)s</hard_limit>
+            <hard_limit unit='MiB'>%(hard_limit)s</hard_limit>
           </memtune>
-          <maxMemory slots='%(slots)s' unit='KiB'>%(max_memory)s</maxMemory>
+          %(max_memory)s
           <memory unit='MiB'>%(memory)s</memory>
           %(vcpus_xml)s
           %(cpu_info_xml)s
@@ -452,6 +438,7 @@ class VMTemplate(object):
         self._network_validate()
         self._iso_validate()
         self.cpuinfo_validate()
+        self._validate_memory()
 
     def cpuinfo_validate(self):
         pass

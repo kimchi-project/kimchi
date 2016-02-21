@@ -65,6 +65,26 @@
                     }
                 }
             }
+        },
+        "memory": {
+            "description": "Current memory and maximum memory values",
+            "type": "object",
+            "properties": {
+                "current": {
+                    "description": "Memory (MB) for the template",
+                    "type": "integer",
+                    "minimum": 512,
+                    "error": "KCHTMPL0013E"
+                },
+                "maxmemory": {
+                    "description": "Maximum memory (MB) for the template",
+                    "type": "integer",
+                    "minimum": 512,
+                    "error": "KCHTMPL0013E"
+                }
+            },
+            "additionalProperties": false,
+            "error": "KCHTMPL0030E"
         }
     },
     "properties": {
@@ -452,12 +472,7 @@
                     "minLength": 1,
                     "error": "KCHTMPL0011E"
                 },
-                "memory": {
-                    "description": "Memory (MB) for the template",
-                    "type": "integer",
-                    "minimum": 512,
-                    "error": "KCHTMPL0013E"
-                },
+                "memory": { "$ref": "#/kimchitype/memory" },
                 "cdrom": {
                     "description": "Path for cdrom",
                     "type": "string",
@@ -629,12 +644,7 @@
                     "minLength": 1,
                     "error": "KCHTMPL0011E"
                 },
-                "memory": {
-                    "description": "Memory (MB) for the template",
-                    "type": "integer",
-                    "minimum": 512,
-                    "error": "KCHTMPL0013E"
-                },
+                "memory": { "$ref": "#/kimchitype/memory" },
                 "cdrom": {
                     "description": "Path for cdrom",
                     "type": "string",

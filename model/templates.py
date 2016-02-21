@@ -20,6 +20,8 @@
 import copy
 import libvirt
 import os
+import platform
+import psutil
 import stat
 
 from wok.exception import InvalidOperation, InvalidParameter
@@ -32,6 +34,12 @@ from wok.plugins.kimchi.kvmusertests import UserTests
 from wok.plugins.kimchi.model.cpuinfo import CPUInfoModel
 from wok.plugins.kimchi.utils import pool_name_from_uri
 from wok.plugins.kimchi.vmtemplate import VMTemplate
+
+
+# In PowerPC, memories must be aligned to 256 MiB
+PPC_MEM_ALIGN = 256
+# Max memory 1TB, in KiB
+MAX_MEM_LIM = 1073741824
 
 
 class TemplatesModel(object):
@@ -69,10 +77,8 @@ class TemplatesModel(object):
         # Validate cpu info
         t.cpuinfo_validate()
 
-        # Validate max memory
-        maxMem = (t._get_max_memory(t.info.get('memory')) >> 10)
-        if t.info.get('memory') > maxMem:
-            raise OperationFailed("KCHVM0041E", {'maxmem': str(maxMem)})
+        # Validate memory
+        t._validate_memory()
 
         # Validate volumes
         for disk in t.info.get('disks'):
@@ -180,6 +186,13 @@ class TemplateModel(object):
             cpu_info.update(new_cpu_info)
             params['cpu_info'] = cpu_info
 
+        # Fix memory values, because method update does not work recursively
+        new_mem = params.get('memory')
+        if new_mem is not None:
+            params['memory'] = copy.copy(old_t.get('memory'))
+            params['memory'].update(new_mem)
+            validate_memory(params['memory'])
+
         new_t.update(params)
 
         for net_name in params.get(u'networks', []):
@@ -199,11 +212,54 @@ class TemplateModel(object):
         return ident
 
 
+def validate_memory(memory):
+    #
+    # All checking are made in Mib, so, expects memory values in Mib
+    #
+    current = memory.get('current')
+    maxmem = memory.get('maxmemory')
+
+    # Check Host Memory
+    if hasattr(psutil, 'virtual_memory'):
+        host_memory = psutil.virtual_memory().total >> 10 >> 10
+    else:
+        host_memory = psutil.TOTAL_PHYMEM >> 10 >> 10
+
+    # Memories must be lesser than 1TB and the Host memory limit
+    if (current > (MAX_MEM_LIM >> 10)) or (maxmem > (MAX_MEM_LIM >> 10)):
+        raise InvalidParameter("KCHVM0079E")
+    if (current > host_memory) or (maxmem > host_memory):
+        raise InvalidParameter("KCHVM0078E", {'memHost': host_memory})
+
+    # Current memory cannot be greater than maxMemory
+    if current > maxmem:
+        raise InvalidParameter("KCHTMPL0031E",
+                               {'mem': str(current),
+                                'maxmem': str(maxmem)})
+
+    # make sure memory and Maxmemory are alingned in 256MiB in PowerPC
+    distro, _, _ = platform.linux_distribution()
+    if distro == "IBM_PowerKVM":
+        if current % PPC_MEM_ALIGN != 0:
+            raise InvalidParameter('KCHVM0071E',
+                                   {'param': "Memory",
+                                    'mem': str(current),
+                                    'alignment': str(PPC_MEM_ALIGN)})
+        elif maxmem % PPC_MEM_ALIGN != 0:
+            raise InvalidParameter('KCHVM0071E',
+                                   {'param': "Maximum Memory",
+                                    'mem': str(maxmem),
+                                    'alignment': str(PPC_MEM_ALIGN)})
+
+
 class LibvirtVMTemplate(VMTemplate):
     def __init__(self, args, scan=False, conn=None):
         self.conn = conn
         VMTemplate.__init__(self, args, scan)
         self.set_cpu_info()
+
+    def _validate_memory(self):
+        validate_memory(self.info['memory'])
 
     def cpuinfo_validate(self):
         cpu_model = CPUInfoModel(conn=self.conn)
