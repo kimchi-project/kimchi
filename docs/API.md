@@ -116,7 +116,10 @@ server.
           writes across all virtual disks (kb/s).
         * io_throughput_peak: The highest recent value of 'io_throughput'.
     * uuid: UUID of the VM.
-    * memory: The amount of memory assigned to the VM (in MB)
+    * memory: The memory parameters of the VM in the unit of MiB.
+        * current: The amount of memory that is assigned to the VM.
+        * maxmemory: The maximum total of memory that the VM can have. Amount
+          over current will be used exclusively for memory hotplug
     * cpu_info: CPU-specific information.
         * vcpus: The number of CPUs assigned to the VM
         * maxvcpus: The maximum number of CPUs that can be assigned to the VM
@@ -148,8 +151,10 @@ server.
     * name: New name for this VM (only applied for shutoff VM)
     * users: New list of system users.
     * groups: New list of system groups.
-    * memory: New amount of memory (MB) for this VM (if VM is running, new
-              value will take effect in next reboot)
+    * memory: New memory parameters of the VM in the unit of MiB.
+      Provide one or both.
+        * current: New amount of memory that will be assigned to the VM.
+        * maxmemory: New maximum total of memory that the VM can have.
     * graphics: A dict to show detail of VM graphics.
         * passwd *(optional)*: console password. When omitted a random password
                                willbe generated.
