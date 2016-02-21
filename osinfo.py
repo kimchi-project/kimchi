@@ -110,11 +110,13 @@ def _get_tmpl_defaults():
     ConfigObj returns a dict like below when no changes were made in the
     template configuration file (template.conf)
 
-    {'main': {}, 'storage': {'disk.0': {}}, 'processor': {}, 'graphics': {}}
+    {'main': {}, 'memory': {}, 'storage': {'disk.0': {}}, 'processor': {},
+     'graphics': {}}
 
     The default values should be like below:
 
-    {'main': {'networks': ['default'], 'memory': '1024'},
+    {'main': {'networks': ['default']},
+     'memory': {'current': 1024, 'maxmemory': 1024},
      'storage': { 'disk.0': {'format': 'qcow2', 'size': '10',
                              'pool': '/plugins/kimchi/storagepools/default'}},
      'processor': {'vcpus': '1',  'maxvcpus': 1},
@@ -123,7 +125,8 @@ def _get_tmpl_defaults():
     # Create dict with default values
     tmpl_defaults = defaultdict(dict)
     tmpl_defaults['main']['networks'] = ['default']
-    tmpl_defaults['main']['memory'] = _get_default_template_mem()
+    tmpl_defaults['memory'] = {'current': _get_default_template_mem(),
+                               'maxmemory': _get_default_template_mem()}
     tmpl_defaults['storage']['disk.0'] = {'size': 10, 'format': 'qcow2',
                                           'pool': 'default'}
     tmpl_defaults['processor']['vcpus'] = 1
@@ -145,8 +148,11 @@ def _get_tmpl_defaults():
                 'cdrom_bus': 'ide', 'cdrom_index': 2, 'mouse_bus': 'ps2'}
 
     # Parse main section to get networks and memory values
-    main_section = default_config.pop('main')
-    defaults.update(main_section)
+    defaults.update(default_config.pop('main'))
+    defaults['memory'] = default_config.pop('memory')
+
+    defaults['memory']['current'] = int(defaults['memory']['current'])
+    defaults['memory']['maxmemory'] = int(defaults['memory']['maxmemory'])
 
     # Parse storage section to get disks values
     storage_section = default_config.pop('storage')

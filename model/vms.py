@@ -53,13 +53,13 @@ from wok.plugins.kimchi.model.config import CapabilitiesModel
 from wok.plugins.kimchi.model.cpuinfo import CPUInfoModel
 from wok.plugins.kimchi.model.featuretests import FeatureTests
 from wok.plugins.kimchi.model.templates import TemplateModel
+from wok.plugins.kimchi.model.templates import MAX_MEM_LIM, PPC_MEM_ALIGN
 from wok.plugins.kimchi.model.utils import get_ascii_nonascii_name, get_vm_name
 from wok.plugins.kimchi.model.utils import get_metadata_node
 from wok.plugins.kimchi.model.utils import remove_metadata_node
 from wok.plugins.kimchi.model.utils import set_metadata_node
 from wok.plugins.kimchi.screenshot import VMScreenshot
 from wok.plugins.kimchi.utils import template_name_from_uri
-from wok.plugins.kimchi.vmtemplate import MAX_MEM_LIM, PPC_MEM_ALIGN
 from wok.plugins.kimchi.xmlutils.cpu import get_cpu_xml, get_numa_xml
 from wok.plugins.kimchi.xmlutils.cpu import get_topology_xml
 from wok.plugins.kimchi.xmlutils.disk import get_vm_disk_info, get_vm_disks
@@ -256,7 +256,8 @@ class VMModel(object):
             if 'memory' in params and distro == "IBM_PowerKVM":
                 if params['memory'] % PPC_MEM_ALIGN != 0:
                     raise InvalidParameter('KCHVM0071E',
-                                           {'mem': str(params['memory']),
+                                           {'param': "Memory",
+                                            'mem': str(params['memory']),
                                             'alignment': str(PPC_MEM_ALIGN)})
 
             dom = self.get_vm(name, self.conn)
