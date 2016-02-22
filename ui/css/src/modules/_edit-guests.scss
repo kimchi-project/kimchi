@@ -25,9 +25,29 @@
         position: relative;
     }
     #form-guest-edit-general {
-        #guest-edit-memory-textbox {
+
+        #guest-max-memory-panel,
+        #guest-max-processor-panel {
+            display: none;
+        }
+
+        #guest-edit-memory-textbox,
+        #guest-edit-max-memory-textbox,
+        #guest-edit-cores-textbox,
+        #guest-edit-max-processor-textbox {
             width: 590px;
         }
+
+        #guest-edit-memory-textbox,
+        #guest-show-max-memory {
+            display: block;
+        }
+
+        #guest-edit-cores-textbox,
+        #guest-show-max-processor {
+            display: inline-block;
+        }
+
     }
     #form-guest-edit-interface {
         .column-actions {

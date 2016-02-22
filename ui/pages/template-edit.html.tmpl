@@ -121,26 +121,31 @@
                         </div>
                         <div role="tabpanel" class="tab-pane" id="processor">
                             <form id="form-template-processor">
-                                <div class="form-inline">
-                                    <div class="form-group">
-                                        <label for="vcpus">$_("CPU Number"):</label>
-                                        <input type="text" class="form-control" value="1" id="vcpus" />
+                                <div class="form-group">
+                                    <div id="guest-processor">
+                                        <label for="vcpus">$_("CPU Number")</label>
+                                        <input id="vcpus" class="form-control" name="processor" type="number" min="1" />
+                                        <button id="guest-show-max-processor" class="btn btn-primary" type="button"><i class="fa fa-plus-circle"></i> <span class="text">$_("More")</span></button>
+                                    </div>
+                                    <div id="guest-max-processor-panel" class="form-group">
+                                        <label for="guest-edit-max-processor-textbox">$_("Max CPU")</label>
+                                        <input id="guest-edit-max-processor-textbox" class="form-control" name="max-processor" type="number" min="1" />
                                     </div>
                                 </div>
                                 <div class="manual form-group">
                                     <input type="checkbox" class="wok-checkbox" id="cpus-check" />
                                     <label for="cpus-check">$_("Manually set CPU topology")</label>
                                 </div>
-                                <div class="topology hide">
-                                    <div class="form-inline">
-                                        <div class="form-group">
-                                            <label for="cores">$_("Cores"):</label>
-                                            <input type="text" class="form-control" value="1" id="cores" />
-                                        </div>
-                                    </div>
+                                <div class="topology">
                                     <div class="form-group">
-                                        <label for="threads">$_("Threads"):</label>
-                                        <select id="threads" class="col-md-2"></select>
+                                        <label for="cores">$_("Cores")</label>
+                                        <input type="text" class="form-control" value="1" id="cores" />
+                                    </div>
+                                    <div>
+                                        <div class="form-group">
+                                            <label for="threads">$_("Threads")</label>
+                                            <select id="threads" class="selectpicker col-md-12 col-lg-12"></select>
+                                        </div>
                                     </div>
                                 </div>
                             </form>
