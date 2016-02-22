@@ -907,6 +907,7 @@ List of available groups.
     * iommuGroup: IOMMU group number of a "pci" device. Would be None/null if
 	              host does not enable IOMMU support.
     * multifunction: True if the device belongs to a multi-function adapter.
+    * vga3d: True if the device is a 3D graphic card.
 
 
 ### Sub-collection: VMs with the device assigned.
