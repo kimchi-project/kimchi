@@ -18,6 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import libvirt
+import os
 from collections import defaultdict
 from lxml import objectify
 
@@ -176,6 +177,7 @@ class DeviceModel(object):
 
         info = hostdev.get_dev_info(dev)
         info['multifunction'] = self.is_multifunction_pci(info)
+        info['vga3d'] = self.is_device_3D_controller(info)
         return info
 
     def is_multifunction_pci(self, info):
@@ -183,6 +185,19 @@ class DeviceModel(object):
             return False
         iommu_group_nr = int(info['iommuGroup'])
         return len(self.iommu_groups[iommu_group_nr]) > 1
+
+    def is_device_3D_controller(self, info):
+        try:
+            with open(os.path.join(info['path'], 'class')) as f:
+                pci_class = int(f.readline().strip(), 16)
+
+        except:
+            return False
+
+        if pci_class == 0x030200:
+            return True
+
+        return False
 
     @staticmethod
     def _toint(num_str):
