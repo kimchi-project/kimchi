@@ -660,7 +660,8 @@ kimchi.guest_edit_main = function() {
     };
 
     var initContent = function(guest) {
-        guest['vcpus'] = guest['cpu_info']['vcpus']
+        guest['vcpus'] = guest.cpu_info['vcpus'];
+        guest['max-processor'] = guest.cpu_info['maxvcpus'];
         guest['icon'] = guest['icon'] || 'plugins/kimchi/images/icon-vm.png';
         $('#form-guest-edit-general').fillWithObject(guest);
         kimchi.thisVMState = guest['state'];
@@ -672,6 +673,14 @@ kimchi.guest_edit_main = function() {
         if ((kimchi.thisVMState === "running") || (kimchi.thisVMState === "paused")) {
             $("#form-guest-edit-general input").not("#guest-edit-memory-textbox").prop("disabled", true);
         }
+
+        $('#guest-show-max-processor').on('click', function(e) {
+            e.preventDefault;
+            $('#guest-max-processor-panel').slideToggle();
+            var cputext = $('#guest-show-max-processor span.cputext').text();
+            $('#guest-show-max-processor span.cputext').text(cputext == i18n['KCHVMED6008M'] ? i18n['KCHVMED6009M'] : i18n['KCHVMED6008M']);
+            $('#guest-show-max-processor i.fa').toggleClass('fa-plus-circle fa-minus-circle');
+        });
 
         var onAttached = function(params) {
             refreshCDROMs();
@@ -709,10 +718,23 @@ kimchi.guest_edit_main = function() {
             data['memory'] = Number(data['memory']);
         }
         if (data['vcpus'] !== undefined) {
-            data['cpu_info'] = {
-                vcpus: Number(data['vcpus'])
-            };
+            var cpu = Number(data['vcpus']);
+            var maxCpu = Number(data['max-processor']);
+            if (data['max-processor'] !== undefined && data['max-processor'] !== "") {
+                if (maxCpu >= cpu || maxCpu < cpu ) {  // if maxCpu < cpu, this will throw an error from backend
+                    data['cpu_info'] = {
+                        vcpus: cpu,
+                        maxvcpus: maxCpu
+                    };
+                }
+            } else {
+                data['cpu_info'] = {
+                    vcpus: cpu,
+                    maxvcpus: cpu
+                };
+            }
             delete data['vcpus'];
+            delete data['max-processor'];
         }
 
         kimchi.updateVM(kimchi.selectedGuest, data, function() {

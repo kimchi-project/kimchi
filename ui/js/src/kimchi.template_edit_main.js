@@ -241,7 +241,12 @@ kimchi.template_edit_main = function() {
         var initProcessor = function(){
             var setCPUValue = function(){
                 if(!$('#cores').hasClass("invalid-field")&&$('#cores').val()!=""){
-                    $("#vcpus").val(parseInt($("#cores").val())*parseInt($("#threads").val()));
+                    var computedCpu = parseInt($("#cores").val())*parseInt($("#threads").val());
+                    $("#vcpus").val(computedCpu);
+                    if ($("#cpus-check").prop("checked")) {
+                        //If topology is checked, set maxcpu to be the same as # of cpu otherwise, backend gives error
+                        $("#guest-edit-max-processor-textbox").val(computedCpu);
+                    }
                 }else{
                     $("#vcpus").val('');
                 }
@@ -251,28 +256,43 @@ kimchi.template_edit_main = function() {
                 if($(this).prop('id')=='cores') setCPUValue();
             });
             $("input:checkbox", "#form-template-processor").click(function(){
-                $(".topology", "#form-template-processor").toggleClass("hide", !$(this).prop("checked"));
+                $('#threads').selectpicker();
+                $(".topology", "#form-template-processor").slideToggle();
                 $("#vcpus").attr("disabled", $(this).prop("checked"));
+                $("#guest-edit-max-processor-textbox").attr("disabled", $(this).prop("checked"));
                 setCPUValue();
             });
-            $('select', '#form-template-processor').change(function(){
+            $('#threads').change(function(){
                 setCPUValue();
             });
             kimchi.getCPUInfo(function(data){
                 var options = "";
+                var topo = template.cpu_info.topology;
                 for(var i=0;Math.pow(2,i)<=data.threads_per_core;i++){
                     var lastOne = Math.pow(2,i+1)>data.threads_per_core?" selected":"";
                     options += "<option"+lastOne+">"+Math.pow(2,i)+"</option>";
                 }
-                $('select', '#form-template-processor').append(options);
-                $('select', '#form-template-processor').selectpicker();
-                if(template.cpu_info.vcpus) $("#vcpus").val(template.cpu_info.vcpus);
-                var topo = template.cpu_info.topology;
-                if(topo&&topo.cores) $("#cores").val(topo.cores);
+                $('#threads').append(options);
+                if(template.cpu_info.vcpus){
+                    $("#vcpus").val(template.cpu_info.vcpus);
+                }
+                if(template.cpu_info.maxvcpus){
+                    $("#guest-edit-max-processor-textbox").val(template.cpu_info.maxvcpus);
+                }
+                if(topo&&topo.cores){
+                    $("#cores").val(topo.cores);
+                }
                 if(topo&&topo.threads){
-                    $('select', '#form-template-processor').val(topo.threads);
+                    $('#threads').val(topo.threads);
+                    $('#threads').selectpicker();
                     $("input:checkbox", "#form-template-processor").trigger('click');
                 }
+            });
+            $('#guest-show-max-processor').on('click', function(e) {
+                e.preventDefault;
+                $('#guest-max-processor-panel').slideToggle();
+                var text = $('#guest-show-max-processor span.text').text();
+                $('#guest-show-max-processor span.text').text(text == i18n['KCHVMED6008M'] ? i18n['KCHVMED6009M'] : i18n['KCHVMED6008M']);
             });
         };
         kimchi.listNetworks(initInterface);
@@ -320,10 +340,17 @@ kimchi.template_edit_main = function() {
             }
         });
         data['memory'] = Number(data['memory']);
+        var cpu = parseInt($('#vcpus').val());
+        var maxCpu = parseInt($('#guest-edit-max-processor-textbox').val());
+        var maxCpuFinal = cpu;  //Initially set maxCpu to be the same as cpu
+        if (maxCpu >= cpu) {
+            maxCpuFinal = maxCpu;
+        }
         if($("input:checkbox", "#form-template-processor").prop("checked")){
+            //Check if maxCpu field has a value
             data['cpu_info'] = {
-                vcpus: parseInt($('#vcpus').val()),
-                maxvcpus: parseInt($('#vcpus').val()),
+                vcpus: cpu,
+                maxvcpus: maxCpuFinal,
                 topology: {
                     sockets: 1,
                     cores: parseInt($("#cores").val()),
@@ -332,7 +359,9 @@ kimchi.template_edit_main = function() {
             };
         }else{
             data['cpu_info'] = {
-                vcpus: parseInt($('#vcpus').val())
+                vcpus: cpu,
+                maxvcpus: maxCpuFinal,
+                topology: {}
             };
         }
         var networks = $('.template-tab-body .item', '#form-template-interface');
