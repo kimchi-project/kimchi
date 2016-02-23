@@ -61,6 +61,9 @@
                                     <div class="template-edit-wrapper-label">
                                         <label for="template-edit-memory-textbox">$_("Memory (MB)")</label>
                                     </div>
+                                    <div class="template-edit-wrapper-label max-memory-field" style="display: none;">
+                                        <label for="template-edit-max-memory-textbox">$_("Max Memory (MB)")</label>
+                                    </div>
                                     <div class="template-edit-wrapper-label templ-edit-cdrom">
                                         <label for="template-edit-cdrom-textbox">$_("CDROM")</label>
                                     </div>
@@ -82,7 +85,11 @@
                                         <input id="template-edit-version-textbox" class="form-control"  name="os_version" type="text" disabled="disabled" />
                                     </div>
                                     <div class="template-edit-wrapper-controls">
-                                        <input id="template-edit-memory-textbox" class="form-control"  name="memory" type="text" />
+                                        <input id="template-edit-memory-textbox" class="form-control"  name="memory" type="number" step="1024" min="1024" style="width: 75%; display: inline;"/>
+                                        <button id="template-show-max-memory" class="btn btn-primary" type="button"><i class="fa fa-plus-circle"></i> <span class="text">$_("More")</span></button>
+                                    </div>
+                                    <div class="template-edit-wrapper-controls max-memory-field" style="display: none;">
+                                        <input id="template-edit-max-memory-textbox" class="form-control" name="max-memory" type="number" min="1024" step="1024" />
                                     </div>
                                     <div class="template-edit-wrapper-controls templ-edit-cdrom">
                                         <input id="template-edit-cdrom-textbox" class="form-control" name="cdrom" type="text" disabled="disabled" />

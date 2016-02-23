@@ -57,7 +57,14 @@
                 </div>
                 <div class="form-group">
                     <label for="guest-edit-memory-textbox">$_("Memory (MB)")</label>
-                    <input id="guest-edit-memory-textbox" class="form-control" name="memory" type="number" min="1024" step="1024" />
+                    <div id="guest-memory">
+                        <input id="guest-edit-memory-textbox" class="form-control" name="memory" type="number" min="1024" step="1024" />
+                        <button id="guest-show-max-memory" class="btn btn-primary" type="button"><i class="fa fa-plus-circle"></i> <span class="text">$_("More")</span></button>
+                    </div>
+                </div>
+                <div id="guest-max-memory-panel" class="form-group">
+                    <label for="guest-edit-max-memory-textbox">$_("Max Memory (MB)")</label>
+                    <input id="guest-edit-max-memory-textbox" class="form-control" name="max-memory" type="number" min="1024" step="1024" />
                 </div>
                 <div class="form-group">
                     <label for="guest-edit-icon-textbox">$_("Icon")</label>
