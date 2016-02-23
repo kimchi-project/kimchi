@@ -78,7 +78,7 @@
 #guest-add-window.modal-content label.box-iso-outer span.box-iso-border {
   display: block;
   border: 3px solid transparent;
-  transition: all 0.1s ease-in-out;
+  transition: all .1s ease-in-out;
 }
 
 #template-add-window.modal-content label.box-iso-outer .iso-radio-hidden:checked + span.box-iso-border,
@@ -100,7 +100,7 @@
   display: block;
   border: 1px solid transparent;
   background: #fff;
-  transition: all 0.1s ease-in-out;
+  transition: all .1s ease-in-out;
 }
 
 #template-add-window.modal-content ul.list-template,
@@ -679,10 +679,7 @@
 }
 
 #guest-edit-window #form-guest-edit-general #guest-edit-memory-textbox,
-#guest-edit-window #form-guest-edit-general #guest-show-max-memory {
-  display: block;
-}
-
+#guest-edit-window #form-guest-edit-general #guest-show-max-memory,
 #guest-edit-window #form-guest-edit-general #guest-edit-cores-textbox,
 #guest-edit-window #form-guest-edit-general #guest-show-max-processor {
   display: inline-block;
@@ -1025,7 +1022,7 @@
   border: 1px solid #eee !important;
   margin-bottom: 3px;
   display: block;
-  padding: 0.2em 0.6em 0.3em;
+  padding: .2em .6em .3em;
   font-weight: 700;
   line-height: 1;
   text-align: left;
@@ -1295,7 +1292,7 @@
   height: 664px;
   width: 2164px;
   left: 0;
-  transition: left 0.2s ease-in-out;
+  transition: left .2s ease-in-out;
 }
 
 #template-add-window.modal-content p {
@@ -1571,9 +1568,7 @@
   padding-right: 35px !important;
 }
 
-#templates-root-container .wok-vm-gallery .item-hidden.column-type,
-#templates-root-container .wok-vm-gallery .item-hidden.column-version,
-#templates-root-container .wok-vm-gallery .item-hidden.column-processors {
+#templates-root-container .wok-vm-gallery .item-hidden.column-type, #templates-root-container .wok-vm-gallery .item-hidden.column-version, #templates-root-container .wok-vm-gallery .item-hidden.column-processors {
   padding-bottom: 11px;
 }
 
@@ -2114,8 +2109,7 @@
   white-space: nowrap;
 }
 
-.storage-modal .filter-select.popable .popover ul li:hover,
-.storage-modal .filter-select.popable .popover ul li:focus,
+.storage-modal .filter-select.popable .popover ul li:hover, .storage-modal .filter-select.popable .popover ul li:focus,
 .storage-modal .storage-target-input .popover ul li:hover,
 .storage-modal .storage-target-input .popover ul li:focus,
 .storage-modal .storage-add-input .popover ul li:hover,

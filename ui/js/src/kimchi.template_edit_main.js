@@ -35,6 +35,14 @@ kimchi.template_edit_main = function() {
         });
     });
 
+    $('#template-show-max-memory').on('click', function(e) {
+            e.preventDefault;
+            $('.max-memory-field').slideToggle();
+            var text = $('#template-show-max-memory span.text').text();
+            $('#template-show-max-memory span.text').text(text == i18n['KCHVMED6008M'] ? i18n['KCHVMED6009M'] : i18n['KCHVMED6008M']);
+            $('#template-show-max-memory i.fa').toggleClass('fa-plus-circle fa-minus-circle');
+    });
+
     var initTemplate = function(template) {
         origDisks = template.disks;
         origNetworks = template.networks;
@@ -53,6 +61,9 @@ kimchi.template_edit_main = function() {
             }
             $('input[name="' + prop + '"]', templateEditMain).val(value);
         }
+
+        $('#template-edit-memory-textbox').val(template.memory.current);
+        $('#template-edit-max-memory-textbox').val(template.memory.maxmemory);
 
         $('#template-edit-graphics').append('<option value="vnc" selected="selected">VNC</option>');
         var enableSpice = function() {
@@ -293,6 +304,7 @@ kimchi.template_edit_main = function() {
                 $('#guest-max-processor-panel').slideToggle();
                 var text = $('#guest-show-max-processor span.text').text();
                 $('#guest-show-max-processor span.text').text(text == i18n['KCHVMED6008M'] ? i18n['KCHVMED6009M'] : i18n['KCHVMED6008M']);
+                $('#guest-show-max-processor i.fa').toggleClass('fa-plus-circle fa-minus-circle');
             });
         };
         kimchi.listNetworks(initInterface);
@@ -308,7 +320,7 @@ kimchi.template_edit_main = function() {
         $('.modal input[type="checkbox"]').prop('disabled', true);
         $('.modal select').prop('disabled', true);
         $('.modal .selectpicker').addClass('disabled');
-        var editableFields = [ 'name', 'memory', 'graphics'];
+        var editableFields = [ 'name', 'memory', 'graphics', 'max-memory'];
         var data = {};
         var disks = $('.template-tab-body .item', '#form-template-storage');
         var disksForUpdate = new Array();
@@ -340,13 +352,21 @@ kimchi.template_edit_main = function() {
             }
         });
         data['memory'] = Number(data['memory']);
+        data['max-memory'] = Number(data['max-memory']);
+
+        memory = {'current': data['memory'], 'maxmemory': data['max-memory']};
+
+        data['memory'] = memory;
+        delete data['max-memory'];
+
         var cpu = parseInt($('#vcpus').val());
         var maxCpu = parseInt($('#guest-edit-max-processor-textbox').val());
         var maxCpuFinal = cpu;  //Initially set maxCpu to be the same as cpu
         if (maxCpu >= cpu) {
             maxCpuFinal = maxCpu;
         }
-        if($("input:checkbox", "#form-template-processor").prop("checked")){
+
+         if($("input:checkbox", "#form-template-processor").prop("checked")){
             //Check if maxCpu field has a value
             data['cpu_info'] = {
                 vcpus: cpu,
