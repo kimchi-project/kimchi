@@ -1,0 +1,67 @@
+13:01:13 <danielhb> #startmeeting
+13:01:13 <kimchi-bot> Meeting started Wed Feb 24 13:01:13 2016 UTC.  The chair is danielhb. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:13 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:20 <danielhb> #meetingname scrum
+13:01:20 <kimchi-bot> The meeting name has been set to 'scrum'
+13:01:38 <danielhb> #info Agenda
+13:01:38 <danielhb> #info 1) Status
+13:01:38 <danielhb> #info 2) Open discussion
+13:01:52 <danielhb> all: anything else for today's scrum?
+13:02:24 <danielhb> all: topics, I mean :)
+13:03:33 <danielhb> 10
+13:03:34 <danielhb> 9
+13:03:35 <danielhb> 8
+13:03:45 <pvital> no
+13:03:53 <danielhb> #topic Status
+13:04:02 <danielhb> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+13:05:16 <ziviani> #info [kimchi] ziviani sent patch to review and is working on a new feature for graphic card passthrough
+13:05:32 <lcorreia> #info [wok] lcorreia sent V1 of User Request Log feature implementation to ML
+13:05:33 <lcorreia> #info [wok] lcorreia is working on download option for User Request Log
+13:05:33 <lcorreia> #info [gingerbase] lcorreia sent patch with custom messages for User Request Log
+13:05:33 <lcorreia> #info [kimchi] [ginger] lcorreia will work on custom messages for User Request Log
+13:05:33 <lcorreia> #info [kimchi] lcorreia working on Kimchi feature: handle notifications for host ENOSPC from libvirt
+13:06:39 <samhenri> #info [ginger] sent last version of sr-iov and sysmodules to ginger dev list
+13:06:42 <pvital> #info [Gingerbase] pvital is still working in backend part of issue #9 - Update selected packages
+13:06:42 <pvital> #info [Kimchi] pvital submitted patches related to netboot templates/guests creation - in hold until ramonn finishes changes in templates API
+13:06:42 <pvital> #info [Wok] [Kimchi] [Ginger*] pvital reviewed patches
+13:06:46 <rotru> #info rotru [Kimchi] Sent patchset v2 of support maxMemory update in Templates and Guest
+13:06:52 <samhenri> #info [ginger] samhenri sent last version of sr-iov and sysmodules to ginger dev list*
+13:07:05 <peterpennings> #info [kimchi] peterpennings is working on gallery view ui for guests
+13:08:52 <samhenri> #info [wok] samhenri added new logos to Wok and all plugins, now waiting a patch to be able to get plugin versions to display in about window and footer (kimchi already does that, ginger returns an empty string and gingerbase a 505 error)
+13:09:35 <rotru> #info rotru [Kimchi] Helped peterpennings with UI doubts and a bug that he found. Now I am fixing this problem, that happens in a very specific situation, when you set maxMemory = memory
+13:10:06 <samhenri> #info [wok] samhenri sent mockups for user acitivity log, currently trying to create a new plugin based on "sample" plugin to host a new tab called settings with user log panel
+13:15:37 <danielhb> all: anything else to share on Status?
+13:15:44 <lcorreia> no
+13:16:07 <rotru> nope
+13:16:13 <danielhb> moving on to Open Discussion
+13:16:15 <danielhb> #topic Open Discussion
+13:17:31 <danielhb> all: As a reminder to everyone, the scrum is scheduled based on Brazil Standard Time. Our daylight saving time ended this weekend, so for everyone else that isn't living on Brazil the scrum is now 1 hour earlier.
+13:18:49 <samhenri> i have a question, today ends the development phase for wok but i'm still working with user log support and I haven't seen any other discussion or patch related to the backend for this new feature
+13:19:28 <danielhb> samhenri, lucio is taking care of that AFAIK. lcorreia ?
+13:20:30 <lcorreia> samhenri, hi, I sent the patch yesterday
+13:20:43 <lcorreia> samhenri, User Request Log I'm calling it
+13:21:11 <samhenri> lcorreia I see it now
+13:21:45 <lcorreia> samhenri, let me know if you find any problem on your tests
+13:22:10 <lcorreia> samhenri, I'm still implementing the download option
+13:22:44 <samhenri> lcorreia sure, no problem
+13:23:16 <lcorreia> samhenri, yep, you can still implement it, all UI requests will have download=True as a filter parameter
+13:23:34 <samhenri> i'm not sure if can finish this by today, is this a problem? i mean, due the release window
+13:23:55 <lcorreia> samhenri, this is up to maintainers, Aline and Daniel
+13:24:17 <lcorreia> danielhb, ^
+13:25:35 <danielhb> samhenri, have you sent the patch to the ML already ?
+13:27:29 <samhenri> danielhb i haven't even started to port the static html to a functional page within wok yet, i'm still having some issues trying to create a new tab in the navbar for this
+13:29:03 <danielhb> samhenri, well so if the soft freeze for Kimchi is today then I believe you'll miss it, unfortunately. However, I don't know how much of a big deal it is. Unless you have a previous understanding with alinefm , the worst that will happen is that your patch will be included in the next release
+13:29:36 <danielhb> samhenri, we'll have another community release in a few months
+13:30:23 <danielhb> samhenri, feel free to talk with alinefm , perhaps she can make some sort of arrangement for your case
+13:31:03 <alinefm> samhenri, if we can postpone the code freeze to this Friday you will have enough time to finish it
+13:31:04 <alinefm> ?
+13:31:16 <samhenri> alinefm yes
+13:31:38 <alinefm> samhenri, we can do that so
+13:32:34 <samhenri> alinefm ok
+13:34:58 <danielhb> all: anything else for today's scrum comrades?
+13:35:54 <alinefm> danielhb, no
+13:35:57 <alinefm> =)
+13:36:02 <lcorreia> danielhb, no :)
+13:36:47 <ziviani> no
+13:36:53 <danielhb> all: thanks for joining and, as always, have a nice day
+13:36:57 <danielhb> #endmeeting

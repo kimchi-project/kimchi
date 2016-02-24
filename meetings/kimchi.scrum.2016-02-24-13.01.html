@@ -1,0 +1,196 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi Meeting</title>
+<style type="text/css">
+/* This is for the .html in the HTML2 writer */
+body {
+    font-family: Helvetica, sans-serif;
+    font-size:14px;
+}
+h1 {
+    text-align: center;
+}
+a {
+    color:navy;
+    text-decoration: none;
+    border-bottom:1px dotted navy;
+}
+a:hover {
+    text-decoration:none;
+    border-bottom: 0;
+    color:#0000B9;
+}
+hr {
+    border: 1px solid #ccc;
+}
+/* The (nick, time) item pairs, and other body text things. */
+.details {
+    font-size: 12px;
+    font-weight:bold;
+}
+/* The 'AGREED:', 'IDEA', etc, prefix to lines. */
+.itemtype {
+    font-style: normal;    /* un-italics it */
+    font-weight: bold;
+}
+/* Example: change single item types.  Capitalized command name.
+/* .TOPIC  {  color:navy;  } */
+/* .AGREED {  color:lime;  } */
+
+</style>
+</head>
+
+<body>
+<h1>#kimchi Meeting</h1>
+<span class="details">
+Meeting started by danielhb at 13:01:13 UTC
+(<a href="kimchi.scrum.2016-02-24-13.01.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Meeting summary</h3>
+<ol>
+<li>
+<ol type="a">
+  <li><span class="INFO">Agenda</span> <span class="details">(<a
+    href='kimchi.scrum.2016-02-24-13.01.log.html#l-6'>danielhb</a>,
+    13:01:38)</span></li>
+  <li><span class="INFO">1) Status</span> <span class="details">(<a
+    href='kimchi.scrum.2016-02-24-13.01.log.html#l-7'>danielhb</a>,
+    13:01:38)</span></li>
+  <li><span class="INFO">2) Open discussion</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-02-24-13.01.log.html#l-8'>danielhb</a>,
+    13:01:38)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Status</b> <span class="details">(<a href='kimchi.scrum.2016-02-24-13.01.log.html#l-15'>danielhb</a>, 13:03:53)</span>
+<ol type="a">
+  <li><span class="INFO">Please provide your status using the #info
+    command: #info [&lt;project] &lt;nickname&gt; &lt;status&gt;</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2016-02-24-13.01.log.html#l-16'>danielhb</a>,
+    13:04:02)</span></li>
+  <li><span class="INFO">[kimchi] ziviani sent patch to review and is
+    working on a new feature for graphic card passthrough</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-02-24-13.01.log.html#l-17'>ziviani</a>,
+    13:05:16)</span></li>
+  <li><span class="INFO">[wok] lcorreia sent V1 of User Request Log
+    feature implementation to ML</span> <span class="details">(<a
+    href='kimchi.scrum.2016-02-24-13.01.log.html#l-18'>lcorreia</a>,
+    13:05:32)</span></li>
+  <li><span class="INFO">[wok] lcorreia is working on download option
+    for User Request Log</span> <span class="details">(<a
+    href='kimchi.scrum.2016-02-24-13.01.log.html#l-19'>lcorreia</a>,
+    13:05:33)</span></li>
+  <li><span class="INFO">[gingerbase] lcorreia sent patch with custom
+    messages for User Request Log</span> <span class="details">(<a
+    href='kimchi.scrum.2016-02-24-13.01.log.html#l-20'>lcorreia</a>,
+    13:05:33)</span></li>
+  <li><span class="INFO">[kimchi] [ginger] lcorreia will work on custom
+    messages for User Request Log</span> <span class="details">(<a
+    href='kimchi.scrum.2016-02-24-13.01.log.html#l-21'>lcorreia</a>,
+    13:05:33)</span></li>
+  <li><span class="INFO">[kimchi] lcorreia working on Kimchi feature:
+    handle notifications for host ENOSPC from libvirt</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-02-24-13.01.log.html#l-22'>lcorreia</a>,
+    13:05:33)</span></li>
+  <li><span class="INFO">[ginger] sent last version of sr-iov and
+    sysmodules to ginger dev list</span> <span class="details">(<a
+    href='kimchi.scrum.2016-02-24-13.01.log.html#l-23'>samhenri</a>,
+    13:06:39)</span></li>
+  <li><span class="INFO">[Gingerbase] pvital is still working in backend
+    part of issue #9 - Update selected packages</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-02-24-13.01.log.html#l-24'>pvital</a>,
+    13:06:42)</span></li>
+  <li><span class="INFO">[Kimchi] pvital submitted patches related to
+    netboot templates/guests creation - in hold until ramonn finishes
+    changes in templates API</span> <span class="details">(<a
+    href='kimchi.scrum.2016-02-24-13.01.log.html#l-25'>pvital</a>,
+    13:06:42)</span></li>
+  <li><span class="INFO">[Wok] [Kimchi] [Ginger*] pvital reviewed
+    patches</span> <span class="details">(<a
+    href='kimchi.scrum.2016-02-24-13.01.log.html#l-26'>pvital</a>,
+    13:06:42)</span></li>
+  <li><span class="INFO">rotru [Kimchi] Sent patchset v2 of support
+    maxMemory update in Templates and Guest</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-02-24-13.01.log.html#l-27'>rotru</a>,
+    13:06:46)</span></li>
+  <li><span class="INFO">[ginger] samhenri sent last version of sr-iov
+    and sysmodules to ginger dev list*</span> <span class="details">(<a
+    href='kimchi.scrum.2016-02-24-13.01.log.html#l-28'>samhenri</a>,
+    13:06:52)</span></li>
+  <li><span class="INFO">[kimchi] peterpennings is working on gallery
+    view ui for guests</span> <span class="details">(<a
+    href='kimchi.scrum.2016-02-24-13.01.log.html#l-29'>peterpennings</a>,
+    13:07:05)</span></li>
+  <li><span class="INFO">[wok] samhenri added new logos to Wok and all
+    plugins, now waiting a patch to be able to get plugin versions to
+    display in about window and footer (kimchi already does that, ginger
+    returns an empty string and gingerbase a 505 error)</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-02-24-13.01.log.html#l-30'>samhenri</a>,
+    13:08:52)</span></li>
+  <li><span class="INFO">rotru [Kimchi] Helped peterpennings with UI
+    doubts and a bug that he found. Now I am fixing this problem, that
+    happens in a very specific situation, when you set maxMemory =
+    memory</span> <span class="details">(<a
+    href='kimchi.scrum.2016-02-24-13.01.log.html#l-31'>rotru</a>,
+    13:09:35)</span></li>
+  <li><span class="INFO">[wok] samhenri sent mockups for user acitivity
+    log, currently trying to create a new plugin based on "sample"
+    plugin to host a new tab called settings with user log panel</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2016-02-24-13.01.log.html#l-32'>samhenri</a>,
+    13:10:06)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Open Discussion</b> <span class="details">(<a href='kimchi.scrum.2016-02-24-13.01.log.html#l-37'>danielhb</a>, 13:16:15)</span>
+</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">
+Meeting ended at 13:36:57 UTC
+(<a href="kimchi.scrum.2016-02-24-13.01.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Action items</h3>
+<ol>
+  <li>(none)</li>
+</ol>
+<br><br>
+
+
+
+<h3>People present (lines said)</h3>
+<ol>
+  <li>danielhb (24)</li>
+  <li>lcorreia (14)</li>
+  <li>samhenri (11)</li>
+  <li>alinefm (5)</li>
+  <li>pvital (4)</li>
+  <li>rotru (3)</li>
+  <li>kimchi-bot (3)</li>
+  <li>ziviani (2)</li>
+  <li>peterpennings (1)</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">Generated by <a href="http://wiki.debian.org/MeetBot">MeetBot</a> 0.1.4.</span>
+</body></html>
