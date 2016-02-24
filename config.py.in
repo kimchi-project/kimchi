@@ -31,13 +31,14 @@ kimchiLock = threading.Lock()
 
 __with_spice__ = "@withspice@"
 __version__ = "@kimchiversion@"
+__release__ = "@kimchirelease@"
 
 # Storage pool constant for read-only pool types
 READONLY_POOL_TYPE = ['iscsi', 'scsi', 'mpath']
 
 
 def get_kimchi_version():
-    return __version__
+    return "-".join([__version__, __release__])
 
 
 def get_distros_store():
