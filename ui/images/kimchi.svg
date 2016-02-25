@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" id="Wok" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 500 500" style="enable-background:new 0 0 500 500;" xml:space="preserve">
+     <title
+     id="title">Kimchi</title>
+    <metadata
+     id="license">
+        <rdf:RDF>
+            <cc:Work rdf:about="">
+            <dc:format>image/svg+xml</dc:format>
+            <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+            <dc:title>Kimchi</dc:title>
+            <cc:license rdf:resource="http://www.apache.org/licenses/LICENSE-2.0" />
+            <dc:date>2016</dc:date>
+            <dc:creator>
+                <cc:Agent>
+                    <dc:title>IBM, Corp.</dc:title>
+                </cc:Agent>
+            </dc:creator>
+            <dc:rights>
+                <cc:Agent>
+                    <dc:title>IBM, Corp.</dc:title>
+                </cc:Agent>
+            </dc:rights>
+            <dc:publisher>
+                <cc:Agent>
+                    <dc:title>IBM, Corp.</dc:title>
+                </cc:Agent>
+            </dc:publisher>
+            <dc:contributor>
+                <cc:Agent>
+                    <dc:title>https://github.com/kimchi-project/kimchi</dc:title>
+                </cc:Agent>
+            </dc:contributor>
+            <dc:description>Kimchi is an HTML5 based management tool for KVM. It is designed to make it as easy as possible to get started with KVM and create your first guest.</dc:description>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+<style type="text/css">
+    .st3{fill:#00649D;}
+    .st4{fill:#BA006E;}
+    .st5{fill:#D9182D;}
+    .st6{fill:#F19027;}
+    .st7{fill:#95CC3E;}
+    .st8{fill:#00B2EF;}
+</style>
+<g>
+    <g>
+        <path class="st3" d="M123.1,250c0-4.7,0.3-9.3,0.8-13.9l-0.1,0c0.3-1.5,0.4-3.1,0.4-4.7c0-16.2-13.1-29.3-29.3-29.3
+            s-29.3,13.1-29.3,29.3c0,4,0.8,7.8,2.2,11.2l-0.3,0c13.2,32.8,39.8,58.7,72.9,71.2C129.5,295.1,123.1,273.3,123.1,250z"/>
+        <path class="st4" d="M186.6,139.9c4.1-2.3,8.2-4.4,12.4-6.3l-0.1-0.1c1.5-0.6,2.9-1.2,4.3-2c14-8.1,18.9-26,10.8-40.1
+            s-26-18.9-40.1-10.8c-3.5,2-6.3,4.6-8.6,7.5l-0.2-0.2c-21.8,27.8-31.1,63.8-25.4,98.7C150.7,167.9,166.4,151.6,186.6,139.9z"/>
+        <path class="st5" d="M313.7,140.1c4.1,2.4,7.9,4.9,11.6,7.6l0-0.1c1.2,1,2.5,1.9,3.9,2.7c14,8.1,32,3.4,40.1-10.6
+            c8.1-14,3.4-32-10.6-40.1c-3.4-2-7.1-3.2-10.8-3.7l0.1-0.2c-35-5-70.8,4.9-98.2,27.3C271.5,122.9,293.6,128.4,313.7,140.1z"/>
+        <path class="st6" d="M376.9,250.3c0,4.7-0.3,9.3-0.8,13.9l0.1,0c-0.3,1.5-0.4,3.1-0.4,4.7c-0.1,16.2,13,29.4,29.2,29.5
+            c16.2,0.1,29.4-13,29.5-29.2c0-4-0.8-7.8-2.2-11.2l0.3,0c-13.1-32.8-39.5-58.9-72.6-71.5C370.8,205.1,377,227,376.9,250.3z"/>
+        <path class="st7" d="M313,360.1c-4.1,2.3-8.2,4.4-12.5,6.2l0.1,0.1c-1.5,0.5-2.9,1.2-4.3,2c-14.1,8-19,25.9-11,40s25.9,19,40,11
+            c3.5-2,6.4-4.5,8.7-7.5l0.2,0.2c21.9-27.7,31.3-63.6,25.8-98.6C349,332.2,333.2,348.5,313,360.1z"/>
+        <path class="st8" d="M185.9,359.4c-4.1-2.4-7.9-4.9-11.6-7.7l0,0.1c-1.2-1-2.5-1.9-3.9-2.8c-14-8.2-32-3.5-40.2,10.5
+            s-3.5,32,10.5,40.2c3.4,2,7.1,3.2,10.8,3.8l-0.1,0.2c35,5.2,70.8-4.6,98.3-26.9C228,376.8,206,371.2,185.9,359.4z"/>
+    </g>
+</g>
+</svg>

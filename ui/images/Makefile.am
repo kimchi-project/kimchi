@@ -17,4 +17,4 @@
 
 imagedir = $(datadir)/wok/plugins/kimchi/ui/images
 
-dist_image_DATA = *.png
+dist_image_DATA = *.png *.svg
