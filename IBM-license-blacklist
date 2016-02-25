@@ -28,6 +28,7 @@ po/POTFILES.in
 po/kimchi.pot
 template.conf
 ui/config/tab-ext.xml
+ui/images/.*.svg
 ui/pages/help/dita-help.xsl
 ui/pages/help/.*/.*.dita
 ui/robots.txt
