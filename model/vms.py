@@ -825,6 +825,24 @@ class VMModel(object):
         validate_memory({'current': newMem >> 10,
                          'maxmemory': newMaxMem >> 10})
 
+        # Adjust memory devices to new memory, if necessary
+        memDevs = root.findall('./devices/memory')
+        if len(memDevs) != 0 and hasMem:
+            if newMem == newMaxMem:
+                for dev in memDevs:
+                    root.find('./devices').remove(dev)
+            elif newMem > (oldMem << 10):
+                newMem = newMem - (len(memDevs) * (1024 << 10))
+            elif newMem < (oldMem << 10):
+                devsRemove = len(memDevs) - (oldMem - (newMem >> 10))/1024 - 1
+                for dev in memDevs:
+                    if int(dev.xpath('./address/@slot')[0]) > devsRemove:
+                        root.find('./devices').remove(dev)
+                newMem = newMem - (len(root.findall('./devices/memory'))
+                                   * 1024 << 10)
+            elif newMem == (oldMem << 10):
+                newMem = newMem - ((len(memDevs) * 1024) << 10)
+
         def _get_slots(mem, maxMem):
             slots = (maxMem - mem) >> 10 >> 10
             # Libvirt does not accepts slots <= 1
