@@ -6,23 +6,27 @@
         <access role="user" mode="byInstance"/>
         <title>Guests</title>
         <path>plugins/kimchi/tabs/guests.html</path>
+        <order>35</order>
     </tab>
     <tab>
         <access role="admin" mode="admin"/>
         <access role="user" mode="none"/>
         <title>Templates</title>
         <path>plugins/kimchi/tabs/templates.html</path>
+        <order>40</order>
     </tab>
     <tab>
         <access role="admin" mode="admin"/>
         <access role="user" mode="read-only"/>
         <title>Storage</title>
         <path>plugins/kimchi/tabs/storage.html</path>
+        <order>45</order>
     </tab>
     <tab>
         <access role="admin" mode="admin"/>
         <access role="user" mode="read-only"/>
         <title>Network</title>
         <path>plugins/kimchi/tabs/network.html</path>
+        <order>50</order>
     </tab>
 </tabs-ext>
