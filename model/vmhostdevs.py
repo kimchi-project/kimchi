@@ -22,7 +22,7 @@ import libvirt
 import os
 import platform
 from lxml import etree, objectify
-from lxml.builder import E
+from lxml.builder import E, ElementMaker
 from operator import itemgetter
 
 from wok.exception import InvalidOperation, InvalidParameter, NotFoundError
@@ -34,6 +34,12 @@ from wok.plugins.kimchi.model.config import CapabilitiesModel
 from wok.plugins.kimchi.model.host import DeviceModel, DevicesModel
 from wok.plugins.kimchi.model.utils import get_vm_config_flag
 from wok.plugins.kimchi.model.vms import DOM_STATE_MAP, VMModel
+from wok.plugins.kimchi.xmlutils.qemucmdline import get_qemucmdline_xml
+from wok.plugins.kimchi.xmlutils.qemucmdline import QEMU_NAMESPACE
+
+
+CMDLINE_FIELD_NAME = 'spapr-pci-host-bridge.mem_win_size'
+WINDOW_SIZE_BAR = 0x800000000
 
 
 class VMHostDevsModel(object):
@@ -149,6 +155,7 @@ class VMHostDevsModel(object):
 
         slots = sorted(slots)
 
+        free = 0
         for free, slot in enumerate(slots, start=1):
             if free < slot:
                 return free
@@ -184,8 +191,9 @@ class VMHostDevsModel(object):
             DOM_STATE_MAP[dom.info()[0]] == "shutoff"
         pci_infos = sorted(pci_infos, key=itemgetter('name'))
 
-        if dev_model.is_device_3D_controller(dev_info) and \
-           DOM_STATE_MAP[dom.info()[0]] != "shutoff":
+        # does not allow hot-plug of 3D graphic cards
+        is_3D_device = dev_model.is_device_3D_controller(dev_info)
+        if is_3D_device and DOM_STATE_MAP[dom.info()[0]] != "shutoff":
             raise InvalidOperation('KCHVMHDEV0006E',
                                    {'name': dev_info['name']})
 
@@ -206,6 +214,12 @@ class VMHostDevsModel(object):
             rollback.commitAll()
 
         device_flags = get_vm_config_flag(dom, mode='all')
+
+        # when attaching a 3D graphic device it might be necessary to increase
+        # the window size memory in order to be able to attach more than one
+        # device to the same guest
+        if is_3D_device:
+            self.update_mmio_guest(vmid, True)
 
         slot = 0
         if is_multifunction:
@@ -228,6 +242,115 @@ class VMHostDevsModel(object):
             rollback.commitAll()
 
         return dev_info['name']
+
+    def _count_3D_devices_attached(self, dom):
+        counter = 0
+        root = objectify.fromstring(dom.XMLDesc(0))
+
+        try:
+            hostdev = root.devices.hostdev
+
+        except AttributeError:
+            return counter
+
+        for device in hostdev:
+            if device.attrib['type'] != 'pci':
+                continue
+
+            name = DeviceModel.deduce_dev_name(device, self.conn)
+            info = DeviceModel(conn=self.conn).lookup(name)
+            if 'vga3d' in info and info['vga3d']:
+                counter += 1
+
+        return counter
+
+    def update_mmio_guest(self, vmid, is_attaching):
+        dom = VMModel.get_vm(vmid, self.conn)
+        # get the number of 3D graphic cards already attached to the guest
+        # based on this number we will decide if the memory size will be
+        # increased or not
+        counter = self._count_3D_devices_attached(dom)
+        if counter == 0 and is_attaching:
+            return
+
+        size = 0
+        if is_attaching:
+            # suppose this is the 3rd graphic card to be attached to the same
+            # guest, counter will be 2+1 (2 existing + this attachment) times
+            # 32G (0x80000000)
+            size = hex((counter + 1) * WINDOW_SIZE_BAR)
+
+        else:
+            size = hex(counter * WINDOW_SIZE_BAR)
+
+        # if the guest already has the xml file we will simply update the
+        # value, otherwise we will add the new field
+        new_xml = self._update_win_memory_size(dom, counter, size)
+        if new_xml is None and is_attaching:
+            new_xml = self._add_win_memory_size(dom, size)
+
+        # update the XML
+        self.conn.get().defineXML(new_xml)
+
+    def _update_win_memory_size(self, dom, counter, wnd_size):
+        root = objectify.fromstring(dom.XMLDesc(0))
+
+        # look for the existing argument in <qemu:commandline> and try
+        # to update the value (or remove if there is only one (or none)
+        # graphic card attached.
+        cmdline = root.findall('{%s}commandline' % QEMU_NAMESPACE)
+        for line in cmdline:
+            for arg in line.iterchildren():
+                if not arg.values()[0].startswith(CMDLINE_FIELD_NAME):
+                    continue
+
+                # update mem_win_size value
+                if counter > 1:
+                    arg.set('value', CMDLINE_FIELD_NAME + '=' + wnd_size)
+
+                # remove mem_win_size
+                elif counter <= 1:
+                    line.remove(arg)
+
+                return etree.tostring(root, encoding='utf-8',
+                                      pretty_print=True)
+
+        return None
+
+    def _add_win_memory_size(self, dom, wnd_size):
+        root = objectify.fromstring(dom.XMLDesc(0))
+        val = CMDLINE_FIELD_NAME + '=' + wnd_size
+
+        cmdline = root.find('{%s}commandline' % QEMU_NAMESPACE)
+        # <qemu:commandline> doesn't exist, create the full commandline xml
+        # with the required values and return
+        if cmdline is None:
+            args = {}
+            args['-global'] = val
+            root.append(etree.fromstring(get_qemucmdline_xml(args)))
+            return etree.tostring(root, encoding='utf-8', pretty_print=True)
+
+        # <qemu:commandline> exists and already has the tag
+        # <qemu:arg value='-global'> (user could already been using this for
+        # something else), so we just add our <qemu:arg...> missing.
+        found = False
+        for arg in cmdline.iterchildren():
+            if arg.values()[0] == '-global':
+                EM = ElementMaker(namespace=QEMU_NAMESPACE,
+                                  nsmap={'qemu': QEMU_NAMESPACE})
+                cmdline.append(EM.arg(value=val))
+                found = True
+                break
+
+        # <qemu:commandline> exists but there is no <qemu:arg value global>
+        # so, we add those missing arguments inside the exising cmdline
+        if not found:
+            EM = ElementMaker(namespace=QEMU_NAMESPACE,
+                              nsmap={'qemu': QEMU_NAMESPACE})
+            cmdline.append(EM.arg(value='-global'))
+            cmdline.append(EM.arg(value=val))
+
+        return etree.tostring(root, encoding='utf-8', pretty_print=True)
 
     def _get_scsi_device_xml(self, dev_info):
         adapter = E.adapter(name=('scsi_host%s' % dev_info['host']))
@@ -285,7 +408,8 @@ class VMHostDevModel(object):
                         'type': e.attrib['type'],
                         'product': dev_info.get('product', None),
                         'vendor': dev_info.get('vendor', None),
-                        'multifunction': dev_info.get('multifunction', None)}
+                        'multifunction': dev_info.get('multifunction', None),
+                        'vga3d': dev_info.get('vga3d', None)}
 
         raise NotFoundError('KCHVMHDEV0001E',
                             {'vmid': vmid, 'dev_name': dev_name})
@@ -304,6 +428,13 @@ class VMHostDevModel(object):
         pci_devs = [(DeviceModel.deduce_dev_name(e, self.conn), e)
                     for e in hostdev if e.attrib['type'] == 'pci']
 
+        dev_model = DeviceModel(conn=self.conn)
+        dev_info = dev_model.lookup(dev_name)
+        is_3D_device = dev_model.is_device_3D_controller(dev_info)
+        if is_3D_device and DOM_STATE_MAP[dom.info()[0]] != "shutoff":
+            raise InvalidOperation('KCHVMHDEV0006E',
+                                   {'name': dev_info['name']})
+
         for e in hostdev:
             if DeviceModel.deduce_dev_name(e, self.conn) == dev_name:
                 xmlstr = etree.tostring(e)
@@ -311,6 +442,8 @@ class VMHostDevModel(object):
                     xmlstr, get_vm_config_flag(dom, mode='all'))
                 if e.attrib['type'] == 'pci':
                     self._delete_affected_pci_devices(dom, dev_name, pci_devs)
+                if is_3D_device:
+                    self.update_mmio_guest(vmid, False)
                 break
         else:
             raise NotFoundError('KCHVMHDEV0001E',
