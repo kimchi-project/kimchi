@@ -35,7 +35,9 @@ from wok.plugins.kimchi import imageinfo
 from wok.plugins.kimchi import osinfo
 from wok.plugins.kimchi.model import cpuinfo
 from wok.plugins.kimchi.model import vmifaces
+from wok.plugins.kimchi.model.groups import PAMGroupsModel
 from wok.plugins.kimchi.model.host import DeviceModel
+from wok.plugins.kimchi.model.host import DevicesModel
 from wok.plugins.kimchi.model.libvirtstoragepool import IscsiPoolDef
 from wok.plugins.kimchi.model.libvirtstoragepool import NetfsPoolDef
 from wok.plugins.kimchi.model.libvirtstoragepool import StoragePoolDef
@@ -47,7 +49,7 @@ from wok.plugins.kimchi.model.storagevolumes import StorageVolumesModel
 from wok.plugins.kimchi.model import storagevolumes
 from wok.plugins.kimchi.model.templates import LibvirtVMTemplate
 from wok.plugins.kimchi.model.users import PAMUsersModel
-from wok.plugins.kimchi.model.groups import PAMGroupsModel
+from wok.plugins.kimchi.model.vmhostdevs import VMHostDevsModel
 from wok.plugins.kimchi.utils import pool_name_from_uri
 from wok.plugins.kimchi.vmtemplate import VMTemplate
 
@@ -118,6 +120,10 @@ class MockModel(Model):
                 setattr(self, m, mock_method)
 
         DeviceModel.lookup = self._mock_device_lookup
+        DeviceModel.get_iommu_groups = self._mock_device_get_iommu_groups
+        DeviceModel.is_device_3D_controller = \
+            self._mock_device_is_device_3D_controller
+        DevicesModel.get_list = self._mock_devices_get_list
         StoragePoolsModel._check_lvm = self._check_lvm
         StoragePoolModel._update_lvm_disks = self._update_lvm_disks
         StorageVolumesModel.get_list = self._mock_storagevolumes_get_list
@@ -125,6 +131,8 @@ class MockModel(Model):
         LibvirtVMTemplate._get_volume_path = self._get_volume_path
         VMTemplate.get_iso_info = self._probe_image
         imageinfo.probe_image = self._probe_image
+        VMHostDevsModel._get_pci_device_xml = self._get_pci_device_xml
+        VMHostDevsModel._validate_pci_passthrough_env = self._validate_pci
 
     def reset(self):
         MockModel._mock_vms = defaultdict(list)
@@ -326,6 +334,16 @@ class MockModel(Model):
         return [dev['name'] for dev in self._mock_devices.devices.values()
                 if dev['device_type'] == _cap]
 
+    def _mock_device_get_iommu_groups(self):
+        return [dev['iommuGroup'] for dev in
+                self._mock_devices.devices.values()
+                if 'iommuGroup' in dev]
+
+    def _mock_device_is_device_3D_controller(self, info):
+        if 'driver' in info and 'name' in info['driver']:
+            return info['driver']['name'] == 'nvidia'
+        return False
+
     def _mock_device_lookup(self, dev_name):
         return self._mock_devices.devices[dev_name]
 
@@ -405,6 +423,46 @@ class MockModel(Model):
             if sn.name == name:
                 sn.current = True
 
+    def _attach_device(self, vm_name, xmlstr):
+        MockModel._mock_vms[vm_name].append(xmlstr)
+
+    def _validate_pci(self):
+        pass
+
+    def _get_pci_device_xml(self, dev_info, slot, is_multifunction):
+        if 'detach_driver' not in dev_info:
+            dev_info['detach_driver'] = 'kvm'
+
+        source = E.source(E.address(domain=str(dev_info['domain']),
+                                    bus=str(dev_info['bus']),
+                                    slot=str(dev_info['slot']),
+                                    function=str(dev_info['function'])))
+        driver = E.driver(name=dev_info['detach_driver'])
+
+        if is_multifunction:
+            multi = E.address(type='pci',
+                              domain='0',
+                              bus='0',
+                              slot=str(slot),
+                              function=str(dev_info['function']))
+
+            if dev_info['function'] == 0:
+                multi = E.address(type='pci',
+                                  domain='0',
+                                  bus='0',
+                                  slot=str(slot),
+                                  function=str(dev_info['function']),
+                                  multifunction='on')
+
+            host_dev = E.hostdev(source, driver, multi,
+                                 mode='subsystem', type='pci', managed='yes')
+
+        else:
+            host_dev = E.hostdev(source, driver,
+                                 mode='subsystem', type='pci', managed='yes')
+
+        return ET.tostring(host_dev)
+
 
 class MockStorageVolumes(object):
     def __init__(self):
@@ -481,6 +539,7 @@ class MockDevices(object):
                                      'Centrino Advanced-N 6205 [Taylor Peak]',
                                      'id': '0x0085'},
                                  'slot': 0,
+                                 'vga3d': False,
                                  'vendor': {'description': 'Intel Corporation',
                                             'id': '0x8086'}},
             'pci_0000_0d_00_0': {'bus': 13,
@@ -497,8 +556,111 @@ class MockDevices(object):
                                              'PCIe SDXC/MMC Host Controller',
                                              'id': '0xe823'},
                                  'slot': 0,
+                                 'vga3d': False,
                                  'vendor': {'description': 'Ricoh Co Ltd',
                                             'id': '0x1180'}},
+            'pci_0000_09_01_0': {'bus': 9,
+                                 'device_type': 'pci',
+                                 'domain': 0,
+                                 'driver': {'name': 'tg3'},
+                                 'function': 0,
+                                 'iommuGroup': 8,
+                                 'name': 'pci_0000_09_01_0',
+                                 'parent': 'computer',
+                                 'path':
+                                 '/sys/devices/pci0000:00/0000:09:01.0',
+                                 'product': {'description':
+                                             'NetXtreme BCM5719',
+                                             'id': '0x1657'},
+                                 'slot': 1,
+                                 'vga3d': False,
+                                 'vendor': {'description': 'Broadcom Corp',
+                                            'id': '0x14e4'}},
+            'pci_0000_09_01_1': {'bus': 9,
+                                 'device_type': 'pci',
+                                 'domain': 0,
+                                 'driver': {'name': 'tg3'},
+                                 'function': 1,
+                                 'iommuGroup': 8,
+                                 'name': 'pci_0000_09_01_1',
+                                 'parent': 'computer',
+                                 'path':
+                                 '/sys/devices/pci0000:00/0000:09:01.1',
+                                 'product': {'description':
+                                             'NetXtreme BCM5719',
+                                             'id': '0x1657'},
+                                 'slot': 1,
+                                 'vga3d': False,
+                                 'vendor': {'description': 'Broadcom Corp',
+                                            'id': '0x14e4'}},
+            'pci_0000_09_01_2': {'bus': 9,
+                                 'device_type': 'pci',
+                                 'domain': 0,
+                                 'driver': {'name': 'tg3'},
+                                 'function': 2,
+                                 'iommuGroup': 8,
+                                 'name': 'pci_0000_09_01_2',
+                                 'parent': 'computer',
+                                 'path':
+                                 '/sys/devices/pci0000:00/0000:09:01.2',
+                                 'product': {'description':
+                                             'NetXtreme BCM5719',
+                                             'id': '0x1657'},
+                                 'slot': 1,
+                                 'vga3d': False,
+                                 'vendor': {'description': 'Broadcom Corp',
+                                            'id': '0x14e4'}},
+            'pci_0000_1a_00_0': {'bus': 26,
+                                 'device_type': 'pci',
+                                 'domain': 0,
+                                 'driver': {'name': 'nvidia'},
+                                 'function': 0,
+                                 'iommuGroup': 9,
+                                 'name': 'pci_0000_1a_00_0',
+                                 'parent': 'computer',
+                                 'path':
+                                 '/sys/devices/pci0000:00/0000:1a:00.0',
+                                 'product': {'description':
+                                             'GK210GL [Tesla K80]',
+                                             'id': '0x0302'},
+                                 'slot': 0,
+                                 'vga3d': True,
+                                 'vendor': {'description': 'NVIDIA Corp',
+                                            'id': '0x10de'}},
+            'pci_0001_1b_00_0': {'bus': 27,
+                                 'device_type': 'pci',
+                                 'domain': 1,
+                                 'driver': {'name': 'nvidia'},
+                                 'function': 0,
+                                 'iommuGroup': 7,
+                                 'name': 'pci_0001_1b_00_0',
+                                 'parent': 'computer',
+                                 'path':
+                                 '/sys/devices/pci0000:00/0001:1b:00.0',
+                                 'product': {'description':
+                                             'GK210GL [Tesla K80]',
+                                             'id': '0x0302'},
+                                 'slot': 0,
+                                 'vga3d': True,
+                                 'vendor': {'description': 'NVIDIA Corp',
+                                            'id': '0x10de'}},
+            'pci_0000_1c_00_0': {'bus': 28,
+                                 'device_type': 'pci',
+                                 'domain': 0,
+                                 'driver': {'name': 'nvidia'},
+                                 'function': 0,
+                                 'iommuGroup': 7,
+                                 'name': 'pci_0000_1c_00_0',
+                                 'parent': 'computer',
+                                 'path':
+                                 '/sys/devices/pci0000:00/0000:0d:00.0',
+                                 'product': {'description':
+                                             'GK210GL [Tesla K80]',
+                                             'id': '0x0302'},
+                                 'slot': 0,
+                                 'vga3d': True,
+                                 'vendor': {'description': 'NVIDIA Corp',
+                                            'id': '0x10de'}},
             'scsi_host0': {'adapter': {'fabric_wwn': '37df6c1efa1b4388',
                                        'type': 'fc_host',
                                        'wwnn': 'efb6563f06434a98',

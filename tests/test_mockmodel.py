@@ -26,6 +26,7 @@ import unittest
 from tests.utils import get_free_port, patch_auth, request, run_server
 from tests.utils import wait_task
 
+from wok.exception import InvalidOperation
 from wok.plugins.kimchi import mockmodel
 from wok.plugins.kimchi.osinfo import get_template_default
 
@@ -111,6 +112,38 @@ class MockModelTests(unittest.TestCase):
 
         vms.append(u'test')
         self.assertEqual(model.vms_get_list(), sorted(vms))
+
+    def test_memory_window_changes(self):
+        model.templates_create({'name': u'test',
+                                'cdrom': fake_iso})
+        task = model.vms_create({'name': u'test-vm',
+                                 'template': '/plugins/kimchi/templates/test'})
+        wait_task(model.task_lookup, task['id'])
+
+        info = model.device_lookup('pci_0000_1a_00_0')
+        model.vmhostdevs_update_mmio_guest(u'test-vm', True)
+        model._attach_device(u'test-vm',
+                             model._get_pci_device_xml(info, 0, False))
+
+    def test_hotplug_3D_card(self):
+        model.templates_create({'name': u'test',
+                                'cdrom': fake_iso})
+        task = model.vms_create({'name': u'test-vm',
+                                 'template': '/plugins/kimchi/templates/test'})
+        wait_task(model.task_lookup, task['id'])
+        model.vm_start(u'test-vm')
+
+        # attach the 3D cards found to a running guest
+        all_devices = model.devices_get_list()
+        for device in all_devices:
+            device_info = model.device_lookup(device)
+            if model.device_is_device_3D_controller(device_info):
+                try:
+                    model.vmhostdevs_create(u'test-vm', {'name': device})
+
+                # expect the error: KCHVMHDEV0006E
+                except InvalidOperation as e:
+                    self.assertEqual(e.message[:14], u'KCHVMHDEV0006E')
 
     def test_vm_info(self):
         model.templates_create({'name': u'test',
