@@ -146,9 +146,9 @@ class DevicesModel(object):
 class DeviceModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
-        self.iommu_groups = self._get_iommu_groups()
+        self.iommu_groups = self.get_iommu_groups()
 
-    def _get_iommu_groups(self):
+    def get_iommu_groups(self):
         iommu_groups = defaultdict(list)
         conn = self.conn
 
