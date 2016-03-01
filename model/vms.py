@@ -838,8 +838,10 @@ class VMModel(object):
                 for dev in memDevs:
                     if int(dev.xpath('./address/@slot')[0]) > devsRemove:
                         root.find('./devices').remove(dev)
-                newMem = newMem - (len(root.findall('./devices/memory'))
-                                   * 1024 << 10)
+                newMem = \
+                    newMem - (
+                        len(root.findall('./devices/memory')) * 1024 << 10
+                    )
             elif newMem == (oldMem << 10):
                 newMem = newMem - ((len(memDevs) * 1024) << 10)
 
