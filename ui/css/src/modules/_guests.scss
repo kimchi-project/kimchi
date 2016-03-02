@@ -95,14 +95,18 @@
         width: 100%;
         padding: 0;
         list-style-type: none;
-        > li:nth-child(even) {
-            background-color: $table-bg-accent;
-        }
-        > li:nth-child(odd) {
-            background-color: $table-bg;
-        }
-        > li:first-child {
-            border-top: 0;
+        .wok-guest-list-body > ul {
+            list-style: none;
+            padding: 0;
+            > li:nth-child(even) {
+              background-color: #fcfcfc;
+            }
+            > li:nth-child(odd) {
+              background-color: #fff;
+            }
+            > li:first-child {
+              border-top: 0;
+            }
         }
         .wok-guest-list-header {
             border-top: 0 none;
@@ -128,7 +132,7 @@
                 }
             }
         }
-        .wok-guest-list-body {
+        .wok-guest-list-item {
             border-top: 1px solid $table-border-color;
             > span {
                 padding: 6px 2px;
@@ -138,6 +142,13 @@
                 font-size: 12.5pt;
                 line-height: 2.42857;
                 font-weight: 400;
+            }
+            .nodata,
+            .screenshot {
+                display: none;
+            }
+            .column-name.distro-icon {
+                background: none;
             }
             .progress {
                 display: inline-block;
@@ -165,6 +176,12 @@
                     background-color: map-get($guestCharts, lightGray);
                 }
             }
+            .column-type {
+                padding-left: 40px;
+            }
+            .column-actions .btn {
+                margin-top: 6px;
+            }
             div.percentage-label {
                 display: inline-block;
                 width: 25%;
@@ -175,67 +192,311 @@
                 width: 35%;
                 margin-top: 6px;
             }
+            .item-hidden {
+                display: none;
+            }
+            .btn .guest-state {
+                display: none;
+            }
+        }
+    }
+    .wok-guest-gallery {
+        list-style: none;
+        padding: 0;
+        > li.wok-guest-list-header {
+            display: none;
+        }
+        > li > ul {
+            list-style: none;
+            padding: 0;
+        }
+        .wok-guest-list-item {
+            padding: 0 0px 0 0px;
+            width: 240px;
+            height: 453px;
+            display: inline-block;
+            border: 0;
+            background: $body-bg;
+            margin-right: 20px;
+            position: relative;
+            vertical-align: top;
+            &.inactive {
+                .progress,
+                .item-hidden,
+                [class^="column-"] {
+                    display: none;
+                }
+                .nodata {
+                    display: block;
+                    padding-top: 115px;
+                    padding-bottom: 115px;
+                    text-align: center;
+                }
+                span.column-action, span.column-name {
+                    display: block !important;
+                }
+                .btn {
+                    background: #4d4c4e !important;
+                }
+            }
+            > span {
+                display: inline-block;
+                width: 100%;
+                font-family: $font-family-sans-serif;
+                font-size: 12.5pt;
+                line-height: $line-height-base;
+                font-weight: 400;
+            }
+            .progress {
+                display: inline-block;
+                width: 125px;
+                position: relative;
+                vertical-align: top;
+                margin-top: 0;
+                margin-bottom: 0;
+                border-radius: 0;
+                -webkit-box-shadow: none;
+                box-shadow: none;
+            }
+            .progress-bar {
+                position: absolute;
+                top: 0;
+                left: 0;
+                -webkit-box-shadow: none;
+                box-shadow: none;
+                &.dark-grey {
+                    background-color: map-get($guestCharts, darkGray);
+                }
+                &.medium-grey {
+                    background-color: map-get($guestCharts, mediumGray);
+                }
+                &.light-grey {
+                    background-color: map-get($guestCharts, lightGray);
+                }
+            }
+            .item-hidden {
+                display: block;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .column-action.pull-right {
+                position: absolute;
+            }
+            .ul-body {
+            display: inline-block;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            }
+            .column-type,
+            .nodata,
+            .column-vnc,
+            .column-state {
+                display: none;
+            }
+            .column-name {
+                line-height: 2.5 !important;
+                font-size: 15.3pt !important;
+                font-weight: 500 !important;
+                text-overflow: ellipsis !important;
+                overflow: hidden !important;
+                padding-right: 35px !important;
+                padding-left: 20px;
+                margin-right: 20px;
+                display: block;
+                width: 220px;
+                white-space: nowrap;
+            }
+            .column-processors,
+            .column-memory,
+            .column-storage,
+            .column-network {
+                margin-top: 21px;
+                display: block;
+                height: 38px;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            .percentage-label,
+            .measure-label {
+                display: inline-block;
+                width: 68px;
+            }
+            .font-bold {
+                font-weight: bold !important;
+            }
+            .pull-right {
+                float: none !important;
+            }
+            .dropdown-menu {
+                width: 100%;
+            }
+            .screenshot {
+                width: 100%;
+                height: 148px;
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+            .menu-flat {
+                width: 240px;
+            }
+            .btn {
+                width: 100%;
+                text-align: left;
+                padding-left: 21px;
+                border-radius: 0;
+                background: rgba(0, 0, 0, .8) !important;
+
+                > span.guest-state {
+                    .fa {
+                        margin-right: 10px;
+                    }
+                }
+
+                > span.guest-state.running {
+                    span.running {
+                        display: block;
+                    }
+                    span.paused,
+                    span.shutoff,
+                    span.starting,
+                    span.resetting {
+                        display: none;
+                    }
+                }
+                > span.guest-state.shutoff {
+                    span.shutoff {
+                        display: block;
+                    }
+                    span.paused,
+                    span.running,
+                    span.starting,
+                    span.resetting {
+                        display: none;
+                    }
+                }
+                > span.guest-state.starting {
+                    span.starting {
+                        display: block;
+                    }
+                    span.paused,
+                    span.running,
+                    span.shutoff,
+                    span.resetting {
+                        display: none;
+                    }
+                }
+                > span.guest-state.resetting {
+                    span.resetting {
+                        display: block;
+                    }
+                    span.paused,
+                    span.running,
+                    span.shutoff,
+                    span.starting {
+                        display: none;
+                    }
+                }
+            }
+            .guest-done {
+                display: none;
+            }
+            .guest-state {
+                display: block;
+            }
+        }
+    }
+    .wok-guest-list .wok-guest-list-body .wok-guest-list-item,
+    .wok-guest-gallery .wok-guest-list-body .wok-guest-list-item {
+        > span.column-processors {
+            > div > div.progress-bar.cpu-progress-bar {
+                background-color: map-get($colors, wok);
+            }
+        }
+        > span.column-memory {
+            > div > div.progress-bar.memory-progress-bar {
+                background-color: map-get($colors, host);
+            }
+        }
+        > span.column-storage {
+            > div > div.progress-bar.storage-progress-bar {
+                background-color: $state-warning-border;
+            }
+        }
+        > span.column-network {
+            > div > div.progress-bar.network-progress-bar {
+                background-color: map-get($colors, network);
+            }
         }
     }
     .wok-guest-list .wok-guest-list-header,
-    .wok-guest-list .wok-guest-list-body {
+    .wok-guest-list .wok-guest-list-body .wok-guest-list-item {
         > span.column-state {
             width: 40px;
             text-align: center;
             > span.guest-state {
                 font-size: 22px;
                 position: relative;
+                span.text-status {
+                    display: none;
+                }
             }
-            > span.guest-state.running > .fa-ban {
-                display: none;
+            > span.guest-state.running {
+                span.running {
+                    display: block;
+                }
+                span.paused,
+                span.shutoff,
+                span.starting,
+                span.resetting {
+                    display: none;
+                }
+                .fa {
+                    color: $fa-green;
+                }
             }
-            > span.guest-state.running > .fa-power-off {
-                color: $fa-green;
+            > span.guest-state.shutoff {
+                span.shutoff {
+                    display: block;
+                }
+                span.paused,
+                span.running,
+                span.starting,
+                span.resetting {
+                    display: none;
+                }
+                .fa {
+                    color: $gray-light;
+                }
             }
-            > span.guest-state.running > .fa-undo {
-                display: none;
+            > span.guest-state.starting {
+                span.starting {
+                    display: block;
+                }
+                span.paused,
+                span.running,
+                span.shutoff,
+                span.resetting {
+                    display: none;
+                }
+                .fa {
+                    color: $gray-light;
+                }
             }
-            > span.guest-state.running > .fa-refresh {
-                display: none;
-            }
-            > span.guest-state.shutoff > .fa-ban {
-                color: $gray-light;
-            }
-            > span.guest-state.shutoff > .fa-power-off {
-                display: none;
-            }
-            > span.guest-state.shutoff > .fa-undo {
-                display: none;
-            }
-            > span.guest-state.shutoff > .fa-refresh {
-                display: none;
-            }
-            > span.guest-state.starting > .fa-ban {
-                display: none;
-            }
-            > span.guest-state.starting > .fa-power-off {
-                display: none;
-            }
-            > span.guest-state.starting > .fa-undo {
-                color: $gray-light;
-            }
-            > span.guest-state.starting > .fa-refresh {
-                display: none;
-            }
-            > span.guest-state.resetting > .fa-ban {
-                display: none;
-            }
-            > span.guest-state.resetting > .fa-power-off {
-                display: none;
-            }
-            > span.guest-state.resetting > .fa-undo {
-                display: none;
-            }
-            > span.guest-state.resetting > .fa-refresh {
-                color: $fa-green;
-            }
-            > span.guest-state.paused > .fa {
-                display: none;
+            > span.guest-state.resetting {
+                span.resetting {
+                    display: block;
+                }
+                span.paused,
+                span.running,
+                span.shutoff,
+                span.starting {
+                    display: none;
+                }
+                .fa {
+                    color: $fa-green;
+                }
             }
         }
         > span.column-name {
@@ -286,26 +547,6 @@
         > span.column-network {
             width: 12.5%;
         }
-        > span.column-processors {
-            > div > div.progress-bar.cpu-progress-bar {
-                background-color: map-get($colors, administration);
-            }
-        }
-        > span.column-memory {
-            > div > div.progress-bar.memory-progress-bar {
-                background-color: map-get($colors, host);
-            }
-        }
-        > span.column-storage {
-            > div > div.progress-bar.storage-progress-bar {
-                background-color: $state-warning-border;
-            }
-        }
-        > span.column-network {
-            > div > div.progress-bar.network-progress-bar {
-                background-color: map-get($colors, network);
-            }
-        }
         > span.column-action {
             width: 165px;
         }
@@ -317,39 +558,42 @@
             margin-right: -45px;
         }
     }
-    .wok-guest-list .distro-icon {
-        background-color: transparent;
-        background-size: 27px 27px;
-        background-repeat: no-repeat;
-        background-position: left;
-    }
     .wok-guest-list .distro-icon.inactive {
         -webkit-filter: grayscale(100%) contrast(0.8) brightness(110%);
         -moz-filter: grayscale(100%) contrast(0.8) brightness(110%);
         filter: grayscale(100%) contrast(0.8) brightness(110%);
     }
-    .wok-guest-list .distro-icon.icon-centos {
-        background-image: url('#{$wok-icon-path}/icon-centos.png');
-    }
-    .wok-guest-list .distro-icon.icon-debian {
-        background-image: url('#{$wok-icon-path}/icon-debian.png');
-    }
-    .wok-guest-list .distro-icon.icon-fedora {
-        background-image: url('#{$wok-icon-path}/icon-fedora.png');
-    }
-    .wok-guest-list .distro-icon.icon-opensuse {
-        background-image: url('#{$wok-icon-path}/icon-opensuse.png');
-    }
-    .wok-guest-list .distro-icon.icon-ubuntu {
-        background-image: url('#{$wok-icon-path}/icon-ubuntu.png');
-    }
-    .wok-guest-list .distro-icon.icon-gentoo {
-        background-image: url('#{$wok-icon-path}/icon-gentoo.png');
-    }
-    .wok-guest-list .distro-icon.icon-unknown {
-        background-image: url('#{$wok-icon-path}/icon-unknown.png');
-    }
     .wok-guest-list .wok-guest-list-body.inactive {
         color: $disabled-color !important;
     }
+    .distro-icon {
+        background-color: transparent;
+        background-size: 32px 32px;
+        background-repeat: no-repeat;
+        background-position: 100% 50%;
+        &.icon-centos {
+            background-image: url('#{$wok-icon-path}/icon-centos.png');
+        }
+        &.icon-debian {
+            background-image: url('#{$wok-icon-path}/icon-debian.png');
+        }
+        &.icon-fedora {
+            background-image: url('#{$wok-icon-path}/icon-fedora.png');
+        }
+        &.icon-opensuse {
+            background-image: url('#{$wok-icon-path}/icon-opensuse.png');
+        }
+        &.icon-ubuntu {
+            background-image: url('#{$wok-icon-path}/icon-ubuntu.png');
+        }
+        &.icon-gentoo {
+            background-image: url('#{$wok-icon-path}/icon-gentoo.png');
+        }
+        &.icon-unknown {
+            background-image: url('#{$wok-icon-path}/icon-unknown.png');
+        }
+    }
+}
+body.wok-gallery {
+    background: $input-bg-disabled;
 }

@@ -396,7 +396,8 @@
             padding: 0 20px 0 20px;
             width: 240px;
             display: inline-block;
-            border: 1px solid $table-first-row-border-color;
+            border: 0;
+            background: $body-bg;
             margin-right: 20px;
             > span {
                 display: inline-block;

@@ -91,6 +91,7 @@ kimchi.templateBindClick = function() {
 
     $('#gallery-table-button').on('click', function(event) {
         $(".wok-vm-list, .wok-vm-gallery").toggleClass("wok-vm-list wok-vm-gallery");
+        $(".wok-list, .wok-gallery").toggleClass("wok-list wok-gallery");
         var text = $('#gallery-table-button span.text').text();
         $('#gallery-table-button span.text').text(text == i18n['KCHTMPL6005M'] ? i18n['KCHTMPL6004M'] : i18n['KCHTMPL6005M']);
     });
@@ -106,6 +107,7 @@ kimchi.hideTitle = function() {
 };
 
 kimchi.template_main = function() {
+    $('body').removeClass("wok-gallery").addClass("wok-list");
     if (wok.tabMode['templates'] === 'admin') {
         $('.tools').attr('style', 'display');
         $("#template-add").on("click", function(event) {

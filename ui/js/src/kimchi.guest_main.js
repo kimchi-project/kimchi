@@ -61,7 +61,6 @@ kimchi.vmstart = function(event) {
         $(vm).find('.progress').css("display", "none");
         $(vm).find('.percentage - label').html('--');
         $(vm).find('.measure-label').html('--');
-        $(vm).find('.guest-actions').css("margin-top", "3px");
         $(vm).addClass('inactive');
         $(vm).find('.distro-icon').addClass('inactive');
         $(vm).find('.vnc-link').css("display", "none");
@@ -362,6 +361,7 @@ kimchi.listVmsAuto = function() {
 
         kimchi.listVMs(function(result, textStatus, jqXHR) {
                 if (result && textStatus == "success") {
+
                     var migrated = getMigratingGuests();
                     for (i = migrated.length - 1; i >= 0; i--) {
                         for (j = result.length - 1; j >= 0; j--) {
@@ -442,8 +442,11 @@ kimchi.createGuestLi = function(vmObject, prevScreenImage, openMenu) {
     var guestTitle = result.find('.title').attr('val', vmObject.name);
     guestTitle.html(vmObject.name);
 
+    var scrensh = result.find('.screenshot').css('background-image', 'url('+vmObject.screenshot+')');
+    scrensh.attr('title', vmObject.name);
+
     //Add the OS Type and Icon
-    var osType = result.find('.distro-icon');
+    var osType = result.find('.column-type.distro-icon');
     if (vmObject.icon == 'plugins/kimchi/images/icon-fedora.png') {
         osType.addClass('icon-fedora');
         osType.attr('val', 'Fedora');
@@ -473,6 +476,23 @@ kimchi.createGuestLi = function(vmObject, prevScreenImage, openMenu) {
         osType.addClass('icon-unknown');
         osType.attr('val', 'Unknown');
         osType.html('Unknown');
+    }
+    //Add the OS Icon to VM name in Gallery View
+    var osName = result.find('.column-name.distro-icon');
+    if (vmObject.icon == 'plugins/kimchi/images/icon-fedora.png') {
+        osName.addClass('icon-fedora');
+    } else if (vmObject.icon == 'plugins/kimchi/images/icon-ubuntu.png') {
+        osName.addClass('icon-ubuntu');
+    } else if (vmObject.icon == 'plugins/kimchi/images/icon-centos.png') {
+        osName.addClass('icon-centos');
+    } else if (vmObject.icon == 'plugins/kimchi/images/icon-opensuse.png') {
+        osName.addClass('icon-opensuse');
+    } else if (vmObject.icon == 'plugins/kimchi/images/icon-gentoo.png') {
+        osName.addClass('icon-gentoo');
+    } else if (vmObject.icon == 'plugins/kimchi/images/icon-debian.png') {
+        osName.addClass('icon-debian');
+    } else {
+        osName.addClass('icon-unknown');
     }
 
     //Setup the VM console thumbnail display
@@ -603,8 +623,6 @@ kimchi.createGuestLi = function(vmObject, prevScreenImage, openMenu) {
         result.find('.progress').css("display", "none");
         result.find('.percentage-label').html('--');
         result.find('.measure-label').html('--');
-        result.find('.measure-label').html('--');
-        result.find('.guest-actions').css("margin-top", "3px");
     }
 
     //Setup the VM Actions
@@ -742,6 +760,7 @@ kimchi.createGuestLi = function(vmObject, prevScreenImage, openMenu) {
     } else {
         guestActions.find('.btn').attr('disabled', true);
         result.find('.guest-done').addClass('hidden');
+        result.find('.guest-state').addClass('hidden');
         result.find('.guest-pending').removeClass('hidden');
         pendingText = result.find('.guest-pending .text')
         if (vmObject.isCloning)
@@ -771,6 +790,16 @@ kimchi.guest_main = function() {
     $('#guests-root-container').on('remove', function() {
         kimchi.vmTimeout && clearTimeout(kimchi.vmTimeout);
     });
+
+    $('body').removeClass("wok-gallery").addClass("wok-list");
+
+    $('#guest-gallery-table-button').on('click', function(event) {
+        $(".wok-guest-list, .wok-guest-gallery").toggleClass("wok-guest-list wok-guest-gallery");
+        $(".wok-list, .wok-gallery").toggleClass("wok-list wok-gallery");
+        var text = $('#guest-gallery-table-button span.text').text();
+        $('#guest-gallery-table-button span.text').text(text == i18n['KCHTMPL6005M'] ? i18n['KCHTMPL6004M'] : i18n['KCHTMPL6005M']);
+    });
+
     kimchi.resetGuestFilter();
     kimchi.initGuestFilter();
     kimchi.listVmsAuto();

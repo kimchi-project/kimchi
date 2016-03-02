@@ -21,22 +21,29 @@
 #silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang, fallback=True)
 #silent _ = t.gettext
 #silent _t = t.gettext
-        <li name="guest" class="wok-guest-list-body">
-            <span class='column-state'>
+        <li name="guest" class="wok-guest-list-item">
+                <span class='column-state'>
                     <span class='guest-state'>
-                        <i class="fa fa-power-off"></i>
-                        <i class="fa fa-ban"></i>
-                        <i class="fa fa-undo"></i>
-                        <i class="fa fa-refresh fa-spin"></i>
+                        <span class="running"><i class="fa fa-power-off"></i><span class="text-status">$_("Running")</span></span><!--
+                     --><span class="shutoff"><i class="fa fa-ban"></i><span class="text-status">$_("Disconnected")</span></span><!--
+                     --><span class="starting"><i class="fa fa-undo"></i><span class="text-status">$_("Starting")</span></span><!--
+                     --><span class="resetting"><i class="fa fa-refresh fa-spin"></i><span class="text-status">$_("Resetting")</span></span>
                     </span>
                 </span><!--
-            --><span class='column-name title'></span><!--
-            --><span class='column-action pull-right'>
+            --><span class='column-name title distro-icon'></span>
+            <span class='column-action pull-right'>
                 <span class="pull-right">
-                    <div class="dropdown menu-flat guest-actions" name="guest-actions" style="margin-top: 6px">
+                    <div class="dropdown menu-flat guest-actions" name="guest-actions">
                         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
                             <span class="guest-done">
                                 <span class="edit-alt"></span>$_("Actions")<span class="caret"></span>
+                            </span>
+                            <span class="guest-state">
+                                <span class="running"><i class="fa fa-power-off"></i><span class="text-status">$_("Running")</span></span><!--
+                             --><span class="shutoff"><i class="fa fa-ban"></i><span class="text-status">$_("Disconnected")</span></span><!--
+                             --><span class="starting"><i class="fa fa-undo"></i><span class="text-status">$_("Starting")</span></span><!--
+                             --><span class="resetting"><i class="fa fa-refresh fa-spin"></i><span class="text-status">$_("Resetting")</span></span><!--
+                             --><span class="caret"></span>
                             </span>
                             <span class="guest-pending hidden">
                                 <span class="wok-loading-icon"></span>
@@ -60,8 +67,11 @@
                         </ul>
                     </div>
                 </span>
-            </span><!--
-            --><span class='column-type distro-icon' style='padding-left: 40px !important'></span><!--
+            </span>
+            <span class="screenshot"></span>
+            <span class="nodata">[$_("No Data Available")]</span>
+            <!--
+            --><span class='column-type distro-icon'></span><!--
             --><span class='column-vnc'><i class="fa fa-spinner fa-spin"></i><a nwAct="connect-vnc" name="vm-console" class="vnc-link" href="#">$_("View Console")</a></span><!--
             --><span class='column-processors'>
                 <div class="percentage-label processors-percentage">
@@ -71,9 +81,9 @@
                     <div class="progress-bar medium-grey cpu"></div>
                     <div class="progress-bar light-grey cpu"></div>
                     <div class="progress-bar cpu-progress-bar"></div>
-                </div>
+                </div><!--
+                --><span class="item-hidden">$_("Processors Used")</span>
             </span><!--
-            --><span class="item-hidden">$_("Processors Used")</span><!--
             --><span class='column-memory'>
                 <div class='percentage-label memory-percentage'></div>
                 <div class="progress">
@@ -81,9 +91,9 @@
                     <div class="progress-bar medium-grey memory"></div>
                     <div class="progress-bar light-grey memory"></div>
                     <div class="progress-bar memory-progress-bar"></div>
-                </div>
+                </div><!--
+                --><span class="item-hidden">$_("Memory Available")</span>
             </span><!--
-            --><span class="item-hidden">$_("Memory Available")</span><!--
             --><span class='column-storage'>
                 <div class='measure-label storage-percentage'></div>
                 <div class="progress">
@@ -91,9 +101,9 @@
                     <div class="progress-bar medium-grey io"></div>
                     <div class="progress-bar light-grey io"></div>
                     <div class="progress-bar storage-progress-bar"></div>
-                </div>
+                </div><!--
+                --><span class="item-hidden">$_("Storage I/O")</span>
             </span><!--
-            --><span class="item-hidden">$_("Storage I/O")</span><!--
             --><span class='column-network'>
                 <div class='measure-label network-percentage'></div>
                 <div class="progress">
@@ -101,7 +111,7 @@
                     <div class="progress-bar medium-grey network" style="width: 85%"></div>
                     <div class="progress-bar light-grey network" style="width: 75%"></div>
                     <div class="progress-bar network-progress-bar"></div>
-                </div>
-            </span><!--
-            --><span class="item-hidden">$_("Network I/O")</span>
+                </div><!--
+                --><span class="item-hidden">$_("Network I/O")</span>
+            </span>
         </li>
