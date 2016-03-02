@@ -237,18 +237,23 @@ class RestTests(unittest.TestCase):
         resp = self.request('/plugins/kimchi/vms/vm-1', req, 'PUT')
         self.assertEquals(400, resp.status)
 
+        vm = json.loads(
+            self.request('/plugins/kimchi/vms/vm-1', req).read()
+        )
         params = {'name': u'∨м-црdαtеd', 'cpu_info': {'vcpus': 5},
                   'memory': {'current': 3072}}
         req = json.dumps(params)
         resp = self.request('/plugins/kimchi/vms/vm-1', req, 'PUT')
         self.assertEquals(303, resp.status)
-        vm = json.loads(
+        vm_updated = json.loads(
             self.request('/plugins/kimchi/vms/∨м-црdαtеd', req).read()
         )
         # Memory was hot plugged
-        params['memory']['current'] += 1024
+        vm['name'] = u'∨м-црdαtеd'
+        vm['cpu_info'].update(params['cpu_info'])
+        vm['memory'].update(params['memory'])
         for key in params.keys():
-            self.assertEquals(params[key], vm[key])
+            self.assertEquals(vm[key], vm_updated[key])
 
         # change only VM users - groups are not changed (default is empty)
         resp = self.request('/plugins/kimchi/users', '{}', 'GET')
