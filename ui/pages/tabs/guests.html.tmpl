@@ -56,6 +56,9 @@
     <div id="guest-content-container">
         <div class="container">
             <div class="row grid-control hidden">
+                <div class="pull-left">
+                    <button type="button" id="guest-gallery-table-button" class="btn btn-default"><span class="text">$_("View Gallery")</span> <i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></button>
+                </div>
                 <div class="pull-right">
                     <label for="search_input" class="sr-only">$_("Filter"):</label>
                     <input type="text" class="filter form-control search" id="search_input" placeholder="$_("Filter")">
@@ -78,7 +81,7 @@
                       --></span>
                     </li>
                     <li class="wok-guest-list-body">
-                        <ul id="guestList" class="wok-guest-list empty-when-logged-off list">
+                        <ul id="guestList" class="empty-when-logged-off list">
                         </ul>
                     </li>
                 </ul>
