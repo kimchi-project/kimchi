@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:01:35</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:01:35</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Mar  2 13:01:35 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:01:35</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:01:35</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:01:35</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:01:54</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda</span>
+<a name="l-7"></a><span class="tm">13:01:54</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">1) Status</span>
+<a name="l-8"></a><span class="tm">13:01:54</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">2) Open discussion</span>
+<a name="l-9"></a><span class="tm">13:01:54</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-10"></a><span class="tm">13:02:33</span><span class="nk"> &lt;pvital&gt;</span> no
+<a name="l-11"></a><span class="tm">13:03:00</span><span class="nk"> &lt;ziviani&gt;</span> no
+<a name="l-12"></a><span class="tm">13:03:24</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-13"></a><span class="tm">13:03:25</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info [&lt;project] &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-14"></a><span class="tm">13:03:49</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ziviani sent patch to review "v2 Set memory when attaching GPU"</span>
+<a name="l-15"></a><span class="tm">13:04:00</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] [ginger] [gingerbase] alinefm sent patch to update the /config API to proper return the plugin version</span>
+<a name="l-16"></a><span class="tm">13:04:06</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ziviani is working to fix small issues on webconsole</span>
+<a name="l-17"></a><span class="tm">13:04:45</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] samhenri sent user activity log to ml</span>
+<a name="l-18"></a><span class="tm">13:05:23</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] samhenri sent week</span>
+<a name="l-19"></a><span class="tm">13:05:30</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Gingerbase] pvital is still working in V2 patch to backend part of issue #9 (Update selected packages)</span>
+<a name="l-20"></a><span class="tm">13:05:31</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] [Kimchi] [Ginger*] pvital reviewed patches</span>
+<a name="l-21"></a><span class="tm">13:05:31</span><span class="nk"> &lt;samhenri&gt;</span> Sorry, typo
+<a name="l-22"></a><span class="tm">13:06:07</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] lcorreia got upstream User Request Log feature with download option</span>
+<a name="l-23"></a><span class="tm">13:06:07</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[gingerbase] lcorreia got upstream custom messages for User Request Log</span>
+<a name="l-24"></a><span class="tm">13:06:07</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] [ginger] lcorreia sent V1 of custom messages for User Request Log</span>
+<a name="l-25"></a><span class="tm">13:06:07</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] lcorreia will restart work on Kimchi feature: handle notifications for host ENOSPC from libvirt</span>
+<a name="l-26"></a><span class="tm">13:06:25</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] samhenri sent wok logos patch and updated login page and about window</span>
+<a name="l-27"></a><span class="tm">13:06:55</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ramonn  working on "single field for template creation". stucked at tests update. Working to fix tests: status (FAILED (failures=12, errors=6, skipped=12)</span>
+<a name="l-28"></a><span class="tm">13:07:59</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] samhenri currently helping fix guests gallery view</span>
+<a name="l-29"></a><span class="tm">13:08:44</span><span class="nk"> &lt;WalterNik&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] WalterNik Investigating globalisation/multilanguage requirements and issues</span>
+<a name="l-30"></a><span class="tm">13:09:57</span><span class="nk"> &lt;alinefm&gt;</span> anything else, guys?
+<a name="l-31"></a><span class="tm">13:10:01</span><span class="nk"> &lt;jansch&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger*] jansch Investigating accessibility requirements and issues</span>
+<a name="l-32"></a><span class="tm">13:10:15</span><span class="nk"> &lt;atreyee&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger*] Atreyee sent patch for issue # 42.</span>
+<a name="l-33"></a><span class="tm">13:10:57</span><span class="nk"> &lt;atreyee&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger*] Atreyee analyzing accessibility requirements</span>
+<a name="l-34"></a><span class="tm">13:11:05</span><span class="nk"> &lt;jkatta&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] I am planning to come up with KVMIBM specific spec files for wok and plugins, please let me know your inputs/concerns ..</span>
+<a name="l-35"></a><span class="tm">13:11:43</span><span class="nk"> &lt;pooja&gt;</span> <span class="cmd">#info </span><span class="cmdline">[gingers390x] Pooja sent patch for issues 41 and 40</span>
+<a name="l-36"></a><span class="tm">13:12:31</span><span class="nk"> &lt;jkatta&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] Working on JSON schema for cfginterfaces</span>
+<a name="l-37"></a><span class="tm">13:14:16</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, will there be a gingers390x release by the end of March?
+<a name="l-38"></a><span class="tm">13:14:27</span><span class="nk"> &lt;alinefm&gt;</span> similar to what we have for wok, ginger, gingerbase and kimchi
+<a name="l-39"></a><span class="tm">13:15:08</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, yes there should be one ... wondering if we have the infrastructure completed
+<a name="l-40"></a><span class="tm">13:15:28</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, I'll clarify
+<a name="l-41"></a><span class="tm">13:15:48</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-42"></a><span class="tm">13:15:53</span><span class="nk"> &lt;alinefm&gt;</span> I was just curious about that
+<a name="l-43"></a><span class="tm">13:16:03</span><span class="nk"> &lt;alinefm&gt;</span> let me know if you need any help on that
+<a name="l-44"></a><span class="tm">13:16:34</span><span class="nk"> &lt;alinefm&gt;</span> moving on to open discussion...
+<a name="l-45"></a><span class="tm">13:16:35</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, thanks I'll talk to Chandra and come back :-)
+<a name="l-46"></a><span class="tm">13:16:43</span><span class="nk"> &lt;alinefm&gt;</span> great
+<a name="l-47"></a><span class="tm">13:16:49</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-48"></a><span class="tm">13:17:19</span><span class="nk"> &lt;alinefm&gt;</span> Just some quick notes from my side:
+<a name="l-49"></a><span class="tm">13:17:47</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Wok is on code freeze, ie, only bug fixes will be accepted upstream from now on up to the release announcement</span>
+<a name="l-50"></a><span class="tm">13:18:16</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">I have created a new tag for wok, 2.1.0-rc1 to mark the code freeze</span>
+<a name="l-51"></a><span class="tm">13:18:31</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Kimchi will enter on code freeze by the end of the day today</span>
+<a name="l-52"></a><span class="tm">13:18:51</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">All pending patches on ML for Kimchi will be applied prior to code freeze</span>
+<a name="l-53"></a><span class="tm">13:19:51</span><span class="nk"> &lt;pvital&gt;</span> alinefm, looks like danielhb is away, but GingerBase is also in code freeze and a tag 2.1.0-rc1  was already created
+<a name="l-54"></a><span class="tm">13:20:13</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Gingerbase] entered code freeze yesterday</span>
+<a name="l-55"></a><span class="tm">13:20:16</span><span class="nk"> &lt;alinefm&gt;</span> pvital, yeap! I was waiting him to come up =P
+<a name="l-56"></a><span class="tm">13:21:07</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger*] danielhb reviewed and pushed patches upstream, created gingerbase tag, fixed a couple of RPM issues</span>
+<a name="l-57"></a><span class="tm">13:21:48</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, will ginger enter on code freeze today too?
+<a name="l-58"></a><span class="tm">13:22:55</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, let me read about your Kimchi status before answering it :P
+<a name="l-59"></a><span class="tm">13:23:07</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, will other patches, beside of the bug fixes be handled in any way during the blackout phase ... like picking them into a next branch ?
+<a name="l-60"></a><span class="tm">13:23:13</span><span class="nk"> &lt;pvital&gt;</span> alinefm, when wok code freeze ends?
+<a name="l-61"></a><span class="tm">13:23:42</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, yeap
+<a name="l-62"></a><span class="tm">13:23:53</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, if Kimchi code freeze starts today, so will Ginger's
+<a name="l-63"></a><span class="tm">13:23:54</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, great ... thanks
+<a name="l-64"></a><span class="tm">13:23:59</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, the feature development will not be impacted due the code freeze
+<a name="l-65"></a><span class="tm">13:24:19</span><span class="nk"> &lt;alinefm&gt;</span> WalterNik, I have not created the next branch for Wok, but I will do that once we have patches to be applied there
+<a name="l-66"></a><span class="tm">13:24:37</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, only thing that will change is that the OVS backend that I'll send to the ML this week will be pushed to a next branch.
+<a name="l-67"></a><span class="tm">13:25:07</span><span class="nk"> &lt;WalterNik&gt;</span> alinefm, thats helps to keep the reviews going on. thanks
+<a name="l-68"></a><span class="tm">13:25:26</span><span class="nk"> &lt;alinefm&gt;</span> pvital, the hard code freeze for wok starts next week
+<a name="l-69"></a><span class="tm">13:25:27</span><span class="nk"> &lt;danielhb&gt;</span> WalterNik, I've sent an email saying exactly what alinefm just said, but to reinforce: I'll not create the 'next' branch until we have something that needs to be pushed there. I don't believe Gingerbase will require a next branch. Ginger will.
+<a name="l-70"></a><span class="tm">13:25:38</span><span class="nk"> &lt;pvital&gt;</span> alinefm, ok!
+<a name="l-71"></a><span class="tm">13:25:39</span><span class="nk"> &lt;alinefm&gt;</span> pvital, but in general, the code freeze ends on 2.1 announcement
+<a name="l-72"></a><span class="tm">13:25:54</span><span class="nk"> &lt;WalterNik&gt;</span> danielhb, thanks
+<a name="l-73"></a><span class="tm">13:26:20</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, I am OK to postpone the code freeze for Ginger until this Friday
+<a name="l-74"></a><span class="tm">13:26:27</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, so we can have the OVS backend there
+<a name="l-75"></a><span class="tm">13:26:32</span><span class="nk"> &lt;alinefm&gt;</span> but it is up to you
+<a name="l-76"></a><span class="tm">13:26:38</span><span class="nk"> &lt;pvital&gt;</span> alinefm, danielhb: would be nice to point the current issues are important and must be fixed during the code freeze
+<a name="l-77"></a><span class="tm">13:26:44</span><span class="nk"> &lt;alinefm&gt;</span> without UI, the feature will not be announced on release notes
+<a name="l-78"></a><span class="tm">13:27:15</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, yeah, I am not that worried about OVS backend entering this release. Let's see how thing goes
+<a name="l-79"></a><span class="tm">13:27:35</span><span class="nk"> &lt;alinefm&gt;</span> pvital, yeap! I can do that for the existing issue but we need to test and test and test again to ensure no more new bugs are there
+<a name="l-80"></a><span class="tm">13:28:40</span><span class="nk"> &lt;alinefm&gt;</span> anything else for today?
+<a name="l-81"></a><span class="tm">13:29:28</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, will you announce kimchi freeze today?
+<a name="l-82"></a><span class="tm">13:29:46</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, I hope so but probably by the end of the day
+<a name="l-83"></a><span class="tm">13:30:02</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, there are some pending patches on ML that I want to apply before the code freeze
+<a name="l-84"></a><span class="tm">13:30:49</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, are we going to create RPMs for the same distros we have created in the last release?
+<a name="l-85"></a><span class="tm">13:31:26</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, ergo Fedora23 RHEL7.2 Suse13.1 Ubuntu15.10 ?
+<a name="l-86"></a><span class="tm">13:31:37</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, I plan to do that to make the tests easier
+<a name="l-87"></a><span class="tm">13:31:41</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, I think we need to move on to openLeap
+<a name="l-88"></a><span class="tm">13:31:50</span><span class="nk"> &lt;alinefm&gt;</span> but I am not sure they will be available today
+<a name="l-89"></a><span class="tm">13:32:07</span><span class="nk"> &lt;samhenri&gt;</span> E estou usando o kiwi irc
+<a name="l-90"></a><span class="tm">13:32:07</span><span class="nk"> &lt;samhenri&gt;</span> I believe we can finish kimchi gallery view by the end of the day but there are some minor issues with sorting, since the guests page is always refreshing and list.js lacks documentation
+<a name="l-91"></a><span class="tm">13:32:08</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, we are currently testing openSUSE 42.1 LEAP
+<a name="l-92"></a><span class="tm">13:32:45</span><span class="nk"> &lt;samhenri&gt;</span> sorry about the typo in my browser, it keeps saving previous messages
+<a name="l-93"></a><span class="tm">13:32:50</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, will those some minor issues impact usability ?
+<a name="l-94"></a><span class="tm">13:33:45</span><span class="nk"> &lt;samhenri&gt;</span> The css changes no, but the sorting by name, os, and memory probably won't work as expected
+<a name="l-95"></a><span class="tm">13:34:24</span><span class="nk"> &lt;samhenri&gt;</span> But switching from one style to another is already working
+<a name="l-96"></a><span class="tm">13:34:24</span><span class="nk"> &lt;alinefm&gt;</span> hmm.. in that case, can we remove the sorting option when on gallery view?
+<a name="l-97"></a><span class="tm">13:34:38</span><span class="nk"> &lt;samhenri&gt;</span> Yes
+<a name="l-98"></a><span class="tm">13:35:04</span><span class="nk"> &lt;samhenri&gt;</span> In templates screen the sort option only appears in gallery view
+<a name="l-99"></a><span class="tm">13:35:10</span><span class="nk"> &lt;alinefm&gt;</span> so IMO we can go with that for 2.1 release
+<a name="l-100"></a><span class="tm">13:35:19</span><span class="nk"> &lt;alinefm&gt;</span> as a feature preview
+<a name="l-101"></a><span class="tm">13:35:20</span><span class="nk"> &lt;alinefm&gt;</span> =)
+<a name="l-102"></a><span class="tm">13:35:25</span><span class="nk"> &lt;samhenri&gt;</span> Ok, thanks
+<a name="l-103"></a><span class="tm">13:36:13</span><span class="nk"> &lt;alinefm&gt;</span> more topics? comments? concerns? ideas?
+<a name="l-104"></a><span class="tm">13:38:12</span><span class="nk"> &lt;lcorreia&gt;</span> no
+<a name="l-105"></a><span class="tm">13:38:24</span><span class="nk"> &lt;samhenri&gt;</span> About the accessibility investigation, are we going to validate with screen readers already or keep investigating improvements? I can think of some places that needs ARIA roles
+<a name="l-106"></a><span class="tm">13:38:59</span><span class="nk"> &lt;chandra&gt;</span> <span class="cmd">#samhenri, </span><span class="cmdline">we just started initial investigation in this area</span>
+<a name="l-107"></a><span class="tm">13:39:23</span><span class="nk"> &lt;samhenri&gt;</span> But probably we would need hidden placeholders telling screen reader users that something has changed
+<a name="l-108"></a><span class="tm">13:39:37</span><span class="nk"> &lt;samhenri&gt;</span> chandra, ok
+<a name="l-109"></a><span class="tm">13:39:38</span><span class="nk"> &lt;WalterNik&gt;</span> samhenri, we were thinking about using jaws screen reader
+<a name="l-110"></a><span class="tm">13:39:43</span><span class="nk"> &lt;chandra&gt;</span> by the way do we have good understanding already ? if so can we share ?
+<a name="l-111"></a><span class="tm">13:40:48</span><span class="nk"> &lt;samhenri&gt;</span> WalterNik I think we should try with nvda, it is open source
+<a name="l-112"></a><span class="tm">13:41:18</span><span class="nk"> &lt;WalterNik&gt;</span> samhenri, thanks for the pointer we'll check on that one
+<a name="l-113"></a><span class="tm">13:41:31</span><span class="nk"> &lt;chandra&gt;</span> <span class="cmd">#samhenri, </span><span class="cmdline">please feel free to share if you have overall good understanding on what we could do ?</span>
+<a name="l-114"></a><span class="tm">13:42:59</span><span class="nk"> &lt;samhenri&gt;</span> WalterNik If we have Mac OS X users we can get feedback on Voice Over too
+<a name="l-115"></a><span class="tm">13:43:42</span><span class="nk"> &lt;chandra&gt;</span> samhenri, I have one
+<a name="l-116"></a><span class="tm">13:43:49</span><span class="nk"> &lt;samhenri&gt;</span> chandra sure, I'll send my notes on the ml once I finish my patches
+<a name="l-117"></a><span class="tm">13:44:09</span><span class="nk"> &lt;chandra&gt;</span> samhenri, that would be great help !!! thanks
+<a name="l-118"></a><span class="tm">13:44:57</span><span class="nk"> &lt;WalterNik&gt;</span> samhenri, that's good to know ... I wasn't aware that we may have to use different screen readers so far, but it makes sense to test on the different platforms. Thanks
+<a name="l-119"></a><span class="tm">13:45:10</span><span class="nk"> &lt;samhenri&gt;</span> chandra great, the good thing about voice over is that it displays logs in the screen
+<a name="l-120"></a><span class="tm">13:46:28</span><span class="nk"> &lt;samhenri&gt;</span> chandra that way we can validate if the messages are correct, if the user is able to navigate etc
+<a name="l-121"></a><span class="tm">13:47:28</span><span class="nk"> &lt;chandra&gt;</span> Samhenri, Yes perfect, let me try out and propose any inputs from my side on this topic !!!
+<a name="l-122"></a><span class="tm">13:47:44</span><span class="nk"> &lt;samhenri&gt;</span> chandra ok!
+<a name="l-123"></a><span class="tm">13:49:11</span><span class="nk"> &lt;alinefm&gt;</span> anything else, guys?
+<a name="l-124"></a><span class="tm">13:49:14</span><span class="nk"> &lt;pvital&gt;</span> no
+<a name="l-125"></a><span class="tm">13:49:23</span><span class="nk"> &lt;samhenri&gt;</span> Nope
+<a name="l-126"></a><span class="tm">13:50:02</span><span class="nk"> &lt;alinefm&gt;</span> so thanks everyone for joining!
+<a name="l-127"></a><span class="tm">13:50:05</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

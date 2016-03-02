@@ -1,0 +1,127 @@
+13:01:35 <alinefm> #startmeeting
+13:01:35 <kimchi-bot> Meeting started Wed Mar  2 13:01:35 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:35 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:35 <alinefm> #meetingname scrum
+13:01:35 <kimchi-bot> The meeting name has been set to 'scrum'
+13:01:54 <alinefm> #info Agenda
+13:01:54 <alinefm> #info 1) Status
+13:01:54 <alinefm> #info 2) Open discussion
+13:01:54 <alinefm> anything else?
+13:02:33 <pvital> no
+13:03:00 <ziviani> no
+13:03:24 <alinefm> #topic Status
+13:03:25 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+13:03:49 <ziviani> #info [kimchi] ziviani sent patch to review "v2 Set memory when attaching GPU"
+13:04:00 <alinefm> #info [kimchi] [ginger] [gingerbase] alinefm sent patch to update the /config API to proper return the plugin version
+13:04:06 <ziviani> #info [kimchi] ziviani is working to fix small issues on webconsole
+13:04:45 <samhenri> #info [wok] samhenri sent user activity log to ml
+13:05:23 <samhenri> #info [wok] samhenri sent week
+13:05:30 <pvital> #info [Gingerbase] pvital is still working in V2 patch to backend part of issue #9 (Update selected packages)
+13:05:31 <pvital> #info [Wok] [Kimchi] [Ginger*] pvital reviewed patches
+13:05:31 <samhenri> Sorry, typo
+13:06:07 <lcorreia> #info [wok] lcorreia got upstream User Request Log feature with download option
+13:06:07 <lcorreia> #info [gingerbase] lcorreia got upstream custom messages for User Request Log
+13:06:07 <lcorreia> #info [kimchi] [ginger] lcorreia sent V1 of custom messages for User Request Log
+13:06:07 <lcorreia> #info [kimchi] lcorreia will restart work on Kimchi feature: handle notifications for host ENOSPC from libvirt
+13:06:25 <samhenri> #info [wok] samhenri sent wok logos patch and updated login page and about window
+13:06:55 <ramonn> #info [kimchi] ramonn  working on "single field for template creation". stucked at tests update. Working to fix tests: status (FAILED (failures=12, errors=6, skipped=12)
+13:07:59 <samhenri> #info [kimchi] samhenri currently helping fix guests gallery view
+13:08:44 <WalterNik> #info [ginger] WalterNik Investigating globalisation/multilanguage requirements and issues
+13:09:57 <alinefm> anything else, guys?
+13:10:01 <jansch> #info [ginger*] jansch Investigating accessibility requirements and issues
+13:10:15 <atreyee> #info [ginger*] Atreyee sent patch for issue # 42.
+13:10:57 <atreyee> #info [ginger*] Atreyee analyzing accessibility requirements
+13:11:05 <jkatta> #info [Kimchi] I am planning to come up with KVMIBM specific spec files for wok and plugins, please let me know your inputs/concerns ..
+13:11:43 <pooja> #info [gingers390x] Pooja sent patch for issues 41 and 40
+13:12:31 <jkatta> #info [ginger] Working on JSON schema for cfginterfaces
+13:14:16 <alinefm> WalterNik, will there be a gingers390x release by the end of March?
+13:14:27 <alinefm> similar to what we have for wok, ginger, gingerbase and kimchi
+13:15:08 <WalterNik> alinefm, yes there should be one ... wondering if we have the infrastructure completed
+13:15:28 <WalterNik> alinefm, I'll clarify
+13:15:48 <alinefm> ok
+13:15:53 <alinefm> I was just curious about that
+13:16:03 <alinefm> let me know if you need any help on that
+13:16:34 <alinefm> moving on to open discussion...
+13:16:35 <WalterNik> alinefm, thanks I'll talk to Chandra and come back :-)
+13:16:43 <alinefm> great
+13:16:49 <alinefm> #topic Open Discussion
+13:17:19 <alinefm> Just some quick notes from my side:
+13:17:47 <alinefm> #info Wok is on code freeze, ie, only bug fixes will be accepted upstream from now on up to the release announcement
+13:18:16 <alinefm> #info I have created a new tag for wok, 2.1.0-rc1 to mark the code freeze
+13:18:31 <alinefm> #info Kimchi will enter on code freeze by the end of the day today
+13:18:51 <alinefm> #info All pending patches on ML for Kimchi will be applied prior to code freeze
+13:19:51 <pvital> alinefm, looks like danielhb is away, but GingerBase is also in code freeze and a tag 2.1.0-rc1  was already created
+13:20:13 <danielhb> #info [Gingerbase] entered code freeze yesterday
+13:20:16 <alinefm> pvital, yeap! I was waiting him to come up =P
+13:21:07 <danielhb> #info [Ginger*] danielhb reviewed and pushed patches upstream, created gingerbase tag, fixed a couple of RPM issues
+13:21:48 <alinefm> danielhb, will ginger enter on code freeze today too?
+13:22:55 <danielhb> alinefm, let me read about your Kimchi status before answering it :P
+13:23:07 <WalterNik> alinefm, will other patches, beside of the bug fixes be handled in any way during the blackout phase ... like picking them into a next branch ?
+13:23:13 <pvital> alinefm, when wok code freeze ends?
+13:23:42 <alinefm> WalterNik, yeap
+13:23:53 <danielhb> alinefm, if Kimchi code freeze starts today, so will Ginger's
+13:23:54 <WalterNik> alinefm, great ... thanks
+13:23:59 <alinefm> WalterNik, the feature development will not be impacted due the code freeze
+13:24:19 <alinefm> WalterNik, I have not created the next branch for Wok, but I will do that once we have patches to be applied there
+13:24:37 <danielhb> alinefm, only thing that will change is that the OVS backend that I'll send to the ML this week will be pushed to a next branch.
+13:25:07 <WalterNik> alinefm, thats helps to keep the reviews going on. thanks
+13:25:26 <alinefm> pvital, the hard code freeze for wok starts next week
+13:25:27 <danielhb> WalterNik, I've sent an email saying exactly what alinefm just said, but to reinforce: I'll not create the 'next' branch until we have something that needs to be pushed there. I don't believe Gingerbase will require a next branch. Ginger will.
+13:25:38 <pvital> alinefm, ok!
+13:25:39 <alinefm> pvital, but in general, the code freeze ends on 2.1 announcement
+13:25:54 <WalterNik> danielhb, thanks
+13:26:20 <alinefm> danielhb, I am OK to postpone the code freeze for Ginger until this Friday
+13:26:27 <alinefm> danielhb, so we can have the OVS backend there
+13:26:32 <alinefm> but it is up to you
+13:26:38 <pvital> alinefm, danielhb: would be nice to point the current issues are important and must be fixed during the code freeze
+13:26:44 <alinefm> without UI, the feature will not be announced on release notes
+13:27:15 <danielhb> alinefm, yeah, I am not that worried about OVS backend entering this release. Let's see how thing goes
+13:27:35 <alinefm> pvital, yeap! I can do that for the existing issue but we need to test and test and test again to ensure no more new bugs are there
+13:28:40 <alinefm> anything else for today?
+13:29:28 <danielhb> alinefm, will you announce kimchi freeze today?
+13:29:46 <alinefm> danielhb, I hope so but probably by the end of the day
+13:30:02 <alinefm> danielhb, there are some pending patches on ML that I want to apply before the code freeze
+13:30:49 <danielhb> alinefm, are we going to create RPMs for the same distros we have created in the last release?
+13:31:26 <danielhb> alinefm, ergo Fedora23 RHEL7.2 Suse13.1 Ubuntu15.10 ?
+13:31:37 <alinefm> danielhb, I plan to do that to make the tests easier
+13:31:41 <danielhb> alinefm, I think we need to move on to openLeap
+13:31:50 <alinefm> but I am not sure they will be available today
+13:32:07 <samhenri> E estou usando o kiwi irc
+13:32:07 <samhenri> I believe we can finish kimchi gallery view by the end of the day but there are some minor issues with sorting, since the guests page is always refreshing and list.js lacks documentation
+13:32:08 <alinefm> danielhb, we are currently testing openSUSE 42.1 LEAP
+13:32:45 <samhenri> sorry about the typo in my browser, it keeps saving previous messages
+13:32:50 <alinefm> samhenri, will those some minor issues impact usability ?
+13:33:45 <samhenri> The css changes no, but the sorting by name, os, and memory probably won't work as expected
+13:34:24 <samhenri> But switching from one style to another is already working
+13:34:24 <alinefm> hmm.. in that case, can we remove the sorting option when on gallery view?
+13:34:38 <samhenri> Yes
+13:35:04 <samhenri> In templates screen the sort option only appears in gallery view
+13:35:10 <alinefm> so IMO we can go with that for 2.1 release
+13:35:19 <alinefm> as a feature preview
+13:35:20 <alinefm> =)
+13:35:25 <samhenri> Ok, thanks
+13:36:13 <alinefm> more topics? comments? concerns? ideas?
+13:38:12 <lcorreia> no
+13:38:24 <samhenri> About the accessibility investigation, are we going to validate with screen readers already or keep investigating improvements? I can think of some places that needs ARIA roles
+13:38:59 <chandra> #samhenri, we just started initial investigation in this area
+13:39:23 <samhenri> But probably we would need hidden placeholders telling screen reader users that something has changed
+13:39:37 <samhenri> chandra, ok
+13:39:38 <WalterNik> samhenri, we were thinking about using jaws screen reader
+13:39:43 <chandra> by the way do we have good understanding already ? if so can we share ?
+13:40:48 <samhenri> WalterNik I think we should try with nvda, it is open source
+13:41:18 <WalterNik> samhenri, thanks for the pointer we'll check on that one
+13:41:31 <chandra> #samhenri, please feel free to share if you have overall good understanding on what we could do ?
+13:42:59 <samhenri> WalterNik If we have Mac OS X users we can get feedback on Voice Over too
+13:43:42 <chandra> samhenri, I have one
+13:43:49 <samhenri> chandra sure, I'll send my notes on the ml once I finish my patches
+13:44:09 <chandra> samhenri, that would be great help !!! thanks
+13:44:57 <WalterNik> samhenri, that's good to know ... I wasn't aware that we may have to use different screen readers so far, but it makes sense to test on the different platforms. Thanks
+13:45:10 <samhenri> chandra great, the good thing about voice over is that it displays logs in the screen
+13:46:28 <samhenri> chandra that way we can validate if the messages are correct, if the user is able to navigate etc
+13:47:28 <chandra> Samhenri, Yes perfect, let me try out and propose any inputs from my side on this topic !!!
+13:47:44 <samhenri> chandra ok!
+13:49:11 <alinefm> anything else, guys?
+13:49:14 <pvital> no
+13:49:23 <samhenri> Nope
+13:50:02 <alinefm> so thanks everyone for joining!
+13:50:05 <alinefm> #endmeeting
