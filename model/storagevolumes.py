@@ -367,11 +367,18 @@ class StorageVolumeModel(object):
             raise InvalidParameter("KCHVOL0012E", {'type': pool_info['type']})
 
         volume = StorageVolumeModel.get_storagevolume(pool, name, self.conn)
+        vol_path = volume.path()
         try:
             volume.delete(0)
         except libvirt.libvirtError as e:
             raise OperationFailed("KCHVOL0010E",
                                   {'name': name, 'err': e.get_error_message()})
+
+        try:
+            os.remove(vol_path)
+        except OSError, e:
+            wok_log.error("Unable to delete storage volume file: %s."
+                          "Details: %s" % (pool_info['path'], e.message))
 
     def resize(self, pool, name, size):
         volume = StorageVolumeModel.get_storagevolume(pool, name, self.conn)
