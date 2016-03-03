@@ -420,6 +420,7 @@ kimchi.doListVolumes = function(poolObj) {
 };
 
 kimchi.storage_main = function() {
+    $('body').removeClass('wok-list wok-gallery');
     if(wok.tabMode['storage'] === 'admin') {
         $('.tools').attr('style','display');
         $('#storage-pool-add').on('click', function() {
