@@ -448,7 +448,7 @@
 
 #guest-content-container .wok-guest-gallery {
   list-style: none;
-  padding: 0;
+  padding: 0 0 0 5px;
 }
 
 #guest-content-container .wok-guest-gallery > li.wok-guest-list-header {
@@ -461,13 +461,14 @@
 }
 
 #guest-content-container .wok-guest-gallery .wok-guest-list-item {
-  padding: 0 0px 0 0px;
+  padding: 0;
   width: 240px;
-  height: 453px;
+  height: 435px;
   display: inline-block;
   border: 0;
   background: #fff;
   margin-right: 20px;
+  margin-bottom: 20px;
   position: relative;
   vertical-align: top;
 }
@@ -503,8 +504,10 @@
 }
 
 #guest-content-container .wok-guest-gallery .wok-guest-list-item .progress {
-  display: inline-block;
+  display: block;
+  float: right;
   width: 125px;
+  height: 18px;
   position: relative;
   vertical-align: top;
   margin-top: 0;
@@ -535,10 +538,13 @@
 }
 
 #guest-content-container .wok-guest-gallery .wok-guest-list-item .item-hidden {
+  clear: both;
   display: block;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  position: relative;
+  top: -10px;
 }
 
 #guest-content-container .wok-guest-gallery .wok-guest-list-item .column-action.pull-right {
@@ -571,23 +577,33 @@
   display: block;
   width: 220px;
   white-space: nowrap;
+  cursor: default;
 }
 
 #guest-content-container .wok-guest-gallery .wok-guest-list-item .column-processors,
 #guest-content-container .wok-guest-gallery .wok-guest-list-item .column-memory,
 #guest-content-container .wok-guest-gallery .wok-guest-list-item .column-storage,
 #guest-content-container .wok-guest-gallery .wok-guest-list-item .column-network {
-  margin-top: 21px;
+  margin-top: 14px;
   display: block;
   height: 38px;
   padding-left: 20px;
-  padding-right: 20px;
+  padding-right: 18px;
+}
+
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .column-processors {
+  margin-top: 18px !important;
 }
 
 #guest-content-container .wok-guest-gallery .wok-guest-list-item .percentage-label,
 #guest-content-container .wok-guest-gallery .wok-guest-list-item .measure-label {
-  display: inline-block;
+  float: left;
+  display: block;
   width: 68px;
+  font-size: 21px;
+  font-weight: 600;
+  top: -7px;
+  position: relative;
 }
 
 #guest-content-container .wok-guest-gallery .wok-guest-list-item .font-bold {
@@ -618,7 +634,7 @@
   text-align: left;
   padding-left: 21px;
   border-radius: 0;
-  background: rgba(0, 0, 0, 0.8) !important;
+  background: rgba(0, 0, 0, 0.6) !important;
 }
 
 #guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state .fa {
@@ -816,7 +832,7 @@
 @media (min-width: 1540px) {
   #guest-content-container .wok-guest-list .wok-guest-list-header > span.column-name,
   #guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-name {
-    width: 14.15%;
+    width: 12%;
   }
 }
 
@@ -863,7 +879,7 @@
 @media (min-width: 1330px) {
   #guest-content-container .wok-guest-list .wok-guest-list-header > span.column-vnc,
   #guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-vnc {
-    width: 10.84%;
+    width: 10%;
     display: inline-block;
   }
 }
@@ -876,7 +892,7 @@
 #guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-memory,
 #guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-storage,
 #guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-network {
-  width: 12.5%;
+  width: 13%;
 }
 
 #guest-content-container .wok-guest-list .wok-guest-list-header > span.column-action,
@@ -1829,6 +1845,7 @@ body.wok-gallery {
   border: 0;
   background: #fff;
   margin-right: 20px;
+  margin-bottom: 20px;
 }
 
 #templates-root-container .wok-vm-gallery .wok-vm-body > span {
@@ -1854,6 +1871,8 @@ body.wok-gallery {
   text-overflow: ellipsis !important;
   overflow: hidden !important;
   padding-right: 35px !important;
+  white-space: nowrap;
+  cursor: default;
 }
 
 #templates-root-container .wok-vm-gallery .item-hidden.column-type, #templates-root-container .wok-vm-gallery .item-hidden.column-version, #templates-root-container .wok-vm-gallery .item-hidden.column-processors {
@@ -1878,7 +1897,7 @@ body.wok-gallery {
 }
 
 #templates-root-container .wok-vm-gallery .menu-flat {
-  width: 239px;
+  width: 240px;
   margin-left: -20px;
 }
 

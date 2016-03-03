@@ -22,6 +22,7 @@ kimchi.NETWORK_TYPE_VEPA = "vepa";
 
 
 kimchi.initNetwork = function() {
+    $('body').removeClass('wok-list wok-gallery');
     if(wok.tabMode['network'] === 'admin') {
         $('.tools').attr('style','display');
         $('#networkGrid .wok-nw-grid-header span:last-child').attr('style','display');

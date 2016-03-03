@@ -32,3 +32,7 @@ kimchi.getCapabilities(function(result) {
 }, function() {
     kimchi.capabilities = {};
 });
+
+$(function(){
+    $('body').removeClass('wok-list wok-gallery');
+});

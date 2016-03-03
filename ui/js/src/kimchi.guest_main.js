@@ -439,11 +439,16 @@ kimchi.createGuestLi = function(vmObject, prevScreenImage, openMenu) {
     result.data(vmObject);
 
     //Add the Name
-    var guestTitle = result.find('.title').attr('val', vmObject.name);
+    var guestTitle = result.find('.title').attr({'val': vmObject.name, 'title': vmObject.name});
     guestTitle.html(vmObject.name);
 
-    var scrensh = result.find('.screenshot').css('background-image', 'url('+vmObject.screenshot+')');
-    scrensh.attr('title', vmObject.name);
+    if(vmObject.screenshot !== null){
+        var scrensh = result.find('.screenshot').css('background-image', 'url('+vmObject.screenshot+')');
+        scrensh.attr('title', vmObject.name);
+    } else {
+        var scrensh = result.find('.screenshot').css('background-image', 'none');
+        scrensh.attr('title', vmObject.name);
+    }
 
     //Add the OS Type and Icon
     var osType = result.find('.column-type.distro-icon');
@@ -471,6 +476,10 @@ kimchi.createGuestLi = function(vmObject, prevScreenImage, openMenu) {
         osType.addClass('icon-debian');
         osType.attr('val', 'Debian');
         osType.html('Debian');
+    } else if (vmObject.icon !== null) {
+        osType.css('background-image',vmObject.icon);
+        osType.attr('val', 'Unknown');
+        osType.html('Unknown');
     } else {
         //Unknown
         osType.addClass('icon-unknown');
@@ -491,6 +500,8 @@ kimchi.createGuestLi = function(vmObject, prevScreenImage, openMenu) {
         osName.addClass('icon-gentoo');
     } else if (vmObject.icon == 'plugins/kimchi/images/icon-debian.png') {
         osName.addClass('icon-debian');
+    } else if (vmObject.icon !== null) {
+        osName.css('background-image',vmObject.icon);
     } else {
         osName.addClass('icon-unknown');
     }
@@ -777,7 +788,15 @@ kimchi.guestSetRequestHeader = function(xhr) {
     xhr.setRequestHeader('Accept', 'text/html');
 };
 
+kimchi.toggleGuestsGallery = function() {
+        $(".wok-guest-list, .wok-guest-gallery").toggleClass("wok-guest-list wok-guest-gallery");
+        $(".wok-list, .wok-gallery").toggleClass("wok-list wok-gallery");
+        var text = $('#guest-gallery-table-button span.text').text();
+        $('#guest-gallery-table-button span.text').text(text == i18n['KCHTMPL6005M'] ? i18n['KCHTMPL6004M'] : i18n['KCHTMPL6005M']);
+};
+
 kimchi.guest_main = function() {
+    $('body').addClass('wok-list');
 
     if (wok.tabMode['guests'] === 'admin') {
         $('.tools').attr('style', 'display');
@@ -791,13 +810,8 @@ kimchi.guest_main = function() {
         kimchi.vmTimeout && clearTimeout(kimchi.vmTimeout);
     });
 
-    $('body').removeClass("wok-gallery").addClass("wok-list");
-
     $('#guest-gallery-table-button').on('click', function(event) {
-        $(".wok-guest-list, .wok-guest-gallery").toggleClass("wok-guest-list wok-guest-gallery");
-        $(".wok-list, .wok-gallery").toggleClass("wok-list wok-gallery");
-        var text = $('#guest-gallery-table-button span.text').text();
-        $('#guest-gallery-table-button span.text').text(text == i18n['KCHTMPL6005M'] ? i18n['KCHTMPL6004M'] : i18n['KCHTMPL6005M']);
+        kimchi.toggleGuestsGallery();
     });
 
     kimchi.resetGuestFilter();

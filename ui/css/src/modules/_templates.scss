@@ -399,6 +399,7 @@
             border: 0;
             background: $body-bg;
             margin-right: 20px;
+            margin-bottom: 20px;
             > span {
                 display: inline-block;
                 width: 100%;
@@ -421,6 +422,8 @@
             text-overflow: ellipsis !important;
             overflow: hidden !important;
             padding-right: 35px !important;
+            white-space: nowrap;
+            cursor: default;
         }
         .item-hidden {
             &.column-type,
@@ -445,7 +448,7 @@
             width: 100%;
         }
         .menu-flat {
-            width: 239px;
+            width: 240px;
             margin-left: -20px;
         }
         .btn {
