@@ -29,6 +29,20 @@ from wok.plugins.kimchi.control.storagevolumes import StorageVolumes
 from wok.plugins.kimchi.model.storagepools import ISO_POOL_NAME
 
 
+STORAGEPOOLS_REQUESTS = {
+    'POST': {'default': "Create %(type)s storage pool '%(name)s'"},
+}
+
+STORAGEPOOL_REQUESTS = {
+    'DELETE': {'default': "Remove storage pool '%(ident)s'"},
+    'PUT': {'default': "Update storage pool '%(ident)s'"},
+    'POST': {
+        'activate': "Activate storage pool '%(ident)s'",
+        'deactivate': "Deactivate storage pool '%(ident)s'",
+    },
+}
+
+
 @UrlSubNode('storagepools', True)
 class StoragePools(Collection):
     def __init__(self, model):
@@ -38,6 +52,7 @@ class StoragePools(Collection):
         self.resource = StoragePool
         isos = IsoPool(model)
         setattr(self, ISO_POOL_NAME, isos)
+        self.log_map = STORAGEPOOLS_REQUESTS
 
     def create(self, params, *args):
         try:
@@ -84,6 +99,7 @@ class StoragePool(Resource):
         self.deactivate = self.generate_action_handler('deactivate',
                                                        destructive=True)
         self.storagevolumes = StorageVolumes(self.model, ident)
+        self.log_map = STORAGEPOOL_REQUESTS
 
     @property
     def data(self):

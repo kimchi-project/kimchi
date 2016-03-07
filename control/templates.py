@@ -21,6 +21,19 @@ from wok.control.base import Collection, Resource
 from wok.control.utils import UrlSubNode
 
 
+TEMPLATES_REQUESTS = {
+    'POST': {'default': "Create template '%(name)s'"},
+}
+
+TEMPLATE_REQUESTS = {
+    'DELETE': {'default': "Remove template '%(ident)s'"},
+    'PUT': {'default': "Update template '%(ident)s'"},
+    'POST': {
+        'clone': "Clone template '%(ident)s'",
+    },
+}
+
+
 @UrlSubNode('templates', True)
 class Templates(Collection):
     def __init__(self, model):
@@ -28,6 +41,7 @@ class Templates(Collection):
         self.role_key = 'templates'
         self.admin_methods = ['GET', 'POST']
         self.resource = Template
+        self.log_map = TEMPLATES_REQUESTS
 
 
 class Template(Resource):
@@ -37,6 +51,7 @@ class Template(Resource):
         self.admin_methods = ['PUT', 'POST', 'DELETE']
         self.uri_fmt = "/templates/%s"
         self.clone = self.generate_action_handler('clone')
+        self.log_map = TEMPLATE_REQUESTS
 
     @property
     def data(self):

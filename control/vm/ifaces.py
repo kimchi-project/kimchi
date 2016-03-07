@@ -21,6 +21,22 @@ from wok.control.base import Collection, Resource
 from wok.control.utils import UrlSubNode
 
 
+VMIFACES_REQUESTS = {
+    'POST': {
+        'default': "Attach network interface '%(network)s' to guest '%(vm)s'",
+    },
+}
+
+VMIFACE_REQUESTS = {
+    'DELETE': {
+        'default': "Detach network interface '%(ident)s' from guest '%(vm)s'",
+    },
+    'PUT': {
+        'default': "Update network interface '%(ident)s' at guest '%(vm)s'",
+    },
+}
+
+
 @UrlSubNode("ifaces")
 class VMIfaces(Collection):
     def __init__(self, model, vm):
@@ -29,6 +45,10 @@ class VMIfaces(Collection):
         self.vm = vm
         self.resource_args = [self.vm, ]
         self.model_args = [self.vm, ]
+        self.log_map = VMIFACES_REQUESTS
+        self.log_args.update({
+            'vm': self.vm.encode('utf-8') if self.vm else '',
+        })
 
 
 class VMIface(Resource):
@@ -39,6 +59,10 @@ class VMIface(Resource):
         self.info = {}
         self.model_args = [self.vm, self.ident]
         self.uri_fmt = '/vms/%s/ifaces/%s'
+        self.log_map = VMIFACE_REQUESTS
+        self.log_args.update({
+            'vm': self.vm.encode('utf-8') if self.vm else '',
+        })
 
     @property
     def data(self):

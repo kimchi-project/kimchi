@@ -22,6 +22,23 @@ from wok.control.base import AsyncCollection, Collection, Resource
 from wok.control.utils import get_class_name, model_fn
 
 
+STORAGEVOLUMES_REQUESTS = {
+    'POST': {'default': "Create storage volume '%(name)s' at pool '%(pool)s'"},
+}
+
+STORAGEVOLUME_REQUESTS = {
+    'DELETE': {'default': "Remove storage volume '%(ident)s' from "
+                          "pool '%(pool)s'"},
+    'PUT': {'default': "Update storage volume '%(ident)s' at pool '%(pool)s'"},
+    'POST': {
+        'wipe': "Wipe storage volume '%(ident)s' off pool '%(pool)s'",
+        'resize': "Resize storage volume '%(ident)s' at pool '%(pool)s' with "
+                  "size %(size)s",
+        'clone': "Clone storage volume '%(ident)s' at pool '%(pool)s'",
+    },
+}
+
+
 class StorageVolumes(AsyncCollection):
     def __init__(self, model, pool):
         super(StorageVolumes, self).__init__(model)
@@ -29,6 +46,10 @@ class StorageVolumes(AsyncCollection):
         self.pool = pool
         self.resource_args = [self.pool, ]
         self.model_args = [self.pool, ]
+        self.log_map = STORAGEVOLUMES_REQUESTS
+        self.log_args.update({
+            'pool': self.pool.encode('utf-8') if self.pool else '',
+        })
 
     def filter_data(self, resources, fields_filter):
         # filter directory from storage volumes
@@ -48,6 +69,10 @@ class StorageVolume(Resource):
         self.resize = self.generate_action_handler('resize', ['size'])
         self.wipe = self.generate_action_handler('wipe')
         self.clone = self.generate_action_handler_task('clone')
+        self.log_map = STORAGEVOLUME_REQUESTS
+        self.log_args.update({
+            'pool': self.pool.encode('utf-8') if self.pool else '',
+        })
 
     @property
     def data(self):

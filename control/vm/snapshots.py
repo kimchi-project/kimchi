@@ -21,6 +21,18 @@ from wok.control.base import AsyncCollection, Resource
 from wok.control.utils import UrlSubNode
 
 
+VMSNAPSHOTS_REQUESTS = {
+    'POST': {'default': "Create snapshot '%(name)s' at guest '%(vm)s'"},
+}
+
+VMSNAPSHOT_REQUESTS = {
+    'DELETE': {'default': "Remove snapshot '%(ident)s' from guest '%(vm)s'"},
+    'POST': {
+        'revert': "Revert guest '%(vm)s' to snapshot '%(ident)s'",
+    },
+}
+
+
 @UrlSubNode('snapshots')
 class VMSnapshots(AsyncCollection):
     def __init__(self, model, vm):
@@ -30,6 +42,11 @@ class VMSnapshots(AsyncCollection):
         self.resource_args = [self.vm, ]
         self.model_args = [self.vm, ]
         self.current = CurrentVMSnapshot(model, vm)
+        self.log_map = VMSNAPSHOTS_REQUESTS
+        self.log_args.update({
+            'vm': self.vm.encode('utf-8') if self.vm else '',
+            'name': '',
+        })
 
 
 class VMSnapshot(Resource):
@@ -40,6 +57,10 @@ class VMSnapshot(Resource):
         self.model_args = [self.vm, self.ident]
         self.uri_fmt = '/vms/%s/snapshots/%s'
         self.revert = self.generate_action_handler('revert')
+        self.log_map = VMSNAPSHOT_REQUESTS
+        self.log_args.update({
+            'vm': self.vm.encode('utf-8') if self.vm else '',
+        })
 
     @property
     def data(self):
