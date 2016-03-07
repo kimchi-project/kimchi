@@ -23,6 +23,30 @@ from wok.control.utils import internal_redirect, UrlSubNode
 from wok.plugins.kimchi.control.vm import sub_nodes
 
 
+VMS_REQUESTS = {
+    'POST': {
+        'default': "Create guest '%(name)s' from template '%(template)s'",
+    },
+}
+
+VM_REQUESTS = {
+    'DELETE': {'default': "Remove guest '%(ident)s'"},
+    'PUT': {'default': "Edit guest '%(ident)s'"},
+    'POST': {
+        'start': "Start guest '%(ident)s'",
+        'poweroff': "Power off guest '%(ident)s'",
+        'shutdown': "Shutdown guest '%(ident)s'",
+        'reset': "Restart guest '%(ident)s'",
+        'connect': "Connect to guest '%(ident)s' through novnc/spice",
+        'clone': "Clone guest '%(ident)s'",
+        'migrate': "Migrate guest '%(ident)s' to '%(remote_host)s'",
+        'suspend': "Suspend guest '%(ident)s'",
+        'resume': "Resume guest '%(ident)s'",
+        'serial': "Connect to guest '%(ident)s' through serial",
+    },
+}
+
+
 @UrlSubNode('vms', True)
 class VMs(AsyncCollection):
     def __init__(self, model):
@@ -30,6 +54,8 @@ class VMs(AsyncCollection):
         self.resource = VM
         self.role_key = 'guests'
         self.admin_methods = ['POST']
+        self.log_map = VMS_REQUESTS
+        self.log_args.update({'name': ''})
 
 
 class VM(Resource):
@@ -56,6 +82,7 @@ class VM(Resource):
         self.suspend = self.generate_action_handler('suspend')
         self.resume = self.generate_action_handler('resume')
         self.serial = self.generate_action_handler('serial')
+        self.log_map = VM_REQUESTS
 
     @property
     def data(self):

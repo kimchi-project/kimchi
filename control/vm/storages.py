@@ -21,6 +21,18 @@ from wok.control.base import Collection, Resource
 from wok.control.utils import UrlSubNode
 
 
+VMSTORAGES_REQUESTS = {
+    'POST': {
+        'default': "Attach %(type)s storage '%(path)s' to guest '%(vm)s'",
+    },
+}
+
+VMSTORAGE_REQUESTS = {
+    'DELETE': {'default': "Remove storage '%(ident)s' from guest '%(vm)s'"},
+    'PUT': {'default': "Update storage '%(ident)s' at guest '%(vm)s'"},
+}
+
+
 @UrlSubNode("storages")
 class VMStorages(Collection):
     def __init__(self, model, vm):
@@ -29,6 +41,11 @@ class VMStorages(Collection):
         self.vm = vm
         self.resource_args = [self.vm, ]
         self.model_args = [self.vm, ]
+        self.log_map = VMSTORAGES_REQUESTS
+        self.log_args.update({
+            'vm': self.vm.encode('utf-8') if self.vm else '',
+            'path': '',
+        })
 
 
 class VMStorage(Resource):
@@ -39,6 +56,10 @@ class VMStorage(Resource):
         self.info = {}
         self.model_args = [self.vm, self.ident]
         self.uri_fmt = '/vms/%s/storages/%s'
+        self.log_map = VMSTORAGE_REQUESTS
+        self.log_args.update({
+            'vm': self.vm.encode('utf-8') if self.vm else '',
+        })
 
     @property
     def data(self):

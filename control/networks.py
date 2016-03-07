@@ -21,6 +21,19 @@ from wok.control.base import Collection, Resource
 from wok.control.utils import UrlSubNode
 
 
+NETWORKS_REQUESTS = {
+    'POST': {'default': "Create %(connection)s virtual network '%(name)s'"},
+}
+
+NETWORK_REQUESTS = {
+    'DELETE': {'default': "Remove virtual network '%(ident)s'"},
+    'POST': {
+        'activate': "Activate virtual network '%(ident)s'",
+        'deactivate': "Deactivate virtual network '%(ident)s'",
+    },
+}
+
+
 @UrlSubNode('networks', True)
 class Networks(Collection):
     def __init__(self, model):
@@ -28,6 +41,7 @@ class Networks(Collection):
         self.role_key = 'network'
         self.admin_methods = ['POST']
         self.resource = Network
+        self.log_map = NETWORKS_REQUESTS
 
 
 class Network(Resource):
@@ -39,6 +53,7 @@ class Network(Resource):
         self.activate = self.generate_action_handler('activate')
         self.deactivate = self.generate_action_handler('deactivate',
                                                        destructive=True)
+        self.log_map = NETWORK_REQUESTS
 
     @property
     def data(self):

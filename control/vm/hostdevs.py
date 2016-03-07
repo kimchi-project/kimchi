@@ -21,6 +21,17 @@ from wok.control.base import Collection, Resource
 from wok.control.utils import UrlSubNode
 
 
+VMHOSTDEVS_REQUESTS = {
+    'POST': {'default': "Attach host device '%(name)s' to guest '%(vmid)s'"},
+}
+
+VMHOSTDEV_REQUESTS = {
+    'DELETE': {
+        'default': "Detach host device '%(ident)s' from guest '%(vmid)s'",
+    },
+}
+
+
 @UrlSubNode("hostdevs")
 class VMHostDevs(Collection):
     def __init__(self, model, vmid):
@@ -29,6 +40,10 @@ class VMHostDevs(Collection):
         self.vmid = vmid
         self.resource_args = [self.vmid, ]
         self.model_args = [self.vmid, ]
+        self.log_map = VMHOSTDEVS_REQUESTS
+        self.log_args.update({
+            'vmid': self.vmid.encode('utf-8') if self.vmid else '',
+        })
 
 
 class VMHostDev(Resource):
@@ -37,6 +52,10 @@ class VMHostDev(Resource):
         self.vmid = vmid
         self.ident = ident
         self.model_args = [self.vmid, self.ident]
+        self.log_map = VMHOSTDEV_REQUESTS
+        self.log_args.update({
+            'vmid': self.vmid.encode('utf-8') if self.vmid else '',
+        })
 
     @property
     def data(self):
