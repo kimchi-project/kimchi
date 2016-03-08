@@ -34,7 +34,6 @@ from wok.xmlutils.utils import xml_item_update
 from wok.plugins.kimchi import imageinfo
 from wok.plugins.kimchi import osinfo
 from wok.plugins.kimchi.model import cpuinfo
-from wok.plugins.kimchi.model import vmifaces
 from wok.plugins.kimchi.model.groups import PAMGroupsModel
 from wok.plugins.kimchi.model.host import DeviceModel
 from wok.plugins.kimchi.model.host import DevicesModel
@@ -86,7 +85,7 @@ class MockModel(Model):
         self._mock_storagevolumes = MockStorageVolumes()
 
         cpuinfo.get_topo_capabilities = MockModel.get_topo_capabilities
-        vmifaces.getDHCPLeases = MockModel.getDHCPLeases
+        libvirt.virNetwork.DHCPLeases = MockModel.getDHCPLeases
         libvirt.virDomain.XMLDesc = MockModel.domainXMLDesc
         libvirt.virDomain.undefine = MockModel.undefineDomain
         libvirt.virDomain.attachDeviceFlags = MockModel.attachDeviceFlags
