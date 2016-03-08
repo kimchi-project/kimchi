@@ -322,7 +322,7 @@ kimchi.guest_storage_add_main = function() {
     }
 
     var createVol = function(settings, addVolSettings) {
-        kimchi.createVolumeWithCapacity('default', {
+        kimchi.createVolumeWithCapacity(settings['pool'], {
             name: settings['vol'],
             format: settings['format'],
             capacity: settings['capacity']
