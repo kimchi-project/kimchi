@@ -133,7 +133,7 @@ messages = {
     "KCHVM0076E": _("VM %(name)s must have serial and console defined to open a web serial console"),
     "KCHVM0077E": _("Impossible to get the serial console of %(name)s"),
     "KCHVM0078E": _("Memory or Maximum Memory value is higher than amount supported by the host: %(memHost)sMiB."),
-    "KCHVM0079E": _("Memory or Maximum Memory value is higher than maximum amount recommended: 1TiB"),
+    "KCHVM0079E": _("Memory or Maximum Memory value is higher than maximum amount recommended: %(value)sTiB"),
     "KCHVM0080E": _("Cannot update Maximum Memory when guest is running."),
 
     "KCHVMHDEV0001E": _("VM %(vmid)s does not contain directly assigned host device %(dev_name)s."),
