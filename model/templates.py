@@ -38,8 +38,10 @@ from wok.plugins.kimchi.vmtemplate import VMTemplate
 
 # In PowerPC, memories must be aligned to 256 MiB
 PPC_MEM_ALIGN = 256
-# Max memory 1TB, in KiB
-MAX_MEM_LIM = 1073741824
+# Max memory 16TB for PPC and 4TiB for X (according to Red Hat), in KiB
+MAX_MEM_LIM = 4294967296    # 4 TiB
+if os.uname()[4] in ['ppc', 'ppc64', 'ppc64le']:
+    MAX_MEM_LIM *= 4     # 16TiB
 
 
 class TemplatesModel(object):
@@ -225,9 +227,11 @@ def validate_memory(memory):
     else:
         host_memory = psutil.TOTAL_PHYMEM >> 10 >> 10
 
-    # Memories must be lesser than 1TB and the Host memory limit
+    # Memories must be lesser than 16TiB (PPC) or 4TiB (x86) and the Host
+    # memory limit
     if (current > (MAX_MEM_LIM >> 10)) or (maxmem > (MAX_MEM_LIM >> 10)):
-        raise InvalidParameter("KCHVM0079E")
+        raise InvalidParameter("KCHVM0079E",
+                               {'value': str(MAX_MEM_LIM / (1024**3))})
     if (current > host_memory) or (maxmem > host_memory):
         raise InvalidParameter("KCHVM0078E", {'memHost': host_memory})
 

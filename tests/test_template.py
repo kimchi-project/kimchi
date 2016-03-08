@@ -29,6 +29,7 @@ from tests.utils import get_free_port, patch_auth, request, run_server
 from wok.plugins.kimchi.config import READONLY_POOL_TYPE
 from wok.plugins.kimchi.mockmodel import MockModel
 from wok.plugins.kimchi.model.featuretests import FeatureTests
+from wok.plugins.kimchi.model.templates import MAX_MEM_LIM
 
 
 model = None
@@ -227,8 +228,8 @@ class TemplateTests(unittest.TestCase):
         req = json.dumps({'memory': {'current': 2048}})
         resp = self.request(new_tmpl_uri, req, 'PUT')
         self.assertEquals(400, resp.status)
-        # - max memory greater than 1TiB limit
-        req = json.dumps({'memory': {'maxmemory': 1073741824 + 1024}})
+        # - max memory greater than limit: 16TiB to PPC and 4TiB to x86
+        req = json.dumps({'memory': {'maxmemory': MAX_MEM_LIM + 1024}})
         resp = self.request(new_tmpl_uri, req, 'PUT')
         self.assertEquals(400, resp.status)
         self.assertTrue('KCHVM0079E' in resp.read())
