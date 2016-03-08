@@ -29,14 +29,6 @@ from wok.plugins.kimchi.model.vms import DOM_STATE_MAP, VMModel
 from wok.plugins.kimchi.xmlutils.interface import get_iface_xml
 
 
-def getDHCPLeases(net, mac):
-    try:
-        leases = net.DHCPLeases(mac)
-        return leases
-    except libvirt.libvirtError:
-        return []
-
-
 class VMIfacesModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
@@ -134,10 +126,9 @@ class VMIfaceModel(object):
 
         info['type'] = iface.attrib['type']
         info['mac'] = iface.mac.get('address')
+        info['network'] = iface.source.get('network')
         if iface.find("model") is not None:
             info['model'] = iface.model.get('type')
-        if info['type'] == 'network':
-            info['network'] = iface.source.get('network')
         if info['type'] == 'bridge':
             info['bridge'] = iface.source.get('bridge')
         info['ips'] = self._get_ips(vm, info['mac'], info['network'])
@@ -159,14 +150,19 @@ class VMIfaceModel(object):
         # First check the ARP cache.
         with open('/proc/net/arp') as f:
             ips = [line.split()[0] for line in f.xreadlines() if mac in line]
+
         # Some ifaces may be inactive, so if the ARP cache didn't have them,
         # and they happen to be assigned via DHCP, we can check there too.
-        net = conn.networkLookupByName(network)
-        leases = getDHCPLeases(net, mac)
-        for lease in leases:
-            ip = lease.get('ipaddr')
-            if ip not in ips:
-                ips.append(ip)
+        try:
+            # Some type of interfaces may not have a network associated with
+            net = conn.networkLookupByName(network)
+            leases = net.DHCPLeases(mac)
+            for lease in leases:
+                ip = lease.get('ipaddr')
+                if ip not in ips:
+                    ips.append(ip)
+        except libvirt.libvirtError:
+            pass
 
         return ips
 
