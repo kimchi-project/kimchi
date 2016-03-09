@@ -47,6 +47,8 @@ iso_dir = [
         ('OpenBSD/(i386|amd64)    (\d+\.\d+) Install CD')),
     ('centos', lambda m: m.group(1),
         ('CentOS_(\d+\.\d+)_Final')),
+    ('centos', lambda m: m.group(1),
+        ('CentOS (\d+) ')),
     ('windows', '2000',
         ('W2AFPP|SP1AFPP|SP2AFPP|YRMAFPP|ZRMAFPP|W2AOEM|SP1AOEM|SP2AOEM' +
          '|YRMAOEM|ZRMAOEM|W2ASEL|SP2ASEL|W2SFPP|SP1SFPP|SP2SFPP|YRMSFPP' +
