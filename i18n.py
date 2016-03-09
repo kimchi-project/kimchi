@@ -27,11 +27,6 @@ messages = {
 
     "KCHAUTH0004E": _("User %(user_id)s not found with given LDAP settings."),
 
-    "KCHDISKS0001E": _("Error while getting block devices. Details: %(err)s"),
-    "KCHDISKS0002E": _("Error while getting block device information for %(device)s."),
-
-    "KCHLVM0001E": _("Unable to retrieve LVM information. Details: %(err)s"),
-
     "KCHPART0001E": _("Partition %(name)s does not exist in the host"),
 
     "KCHDEVS0001E": _('Unknown "_cap" specified'),
