@@ -1,0 +1,60 @@
+13:01:02 <danielhb> #startmeeting
+13:01:02 <kimchi-bot> Meeting started Wed Mar  9 13:01:02 2016 UTC.  The chair is danielhb. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:02 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:10 <danielhb> #meetingname scrum
+13:01:10 <kimchi-bot> The meeting name has been set to 'scrum'
+13:01:21 <danielhb> #info Agenda
+13:01:35 <danielhb> #info Open discussion
+13:02:01 <danielhb> all: any more topics for today's scrum?
+13:02:54 <ziviani> no
+13:02:58 <pvital> no
+13:03:00 <samhenri> no
+13:03:05 <lagarcia> danielhb, status?
+13:03:31 <danielhb> lagarcia, fail copy/paste!
+13:03:39 <danielhb> #info 1) Status
+13:03:53 <danielhb> #info 2) Open discussion
+13:04:08 <danielhb> lagarcia, and at least 3 people wanted to go straight to the discussion!
+13:04:20 <danielhb> #topic Status
+13:04:28 <lagarcia> danielhb, hehe yeah
+13:04:30 <danielhb> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+13:04:36 <ziviani> #info [gingerbase] ziviani sent patch to address the issue #853: Add vgs, lvs and pvs missing functions to disks.py​
+13:05:02 <ziviani> #info [kimchi] is working to fix small issues on web serial console code
+13:05:13 <samhenri> #info samhenri investigating issue with wok.message.js in modal windows
+13:05:15 <pvital> #info [Gingerbase] pvital submitted V2 patch-set related to backend part of issue #9 - Update selected packages
+13:05:16 <pvital> #info [Kimchi] pvital submitted patch to solve issue #859 - Fix error when adding new disk to VM
+13:05:16 <pvital> #info [kimchi] pvital is working on a solution to issue #817 - Add Events support to PCI hot-plug/unplug
+13:05:16 <pvital> #info [Wok] [Kimchi] [Ginger*] pvital reviewed patches
+13:05:18 <samhenri> ops
+13:05:26 <samhenri> #info [wok] samhenri investigating issue with wok.message.js in modal windows
+13:05:36 <samhenri> but this affects all plugins
+13:05:41 <lcorreia> #info [wok] lcorreia got upstream improvements and fixes for User Request Log feature with download option
+13:05:41 <lcorreia> #info [kimchi] [ginger] [gingerbase] lcorreia got upstream improved custom messages for User Request Log
+13:05:41 <lcorreia> #info lcorreia will focus on bug fixes
+13:06:23 <rotru> #info rotru [Kimchi] Made minor changes in Kimchi UI;
+13:06:27 <danielhb> #info [ginger*] danielhb reviewed and applied patches, fixed a couple of issues that found along the way. Sent OVS bridge backend and a SR-IOV change for mlx5 module
+13:06:42 <rotru> #info rotru [Ginger] Fixed objects selection in Ginger SEP section;
+13:07:01 <rotru> #info rotru [Kimchi] Changed max memory limits for guests;
+13:07:19 <rotru> #info rotru [Gingerbase] Fixed multiple problems in GingerBase Repositories update UI and backend;
+13:07:20 <samhenri> #info [kimchi] samhenri investigating issue with PCI filter and PCI devices in Edit Guest modal window
+13:11:30 <danielhb> anything else?
+13:12:24 <danielhb> moving on in 30 seg
+13:12:28 <pvital> not from me
+13:12:28 <danielhb> *30 sec
+13:12:59 <danielhb> #topic Open discussion
+13:13:18 <danielhb> all: any general comment, complaint, nagging ... ?
+13:13:35 <lagarcia> danielhb, jokes?
+13:13:39 <lagarcia> :D
+13:14:17 <danielhb> lagarcia, what's a yellow dot in the middle of a garden?
+13:14:36 <danielhb> lagarcia, nvm this joke is only funny in Portuguese
+13:15:10 <lagarcia> danielhb, yrp... better wrap up for today
+13:15:14 <lagarcia> hehe
+13:17:22 <danielhb> all: some general info: Kimchi and Ginger entered soft code freeze last week. From now on any new features/API changes will be pushed to a temporary branch called 'next' until the end of the month, 2.1 announcement
+13:18:25 <danielhb> all: I can't speak for Kimchi, but for Ginger and Ginger-base we'll end up pushing some stuff to the 'next' branch. So, if you want to get up-to-date code during this time, please refer to the 'next' branch instead of 'master'
+13:18:53 <danielhb> all: danielhb will keep the 'next' branch updated with the latest master changes, so nothing will be missed
+13:19:16 <danielhb> all: danielhb will send an email when the 'next' branch of Ginger and Ginger-base is created
+13:20:27 <danielhb> all: anything else for today?
+13:21:12 <lagarcia> no
+13:21:25 <pvital> no
+13:21:30 <lcorreia> no
+13:22:20 <danielhb> all: thanks for joining!
+13:22:25 <danielhb> #endmeeting

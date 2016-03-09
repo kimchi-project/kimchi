@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:01:02</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:01:02</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Mar  9 13:01:02 2016 UTC.  The chair is danielhb. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:01:02</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:01:10</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:01:10</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:01:21</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda</span>
+<a name="l-7"></a><span class="tm">13:01:35</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">Open discussion</span>
+<a name="l-8"></a><span class="tm">13:02:01</span><span class="nk"> &lt;danielhb&gt;</span> <span class="hi">all:</span> any more topics for today's scrum?
+<a name="l-9"></a><span class="tm">13:02:54</span><span class="nk"> &lt;ziviani&gt;</span> no
+<a name="l-10"></a><span class="tm">13:02:58</span><span class="nk"> &lt;pvital&gt;</span> no
+<a name="l-11"></a><span class="tm">13:03:00</span><span class="nk"> &lt;samhenri&gt;</span> no
+<a name="l-12"></a><span class="tm">13:03:05</span><span class="nk"> &lt;lagarcia&gt;</span> danielhb, status?
+<a name="l-13"></a><span class="tm">13:03:31</span><span class="nk"> &lt;danielhb&gt;</span> lagarcia, fail copy/paste!
+<a name="l-14"></a><span class="tm">13:03:39</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">1) Status</span>
+<a name="l-15"></a><span class="tm">13:03:53</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">2) Open discussion</span>
+<a name="l-16"></a><span class="tm">13:04:08</span><span class="nk"> &lt;danielhb&gt;</span> lagarcia, and at least 3 people wanted to go straight to the discussion!
+<a name="l-17"></a><span class="tm">13:04:20</span><span class="nk"> &lt;danielhb&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-18"></a><span class="tm">13:04:28</span><span class="nk"> &lt;lagarcia&gt;</span> danielhb, hehe yeah
+<a name="l-19"></a><span class="tm">13:04:30</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info [&lt;project] &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-20"></a><span class="tm">13:04:36</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">[gingerbase] ziviani sent patch to address the issue #853: Add vgs, lvs and pvs missing functions to disks.py​</span>
+<a name="l-21"></a><span class="tm">13:05:02</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] is working to fix small issues on web serial console code</span>
+<a name="l-22"></a><span class="tm">13:05:13</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">samhenri investigating issue with wok.message.js in modal windows</span>
+<a name="l-23"></a><span class="tm">13:05:15</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Gingerbase] pvital submitted V2 patch-set related to backend part of issue #9 - Update selected packages</span>
+<a name="l-24"></a><span class="tm">13:05:16</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] pvital submitted patch to solve issue #859 - Fix error when adding new disk to VM</span>
+<a name="l-25"></a><span class="tm">13:05:16</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] pvital is working on a solution to issue #817 - Add Events support to PCI hot-plug/unplug</span>
+<a name="l-26"></a><span class="tm">13:05:16</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] [Kimchi] [Ginger*] pvital reviewed patches</span>
+<a name="l-27"></a><span class="tm">13:05:18</span><span class="nk"> &lt;samhenri&gt;</span> ops
+<a name="l-28"></a><span class="tm">13:05:26</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] samhenri investigating issue with wok.message.js in modal windows</span>
+<a name="l-29"></a><span class="tm">13:05:36</span><span class="nk"> &lt;samhenri&gt;</span> but this affects all plugins
+<a name="l-30"></a><span class="tm">13:05:41</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] lcorreia got upstream improvements and fixes for User Request Log feature with download option</span>
+<a name="l-31"></a><span class="tm">13:05:41</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] [ginger] [gingerbase] lcorreia got upstream improved custom messages for User Request Log</span>
+<a name="l-32"></a><span class="tm">13:05:41</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">lcorreia will focus on bug fixes</span>
+<a name="l-33"></a><span class="tm">13:06:23</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru [Kimchi] Made minor changes in Kimchi UI;</span>
+<a name="l-34"></a><span class="tm">13:06:27</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger*] danielhb reviewed and applied patches, fixed a couple of issues that found along the way. Sent OVS bridge backend and a SR-IOV change for mlx5 module</span>
+<a name="l-35"></a><span class="tm">13:06:42</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru [Ginger] Fixed objects selection in Ginger SEP section;</span>
+<a name="l-36"></a><span class="tm">13:07:01</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru [Kimchi] Changed max memory limits for guests;</span>
+<a name="l-37"></a><span class="tm">13:07:19</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru [Gingerbase] Fixed multiple problems in GingerBase Repositories update UI and backend;</span>
+<a name="l-38"></a><span class="tm">13:07:20</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] samhenri investigating issue with PCI filter and PCI devices in Edit Guest modal window</span>
+<a name="l-39"></a><span class="tm">13:11:30</span><span class="nk"> &lt;danielhb&gt;</span> anything else?
+<a name="l-40"></a><span class="tm">13:12:24</span><span class="nk"> &lt;danielhb&gt;</span> moving on in 30 seg
+<a name="l-41"></a><span class="tm">13:12:28</span><span class="nk"> &lt;pvital&gt;</span> not from me
+<a name="l-42"></a><span class="tm">13:12:28</span><span class="nk"> &lt;danielhb&gt;</span> *30 sec
+<a name="l-43"></a><span class="tm">13:12:59</span><span class="nk"> &lt;danielhb&gt;</span> <span class="topic">#topic </span><span class="topicline">Open discussion</span>
+<a name="l-44"></a><span class="tm">13:13:18</span><span class="nk"> &lt;danielhb&gt;</span> <span class="hi">all:</span> any general comment, complaint, nagging ... ?
+<a name="l-45"></a><span class="tm">13:13:35</span><span class="nk"> &lt;lagarcia&gt;</span> danielhb, jokes?
+<a name="l-46"></a><span class="tm">13:13:39</span><span class="nk"> &lt;lagarcia&gt;</span> :D
+<a name="l-47"></a><span class="tm">13:14:17</span><span class="nk"> &lt;danielhb&gt;</span> lagarcia, what's a yellow dot in the middle of a garden?
+<a name="l-48"></a><span class="tm">13:14:36</span><span class="nk"> &lt;danielhb&gt;</span> lagarcia, nvm this joke is only funny in Portuguese
+<a name="l-49"></a><span class="tm">13:15:10</span><span class="nk"> &lt;lagarcia&gt;</span> danielhb, yrp... better wrap up for today
+<a name="l-50"></a><span class="tm">13:15:14</span><span class="nk"> &lt;lagarcia&gt;</span> hehe
+<a name="l-51"></a><span class="tm">13:17:22</span><span class="nk"> &lt;danielhb&gt;</span> <span class="hi">all:</span> some general info: Kimchi and Ginger entered soft code freeze last week. From now on any new features/API changes will be pushed to a temporary branch called 'next' until the end of the month, 2.1 announcement
+<a name="l-52"></a><span class="tm">13:18:25</span><span class="nk"> &lt;danielhb&gt;</span> <span class="hi">all:</span> I can't speak for Kimchi, but for Ginger and Ginger-base we'll end up pushing some stuff to the 'next' branch. So, if you want to get up-to-date code during this time, please refer to the 'next' branch instead of 'master'
+<a name="l-53"></a><span class="tm">13:18:53</span><span class="nk"> &lt;danielhb&gt;</span> <span class="hi">all:</span> danielhb will keep the 'next' branch updated with the latest master changes, so nothing will be missed
+<a name="l-54"></a><span class="tm">13:19:16</span><span class="nk"> &lt;danielhb&gt;</span> <span class="hi">all:</span> danielhb will send an email when the 'next' branch of Ginger and Ginger-base is created
+<a name="l-55"></a><span class="tm">13:20:27</span><span class="nk"> &lt;danielhb&gt;</span> <span class="hi">all:</span> anything else for today?
+<a name="l-56"></a><span class="tm">13:21:12</span><span class="nk"> &lt;lagarcia&gt;</span> no
+<a name="l-57"></a><span class="tm">13:21:25</span><span class="nk"> &lt;pvital&gt;</span> no
+<a name="l-58"></a><span class="tm">13:21:30</span><span class="nk"> &lt;lcorreia&gt;</span> no
+<a name="l-59"></a><span class="tm">13:22:20</span><span class="nk"> &lt;danielhb&gt;</span> <span class="hi">all:</span> thanks for joining!
+<a name="l-60"></a><span class="tm">13:22:25</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
