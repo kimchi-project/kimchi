@@ -423,26 +423,31 @@ kimchi.guest_edit_main = function() {
     };
 
     var filterPCINodes = function(group, text, targetName) {
-        text = text.toLowerCase();
-        targetName = targetName.toLowerCase();
-        $('.body', '#form-guest-edit-pci').children().each(function() {
-            var currentName = $('.name', this).text().toLowerCase();
-            var textFilter = currentName.indexOf(text) !== -1;
-            textFilter = textFilter || $('.product', this).text().toLowerCase().indexOf(text) !== -1;
-            textFilter = textFilter || $('.vendor', this).text().toLowerCase().indexOf(text) !== -1;
-            var display = 'none';
-            var itemGroup = $('button i', this);
-            if (textFilter) {
-                if (group === 'all') {
-                    display = '';
-                } else if (group === 'toAdd' && itemGroup.hasClass('fa-power-off')) {
-                    display = '';
-                } else if (group === 'added' && itemGroup.hasClass('fa-ban')) {
-                    display = '';
+        targetName = targetName || null;
+        text = text.trim().split(" ");
+        var rows = $('.body', '#form-guest-edit-pci').find('div');
+        if(text === ""){
+            rows.show();
+            return;
+        }
+        rows.hide();
+
+        rows.filter(function(index, value){
+            var $span = $(this);
+            var $itemGroup = $('button i', this);
+            for (var i = 0; i < text.length; ++i){
+                if ($span.is(":containsNC('" + text[i] + "')")) {
+                    if (group === 'all') {
+                        return true;
+                    } else if (group === 'toAdd' && $itemGroup.hasClass('fa-power-off')) {
+                        return true;
+                    } else if (group === 'added' && $itemGroup.hasClass('fa-ban')) {
+                        return true;
+                    }
                 }
             }
-            $(this).css('display', display);
-        });
+            return false;
+        }).show();
     };
     var setupPCIDevice = function() {
         kimchi.getAvailableHostPCIDevices(function(hostPCIs) {
@@ -452,10 +457,10 @@ kimchi.guest_edit_main = function() {
             });
         });
         $('select', '#form-guest-edit-pci').change(function() {
-            filterPCINodes($(this).val(), $('input', '#form-guest-edit-pci').val(), '');
+            filterPCINodes($(this).val(), $('input#guest-edit-pci-filter', '#form-guest-edit-pci').val(), '');
         });
         $('select', '#form-guest-edit-pci').selectpicker();
-        $('input', '#form-guest-edit-pci').on('keyup', function() {
+        $('input#guest-edit-pci-filter', '#form-guest-edit-pci').on('keyup', function() {
             filterPCINodes($('select', '#form-guest-edit-pci').val(), $(this).val(), '');
         });
     };
@@ -503,7 +508,7 @@ kimchi.guest_edit_main = function() {
                             });
                         });
                         //id is for the object that is being added back to the available PCI devices
-                        filterPCINodes($('select', '#form-guest-edit-pci').val(), $('input', '#form-guest-edit-pci').val(), id);
+                        filterPCINodes($('select', '#form-guest-edit-pci').val(), $('input#guest-edit-pci-filter', '#form-guest-edit-pci').val(), id);
                     });
                 } else {
                     kimchi.addVMPCIDevice(kimchi.selectedGuest, {
@@ -515,7 +520,7 @@ kimchi.guest_edit_main = function() {
                             }
                         });
                         //id is for the object that is being removed from the available PCI devices
-                        filterPCINodes($('select', '#form-guest-edit-pci').val(), $('input', '#form-guest-edit-pci').val(), id);
+                        filterPCINodes($('select', '#form-guest-edit-pci').val(), $('input#guest-edit-pci-filter', '#form-guest-edit-pci').val(), id);
                     });
                 }
             });
