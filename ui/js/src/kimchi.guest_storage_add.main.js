@@ -83,12 +83,13 @@ kimchi.guest_storage_add_main = function() {
         }
         formatTextbox.empty();
         formatTextbox.append(selectFormatHTML);
-        $(formatTextbox).change();
+        formatTextbox.val("qcow2");
+        $(formatTextbox).trigger('change');
         formatTextbox.selectpicker();
         $('.selectpicker').selectpicker('refresh');
     };
 
-    typeTextbox.change(function() {
+    typeTextbox.on('change',function() {
         var pathObject = {'cdrom': ".path-section", 'disk': '.volume-section'};
         selectType = $(this).val();
         $.each(pathObject, function(type, value) {
@@ -105,13 +106,13 @@ kimchi.guest_storage_add_main = function() {
             if ($('#new-disk').checked) {
                 $('#existing-disk-box').addClass('hidden');
                 $(newPoolTextbox).val('default');
-                $(newPoolTextbox).change();
+                $(newPoolTextbox).trigger('change');
                 $(formatTextbox).val('qcow2');
-                $(formatTextbox).change();
+                $(formatTextbox).trigger('change');
             } else if ($('#existing-disk').checked) {
                 $('#new-disk-box').addClass('hidden');
                 $(poolTextbox).val('default');
-                $(poolTextbox).change();
+                $(poolTextbox).trigger('change');
             } else {
                 //Goes here the first time since radiobuttons are undefined
                 if (rbExisting === 'true') {
@@ -119,7 +120,7 @@ kimchi.guest_storage_add_main = function() {
                 } else {
                     $('#existing-disk-box').addClass('hidden');
                     $(formatTextbox).val('qcow2');
-                    $(formatTextbox).change();
+                    $(formatTextbox).trigger('change');
                 }
             }
         } else {
@@ -159,13 +160,13 @@ kimchi.guest_storage_add_main = function() {
                 if (radioButton === 'existing') {
                     poolTextbox.empty();
                     poolTextbox.append(selectStoragePoolHTML);
-                    $(poolTextbox).change();
+                    $(poolTextbox).trigger('change');
 	            poolTextbox.selectpicker();
                     $('.selectpicker').selectpicker('refresh');
                 } else if (radioButton === 'new') { //new disk
                     newPoolTextbox.empty();
                     newPoolTextbox.append(selectStoragePoolHTML);
-                    $(newPoolTextbox).val("qcow2");
+                    $(newPoolTextbox).val("ISO");
                     newPoolTextbox.selectpicker();
                     getFormatList();
                 }
@@ -176,7 +177,7 @@ kimchi.guest_storage_add_main = function() {
     //First time retrieving list of Storage Pools - defaulting to new disk
     getStoragePools('new');
 
-    poolTextbox.change(function() {
+    poolTextbox.on('change',function() {
         var options = [];
         selectStorageVolHTML = '';
         volTextbox.empty();
@@ -198,7 +199,7 @@ kimchi.guest_storage_add_main = function() {
                     }
                     volTextbox.append(selectStorageVolHTML);
                     $(volTextbox).val(options[0].value);
-                    $(volTextbox).change();
+                    $(volTextbox).trigger('change');
                     $(volTextbox).prop('disabled',false);
                 }else {
                     $(volTextbox).prop('disabled',true);
@@ -213,7 +214,7 @@ kimchi.guest_storage_add_main = function() {
         }, null, false);
     });
 
-    typeTextbox.change(function() {
+    typeTextbox.on('change',function() {
         var pathObject = {'cdrom': ".path-section", 'disk': '.volume-section'};
         var selectType = $(this).val();
         $.each(pathObject, function(type, value) {
@@ -226,7 +227,7 @@ kimchi.guest_storage_add_main = function() {
     });
 
     var currentPage = 'new-disk-box';
-    $('#existing-disk').change(function() {
+    $('#existing-disk').on('change',function() {
         if (this.checked) {
             rbExisting = 'true';
             if (currentPage === 'new-disk-box') {
@@ -246,10 +247,10 @@ kimchi.guest_storage_add_main = function() {
         }
     });
 
-    $('#new-disk').change(function() {
+    $('#new-disk').on('change',function() {
         if (this.checked) {
             $(formatTextbox).val("qcow2");
-            $(formatTextbox).change();
+            $(formatTextbox).trigger('change');
             rbExisting = 'false';
             if (currentPage === 'existing-disk-box') {
                 kimchi.switchPage(currentPage, 'new-disk-box', 'right');
@@ -268,19 +269,21 @@ kimchi.guest_storage_add_main = function() {
         }
     });
 
-    if (kimchi.thisVMState === 'running') {
-        types =typesRunning;
-        $(typeTextbox).val('disk');
-        typeTextbox.change();
-        poolTextbox.change();
-    }
     var selectType = $(typeTextbox).val();
+    if (kimchi.thisVMState === 'running') {
+        types = typesRunning;
+    }
     for (var i = 0; i < types.length; i++) {
         selectStorageTypeHTML += '<option value="'+ types[i].value + '">' + types[i].label + '</option>';
     }
     typeTextbox.append(selectStorageTypeHTML);
     typeTextbox.find('option:first').attr('selected','selected');
     typeTextbox.selectpicker();
+    if (kimchi.thisVMState === 'running') {
+        $(typeTextbox).val('disk');
+        typeTextbox.trigger('change');
+        poolTextbox.trigger('change');
+    }
 
     var validateCDROM = function(settings) {
         if (/^((https|http|ftp|ftps|tftp|\/).*)+$/.test(settings['path'])){
