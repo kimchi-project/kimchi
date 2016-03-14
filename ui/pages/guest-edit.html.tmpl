@@ -147,7 +147,7 @@
                                 <option value="toAdd">$_("To Add")</option>
                                 <option value="added">$_("Added")</option>
                             </select>
-                            <input type="text" class="form-control" placeholder="$_("Filter")" />
+                            <input type="text" class="form-control" id="guest-edit-pci-filter" placeholder="$_("Filter")" />
                         </div>
                     </div>
                     <div class="header">
@@ -277,9 +277,9 @@
     <span class="cell status column-pci-status">
         <i class="fa fa-power-off"></i>
     </span>
-    <span class="cell name column-pci-name"><input type="text" readonly="readonly" value="{name}" title="{name}" class="form-control" /></span>
-    <span class="cell product column-product"><input type="text" readonly="readonly" value="{product}" title="{product}" class="form-control" /></span>
-    <span class="cell vendor column-vendor"><input type="text" readonly="readonly" value="{vendor}" title="{vendor}" class="form-control" /></span>
+    <span class="cell name column-pci-name" title="{name}">{name}</span>
+    <span class="cell product column-product" title="{product}">{product}</span>
+    <span class="cell vendor column-vendor" title="{vendor}">{vendor}</span>
     <span class="cell column-actions action-area"><button class="btn btn-link"><i class="fa"></i></button></span>
 </div>
 </script>
