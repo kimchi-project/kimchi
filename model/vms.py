@@ -39,7 +39,7 @@ from wok.exception import InvalidOperation, InvalidParameter
 from wok.exception import NotFoundError, OperationFailed
 from wok.model.tasks import TaskModel
 from wok.rollbackcontext import RollbackContext
-from wok.utils import add_task, convert_data_size, get_next_clone_name
+from wok.utils import add_task, convert_data_size
 from wok.utils import import_class, run_setfacl_set_attr, run_command, wok_log
 from wok.xmlutils.utils import dictize, xpath_get_text, xml_item_insert
 from wok.xmlutils.utils import xml_item_remove, xml_item_update
@@ -59,6 +59,7 @@ from wok.plugins.kimchi.model.utils import get_metadata_node
 from wok.plugins.kimchi.model.utils import remove_metadata_node
 from wok.plugins.kimchi.model.utils import set_metadata_node
 from wok.plugins.kimchi.screenshot import VMScreenshot
+from wok.plugins.kimchi.utils import get_next_clone_name
 from wok.plugins.kimchi.utils import template_name_from_uri
 from wok.plugins.kimchi.xmlutils.cpu import get_cpu_xml, get_numa_xml
 from wok.plugins.kimchi.xmlutils.cpu import get_topology_xml
@@ -319,7 +320,7 @@ class VMModel(object):
                     vms_being_created.append(uri_name)
 
         current_vm_names = self.vms.get_list() + vms_being_created
-        new_name = get_next_clone_name(current_vm_names, name)
+        new_name = get_next_clone_name(current_vm_names, name, ts=True)
 
         # create a task with the actual clone function
         taskid = add_task(u'/plugins/kimchi/vms/%s/clone' % new_name,
