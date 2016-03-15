@@ -20,7 +20,6 @@
 
 import contextlib
 import json
-import os
 import re
 import sqlite3
 import urllib2
@@ -84,22 +83,6 @@ def check_url_path(path, redirected=0):
     except (urllib2.URLError, HTTPException, IOError, ValueError):
         return False
     return True
-
-
-def validate_repo_url(url):
-    url_parts = url.split('://')  # [0] = prefix, [1] = rest of URL
-
-    if url_parts[0] == '':
-        raise InvalidParameter("KCHREPOS0002E")
-
-    if url_parts[0] in ['http', 'https', 'ftp']:
-        if not check_url_path(url):
-            raise InvalidParameter("WOKUTILS0001E", {'url': url})
-    elif url_parts[0] == 'file':
-        if not os.path.exists(url_parts[1]):
-            raise InvalidParameter("WOKUTILS0001E", {'url': url})
-    else:
-        raise InvalidParameter("KCHREPOS0002E")
 
 
 def upgrade_objectstore_data(item, old_uri, new_uri):
