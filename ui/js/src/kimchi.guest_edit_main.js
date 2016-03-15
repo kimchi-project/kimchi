@@ -24,12 +24,7 @@ kimchi.guest_edit_main = function() {
     $('#guest-edit-window a[data-toggle="tab"]').on('show.bs.tab', function(tab) {
         tab.target; // newly activated tab
         tab.relatedTarget; // previous active tab
-        var display_list = null;
-        if (kimchi.thisVMState === "running") {
-            display_list = ['form-guest-edit-permission'];
-        } else {
-            display_list = ['form-guest-edit-general', 'form-guest-edit-permission'];
-        }
+        var display_list = ['form-guest-edit-general', 'form-guest-edit-permission'];
         $(saveButton).prop('disabled', true);
         formTargetId = $(tab.target).data('id');
         var deactivated = $('form#' + formTargetId);
