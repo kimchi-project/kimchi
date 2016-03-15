@@ -28,7 +28,7 @@ from lxml.builder import E
 
 from wok.exception import NotFoundError, OperationFailed
 from wok.objectstore import ObjectStore
-from wok.utils import add_task, get_next_clone_name
+from wok.utils import add_task
 from wok.xmlutils.utils import xml_item_update
 
 from wok.plugins.kimchi import imageinfo
@@ -49,7 +49,7 @@ from wok.plugins.kimchi.model import storagevolumes
 from wok.plugins.kimchi.model.templates import LibvirtVMTemplate
 from wok.plugins.kimchi.model.users import PAMUsersModel
 from wok.plugins.kimchi.model.vmhostdevs import VMHostDevsModel
-from wok.plugins.kimchi.utils import pool_name_from_uri
+from wok.plugins.kimchi.utils import get_next_clone_name, pool_name_from_uri
 from wok.plugins.kimchi.vmtemplate import VMTemplate
 
 

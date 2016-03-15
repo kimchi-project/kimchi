@@ -30,8 +30,7 @@ from lxml.builder import E
 
 from wok.exception import InvalidOperation, InvalidParameter, IsoFormatError
 from wok.exception import MissingParameter, NotFoundError, OperationFailed
-from wok.utils import add_task, get_next_clone_name, get_unique_file_name
-from wok.utils import wok_log
+from wok.utils import add_task, get_unique_file_name, wok_log
 from wok.xmlutils.utils import xpath_get_text
 from wok.model.tasks import TaskModel
 
@@ -40,6 +39,7 @@ from wok.plugins.kimchi.isoinfo import IsoImage
 from wok.plugins.kimchi.model.diskutils import get_disk_used_by
 from wok.plugins.kimchi.model.diskutils import set_disk_used_by
 from wok.plugins.kimchi.model.storagepools import StoragePoolModel
+from wok.plugins.kimchi.utils import get_next_clone_name
 
 
 VOLUME_TYPE_MAP = {0: 'file',
