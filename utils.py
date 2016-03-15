@@ -22,6 +22,7 @@ import contextlib
 import json
 import re
 import sqlite3
+import time
 import urllib2
 from httplib import HTTPConnection, HTTPException
 from urlparse import urlparse
@@ -207,3 +208,52 @@ def upgrade_objectstore_memory():
         if total > 0:
             wok_log.info(
                 "%d 'template' memory entries upgraded in objectstore.", total)
+
+
+def get_next_clone_name(all_names, basename, name_suffix='', ts=False):
+    """Find the next available name for a cloned resource.
+
+    If any resource named "<basename>-clone-<number><name_suffix>" is found
+    in "all_names", use the maximum "number" + 1; else, use 1.
+
+    Arguments:
+    all_names -- All existing names for the resource type. This list will
+        be used to make sure the new name won't conflict with
+        existing names.
+    basename -- The name of the original resource.
+    name_suffix -- The resource name suffix (optional). This parameter
+        exist so that a resource named "foo.img" gets the name
+        "foo-clone-1.img" instead of "foo.img-clone-1". If this parameter
+        is used, the suffix should not be present in "basename".
+    ts -- use timestamp, instead of incremental numbers
+
+    Return:
+    A UTF-8 string in the format "<basename>-clone-<number><name_suffix>".
+    """
+    re_group_num = 'num'
+
+    # Use timestamps or increase clone number
+    if ts:
+        # Microsecond precision
+        ts_suffix = int(time.time() * 1000000)
+        new_name = u'%s-clone-%d' % (basename, ts_suffix)
+    else:
+        re_expr = u'%s-clone-(?P<%s>\d+)' % (basename, re_group_num)
+        if name_suffix != '':
+            re_expr = u'%s%s' % (re_expr, name_suffix)
+
+        max_num = 0
+        re_compiled = re.compile(re_expr)
+
+        for n in all_names:
+            match = re_compiled.match(n)
+            if match is not None:
+                max_num = max(max_num, int(match.group(re_group_num)))
+
+        # increments the maximum "clone number" found
+        new_name = u'%s-clone-%d' % (basename, max_num + 1)
+
+    if name_suffix != '':
+        new_name = new_name + name_suffix
+
+    return new_name
