@@ -240,6 +240,14 @@ kimchi.vmmigrate = function(event) {
     wok.window.open('plugins/kimchi/guest-migration.html');
 };
 
+kimchi.vmclone = function(event) {
+    var button = event.target;
+    var vm = $(button).closest('li[name=guest]');
+    var vm_id = $(vm).attr("id");
+    kimchi.selectedGuest = vm_id;
+    wok.window.open('plugins/kimchi/guest-clone.html');
+};
+
 kimchi.openVmSerialConsole = function(event) {
     var button = event.target;
     var vm = $(button).closest('li[name=guest]');
@@ -294,6 +302,18 @@ kimchi.resetGuestFilter = function() {
     }
 };
 
+
+kimchi.initClone = function() {
+    var numTimesToClone = $('#numberClone').val();
+    for (var i = 0; i < numTimesToClone; i++) {
+        kimchi.cloneGuest(kimchi.selectedGuest, function(data) {
+            kimchi.listVmsAuto();
+        });
+    }
+   wok.window.close();
+};
+
+
 kimchi.listVmsAuto = function() {
 
     //Check if the actions button is opened or not,
@@ -333,8 +353,8 @@ kimchi.listVmsAuto = function() {
                     }));
                     if (kimchi.trackingTasks.indexOf(tasks[i].id) == -1)
                         kimchi.trackTask(tasks[i].id, null, function(err) {
-                            wok.message.error(err.message);
-                        }, null);
+                        wok.message.error(err.message);
+                    }, null);
                 }
             }, null, true);
             return guests;
@@ -752,17 +772,7 @@ kimchi.createGuestLi = function(vmObject, prevScreenImage, openMenu) {
         });
         guestActions.find("[name=vm-clone]").on("click", function(event) {
             event.preventDefault();
-            var guest = $(this).closest('li[name=guest]').attr("id");
-            wok.confirm({
-                title: i18n['KCHAPI6006M'],
-                content: i18n['KCHVM6010M'],
-                confirm: i18n['KCHAPI6002M'],
-                cancel: i18n['KCHAPI6003M']
-            }, function() {
-                kimchi.cloneGuest(guest, function(data) {
-                    kimchi.listVmsAuto();
-                });
-            }, null);
+            kimchi.vmclone(event);
         });
         guestActions.find("[name=vm-migrate]").on('click', function(event) {
             event.preventDefault();
@@ -818,6 +828,29 @@ kimchi.guest_main = function() {
     kimchi.initGuestFilter();
     kimchi.listVmsAuto();
 };
+
+
+kimchi.guest_clonevm_main = function() {
+   kimchi.initCloneDialog();
+};
+
+kimchi.initCloneDialog = function(callback) {
+    $("#numberClone").val("1");
+    $("#cloneFormOk").on("click", function() {
+        //Check if input is a number
+        var numClone = parseInt($('#numberClone').val());
+        var err = "";
+        if (isNaN(numClone)) {
+            err = i18n['KCHVM0001E'];
+            wok.message.error(err,'#alert-modal-container');
+        } else {
+            $("#cloneFormOk").prop("disabled", true);
+            kimchi.initClone();
+        }
+   });
+};
+
+
 
 kimchi.editTemplate = function(guestTemplate, oldPopStat) {
     if (oldPopStat) {
