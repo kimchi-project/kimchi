@@ -1480,9 +1480,18 @@ class VMModel(object):
                                                name.encode('utf-8')), True)
 
         try:
-            self._serial_procs.append(
-                serialconsole.main(name.encode('utf-8'),
-                                   self.conn.get().getURI()))
+            proc = serialconsole.main(name.encode('utf-8'),
+                                      self.conn.get().getURI())
+
+            proc.join(2)
+            if not proc.is_alive():
+                raise OperationFailed("KCHVM0082E", {'name': name})
+
+            self._serial_procs.append(proc)
+
+        except OperationFailed:
+            raise
+
         except Exception as e:
             wok_log.error(e.message)
             raise OperationFailed("KCHVM0077E", {'name': name})
