@@ -28,11 +28,11 @@ import time
 from multiprocessing import Process
 
 from wok.plugins.kimchi import model
+from wok.plugins.kimchi.config import config
 from wok.utils import wok_log
 
 
 SOCKET_QUEUE_BACKLOG = 0
-DEFAULT_TIMEOUT = 120  # seconds
 CTRL_Q = '\x11'
 BASE_DIRECTORY = '/run'
 
@@ -170,7 +170,8 @@ class SocketServer(Process):
         client console.
         """
         client, client_addr = self._socket.accept()
-        client.settimeout(DEFAULT_TIMEOUT)
+        client.settimeout(config.get('kimchi', {}).
+                          get('SERIAL_CONSOLE_TIMEOUT', 120))
         wok_log.info('[%s] Client connected to %s', self.name,
                      self._guest_name)
 
