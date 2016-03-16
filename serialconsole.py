@@ -87,6 +87,35 @@ class SocketServer(Process):
         """
         self.listen()
 
+    def _is_vm_listening_serial(self, console):
+        """Checks if the guest is listening (reading/writing) to the serial
+        console.
+        """
+        is_listening = []
+
+        def _test_output(stream, event, opaque):
+            is_listening.append(1)
+
+        def _event_loop():
+            while not is_listening:
+                libvirt.virEventRunDefaultImpl()
+
+        console.eventAddCallback(libvirt.VIR_STREAM_EVENT_READABLE,
+                                 _test_output,
+                                 None)
+        libvirt_loop = threading.Thread(target=_event_loop)
+        libvirt_loop.start()
+
+        console.send("\n")
+        libvirt_loop.join(1)
+
+        if not libvirt_loop.is_alive():
+            console.eventRemoveCallback()
+            return True
+
+        console.eventRemoveCallback()
+        return False
+
     def _send_to_client(self, stream, event, opaque):
         """Handles libvirt stream readable events.
 
@@ -139,6 +168,14 @@ class SocketServer(Process):
         console = None
         try:
             console = guest.get_console()
+            if console is None:
+                wok_log.error('[%s] Cannot get the console to %s',
+                              self.name, self._guest_name)
+                return
+
+            if not self._is_vm_listening_serial(console):
+                sys.exit(1)
+
             self._listen(guest, console)
 
         # clear resources aquired when the process is killed
@@ -191,9 +228,8 @@ class SocketServer(Process):
                 data = client.recv(1024)
 
             except Exception as e:
-                wok_log.info('[%s] Client %s disconnected from %s: %s',
-                             self.name, str(client_addr), self._guest_name,
-                             e.message)
+                wok_log.info('[%s] Client disconnected from %s: %s',
+                             self.name, self._guest_name, e.message)
                 break
 
             if not data or data == CTRL_Q:
@@ -283,14 +319,14 @@ class LibvirtGuest(object):
 # guest
 
 
-def main(guest_name, URI):
+def main(guest_name, URI='qemu:///system'):
     """Main entry point to create a socket server.
 
     Starts a new socket server to listen messages to/from the guest.
     """
     server = None
     try:
-        server = SocketServer(guest_name, URI='qemu:///system')
+        server = SocketServer(guest_name, URI)
 
     except Exception as e:
         wok_log.error('Cannot create the socket server: %s', e.message)
@@ -304,6 +340,15 @@ if __name__ == '__main__':
     """Executes a stand alone instance of the socket server.
 
     This may be useful for testing/debugging.
+
+    In order to debug, add the path  before importing kimchi/wok code:
+        sys.path.append('../../../')
+
+    start the server:
+        python serialconsole.py <guest_name>
+
+    and, on another terminal, run:
+        netcat -U /run/<guest_name>
     """
     argc = len(sys.argv)
     if argc != 2:

@@ -79,10 +79,6 @@
                 socket.send(window.btoa(data));
             });
 
-            socket.onopen = function() {
-                socket.send(window.btoa('\n'));
-            };
-
             socket.onmessage = function(event) {
                 var message = event.data;
                 term.write(window.atob(message));

@@ -131,6 +131,7 @@ messages = {
     "KCHVM0079E": _("Memory or Maximum Memory value is higher than maximum amount recommended: %(value)sTiB"),
     "KCHVM0080E": _("Cannot update Maximum Memory when guest is running."),
     "KCHVM0081E": _("Impossible to create %(dir)s directory."),
+    "KCHVM0082E": _("Either the guest %(name)s did not start to listen to the serial or it is not configured to use the serial console."),
 
     "KCHVMHDEV0001E": _("VM %(vmid)s does not contain directly assigned host device %(dev_name)s."),
     "KCHVMHDEV0002E": _("The host device %(dev_name)s is not allowed to directly assign to VM."),

@@ -341,8 +341,8 @@ class ModelTests(unittest.TestCase):
             inst.vm_start('kimchi-serial')
             rollback.prependDefer(inst.vm_poweroff, 'kimchi-serial')
 
-            inst.vm_serial('kimchi-serial')
-            self.assertTrue(os.path.exists('/tmp/kimchi-serial'))
+            with self.assertRaises(OperationFailed):
+                inst.vm_serial('kimchi-serial')
 
         inst.template_delete('test')
 
