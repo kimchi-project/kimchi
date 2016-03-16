@@ -130,6 +130,7 @@ messages = {
     "KCHVM0078E": _("Memory or Maximum Memory value is higher than amount supported by the host: %(memHost)sMiB."),
     "KCHVM0079E": _("Memory or Maximum Memory value is higher than maximum amount recommended: %(value)sTiB"),
     "KCHVM0080E": _("Cannot update Maximum Memory when guest is running."),
+    "KCHVM0081E": _("Impossible to create %(dir)s directory."),
 
     "KCHVMHDEV0001E": _("VM %(vmid)s does not contain directly assigned host device %(dev_name)s."),
     "KCHVMHDEV0002E": _("The host device %(dev_name)s is not allowed to directly assign to VM."),
