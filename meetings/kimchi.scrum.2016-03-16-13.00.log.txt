@@ -1,0 +1,44 @@
+13:00:14 <alinefm> #startmeeting
+13:00:14 <kimchi-bot> Meeting started Wed Mar 16 13:00:14 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:00:14 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:00:14 <alinefm> #meetingname scrum
+13:00:14 <kimchi-bot> The meeting name has been set to 'scrum'
+13:01:23 <alinefm> #info Agenda
+13:01:23 <alinefm> #info 1) Status
+13:01:23 <alinefm> #info 2) Open discussion
+13:01:23 <alinefm> anything else?
+13:01:54 <danielhb> no
+13:02:55 <alinefm> so let's get started
+13:03:12 <alinefm> #topic Status
+13:03:13 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+13:03:18 <alinefm> #info alinefm is working on bug fixes
+13:03:27 <alinefm> #info alinefm created next branch for wok and kimchi
+13:04:29 <lcorreia> #info [wok] lcorreia lucio is working on backend and UI for Asynchronous Notifications feature
+13:04:30 <lcorreia> #info [wok] will work on adding translation to User Request Log messages
+13:04:30 <lcorreia> #info [gingerbase] lcorreia fixed Gingerbase issue #48 - Do not accept empty name on debug report update
+13:04:30 <lcorreia> #info [kimchi] lcorreia will use Asynchronous Notifications to handle libvirt event ENOSPC
+13:04:30 <lcorreia> #info [kimchi] lcorreia will work on Kimchi issue #812
+13:05:29 <lbianc> #info [kimchi] peterpennings estimating new tasks, currently on "VEPA".
+13:05:29 <danielhb> #info [Ginger*] danielhb reviewed and applied patches.
+13:05:31 <danielhb> #info [Ginger] danielhb sent 2 patch sets that were applied to the 'next' branch. They are related to a new way of supporting SR-IOV.
+13:05:32 <lbianc> #info [kimchi] samhenri working on bug fix: "Save button is having wrong behavior when edit a running Guest", "PCI filter does not seem to work" and "Frontend doesn't update the PCI tab after a PCI attachment"
+13:05:55 <danielhb> #info [Ginger] danielhb will send a RFC for a new backend to support management of system services
+13:06:41 <ziviani> #info [kimchi] ziviani is applying changes from last code review for web seria console
+13:08:13 <pvital> #info [Gingerbase] pvital is working in a V4 patch-set related to backend part of issue #9 - Update selected packages
+13:08:13 <pvital> #info [kimchi] pvital is working on a solution to issue #817 - Add Events support to PCI attach/deattach
+13:08:13 <pvital> #info [kimchi] pvital created the issue #862 and it's working on it - Incomplete (wrong) information displayed for existing template when adding new Guest
+13:08:13 <pvital> #info [Wok] [Kimchi] [Ginger*] pvital reviewed patches
+13:10:16 <alinefm> anything else?
+13:11:15 <pvital> not from me
+13:12:02 <lbianc> no
+13:12:26 <alinefm> #topic Open Discussion
+13:13:35 <alinefm> This is the last week to have bug fixes accepted upstream for all the 4 projects
+13:13:44 <alinefm> the 2.1 release will be announced next week
+13:13:59 <alinefm> so if you want to have any bug fix included in this release, please do it this week
+13:14:03 <alinefm> any question?
+13:14:45 <lcorreia> ok
+13:17:01 <alinefm> any other topic for today?
+13:19:38 <lcorreia> no
+13:21:56 <pvital> no
+13:23:09 <alinefm> so thanks everyone for joining!
+13:23:12 <alinefm> #endmeeting

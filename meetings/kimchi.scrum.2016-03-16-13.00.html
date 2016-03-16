@@ -1,0 +1,197 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi Meeting</title>
+<style type="text/css">
+/* This is for the .html in the HTML2 writer */
+body {
+    font-family: Helvetica, sans-serif;
+    font-size:14px;
+}
+h1 {
+    text-align: center;
+}
+a {
+    color:navy;
+    text-decoration: none;
+    border-bottom:1px dotted navy;
+}
+a:hover {
+    text-decoration:none;
+    border-bottom: 0;
+    color:#0000B9;
+}
+hr {
+    border: 1px solid #ccc;
+}
+/* The (nick, time) item pairs, and other body text things. */
+.details {
+    font-size: 12px;
+    font-weight:bold;
+}
+/* The 'AGREED:', 'IDEA', etc, prefix to lines. */
+.itemtype {
+    font-style: normal;    /* un-italics it */
+    font-weight: bold;
+}
+/* Example: change single item types.  Capitalized command name.
+/* .TOPIC  {  color:navy;  } */
+/* .AGREED {  color:lime;  } */
+
+</style>
+</head>
+
+<body>
+<h1>#kimchi Meeting</h1>
+<span class="details">
+Meeting started by alinefm at 13:00:14 UTC
+(<a href="kimchi.scrum.2016-03-16-13.00.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Meeting summary</h3>
+<ol>
+<li>
+<ol type="a">
+  <li><span class="INFO">Agenda</span> <span class="details">(<a
+    href='kimchi.scrum.2016-03-16-13.00.log.html#l-6'>alinefm</a>,
+    13:01:23)</span></li>
+  <li><span class="INFO">1) Status</span> <span class="details">(<a
+    href='kimchi.scrum.2016-03-16-13.00.log.html#l-7'>alinefm</a>,
+    13:01:23)</span></li>
+  <li><span class="INFO">2) Open discussion</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-03-16-13.00.log.html#l-8'>alinefm</a>,
+    13:01:23)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Status</b> <span class="details">(<a href='kimchi.scrum.2016-03-16-13.00.log.html#l-12'>alinefm</a>, 13:03:12)</span>
+<ol type="a">
+  <li><span class="INFO">Please provide your status using the #info
+    command: #info [&lt;project] &lt;nickname&gt; &lt;status&gt;</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2016-03-16-13.00.log.html#l-13'>alinefm</a>,
+    13:03:13)</span></li>
+  <li><span class="INFO">alinefm is working on bug fixes</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-03-16-13.00.log.html#l-14'>alinefm</a>,
+    13:03:18)</span></li>
+  <li><span class="INFO">alinefm created next branch for wok and
+    kimchi</span> <span class="details">(<a
+    href='kimchi.scrum.2016-03-16-13.00.log.html#l-15'>alinefm</a>,
+    13:03:27)</span></li>
+  <li><span class="INFO">[wok] lcorreia lucio is working on backend and
+    UI for Asynchronous Notifications feature</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-03-16-13.00.log.html#l-16'>lcorreia</a>,
+    13:04:29)</span></li>
+  <li><span class="INFO">[wok] will work on adding translation to User
+    Request Log messages</span> <span class="details">(<a
+    href='kimchi.scrum.2016-03-16-13.00.log.html#l-17'>lcorreia</a>,
+    13:04:30)</span></li>
+  <li><span class="INFO">[gingerbase] lcorreia fixed Gingerbase issue
+    #48 - Do not accept empty name on debug report update</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-03-16-13.00.log.html#l-18'>lcorreia</a>,
+    13:04:30)</span></li>
+  <li><span class="INFO">[kimchi] lcorreia will use Asynchronous
+    Notifications to handle libvirt event ENOSPC</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-03-16-13.00.log.html#l-19'>lcorreia</a>,
+    13:04:30)</span></li>
+  <li><span class="INFO">[kimchi] lcorreia will work on Kimchi issue
+    #812</span> <span class="details">(<a
+    href='kimchi.scrum.2016-03-16-13.00.log.html#l-20'>lcorreia</a>,
+    13:04:30)</span></li>
+  <li><span class="INFO">[kimchi] peterpennings estimating new tasks,
+    currently on "VEPA".</span> <span class="details">(<a
+    href='kimchi.scrum.2016-03-16-13.00.log.html#l-21'>lbianc</a>,
+    13:05:29)</span></li>
+  <li><span class="INFO">[Ginger*] danielhb reviewed and applied
+    patches.</span> <span class="details">(<a
+    href='kimchi.scrum.2016-03-16-13.00.log.html#l-22'>danielhb</a>,
+    13:05:29)</span></li>
+  <li><span class="INFO">[Ginger] danielhb sent 2 patch sets that were
+    applied to the 'next' branch. They are related to a new way of
+    supporting SR-IOV.</span> <span class="details">(<a
+    href='kimchi.scrum.2016-03-16-13.00.log.html#l-23'>danielhb</a>,
+    13:05:31)</span></li>
+  <li><span class="INFO">[kimchi] samhenri working on bug fix: "Save
+    button is having wrong behavior when edit a running Guest", "PCI
+    filter does not seem to work" and "Frontend doesn't update the PCI
+    tab after a PCI attachment"</span> <span class="details">(<a
+    href='kimchi.scrum.2016-03-16-13.00.log.html#l-24'>lbianc</a>,
+    13:05:32)</span></li>
+  <li><span class="INFO">[Ginger] danielhb will send a RFC for a new
+    backend to support management of system services</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-03-16-13.00.log.html#l-25'>danielhb</a>,
+    13:05:55)</span></li>
+  <li><span class="INFO">[kimchi] ziviani is applying changes from last
+    code review for web seria console</span> <span class="details">(<a
+    href='kimchi.scrum.2016-03-16-13.00.log.html#l-26'>ziviani</a>,
+    13:06:41)</span></li>
+  <li><span class="INFO">[Gingerbase] pvital is working in a V4
+    patch-set related to backend part of issue #9 - Update selected
+    packages</span> <span class="details">(<a
+    href='kimchi.scrum.2016-03-16-13.00.log.html#l-27'>pvital</a>,
+    13:08:13)</span></li>
+  <li><span class="INFO">[kimchi] pvital is working on a solution to
+    issue #817 - Add Events support to PCI attach/deattach</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-03-16-13.00.log.html#l-28'>pvital</a>,
+    13:08:13)</span></li>
+  <li><span class="INFO">[kimchi] pvital created the issue #862 and it's
+    working on it - Incomplete (wrong) information displayed for
+    existing template when adding new Guest</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-03-16-13.00.log.html#l-29'>pvital</a>,
+    13:08:13)</span></li>
+  <li><span class="INFO">[Wok] [Kimchi] [Ginger*] pvital reviewed
+    patches</span> <span class="details">(<a
+    href='kimchi.scrum.2016-03-16-13.00.log.html#l-30'>pvital</a>,
+    13:08:13)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Open Discussion</b> <span class="details">(<a href='kimchi.scrum.2016-03-16-13.00.log.html#l-34'>alinefm</a>, 13:12:26)</span>
+</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">
+Meeting ended at 13:23:12 UTC
+(<a href="kimchi.scrum.2016-03-16-13.00.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Action items</h3>
+<ol>
+  <li>(none)</li>
+</ol>
+<br><br>
+
+
+
+<h3>People present (lines said)</h3>
+<ol>
+  <li>alinefm (20)</li>
+  <li>lcorreia (7)</li>
+  <li>pvital (6)</li>
+  <li>danielhb (4)</li>
+  <li>lbianc (3)</li>
+  <li>kimchi-bot (3)</li>
+  <li>ziviani (1)</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">Generated by <a href="http://wiki.debian.org/MeetBot">MeetBot</a> 0.1.4.</span>
+</body></html>
