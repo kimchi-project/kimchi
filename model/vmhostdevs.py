@@ -290,7 +290,8 @@ class VMHostDevsModel(object):
             new_xml = self._add_win_memory_size(dom, size)
 
         # update the XML
-        self.conn.get().defineXML(new_xml)
+        if new_xml is not None:
+            self.conn.get().defineXML(new_xml)
 
     def _update_win_memory_size(self, dom, counter, wnd_size):
         root = objectify.fromstring(dom.XMLDesc(0))
@@ -304,12 +305,11 @@ class VMHostDevsModel(object):
                 if not arg.values()[0].startswith(CMDLINE_FIELD_NAME):
                     continue
 
-                # update mem_win_size value
                 if counter > 1:
                     arg.set('value', CMDLINE_FIELD_NAME + '=' + wnd_size)
 
-                # remove mem_win_size
-                elif counter <= 1:
+                else:
+                    line.remove(arg.getprevious())
                     line.remove(arg)
 
                 return etree.tostring(root, encoding='utf-8',
@@ -330,25 +330,12 @@ class VMHostDevsModel(object):
             root.append(etree.fromstring(get_qemucmdline_xml(args)))
             return etree.tostring(root, encoding='utf-8', pretty_print=True)
 
-        # <qemu:commandline> exists and already has the tag
-        # <qemu:arg value='-global'> (user could already been using this for
-        # something else), so we just add our <qemu:arg...> missing.
-        found = False
-        for arg in cmdline.iterchildren():
-            if arg.values()[0] == '-global':
-                EM = ElementMaker(namespace=QEMU_NAMESPACE,
-                                  nsmap={'qemu': QEMU_NAMESPACE})
-                cmdline.append(EM.arg(value=val))
-                found = True
-                break
-
         # <qemu:commandline> exists but there is no <qemu:arg value global>
         # so, we add those missing arguments inside the exising cmdline
-        if not found:
-            EM = ElementMaker(namespace=QEMU_NAMESPACE,
-                              nsmap={'qemu': QEMU_NAMESPACE})
-            cmdline.append(EM.arg(value='-global'))
-            cmdline.append(EM.arg(value=val))
+        EM = ElementMaker(namespace=QEMU_NAMESPACE,
+                          nsmap={'qemu': QEMU_NAMESPACE})
+        cmdline.append(EM.arg(value='-global'))
+        cmdline.append(EM.arg(value=val))
 
         return etree.tostring(root, encoding='utf-8', pretty_print=True)
 
@@ -443,7 +430,8 @@ class VMHostDevModel(object):
                 if e.attrib['type'] == 'pci':
                     self._delete_affected_pci_devices(dom, dev_name, pci_devs)
                 if is_3D_device:
-                    self.update_mmio_guest(vmid, False)
+                    devsmodel = VMHostDevsModel(conn=self.conn)
+                    devsmodel.update_mmio_guest(vmid, False)
                 break
         else:
             raise NotFoundError('KCHVMHDEV0001E',
