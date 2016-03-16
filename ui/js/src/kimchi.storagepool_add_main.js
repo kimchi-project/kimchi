@@ -187,7 +187,6 @@ kimchi.initStorageAddPage = function() {
         }
     });
 
-    //$('#poolTypeId').selectMenu();
     $('#serverComboboxId').combobox();
     $('#targetFilterSelectId').filterselect();
     var options = [ {
@@ -223,8 +222,11 @@ kimchi.initStorageAddPage = function() {
                     value : value.host
                 });
             });
+            $('#serverComboboxId').combobox("setData", serverContent);
+        }else {
+            $('#serverComboboxId').combobox("destroy");
         }
-        $('#serverComboboxId').combobox("setData", serverContent);
+
         $('input[name=nfsServerType]').change(function() {
             if ($(this).val() === 'input') {
                 $('#nfsServerInputDiv').removeClass('tmpl-html');
@@ -254,8 +256,10 @@ kimchi.initStorageAddPage = function() {
                             value : value.target
                         });
                     });
+                    $('#targetFilterSelectId').filterselect("setData", targetContent);
+                }else {
+                    $('#targetFilterSelectId').filterselect('destroy');
                 }
-                $('#targetFilterSelectId').filterselect("setData", targetContent);
             });
         });
     });
