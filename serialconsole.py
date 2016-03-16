@@ -27,9 +27,8 @@ import time
 
 from multiprocessing import Process
 
-
-from wok.utils import wok_log
 from wok.plugins.kimchi import model
+from wok.utils import wok_log
 
 
 SOCKET_QUEUE_BACKLOG = 0
@@ -70,8 +69,6 @@ class SocketServer(Process):
         self._uri = URI
         self._server_addr = os.path.join(BASE_DIRECTORY, guest_name)
         if os.path.exists(self._server_addr):
-            wok_log.error('Cannot connect to %s due to an existing '
-                          'connection', guest_name)
             raise RuntimeError('There is an existing connection to %s' %
                                guest_name)
 
@@ -82,7 +79,8 @@ class SocketServer(Process):
                                 1)
         self._socket.bind(self._server_addr)
         self._socket.listen(SOCKET_QUEUE_BACKLOG)
-        wok_log.info('socket server to guest %s created', guest_name)
+        wok_log.info('[%s] socket server to guest %s created', self.name,
+                     guest_name)
 
     def run(self):
         """Implements customized run method from Process.
@@ -98,7 +96,8 @@ class SocketServer(Process):
             data = stream.recv(1024)
 
         except Exception as e:
-            wok_log.info('Error when reading from console: %s', e.message)
+            wok_log.info('[%s] Error when reading from console: %s',
+                         self.name, e.message)
             return
 
         # return if no data received or client socket(opaque) is not valid
@@ -125,11 +124,11 @@ class SocketServer(Process):
         """
         libvirt.virEventRegisterDefaultImpl()
         try:
-            guest = LibvirtGuest(self._guest_name, self._uri)
+            guest = LibvirtGuest(self._guest_name, self._uri, self.name)
 
         except Exception as e:
-            wok_log.error('Cannot open the guest %s due to %s',
-                          self._guest_name, e.message)
+            wok_log.error('[%s] Cannot open the guest %s due to %s',
+                          self.name, self._guest_name, e.message)
             self._socket.close()
             sys.exit(1)
 
@@ -147,8 +146,8 @@ class SocketServer(Process):
             pass
 
         finally:
-            wok_log.info("Shutting down the socket server to %s console",
-                         self._guest_name)
+            wok_log.info("[%s] Shutting down the socket server to %s console",
+                         self.name, self._guest_name)
             self._socket.close()
             if os.path.exists(self._server_addr):
                 os.unlink(self._server_addr)
@@ -157,7 +156,8 @@ class SocketServer(Process):
                 console.eventRemoveCallback()
 
             except Exception as e:
-                wok_log.info('Callback is probably removed: %s', e.message)
+                wok_log.info('[%s] Callback is probably removed: %s',
+                             self.name, e.message)
 
             guest.close()
 
@@ -171,8 +171,7 @@ class SocketServer(Process):
         """
         client, client_addr = self._socket.accept()
         client.settimeout(DEFAULT_TIMEOUT)
-        wok_log.info('Client %s connected to %s',
-                     str(client_addr),
+        wok_log.info('[%s] Client connected to %s', self.name,
                      self._guest_name)
 
         # register the callback to receive any data from the console
@@ -191,9 +190,8 @@ class SocketServer(Process):
                 data = client.recv(1024)
 
             except Exception as e:
-                wok_log.info('Client %s disconnected from %s: %s',
-                             str(client_addr),
-                             self._guest_name,
+                wok_log.info('[%s] Client %s disconnected from %s: %s',
+                             self.name, str(client_addr), self._guest_name,
                              e.message)
                 break
 
@@ -206,8 +204,8 @@ class SocketServer(Process):
                 console.send(data)
 
             except:
-                wok_log.info('Console of %s is not accessible',
-                             self._guest_name)
+                wok_log.info('[%s] Console of %s is not accessible',
+                             self.name, self._guest_name)
                 break
 
         # clear used resources when the connection is closed and, if possible,
@@ -222,25 +220,24 @@ class SocketServer(Process):
 
 class LibvirtGuest(object):
 
-    def __init__(self, guest_name, uri):
+    def __init__(self, guest_name, uri, process_name):
         """
         Constructs a guest object that opens a connection to libvirt and
         searchs for a particular guest, provided by the caller.
         """
+        self._proc_name = process_name
         try:
             libvirt = model.libvirtconnection.LibvirtConnection(uri)
             self._guest = model.vms.VMModel.get_vm(guest_name, libvirt)
 
         except Exception as e:
-            wok_log.error('Cannot open guest %s: %s', guest_name, e.message)
+            wok_log.error('[%s] Cannot open guest %s: %s', self._proc_name,
+                          guest_name, e.message)
             raise
 
         self._libvirt = libvirt.get()
         self._name = guest_name
         self._stream = None
-
-    def get_name(self):
-        return self._name
 
     def is_running(self):
         """
@@ -258,8 +255,8 @@ class LibvirtGuest(object):
         # guest must be in a running state to get its console
         counter = 10
         while not self.is_running():
-            wok_log.info('Guest %s is not running, waiting for it',
-                         self._name)
+            wok_log.info('[%s] Guest %s is not running, waiting for it',
+                         self._proc_name, self._name)
 
             counter -= 1
             if counter <= 0:
@@ -269,8 +266,8 @@ class LibvirtGuest(object):
 
         # attach a stream in the guest console so we can read from/write to it
         if self._stream is None:
-            wok_log.info('Opening the console for guest %s',
-                         self._name)
+            wok_log.info('[%s] Opening the console for guest %s',
+                         self._proc_name, self._name)
             self._stream = self._libvirt.newStream(libvirt.VIR_STREAM_NONBLOCK)
             self._guest.openConsole(None,
                                     self._stream,
@@ -295,8 +292,7 @@ def main(guest_name, URI):
         server = SocketServer(guest_name, URI='qemu:///system')
 
     except Exception as e:
-        wok_log.error('Cannot create the socket server for %s due to %s',
-                      guest_name, e.message)
+        wok_log.error('Cannot create the socket server: %s', e.message)
         raise
 
     server.start()
