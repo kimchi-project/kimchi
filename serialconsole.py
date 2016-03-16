@@ -35,6 +35,7 @@ from wok.plugins.kimchi import model
 SOCKET_QUEUE_BACKLOG = 0
 DEFAULT_TIMEOUT = 120  # seconds
 CTRL_Q = '\x11'
+BASE_DIRECTORY = '/run'
 
 
 class SocketServer(Process):
@@ -61,13 +62,13 @@ class SocketServer(Process):
     def __init__(self, guest_name, URI):
         """Constructs a unix socket server.
 
-        Listens to connections on /tmp/<guest name>.
+        Listens to connections on /run/<guest name>.
         """
         Process.__init__(self)
 
         self._guest_name = guest_name
         self._uri = URI
-        self._server_addr = '/tmp/%s' % guest_name
+        self._server_addr = os.path.join(BASE_DIRECTORY, guest_name)
         if os.path.exists(self._server_addr):
             wok_log.error('Cannot connect to %s due to an existing '
                           'connection', guest_name)

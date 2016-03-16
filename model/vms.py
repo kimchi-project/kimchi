@@ -1467,8 +1467,17 @@ class VMModel(object):
         if not self._vm_check_serial(name):
             raise OperationFailed("KCHVM0076E", {'name': name})
 
+        if not os.path.isdir(serialconsole.BASE_DIRECTORY):
+            try:
+                os.mkdir(serialconsole.BASE_DIRECTORY)
+
+            except OSError as e:
+                raise OperationFailed("KCHVM0081E",
+                                      {'dir': serialconsole.BASE_DIRECTORY})
+
         websocket.add_proxy_token(name.encode('utf-8')+'-console',
-                                  '/tmp/%s' % name.encode('utf-8'), True)
+                                  os.path.join(serialconsole.BASE_DIRECTORY,
+                                               name.encode('utf-8')), True)
 
         try:
             self._serial_procs.append(
