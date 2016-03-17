@@ -221,9 +221,11 @@ kimchi.template_edit_main = function() {
                 });
                 var networkOptions = '';
                 for(var i=0;i<result.length;i++){
-                    if(result[i].state === "active") {
-                        var isSlected = networkName===result[i].name ? ' selected' : '';
-                        networkOptions += '<option' + isSlected + '>' + result[i].name + '</option>';
+                    if(networkName===result[i].name) {
+                        networkOptions += '<option selected="selected">' + result[i].name + '</option>';
+                    }
+                    if(result[i].state === "active" && networkName!==result[i].name) {
+                        networkOptions += '<option>' + result[i].name + '</option>';
                     }
                 }
                 $('select', '#form-template-interface #networkID' + networkItemNum).append(networkOptions);

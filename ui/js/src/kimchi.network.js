@@ -123,7 +123,7 @@ kimchi.addNetworkActions = function(network) {
     $('#' + wok.escapeStr(network.name)).on('click', '.dropdown-menu li', function(evt) {
         var menu = $(evt.currentTarget).parent();
         if ($(evt.currentTarget).attr("nwAct") === "start") {
-            $(".network-state", $("#" + wok.escapeStr(network.name))).switchClass("down", "nw-loading");
+            $(".network-state", $("#" + wok.escapeStr(network.name))).switchClass("down", "loading");
             $("[nwAct='start']", menu).addClass("disabled");
             $("[nwAct='delete']", menu).addClass("disabled");
             $(":first-child", $("[nwAct='delete']", menu)).attr("disabled", true);
@@ -135,9 +135,9 @@ kimchi.addNetworkActions = function(network) {
                 if (network.in_use) {
                     $("[nwAct='stop']", menu).addClass("disabled");
                 }
-                $(".network-state", $("#" + wok.escapeStr(network.name))).switchClass("nw-loading", "up");
+                $(".network-state", $("#" + wok.escapeStr(network.name))).switchClass("loading", "up");
             }, function(err) {
-                $(".network-state", $("#" + wok.escapeStr(network.name))).switchClass("nw-loading","down");
+                $(".network-state", $("#" + wok.escapeStr(network.name))).switchClass("loading","down");
                 $("[nwAct='start']", menu).removeClass("disabled");
                 if (!network.in_use) {
                     $("[nwAct='delete']", menu).removeClass("disabled");
