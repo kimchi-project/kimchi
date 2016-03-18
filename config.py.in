@@ -42,7 +42,7 @@ def get_kimchi_version():
 
 
 def get_distros_store():
-    return os.path.join(PluginPaths('kimchi').conf_dir, 'distros.d')
+    return os.path.join(kimchiPaths.sysconf_dir, 'distros.d')
 
 
 def get_debugreports_path():
@@ -115,8 +115,11 @@ class KimchiPaths(PluginPaths):
 
         if self.installed:
             self.spice_css_file = os.path.join(self.spice_dir, 'spice.css')
+            # Expose system configuration directory
+            self.sysconf_dir = os.path.join('@sysconfdir@', 'kimchi')
         else:
             self.spice_css_file = os.path.join(self.spice_dir, 'css/spice.css')
+            self.sysconf_dir = self.add_prefix(self.plugin_dir)
 
         self.serial_dir = os.path.join(self.ui_dir, 'serial')
 
