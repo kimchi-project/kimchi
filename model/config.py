@@ -134,6 +134,10 @@ class DistrosModel(object):
                 return distro['name']
 
         n_processes = len(self.distros.keys())
+        # Avoid problems if the for some reason the files are not in the right
+        # place, or were deleted, or moved or not supported in the arch
+        if n_processes < 1:
+            return []
         pool = ThreadPool(processes=n_processes)
         map_res = pool.map_async(validate_distro, self.distros.values())
         pool.close()
