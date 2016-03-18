@@ -26,6 +26,7 @@ from configobj import ConfigObj
 from distutils.version import LooseVersion
 
 from wok.config import PluginPaths
+from wok.plugins.kimchi.config import kimchiPaths
 
 
 SUPPORTED_ARCHS = {'x86': ('i386', 'i686', 'x86_64'),
@@ -136,7 +137,7 @@ def _get_tmpl_defaults():
     default_config = ConfigObj(tmpl_defaults)
 
     # Load template configuration file
-    config_file = os.path.join(PluginPaths('kimchi').conf_dir, 'template.conf')
+    config_file = os.path.join(kimchiPaths.sysconf_dir, 'template.conf')
     config = ConfigObj(config_file)
 
     # Merge default configuration with file configuration

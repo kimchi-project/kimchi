@@ -22,13 +22,12 @@ import lxml.etree as ET
 import sys
 from lxml.builder import E
 
-from wok.config import PluginPaths
 from wok.exception import InvalidOperation, MissingParameter
 from wok.exception import NotFoundError, OperationFailed
 from wok.utils import add_task, run_command, wok_log
 from wok.xmlutils.utils import xpath_get_text
 
-from wok.plugins.kimchi.config import config, get_kimchi_version
+from wok.plugins.kimchi.config import config, get_kimchi_version, kimchiPaths
 from wok.plugins.kimchi.model.config import CapabilitiesModel
 from wok.plugins.kimchi.model.host import DeviceModel
 from wok.plugins.kimchi.model.libvirtstoragepool import StoragePoolDef
@@ -83,7 +82,7 @@ class StoragePoolsModel(object):
 
         error_msg = ("Please, check the configuration in %s/template.conf to "
                      "ensure it has a valid storage pool." %
-                     PluginPaths('kimchi').conf_dir)
+                     kimchiPaths.sysconf_dir)
 
         conn = self.conn.get()
         for pool_name in pools:

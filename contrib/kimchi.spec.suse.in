@@ -68,7 +68,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_prefix}/share/locale/*/LC_MESSAGES/kimchi.mo
 %{_datadir}/wok/plugins/kimchi/
 %{_sysconfdir}/wok/plugins.d/kimchi.conf
-%{_sysconfdir}/wok/plugins.d/template.conf
 %{_sysconfdir}/kimchi/
 %{_var}/lib/kimchi/
 %{_sysconfdir}/systemd/system/wokd.service.d/kimchi.conf
