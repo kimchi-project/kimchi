@@ -24,7 +24,6 @@ import time
 from libvirt import VIR_INTERFACE_XML_INACTIVE
 from xml.sax.saxutils import escape
 
-from wok.config import PluginPaths
 from wok.exception import InvalidOperation, InvalidParameter
 from wok.exception import MissingParameter, NotFoundError, OperationFailed
 from wok.utils import run_command, wok_log
@@ -32,6 +31,7 @@ from wok.xmlutils.utils import xpath_get_text
 
 from wok.plugins.kimchi import netinfo
 from wok.plugins.kimchi import network as knetwork
+from wok.plugins.kimchi.config import kimchiPaths
 from wok.plugins.kimchi.model.config import CapabilitiesModel
 from wok.plugins.kimchi.osinfo import defaults as tmpl_defaults
 from wok.plugins.kimchi.xmlutils.interface import get_iface_xml
@@ -58,7 +58,7 @@ class NetworksModel(object):
 
         error_msg = ("Please, check the configuration in %s/template.conf to "
                      "ensure it lists only valid networks." %
-                     PluginPaths('kimchi').conf_dir)
+                     kimchiPaths.sysconf_dir)
 
         for net_name in networks:
             try:

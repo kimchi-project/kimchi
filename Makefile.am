@@ -32,8 +32,11 @@ endif
 wokdir = $(pythondir)/wok
 kimchidir = $(pythondir)/wok/plugins/kimchi
 
-confdir = $(sysconfdir)/wok/plugins.d
-dist_conf_DATA = kimchi.conf template.conf
+wokconfdir = $(sysconfdir)/wok/plugins.d
+dist_wokconf_DATA = kimchi.conf
+
+confdir = $(sysconfdir)/kimchi
+dist_conf_DATA = template.conf
 
 AUTOMAKE_OPTIONS = foreign
 

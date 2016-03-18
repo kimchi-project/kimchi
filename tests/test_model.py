@@ -651,9 +651,9 @@ class ModelTests(unittest.TestCase):
                              "format = %s\n\n[graphics]\n\n[processor]\n"\
                              % vol_format
 
-        config_file = os.path.join(paths.conf_dir, 'template.conf')
+        config_file = os.path.join(paths.sysconf_dir, 'template.conf')
         config_bkp_file = \
-            os.path.join(paths.conf_dir, 'template.conf-unit_test_bkp')
+            os.path.join(paths.sysconf_dir, 'template.conf-unit_test_bkp')
 
         os.rename(config_file, config_bkp_file)
 
@@ -663,9 +663,9 @@ class ModelTests(unittest.TestCase):
         osinfo.defaults = osinfo._get_tmpl_defaults()
 
     def _restore_template_conf_file(self):
-        config_file = os.path.join(paths.conf_dir, 'template.conf')
+        config_file = os.path.join(paths.sysconf_dir, 'template.conf')
         config_bkp_file = \
-            os.path.join(paths.conf_dir, 'template.conf-unit_test_bkp')
+            os.path.join(paths.sysconf_dir, 'template.conf-unit_test_bkp')
         os.rename(config_bkp_file, config_file)
         osinfo.defaults = osinfo._get_tmpl_defaults()
 
