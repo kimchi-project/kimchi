@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 17:26-0200\n"
+"POT-Creation-Date: 2016-03-21 14:07-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -25,19 +25,6 @@ msgstr "Parámetro %(value)s desconocido"
 msgid "User %(user_id)s not found with given LDAP settings."
 msgstr ""
 "No se ha encontrado el usuario %(user_id)s con los valores LDAP indicados."
-
-#, python-format
-msgid "Error while getting block devices. Details: %(err)s"
-msgstr "Error al obtener dispositivos de bloque. Detalles: %(err)s"
-
-#, python-format
-msgid "Error while getting block device information for %(device)s."
-msgstr ""
-"Error al obtener información de dispositivos de bloque para %(device)s."
-
-#, python-format
-msgid "Unable to retrieve LVM information. Details: %(err)s"
-msgstr ""
 
 #, python-format
 msgid "Partition %(name)s does not exist in the host"
@@ -305,12 +292,10 @@ msgstr ""
 
 #, python-format
 msgid ""
-"VM '%(name)s' does not support live memory update. Update the memory with "
-"the machine offline to enable this feature."
+"Guest '%(name)s' does not support live memory update. Please, with the guest "
+"offline, set Maximum Memory with a value greater then Memory to enable this "
+"feature."
 msgstr ""
-"La máquina virtual '%(name)s' no admite la actualización de memoria activa. "
-"Actualice la memoria con la máquina fuera de línea para habilitar esta "
-"característica. "
 
 msgid "Only increase memory is allowed in active VMs"
 msgstr ""
@@ -427,7 +412,7 @@ msgid "Error creating local host ssh rsa key of user 'root'."
 msgstr ""
 
 #, python-format
-msgid "Memory value %(mem)s must be aligned to %(alignment)sMiB."
+msgid "%(param)s value (%(mem)sMiB) must be aligned to %(alignment)sMiB."
 msgstr ""
 
 #, python-format
@@ -442,8 +427,36 @@ msgstr ""
 
 #, python-format
 msgid ""
-"Cannot change VCPU value because '%(vm)s' has a topology defined - sockets: "
-"%(sockets)s, cores: %(cores)s, threads: %(threads)s."
+"VM %(name)s must have serial and console defined to open a web serial console"
+msgstr ""
+
+#, python-format
+msgid "Impossible to get the serial console of %(name)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Memory or Maximum Memory value is higher than amount supported by the host: "
+"%(memHost)sMiB."
+msgstr ""
+
+#, python-format
+msgid ""
+"Memory or Maximum Memory value is higher than maximum amount recommended: "
+"%(value)sTiB"
+msgstr ""
+
+msgid "Cannot update Maximum Memory when guest is running."
+msgstr ""
+
+#, python-format
+msgid "Impossible to create %(dir)s directory."
+msgstr ""
+
+#, python-format
+msgid ""
+"Either the guest %(name)s did not start to listen to the serial or it is not "
+"configured to use the serial console."
 msgstr ""
 
 #, python-format
@@ -462,15 +475,10 @@ msgstr ""
 msgid ""
 "No IOMMU groups found. Host PCI pass through needs IOMMU group to function "
 "correctly. Please enable Intel VT-d or AMD IOMMU in your BIOS, then verify "
-"the Kernel is compiled with IOMMU support. For Intel CPU, add intel_iommu=on "
-"to your Kernel parameter in /boot/grub2/grub.conf. For AMD CPU, add iommu=pt "
-"iommu=1."
+"the Kernel is compiled with IOMMU support. For Intel CPU, add "
+"'intel_iommu=on' to GRUB_CMDLINE_LINUX parameter in /etc/default/grub file. "
+"For AMD CPU, add 'iommu=pt iommu=1'."
 msgstr ""
-"No se han encontrado grupos IOMMU. El paso a través de PCI de host necesita "
-"el grupo IOMMU para funcionar correctamente. Habilite Intel VT-d o AMD IOMMU "
-"en el BIOS y, a continuación, verifique que el Kernel se ha compilado con "
-"soporte IOMMU. Para Intel CPU, añada intel_iommu=on al parámetro de Kernel "
-"en /boot/grub2/grub.conf. Para AMD CPU, añada iommu=pt iommu=1."
 
 msgid "\"name\" should be a device name string"
 msgstr "\"name\" debe ser una serie de nombre de dispositivo"
@@ -482,6 +490,10 @@ msgid ""
 msgstr ""
 "El dispositivo %(name)s lo está utilizando probablemente el host. No se "
 "puede conectar al invitado. "
+
+#, python-format
+msgid "Hot-(un)plug of device %(name)s is not supported."
+msgstr ""
 
 #, python-format
 msgid "Interface %(iface)s does not exist in virtual machine %(name)s"
@@ -572,8 +584,9 @@ msgstr "La versión de distribución de plantilla debe ser una serie"
 msgid "The number of CPUs must be an integer greater than 0"
 msgstr "El número de CPU debe ser un entero mayor que 0"
 
-msgid "Amount of memory (MB) must be an integer greater than 512"
-msgstr "La cantidad de memoria (MB) debe ser un entero mayor que 512"
+msgid ""
+"Amount of memory and maximum memory (MB) must be an integer greater than 512"
+msgstr ""
 
 msgid "Template CDROM must be a local or remote ISO file"
 msgstr "El CDROM de plantilla debe ser un archivo ISO local o remoto"
@@ -623,13 +636,6 @@ msgid "Cannot identify base image %(path)s format"
 msgstr "No se puede identificar el formato de la imagen base %(path)s"
 
 msgid ""
-"When specifying CPU topology, VCPUs must be a product of sockets, cores, and "
-"threads."
-msgstr ""
-"Cuando se especifique la topología de CPU, las VCPU deben ser un producto de "
-"sockets, núcleos y hebras. "
-
-msgid ""
 "When specifying CPU topology, each element must be an integer greater than "
 "zero."
 msgstr ""
@@ -649,6 +655,17 @@ msgid ""
 msgstr ""
 
 msgid "Disk format must be 'raw', for logical, iscsi, and scsi pools."
+msgstr ""
+
+msgid ""
+"Memory expects an object with one or both parameters: 'current' and "
+"'maxmemory'"
+msgstr ""
+
+#, python-format
+msgid ""
+"Memory value (%(mem)sMiB) must be equal or lesser than maximum memory value "
+"(%(maxmem)sMiB)"
 msgstr ""
 
 #, python-format
@@ -677,14 +694,6 @@ msgstr ""
 msgid "Unable to create storage pool %(name)s. Details: %(err)s"
 msgstr ""
 "No se puede crear la agrupación de almacenamiento %(name)s. Detalles: %(err)s"
-
-#, python-format
-msgid ""
-"Unable to get number of storage volumes in storage pool %(name)s. Details: "
-"%(err)s"
-msgstr ""
-"No se puede obtener el número de volúmenes de almacenamiento en la "
-"agrupación de almacenamiento %(name)s. Detalles: %(err)s"
 
 #, python-format
 msgid "Unable to activate storage pool %(name)s. Details: %(err)s"
@@ -885,13 +894,6 @@ msgstr ""
 "almacenamiento %(pool)s. Detalles: %(err)s"
 
 #, python-format
-msgid ""
-"Unable to list storage volumes in storage pool %(pool)s. Details: %(err)s"
-msgstr ""
-"No se pueden listar los volúmenes de almacenamiento en la agrupación de "
-"almacenamiento %(pool)s. Detalles: %(err)s"
-
-#, python-format
 msgid "Unable to wipe storage volumes %(name)s. Details: %(err)s"
 msgstr ""
 "No se pueden limpiar los volúmenes de almacenamiento %(name)s. Detalles: "
@@ -1007,13 +1009,11 @@ msgid "Network %(name)s does not exist"
 msgstr "No existe la red %(name)s"
 
 #, python-format
-msgid "Subnet %(subnet)s specified for network %(network)s  is not valid."
+msgid "Subnet %(subnet)s specified for network %(network)s is not valid."
 msgstr ""
-"La subred %(subnet)s especificada para la red %(network)s no es válida."
 
-#, python-format
-msgid "Specify a network interface to create bridged network %(name)s"
-msgstr "Especifique una interfaz de red para crear una red puenteada %(name)s"
+msgid "Specify a network interface to create bridged or macvtap networks."
+msgstr ""
 
 #, python-format
 msgid "Unable to delete active network %(name)s"
@@ -1045,7 +1045,7 @@ msgstr ""
 "El nombre de red debe ser una serie sin barras inclinadas (/) ni comillas "
 "(\")"
 
-msgid "Supported network types are isolated, NAT, macvtap and bridge"
+msgid "Supported network types are isolated, NAT, macvtap, bridge and vepa"
 msgstr ""
 
 msgid "Network subnet must be a string with IP address and prefix or netmask"
@@ -1053,8 +1053,8 @@ msgstr ""
 "La subred de red debe ser una serie con dirección IP y prefijo o máscara de "
 "red"
 
-msgid "Network interface must be a string"
-msgstr "La interfaz de red debe ser una serie"
+msgid "Network interfaces must be an array."
+msgstr ""
 
 msgid "Network VLAN ID must be an integer between 1 and 4094"
 msgstr "El ID de VLAN de red debe ser un entero entre 1 y 4094"
@@ -1108,7 +1108,18 @@ msgstr ""
 msgid "Unable to create bridge %(name)s. Details: %(err)s"
 msgstr ""
 
-msgid "Open VSwitch bridges can only host bridged networks."
+msgid ""
+"Unable to create bridge with NetworkManager enabled. Disable it and try "
+"again."
+msgstr ""
+
+msgid "Interface should be bare NIC or bonding."
+msgstr ""
+
+msgid "Network interfaces parameter must contain at least one interface."
+msgstr ""
+
+msgid "Only one interface is allowed for 'bridge' and 'macvtap' networks."
 msgstr ""
 
 #, python-format
@@ -1273,14 +1284,34 @@ msgstr ""
 "No se puede crear la instantánea de la máquina virtual '%(vm)s' porque "
 "contiene un disco con el formato '%(format)s'; sólo se admite 'qcow2'. "
 
-msgid "The number of vCPUs is too large for this system."
-msgstr "El número de vCPUs es demasiado grande para este sistema. "
+msgid ""
+"The number of vCPUs must be less than or equal the maximum number of vCPUs "
+"specified."
+msgstr ""
 
-msgid "Invalid vCPU/topology combination."
-msgstr "Combinación de vCPU/topología no válida."
+msgid ""
+"When CPU topology is defined, maximum number of vCPUs must be a product of "
+"sockets, cores, and threads."
+msgstr ""
 
 msgid "This host (or current configuration) does not allow CPU topology."
 msgstr "Este host (o la configuración actual) no permite la topología de CPU. "
+
+msgid "The maximum number of vCPUs is too large for this system."
+msgstr ""
+
+msgid ""
+"When CPU topology is defined, vCPUs must be a multiple of a product of cores "
+"and threads."
+msgstr ""
+
+msgid "The number of threads is too large for this system."
+msgstr ""
+
+msgid ""
+"When CPU topology is specified, sockets, cores and threads are required "
+"paramaters."
+msgstr ""
 
 #, python-format
 msgid "Invalid volume group name parameter: %(name)s."
@@ -1308,14 +1339,14 @@ msgstr "Crear una plantilla"
 msgid "Please choose a template."
 msgstr "Elija una plantilla."
 
-msgid "OS: "
-msgstr "SO: "
+msgid "OS"
+msgstr "SO"
 
-msgid "Version: "
-msgstr "Versión: "
+msgid "Version"
+msgstr "Versión"
 
-msgid "CPUS"
-msgstr "CPUS"
+msgid "CPUs"
+msgstr "CPUs"
 
 msgid "Memory"
 msgstr "Memoria"
@@ -1335,11 +1366,17 @@ msgstr "Editar invitado"
 msgid "Name"
 msgstr "Nombre"
 
-msgid "CPUs"
-msgstr "CPUs"
+msgid "More"
+msgstr ""
+
+msgid "Max CPU"
+msgstr ""
 
 msgid "Memory (MB)"
 msgstr "Memoria (MB)"
+
+msgid "Max Memory (MB)"
+msgstr ""
 
 msgid "Icon"
 msgstr "Icono"
@@ -1428,37 +1465,22 @@ msgstr "ID de usuario LDAP, p.e. foo@foo.com"
 msgid "Revert"
 msgstr ""
 
-msgid "Add a Storage Device to VM"
-msgstr "Añadir un dispositivo de almacenamiento a VM"
-
-msgid "Device Type"
-msgstr "Tipo de dispositivo"
-
-msgid "The device type. Currently, \"cdrom\" and \"disk\" are supported."
+msgid "Running"
 msgstr ""
 
-msgid "Storage Pool"
-msgstr "Agrupación de almacenamiento"
+msgid "Disconnected"
+msgstr ""
 
-msgid "Storage pool which volume located in"
-msgstr "Agrupación de almacenamiento con volumen ubicado en"
+msgid "Starting"
+msgstr ""
 
-msgid "Storage Volume"
-msgstr "Volumen de almacenamiento"
+msgid "Resetting"
+msgstr ""
 
-msgid "Storage volume to be attached"
-msgstr "Volumen de almacenamiento que se va a adjuntar"
+msgid "View Console"
+msgstr ""
 
-msgid "File Path"
-msgstr "Vía de acceso de archivo"
-
-msgid "The ISO file path in the server for CDROM."
-msgstr "La vía de acceso del archivo ISO en el servidor para el CDROM."
-
-msgid "Attach"
-msgstr "Conectar"
-
-msgid "Connect VNC"
+msgid "View Serial"
 msgstr ""
 
 msgid "View VNC Console"
@@ -1466,6 +1488,9 @@ msgstr ""
 
 msgid "Clone"
 msgstr "Clonar"
+
+msgid "Migrate"
+msgstr ""
 
 msgid "Reset"
 msgstr "Restablecer"
@@ -1488,10 +1513,10 @@ msgstr "Apagar"
 msgid "Delete"
 msgstr "Suprimir"
 
-msgid "View Console"
+msgid "No Data Available"
 msgstr ""
 
-msgid "Processors Used"
+msgid "Processors Utilization"
 msgstr ""
 
 msgid "Memory Available"
@@ -1502,6 +1527,93 @@ msgstr ""
 
 msgid "Network I/O"
 msgstr "E/S de red"
+
+msgid "Migrate a Guest"
+msgstr ""
+
+msgid ""
+"Disclaimer: This process cannot be stopped after started, can take a long "
+"time to complete and will turn off the VM on this Hypervisor when it is "
+"successfully migrated to the remote destination."
+msgstr ""
+
+msgid "Remote Server"
+msgstr ""
+
+msgid "IP Address or Hostname"
+msgstr ""
+
+msgid ""
+"The following fields are optional. Fill them if you want Kimchi to setup a "
+"password-less ssh session between the localhost and the remote host. The "
+"setup process will only be successful if the user has 'SUDO ALL' permission "
+"in the remote machine."
+msgstr ""
+
+msgid "Username of the remote host"
+msgstr ""
+
+msgid "Password"
+msgstr "Contraseña"
+
+msgid "Password of the user in the remote host"
+msgstr ""
+
+msgid "Delete this VM when the migration is completed"
+msgstr ""
+
+msgid "Add a Storage Device to VM"
+msgstr "Añadir un dispositivo de almacenamiento a VM"
+
+msgid "Device Type"
+msgstr "Tipo de dispositivo"
+
+msgid ""
+"The device type. Currently, \"cdrom\" and \"disk\" are supported. If the "
+"guest is running, only \"disk\" is supported."
+msgstr ""
+
+msgid "Create a new disk"
+msgstr ""
+
+msgid "Select an existing disk"
+msgstr ""
+
+msgid "Storage Pool"
+msgstr "Agrupación de almacenamiento"
+
+msgid "Storage pool to create the volume in"
+msgstr ""
+
+msgid "Disk Size (GB)"
+msgstr ""
+
+msgid "New disk size to be created"
+msgstr ""
+
+msgid "Format"
+msgstr ""
+
+msgid "Format of the new disk to be created"
+msgstr ""
+
+msgid "Storage pool in which the volume is located in"
+msgstr ""
+
+msgid "Storage Volume"
+msgstr "Volumen de almacenamiento"
+
+msgid "Storage volume to be attached"
+msgstr "Volumen de almacenamiento que se va a adjuntar"
+
+msgid "File Path"
+msgstr "Vía de acceso de archivo"
+
+msgid "The ISO file path in the server for CDROM."
+msgstr "La vía de acceso del archivo ISO en el servidor para el CDROM."
+
+msgid "Attach"
+msgstr "Conectar"
 
 msgid "Host"
 msgstr "Host"
@@ -1514,9 +1626,6 @@ msgstr "Plantillas"
 
 msgid "Storage"
 msgstr "Almacenamiento"
-
-msgid "Failed to get application configuration"
-msgstr "No se ha podido obtener la configuración de la aplicación"
 
 msgid "This is not a valid Linux path"
 msgstr "No es una vía de acceso de Linux válida"
@@ -1545,6 +1654,12 @@ msgstr "Aviso"
 msgid "Cloning..."
 msgstr "Clonación..."
 
+msgid "Saving..."
+msgstr ""
+
+msgid "Migrating..."
+msgstr ""
+
 msgid "No ISO found"
 msgstr "No se ha encontrado ningún ISO"
 
@@ -1553,6 +1668,12 @@ msgstr "Esta operación puede necesitar mucho tiempo. ¿Desea continuar?"
 
 msgid "This will permanently delete the template. Would you like to continue?"
 msgstr "Así se suprimirá la plantilla de forma permanente. ¿Desea continuar?"
+
+msgid "View Table"
+msgstr ""
+
+msgid "View Gallery"
+msgstr ""
 
 msgid ""
 "This will delete the virtual machine and its virtual disks. This operation "
@@ -1647,8 +1768,8 @@ msgstr "modelo:"
 msgid "Affected devices:"
 msgstr "Dispositivos afectados:"
 
-msgid "The VLAN id must be between 1 and 4094."
-msgstr "El ID de VLAN debe estar entre 1 y 4094."
+msgid "Less"
+msgstr ""
 
 msgid "unavailable"
 msgstr "no disponible"
@@ -1733,6 +1854,9 @@ msgstr "En curso..."
 msgid "Failed!"
 msgstr "Error"
 
+msgid "No LVM found in the system."
+msgstr ""
+
 msgid "CDROM path needs to be a valid local/remote path and cannot be blank."
 msgstr ""
 "La vía de acceso de CDROM ha de ser una vía de acceso local/remota válida y "
@@ -1759,10 +1883,16 @@ msgstr "Aislado: no hay conexión de red externa"
 msgid "NAT: outbound physical network connection only"
 msgstr "NAT: conexión de red física saliente solamente"
 
-msgid "Bridged: Virtual machines are connected to physical network directly"
+msgid "Macvtap: Virtual machines are connected to physical network directly"
 msgstr ""
-"Puenteado: Las máquinas virtuales están conectadas a la red física "
-"directamente"
+
+msgid ""
+"VEPA: special mode where virtual machines are connected to a VEPA-enabled "
+"switch"
+msgstr ""
+
+msgid "Bridged: Virtual machines are connected through a network bridge"
+msgstr ""
 
 msgid "(No interfaces found)"
 msgstr "(No se han encontrado interfaces) "
@@ -1775,21 +1905,6 @@ msgstr "Habilitar VLAN"
 
 msgid "VLAN ID"
 msgstr "ID de VLAN"
-
-msgid "Add a Volume to Storage Pool"
-msgstr "Añadir un volumen a la agrupación de almacenamiento"
-
-msgid "Fetch from remote URL"
-msgstr "Captar de URL remoto"
-
-msgid "Enter the remote URL here."
-msgstr "Escriba el URL remoto aquí. "
-
-msgid "Upload a file"
-msgstr "Cargar un archivo"
-
-msgid "Choose the file you want to upload."
-msgstr "Elija el archivo que desee cargar. "
 
 msgid "Define a New Storage Pool"
 msgstr "Definir una agrupación de almacenamiento nueva"
@@ -1834,8 +1949,14 @@ msgstr "Vía de acceso NFS"
 msgid "The NFS exported path on NFS server."
 msgstr "La vía de acceso exportada de NFS en el servidor NFS."
 
-msgid "Device path"
-msgstr "Vía de acceso del dispositivo"
+msgid "Create from existing LVM"
+msgstr ""
+
+msgid "Create from raw disk"
+msgstr ""
+
+msgid "Looking for existing lvms ..."
+msgstr ""
 
 msgid "Looking for available partitions ..."
 msgstr "Buscando particiones disponibles..."
@@ -1864,14 +1985,26 @@ msgstr "Añadir Autenticación iSCSI"
 msgid "User Name"
 msgstr "Nombre de usuario"
 
-msgid "Password"
-msgstr "Contraseña"
-
 msgid "SCSI Adapter"
 msgstr "Adaptador SCSI"
 
 msgid "Please, wait..."
 msgstr "Por favor, espere..."
+
+msgid "Add a Volume to Storage Pool"
+msgstr "Añadir un volumen a la agrupación de almacenamiento"
+
+msgid "Fetch from remote URL"
+msgstr "Captar de URL remoto"
+
+msgid "Enter the remote URL here."
+msgstr "Escriba el URL remoto aquí. "
+
+msgid "Upload a file"
+msgstr "Cargar un archivo"
+
+msgid "Choose the file you want to upload."
+msgstr "Elija el archivo que desee cargar. "
 
 msgid "Add Template"
 msgstr "Añadir plantilla"
@@ -1896,12 +2029,6 @@ msgstr "Buscar ISOs"
 
 msgid "The following ISOs are available:"
 msgstr "Las siguientes ISO están disponibles:"
-
-msgid "OS"
-msgstr "SO"
-
-msgid "Version"
-msgstr "Versión"
 
 msgid "Size"
 msgstr ""

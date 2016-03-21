@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 17:26-0200\n"
+"POT-Creation-Date: 2016-03-21 14:07-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -24,18 +24,6 @@ msgstr "Unknown parameter %(value)s"
 #, python-format
 msgid "User %(user_id)s not found with given LDAP settings."
 msgstr "지정한 LDAP 설정에서 %(user_id)s 사용자를 찾지 못했습니다."
-
-#, python-format
-msgid "Error while getting block devices. Details: %(err)s"
-msgstr "블록 장치를 가져오는 중에 오류가 발생했습니다. 세부사항: %(err)s"
-
-#, python-format
-msgid "Error while getting block device information for %(device)s."
-msgstr "%(device)s에 대한 블록 장치 정보를 가져오는 중에 오류가 발생했습니다."
-
-#, python-format
-msgid "Unable to retrieve LVM information. Details: %(err)s"
-msgstr ""
 
 #, python-format
 msgid "Partition %(name)s does not exist in the host"
@@ -283,11 +271,10 @@ msgstr ""
 
 #, python-format
 msgid ""
-"VM '%(name)s' does not support live memory update. Update the memory with "
-"the machine offline to enable this feature."
+"Guest '%(name)s' does not support live memory update. Please, with the guest "
+"offline, set Maximum Memory with a value greater then Memory to enable this "
+"feature."
 msgstr ""
-"VM '%(name)s'에서는 라이브 메모리 업데이트가 지원되지 않습니다. 머신 오프라"
-"인 상태로 메모리를 업데이트하여이 기능을 사용으로 설정하십시오."
 
 msgid "Only increase memory is allowed in active VMs"
 msgstr "활성 VM에서는 메모리 늘리기만 허용됩니다."
@@ -404,7 +391,7 @@ msgid "Error creating local host ssh rsa key of user 'root'."
 msgstr ""
 
 #, python-format
-msgid "Memory value %(mem)s must be aligned to %(alignment)sMiB."
+msgid "%(param)s value (%(mem)sMiB) must be aligned to %(alignment)sMiB."
 msgstr ""
 
 #, python-format
@@ -419,8 +406,36 @@ msgstr ""
 
 #, python-format
 msgid ""
-"Cannot change VCPU value because '%(vm)s' has a topology defined - sockets: "
-"%(sockets)s, cores: %(cores)s, threads: %(threads)s."
+"VM %(name)s must have serial and console defined to open a web serial console"
+msgstr ""
+
+#, python-format
+msgid "Impossible to get the serial console of %(name)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Memory or Maximum Memory value is higher than amount supported by the host: "
+"%(memHost)sMiB."
+msgstr ""
+
+#, python-format
+msgid ""
+"Memory or Maximum Memory value is higher than maximum amount recommended: "
+"%(value)sTiB"
+msgstr ""
+
+msgid "Cannot update Maximum Memory when guest is running."
+msgstr ""
+
+#, python-format
+msgid "Impossible to create %(dir)s directory."
+msgstr ""
+
+#, python-format
+msgid ""
+"Either the guest %(name)s did not start to listen to the serial or it is not "
+"configured to use the serial console."
 msgstr ""
 
 #, python-format
@@ -437,15 +452,10 @@ msgstr "호스트 장치 %(dev_name)s을(를) 직접 VM에 지정할 수 없습�
 msgid ""
 "No IOMMU groups found. Host PCI pass through needs IOMMU group to function "
 "correctly. Please enable Intel VT-d or AMD IOMMU in your BIOS, then verify "
-"the Kernel is compiled with IOMMU support. For Intel CPU, add intel_iommu=on "
-"to your Kernel parameter in /boot/grub2/grub.conf. For AMD CPU, add iommu=pt "
-"iommu=1."
+"the Kernel is compiled with IOMMU support. For Intel CPU, add "
+"'intel_iommu=on' to GRUB_CMDLINE_LINUX parameter in /etc/default/grub file. "
+"For AMD CPU, add 'iommu=pt iommu=1'."
 msgstr ""
-"IOMMU 그룹을 찾을 수 없습니다. 올바르게 기능하려면 호스트 PCI pass through에 "
-"IOMMU 그룹이 있어야 합니다. BIOS에서 Intel VT-d 또는 AMD IOMMU를 사용하도록 "
-"설정한 후 커널이 IOMMU 지원으로 컴파일되었는지 확인하십시오. Intel CPU의 경"
-"우, /boot/grub2/grub.conf에 있는 커널 매개변수에 intel_iommu=on을 추가하십시"
-"오. AMD CPU의 경우,iommu=pt iommu=1을 추가하십시오."
 
 msgid "\"name\" should be a device name string"
 msgstr "\"name\"은(는) 장치 이름 문자열이어야 합니다."
@@ -456,6 +466,10 @@ msgid ""
 "the guest."
 msgstr ""
 "%(name)s 장치는 호스트에서 사용 중일 수 있습니다. 게스트에 연결할 수없습니다."
+
+#, python-format
+msgid "Hot-(un)plug of device %(name)s is not supported."
+msgstr ""
 
 #, python-format
 msgid "Interface %(iface)s does not exist in virtual machine %(name)s"
@@ -536,8 +550,9 @@ msgstr "템플리트 배포 버전은 문자열이어야 합니다."
 msgid "The number of CPUs must be an integer greater than 0"
 msgstr "CPU 수는 0보다 큰 정수여야 합니다."
 
-msgid "Amount of memory (MB) must be an integer greater than 512"
-msgstr "메모리 용량(MB)은 512보다 큰 정수여야 합니다."
+msgid ""
+"Amount of memory and maximum memory (MB) must be an integer greater than 512"
+msgstr ""
 
 msgid "Template CDROM must be a local or remote ISO file"
 msgstr "템플리트 CDROM은 로컬 또는 원격 ISO 파일이어야 합니다."
@@ -580,11 +595,6 @@ msgid "Cannot identify base image %(path)s format"
 msgstr "기본 이미지 %(path)s 형식을 식별할 수 없습니다."
 
 msgid ""
-"When specifying CPU topology, VCPUs must be a product of sockets, cores, and "
-"threads."
-msgstr "CPU 토폴로지를 지정할 때 VCPU는 소켓, 코어 및 스레드 제품이어야합니다."
-
-msgid ""
 "When specifying CPU topology, each element must be an integer greater than "
 "zero."
 msgstr "CPU 토폴로지를 지정할 때 각 요소는 0보다 큰 정수여야합니다."
@@ -602,6 +612,17 @@ msgid ""
 msgstr ""
 
 msgid "Disk format must be 'raw', for logical, iscsi, and scsi pools."
+msgstr ""
+
+msgid ""
+"Memory expects an object with one or both parameters: 'current' and "
+"'maxmemory'"
+msgstr ""
+
+#, python-format
+msgid ""
+"Memory value (%(mem)sMiB) must be equal or lesser than maximum memory value "
+"(%(maxmem)sMiB)"
 msgstr ""
 
 #, python-format
@@ -627,14 +648,6 @@ msgstr "스토리지 풀을 나열할 수 없습니다. 세부사항: %(err)s"
 #, python-format
 msgid "Unable to create storage pool %(name)s. Details: %(err)s"
 msgstr "스토리지 풀 %(name)s을(를) 작성할 수 없습니다. 세부사항: %(err)s"
-
-#, python-format
-msgid ""
-"Unable to get number of storage volumes in storage pool %(name)s. Details: "
-"%(err)s"
-msgstr ""
-"스토리지 풀 %(name)s에 있는 스토리지 볼륨의 수를 가져올 수 없습니다. 세부사"
-"항: %(err)s"
 
 #, python-format
 msgid "Unable to activate storage pool %(name)s. Details: %(err)s"
@@ -805,13 +818,6 @@ msgstr ""
 "사항: %(err)s"
 
 #, python-format
-msgid ""
-"Unable to list storage volumes in storage pool %(pool)s. Details: %(err)s"
-msgstr ""
-"스토리지 풀 %(pool)s에 있는 스토리지 볼륨을 나열할 수 없습니다. 세부사항: "
-"%(err)s"
-
-#, python-format
 msgid "Unable to wipe storage volumes %(name)s. Details: %(err)s"
 msgstr "스토리지 볼륨 %(name)s을(를) 삭제할 수 없습니다. 세부사항: %(err)s"
 
@@ -910,14 +916,11 @@ msgid "Network %(name)s does not exist"
 msgstr "%(name)s 네트워크가 없습니다."
 
 #, python-format
-msgid "Subnet %(subnet)s specified for network %(network)s  is not valid."
+msgid "Subnet %(subnet)s specified for network %(network)s is not valid."
 msgstr ""
-"네트워크 %(network)s에 대해 지정된 서브넷 %(subnet)s이(가) 유효하지 않습니다."
 
-#, python-format
-msgid "Specify a network interface to create bridged network %(name)s"
+msgid "Specify a network interface to create bridged or macvtap networks."
 msgstr ""
-"브릿지된 네트워크 %(name)s을(를) 작성할 네트워크 인터페이스를 지정하십시오."
 
 #, python-format
 msgid "Unable to delete active network %(name)s"
@@ -949,15 +952,15 @@ msgstr ""
 "네트워크 이름은 슬래시(/) 또는 따옴표(\")를 포함하지 않는 문자열이어야 합니"
 "다."
 
-msgid "Supported network types are isolated, NAT, macvtap and bridge"
+msgid "Supported network types are isolated, NAT, macvtap, bridge and vepa"
 msgstr ""
 
 msgid "Network subnet must be a string with IP address and prefix or netmask"
 msgstr ""
 "네트워크 서브넷은 IP 주소 및 접두부 또는 넷마스크가 있는 문자열이어야 합니다."
 
-msgid "Network interface must be a string"
-msgstr "네트워크 인터페이스는 문자열이어야 합니다."
+msgid "Network interfaces must be an array."
+msgstr ""
 
 msgid "Network VLAN ID must be an integer between 1 and 4094"
 msgstr "네트워크 VLAN ID는 1과 4094 사이의 정수여야 합니다."
@@ -1008,7 +1011,18 @@ msgstr ""
 msgid "Unable to create bridge %(name)s. Details: %(err)s"
 msgstr ""
 
-msgid "Open VSwitch bridges can only host bridged networks."
+msgid ""
+"Unable to create bridge with NetworkManager enabled. Disable it and try "
+"again."
+msgstr ""
+
+msgid "Interface should be bare NIC or bonding."
+msgstr ""
+
+msgid "Network interfaces parameter must contain at least one interface."
+msgstr ""
+
+msgid "Only one interface is allowed for 'bridge' and 'macvtap' networks."
 msgstr ""
 
 #, python-format
@@ -1156,14 +1170,34 @@ msgstr ""
 "'%(format)s' 형식의 디스크가 포함되어 있기 때문에가상 머신 '%(vm)s'의 스냅샷"
 "을 작성할 수 없습니다. 'qcow2'만 지원됩니다."
 
-msgid "The number of vCPUs is too large for this system."
-msgstr "이 시스템의 vCPU 수가 너무 큽니다."
+msgid ""
+"The number of vCPUs must be less than or equal the maximum number of vCPUs "
+"specified."
+msgstr ""
 
-msgid "Invalid vCPU/topology combination."
-msgstr "올바르지 않은 vCPU/토폴로지 조합입니다."
+msgid ""
+"When CPU topology is defined, maximum number of vCPUs must be a product of "
+"sockets, cores, and threads."
+msgstr ""
 
 msgid "This host (or current configuration) does not allow CPU topology."
 msgstr "이 호스트(또는 현재 구성)에서는 CPU 토폴로지가 허용되지 않습니다."
+
+msgid "The maximum number of vCPUs is too large for this system."
+msgstr ""
+
+msgid ""
+"When CPU topology is defined, vCPUs must be a multiple of a product of cores "
+"and threads."
+msgstr ""
+
+msgid "The number of threads is too large for this system."
+msgstr ""
+
+msgid ""
+"When CPU topology is specified, sockets, cores and threads are required "
+"paramaters."
+msgstr ""
 
 #, python-format
 msgid "Invalid volume group name parameter: %(name)s."
@@ -1191,14 +1225,14 @@ msgstr "템플리트 작성"
 msgid "Please choose a template."
 msgstr "템플리트를 선택하십시오."
 
-msgid "OS: "
-msgstr "OS: "
+msgid "OS"
+msgstr "OS"
 
-msgid "Version: "
-msgstr "버전: "
+msgid "Version"
+msgstr "버전"
 
-msgid "CPUS"
-msgstr "CPUS"
+msgid "CPUs"
+msgstr "CPU"
 
 msgid "Memory"
 msgstr "메모리"
@@ -1218,11 +1252,17 @@ msgstr "게스트 편집"
 msgid "Name"
 msgstr "이름"
 
-msgid "CPUs"
-msgstr "CPU"
+msgid "More"
+msgstr ""
+
+msgid "Max CPU"
+msgstr ""
 
 msgid "Memory (MB)"
 msgstr "메모리(MB)"
+
+msgid "Max Memory (MB)"
+msgstr ""
 
 msgid "Icon"
 msgstr "아이콘"
@@ -1311,37 +1351,22 @@ msgstr "LDAP 사용자 ID, 예: foo@foo.com"
 msgid "Revert"
 msgstr ""
 
-msgid "Add a Storage Device to VM"
-msgstr "스토리지 장치를 VM에 추가"
-
-msgid "Device Type"
-msgstr "장치 유형"
-
-msgid "The device type. Currently, \"cdrom\" and \"disk\" are supported."
+msgid "Running"
 msgstr ""
 
-msgid "Storage Pool"
-msgstr "스토리지 풀"
+msgid "Disconnected"
+msgstr ""
 
-msgid "Storage pool which volume located in"
-msgstr "볼륨이 위치한 스토리지 풀"
+msgid "Starting"
+msgstr ""
 
-msgid "Storage Volume"
-msgstr "스토리지 볼륨"
+msgid "Resetting"
+msgstr ""
 
-msgid "Storage volume to be attached"
-msgstr "연결될 스토리지 볼륨"
+msgid "View Console"
+msgstr ""
 
-msgid "File Path"
-msgstr "파일 경로"
-
-msgid "The ISO file path in the server for CDROM."
-msgstr "CDROM을 위한 서버의 ISO 파일 경로입니다."
-
-msgid "Attach"
-msgstr "연결"
-
-msgid "Connect VNC"
+msgid "View Serial"
 msgstr ""
 
 msgid "View VNC Console"
@@ -1349,6 +1374,9 @@ msgstr ""
 
 msgid "Clone"
 msgstr "복제"
+
+msgid "Migrate"
+msgstr ""
 
 msgid "Reset"
 msgstr "다시 설정"
@@ -1371,10 +1399,10 @@ msgstr "전원 끄기"
 msgid "Delete"
 msgstr "삭제"
 
-msgid "View Console"
+msgid "No Data Available"
 msgstr ""
 
-msgid "Processors Used"
+msgid "Processors Utilization"
 msgstr ""
 
 msgid "Memory Available"
@@ -1385,6 +1413,93 @@ msgstr ""
 
 msgid "Network I/O"
 msgstr "네트워크 I/O"
+
+msgid "Migrate a Guest"
+msgstr ""
+
+msgid ""
+"Disclaimer: This process cannot be stopped after started, can take a long "
+"time to complete and will turn off the VM on this Hypervisor when it is "
+"successfully migrated to the remote destination."
+msgstr ""
+
+msgid "Remote Server"
+msgstr ""
+
+msgid "IP Address or Hostname"
+msgstr ""
+
+msgid ""
+"The following fields are optional. Fill them if you want Kimchi to setup a "
+"password-less ssh session between the localhost and the remote host. The "
+"setup process will only be successful if the user has 'SUDO ALL' permission "
+"in the remote machine."
+msgstr ""
+
+msgid "Username of the remote host"
+msgstr ""
+
+msgid "Password"
+msgstr "비밀번호"
+
+msgid "Password of the user in the remote host"
+msgstr ""
+
+msgid "Delete this VM when the migration is completed"
+msgstr ""
+
+msgid "Add a Storage Device to VM"
+msgstr "스토리지 장치를 VM에 추가"
+
+msgid "Device Type"
+msgstr "장치 유형"
+
+msgid ""
+"The device type. Currently, \"cdrom\" and \"disk\" are supported. If the "
+"guest is running, only \"disk\" is supported."
+msgstr ""
+
+msgid "Create a new disk"
+msgstr ""
+
+msgid "Select an existing disk"
+msgstr ""
+
+msgid "Storage Pool"
+msgstr "스토리지 풀"
+
+msgid "Storage pool to create the volume in"
+msgstr ""
+
+msgid "Disk Size (GB)"
+msgstr ""
+
+msgid "New disk size to be created"
+msgstr ""
+
+msgid "Format"
+msgstr ""
+
+msgid "Format of the new disk to be created"
+msgstr ""
+
+msgid "Storage pool in which the volume is located in"
+msgstr ""
+
+msgid "Storage Volume"
+msgstr "스토리지 볼륨"
+
+msgid "Storage volume to be attached"
+msgstr "연결될 스토리지 볼륨"
+
+msgid "File Path"
+msgstr "파일 경로"
+
+msgid "The ISO file path in the server for CDROM."
+msgstr "CDROM을 위한 서버의 ISO 파일 경로입니다."
+
+msgid "Attach"
+msgstr "연결"
 
 msgid "Host"
 msgstr "호스트"
@@ -1397,9 +1512,6 @@ msgstr "템플리트"
 
 msgid "Storage"
 msgstr "스토리지"
-
-msgid "Failed to get application configuration"
-msgstr "애플리케이션 구성을 가져오지 못했습니다."
 
 msgid "This is not a valid Linux path"
 msgstr "올바른 Linux 경로가 아닙니다."
@@ -1428,6 +1540,12 @@ msgstr "경고"
 msgid "Cloning..."
 msgstr "복제 중..."
 
+msgid "Saving..."
+msgstr ""
+
+msgid "Migrating..."
+msgstr ""
+
 msgid "No ISO found"
 msgstr "ISO가 없습니다."
 
@@ -1436,6 +1554,12 @@ msgstr "시간이 오래 걸릴 수 있습니다. 계속하시겠습니까?"
 
 msgid "This will permanently delete the template. Would you like to continue?"
 msgstr "템플리트가 영구적으로 삭제됩니다. 계속하시겠습니까?"
+
+msgid "View Table"
+msgstr ""
+
+msgid "View Gallery"
+msgstr ""
 
 msgid ""
 "This will delete the virtual machine and its virtual disks. This operation "
@@ -1526,8 +1650,8 @@ msgstr "모델:"
 msgid "Affected devices:"
 msgstr "관련 장치:"
 
-msgid "The VLAN id must be between 1 and 4094."
-msgstr "VLAN ID는 1과 4094 사이여야 합니다."
+msgid "Less"
+msgstr ""
 
 msgid "unavailable"
 msgstr "사용 불가능"
@@ -1607,6 +1731,9 @@ msgstr "처리 중..."
 msgid "Failed!"
 msgstr "실패함!"
 
+msgid "No LVM found in the system."
+msgstr ""
+
 msgid "CDROM path needs to be a valid local/remote path and cannot be blank."
 msgstr "CDROM 경로는 올바른 로컬/원격 경로여야 하며 비워둘 수 없습니다."
 
@@ -1631,8 +1758,16 @@ msgstr "격리됨: 외부 네트워크 연결 없음"
 msgid "NAT: outbound physical network connection only"
 msgstr "NAT: 아웃바운드 물리적 네트워크 연결만"
 
-msgid "Bridged: Virtual machines are connected to physical network directly"
-msgstr "브릿지됨: 가상 머신이 물리적 네트워크에 직접 연결됨"
+msgid "Macvtap: Virtual machines are connected to physical network directly"
+msgstr ""
+
+msgid ""
+"VEPA: special mode where virtual machines are connected to a VEPA-enabled "
+"switch"
+msgstr ""
+
+msgid "Bridged: Virtual machines are connected through a network bridge"
+msgstr ""
 
 msgid "(No interfaces found)"
 msgstr "(인터페이스를 찾을 수 없음)"
@@ -1645,21 +1780,6 @@ msgstr "VLAN 사용"
 
 msgid "VLAN ID"
 msgstr "VLAN ID"
-
-msgid "Add a Volume to Storage Pool"
-msgstr "스토리지 풀에 볼륨 추가"
-
-msgid "Fetch from remote URL"
-msgstr "원격 URL에서 페치"
-
-msgid "Enter the remote URL here."
-msgstr "여기에 원격 URL을 입력하십시오."
-
-msgid "Upload a file"
-msgstr "파일 업로드"
-
-msgid "Choose the file you want to upload."
-msgstr "업로드할 파일을 선택하십시오."
 
 msgid "Define a New Storage Pool"
 msgstr "새 스토리지 풀 정의"
@@ -1701,8 +1821,14 @@ msgstr "NFS 경로"
 msgid "The NFS exported path on NFS server."
 msgstr "NFS 서버에서 NFS의 내보낸 경로입니다."
 
-msgid "Device path"
-msgstr "장치 경로"
+msgid "Create from existing LVM"
+msgstr ""
+
+msgid "Create from raw disk"
+msgstr ""
+
+msgid "Looking for existing lvms ..."
+msgstr ""
 
 msgid "Looking for available partitions ..."
 msgstr "사용 가능한 파티션을 찾는 중..."
@@ -1731,14 +1857,26 @@ msgstr "iSCSI 인증 추가"
 msgid "User Name"
 msgstr "사용자 이름"
 
-msgid "Password"
-msgstr "비밀번호"
-
 msgid "SCSI Adapter"
 msgstr "SCSI 어댑터"
 
 msgid "Please, wait..."
 msgstr "잠시 기다려 주십시오."
+
+msgid "Add a Volume to Storage Pool"
+msgstr "스토리지 풀에 볼륨 추가"
+
+msgid "Fetch from remote URL"
+msgstr "원격 URL에서 페치"
+
+msgid "Enter the remote URL here."
+msgstr "여기에 원격 URL을 입력하십시오."
+
+msgid "Upload a file"
+msgstr "파일 업로드"
+
+msgid "Choose the file you want to upload."
+msgstr "업로드할 파일을 선택하십시오."
 
 msgid "Add Template"
 msgstr "템플리트 추가"
@@ -1763,12 +1901,6 @@ msgstr "ISO 검색"
 
 msgid "The following ISOs are available:"
 msgstr "다음 ISO가 사용 가능합니다."
-
-msgid "OS"
-msgstr "OS"
-
-msgid "Version"
-msgstr "버전"
 
 msgid "Size"
 msgstr ""

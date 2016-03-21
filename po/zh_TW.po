@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 17:26-0200\n"
+"POT-Creation-Date: 2016-03-21 14:07-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -24,18 +24,6 @@ msgstr "不明參數 %(value)s"
 #, python-format
 msgid "User %(user_id)s not found with given LDAP settings."
 msgstr "找不到具有給定 LDAP 設定的使用者 %(user_id)s。"
-
-#, python-format
-msgid "Error while getting block devices. Details: %(err)s"
-msgstr "取得區塊裝置時發生錯誤。詳細資料：%(err)s"
-
-#, python-format
-msgid "Error while getting block device information for %(device)s."
-msgstr "取得 %(device)s 的區塊裝置資訊時發生錯誤。"
-
-#, python-format
-msgid "Unable to retrieve LVM information. Details: %(err)s"
-msgstr ""
 
 #, python-format
 msgid "Partition %(name)s does not exist in the host"
@@ -273,11 +261,10 @@ msgstr ""
 
 #, python-format
 msgid ""
-"VM '%(name)s' does not support live memory update. Update the memory with "
-"the machine offline to enable this feature."
+"Guest '%(name)s' does not support live memory update. Please, with the guest "
+"offline, set Maximum Memory with a value greater then Memory to enable this "
+"feature."
 msgstr ""
-"VM '%(name)s' 不支援即時記憶體更新。請在機器處於離線狀態時更新記憶體，以啟用"
-"此功能。"
 
 msgid "Only increase memory is allowed in active VMs"
 msgstr "作用中的 VM 只容許增加記憶體"
@@ -389,7 +376,7 @@ msgid "Error creating local host ssh rsa key of user 'root'."
 msgstr ""
 
 #, python-format
-msgid "Memory value %(mem)s must be aligned to %(alignment)sMiB."
+msgid "%(param)s value (%(mem)sMiB) must be aligned to %(alignment)sMiB."
 msgstr ""
 
 #, python-format
@@ -404,8 +391,36 @@ msgstr ""
 
 #, python-format
 msgid ""
-"Cannot change VCPU value because '%(vm)s' has a topology defined - sockets: "
-"%(sockets)s, cores: %(cores)s, threads: %(threads)s."
+"VM %(name)s must have serial and console defined to open a web serial console"
+msgstr ""
+
+#, python-format
+msgid "Impossible to get the serial console of %(name)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Memory or Maximum Memory value is higher than amount supported by the host: "
+"%(memHost)sMiB."
+msgstr ""
+
+#, python-format
+msgid ""
+"Memory or Maximum Memory value is higher than maximum amount recommended: "
+"%(value)sTiB"
+msgstr ""
+
+msgid "Cannot update Maximum Memory when guest is running."
+msgstr ""
+
+#, python-format
+msgid "Impossible to create %(dir)s directory."
+msgstr ""
+
+#, python-format
+msgid ""
+"Either the guest %(name)s did not start to listen to the serial or it is not "
+"configured to use the serial console."
 msgstr ""
 
 #, python-format
@@ -420,14 +435,10 @@ msgstr "不容許將主機裝置 %(dev_name)s 直接指派給 VM。"
 msgid ""
 "No IOMMU groups found. Host PCI pass through needs IOMMU group to function "
 "correctly. Please enable Intel VT-d or AMD IOMMU in your BIOS, then verify "
-"the Kernel is compiled with IOMMU support. For Intel CPU, add intel_iommu=on "
-"to your Kernel parameter in /boot/grub2/grub.conf. For AMD CPU, add iommu=pt "
-"iommu=1."
+"the Kernel is compiled with IOMMU support. For Intel CPU, add "
+"'intel_iommu=on' to GRUB_CMDLINE_LINUX parameter in /etc/default/grub file. "
+"For AMD CPU, add 'iommu=pt iommu=1'."
 msgstr ""
-"找不到 IOMMU 群組。主機 PCI 透通需要 IOMMU 群組才能正常運作。請在 BIOS 中啟"
-"用 Intel VT-d 或 AMD IOMMU，然後驗證是否使用 IOMMU 支援編譯了核心。若為 "
-"Intel CPU，請將 intel_iommu=on 新增至 /boot/grub2/grub.conf 中的核心參數。若"
-"為 AMD CPU，請新增 iommu=pt iommu=1。"
 
 msgid "\"name\" should be a device name string"
 msgstr "\"name\" 應該是裝置名稱字串"
@@ -437,6 +448,10 @@ msgid ""
 "The device %(name)s is probably in use by the host. Unable to attach it to "
 "the guest."
 msgstr "主機可能正在使用裝置 %(name)s。無法將該裝置連接至客體。"
+
+#, python-format
+msgid "Hot-(un)plug of device %(name)s is not supported."
+msgstr ""
 
 #, python-format
 msgid "Interface %(iface)s does not exist in virtual machine %(name)s"
@@ -513,8 +528,9 @@ msgstr "範本發行版本必須是字串"
 msgid "The number of CPUs must be an integer greater than 0"
 msgstr "CPU 數目必須是大於 0 的整數"
 
-msgid "Amount of memory (MB) must be an integer greater than 512"
-msgstr "記憶體數量 (MB) 必須是大於 512 的整數"
+msgid ""
+"Amount of memory and maximum memory (MB) must be an integer greater than 512"
+msgstr ""
 
 msgid "Template CDROM must be a local or remote ISO file"
 msgstr "範本 CDROM 必須是本端或遠端 ISO 檔案"
@@ -555,11 +571,6 @@ msgid "Cannot identify base image %(path)s format"
 msgstr "無法識別基本映像檔 %(path)s 格式"
 
 msgid ""
-"When specifying CPU topology, VCPUs must be a product of sockets, cores, and "
-"threads."
-msgstr "指定 CPU 拓蹼時，VCPU 必須是 Socket、核心及執行緒的產品。"
-
-msgid ""
 "When specifying CPU topology, each element must be an integer greater than "
 "zero."
 msgstr "指定 CPU 拓蹼時，每一個元素都必須是大於 0 的整數。"
@@ -577,6 +588,17 @@ msgid ""
 msgstr ""
 
 msgid "Disk format must be 'raw', for logical, iscsi, and scsi pools."
+msgstr ""
+
+msgid ""
+"Memory expects an object with one or both parameters: 'current' and "
+"'maxmemory'"
+msgstr ""
+
+#, python-format
+msgid ""
+"Memory value (%(mem)sMiB) must be equal or lesser than maximum memory value "
+"(%(maxmem)sMiB)"
 msgstr ""
 
 #, python-format
@@ -602,12 +624,6 @@ msgstr "無法列出儲存區。詳細資料：%(err)s"
 #, python-format
 msgid "Unable to create storage pool %(name)s. Details: %(err)s"
 msgstr "無法建立儲存區 %(name)s。詳細資料：%(err)s"
-
-#, python-format
-msgid ""
-"Unable to get number of storage volumes in storage pool %(name)s. Details: "
-"%(err)s"
-msgstr "無法取得儲存區 %(name)s 中的儲存磁區數目。詳細資料：%(err)s"
 
 #, python-format
 msgid "Unable to activate storage pool %(name)s. Details: %(err)s"
@@ -759,11 +775,6 @@ msgid ""
 msgstr "無法在儲存區 %(pool)s 中建立儲存磁區 %(name)s。詳細資料：%(err)s"
 
 #, python-format
-msgid ""
-"Unable to list storage volumes in storage pool %(pool)s. Details: %(err)s"
-msgstr "無法列出儲存區 %(pool)s 中的儲存磁區。詳細資料：%(err)s"
-
-#, python-format
 msgid "Unable to wipe storage volumes %(name)s. Details: %(err)s"
 msgstr "無法清除儲存磁區 %(name)s。詳細資料：%(err)s"
 
@@ -858,12 +869,11 @@ msgid "Network %(name)s does not exist"
 msgstr "網路 %(name)s 不存在"
 
 #, python-format
-msgid "Subnet %(subnet)s specified for network %(network)s  is not valid."
-msgstr "為網路 %(network)s 指定的子網路 %(subnet)s 無效。"
+msgid "Subnet %(subnet)s specified for network %(network)s is not valid."
+msgstr ""
 
-#, python-format
-msgid "Specify a network interface to create bridged network %(name)s"
-msgstr "指定網路介面，以建立橋接網路 %(name)s"
+msgid "Specify a network interface to create bridged or macvtap networks."
+msgstr ""
 
 #, python-format
 msgid "Unable to delete active network %(name)s"
@@ -891,14 +901,14 @@ msgstr "介面 %(iface)s 已經存在。"
 msgid "Network name must be a string without slashes (/) or quotes (\")"
 msgstr "網路名稱必須是不含斜線 (/) 或引號 (\") 的字串"
 
-msgid "Supported network types are isolated, NAT, macvtap and bridge"
+msgid "Supported network types are isolated, NAT, macvtap, bridge and vepa"
 msgstr ""
 
 msgid "Network subnet must be a string with IP address and prefix or netmask"
 msgstr "網路的子網路必須是含有 IP 位址、字首或網路遮罩的字串"
 
-msgid "Network interface must be a string"
-msgstr "網路介面必須是字串"
+msgid "Network interfaces must be an array."
+msgstr ""
 
 msgid "Network VLAN ID must be an integer between 1 and 4094"
 msgstr "網路 VLAN ID 必須是介於 1 和 4094 之間的整數"
@@ -946,7 +956,18 @@ msgstr ""
 msgid "Unable to create bridge %(name)s. Details: %(err)s"
 msgstr ""
 
-msgid "Open VSwitch bridges can only host bridged networks."
+msgid ""
+"Unable to create bridge with NetworkManager enabled. Disable it and try "
+"again."
+msgstr ""
+
+msgid "Interface should be bare NIC or bonding."
+msgstr ""
+
+msgid "Network interfaces parameter must contain at least one interface."
+msgstr ""
+
+msgid "Only one interface is allowed for 'bridge' and 'macvtap' networks."
 msgstr ""
 
 #, python-format
@@ -1082,14 +1103,34 @@ msgstr ""
 "無法建立虛擬機器 '%(vm)s' 的 Snapshot，因為該虛擬機器包含格式為 '%(format)s' "
 "的磁碟；僅支援 'qcow2'。"
 
-msgid "The number of vCPUs is too large for this system."
-msgstr "這個系統的 vCPU 數目太大。"
+msgid ""
+"The number of vCPUs must be less than or equal the maximum number of vCPUs "
+"specified."
+msgstr ""
 
-msgid "Invalid vCPU/topology combination."
-msgstr "vCPU/拓蹼組合無效。"
+msgid ""
+"When CPU topology is defined, maximum number of vCPUs must be a product of "
+"sockets, cores, and threads."
+msgstr ""
 
 msgid "This host (or current configuration) does not allow CPU topology."
 msgstr "此主機（或現行配置）不容許使用 CPU 拓蹼。"
+
+msgid "The maximum number of vCPUs is too large for this system."
+msgstr ""
+
+msgid ""
+"When CPU topology is defined, vCPUs must be a multiple of a product of cores "
+"and threads."
+msgstr ""
+
+msgid "The number of threads is too large for this system."
+msgstr ""
+
+msgid ""
+"When CPU topology is specified, sockets, cores and threads are required "
+"paramaters."
+msgstr ""
 
 #, python-format
 msgid "Invalid volume group name parameter: %(name)s."
@@ -1115,14 +1156,14 @@ msgstr "建立範本"
 msgid "Please choose a template."
 msgstr "請選擇範本。"
 
-msgid "OS: "
-msgstr "OS："
+msgid "OS"
+msgstr "OS"
 
-msgid "Version: "
-msgstr "版本："
+msgid "Version"
+msgstr "版本"
 
-msgid "CPUS"
-msgstr "CPUS"
+msgid "CPUs"
+msgstr "CPU"
 
 msgid "Memory"
 msgstr "記憶體"
@@ -1142,11 +1183,17 @@ msgstr "編輯客體"
 msgid "Name"
 msgstr "名稱"
 
-msgid "CPUs"
-msgstr "CPU"
+msgid "More"
+msgstr ""
+
+msgid "Max CPU"
+msgstr ""
 
 msgid "Memory (MB)"
 msgstr "記憶體 (MB)"
+
+msgid "Max Memory (MB)"
+msgstr ""
 
 msgid "Icon"
 msgstr "圖示"
@@ -1235,37 +1282,22 @@ msgstr "LDAP 使用者 ID，例如 foo@foo.com"
 msgid "Revert"
 msgstr ""
 
-msgid "Add a Storage Device to VM"
-msgstr "將儲存裝置新增至 VM"
-
-msgid "Device Type"
-msgstr "裝置類型"
-
-msgid "The device type. Currently, \"cdrom\" and \"disk\" are supported."
+msgid "Running"
 msgstr ""
 
-msgid "Storage Pool"
-msgstr "儲存區"
+msgid "Disconnected"
+msgstr ""
 
-msgid "Storage pool which volume located in"
-msgstr "磁區所在的儲存區"
+msgid "Starting"
+msgstr ""
 
-msgid "Storage Volume"
-msgstr "儲存磁區"
+msgid "Resetting"
+msgstr ""
 
-msgid "Storage volume to be attached"
-msgstr "要連接的儲存磁區"
+msgid "View Console"
+msgstr ""
 
-msgid "File Path"
-msgstr "檔案路徑"
-
-msgid "The ISO file path in the server for CDROM."
-msgstr "CDROM 的 ISO 檔案路徑在伺服器中。"
-
-msgid "Attach"
-msgstr "連接"
-
-msgid "Connect VNC"
+msgid "View Serial"
 msgstr ""
 
 msgid "View VNC Console"
@@ -1273,6 +1305,9 @@ msgstr ""
 
 msgid "Clone"
 msgstr "複製"
+
+msgid "Migrate"
+msgstr ""
 
 msgid "Reset"
 msgstr "重設"
@@ -1295,10 +1330,10 @@ msgstr "關閉電源"
 msgid "Delete"
 msgstr "刪除"
 
-msgid "View Console"
+msgid "No Data Available"
 msgstr ""
 
-msgid "Processors Used"
+msgid "Processors Utilization"
 msgstr ""
 
 msgid "Memory Available"
@@ -1309,6 +1344,93 @@ msgstr ""
 
 msgid "Network I/O"
 msgstr "網路 I/O"
+
+msgid "Migrate a Guest"
+msgstr ""
+
+msgid ""
+"Disclaimer: This process cannot be stopped after started, can take a long "
+"time to complete and will turn off the VM on this Hypervisor when it is "
+"successfully migrated to the remote destination."
+msgstr ""
+
+msgid "Remote Server"
+msgstr ""
+
+msgid "IP Address or Hostname"
+msgstr ""
+
+msgid ""
+"The following fields are optional. Fill them if you want Kimchi to setup a "
+"password-less ssh session between the localhost and the remote host. The "
+"setup process will only be successful if the user has 'SUDO ALL' permission "
+"in the remote machine."
+msgstr ""
+
+msgid "Username of the remote host"
+msgstr ""
+
+msgid "Password"
+msgstr "密碼"
+
+msgid "Password of the user in the remote host"
+msgstr ""
+
+msgid "Delete this VM when the migration is completed"
+msgstr ""
+
+msgid "Add a Storage Device to VM"
+msgstr "將儲存裝置新增至 VM"
+
+msgid "Device Type"
+msgstr "裝置類型"
+
+msgid ""
+"The device type. Currently, \"cdrom\" and \"disk\" are supported. If the "
+"guest is running, only \"disk\" is supported."
+msgstr ""
+
+msgid "Create a new disk"
+msgstr ""
+
+msgid "Select an existing disk"
+msgstr ""
+
+msgid "Storage Pool"
+msgstr "儲存區"
+
+msgid "Storage pool to create the volume in"
+msgstr ""
+
+msgid "Disk Size (GB)"
+msgstr ""
+
+msgid "New disk size to be created"
+msgstr ""
+
+msgid "Format"
+msgstr ""
+
+msgid "Format of the new disk to be created"
+msgstr ""
+
+msgid "Storage pool in which the volume is located in"
+msgstr ""
+
+msgid "Storage Volume"
+msgstr "儲存磁區"
+
+msgid "Storage volume to be attached"
+msgstr "要連接的儲存磁區"
+
+msgid "File Path"
+msgstr "檔案路徑"
+
+msgid "The ISO file path in the server for CDROM."
+msgstr "CDROM 的 ISO 檔案路徑在伺服器中。"
+
+msgid "Attach"
+msgstr "連接"
 
 msgid "Host"
 msgstr "主機"
@@ -1321,9 +1443,6 @@ msgstr "範本"
 
 msgid "Storage"
 msgstr "儲存體"
-
-msgid "Failed to get application configuration"
-msgstr "無法取得應用程式配置"
 
 msgid "This is not a valid Linux path"
 msgstr "這是無效的 Linux 路徑"
@@ -1352,6 +1471,12 @@ msgstr "警告"
 msgid "Cloning..."
 msgstr "正在複製..."
 
+msgid "Saving..."
+msgstr ""
+
+msgid "Migrating..."
+msgstr ""
+
 msgid "No ISO found"
 msgstr "找不到 ISO"
 
@@ -1360,6 +1485,12 @@ msgstr "這可能花費較長時間。您要繼續嗎？"
 
 msgid "This will permanently delete the template. Would you like to continue?"
 msgstr "這將永久刪除範本。您要繼續嗎？"
+
+msgid "View Table"
+msgstr ""
+
+msgid "View Gallery"
+msgstr ""
 
 msgid ""
 "This will delete the virtual machine and its virtual disks. This operation "
@@ -1439,8 +1570,8 @@ msgstr "模型："
 msgid "Affected devices:"
 msgstr "受影響的裝置："
 
-msgid "The VLAN id must be between 1 and 4094."
-msgstr "VLAN ID 必須介於 1 和 4094 之間。"
+msgid "Less"
+msgstr ""
 
 msgid "unavailable"
 msgstr "無法使用"
@@ -1516,6 +1647,9 @@ msgstr "進行中..."
 msgid "Failed!"
 msgstr "失敗！"
 
+msgid "No LVM found in the system."
+msgstr ""
+
 msgid "CDROM path needs to be a valid local/remote path and cannot be blank."
 msgstr "CDROM 路徑需要是有效的本端/遠端路徑，並且不能空白。"
 
@@ -1540,8 +1674,16 @@ msgstr "已隔離：沒有外部網路連線"
 msgid "NAT: outbound physical network connection only"
 msgstr "NAT：僅限出埠實體網路連線"
 
-msgid "Bridged: Virtual machines are connected to physical network directly"
-msgstr "已橋接：虛擬機器直接已連接至實體網路"
+msgid "Macvtap: Virtual machines are connected to physical network directly"
+msgstr ""
+
+msgid ""
+"VEPA: special mode where virtual machines are connected to a VEPA-enabled "
+"switch"
+msgstr ""
+
+msgid "Bridged: Virtual machines are connected through a network bridge"
+msgstr ""
 
 msgid "(No interfaces found)"
 msgstr "（找不到介面）"
@@ -1554,21 +1696,6 @@ msgstr "啟用 VLAN"
 
 msgid "VLAN ID"
 msgstr "VLAN ID"
-
-msgid "Add a Volume to Storage Pool"
-msgstr "將磁區新增至儲存區"
-
-msgid "Fetch from remote URL"
-msgstr "從遠端 URL 提取"
-
-msgid "Enter the remote URL here."
-msgstr "在這裡輸入遠端 URL。"
-
-msgid "Upload a file"
-msgstr "上傳檔案"
-
-msgid "Choose the file you want to upload."
-msgstr "選擇要上傳的檔案。"
 
 msgid "Define a New Storage Pool"
 msgstr "定義新的儲存區"
@@ -1607,8 +1734,14 @@ msgstr "NFS 路徑"
 msgid "The NFS exported path on NFS server."
 msgstr "NFS 伺服器上 NFS 匯出的路徑。"
 
-msgid "Device path"
-msgstr "裝置路徑"
+msgid "Create from existing LVM"
+msgstr ""
+
+msgid "Create from raw disk"
+msgstr ""
+
+msgid "Looking for existing lvms ..."
+msgstr ""
 
 msgid "Looking for available partitions ..."
 msgstr "正在尋找可用的分割區 ..."
@@ -1637,14 +1770,26 @@ msgstr "新增 iSCSI 鑑別"
 msgid "User Name"
 msgstr "使用者名稱"
 
-msgid "Password"
-msgstr "密碼"
-
 msgid "SCSI Adapter"
 msgstr "SCSI 配接卡"
 
 msgid "Please, wait..."
 msgstr "請稍候..."
+
+msgid "Add a Volume to Storage Pool"
+msgstr "將磁區新增至儲存區"
+
+msgid "Fetch from remote URL"
+msgstr "從遠端 URL 提取"
+
+msgid "Enter the remote URL here."
+msgstr "在這裡輸入遠端 URL。"
+
+msgid "Upload a file"
+msgstr "上傳檔案"
+
+msgid "Choose the file you want to upload."
+msgstr "選擇要上傳的檔案。"
 
 msgid "Add Template"
 msgstr "新增範本"
@@ -1669,12 +1814,6 @@ msgstr "搜尋 ISO"
 
 msgid "The following ISOs are available:"
 msgstr "下列 ISO 可用："
-
-msgid "OS"
-msgstr "OS"
-
-msgid "Version"
-msgstr "版本"
 
 msgid "Size"
 msgstr ""
