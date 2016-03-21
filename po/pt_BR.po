@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 17:26-0200\n"
+"POT-Creation-Date: 2016-03-21 14:07-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -25,19 +25,6 @@ msgstr "Parâmetro desconhecido %(value)s"
 msgid "User %(user_id)s not found with given LDAP settings."
 msgstr ""
 "Usuário %(user_id)s não localizado com as configurações de LDAP fornecidas."
-
-#, python-format
-msgid "Error while getting block devices. Details: %(err)s"
-msgstr "Erro ao obter dispositivos de bloco. Detalhes: %(err)s"
-
-#, python-format
-msgid "Error while getting block device information for %(device)s."
-msgstr ""
-"Erro ao obter informações sobre o dispositivo de bloco para %(device)s."
-
-#, python-format
-msgid "Unable to retrieve LVM information. Details: %(err)s"
-msgstr ""
 
 #, python-format
 msgid "Partition %(name)s does not exist in the host"
@@ -294,11 +281,10 @@ msgstr ""
 
 #, python-format
 msgid ""
-"VM '%(name)s' does not support live memory update. Update the memory with "
-"the machine offline to enable this feature."
+"Guest '%(name)s' does not support live memory update. Please, with the guest "
+"offline, set Maximum Memory with a value greater then Memory to enable this "
+"feature."
 msgstr ""
-"A VM '%(name)s' não suporta atualização de memória em tempo real. Atualize a "
-"memória com a máquina off-line para ativar esse recurso."
 
 msgid "Only increase memory is allowed in active VMs"
 msgstr "Somente aumentar memória é permitido em VMs ativas"
@@ -416,7 +402,7 @@ msgid "Error creating local host ssh rsa key of user 'root'."
 msgstr ""
 
 #, python-format
-msgid "Memory value %(mem)s must be aligned to %(alignment)sMiB."
+msgid "%(param)s value (%(mem)sMiB) must be aligned to %(alignment)sMiB."
 msgstr ""
 
 #, python-format
@@ -431,8 +417,36 @@ msgstr ""
 
 #, python-format
 msgid ""
-"Cannot change VCPU value because '%(vm)s' has a topology defined - sockets: "
-"%(sockets)s, cores: %(cores)s, threads: %(threads)s."
+"VM %(name)s must have serial and console defined to open a web serial console"
+msgstr ""
+
+#, python-format
+msgid "Impossible to get the serial console of %(name)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Memory or Maximum Memory value is higher than amount supported by the host: "
+"%(memHost)sMiB."
+msgstr ""
+
+#, python-format
+msgid ""
+"Memory or Maximum Memory value is higher than maximum amount recommended: "
+"%(value)sTiB"
+msgstr ""
+
+msgid "Cannot update Maximum Memory when guest is running."
+msgstr ""
+
+#, python-format
+msgid "Impossible to create %(dir)s directory."
+msgstr ""
+
+#, python-format
+msgid ""
+"Either the guest %(name)s did not start to listen to the serial or it is not "
+"configured to use the serial console."
 msgstr ""
 
 #, python-format
@@ -451,16 +465,10 @@ msgstr ""
 msgid ""
 "No IOMMU groups found. Host PCI pass through needs IOMMU group to function "
 "correctly. Please enable Intel VT-d or AMD IOMMU in your BIOS, then verify "
-"the Kernel is compiled with IOMMU support. For Intel CPU, add intel_iommu=on "
-"to your Kernel parameter in /boot/grub2/grub.conf. For AMD CPU, add iommu=pt "
-"iommu=1."
+"the Kernel is compiled with IOMMU support. For Intel CPU, add "
+"'intel_iommu=on' to GRUB_CMDLINE_LINUX parameter in /etc/default/grub file. "
+"For AMD CPU, add 'iommu=pt iommu=1'."
 msgstr ""
-"Nenhum grupo IOMMU localizado. A passagem do PCI (Peripheral Component "
-"Interconnect) host precisa do grupo IOMMU para funcionar corretamente. Ative "
-"Intel VT-d ou AMD IOMMU em seu BIOS, e verifique se o Kernel está compilado "
-"com suporte a IOMMU. Para a CPU (unidade central de processamento) Intel, "
-"inclua intel_iommu=on em seu parâmetro do Kernel em /boot/grub2/grub.conf. "
-"Para a CPU (unidade central de processamento) AMD, inclua iommu=pt iommu=1."
 
 msgid "\"name\" should be a device name string"
 msgstr "\"name\" deve ser uma sequência de nome do dispositivo"
@@ -472,6 +480,10 @@ msgid ""
 msgstr ""
 "O dispositivo %(name)s provavelmente está em uso pelo host. Não é possível "
 "conectá-lo à máquina guest."
+
+#, python-format
+msgid "Hot-(un)plug of device %(name)s is not supported."
+msgstr ""
 
 #, python-format
 msgid "Interface %(iface)s does not exist in virtual machine %(name)s"
@@ -526,14 +538,14 @@ msgstr ""
 msgid ""
 "Storage pool %(pool)s specified for template %(template)s does not exist"
 msgstr ""
-"O banco de armazenamento %(pool)s especificado para o modelo %(template)s não "
-"existe"
+"O banco de armazenamento %(pool)s especificado para o modelo %(template)s "
+"não existe"
 
 #, python-format
 msgid "Storage pool %(pool)s specified for template %(template)s is not active"
 msgstr ""
-"O banco de armazenamento %(pool)s especificado para o modelo %(template)s não "
-"está ativo"
+"O banco de armazenamento %(pool)s especificado para o modelo %(template)s "
+"não está ativo"
 
 #, python-format
 msgid "Invalid parameter '%(param)s' specified for CDROM."
@@ -561,8 +573,9 @@ msgstr ""
 "O número de CPUs (unidades centrais de processamento) deve ser um número "
 "inteiro maior que 0"
 
-msgid "Amount of memory (MB) must be an integer greater than 512"
-msgstr "A quantia de memória (MB) deve ser um número inteiro maior que 512"
+msgid ""
+"Amount of memory and maximum memory (MB) must be an integer greater than 512"
+msgstr ""
 
 msgid "Template CDROM must be a local or remote ISO file"
 msgstr "O modelo CD-ROM deve ser um arquivo ISO local ou remoto"
@@ -608,13 +621,6 @@ msgid "Cannot identify base image %(path)s format"
 msgstr "Não é possível identificar o formato da imagem base %(path)s"
 
 msgid ""
-"When specifying CPU topology, VCPUs must be a product of sockets, cores, and "
-"threads."
-msgstr ""
-"Ao especificar a topologia da CPU, as VCPUs devem ser um produto de "
-"soquetes, núcleos e encadeamentos."
-
-msgid ""
 "When specifying CPU topology, each element must be an integer greater than "
 "zero."
 msgstr ""
@@ -636,6 +642,17 @@ msgstr ""
 msgid "Disk format must be 'raw', for logical, iscsi, and scsi pools."
 msgstr ""
 
+msgid ""
+"Memory expects an object with one or both parameters: 'current' and "
+"'maxmemory'"
+msgstr ""
+
+#, python-format
+msgid ""
+"Memory value (%(mem)sMiB) must be equal or lesser than maximum memory value "
+"(%(maxmem)sMiB)"
+msgstr ""
+
 #, python-format
 msgid "Storage pool %(name)s already exists"
 msgstr "O banco de armazenamento %(name)s já existe"
@@ -654,21 +671,12 @@ msgstr "Não é possível excluir o banco de armazenamento ativo %(name)s"
 
 #, python-format
 msgid "Unable to list storage pools. Details: %(err)s"
-msgstr ""
-"Não é possível listar os bancos de armazenamento. Detalhes: %(err)s"
+msgstr "Não é possível listar os bancos de armazenamento. Detalhes: %(err)s"
 
 #, python-format
 msgid "Unable to create storage pool %(name)s. Details: %(err)s"
 msgstr ""
 "Não é possível criar o banco de armazenamento %(name)s. Detalhes: %(err)s"
-
-#, python-format
-msgid ""
-"Unable to get number of storage volumes in storage pool %(name)s. Details: "
-"%(err)s"
-msgstr ""
-"Não é possível obter o número de volumes de armazenamento no banco de "
-"armazenamento %(name)s. Detalhes: %(err)s"
 
 #, python-format
 msgid "Unable to activate storage pool %(name)s. Details: %(err)s"
@@ -695,8 +703,8 @@ msgstr ""
 #, python-format
 msgid "Unable to create NFS Pool as export path %(path)s mount failed"
 msgstr ""
-"Não é possível criar o Banco NFS porque a montagem do caminho de "
-"exportação %(path)s falhou"
+"Não é possível criar o Banco NFS porque a montagem do caminho de exportação "
+"%(path)s falhou"
 
 #, python-format
 msgid "Unsupported storage pool type: %(type)s"
@@ -707,8 +715,7 @@ msgid "Error while retrieving storage pool XML to %(pool)s"
 msgstr "Erro ao recuperar o banco de armazenamento XML para %(pool)s"
 
 msgid "Storage pool name must be a string without slashes (/)"
-msgstr ""
-"O nome do banco de armazenamento deve ser uma sequência sem barras (/)"
+msgstr "O nome do banco de armazenamento deve ser uma sequência sem barras (/)"
 
 msgid ""
 "Supported storage pool types are dir, netfs, logical, iscsi, isci and kimchi-"
@@ -729,8 +736,8 @@ msgstr ""
 "dispositivo de bloco"
 
 msgid "Storage pool devices parameter must be a list"
-msgstr "O parâmetro de dispositivos do banco de armazenamento deve ser uma "
-"lista"
+msgstr ""
+"O parâmetro de dispositivos do banco de armazenamento deve ser uma lista"
 
 msgid "Target IQN of an iSCSI pool must be a string"
 msgstr "O IQN de destino de um banco iSCSI deve ser um texto"
@@ -754,16 +761,17 @@ msgid ""
 "%(disk)s is not a valid disk/partition. Could not add it to the pool "
 "%(pool)s."
 msgstr ""
-"%(disk)s não é um disco/partição válido. Não foi possível incluí-lo no "
-"banco %(pool)s."
+"%(disk)s não é um disco/partição válido. Não foi possível incluí-lo no banco "
+"%(pool)s."
 
 #, python-format
 msgid "Unable to extend logical pool %(pool)s. Details: %(err)s"
 msgstr "Não é possível estender o banco lógico %(pool)s. Detalhes: %(err)s"
 
 msgid "The parameter disks only can be updated for logical storage pool."
-msgstr "O parâmetro discos só pode ser atualizado para o banco de "
-"armazenamento lógico."
+msgstr ""
+"O parâmetro discos só pode ser atualizado para o banco de armazenamento "
+"lógico."
 
 msgid "The SCSI host adapter name must be a string."
 msgstr "O nome do adaptador de host SCSI deve ser um texto."
@@ -797,8 +805,8 @@ msgstr ""
 #, python-format
 msgid "Unable to delete pool %(name)s as it is associated with some templates"
 msgstr ""
-"Não é possível excluir o banco %(name)s porque ele está associado com "
-"alguns modelos"
+"Não é possível excluir o banco %(name)s porque ele está associado com alguns "
+"modelos"
 
 #, python-format
 msgid ""
@@ -856,13 +864,6 @@ msgid ""
 msgstr ""
 "Não é possível criar o volume de armazenamento %(name)s no banco de "
 "armazenamento %(pool)s. Detalhes: %(err)s"
-
-#, python-format
-msgid ""
-"Unable to list storage volumes in storage pool %(pool)s. Details: %(err)s"
-msgstr ""
-"Não é possível listar volumes de armazenamento no banco de armazenamento "
-"%(pool)s. Detalhes: %(err)s"
 
 #, python-format
 msgid "Unable to wipe storage volumes %(name)s. Details: %(err)s"
@@ -980,14 +981,11 @@ msgid "Network %(name)s does not exist"
 msgstr "A rede %(name)s não existe"
 
 #, python-format
-msgid "Subnet %(subnet)s specified for network %(network)s  is not valid."
+msgid "Subnet %(subnet)s specified for network %(network)s is not valid."
 msgstr ""
-"A sub-rede %(subnet)s especificada para a rede %(network)s não é válida."
 
-#, python-format
-msgid "Specify a network interface to create bridged network %(name)s"
+msgid "Specify a network interface to create bridged or macvtap networks."
 msgstr ""
-"Especifique uma interface de rede para criar uma rede em bridge %(name)s"
 
 #, python-format
 msgid "Unable to delete active network %(name)s"
@@ -1016,7 +1014,7 @@ msgstr "A interface %(iface)s já existe."
 msgid "Network name must be a string without slashes (/) or quotes (\")"
 msgstr "O nome da rede deve ser uma sequência sem barras (/) ou aspas (\")"
 
-msgid "Supported network types are isolated, NAT, macvtap and bridge"
+msgid "Supported network types are isolated, NAT, macvtap, bridge and vepa"
 msgstr ""
 
 msgid "Network subnet must be a string with IP address and prefix or netmask"
@@ -1024,8 +1022,8 @@ msgstr ""
 "A sub-rede da rede deve ser um texto com endereço IP e prefixo ou máscara de "
 "rede"
 
-msgid "Network interface must be a string"
-msgstr "A interface de rede deve ser um texto"
+msgid "Network interfaces must be an array."
+msgstr ""
 
 msgid "Network VLAN ID must be an integer between 1 and 4094"
 msgstr "O ID de VLAN da rede deve ser um número inteiro entre 1 e 4094"
@@ -1077,7 +1075,18 @@ msgstr ""
 msgid "Unable to create bridge %(name)s. Details: %(err)s"
 msgstr ""
 
-msgid "Open VSwitch bridges can only host bridged networks."
+msgid ""
+"Unable to create bridge with NetworkManager enabled. Disable it and try "
+"again."
+msgstr ""
+
+msgid "Interface should be bare NIC or bonding."
+msgstr ""
+
+msgid "Network interfaces parameter must contain at least one interface."
+msgstr ""
+
+msgid "Only one interface is allowed for 'bridge' and 'macvtap' networks."
 msgstr ""
 
 #, python-format
@@ -1139,8 +1148,8 @@ msgid ""
 "Specify type and path or type and pool/volume to add a new virtual machine "
 "disk"
 msgstr ""
-"Especificar tipo e caminho ou tipo e banco/volume para incluir um novo "
-"disco de máquina virtual"
+"Especificar tipo e caminho ou tipo e banco/volume para incluir um novo disco "
+"de máquina virtual"
 
 msgid "Specify path to update virtual machine disk"
 msgstr "Especifique o caminho para atualizar o disco de máquina virtual"
@@ -1153,8 +1162,8 @@ msgstr ""
 #, python-format
 msgid "Cannot retrieve disk path information for given pool/volume: %(error)s"
 msgstr ""
-"Não é possível recuperar informações de caminho do disco para o banco/"
-"volume fornecido: %(error)s"
+"Não é possível recuperar informações de caminho do disco para o banco/volume "
+"fornecido: %(error)s"
 
 msgid "Volume already in use by other virtual machine."
 msgstr "O volume já está sendo usado por outra máquina virtual."
@@ -1163,8 +1172,8 @@ msgid ""
 "Only one of path or pool/volume can be specified to add a new virtual "
 "machine disk"
 msgstr ""
-"Apenas um caminho ou banco/volume podem ser especificados para inclusão "
-"de um novo disco de máquina virtual"
+"Apenas um caminho ou banco/volume podem ser especificados para inclusão de "
+"um novo disco de máquina virtual"
 
 #, python-format
 msgid ""
@@ -1241,14 +1250,34 @@ msgstr ""
 "porque ela contém um disco com o formato '%(format)s'; somente 'qcow2' é "
 "suportado."
 
-msgid "The number of vCPUs is too large for this system."
-msgstr "O número de vCPUs é muito grande para esse sistema."
+msgid ""
+"The number of vCPUs must be less than or equal the maximum number of vCPUs "
+"specified."
+msgstr ""
 
-msgid "Invalid vCPU/topology combination."
-msgstr "Combinação inválida de vCPU/topologia."
+msgid ""
+"When CPU topology is defined, maximum number of vCPUs must be a product of "
+"sockets, cores, and threads."
+msgstr ""
 
 msgid "This host (or current configuration) does not allow CPU topology."
 msgstr "Esse host (ou configuração atual) não permite topologia de CPU."
+
+msgid "The maximum number of vCPUs is too large for this system."
+msgstr ""
+
+msgid ""
+"When CPU topology is defined, vCPUs must be a multiple of a product of cores "
+"and threads."
+msgstr ""
+
+msgid "The number of threads is too large for this system."
+msgstr ""
+
+msgid ""
+"When CPU topology is specified, sockets, cores and threads are required "
+"paramaters."
+msgstr ""
 
 #, python-format
 msgid "Invalid volume group name parameter: %(name)s."
@@ -1276,14 +1305,14 @@ msgstr "Criar um modelo"
 msgid "Please choose a template."
 msgstr "Escolha um modelo."
 
-msgid "OS: "
-msgstr ""
+msgid "OS"
+msgstr "S.O."
 
-msgid "Version: "
-msgstr ""
+msgid "Version"
+msgstr "Versão"
 
-msgid "CPUS"
-msgstr "CPUS"
+msgid "CPUs"
+msgstr "CPUs"
 
 msgid "Memory"
 msgstr "Memória"
@@ -1303,11 +1332,17 @@ msgstr "Editar máquina guest"
 msgid "Name"
 msgstr "Nome"
 
-msgid "CPUs"
-msgstr "CPUs"
+msgid "More"
+msgstr ""
+
+msgid "Max CPU"
+msgstr ""
 
 msgid "Memory (MB)"
 msgstr "Memória (megabyte)"
+
+msgid "Max Memory (MB)"
+msgstr ""
 
 msgid "Icon"
 msgstr "Ícone"
@@ -1396,37 +1431,22 @@ msgstr "ID do usuário LDAP, por ex., foo@foo.com"
 msgid "Revert"
 msgstr ""
 
-msgid "Add a Storage Device to VM"
-msgstr "Incluir um Dispositivo de Armazenamento na VM"
-
-msgid "Device Type"
-msgstr "Tipo de Dispositivo"
-
-msgid "The device type. Currently, \"cdrom\" and \"disk\" are supported."
+msgid "Running"
 msgstr ""
 
-msgid "Storage Pool"
-msgstr "Banco de Armazenamento"
+msgid "Disconnected"
+msgstr ""
 
-msgid "Storage pool which volume located in"
-msgstr "Banco de armazenamento no qual o volume está localizado"
+msgid "Starting"
+msgstr ""
 
-msgid "Storage Volume"
-msgstr "Volume de Armazenamento"
+msgid "Resetting"
+msgstr ""
 
-msgid "Storage volume to be attached"
-msgstr "Volume de armazenamento a ser conectado"
+msgid "View Console"
+msgstr ""
 
-msgid "File Path"
-msgstr "Caminho do arquivo"
-
-msgid "The ISO file path in the server for CDROM."
-msgstr "O caminho do arquivo ISO no servidor para o CDROM."
-
-msgid "Attach"
-msgstr "Anexar"
-
-msgid "Connect VNC"
+msgid "View Serial"
 msgstr ""
 
 msgid "View VNC Console"
@@ -1434,6 +1454,9 @@ msgstr ""
 
 msgid "Clone"
 msgstr "Clonar"
+
+msgid "Migrate"
+msgstr ""
 
 msgid "Reset"
 msgstr "Reiniciar"
@@ -1456,11 +1479,11 @@ msgstr "Desligar"
 msgid "Delete"
 msgstr "Excluir"
 
-msgid "View Console"
+msgid "No Data Available"
 msgstr ""
 
-msgid "Processors Used"
-msgstr "Utilização do Processador"
+msgid "Processors Utilization"
+msgstr ""
 
 msgid "Memory Available"
 msgstr ""
@@ -1470,6 +1493,93 @@ msgstr "E/S de disco"
 
 msgid "Network I/O"
 msgstr "E/S de Rede"
+
+msgid "Migrate a Guest"
+msgstr ""
+
+msgid ""
+"Disclaimer: This process cannot be stopped after started, can take a long "
+"time to complete and will turn off the VM on this Hypervisor when it is "
+"successfully migrated to the remote destination."
+msgstr ""
+
+msgid "Remote Server"
+msgstr ""
+
+msgid "IP Address or Hostname"
+msgstr ""
+
+msgid ""
+"The following fields are optional. Fill them if you want Kimchi to setup a "
+"password-less ssh session between the localhost and the remote host. The "
+"setup process will only be successful if the user has 'SUDO ALL' permission "
+"in the remote machine."
+msgstr ""
+
+msgid "Username of the remote host"
+msgstr ""
+
+msgid "Password"
+msgstr "Senha"
+
+msgid "Password of the user in the remote host"
+msgstr ""
+
+msgid "Delete this VM when the migration is completed"
+msgstr ""
+
+msgid "Add a Storage Device to VM"
+msgstr "Incluir um Dispositivo de Armazenamento na VM"
+
+msgid "Device Type"
+msgstr "Tipo de Dispositivo"
+
+msgid ""
+"The device type. Currently, \"cdrom\" and \"disk\" are supported. If the "
+"guest is running, only \"disk\" is supported."
+msgstr ""
+
+msgid "Create a new disk"
+msgstr ""
+
+msgid "Select an existing disk"
+msgstr ""
+
+msgid "Storage Pool"
+msgstr "Banco de Armazenamento"
+
+msgid "Storage pool to create the volume in"
+msgstr ""
+
+msgid "Disk Size (GB)"
+msgstr ""
+
+msgid "New disk size to be created"
+msgstr ""
+
+msgid "Format"
+msgstr ""
+
+msgid "Format of the new disk to be created"
+msgstr ""
+
+msgid "Storage pool in which the volume is located in"
+msgstr ""
+
+msgid "Storage Volume"
+msgstr "Volume de Armazenamento"
+
+msgid "Storage volume to be attached"
+msgstr "Volume de armazenamento a ser conectado"
+
+msgid "File Path"
+msgstr "Caminho do arquivo"
+
+msgid "The ISO file path in the server for CDROM."
+msgstr "O caminho do arquivo ISO no servidor para o CDROM."
+
+msgid "Attach"
+msgstr "Anexar"
 
 msgid "Host"
 msgstr "Host"
@@ -1482,9 +1592,6 @@ msgstr "Modelos"
 
 msgid "Storage"
 msgstr "Armazenamento"
-
-msgid "Failed to get application configuration"
-msgstr "Falha ao obter a configuração do aplicativo"
 
 msgid "This is not a valid Linux path"
 msgstr "Este não é um caminho do Linux válido"
@@ -1513,6 +1620,12 @@ msgstr "Aviso"
 msgid "Cloning..."
 msgstr "Clonando..."
 
+msgid "Saving..."
+msgstr ""
+
+msgid "Migrating..."
+msgstr ""
+
 msgid "No ISO found"
 msgstr "Nenhum ISO localizado"
 
@@ -1521,6 +1634,12 @@ msgstr "Isso pode demorar. Deseja continuar?"
 
 msgid "This will permanently delete the template. Would you like to continue?"
 msgstr "Isso excluirá permanentemente o modelo. Deseja continuar?"
+
+msgid "View Table"
+msgstr ""
+
+msgid "View Gallery"
+msgstr ""
 
 msgid ""
 "This will delete the virtual machine and its virtual disks. This operation "
@@ -1614,8 +1733,8 @@ msgstr "modelo:"
 msgid "Affected devices:"
 msgstr "Dispositivos afetados:"
 
-msgid "The VLAN id must be between 1 and 4094."
-msgstr "O ID de VLAN deve ser entre 1 e 4094."
+msgid "Less"
+msgstr ""
 
 msgid "unavailable"
 msgstr "indisponível"
@@ -1687,8 +1806,8 @@ msgid ""
 "This storage pool is not persistent. Instead of deactivate, this action will "
 "permanently delete it. Would you like to continue?"
 msgstr ""
-"Este banco de armazenamento não é persistente. Em vez de desativar, esta ação "
-"o excluirá permanentemente. Deseja continuar?"
+"Este banco de armazenamento não é persistente. Em vez de desativar, esta "
+"ação o excluirá permanentemente. Deseja continuar?"
 
 msgid "Unable to retrieve partitions information."
 msgstr "Não é possível recuperar as informações da partição."
@@ -1698,6 +1817,9 @@ msgstr "Em andamento..."
 
 msgid "Failed!"
 msgstr "Falhou!"
+
+msgid "No LVM found in the system."
+msgstr ""
 
 msgid "CDROM path needs to be a valid local/remote path and cannot be blank."
 msgstr ""
@@ -1725,8 +1847,16 @@ msgstr "Isolado: nenhuma conexão de rede externa"
 msgid "NAT: outbound physical network connection only"
 msgstr "NAT: somente conexão de rede física de saída"
 
-msgid "Bridged: Virtual machines are connected to physical network directly"
-msgstr "bridged: As máquinas virtuais são conectadas à rede física diretamente"
+msgid "Macvtap: Virtual machines are connected to physical network directly"
+msgstr ""
+
+msgid ""
+"VEPA: special mode where virtual machines are connected to a VEPA-enabled "
+"switch"
+msgstr ""
+
+msgid "Bridged: Virtual machines are connected through a network bridge"
+msgstr ""
 
 msgid "(No interfaces found)"
 msgstr "(Nenhuma interface localizada)"
@@ -1739,21 +1869,6 @@ msgstr "Ativar VLAN"
 
 msgid "VLAN ID"
 msgstr "ID de VLAN"
-
-msgid "Add a Volume to Storage Pool"
-msgstr "Incluir um volume no banco de armazenamento"
-
-msgid "Fetch from remote URL"
-msgstr "Buscar a partir da URL remota"
-
-msgid "Enter the remote URL here."
-msgstr "Inserir a URL remota aqui."
-
-msgid "Upload a file"
-msgstr "Fazer upload de um arquivo"
-
-msgid "Choose the file you want to upload."
-msgstr "Escolher o arquivo do qual você deseja fazer upload."
 
 msgid "Define a New Storage Pool"
 msgstr "Definir um novo banco de armazenamento"
@@ -1799,8 +1914,14 @@ msgstr "Caminho de NFS"
 msgid "The NFS exported path on NFS server."
 msgstr "O caminho exportado de NFS no servidor NFS."
 
-msgid "Device path"
-msgstr "Caminho do dispositivo"
+msgid "Create from existing LVM"
+msgstr ""
+
+msgid "Create from raw disk"
+msgstr ""
+
+msgid "Looking for existing lvms ..."
+msgstr ""
 
 msgid "Looking for available partitions ..."
 msgstr "Procurando partições disponíveis..."
@@ -1829,14 +1950,26 @@ msgstr "Incluir autenticação de iSCSI"
 msgid "User Name"
 msgstr "Nome de usuário"
 
-msgid "Password"
-msgstr "Senha"
-
 msgid "SCSI Adapter"
 msgstr "Adaptador SCSI"
 
 msgid "Please, wait..."
 msgstr "Aguarde..."
+
+msgid "Add a Volume to Storage Pool"
+msgstr "Incluir um volume no banco de armazenamento"
+
+msgid "Fetch from remote URL"
+msgstr "Buscar a partir da URL remota"
+
+msgid "Enter the remote URL here."
+msgstr "Inserir a URL remota aqui."
+
+msgid "Upload a file"
+msgstr "Fazer upload de um arquivo"
+
+msgid "Choose the file you want to upload."
+msgstr "Escolher o arquivo do qual você deseja fazer upload."
 
 msgid "Add Template"
 msgstr "Incluir Modelo"
@@ -1861,12 +1994,6 @@ msgstr "Procurar ISOs"
 
 msgid "The following ISOs are available:"
 msgstr "Os ISOs a seguir estão disponíveis:"
-
-msgid "OS"
-msgstr "S.O."
-
-msgid "Version"
-msgstr "Versão"
 
 msgid "Size"
 msgstr "Tamanho"

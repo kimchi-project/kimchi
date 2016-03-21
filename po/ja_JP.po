@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 17:26-0200\n"
+"POT-Creation-Date: 2016-03-21 14:07-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -24,18 +24,6 @@ msgstr "パラメーター %(value)s が不明です"
 #, python-format
 msgid "User %(user_id)s not found with given LDAP settings."
 msgstr "指定の LDAP 設定を持つユーザー %(user_id)s が見つかりません。"
-
-#, python-format
-msgid "Error while getting block devices. Details: %(err)s"
-msgstr "ブロック・デバイスの取得中にエラーが発生しました。詳細: %(err)s"
-
-#, python-format
-msgid "Error while getting block device information for %(device)s."
-msgstr "%(device)s のブロック・デバイス情報の取得中にエラーが発生しました。"
-
-#, python-format
-msgid "Unable to retrieve LVM information. Details: %(err)s"
-msgstr ""
 
 #, python-format
 msgid "Partition %(name)s does not exist in the host"
@@ -286,11 +274,10 @@ msgstr ""
 
 #, python-format
 msgid ""
-"VM '%(name)s' does not support live memory update. Update the memory with "
-"the machine offline to enable this feature."
+"Guest '%(name)s' does not support live memory update. Please, with the guest "
+"offline, set Maximum Memory with a value greater then Memory to enable this "
+"feature."
 msgstr ""
-"VM「%(name)s」ではライブ・メモリー・アップデートはサポートされていません。オ"
-"フライン状態のマシンでメモリーを更新して、この機能を使用可能にしてください。"
 
 msgid "Only increase memory is allowed in active VMs"
 msgstr "アクティブ VM ではメモリーの増加のみが許可されています"
@@ -409,7 +396,7 @@ msgid "Error creating local host ssh rsa key of user 'root'."
 msgstr ""
 
 #, python-format
-msgid "Memory value %(mem)s must be aligned to %(alignment)sMiB."
+msgid "%(param)s value (%(mem)sMiB) must be aligned to %(alignment)sMiB."
 msgstr ""
 
 #, python-format
@@ -424,8 +411,36 @@ msgstr ""
 
 #, python-format
 msgid ""
-"Cannot change VCPU value because '%(vm)s' has a topology defined - sockets: "
-"%(sockets)s, cores: %(cores)s, threads: %(threads)s."
+"VM %(name)s must have serial and console defined to open a web serial console"
+msgstr ""
+
+#, python-format
+msgid "Impossible to get the serial console of %(name)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Memory or Maximum Memory value is higher than amount supported by the host: "
+"%(memHost)sMiB."
+msgstr ""
+
+#, python-format
+msgid ""
+"Memory or Maximum Memory value is higher than maximum amount recommended: "
+"%(value)sTiB"
+msgstr ""
+
+msgid "Cannot update Maximum Memory when guest is running."
+msgstr ""
+
+#, python-format
+msgid "Impossible to create %(dir)s directory."
+msgstr ""
+
+#, python-format
+msgid ""
+"Either the guest %(name)s did not start to listen to the serial or it is not "
+"configured to use the serial console."
 msgstr ""
 
 #, python-format
@@ -443,16 +458,10 @@ msgstr ""
 msgid ""
 "No IOMMU groups found. Host PCI pass through needs IOMMU group to function "
 "correctly. Please enable Intel VT-d or AMD IOMMU in your BIOS, then verify "
-"the Kernel is compiled with IOMMU support. For Intel CPU, add intel_iommu=on "
-"to your Kernel parameter in /boot/grub2/grub.conf. For AMD CPU, add iommu=pt "
-"iommu=1."
+"the Kernel is compiled with IOMMU support. For Intel CPU, add "
+"'intel_iommu=on' to GRUB_CMDLINE_LINUX parameter in /etc/default/grub file. "
+"For AMD CPU, add 'iommu=pt iommu=1'."
 msgstr ""
-"IOMMU グループが見つかりません。ホスト PCI パススルーでは、IOMMU グループが正"
-"しく機能しなければなりません。BIOS で Intel VT-d または AMD IOMMU を有効にし"
-"て、IOMMU サポートを使用してカーネルがコンパイルされていることを確認してくだ"
-"さい。Intel CPU の場合は、/boot/grub2/grub.conf においてカーネル・パラメー"
-"ターに intel_iommu=on を追加します。AMD CPU の場合は、iommu=pt iommu=1 を追加"
-"します。"
 
 msgid "\"name\" should be a device name string"
 msgstr "「name」はデバイス名ストリングでなければなりません"
@@ -464,6 +473,10 @@ msgid ""
 msgstr ""
 "デバイス %(name)s はホストで使用中である可能性があります。ゲストに接続するこ"
 "とはできません。"
+
+#, python-format
+msgid "Hot-(un)plug of device %(name)s is not supported."
+msgstr ""
 
 #, python-format
 msgid "Interface %(iface)s does not exist in virtual machine %(name)s"
@@ -557,8 +570,9 @@ msgstr ""
 msgid "The number of CPUs must be an integer greater than 0"
 msgstr "CPU の数は 0 より大きい整数でなければなりません"
 
-msgid "Amount of memory (MB) must be an integer greater than 512"
-msgstr "メモリーの量 (MB 単位) は、512 より大きい整数でなければなりません"
+msgid ""
+"Amount of memory and maximum memory (MB) must be an integer greater than 512"
+msgstr ""
 
 msgid "Template CDROM must be a local or remote ISO file"
 msgstr ""
@@ -608,13 +622,6 @@ msgid "Cannot identify base image %(path)s format"
 msgstr "ベース・イメージ %(path)s のフォーマットを識別できません"
 
 msgid ""
-"When specifying CPU topology, VCPUs must be a product of sockets, cores, and "
-"threads."
-msgstr ""
-"CPU トポロジーを指定する場合、VCPU はソケット、コア、およびスレッドの積でなけ"
-"ればなりません。"
-
-msgid ""
 "When specifying CPU topology, each element must be an integer greater than "
 "zero."
 msgstr ""
@@ -634,6 +641,17 @@ msgid ""
 msgstr ""
 
 msgid "Disk format must be 'raw', for logical, iscsi, and scsi pools."
+msgstr ""
+
+msgid ""
+"Memory expects an object with one or both parameters: 'current' and "
+"'maxmemory'"
+msgstr ""
+
+#, python-format
+msgid ""
+"Memory value (%(mem)sMiB) must be equal or lesser than maximum memory value "
+"(%(maxmem)sMiB)"
 msgstr ""
 
 #, python-format
@@ -660,14 +678,6 @@ msgstr "ストレージ・プールをリストできません。詳細: %(err)s
 #, python-format
 msgid "Unable to create storage pool %(name)s. Details: %(err)s"
 msgstr "ストレージ・プール %(name)s を作成できません。詳細: %(err)s"
-
-#, python-format
-msgid ""
-"Unable to get number of storage volumes in storage pool %(name)s. Details: "
-"%(err)s"
-msgstr ""
-"ストレージ・プール %(name)s 内のストレージ・ボリューム数を取得できません。詳"
-"細: %(err)s"
 
 #, python-format
 msgid "Unable to activate storage pool %(name)s. Details: %(err)s"
@@ -854,13 +864,6 @@ msgstr ""
 "ん。詳細: %(err)s"
 
 #, python-format
-msgid ""
-"Unable to list storage volumes in storage pool %(pool)s. Details: %(err)s"
-msgstr ""
-"ストレージ・プール %(pool)s 内のストレージ・ボリュームをリストできません。詳"
-"細: %(err)s"
-
-#, python-format
 msgid "Unable to wipe storage volumes %(name)s. Details: %(err)s"
 msgstr "ストレージ・ボリューム %(name)s をワイプできません。詳細: %(err)s"
 
@@ -974,15 +977,11 @@ msgid "Network %(name)s does not exist"
 msgstr "ネットワーク %(name)s は存在しません"
 
 #, python-format
-msgid "Subnet %(subnet)s specified for network %(network)s  is not valid."
+msgid "Subnet %(subnet)s specified for network %(network)s is not valid."
 msgstr ""
-"ネットワーク %(network)s に指定されたサブネット %(subnet)s は無効です。"
 
-#, python-format
-msgid "Specify a network interface to create bridged network %(name)s"
+msgid "Specify a network interface to create bridged or macvtap networks."
 msgstr ""
-"ブリッジ・ネットワーク %(name)s を作成するには、ネットワーク・インターフェー"
-"スを指定してください"
 
 #, python-format
 msgid "Unable to delete active network %(name)s"
@@ -1016,7 +1015,7 @@ msgstr ""
 "ネットワーク名はスラッシュ (/) または引用符 (\") のないストリングでなければな"
 "りません"
 
-msgid "Supported network types are isolated, NAT, macvtap and bridge"
+msgid "Supported network types are isolated, NAT, macvtap, bridge and vepa"
 msgstr ""
 
 msgid "Network subnet must be a string with IP address and prefix or netmask"
@@ -1024,8 +1023,8 @@ msgstr ""
 "ネットワーク・サブネットは、IP アドレスとプレフィックスまたはネットマスクのあ"
 "るストリングでなければなりません"
 
-msgid "Network interface must be a string"
-msgstr "ネットワーク・インターフェースはストリングでなければなりません"
+msgid "Network interfaces must be an array."
+msgstr ""
 
 msgid "Network VLAN ID must be an integer between 1 and 4094"
 msgstr "ネットワーク VLAN ID は、1 から 4094 までの整数でなければなりません"
@@ -1079,7 +1078,18 @@ msgstr ""
 msgid "Unable to create bridge %(name)s. Details: %(err)s"
 msgstr ""
 
-msgid "Open VSwitch bridges can only host bridged networks."
+msgid ""
+"Unable to create bridge with NetworkManager enabled. Disable it and try "
+"again."
+msgstr ""
+
+msgid "Interface should be bare NIC or bonding."
+msgstr ""
+
+msgid "Network interfaces parameter must contain at least one interface."
+msgstr ""
+
+msgid "Only one interface is allowed for 'bridge' and 'macvtap' networks."
 msgstr ""
 
 #, python-format
@@ -1240,14 +1250,34 @@ msgstr ""
 "め、この仮想マシンのスナップショットを作成できません。「qcow2」のみがサポート"
 "されています。"
 
-msgid "The number of vCPUs is too large for this system."
-msgstr "vCPU がこのシステムには大きすぎます。"
+msgid ""
+"The number of vCPUs must be less than or equal the maximum number of vCPUs "
+"specified."
+msgstr ""
 
-msgid "Invalid vCPU/topology combination."
-msgstr "vCPU/トポロジーの組み合わせが無効です。"
+msgid ""
+"When CPU topology is defined, maximum number of vCPUs must be a product of "
+"sockets, cores, and threads."
+msgstr ""
 
 msgid "This host (or current configuration) does not allow CPU topology."
 msgstr "このホスト (または現行構成) では CPU トポロジーは許可されていません。"
+
+msgid "The maximum number of vCPUs is too large for this system."
+msgstr ""
+
+msgid ""
+"When CPU topology is defined, vCPUs must be a multiple of a product of cores "
+"and threads."
+msgstr ""
+
+msgid "The number of threads is too large for this system."
+msgstr ""
+
+msgid ""
+"When CPU topology is specified, sockets, cores and threads are required "
+"paramaters."
+msgstr ""
 
 #, python-format
 msgid "Invalid volume group name parameter: %(name)s."
@@ -1275,13 +1305,13 @@ msgstr "テンプレートの作成"
 msgid "Please choose a template."
 msgstr "テンプレートを選択してください。"
 
-msgid "OS: "
-msgstr "OS: "
+msgid "OS"
+msgstr "OS"
 
-msgid "Version: "
-msgstr "バージョン: "
+msgid "Version"
+msgstr "バージョン"
 
-msgid "CPUS"
+msgid "CPUs"
 msgstr "CPU"
 
 msgid "Memory"
@@ -1302,11 +1332,17 @@ msgstr "ゲストの編集"
 msgid "Name"
 msgstr "名前"
 
-msgid "CPUs"
-msgstr "CPU"
+msgid "More"
+msgstr ""
+
+msgid "Max CPU"
+msgstr ""
 
 msgid "Memory (MB)"
 msgstr "メモリー (MB)"
+
+msgid "Max Memory (MB)"
+msgstr ""
 
 msgid "Icon"
 msgstr "アイコン"
@@ -1395,37 +1431,22 @@ msgstr "LDAP ユーザー ID (例: foo@foo.com)"
 msgid "Revert"
 msgstr ""
 
-msgid "Add a Storage Device to VM"
-msgstr "VM にストレージ・デバイスを追加"
-
-msgid "Device Type"
-msgstr "デバイス・タイプ"
-
-msgid "The device type. Currently, \"cdrom\" and \"disk\" are supported."
+msgid "Running"
 msgstr ""
 
-msgid "Storage Pool"
-msgstr "ストレージ・プール"
+msgid "Disconnected"
+msgstr ""
 
-msgid "Storage pool which volume located in"
-msgstr "ボリュームが含まれているストレージ・プール"
+msgid "Starting"
+msgstr ""
 
-msgid "Storage Volume"
-msgstr "ストレージ・ボリューム"
+msgid "Resetting"
+msgstr ""
 
-msgid "Storage volume to be attached"
-msgstr "接続されるストレージ・ボリューム"
+msgid "View Console"
+msgstr ""
 
-msgid "File Path"
-msgstr "ファイル・パス"
-
-msgid "The ISO file path in the server for CDROM."
-msgstr "サーバー内での CDROM の ISO ファイル・パス。"
-
-msgid "Attach"
-msgstr "接続"
-
-msgid "Connect VNC"
+msgid "View Serial"
 msgstr ""
 
 msgid "View VNC Console"
@@ -1433,6 +1454,9 @@ msgstr ""
 
 msgid "Clone"
 msgstr "クローン"
+
+msgid "Migrate"
+msgstr ""
 
 msgid "Reset"
 msgstr "リセット"
@@ -1455,10 +1479,10 @@ msgstr "電源オフ"
 msgid "Delete"
 msgstr "削除"
 
-msgid "View Console"
+msgid "No Data Available"
 msgstr ""
 
-msgid "Processors Used"
+msgid "Processors Utilization"
 msgstr ""
 
 msgid "Memory Available"
@@ -1469,6 +1493,93 @@ msgstr ""
 
 msgid "Network I/O"
 msgstr "ネットワーク入出力"
+
+msgid "Migrate a Guest"
+msgstr ""
+
+msgid ""
+"Disclaimer: This process cannot be stopped after started, can take a long "
+"time to complete and will turn off the VM on this Hypervisor when it is "
+"successfully migrated to the remote destination."
+msgstr ""
+
+msgid "Remote Server"
+msgstr ""
+
+msgid "IP Address or Hostname"
+msgstr ""
+
+msgid ""
+"The following fields are optional. Fill them if you want Kimchi to setup a "
+"password-less ssh session between the localhost and the remote host. The "
+"setup process will only be successful if the user has 'SUDO ALL' permission "
+"in the remote machine."
+msgstr ""
+
+msgid "Username of the remote host"
+msgstr ""
+
+msgid "Password"
+msgstr "パスワード"
+
+msgid "Password of the user in the remote host"
+msgstr ""
+
+msgid "Delete this VM when the migration is completed"
+msgstr ""
+
+msgid "Add a Storage Device to VM"
+msgstr "VM にストレージ・デバイスを追加"
+
+msgid "Device Type"
+msgstr "デバイス・タイプ"
+
+msgid ""
+"The device type. Currently, \"cdrom\" and \"disk\" are supported. If the "
+"guest is running, only \"disk\" is supported."
+msgstr ""
+
+msgid "Create a new disk"
+msgstr ""
+
+msgid "Select an existing disk"
+msgstr ""
+
+msgid "Storage Pool"
+msgstr "ストレージ・プール"
+
+msgid "Storage pool to create the volume in"
+msgstr ""
+
+msgid "Disk Size (GB)"
+msgstr ""
+
+msgid "New disk size to be created"
+msgstr ""
+
+msgid "Format"
+msgstr ""
+
+msgid "Format of the new disk to be created"
+msgstr ""
+
+msgid "Storage pool in which the volume is located in"
+msgstr ""
+
+msgid "Storage Volume"
+msgstr "ストレージ・ボリューム"
+
+msgid "Storage volume to be attached"
+msgstr "接続されるストレージ・ボリューム"
+
+msgid "File Path"
+msgstr "ファイル・パス"
+
+msgid "The ISO file path in the server for CDROM."
+msgstr "サーバー内での CDROM の ISO ファイル・パス。"
+
+msgid "Attach"
+msgstr "接続"
 
 msgid "Host"
 msgstr "ホスト"
@@ -1481,9 +1592,6 @@ msgstr "テンプレート"
 
 msgid "Storage"
 msgstr "ストレージ"
-
-msgid "Failed to get application configuration"
-msgstr "アプリケーション構成を取得できませんでした"
 
 msgid "This is not a valid Linux path"
 msgstr "有効な Linux パスではありません"
@@ -1512,6 +1620,12 @@ msgstr "警告"
 msgid "Cloning..."
 msgstr "クローン作成中..."
 
+msgid "Saving..."
+msgstr ""
+
+msgid "Migrating..."
+msgstr ""
+
 msgid "No ISO found"
 msgstr "ISO が見つかりません"
 
@@ -1520,6 +1634,12 @@ msgstr "これには時間がかかることがあります。続行しますか
 
 msgid "This will permanently delete the template. Would you like to continue?"
 msgstr "これにより、テンプレートが永続的に削除されます。続行しますか?"
+
+msgid "View Table"
+msgstr ""
+
+msgid "View Gallery"
+msgstr ""
 
 msgid ""
 "This will delete the virtual machine and its virtual disks. This operation "
@@ -1613,8 +1733,8 @@ msgstr "モデル:"
 msgid "Affected devices:"
 msgstr "影響を受けるデバイス:"
 
-msgid "The VLAN id must be between 1 and 4094."
-msgstr "VLAN ID は、1 から 4094 まででなければなりません。"
+msgid "Less"
+msgstr ""
 
 msgid "unavailable"
 msgstr "使用不可"
@@ -1696,6 +1816,9 @@ msgstr "進行中..."
 msgid "Failed!"
 msgstr "失敗しました"
 
+msgid "No LVM found in the system."
+msgstr ""
+
 msgid "CDROM path needs to be a valid local/remote path and cannot be blank."
 msgstr ""
 "CDROM パスは有効なローカル/リモート・パスでなければならず、ブランクにはできま"
@@ -1722,8 +1845,16 @@ msgstr "隔離: 外部ネットワーク接続がありません"
 msgid "NAT: outbound physical network connection only"
 msgstr "NAT: アウトバウンド物理ネットワーク接続のみ"
 
-msgid "Bridged: Virtual machines are connected to physical network directly"
-msgstr "ブリッジ: 仮想マシンが直接物理ネットワークに接続される"
+msgid "Macvtap: Virtual machines are connected to physical network directly"
+msgstr ""
+
+msgid ""
+"VEPA: special mode where virtual machines are connected to a VEPA-enabled "
+"switch"
+msgstr ""
+
+msgid "Bridged: Virtual machines are connected through a network bridge"
+msgstr ""
 
 msgid "(No interfaces found)"
 msgstr "(インターフェースが見つかりません)"
@@ -1736,21 +1867,6 @@ msgstr "VLAN を使用可能にしてください"
 
 msgid "VLAN ID"
 msgstr "VLAN ID"
-
-msgid "Add a Volume to Storage Pool"
-msgstr "ボリュームをストレージ・プールに追加"
-
-msgid "Fetch from remote URL"
-msgstr "リモート URL からフェッチ"
-
-msgid "Enter the remote URL here."
-msgstr "ここにリモート URL を入力してください。"
-
-msgid "Upload a file"
-msgstr "ファイルのアップロード"
-
-msgid "Choose the file you want to upload."
-msgstr "アップロードするファイルを選択してください。"
 
 msgid "Define a New Storage Pool"
 msgstr "新規ストレージ・プールの定義"
@@ -1794,8 +1910,14 @@ msgstr "NFS パス"
 msgid "The NFS exported path on NFS server."
 msgstr "NFS がパスを NFS サーバーにエクスポートしました。"
 
-msgid "Device path"
-msgstr "デバイス・パス"
+msgid "Create from existing LVM"
+msgstr ""
+
+msgid "Create from raw disk"
+msgstr ""
+
+msgid "Looking for existing lvms ..."
+msgstr ""
 
 msgid "Looking for available partitions ..."
 msgstr "愛用可能なパーティションを検索中..."
@@ -1824,14 +1946,26 @@ msgstr "iSCSI 認証の追加"
 msgid "User Name"
 msgstr "ユーザー名"
 
-msgid "Password"
-msgstr "パスワード"
-
 msgid "SCSI Adapter"
 msgstr "SCSI アダプター"
 
 msgid "Please, wait..."
 msgstr "お待ちください..."
+
+msgid "Add a Volume to Storage Pool"
+msgstr "ボリュームをストレージ・プールに追加"
+
+msgid "Fetch from remote URL"
+msgstr "リモート URL からフェッチ"
+
+msgid "Enter the remote URL here."
+msgstr "ここにリモート URL を入力してください。"
+
+msgid "Upload a file"
+msgstr "ファイルのアップロード"
+
+msgid "Choose the file you want to upload."
+msgstr "アップロードするファイルを選択してください。"
 
 msgid "Add Template"
 msgstr "テンプレートの追加"
@@ -1856,12 +1990,6 @@ msgstr "ISO の検索"
 
 msgid "The following ISOs are available:"
 msgstr "次の ISO が使用可能です:"
-
-msgid "OS"
-msgstr "OS"
-
-msgid "Version"
-msgstr "バージョン"
 
 msgid "Size"
 msgstr ""
