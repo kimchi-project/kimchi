@@ -107,6 +107,16 @@ kimchi.setupNetworkFormEvent = function() {
     $('#networkType').on('change', function() {
         var selectedType = $("#networkType").val();
         if(selectedType === kimchi.NETWORK_TYPE_MACVTAP || selectedType === kimchi.NETWORK_TYPE_VEPA) {
+            if (selectedType === kimchi.NETWORK_TYPE_VEPA){
+                $('#networkDestinationID').attr('multiple', true);
+                if($('#networkDestinationID option').length > 10 ) {
+                    $('#networkDestinationID').data('liveSearch',true);
+                }
+            }
+            else {
+                $('#networkDestinationID').attr('multiple', false).data('liveSearch',false);
+            }
+            $('#networkDestinationID').selectpicker('destroy');
             kimchi.loadInterfaces(new Array("nic", "bonding"));
         } else {
             kimchi.loadInterfaces();
