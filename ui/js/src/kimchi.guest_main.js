@@ -713,6 +713,8 @@ kimchi.createGuestLi = function(vmObject, prevScreenImage, openMenu) {
         });
         consoleActions.show();
     } else { //we don't recognize the VMs supported graphics, so hide the menu choice
+        result.find('.vnc-link').css("display", "none");
+        result.find('.column-vnc').html('--');
         consoleActions.hide();
         consoleActions.off("click", function(event) {
             event.preventDefault();
