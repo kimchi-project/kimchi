@@ -171,7 +171,7 @@ class VMsModel(object):
         xml = t.to_vm_xml(name, vm_uuid,
                           libvirt_stream_protocols=stream_protocols,
                           graphics=graphics,
-                          mem_hotplug_support = self.caps.mem_hotplug_support)
+                          mem_hotplug_support=self.caps.mem_hotplug_support)
 
         cb('Defining new VM')
         try:
