@@ -912,13 +912,14 @@ class ModelTests(unittest.TestCase):
 
             # rename and increase memory when vm is not running
             params = {'name': u'пeω-∨м',
-                      'memory': {'current': 2048,
-                                 'maxmemory': 2048}}
+                      'memory': {'current': 2048}}
             inst.vm_update('kimchi-vm1', params)
             rollback.prependDefer(utils.rollback_wrapper, inst.vm_delete,
                                   u'пeω-∨м')
             self.assertEquals(info['uuid'], inst.vm_lookup(u'пeω-∨м')['uuid'])
             info = inst.vm_lookup(u'пeω-∨м')
+            # Max memory is returned, add to test
+            params['memory']['maxmemory'] = 2048
             for key in params.keys():
                 self.assertEquals(params[key], info[key])
 

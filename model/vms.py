@@ -170,7 +170,8 @@ class VMsModel(object):
         stream_protocols = self.caps.libvirt_stream_protocols
         xml = t.to_vm_xml(name, vm_uuid,
                           libvirt_stream_protocols=stream_protocols,
-                          graphics=graphics)
+                          graphics=graphics,
+                          mem_hotplug_support = self.caps.mem_hotplug_support)
 
         cb('Defining new VM')
         try:
@@ -809,6 +810,14 @@ class VMModel(object):
         return (nonascii_name if nonascii_name is not None else vm_name, dom)
 
     def _update_memory_config(self, xml, params):
+        # Cannot pass max memory if there is not support to memory hotplug
+        # Then set max memory as memory, just to continue with the update
+        if not self.caps.mem_hotplug_support:
+            if 'maxmemory' in params['memory']:
+                raise InvalidOperation("KCHVM0046E")
+            else:
+                params['memory']['maxmemory'] = params['memory']['current']
+
         root = ET.fromstring(xml)
         # MiB to KiB
         hasMem = 'current' in params['memory']

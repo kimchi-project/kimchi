@@ -99,7 +99,7 @@ messages = {
     "KCHVM0043E": _("Only increase memory is allowed in active VMs"),
     "KCHVM0044E": _("For live memory update, new memory value must be equal old memory value plus multiples of 1024 Mib"),
     "KCHVM0045E": _("There are not enough free slots of 1024 Mib in the guest."),
-    "KCHVM0046E": _("Host's libvirt version does not support memory devices. Libvirt must be >= 1.2.14"),
+    "KCHVM0046E": _("Host's libvirt or qemu version does not support memory devices and memory hotplug. Libvirt must be >= 1.2.14 and QEMU must be >= 2.1."),
     "KCHVM0047E": _("Error attaching memory device. Details: %(error)s"),
     "KCHVM0048E": _("Cannot start %(name)s. Virtual machine is already running."),
     "KCHVM0049E": _("Cannot power off %(name)s. Virtual machine is shut off."),
