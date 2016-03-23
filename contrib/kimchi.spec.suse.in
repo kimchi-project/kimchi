@@ -7,7 +7,7 @@ BuildArch:	noarch
 Group:		System Environment/Base
 License:	LGPL/ASL2
 Source0:	%{name}-%{version}.tar.gz
-Requires:	wok
+Requires:	wok >= 2.1.0
 Requires:	ginger-base
 Requires:	kvm
 Requires:	gettext-tools
