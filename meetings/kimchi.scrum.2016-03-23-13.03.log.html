@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:03:16</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:03:16</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Mar 23 13:03:16 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:03:16</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:03:17</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:03:17</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:03:31</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda</span>
+<a name="l-7"></a><span class="tm">13:03:31</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">1) Status</span>
+<a name="l-8"></a><span class="tm">13:03:31</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">2) Open discussion</span>
+<a name="l-9"></a><span class="tm">13:03:31</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-10"></a><span class="tm">13:04:30</span><span class="nk"> &lt;lcorreia&gt;</span> no
+<a name="l-11"></a><span class="tm">13:04:31</span><span class="nk"> &lt;pvital&gt;</span> no
+<a name="l-12"></a><span class="tm">13:05:06</span><span class="nk"> &lt;alinefm&gt;</span> so let's get started
+<a name="l-13"></a><span class="tm">13:05:14</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-14"></a><span class="tm">13:05:14</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info [&lt;project] &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-15"></a><span class="tm">13:05:54</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok][ginger*][kimchi] alinefm is working on accessibility assessment. Issues found are being reported on github</span>
+<a name="l-16"></a><span class="tm">13:06:06</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ziviani sent bugfix for GPU passthrough</span>
+<a name="l-17"></a><span class="tm">13:06:18</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ziviani sent bugfix for issues on web console</span>
+<a name="l-18"></a><span class="tm">13:06:20</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] [kimchi] alinefm is working for 2.1 release to be announced tomorrow (due the Brazilian holiday on Friday)</span>
+<a name="l-19"></a><span class="tm">13:06:30</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Gingerbase] pvital submitted the V4 of patch-set to solve issue #9 - Update selected packages</span>
+<a name="l-20"></a><span class="tm">13:06:30</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] pvital is working on a solution to issue #817 - Add Events support to PCI attach/deattach</span>
+<a name="l-21"></a><span class="tm">13:06:30</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] [Kimchi] [Ginger*] pvital reviewed patches</span>
+<a name="l-22"></a><span class="tm">13:06:33</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ziviani is working on bugfixes</span>
+<a name="l-23"></a><span class="tm">13:06:33</span><span class="nk"> &lt;peterpennings&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] peterpennings is working on SR-IOV UI</span>
+<a name="l-24"></a><span class="tm">13:06:42</span><span class="nk"> &lt;peterpennings&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] samhenri sent patch to update bootstrap-select to a newer version</span>
+<a name="l-25"></a><span class="tm">13:06:49</span><span class="nk"> &lt;peterpennings&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] samhenri started working on OVS bridges but found a bug that is blocking the UI development</span>
+<a name="l-26"></a><span class="tm">13:06:55</span><span class="nk"> &lt;peterpennings&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] samhenri about to send a patch for VEPA networks. Bootstrap-select update is required to work properly</span>
+<a name="l-27"></a><span class="tm">13:07:08</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger*] danielhb reviewed and applied patches</span>
+<a name="l-28"></a><span class="tm">13:07:14</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] lcorreia lucio is working on backend for WokMessage feature</span>
+<a name="l-29"></a><span class="tm">13:07:14</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] lcorreia lucio is working on backend and UI for Asynchronous Notifications feature based on WokMessage</span>
+<a name="l-30"></a><span class="tm">13:07:14</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] will work on adding translation to User Request Log messages</span>
+<a name="l-31"></a><span class="tm">13:07:14</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] lcorreia will use Asynchronous Notifications to handle libvirt event ENOSPC</span>
+<a name="l-32"></a><span class="tm">13:07:14</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] lcorreia will work on Kimchi issue #812</span>
+<a name="l-33"></a><span class="tm">13:07:30</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] sent a version of the sr-iov for mlx5 to 'next' branch</span>
+<a name="l-34"></a><span class="tm">13:07:49</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger*] danielhb will tag the release 2.1 this week</span>
+<a name="l-35"></a><span class="tm">13:10:34</span><span class="nk"> &lt;alinefm&gt;</span> anything else, guys?
+<a name="l-36"></a><span class="tm">13:10:54</span><span class="nk"> &lt;rotru&gt;</span> alinefm, I have
+<a name="l-37"></a><span class="tm">13:11:52</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru  Sent fix to issue #840, and moved template.conf to /ETC</span>
+<a name="l-38"></a><span class="tm">13:12:55</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru [Kimchi] Sent fix to issue #838, but it is still in review</span>
+<a name="l-39"></a><span class="tm">13:13:01</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">rotru  [Kimchi] Sent fix to issue #840, and moved template.conf to /ETC</span>
+<a name="l-40"></a><span class="tm">13:13:29</span><span class="nk"> &lt;rotru&gt;</span> done
+<a name="l-41"></a><span class="tm">13:13:31</span><span class="nk"> &lt;rotru&gt;</span> :)
+<a name="l-42"></a><span class="tm">13:14:26</span><span class="nk"> &lt;alinefm&gt;</span> thanks, rotru!
+<a name="l-43"></a><span class="tm">13:14:33</span><span class="nk"> &lt;alinefm&gt;</span> moving on...
+<a name="l-44"></a><span class="tm">13:14:36</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-45"></a><span class="tm">13:14:59</span><span class="nk"> &lt;alinefm&gt;</span> As I said before the 2.1 release will be announced tomorrow due the Brazilian holiday on Friday
+<a name="l-46"></a><span class="tm">13:15:10</span><span class="nk"> &lt;alinefm&gt;</span> Daniel and I are working on all the needs to have it done
+<a name="l-47"></a><span class="tm">13:15:29</span><span class="nk"> &lt;alinefm&gt;</span> I want to thank you all for the great work to have all that done!!
+<a name="l-48"></a><span class="tm">13:15:42</span><span class="nk"> &lt;lcorreia&gt;</span> thank you alinefm and danielhb !
+<a name="l-49"></a><span class="tm">13:16:30</span><span class="nk"> &lt;rotru&gt;</span> great
+<a name="l-50"></a><span class="tm">13:16:50</span><span class="nk"> &lt;alinefm&gt;</span> any other topic for today?
+<a name="l-51"></a><span class="tm">13:17:18</span><span class="nk"> &lt;ziviani&gt;</span> nope
+<a name="l-52"></a><span class="tm">13:17:44</span><span class="nk"> &lt;alinefm&gt;</span> so thanks (again =]) for everyone for joining!
+<a name="l-53"></a><span class="tm">13:17:50</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

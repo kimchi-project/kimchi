@@ -1,0 +1,53 @@
+13:03:16 <alinefm> #startmeeting
+13:03:16 <kimchi-bot> Meeting started Wed Mar 23 13:03:16 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:03:16 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:03:17 <alinefm> #meetingname scrum
+13:03:17 <kimchi-bot> The meeting name has been set to 'scrum'
+13:03:31 <alinefm> #info Agenda
+13:03:31 <alinefm> #info 1) Status
+13:03:31 <alinefm> #info 2) Open discussion
+13:03:31 <alinefm> anything else?
+13:04:30 <lcorreia> no
+13:04:31 <pvital> no
+13:05:06 <alinefm> so let's get started
+13:05:14 <alinefm> #topic Status
+13:05:14 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+13:05:54 <alinefm> #info [wok][ginger*][kimchi] alinefm is working on accessibility assessment. Issues found are being reported on github
+13:06:06 <ziviani> #info [kimchi] ziviani sent bugfix for GPU passthrough
+13:06:18 <ziviani> #info [kimchi] ziviani sent bugfix for issues on web console
+13:06:20 <alinefm> #info [wok] [kimchi] alinefm is working for 2.1 release to be announced tomorrow (due the Brazilian holiday on Friday)
+13:06:30 <pvital> #info [Gingerbase] pvital submitted the V4 of patch-set to solve issue #9 - Update selected packages
+13:06:30 <pvital> #info [Kimchi] pvital is working on a solution to issue #817 - Add Events support to PCI attach/deattach
+13:06:30 <pvital> #info [Wok] [Kimchi] [Ginger*] pvital reviewed patches
+13:06:33 <ziviani> #info [kimchi] ziviani is working on bugfixes
+13:06:33 <peterpennings> #info [ginger] peterpennings is working on SR-IOV UI
+13:06:42 <peterpennings> #info [Wok] samhenri sent patch to update bootstrap-select to a newer version
+13:06:49 <peterpennings> #info [Ginger] samhenri started working on OVS bridges but found a bug that is blocking the UI development
+13:06:55 <peterpennings> #info [Kimchi] samhenri about to send a patch for VEPA networks. Bootstrap-select update is required to work properly
+13:07:08 <danielhb> #info [ginger*] danielhb reviewed and applied patches
+13:07:14 <lcorreia> #info [wok] lcorreia lucio is working on backend for WokMessage feature
+13:07:14 <lcorreia> #info [wok] lcorreia lucio is working on backend and UI for Asynchronous Notifications feature based on WokMessage
+13:07:14 <lcorreia> #info [wok] will work on adding translation to User Request Log messages
+13:07:14 <lcorreia> #info [kimchi] lcorreia will use Asynchronous Notifications to handle libvirt event ENOSPC
+13:07:14 <lcorreia> #info [kimchi] lcorreia will work on Kimchi issue #812
+13:07:30 <danielhb> #info [ginger] sent a version of the sr-iov for mlx5 to 'next' branch
+13:07:49 <danielhb> #info [ginger*] danielhb will tag the release 2.1 this week
+13:10:34 <alinefm> anything else, guys?
+13:10:54 <rotru> alinefm, I have
+13:11:52 <rotru> #info rotru  Sent fix to issue #840, and moved template.conf to /ETC
+13:12:55 <rotru> #info rotru [Kimchi] Sent fix to issue #838, but it is still in review
+13:13:01 <rotru> #info rotru  [Kimchi] Sent fix to issue #840, and moved template.conf to /ETC
+13:13:29 <rotru> done
+13:13:31 <rotru> :)
+13:14:26 <alinefm> thanks, rotru!
+13:14:33 <alinefm> moving on...
+13:14:36 <alinefm> #topic Open Discussion
+13:14:59 <alinefm> As I said before the 2.1 release will be announced tomorrow due the Brazilian holiday on Friday
+13:15:10 <alinefm> Daniel and I are working on all the needs to have it done
+13:15:29 <alinefm> I want to thank you all for the great work to have all that done!!
+13:15:42 <lcorreia> thank you alinefm and danielhb !
+13:16:30 <rotru> great
+13:16:50 <alinefm> any other topic for today?
+13:17:18 <ziviani> nope
+13:17:44 <alinefm> so thanks (again =]) for everyone for joining!
+13:17:50 <alinefm> #endmeeting
