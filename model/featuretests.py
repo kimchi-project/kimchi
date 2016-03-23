@@ -72,6 +72,14 @@ MAXMEM_VM_XML = """
     <type arch='%(arch)s'>hvm</type>
     <boot dev='hd'/>
   </os>
+  <cpu>
+    <numa>
+      <cell id='0' cpus='0' memory='10240' unit='KiB'/>
+    </numa>
+  </cpu>
+  <features>
+    <acpi/>
+  </features>
 </domain>"""
 
 DEV_MEM_XML = """
@@ -209,13 +217,9 @@ class FeatureTests(object):
         A memory device can be hot-plugged or hot-unplugged since libvirt
         version 1.2.14.
         '''
-        # Libvirt < 1.2.14 does not support memory devices, so firstly, check
-        # its version, then try to attach a device. These steps avoid errors
-        # with Libvirt 'test' driver for KVM
-        version = 1000000*1 + 1000*2 + 14
-        if libvirt.getVersion() < version:
-            return False
-
+        # Libvirt < 1.2.14 does not support memory devices, so try to attach a
+        # device. Then check if QEMU (>= 2.1) supports memory hotplug, starting
+        # the guest These steps avoid errors with Libvirt 'test' driver for KVM
         with RollbackContext() as rollback:
             FeatureTests.disable_libvirt_error_logging()
             rollback.prependDefer(FeatureTests.enable_libvirt_error_logging)
@@ -230,6 +234,8 @@ class FeatureTests(object):
             try:
                 dom.attachDeviceFlags(DEV_MEM_XML,
                                       libvirt.VIR_DOMAIN_MEM_CONFIG)
+                dom.create()
+                rollback.prependDefer(dom.destroy)
                 return True
             except libvirt.libvirtError:
                 return False

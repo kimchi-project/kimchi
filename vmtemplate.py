@@ -376,7 +376,9 @@ class VMTemplate(object):
         # Rearrange memory parameters
         params['memory'] = self.info['memory'].get('current')
         params['max_memory'] = ""
-        if memory != maxmemory:
+        # if there is not support to memory hotplug in Libvirt or qemu, we
+        # cannot add the tag maxMemory
+        if memory != maxmemory and kwargs.get('mem_hotplug_support', True):
             maxmem_xml = "<maxMemory slots='%s' unit='MiB'>%s</maxMemory>"
             params['max_memory'] = maxmem_xml % (slots, maxmemory)
 
