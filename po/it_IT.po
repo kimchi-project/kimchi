@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-21 14:07-0300\n"
+"POT-Creation-Date: 2016-03-23 18:42-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -306,11 +306,9 @@ msgstr ""
 "Non sono presenti sufficienti slot liberi di 1024 Mib nella macchina  guest."
 
 msgid ""
-"Host's libvirt version does not support memory devices. Libvirt must be >= "
-"1.2.14"
+"Host's libvirt or qemu version does not support memory devices and memory "
+"hotplug. Libvirt must be >= 1.2.14 and QEMU must be >= 2.1."
 msgstr ""
-"La versione libvirt dell'host non supporta dispositivi di memoria. Libvirt "
-"deve essere >= 1.2.14"
 
 #, python-format
 msgid "Error attaching memory device. Details: %(error)s"
@@ -1338,6 +1336,9 @@ msgid "Memory (MB)"
 msgstr "Memoria (MB)"
 
 msgid "Max Memory (MB)"
+msgstr ""
+
+msgid "Host does not support memory hotplug"
 msgstr ""
 
 msgid "Icon"
