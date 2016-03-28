@@ -744,6 +744,14 @@ kimchi.guest_edit_main = function() {
         if (data['max-memory'] !== undefined) {
             data['max-memory'] = Number(data['max-memory']);
         }
+
+        // Test memory values before submit. Avoid requests we know are going to fail
+        if ($('#guest-edit-memory-textbox').val() > $('#guest-edit-max-memory-textbox').val()) {
+            wok.message.error(i18n['KCHVM0002E'], '#alert-modal-container');
+            $(saveButton).prop('disabled', false);
+            return;
+        }
+
         if (data['vcpus'] !== undefined) {
             var cpu = Number(data['vcpus']);
             var maxCpu = Number(data['max-processor']);
