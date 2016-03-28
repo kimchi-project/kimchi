@@ -1229,7 +1229,15 @@ class VMModel(object):
                 unit = 'KiB'
             memory = convert_data_size(val, unit, 'MiB')
         else:
-            memory = info[2] >> 10
+            # Return current memory plus the amount of memory given by memory
+            # devices
+            root = ET.fromstring(xml)
+            totMemDevs = 0
+            for size in root.findall('./devices/memory/target/size'):
+                totMemDevs += convert_data_size(size.text,
+                                                size.get('unit'),
+                                                'MiB')
+            memory = (info[2] >> 10) + totMemDevs
 
         # assure there is no zombie process left
         for proc in self._serial_procs[:]:
