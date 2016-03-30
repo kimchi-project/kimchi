@@ -1,0 +1,209 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:00:20</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:00:20</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Mar 30 13:00:20 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:00:20</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:00:20</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:00:20</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:00:40</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda</span>
+<a name="l-7"></a><span class="tm">13:00:48</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">2.2 Plan</span>
+<a name="l-8"></a><span class="tm">13:00:50</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Status</span>
+<a name="l-9"></a><span class="tm">13:00:56</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Open Discussion</span>
+<a name="l-10"></a><span class="tm">13:01:02</span><span class="nk"> &lt;alinefm&gt;</span> any other topic for today?
+<a name="l-11"></a><span class="tm">13:01:19</span><span class="nk"> &lt;pvital&gt;</span> no
+<a name="l-12"></a><span class="tm">13:01:59</span><span class="nk"> &lt;rotru&gt;</span> no
+<a name="l-13"></a><span class="tm">13:02:57</span><span class="nk"> &lt;alinefm&gt;</span> so let's get started
+<a name="l-14"></a><span class="tm">13:02:59</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">2.1 Plan</span>
+<a name="l-15"></a><span class="tm">13:03:19</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">2.2 dates: https://github.com/kimchi-project/wok/wiki/planning-2.2</span>
+<a name="l-16"></a><span class="tm">13:03:48</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">All plugins (Kimchi, GingerBase and Ginger) use the same dates from Wok</span>
+<a name="l-17"></a><span class="tm">13:04:10</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">2.2 release will be announced on Jun 24</span>
+<a name="l-18"></a><span class="tm">13:04:22</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">ToDo Lists:</span>
+<a name="l-19"></a><span class="tm">13:04:40</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info     </span><span class="cmdline">- Wok: https://github.com/kimchi-project/wok/wiki/Todo-2.2</span>
+<a name="l-20"></a><span class="tm">13:04:50</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info     </span><span class="cmdline">- Kimchi: https://github.com/kimchi-project/kimchi/wiki/Todo-2.2</span>
+<a name="l-21"></a><span class="tm">13:05:00</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info     </span><span class="cmdline">- Ginger: https://github.com/kimchi-project/ginger/wiki/Todo-2.2</span>
+<a name="l-22"></a><span class="tm">13:05:08</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info     </span><span class="cmdline">- GingerBase: https://github.com/kimchi-project/gingerbase/wiki/Todo-2.2</span>
+<a name="l-23"></a><span class="tm">13:05:19</span><span class="nk"> &lt;alinefm&gt;</span> any question? comment? doubts? suggestion? =)
+<a name="l-24"></a><span class="tm">13:05:55</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  can I develop features that are not in the plan
+<a name="l-25"></a><span class="tm">13:05:57</span><span class="nk"> &lt;rotru&gt;</span> ?
+<a name="l-26"></a><span class="tm">13:05:59</span><span class="nk"> &lt;pvital&gt;</span> I have a suggestion
+<a name="l-27"></a><span class="tm">13:06:25</span><span class="nk"> &lt;alinefm&gt;</span> rotru, sure!
+<a name="l-28"></a><span class="tm">13:06:37</span><span class="nk"> &lt;pvital&gt;</span> in future, would be nice to inform the number of the issues related to each item of todo planning
+<a name="l-29"></a><span class="tm">13:06:38</span><span class="nk"> &lt;alinefm&gt;</span> rotru, just make your suggestion and share it with us
+<a name="l-30"></a><span class="tm">13:06:41</span><span class="nk"> &lt;alinefm&gt;</span> here or on ML
+<a name="l-31"></a><span class="tm">13:07:16</span><span class="nk"> &lt;alinefm&gt;</span> pvital, sure! I can update the wiki after this meeting
+<a name="l-32"></a><span class="tm">13:07:46</span><span class="nk"> &lt;pvital&gt;</span> alinefm, nice! thanks
+<a name="l-33"></a><span class="tm">13:07:56</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  when I have one,  I will !  =D    just kidding .... I am thinking on requirements from IBM .... just that
+<a name="l-34"></a><span class="tm">13:08:14</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-35"></a><span class="tm">13:08:24</span><span class="nk"> &lt;alinefm&gt;</span> anything else about this topic?
+<a name="l-36"></a><span class="tm">13:08:29</span><span class="nk"> &lt;samhenri&gt;</span> yes
+<a name="l-37"></a><span class="tm">13:08:32</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  did you create a backlog ?
+<a name="l-38"></a><span class="tm">13:08:45</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  a full backlog including issues
+<a name="l-39"></a><span class="tm">13:08:46</span><span class="nk"> &lt;samhenri&gt;</span> responsive design / mobile support and accessibility changes
+<a name="l-40"></a><span class="tm">13:09:17</span><span class="nk"> &lt;alinefm&gt;</span> rotru, there is no backlog wiki anymore
+<a name="l-41"></a><span class="tm">13:09:28</span><span class="nk"> &lt;alinefm&gt;</span> rotru, all items are now on isuses list tagged as feature
+<a name="l-42"></a><span class="tm">13:09:41</span><span class="nk"> &lt;samhenri&gt;</span> shouldn't these requirements be listed within the to do list?
+<a name="l-43"></a><span class="tm">13:09:55</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, I was to talk to you about them
+<a name="l-44"></a><span class="tm">13:10:05</span><span class="nk"> &lt;samhenri&gt;</span> ah, ok
+<a name="l-45"></a><span class="tm">13:10:09</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, I want to list explicitily what we will contain in 2.2 release
+<a name="l-46"></a><span class="tm">13:11:04</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, so instead of the big task "mobile support" something like "Change widget X to be compatible with mobile"
+<a name="l-47"></a><span class="tm">13:11:44</span><span class="nk"> &lt;samhenri&gt;</span> alinefm ok
+<a name="l-48"></a><span class="tm">13:12:04</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, I don't think we will complete all those topics (responsive design / mobile design and accessibility) in 2 months
+<a name="l-49"></a><span class="tm">13:12:20</span><span class="nk"> &lt;alinefm&gt;</span> so I prefer to split them into small pieces and only list what we will have for 2.2
+<a name="l-50"></a><span class="tm">13:12:27</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, do you agree? could you do a plan for 2.2?
+<a name="l-51"></a><span class="tm">13:13:08</span><span class="nk"> &lt;samhenri&gt;</span> alinefm sure, but at least the navigation bar and some widgets (wok.list, wok.window, wok.alerts) i believe are deliverable for this release
+<a name="l-52"></a><span class="tm">13:13:09</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  keep the ToDo clean is not a bad idea, but gives the idea that there are few things to do ...
+<a name="l-53"></a><span class="tm">13:13:28</span><span class="nk"> &lt;samhenri&gt;</span> in fact wok.grid is gone after debug report changes to allow multi-select
+<a name="l-54"></a><span class="tm">13:13:42</span><span class="nk"> &lt;rotru&gt;</span> * clean and lean
+<a name="l-55"></a><span class="tm">13:13:47</span><span class="nk"> &lt;chandra&gt;</span> Chandra, working on accessibility assessement
+<a name="l-56"></a><span class="tm">13:14:19</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, so please, check what is feasible for this release and update the wiki accordingly
+<a name="l-57"></a><span class="tm">13:14:32</span><span class="nk"> &lt;samhenri&gt;</span> by the way, i have some good news regarding multiple ids for selenium tests but i think we can discuss this later
+<a name="l-58"></a><span class="tm">13:14:36</span><span class="nk"> &lt;samhenri&gt;</span> alinefm ok
+<a name="l-59"></a><span class="tm">13:14:40</span><span class="nk"> &lt;alinefm&gt;</span> rotru, samhenri, the items listed for 2.2 releases are not written on stone
+<a name="l-60"></a><span class="tm">13:14:57</span><span class="nk"> &lt;alinefm&gt;</span> we can discuss and change it accordingly
+<a name="l-61"></a><span class="tm">13:15:14</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, yes! we can talk about it during open discussion
+<a name="l-62"></a><span class="tm">13:15:28</span><span class="nk"> &lt;samhenri&gt;</span> sure, i'll update the wiki to document the progress with mobile support
+<a name="l-63"></a><span class="tm">13:15:41</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, thanks
+<a name="l-64"></a><span class="tm">13:15:57</span><span class="nk"> &lt;alinefm&gt;</span> rotru, do you mean the ToDo for 2.2 release or the overall ToDo?
+<a name="l-65"></a><span class="tm">13:16:28</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  for 2.2
+<a name="l-66"></a><span class="tm">13:17:41</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  I would like to see a list with issues to be delivered as well ...  but this list could be for each sprint
+<a name="l-67"></a><span class="tm">13:17:53</span><span class="nk"> &lt;alinefm&gt;</span> rotru, agree! but we also have issues to fix
+<a name="l-68"></a><span class="tm">13:17:54</span><span class="nk"> &lt;alinefm&gt;</span> yeap!
+<a name="l-69"></a><span class="tm">13:18:12</span><span class="nk"> &lt;alinefm&gt;</span> I am working on tagging the issues for this release
+<a name="l-70"></a><span class="tm">13:18:22</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  for this , we would have to give priorities to issues, etc
+<a name="l-71"></a><span class="tm">13:18:40</span><span class="nk"> &lt;pvital&gt;</span> rotru, a search on github for the release 2.2 is not what you want?
+<a name="l-72"></a><span class="tm">13:18:58</span><span class="nk"> &lt;alinefm&gt;</span> rotru, I can create 3 tags for priority: high, medium and low
+<a name="l-73"></a><span class="tm">13:19:05</span><span class="nk"> &lt;alinefm&gt;</span> and add them to the issues tagged to 2.2 release
+<a name="l-74"></a><span class="tm">13:19:08</span><span class="nk"> &lt;rotru&gt;</span> pvital, no no  :)
+<a name="l-75"></a><span class="tm">13:19:12</span><span class="nk"> &lt;alinefm&gt;</span> is it what you are asking?
+<a name="l-76"></a><span class="tm">13:19:13</span><span class="nk"> &lt;rotru&gt;</span> alinefm, great
+<a name="l-77"></a><span class="tm">13:19:34</span><span class="nk"> &lt;pvital&gt;</span> I mean, woud be nice link each item of todo with existent issues, but put all issues tagged to 2.2 in todo is not "clean"
+<a name="l-78"></a><span class="tm">13:19:37</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  then the team would have to fix HIGH in the current sprint
+<a name="l-79"></a><span class="tm">13:20:01</span><span class="nk"> &lt;alinefm&gt;</span> rotru, ok
+<a name="l-80"></a><span class="tm">13:20:14</span><span class="nk"> &lt;rotru&gt;</span> pvital,  we can add then in a "Sprint Backlog"
+<a name="l-81"></a><span class="tm">13:20:23</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  ^
+<a name="l-82"></a><span class="tm">13:20:43</span><span class="nk"> &lt;pvital&gt;</span> rotru, we have only 1 sprint - the devel phase
+<a name="l-83"></a><span class="tm">13:20:50</span><span class="nk"> &lt;pvital&gt;</span> it's not necessary
+<a name="l-84"></a><span class="tm">13:20:52</span><span class="nk"> &lt;alinefm&gt;</span> pvital, rotru we can put the link to the 2.2 issues in the ToDo page
+<a name="l-85"></a><span class="tm">13:20:59</span><span class="nk"> &lt;alinefm&gt;</span> so everyone can be aware about it
+<a name="l-86"></a><span class="tm">13:21:14</span><span class="nk"> &lt;rotru&gt;</span> pvital, humm, 1 sprint
+<a name="l-87"></a><span class="tm">13:21:36</span><span class="nk"> &lt;rotru&gt;</span> pvital, alinefm  thought we would have 2 weeks sprints
+<a name="l-88"></a><span class="tm">13:21:48</span><span class="nk"> &lt;rotru&gt;</span> alinefm, I think it can work
+<a name="l-89"></a><span class="tm">13:22:01</span><span class="nk"> &lt;rotru&gt;</span> ( link to issues )
+<a name="l-90"></a><span class="tm">13:22:33</span><span class="nk"> &lt;pvital&gt;</span> I don't! we already tried to work with sprints in the past and did not worked
+<a name="l-91"></a><span class="tm">13:23:02</span><span class="nk"> &lt;alinefm&gt;</span> pvital, rotru said the link to issues can work
+<a name="l-92"></a><span class="tm">13:23:10</span><span class="nk"> &lt;alinefm&gt;</span> not about the 2 weeks sprint =)
+<a name="l-93"></a><span class="tm">13:23:41</span><span class="nk"> &lt;alinefm&gt;</span> anything else, guys, or we can move on?
+<a name="l-94"></a><span class="tm">13:24:20</span><span class="nk"> &lt;pvital&gt;</span> go ahead
+<a name="l-95"></a><span class="tm">13:24:23</span><span class="nk"> &lt;rotru&gt;</span> pvital,  this is a long discussion ...  but everybody must commit to the deliverables  ...  In the past the 'ibm' was not so committed to the community
+<a name="l-96"></a><span class="tm">13:24:35</span><span class="nk"> &lt;rotru&gt;</span> * 'ibm' team
+<a name="l-97"></a><span class="tm">13:24:59</span><span class="nk"> &lt;alinefm&gt;</span> rotru, we can do it internally
+<a name="l-98"></a><span class="tm">13:25:14</span><span class="nk"> &lt;alinefm&gt;</span> let's move on otherwise 1h would not be enough today =)
+<a name="l-99"></a><span class="tm">13:25:26</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-100"></a><span class="tm">13:25:28</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info [&lt;project] &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-101"></a><span class="tm">13:25:29</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  hehe sure, go ahead
+<a name="l-102"></a><span class="tm">13:25:38</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ziviani sent patch to fix issue with "view vnc" link and is working to fix issue with templates from existing images</span>
+<a name="l-103"></a><span class="tm">13:26:35</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] samhenri currently working on wok.list.js to support multiple selection in Debug Reports and Repositories, already working with keyboard navigation and small screen support</span>
+<a name="l-104"></a><span class="tm">13:26:54</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] samhenri fixed environment issues with OVS support, currently paused OVS panel development until Debug Reports / wok.list is done</span>
+<a name="l-105"></a><span class="tm">13:27:08</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ramonn sent v3 of "use a single entry for create templates"</span>
+<a name="l-106"></a><span class="tm">13:27:21</span><span class="nk"> &lt;suresh&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] sureshab working on user management bugs and profile enhancements</span>
+<a name="l-107"></a><span class="tm">13:27:23</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] ramonn investigating bug #135859</span>
+<a name="l-108"></a><span class="tm">13:27:23</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Gingerbase] pvital submitted the V5 (and was committed) of patch-set to solve issue #9 - Update selected packages</span>
+<a name="l-109"></a><span class="tm">13:27:24</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] pvital is working on a solution to issue #817 - Add Events support to PCI attach/deattach</span>
+<a name="l-110"></a><span class="tm">13:27:24</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] pvital submitted the patch "Add support to Libvirt Events."</span>
+<a name="l-111"></a><span class="tm">13:27:24</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] [Kimchi] [Ginger*] pvital reviewed patches</span>
+<a name="l-112"></a><span class="tm">13:27:25</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">[gingerbase] samhenri made some changes in Debug Reports and Repositories in gingerbase.host-dashboard.js and gingerbase.host-update.js to work with new wok.list.js changes. Took some points from the acessibility issues and already provided some changes that may enhance user experience but a proper new acessibility test is probably required</span>
+<a name="l-113"></a><span class="tm">13:27:33</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] peterpennings currently working on 'Disable Template when it has invalid parameters and add a mouse hover message' task</span>
+<a name="l-114"></a><span class="tm">13:28:20</span><span class="nk"> &lt;atreyee&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] atreyee raised issues for accessibility with respect to keyboard navigation,focus and sequence</span>
+<a name="l-115"></a><span class="tm">13:28:43</span><span class="nk"> &lt;atreyee&gt;</span> <span class="cmd">#info </span><span class="cmdline">[gingerbase] atreyee raised issues for accessibility with respect to keyboard navigation,focus and sequence</span>
+<a name="l-116"></a><span class="tm">13:29:18</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] rotru Fixed memory value returned from backend: (current memory + memory devices);</span>
+<a name="l-117"></a><span class="tm">13:29:18</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] rotru changed UI to check memory values before send request;</span>
+<a name="l-118"></a><span class="tm">13:29:18</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] rotru Fixed Issue #861 - Sent patch to recognize latest CentOS version;</span>
+<a name="l-119"></a><span class="tm">13:29:31</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] danielhb is working in the new 'services' backend</span>
+<a name="l-120"></a><span class="tm">13:29:56</span><span class="nk"> &lt;jkatta&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] jkatta will start investigation on dropping libvirt from ginger, for more details will get in touch with Daniel through ML</span>
+<a name="l-121"></a><span class="tm">13:30:38</span><span class="nk"> &lt;alinefm&gt;</span> jkatta, that would be great!
+<a name="l-122"></a><span class="tm">13:31:01</span><span class="nk"> &lt;alinefm&gt;</span> atreyee, did Gabriel ask your help with the accessibility tests?
+<a name="l-123"></a><span class="tm">13:31:06</span><span class="nk"> &lt;jkatta&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok/ginger/gingers390x] jkatta will update spec files to create rpms for KVMIBM</span>
+<a name="l-124"></a><span class="tm">13:33:08</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, can you also update the wiki page to assign the tasks to you and peterpennings ?
+<a name="l-125"></a><span class="tm">13:33:08</span><span class="nk"> &lt;atreyee&gt;</span> alinefm, i have not got any information from gabriel yet
+<a name="l-126"></a><span class="tm">13:33:27</span><span class="nk"> &lt;alinefm&gt;</span> atreyee, so you decided to test those topics too?
+<a name="l-127"></a><span class="tm">13:33:28</span><span class="nk"> &lt;samhenri&gt;</span> alinefm already done that
+<a name="l-128"></a><span class="tm">13:33:48</span><span class="nk"> &lt;alinefm&gt;</span> atreyee, (just trying to understand)
+<a name="l-129"></a><span class="tm">13:33:50</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, thanks!
+<a name="l-130"></a><span class="tm">13:35:13</span><span class="nk"> &lt;atreyee&gt;</span> alinefm, yes .. i did not found issues with keyboard navigation is raised.. but issues are existing.. so thought to raise few issues that i encountered
+<a name="l-131"></a><span class="tm">13:35:31</span><span class="nk"> &lt;alinefm&gt;</span> atreyee, ok! thanks a lot for doing it
+<a name="l-132"></a><span class="tm">13:35:39</span><span class="nk"> &lt;alinefm&gt;</span> I will talk to Gabriel
+<a name="l-133"></a><span class="tm">13:35:45</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-134"></a><span class="tm">13:36:22</span><span class="nk"> &lt;ziviani&gt;</span> no
+<a name="l-135"></a><span class="tm">13:36:33</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-136"></a><span class="tm">13:36:46</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, do you want to talk about multiple selection?
+<a name="l-137"></a><span class="tm">13:37:35</span><span class="nk"> &lt;samhenri&gt;</span> multiple selections is ok
+<a name="l-138"></a><span class="tm">13:37:44</span><span class="nk"> &lt;samhenri&gt;</span> regarding the selenium tests
+<a name="l-139"></a><span class="tm">13:37:57</span><span class="nk"> &lt;samhenri&gt;</span> we don't have to add ids to every element in the html
+<a name="l-140"></a><span class="tm">13:38:38</span><span class="nk"> &lt;samhenri&gt;</span> selenium tests supports using CSS selectors like jQuery
+<a name="l-141"></a><span class="tm">13:39:07</span><span class="nk"> &lt;samhenri&gt;</span> so we can mix Ids and classes and even complex selectors like :nth-child(n + n)
+<a name="l-142"></a><span class="tm">13:39:24</span><span class="nk"> &lt;samhenri&gt;</span> and it also supports Xpath
+<a name="l-143"></a><span class="tm">13:39:27</span><span class="nk"> &lt;alinefm&gt;</span> how safer is that?
+<a name="l-144"></a><span class="tm">13:39:40</span><span class="nk"> &lt;alinefm&gt;</span> I mean, we may have different scenarios to test
+<a name="l-145"></a><span class="tm">13:39:53</span><span class="nk"> &lt;alinefm&gt;</span> and :nth-child seems not safer for me
+<a name="l-146"></a><span class="tm">13:40:41</span><span class="nk"> &lt;samhenri&gt;</span> in cases that we can't use nth-child i'm adding IDs, for instance the new wok.list.js generates an unique id for each hidden checkbox
+<a name="l-147"></a><span class="tm">13:40:52</span><span class="nk"> &lt;samhenri&gt;</span> and also for each line list item
+<a name="l-148"></a><span class="tm">13:41:03</span><span class="nk"> &lt;samhenri&gt;</span> but we can also use Xpath
+<a name="l-149"></a><span class="tm">13:41:17</span><span class="nk"> &lt;samhenri&gt;</span> Chrome allows us to select any element and copy the Xpath
+<a name="l-150"></a><span class="tm">13:41:26</span><span class="nk"> &lt;samhenri&gt;</span> I think the Selenium IDE in Firefox allows that too
+<a name="l-151"></a><span class="tm">13:41:42</span><span class="nk"> &lt;samhenri&gt;</span> so instead of using only IDs and classes, we can use something like: //*[@id="list"]/ul/li[2]/label/span[3]
+<a name="l-152"></a><span class="tm">13:41:54</span><span class="nk"> &lt;samhenri&gt;</span> the number refers to the element index in DOM tree
+<a name="l-153"></a><span class="tm">13:42:32</span><span class="nk"> &lt;samhenri&gt;</span> so as long as the parent element has an ID it is ok
+<a name="l-154"></a><span class="tm">13:43:18</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-155"></a><span class="tm">13:43:29</span><span class="nk"> &lt;samhenri&gt;</span> in this Xpath example the test will look exactly for the third span tag in the second li element inside an ul from the div with id equals to list
+<a name="l-156"></a><span class="tm">13:43:30</span><span class="nk"> &lt;alinefm&gt;</span> we can start doing the selenium tests that way
+<a name="l-157"></a><span class="tm">13:43:55</span><span class="nk"> &lt;alinefm&gt;</span> and see if we ifnd any issues
+<a name="l-158"></a><span class="tm">13:43:58</span><span class="nk"> &lt;alinefm&gt;</span> *find
+<a name="l-159"></a><span class="tm">13:43:59</span><span class="nk"> &lt;samhenri&gt;</span> ok
+<a name="l-160"></a><span class="tm">13:44:26</span><span class="nk"> &lt;alinefm&gt;</span> do you have any preference about which language do the tests?
+<a name="l-161"></a><span class="tm">13:44:32</span><span class="nk"> &lt;alinefm&gt;</span> xml?
+<a name="l-162"></a><span class="tm">13:45:50</span><span class="nk"> &lt;samhenri&gt;</span> nope
+<a name="l-163"></a><span class="tm">13:46:48</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-164"></a><span class="tm">13:46:51</span><span class="nk"> &lt;samhenri&gt;</span> i think the xml is fine
+<a name="l-165"></a><span class="tm">13:46:59</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, any other topic for today?
+<a name="l-166"></a><span class="tm">13:47:41</span><span class="nk"> &lt;samhenri&gt;</span> no
+<a name="l-167"></a><span class="tm">13:48:36</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, pvital ramonn rotru ziviani what about you, guys?
+<a name="l-168"></a><span class="tm">13:48:45</span><span class="nk"> &lt;pvital&gt;</span> no
+<a name="l-169"></a><span class="tm">13:48:46</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, I have nothing
+<a name="l-170"></a><span class="tm">13:49:11</span><span class="nk"> &lt;ramonn&gt;</span> nop
+<a name="l-171"></a><span class="tm">13:49:53</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  no
+<a name="l-172"></a><span class="tm">13:50:09</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-173"></a><span class="tm">13:50:20</span><span class="nk"> &lt;alinefm&gt;</span> ops.. I forgot to share lcorreia status
+<a name="l-174"></a><span class="tm">13:50:23</span><span class="nk"> &lt;alinefm&gt;</span> let me do ti now
+<a name="l-175"></a><span class="tm">13:50:28</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] lcorreia WokMessage feature backend V1, V2, V3 to ML</span>
+<a name="l-176"></a><span class="tm">13:50:29</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] lcorreia sent Asynchronous Notifications backend V1, V2 to ML</span>
+<a name="l-177"></a><span class="tm">13:50:29</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] lcorreia is working on adding a callback to notification close button to destroy the notification which is required to finish Asynchronous Notifications UI part</span>
+<a name="l-178"></a><span class="tm">13:50:29</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] will use WokMessage to add translation to User Request Log messages</span>
+<a name="l-179"></a><span class="tm">13:50:29</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] lcorreia will use Asynchronous Notifications and Libvirt Events to handle libvirt event ENOSPC</span>
+<a name="l-180"></a><span class="tm">13:50:31</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] lcorreia will work on Kimchi issue #812</span>
+<a name="l-181"></a><span class="tm">13:50:48</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining!
+<a name="l-182"></a><span class="tm">13:50:52</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

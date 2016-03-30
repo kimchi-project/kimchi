@@ -1,0 +1,182 @@
+13:00:20 <alinefm> #startmeeting
+13:00:20 <kimchi-bot> Meeting started Wed Mar 30 13:00:20 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:00:20 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:00:20 <alinefm> #meetingname scrum
+13:00:20 <kimchi-bot> The meeting name has been set to 'scrum'
+13:00:40 <alinefm> #info Agenda
+13:00:48 <alinefm> #info 2.2 Plan
+13:00:50 <alinefm> #info Status
+13:00:56 <alinefm> #info Open Discussion
+13:01:02 <alinefm> any other topic for today?
+13:01:19 <pvital> no
+13:01:59 <rotru> no
+13:02:57 <alinefm> so let's get started
+13:02:59 <alinefm> #topic 2.1 Plan
+13:03:19 <alinefm> #info 2.2 dates: https://github.com/kimchi-project/wok/wiki/planning-2.2
+13:03:48 <alinefm> #info All plugins (Kimchi, GingerBase and Ginger) use the same dates from Wok
+13:04:10 <alinefm> #info 2.2 release will be announced on Jun 24
+13:04:22 <alinefm> #info ToDo Lists:
+13:04:40 <alinefm> #info     - Wok: https://github.com/kimchi-project/wok/wiki/Todo-2.2
+13:04:50 <alinefm> #info     - Kimchi: https://github.com/kimchi-project/kimchi/wiki/Todo-2.2
+13:05:00 <alinefm> #info     - Ginger: https://github.com/kimchi-project/ginger/wiki/Todo-2.2
+13:05:08 <alinefm> #info     - GingerBase: https://github.com/kimchi-project/gingerbase/wiki/Todo-2.2
+13:05:19 <alinefm> any question? comment? doubts? suggestion? =)
+13:05:55 <rotru> alinefm,  can I develop features that are not in the plan
+13:05:57 <rotru> ?
+13:05:59 <pvital> I have a suggestion
+13:06:25 <alinefm> rotru, sure!
+13:06:37 <pvital> in future, would be nice to inform the number of the issues related to each item of todo planning
+13:06:38 <alinefm> rotru, just make your suggestion and share it with us
+13:06:41 <alinefm> here or on ML
+13:07:16 <alinefm> pvital, sure! I can update the wiki after this meeting
+13:07:46 <pvital> alinefm, nice! thanks
+13:07:56 <rotru> alinefm,  when I have one,  I will !  =D    just kidding .... I am thinking on requirements from IBM .... just that
+13:08:14 <alinefm> ok
+13:08:24 <alinefm> anything else about this topic?
+13:08:29 <samhenri> yes
+13:08:32 <rotru> alinefm,  did you create a backlog ?
+13:08:45 <rotru> alinefm,  a full backlog including issues
+13:08:46 <samhenri> responsive design / mobile support and accessibility changes
+13:09:17 <alinefm> rotru, there is no backlog wiki anymore
+13:09:28 <alinefm> rotru, all items are now on isuses list tagged as feature
+13:09:41 <samhenri> shouldn't these requirements be listed within the to do list?
+13:09:55 <alinefm> samhenri, I was to talk to you about them
+13:10:05 <samhenri> ah, ok
+13:10:09 <alinefm> samhenri, I want to list explicitily what we will contain in 2.2 release
+13:11:04 <alinefm> samhenri, so instead of the big task "mobile support" something like "Change widget X to be compatible with mobile"
+13:11:44 <samhenri> alinefm ok
+13:12:04 <alinefm> samhenri, I don't think we will complete all those topics (responsive design / mobile design and accessibility) in 2 months
+13:12:20 <alinefm> so I prefer to split them into small pieces and only list what we will have for 2.2
+13:12:27 <alinefm> samhenri, do you agree? could you do a plan for 2.2?
+13:13:08 <samhenri> alinefm sure, but at least the navigation bar and some widgets (wok.list, wok.window, wok.alerts) i believe are deliverable for this release
+13:13:09 <rotru> alinefm,  keep the ToDo clean is not a bad idea, but gives the idea that there are few things to do ...
+13:13:28 <samhenri> in fact wok.grid is gone after debug report changes to allow multi-select
+13:13:42 <rotru> * clean and lean
+13:13:47 <chandra> Chandra, working on accessibility assessement
+13:14:19 <alinefm> samhenri, so please, check what is feasible for this release and update the wiki accordingly
+13:14:32 <samhenri> by the way, i have some good news regarding multiple ids for selenium tests but i think we can discuss this later
+13:14:36 <samhenri> alinefm ok
+13:14:40 <alinefm> rotru, samhenri, the items listed for 2.2 releases are not written on stone
+13:14:57 <alinefm> we can discuss and change it accordingly
+13:15:14 <alinefm> samhenri, yes! we can talk about it during open discussion
+13:15:28 <samhenri> sure, i'll update the wiki to document the progress with mobile support
+13:15:41 <alinefm> samhenri, thanks
+13:15:57 <alinefm> rotru, do you mean the ToDo for 2.2 release or the overall ToDo?
+13:16:28 <rotru> alinefm,  for 2.2
+13:17:41 <rotru> alinefm,  I would like to see a list with issues to be delivered as well ...  but this list could be for each sprint
+13:17:53 <alinefm> rotru, agree! but we also have issues to fix
+13:17:54 <alinefm> yeap!
+13:18:12 <alinefm> I am working on tagging the issues for this release
+13:18:22 <rotru> alinefm,  for this , we would have to give priorities to issues, etc
+13:18:40 <pvital> rotru, a search on github for the release 2.2 is not what you want?
+13:18:58 <alinefm> rotru, I can create 3 tags for priority: high, medium and low
+13:19:05 <alinefm> and add them to the issues tagged to 2.2 release
+13:19:08 <rotru> pvital, no no  :)
+13:19:12 <alinefm> is it what you are asking?
+13:19:13 <rotru> alinefm, great
+13:19:34 <pvital> I mean, woud be nice link each item of todo with existent issues, but put all issues tagged to 2.2 in todo is not "clean"
+13:19:37 <rotru> alinefm,  then the team would have to fix HIGH in the current sprint
+13:20:01 <alinefm> rotru, ok
+13:20:14 <rotru> pvital,  we can add then in a "Sprint Backlog"
+13:20:23 <rotru> alinefm,  ^
+13:20:43 <pvital> rotru, we have only 1 sprint - the devel phase
+13:20:50 <pvital> it's not necessary
+13:20:52 <alinefm> pvital, rotru we can put the link to the 2.2 issues in the ToDo page
+13:20:59 <alinefm> so everyone can be aware about it
+13:21:14 <rotru> pvital, humm, 1 sprint
+13:21:36 <rotru> pvital, alinefm  thought we would have 2 weeks sprints
+13:21:48 <rotru> alinefm, I think it can work
+13:22:01 <rotru> ( link to issues )
+13:22:33 <pvital> I don't! we already tried to work with sprints in the past and did not worked
+13:23:02 <alinefm> pvital, rotru said the link to issues can work
+13:23:10 <alinefm> not about the 2 weeks sprint =)
+13:23:41 <alinefm> anything else, guys, or we can move on?
+13:24:20 <pvital> go ahead
+13:24:23 <rotru> pvital,  this is a long discussion ...  but everybody must commit to the deliverables  ...  In the past the 'ibm' was not so committed to the community
+13:24:35 <rotru> * 'ibm' team
+13:24:59 <alinefm> rotru, we can do it internally
+13:25:14 <alinefm> let's move on otherwise 1h would not be enough today =)
+13:25:26 <alinefm> #topic Status
+13:25:28 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+13:25:29 <rotru> alinefm,  hehe sure, go ahead
+13:25:38 <ziviani> #info [kimchi] ziviani sent patch to fix issue with "view vnc" link and is working to fix issue with templates from existing images
+13:26:35 <samhenri> #info [wok] samhenri currently working on wok.list.js to support multiple selection in Debug Reports and Repositories, already working with keyboard navigation and small screen support
+13:26:54 <samhenri> #info [ginger] samhenri fixed environment issues with OVS support, currently paused OVS panel development until Debug Reports / wok.list is done
+13:27:08 <ramonn> #info [kimchi] ramonn sent v3 of "use a single entry for create templates"
+13:27:21 <suresh> #info [ginger] sureshab working on user management bugs and profile enhancements
+13:27:23 <ramonn> #info [ginger] ramonn investigating bug #135859
+13:27:23 <pvital> #info [Gingerbase] pvital submitted the V5 (and was committed) of patch-set to solve issue #9 - Update selected packages
+13:27:24 <pvital> #info [Kimchi] pvital is working on a solution to issue #817 - Add Events support to PCI attach/deattach
+13:27:24 <pvital> #info [Kimchi] pvital submitted the patch "Add support to Libvirt Events."
+13:27:24 <pvital> #info [Wok] [Kimchi] [Ginger*] pvital reviewed patches
+13:27:25 <samhenri> #info [gingerbase] samhenri made some changes in Debug Reports and Repositories in gingerbase.host-dashboard.js and gingerbase.host-update.js to work with new wok.list.js changes. Took some points from the acessibility issues and already provided some changes that may enhance user experience but a proper new acessibility test is probably required
+13:27:33 <samhenri> #info [kimchi] peterpennings currently working on 'Disable Template when it has invalid parameters and add a mouse hover message' task
+13:28:20 <atreyee> #info [ginger] atreyee raised issues for accessibility with respect to keyboard navigation,focus and sequence
+13:28:43 <atreyee> #info [gingerbase] atreyee raised issues for accessibility with respect to keyboard navigation,focus and sequence
+13:29:18 <rotru> #info [kimchi] rotru Fixed memory value returned from backend: (current memory + memory devices);
+13:29:18 <rotru> #info [kimchi] rotru changed UI to check memory values before send request;
+13:29:18 <rotru> #info [kimchi] rotru Fixed Issue #861 - Sent patch to recognize latest CentOS version;
+13:29:31 <danielhb> #info [ginger] danielhb is working in the new 'services' backend
+13:29:56 <jkatta> #info [ginger] jkatta will start investigation on dropping libvirt from ginger, for more details will get in touch with Daniel through ML
+13:30:38 <alinefm> jkatta, that would be great!
+13:31:01 <alinefm> atreyee, did Gabriel ask your help with the accessibility tests?
+13:31:06 <jkatta> #info [wok/ginger/gingers390x] jkatta will update spec files to create rpms for KVMIBM
+13:33:08 <alinefm> samhenri, can you also update the wiki page to assign the tasks to you and peterpennings ?
+13:33:08 <atreyee> alinefm, i have not got any information from gabriel yet
+13:33:27 <alinefm> atreyee, so you decided to test those topics too?
+13:33:28 <samhenri> alinefm already done that
+13:33:48 <alinefm> atreyee, (just trying to understand)
+13:33:50 <alinefm> samhenri, thanks!
+13:35:13 <atreyee> alinefm, yes .. i did not found issues with keyboard navigation is raised.. but issues are existing.. so thought to raise few issues that i encountered
+13:35:31 <alinefm> atreyee, ok! thanks a lot for doing it
+13:35:39 <alinefm> I will talk to Gabriel
+13:35:45 <alinefm> anything else?
+13:36:22 <ziviani> no
+13:36:33 <alinefm> #topic Open Discussion
+13:36:46 <alinefm> samhenri, do you want to talk about multiple selection?
+13:37:35 <samhenri> multiple selections is ok
+13:37:44 <samhenri> regarding the selenium tests
+13:37:57 <samhenri> we don't have to add ids to every element in the html
+13:38:38 <samhenri> selenium tests supports using CSS selectors like jQuery
+13:39:07 <samhenri> so we can mix Ids and classes and even complex selectors like :nth-child(n + n)
+13:39:24 <samhenri> and it also supports Xpath
+13:39:27 <alinefm> how safer is that?
+13:39:40 <alinefm> I mean, we may have different scenarios to test
+13:39:53 <alinefm> and :nth-child seems not safer for me
+13:40:41 <samhenri> in cases that we can't use nth-child i'm adding IDs, for instance the new wok.list.js generates an unique id for each hidden checkbox
+13:40:52 <samhenri> and also for each line list item
+13:41:03 <samhenri> but we can also use Xpath
+13:41:17 <samhenri> Chrome allows us to select any element and copy the Xpath
+13:41:26 <samhenri> I think the Selenium IDE in Firefox allows that too
+13:41:42 <samhenri> so instead of using only IDs and classes, we can use something like: //*[@id="list"]/ul/li[2]/label/span[3]
+13:41:54 <samhenri> the number refers to the element index in DOM tree
+13:42:32 <samhenri> so as long as the parent element has an ID it is ok
+13:43:18 <alinefm> ok
+13:43:29 <samhenri> in this Xpath example the test will look exactly for the third span tag in the second li element inside an ul from the div with id equals to list
+13:43:30 <alinefm> we can start doing the selenium tests that way
+13:43:55 <alinefm> and see if we ifnd any issues
+13:43:58 <alinefm> *find
+13:43:59 <samhenri> ok
+13:44:26 <alinefm> do you have any preference about which language do the tests?
+13:44:32 <alinefm> xml?
+13:45:50 <samhenri> nope
+13:46:48 <alinefm> ok
+13:46:51 <samhenri> i think the xml is fine
+13:46:59 <alinefm> samhenri, any other topic for today?
+13:47:41 <samhenri> no
+13:48:36 <alinefm> danielhb, pvital ramonn rotru ziviani what about you, guys?
+13:48:45 <pvital> no
+13:48:46 <danielhb> alinefm, I have nothing
+13:49:11 <ramonn> nop
+13:49:53 <rotru> alinefm,  no
+13:50:09 <alinefm> ok
+13:50:20 <alinefm> ops.. I forgot to share lcorreia status
+13:50:23 <alinefm> let me do ti now
+13:50:28 <alinefm> #info [wok] lcorreia WokMessage feature backend V1, V2, V3 to ML
+13:50:29 <alinefm> #info [wok] lcorreia sent Asynchronous Notifications backend V1, V2 to ML
+13:50:29 <alinefm> #info [wok] lcorreia is working on adding a callback to notification close button to destroy the notification which is required to finish Asynchronous Notifications UI part
+13:50:29 <alinefm> #info [wok] will use WokMessage to add translation to User Request Log messages
+13:50:29 <alinefm> #info [kimchi] lcorreia will use Asynchronous Notifications and Libvirt Events to handle libvirt event ENOSPC
+13:50:31 <alinefm> #info [kimchi] lcorreia will work on Kimchi issue #812
+13:50:48 <alinefm> thanks everyone for joining!
+13:50:52 <alinefm> #endmeeting

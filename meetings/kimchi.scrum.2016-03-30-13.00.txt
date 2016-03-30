@@ -1,0 +1,128 @@
+===============
+#kimchi Meeting
+===============
+
+
+Meeting started by alinefm at 13:00:20 UTC.  The full logs are available
+at
+http://kimchi-project.github.io/kimchi/meetings/kimchi.scrum.2016-03-30-13.00.log.html
+.
+
+
+
+Meeting summary
+---------------
+
+* Agenda  (alinefm, 13:00:40)
+* 2.2 Plan  (alinefm, 13:00:48)
+* Status  (alinefm, 13:00:50)
+* Open Discussion  (alinefm, 13:00:56)
+* 2.1 Plan  (alinefm, 13:02:59)
+  * 2.2 dates: https://github.com/kimchi-project/wok/wiki/planning-2.2
+    (alinefm, 13:03:19)
+  * All plugins (Kimchi, GingerBase and Ginger) use the same dates from
+    Wok  (alinefm, 13:03:48)
+  * 2.2 release will be announced on Jun 24  (alinefm, 13:04:10)
+  * ToDo Lists:  (alinefm, 13:04:22)
+  * - Wok: https://github.com/kimchi-project/wok/wiki/Todo-2.2
+    (alinefm, 13:04:40)
+  * - Kimchi: https://github.com/kimchi-project/kimchi/wiki/Todo-2.2
+    (alinefm, 13:04:50)
+  * - Ginger: https://github.com/kimchi-project/ginger/wiki/Todo-2.2
+    (alinefm, 13:05:00)
+  * - GingerBase:
+    https://github.com/kimchi-project/gingerbase/wiki/Todo-2.2
+    (alinefm, 13:05:08)
+
+* Status  (alinefm, 13:25:26)
+  * Please provide your status using the #info command: #info [<project]
+    <nickname> <status>  (alinefm, 13:25:28)
+  * [kimchi] ziviani sent patch to fix issue with "view vnc" link and is
+    working to fix issue with templates from existing images  (ziviani,
+    13:25:38)
+  * [wok] samhenri currently working on wok.list.js to support multiple
+    selection in Debug Reports and Repositories, already working with
+    keyboard navigation and small screen support  (samhenri, 13:26:35)
+  * [ginger] samhenri fixed environment issues with OVS support,
+    currently paused OVS panel development until Debug Reports /
+    wok.list is done  (samhenri, 13:26:54)
+  * [kimchi] ramonn sent v3 of "use a single entry for create templates"
+    (ramonn, 13:27:08)
+  * [ginger] sureshab working on user management bugs and profile
+    enhancements  (suresh, 13:27:21)
+  * [ginger] ramonn investigating bug #135859  (ramonn, 13:27:23)
+  * [Gingerbase] pvital submitted the V5 (and was committed) of
+    patch-set to solve issue #9 - Update selected packages  (pvital,
+    13:27:23)
+  * [Kimchi] pvital is working on a solution to issue #817 - Add Events
+    support to PCI attach/deattach  (pvital, 13:27:24)
+  * [Kimchi] pvital submitted the patch "Add support to Libvirt Events."
+    (pvital, 13:27:24)
+  * [Wok] [Kimchi] [Ginger*] pvital reviewed patches  (pvital, 13:27:24)
+  * [gingerbase] samhenri made some changes in Debug Reports and
+    Repositories in gingerbase.host-dashboard.js and
+    gingerbase.host-update.js to work with new wok.list.js changes. Took
+    some points from the acessibility issues and already provided some
+    changes that may enhance user experience but a proper new
+    acessibility test is probably required  (samhenri, 13:27:25)
+  * [kimchi] peterpennings currently working on 'Disable Template when
+    it has invalid parameters and add a mouse hover message' task
+    (samhenri, 13:27:33)
+  * [ginger] atreyee raised issues for accessibility with respect to
+    keyboard navigation,focus and sequence  (atreyee, 13:28:20)
+  * [gingerbase] atreyee raised issues for accessibility with respect to
+    keyboard navigation,focus and sequence  (atreyee, 13:28:43)
+  * [kimchi] rotru Fixed memory value returned from backend: (current
+    memory + memory devices);  (rotru, 13:29:18)
+  * [kimchi] rotru changed UI to check memory values before send
+    request;  (rotru, 13:29:18)
+  * [kimchi] rotru Fixed Issue #861 - Sent patch to recognize latest
+    CentOS version;  (rotru, 13:29:18)
+  * [ginger] danielhb is working in the new 'services' backend
+    (danielhb, 13:29:31)
+  * [ginger] jkatta will start investigation on dropping libvirt from
+    ginger, for more details will get in touch with Daniel through ML
+    (jkatta, 13:29:56)
+  * [wok/ginger/gingers390x] jkatta will update spec files to create
+    rpms for KVMIBM  (jkatta, 13:31:06)
+
+* Open Discussion  (alinefm, 13:36:33)
+  * [wok] lcorreia WokMessage feature backend V1, V2, V3 to ML
+    (alinefm, 13:50:28)
+  * [wok] lcorreia sent Asynchronous Notifications backend V1, V2 to ML
+    (alinefm, 13:50:29)
+  * [wok] lcorreia is working on adding a callback to notification close
+    button to destroy the notification which is required to finish
+    Asynchronous Notifications UI part  (alinefm, 13:50:29)
+  * [wok] will use WokMessage to add translation to User Request Log
+    messages  (alinefm, 13:50:29)
+  * [kimchi] lcorreia will use Asynchronous Notifications and Libvirt
+    Events to handle libvirt event ENOSPC  (alinefm, 13:50:29)
+  * [kimchi] lcorreia will work on Kimchi issue #812  (alinefm,
+    13:50:31)
+
+
+
+Meeting ended at 13:50:52 UTC.
+
+
+
+People present (lines said)
+---------------------------
+
+* alinefm (88)
+* samhenri (34)
+* rotru (27)
+* pvital (15)
+* atreyee (4)
+* ramonn (3)
+* kimchi-bot (3)
+* jkatta (2)
+* ziviani (2)
+* danielhb (2)
+* chandra (1)
+* suresh (1)
+
+
+
+Generated by `MeetBot`_ 0.1.4
