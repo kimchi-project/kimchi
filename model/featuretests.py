@@ -34,7 +34,7 @@ FEATURETEST_POOL_NAME = "FEATURETEST_POOL"
 ISO_STREAM_XML = """
 <domain type='%(domain)s'>
   <name>%(name)s</name>
-  <memory unit='KiB'>1048576</memory>
+  <memory unit='MiB'>256</memory>
   <os>
     <type arch='%(arch)s'>hvm</type>
     <boot dev='cdrom'/>
@@ -56,7 +56,7 @@ ISO_STREAM_XML = """
 SIMPLE_VM_XML = """
 <domain type='%(domain)s'>
   <name>%(name)s</name>
-  <memory unit='KiB'>10240</memory>
+  <memory unit='MiB'>256</memory>
   <os>
     <type arch='%(arch)s'>hvm</type>
     <boot dev='hd'/>
@@ -66,15 +66,15 @@ SIMPLE_VM_XML = """
 MAXMEM_VM_XML = """
 <domain type='%(domain)s'>
   <name>%(name)s</name>
-  <maxMemory slots='1' unit='KiB'>20480</maxMemory>
-  <memory unit='KiB'>10240</memory>
+  <maxMemory slots='1' unit='MiB'>512</maxMemory>
+  <memory unit='MiB'>256</memory>
   <os>
     <type arch='%(arch)s'>hvm</type>
     <boot dev='hd'/>
   </os>
   <cpu>
     <numa>
-      <cell id='0' cpus='0' memory='10240' unit='KiB'/>
+      <cell id='0' cpus='0' memory='256' unit='MiB'/>
     </numa>
   </cpu>
   <features>
@@ -85,7 +85,7 @@ MAXMEM_VM_XML = """
 DEV_MEM_XML = """
 <memory model='dimm'>
   <target>
-    <size unit='KiB'>10240</size>
+    <size unit='MiB'>256</size>
     <node>0</node>
   </target>
 </memory>"""
