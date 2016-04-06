@@ -1,0 +1,36 @@
+13:01:37 <alinefm> #startmeeting
+13:01:38 <kimchi-bot> Meeting started Wed Apr  6 13:01:37 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:38 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:38 <alinefm> #meetingname scrum
+13:01:38 <kimchi-bot> The meeting name has been set to 'scrum'
+13:01:46 <alinefm> #info Agenda
+13:01:46 <alinefm> #info 1) Status
+13:01:46 <alinefm> #info 2) Open discussion
+13:01:46 <alinefm> anything else?
+13:01:56 <ziviani> no
+13:02:47 <alinefm> so let's get started
+13:02:48 <alinefm> #topic Status
+13:02:48 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+13:03:04 <ziviani> #info [kimchi] ziviani is working on issues #919 and #920
+13:03:56 <peterpennings> #info [kimchi] peterpennings is working on List View for Storage Volumes
+13:04:12 <peterpennings> #info [Ginger] samhenri working on OVS UI and modal windows
+13:04:18 <peterpennings> #info [Gingerbase] samhenri started working on Debug Reports multiselect and mobile support
+13:05:25 <pvital> #info [Kimchi] pvital is working on a solution to issue #817 - Add Events support to PCI attach/deattach
+13:05:25 <pvital> #info [Kimchi] pvital tested and did not found any problem regarding issue #845- Kimchi don't start on Centos 7.2
+13:05:25 <pvital> #info [Wok] [Kimchi] [Ginger*] pvital reviewed patches
+13:06:39 <lcorreia> #info [wok] lcorreia got WokMessage feature upstream
+13:06:39 <lcorreia> #info [wok] lcorreia got Asynchronous Notifications backend upstream
+13:06:39 <lcorreia> #info [wok] lcorreia sent V1, V2 for Asynchronous Notifications frontend
+13:06:39 <lcorreia> #info [wok] lcorreia will use WokMessage to add translation to User Request Log messages
+13:06:39 <lcorreia> #info [kimchi] lcorreia is working on "edit network" feature
+13:06:40 <lcorreia> #info [kimchi] lcorreia will use Asynchronous Notifications and Libvirt Events to handle libvirt event ENOSPC
+13:06:42 <lcorreia> #info [kimchi] lcorreia will work on Kimchi issue #812
+13:09:15 <alinefm> anything else?
+13:11:13 <lcorreia> no
+13:11:29 <alinefm> #topic Open Discussion
+13:11:37 <alinefm> any other topic to discuss today?
+13:11:40 <ziviani> no
+13:12:00 <lcorreia> no
+13:14:03 <alinefm> ok... really a quick meeting today
+13:14:13 <alinefm> thanks everyone for joining!
+13:14:15 <alinefm> #endmeeting
