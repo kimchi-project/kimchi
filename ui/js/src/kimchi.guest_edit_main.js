@@ -752,6 +752,13 @@ kimchi.guest_edit_main = function() {
             return;
         }
 
+        // Test CPU values before submit. Avoid requests we know are going to fail
+        if ($('#guest-edit-cores-textbox').val() > $('#guest-edit-max-processor-textbox').val()) {
+            wok.message.error(i18n['KCHVM0003E'], '#alert-modal-container');
+            $(saveButton).prop('disabled', false);
+            return;
+        }
+
         if (data['vcpus'] !== undefined) {
             var cpu = Number(data['vcpus']);
             var maxCpu = Number(data['max-processor']);
