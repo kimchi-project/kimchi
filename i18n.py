@@ -157,7 +157,6 @@ messages = {
     "KCHTMPL0001E": _("Template %(name)s already exists"),
     "KCHTMPL0003E": _("Network '%(network)s' specified for template %(template)s does not exist"),
     "KCHTMPL0004E": _("Storage pool %(pool)s specified for template %(template)s does not exist"),
-    "KCHTMPL0005E": _("Storage pool %(pool)s specified for template %(template)s is not active"),
     "KCHTMPL0006E": _("Invalid parameter '%(param)s' specified for CDROM."),
     "KCHTMPL0007E": _("Network %(network)s specified for template %(template)s is not active"),
     "KCHTMPL0008E": _("Template name must be a string"),

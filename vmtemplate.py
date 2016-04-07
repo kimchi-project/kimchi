@@ -438,7 +438,7 @@ class VMTemplate(object):
     def validate(self):
         for disk in self.info.get('disks'):
             pool_uri = disk.get('pool', {}).get('name')
-            self._storage_validate(pool_uri)
+            self._get_storage_pool(pool_uri)
         self._network_validate()
         self._iso_validate()
         self.cpuinfo_validate()
@@ -453,7 +453,7 @@ class VMTemplate(object):
     def _network_validate(self):
         pass
 
-    def _storage_validate(self):
+    def _get_storage_pool(self):
         pass
 
     def fork_vm_storage(self, vm_uuid):
@@ -474,6 +474,9 @@ class VMTemplate(object):
     def _get_all_storagepools_name(self):
         return []
 
+    def _get_active_storagepools_name(self):
+        return []
+
     def validate_integrity(self):
         invalid = {}
         # validate networks integrity
@@ -486,7 +489,7 @@ class VMTemplate(object):
         for disk in self.info['disks']:
             pool_uri = disk['pool']['name']
             pool_name = pool_name_from_uri(pool_uri)
-            if pool_name not in self._get_all_storagepools_name():
+            if pool_name not in self._get_active_storagepools_name():
                 invalid['storagepools'] = [pool_name]
 
         # validate iso integrity
