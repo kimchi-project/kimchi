@@ -33,6 +33,7 @@ from wok.plugins.kimchi.model.host import DeviceModel
 from wok.plugins.kimchi.model.libvirtstoragepool import StoragePoolDef
 from wok.plugins.kimchi.osinfo import defaults as tmpl_defaults
 from wok.plugins.kimchi.scan import Scanner
+from wok.plugins.kimchi.utils import pool_name_from_uri
 
 
 ISO_POOL_NAME = u'kimchi_isos'
@@ -437,7 +438,7 @@ class StoragePoolModel(object):
                 t_info = session.get('template', tmpl)
                 for disk in t_info['disks']:
                     t_pool = disk['pool']['name']
-                    if t_pool == pool_name:
+                    if pool_name_from_uri(t_pool) == pool_name:
                         return True
             return False
 
