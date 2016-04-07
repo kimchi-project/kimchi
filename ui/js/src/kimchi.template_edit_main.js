@@ -65,14 +65,22 @@ kimchi.template_edit_main = function() {
         $('#template-edit-memory-textbox').val(template.memory.current);
         $('#template-edit-max-memory-textbox').val(template.memory.maxmemory);
 
-        $('#template-edit-graphics').append('<option value="vnc" selected="selected">VNC</option>');
+        if (template.graphics.type == 'vnc') {
+            $('#template-edit-graphics').append('<option value="vnc" selected="selected">VNC</option>');
+        } else {
+            $('#template-edit-graphics').append('<option value="vnc">VNC</option>');
+        }
         var enableSpice = function() {
             if (kimchi.capabilities == undefined) {
                 setTimeout(enableSpice, 2000);
                 return;
             }
             if (kimchi.capabilities.qemu_spice == true) {
-                $('#template-edit-graphics').append('<option value="spice">Spice</option>');
+                if (template.graphics.type == 'spice') {
+                    $('#template-edit-graphics').append('<option value="spice" selected="selected">Spice</option>');
+                } else {
+                    $('#template-edit-graphics').append('<option value="spice">Spice</option>');
+                }
             }
         };
         var isImageBasedTemplate = function() {
