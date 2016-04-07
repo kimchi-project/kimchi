@@ -304,17 +304,14 @@ class LibvirtVMTemplate(VMTemplate):
         # validate CPU info values - will raise appropriate exceptions
         cpu_model.check_cpu_info(self.info['cpu_info'])
 
-    def _storage_validate(self, pool_uri):
+    def _get_storage_pool(self, pool_uri):
         pool_name = pool_name_from_uri(pool_uri)
         try:
             conn = self.conn.get()
             pool = conn.storagePoolLookupByName(pool_name.encode("utf-8"))
+
         except libvirt.libvirtError:
             raise InvalidParameter("KCHTMPL0004E", {'pool': pool_uri,
-                                                    'template': self.name})
-
-        if not pool.isActive():
-            raise InvalidParameter("KCHTMPL0005E", {'pool': pool_name,
                                                     'template': self.name})
 
         return pool
@@ -326,6 +323,11 @@ class LibvirtVMTemplate(VMTemplate):
     def _get_all_storagepools_name(self):
         conn = self.conn.get()
         names = conn.listStoragePools() + conn.listDefinedStoragePools()
+        return sorted(map(lambda x: x.decode('utf-8'), names))
+
+    def _get_active_storagepools_name(self):
+        conn = self.conn.get()
+        names = conn.listStoragePools()
         return sorted(map(lambda x: x.decode('utf-8'), names))
 
     def _network_validate(self):
@@ -343,17 +345,26 @@ class LibvirtVMTemplate(VMTemplate):
                                                         'template': self.name})
 
     def _get_storage_path(self, pool_uri=None):
-        pool = self._storage_validate(pool_uri)
+        try:
+            pool = self._get_storage_pool(pool_uri)
+
+        except:
+            return ''
+
         xml = pool.XMLDesc(0)
         return xpath_get_text(xml, "/pool/target/path")[0]
 
     def _get_storage_type(self, pool_uri=None):
-        pool = self._storage_validate(pool_uri)
+        try:
+            pool = self._get_storage_pool(pool_uri)
+
+        except:
+            return ''
         xml = pool.XMLDesc(0)
         return xpath_get_text(xml, "/pool/@type")[0]
 
     def _get_volume_path(self, pool, vol):
-        pool = self._storage_validate(pool)
+        pool = self._get_storage_pool(pool)
         try:
             return pool.storageVolLookupByName(vol).path()
         except:
@@ -365,7 +376,7 @@ class LibvirtVMTemplate(VMTemplate):
         vol_list = self.to_volume_list(vm_uuid)
         try:
             for v in vol_list:
-                pool = self._storage_validate(v['pool'])
+                pool = self._get_storage_pool(v['pool'])
                 # outgoing text to libvirt, encode('utf-8')
                 pool.createXML(v['xml'].encode('utf-8'), 0)
         except libvirt.libvirtError as e:
