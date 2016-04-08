@@ -468,11 +468,11 @@
                     "error": "KCHTMPL0011E"
                 },
                 "memory": { "$ref": "#/kimchitype/memory" },
-                "cdrom": {
-                    "description": "Path for cdrom",
-                    "type": "string",
-                    "pattern": "^((/)|(http)[s]?:|[t]?(ftp)[s]?:)+.*$",
-                    "error": "KCHTMPL0014E"
+                "source_media": {
+                    "description": "Path for installation media (ISO, disk, remote ISO)",
+                    "type" : "string",
+                    "pattern" : "^((/)|(http)[s]?:|[t]?(ftp)[s]?:)+.*$",
+                    "required": true
                 },
                 "disks": {
                     "description": "List of disks",
@@ -496,12 +496,6 @@
                                 "type": "number",
                                 "minimum": 1,
                                 "error": "KCHTMPL0022E"
-                            },
-                            "base": {
-                                "description": "Base image of the disk",
-                                "type": "string",
-                                "pattern": "^/.+$",
-                                "error": "KCHTMPL0023E"
                             },
                             "pool": {
                                 "description": "Storage pool information",
