@@ -274,6 +274,10 @@ class ModelTests(unittest.TestCase):
             inst.templates_create(tmpl_info)
             rollback.prependDefer(inst.template_delete, tmpl_name)
 
+            # verify disk
+            tmpl = inst.template_lookup(tmpl_name)
+            self.assertEquals(vol_path, tmpl["disks"][0]["base"])
+
             params = {'name': 'kimchi-vm',
                       'template': '/plugins/kimchi/templates/img-tmpl'}
             task = inst.vms_create(params)
