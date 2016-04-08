@@ -91,7 +91,7 @@ class AuthorizationTests(unittest.TestCase):
         # but he can get and create a new one
         resp = self.request('/plugins/kimchi/templates', '{}', 'GET')
         self.assertEquals(403, resp.status)
-        req = json.dumps({'name': 'test', 'cdrom': fake_iso})
+        req = json.dumps({'name': 'test', 'source_media': fake_iso})
         resp = self.request('/plugins/kimchi/templates', req, 'POST')
         self.assertEquals(403, resp.status)
         resp = self.request('/plugins/kimchi/templates/test', '{}', 'PUT')
@@ -100,7 +100,7 @@ class AuthorizationTests(unittest.TestCase):
         self.assertEquals(403, resp.status)
 
         # Non-root users can only get vms authorized to them
-        model.templates_create({'name': u'test', 'cdrom': fake_iso})
+        model.templates_create({'name': u'test', 'source_media': fake_iso})
 
         task_info = model.vms_create({
             'name': u'test-me',

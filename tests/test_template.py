@@ -18,6 +18,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import iso_gen
 import json
 import os
 import psutil
@@ -38,7 +39,7 @@ host = None
 port = None
 ssl_port = None
 cherrypy_port = None
-
+MOCK_ISO = "/tmp/mock.iso"
 DEFAULT_POOL = u'/plugins/kimchi/storagepools/default-pool'
 
 
@@ -53,6 +54,7 @@ def setUpModule():
     cherrypy_port = get_free_port('cherrypy_port')
     test_server = run_server(host, port, ssl_port, test_mode=True,
                              cherrypy_port=cherrypy_port, model=model)
+    iso_gen.construct_fake_iso(MOCK_ISO, True, '14.04', 'ubuntu')
 
 
 def tearDownModule():
@@ -79,7 +81,7 @@ class TemplateTests(unittest.TestCase):
         self.assertEquals(400, resp.status)
 
         # Create a template
-        t = {'name': 'test', 'cdrom': '/tmp/mock.iso'}
+        t = {'name': 'test', 'source_media': MOCK_ISO}
         req = json.dumps(t)
         resp = self.request('/plugins/kimchi/templates', req, 'POST')
         self.assertEquals(201, resp.status)
@@ -117,24 +119,23 @@ class TemplateTests(unittest.TestCase):
         self.assertEquals(204, resp.status)
 
         # Create a template with same name fails with 400
-        req = json.dumps({'name': 'test', 'cdrom': '/tmp/mock.iso'})
+        req = json.dumps({'name': 'test', 'source_media': MOCK_ISO})
         resp = self.request('/plugins/kimchi/templates', req, 'POST')
         self.assertEquals(400, resp.status)
 
         # Create an image based template
-        open('/tmp/mock.img', 'w').close()
-        t = {'name': 'test_img_template', 'disks': [{
-            'base': '/tmp/mock.img', 'format': 'qcow2',
-            'pool': {'name': DEFAULT_POOL}, 'size': 1}]}
+        os.system("qemu-img create -f qcow2 %s 10G" % '/tmp/mock.img')
+        t = {'name': 'test_img_template', 'source_media': '/tmp/mock.img'}
         req = json.dumps(t)
         resp = self.request('/plugins/kimchi/templates', req, 'POST')
         self.assertEquals(201, resp.status)
         os.remove('/tmp/mock.img')
 
         # Test disk format
-        t = {'name': 'test-format', 'cdrom': '/tmp/mock.iso', 'disks': [{
-             'index': 0, 'size': 10, 'format': 'vmdk', 'pool': {
+        t = {'name': 'test-format', 'source_media': MOCK_ISO, 'disks': [{
+             'size': 10, 'format': 'vmdk', 'pool': {
                  'name': DEFAULT_POOL}}]}
+
         req = json.dumps(t)
         resp = self.request('/plugins/kimchi/templates', req, 'POST')
         self.assertEquals(201, resp.status)
@@ -149,7 +150,7 @@ class TemplateTests(unittest.TestCase):
         else:
             max_mem = (psutil.TOTAL_PHYMEM >> 10 >> 10)
         memory = max_mem + 1024
-        t = {'name': 'test-maxmem', 'cdrom': '/tmp/mock.iso',
+        t = {'name': 'test-maxmem', 'source_media': MOCK_ISO,
              'memory': {'current': memory}}
         req = json.dumps(t)
         resp = self.request('/plugins/kimchi/templates', req, 'POST')
@@ -158,7 +159,7 @@ class TemplateTests(unittest.TestCase):
 
     def test_customized_tmpl(self):
         # Create a template
-        t = {'name': 'test', 'cdrom': '/tmp/mock.iso'}
+        t = {'name': 'test', 'source_media': MOCK_ISO}
         req = json.dumps(t)
         resp = self.request('/plugins/kimchi/templates', req, 'POST')
         self.assertEquals(201, resp.status)
@@ -328,7 +329,7 @@ class TemplateTests(unittest.TestCase):
 
     def test_customized_network(self):
         # Create a template
-        t = {'name': 'test', 'cdrom': '/tmp/mock.iso'}
+        t = {'name': 'test', 'source_media': MOCK_ISO}
         req = json.dumps(t)
         resp = self.request('/plugins/kimchi/templates', req, 'POST')
         self.assertEquals(201, resp.status)
@@ -364,7 +365,7 @@ class TemplateTests(unittest.TestCase):
 
     def test_customized_storagepool(self):
         # Create a template
-        t = {'name': 'test', 'cdrom': '/tmp/mock.iso'}
+        t = {'name': 'test', 'source_media': MOCK_ISO}
         req = json.dumps(t)
         resp = self.request('/plugins/kimchi/templates', req, 'POST')
         self.assertEquals(201, resp.status)
@@ -442,6 +443,8 @@ class TemplateTests(unittest.TestCase):
                           sorted(tmpl['disks'][0].values()))
 
     def test_tmpl_integrity(self):
+        mock_iso2 = "/tmp/mock2.iso"
+        iso_gen.construct_fake_iso(mock_iso2, True, '14.04', 'ubuntu')
         # Create a network and a pool for testing template integrity
         net = {'name': u'nat-network', 'connection': 'nat'}
         self.request('/plugins/kimchi/networks', json.dumps(net), 'POST')
@@ -453,9 +456,8 @@ class TemplateTests(unittest.TestCase):
         self.request(pool_uri + '/activate', '{}', 'POST')
 
         # Create a template using the custom network and pool
-        t = {'name': 'test', 'cdrom': '/tmp/mock.iso',
-             'networks': ['nat-network'],
-             'disks': [{'pool': {
+        t = {'name': 'test', 'source_media': mock_iso2,
+             'networks': ['nat-network'], 'disks': [{'pool': {
                  'name': '/plugins/kimchi/storagepools/dir-pool'},
                  'size': 2,
                  'format': 'qcow2'}]}
@@ -484,5 +486,6 @@ class TemplateTests(unittest.TestCase):
         self.assertEquals(400, resp.status)
 
         # Verify the template
+        os.remove(mock_iso2)
         res = json.loads(self.request('/plugins/kimchi/templates/test').read())
-        self.assertEquals(res['invalid']['cdrom'], ['/tmp/mock.iso'])
+        self.assertEquals(res['invalid']['cdrom'], [mock_iso2])

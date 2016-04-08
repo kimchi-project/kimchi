@@ -97,12 +97,13 @@ class LiveMigrationTests(unittest.TestCase):
         )
         params = {'name': u'template_test_vm_migrate',
                   'disks': [],
-                  'cdrom': UBUNTU_ISO,
-                  'memory': {'current': 2048, 'maxmemory': 4096 << 10}}
+                  'source_media': UBUNTU_ISO,
+                  'memory': {'current': 2048, 'max_memory': 4096 << 10}}
+
         self.inst.templates_create(params)
         params = {'name': u'template_test_vm_migrate_nonshared',
                   'disks': [{'name': 'test_vm_migrate.img', 'size': 1}],
-                  'cdrom': UBUNTU_ISO,
+                  'source_media': UBUNTU_ISO,
                   'memory': {'current': 2048, 'maxmemory': 4096*1024}}
         self.inst.templates_create(params)
 

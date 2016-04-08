@@ -17,6 +17,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import iso_gen
 import os
 import psutil
 import unittest
@@ -36,7 +37,7 @@ DISKS = [{'size': 10, 'format': 'raw', 'index': 0, 'pool': {'name':
 class VMTemplateTests(unittest.TestCase):
     def setUp(self):
         self.iso = '/tmp/mock.iso'
-        open(self.iso, 'w').close()
+        iso_gen.construct_fake_iso(self.iso, True, '12.04', 'ubuntu')
 
     def tearDown(self):
         os.unlink(self.iso)
