@@ -18,7 +18,6 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-import copy
 import json
 import os
 import re
@@ -107,7 +106,7 @@ class RestTests(unittest.TestCase):
         self.assertEquals(1, len(vms))
 
         # Create a template as a base for our VMs
-        req = json.dumps({'name': 'test', 'cdrom': fake_iso})
+        req = json.dumps({'name': 'test', 'source_media': fake_iso})
         resp = self.request('/plugins/kimchi/templates', req, 'POST')
         self.assertEquals(201, resp.status)
 
@@ -134,7 +133,7 @@ class RestTests(unittest.TestCase):
         self.assertEquals([], vm['groups'])
 
     def test_edit_vm(self):
-        req = json.dumps({'name': 'test', 'cdrom': fake_iso})
+        req = json.dumps({'name': 'test', 'source_media': fake_iso})
         resp = self.request('/plugins/kimchi/templates', req, 'POST')
         self.assertEquals(201, resp.status)
 
@@ -291,9 +290,9 @@ class RestTests(unittest.TestCase):
 
     def test_vm_lifecycle(self):
         # Create a Template
-        req = json.dumps({'name': 'test', 'disks': DISKS,
-                          'icon': 'plugins/kimchi/images/icon-debian.png',
-                          'cdrom': fake_iso})
+        req = json.dumps({'name': 'test', 'source_media': fake_iso,
+                          'disks': DISKS,
+                          'icon': 'plugins/kimchi/images/icon-debian.png'})
         resp = self.request('/plugins/kimchi/templates', req, 'POST')
         self.assertEquals(201, resp.status)
 
@@ -518,7 +517,7 @@ class RestTests(unittest.TestCase):
 
     def test_vm_graphics(self):
         # Create a Template
-        req = json.dumps({'name': 'test', 'cdrom': fake_iso})
+        req = json.dumps({'name': 'test', 'source_media': fake_iso})
         resp = self.request('/plugins/kimchi/templates', req, 'POST')
         self.assertEquals(201, resp.status)
 
@@ -612,7 +611,7 @@ class RestTests(unittest.TestCase):
 
         with RollbackContext() as rollback:
             # Create a template as a base for our VMs
-            req = json.dumps({'name': 'test', 'cdrom': fake_iso})
+            req = json.dumps({'name': 'test', 'source_media': fake_iso})
             resp = self.request('/plugins/kimchi/templates', req, 'POST')
             self.assertEquals(201, resp.status)
             # Delete the template
@@ -785,7 +784,7 @@ class RestTests(unittest.TestCase):
 
         with RollbackContext() as rollback:
             # Create a template as a base for our VMs
-            req = json.dumps({'name': 'test', 'cdrom': fake_iso})
+            req = json.dumps({'name': 'test', 'source_media': fake_iso})
             resp = self.request('/plugins/kimchi/templates', req, 'POST')
             self.assertEquals(201, resp.status)
             # Delete the template
@@ -891,8 +890,8 @@ class RestTests(unittest.TestCase):
 
     def test_vm_customise_storage(self):
         # Create a Template
-        req = json.dumps({'name': 'test', 'cdrom': fake_iso,
-                                          'disks': DISKS})
+        req = json.dumps({'name': 'test', 'disks': DISKS,
+                          'source_media': fake_iso})
         resp = self.request('/plugins/kimchi/templates', req, 'POST')
         self.assertEquals(201, resp.status)
 
@@ -954,8 +953,9 @@ class RestTests(unittest.TestCase):
 
         # Create template fails because SCSI volume is missing
         tmpl_params = {
-            'name': 'test_fc_pool', 'cdrom': fake_iso, 'disks': [{'pool': {
-                'name': '/plugins/kimchi/storagepools/scsi_fc_pool'}}]}
+            'name': 'test_fc_pool', 'source_media': fake_iso,
+            'disks': [{'pool':
+                       {'name': '/plugins/kimchi/storagepools/scsi_fc_pool'}}]}
 
         req = json.dumps(tmpl_params)
         resp = self.request('/plugins/kimchi/templates', req, 'POST')
@@ -998,7 +998,7 @@ class RestTests(unittest.TestCase):
 
     def test_unnamed_vms(self):
         # Create a Template
-        req = json.dumps({'name': 'test', 'cdrom': fake_iso})
+        req = json.dumps({'name': 'test', 'source_media': fake_iso})
         resp = self.request('/plugins/kimchi/templates', req, 'POST')
         self.assertEquals(201, resp.status)
 
@@ -1039,10 +1039,8 @@ class RestTests(unittest.TestCase):
 
         # Create a Template
         mock_base = '/tmp/mock.img'
-        open(mock_base, 'w').close()
-        disks = copy.deepcopy(DISKS)
-        disks[0]['base'] = mock_base
-        req = json.dumps({'name': 'test', 'disks': disks})
+        os.system("qemu-img create -f qcow2 %s 10M" % mock_base)
+        req = json.dumps({'name': 'test', 'source_media': mock_base})
         resp = self.request('/plugins/kimchi/templates', req, 'POST')
         self.assertEquals(201, resp.status)
 
@@ -1112,7 +1110,7 @@ class RestTests(unittest.TestCase):
         # In real model os distro/version can be omitted
         # as we will scan the iso
         req = json.dumps({'name': 'test',
-                          'cdrom': storagevolume['path'],
+                          'source_media': storagevolume['path'],
                           'os_distro': storagevolume['os_distro'],
                           'os_version': storagevolume['os_version']})
         resp = self.request('/plugins/kimchi/templates', req, 'POST')
@@ -1150,7 +1148,7 @@ class RestTests(unittest.TestCase):
 
     def test_screenshot_refresh(self):
         # Create a VM
-        req = json.dumps({'name': 'test', 'cdrom': fake_iso})
+        req = json.dumps({'name': 'test', 'source_media': fake_iso})
         resp = self.request('/plugins/kimchi/templates', req, 'POST')
         req = json.dumps({'name': 'test-vm',
                           'template': '/plugins/kimchi/templates/test'})
