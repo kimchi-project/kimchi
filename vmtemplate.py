@@ -96,7 +96,9 @@ class VMTemplate(object):
         for index, disk in enumerate(disks):
             disk_info = dict(default_disk)
 
-            pool_type = self._get_storage_type(disk['pool']['name'])
+            pool = disk.get('pool', default_disk['pool'])
+            pool_type = self._get_storage_type(pool['name'])
+
             if pool_type in ['iscsi', 'scsi']:
                 disk_info = {'index': 0, 'format': 'raw', 'volume': None}
 
