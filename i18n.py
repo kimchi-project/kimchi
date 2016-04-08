@@ -168,7 +168,7 @@ messages = {
     "KCHTMPL0013E": _("Amount of memory and maximum memory (MB) must be an integer greater than 512"),
     "KCHTMPL0014E": _("Template CDROM must be a local or remote ISO file"),
     "KCHTMPL0015E": _("Invalid storage pool URI %(value)s specified for template"),
-    "KCHTMPL0016E": _("Specify an ISO image as CDROM or a base image to create a template"),
+    "KCHTMPL0016E": _("Specify a path to source media (ISO, disk or remote ISO) to create a template"),
     "KCHTMPL0017E": _("All networks for the template must be specified in a list."),
     "KCHTMPL0018E": _("Specify a volume to a template when storage pool is iSCSI or SCSI"),
     "KCHTMPL0019E": _("The volume %(volume)s is not in storage pool %(pool)s"),
