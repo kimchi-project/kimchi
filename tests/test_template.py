@@ -93,7 +93,7 @@ class TemplateTests(unittest.TestCase):
             self.request('/plugins/kimchi/templates/test').read()
         )
         self.assertEquals(sorted(tmpl.keys()), sorted(keys))
-
+        self.assertEquals(t['source_media'], tmpl["cdrom"])
         disk_keys = ['index', 'pool', 'size', 'format']
         disk_pool_keys = ['name', 'type']
         self.assertEquals(sorted(tmpl['disks'][0].keys()), sorted(disk_keys))
