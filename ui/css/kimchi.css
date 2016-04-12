@@ -1041,12 +1041,6 @@ body.wok-gallery {
   overflow: hidden;
 }
 
-#guest-edit-window form .header .cell.column-network .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn),
-#guest-edit-window form .task .cell.column-network .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn),
-#guest-edit-window form .body .cell.column-network .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
-  width: 180px;
-}
-
 #guest-edit-window form .header .cell.column-type,
 #guest-edit-window form .task .cell.column-type,
 #guest-edit-window form .body .cell.column-type {
@@ -1155,16 +1149,6 @@ body.wok-gallery {
   border-top: 0;
 }
 
-#guest-edit-window form .body .item:nth-child(even),
-#guest-edit-window form .task .item:nth-child(even) {
-  background-color: #fcfcfc;
-}
-
-#guest-edit-window form .body .item:nth-child(odd),
-#guest-edit-window form .task .item:nth-child(odd) {
-  background-color: #fff;
-}
-
 #guest-edit-window form .body .item > span,
 #guest-edit-window form .task .item > span {
   padding: 6px 2px;
@@ -1193,6 +1177,22 @@ body.wok-gallery {
   padding-right: 0 !important;
   padding-left: 0 !important;
   width: 100%;
+}
+
+#guest-edit-window form .body .item:nth-child(even),
+#guest-edit-window form .task .item:nth-child(even) {
+  background-color: #fcfcfc;
+}
+
+#guest-edit-window form .body .item:nth-child(odd),
+#guest-edit-window form .task .item:nth-child(odd) {
+  background-color: #fff;
+}
+
+#guest-edit-window form .header .cell.column-network .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn),
+#guest-edit-window form .task .cell.column-network .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn),
+#guest-edit-window form .body .cell.column-network .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+  width: 180px;
 }
 
 .guest-edit-snapshot .hide,
@@ -2397,9 +2397,9 @@ body.wok-gallery {
   border: 1px solid #ccc;
   border: 1px solid #ccc;
   border-radius: 3px;
-  -webkit-box-shadow: compact(0 6px 12px rgba(0, 0, 0, 0.175));
-  -moz-box-shadow: compact(0 6px 12px rgba(0, 0, 0, 0.175));
-  box-shadow: compact(0 6px 12px rgba(0, 0, 0, 0.175));
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  -moz-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   background-clip: padding-box;
 }
 
