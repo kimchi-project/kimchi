@@ -19,10 +19,12 @@
 
 import copy
 import libvirt
+import magic
 import os
 import platform
 import psutil
 import stat
+import urlparse
 
 from wok.exception import InvalidOperation, InvalidParameter
 from wok.exception import NotFoundError, OperationFailed
@@ -35,7 +37,7 @@ from wok.plugins.kimchi.model.cpuinfo import CPUInfoModel
 from wok.plugins.kimchi.utils import pool_name_from_uri
 from wok.plugins.kimchi.vmtemplate import VMTemplate
 
-
+ISO_TYPE = "ISO 9660 CD-ROM"
 # In PowerPC, memories must be aligned to 256 MiB
 PPC_MEM_ALIGN = 256
 # Max memory 16TB for PPC and 4TiB for X (according to Red Hat), in KiB
@@ -51,18 +53,6 @@ class TemplatesModel(object):
 
     def create(self, params):
         name = params.get('name', '').strip()
-        iso = params.get('cdrom')
-        # check search permission
-        if iso and iso.startswith('/') and os.path.exists(iso):
-            st_mode = os.stat(iso).st_mode
-            if stat.S_ISREG(st_mode) or stat.S_ISBLK(st_mode):
-                user = UserTests().probe_user()
-                run_setfacl_set_attr(iso, user=user)
-                ret, excp = probe_file_permission_as_user(iso, user)
-                if ret is False:
-                    raise InvalidParameter('KCHISO0008E',
-                                           {'filename': iso, 'user': user,
-                                            'err': excp})
 
         conn = self.conn.get()
         for net_name in params.get(u'networks', []):
@@ -71,9 +61,49 @@ class TemplatesModel(object):
             except Exception:
                 raise InvalidParameter("KCHTMPL0003E", {'network': net_name,
                                                         'template': name})
+
+        # get source_media
+        path = params.pop("source_media")
+
+        # not local image: set as remote ISO
+        if urlparse.urlparse(path).scheme in ["http", "https", "tftp", "ftp",
+                                              "ftps"]:
+            params["cdrom"] = path
+
+        # image does not exists: raise error
+        elif not os.path.exists(path):
+            raise InvalidParameter("Unable to find file %(path)s" %
+                                   {"path": path})
+
+        # create magic object to discover file type
+        file_type = magic.open(magic.MAGIC_NONE)
+        file_type.load()
+        ftype = file_type.file(path)
+
+        # cdrom
+        if ISO_TYPE in ftype:
+            params["cdrom"] = path
+
+            # check search permission
+            st_mode = os.stat(path).st_mode
+            if stat.S_ISREG(st_mode) or stat.S_ISBLK(st_mode):
+                user = UserTests().probe_user()
+                run_setfacl_set_attr(path, user=user)
+                ret, excp = probe_file_permission_as_user(path, user)
+                if ret is False:
+                    raise InvalidParameter('KCHISO0008E',
+                                           {'filename': path, 'user': user,
+                                            'err': excp})
+        # disk
+        else:
+            params["disks"] = params.get('disks', [])
+            params["disks"].append({"base": path})
+
+        return self.save_template(params)
+
+    def save_template(self, params):
+
         # Creates the template class with necessary information
-        # Checkings will be done while creating this class, so any exception
-        # will be raised here
         t = LibvirtVMTemplate(params, scan=True, conn=self.conn)
 
         # Validate cpu info
@@ -89,12 +119,15 @@ class TemplatesModel(object):
             if 'volume' in disk.keys():
                 self.template_volume_validate(volume, disk['pool'])
 
-        # Store template on objectstore
+        # template with the same name already exists: raise exception
         name = params['name']
+        with self.objstore as session:
+            if name in session.get_list('template'):
+                raise InvalidOperation("KCHTMPL0001E", {'name': name})
+
+        # Store template on objectstore
         try:
             with self.objstore as session:
-                if name in session.get_list('template'):
-                    raise InvalidOperation("KCHTMPL0001E", {'name': name})
                 session.store('template', name, t.info,
                               get_kimchi_version())
         except InvalidOperation:
@@ -158,7 +191,7 @@ class TemplateModel(object):
 
         temp = self.lookup(name)
         temp['name'] = clone_name
-        ident = self.templates.create(temp)
+        ident = self.templates.save_template(temp)
         return ident
 
     def delete(self, name):
@@ -207,9 +240,9 @@ class TemplateModel(object):
 
         self.delete(name)
         try:
-            ident = self.templates.create(new_t)
+            ident = self.templates.save_template(new_t)
         except:
-            ident = self.templates.create(old_t)
+            ident = self.templates.save_template(old_t)
             raise
         return ident
 

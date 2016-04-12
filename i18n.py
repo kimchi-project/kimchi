@@ -175,7 +175,6 @@ messages = {
     "KCHTMPL0020E": _("Unable to create template due error: %(err)s"),
     "KCHTMPL0021E": _("Unable to delete template due error: %(err)s"),
     "KCHTMPL0022E": _("Disk size must be an integer greater than 1GB."),
-    "KCHTMPL0023E": _("Template base image must be a valid local image file"),
     "KCHTMPL0024E": _("Cannot identify base image %(path)s format"),
     "KCHTMPL0026E": _("When specifying CPU topology, each element must be an integer greater than zero."),
     "KCHTMPL0027E": _("Invalid disk image format. Valid formats: bochs, cloop, cow, dmg, qcow, qcow2, qed, raw, vmdk, vpc."),
