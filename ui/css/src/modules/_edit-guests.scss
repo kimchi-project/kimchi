@@ -88,9 +88,6 @@
                     text-overflow: ellipsis;
                     overflow: hidden;
                 }
-                .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
-                    width: 180px;
-                }
             }
             .cell.column-type {
                 width: 11.35%;
@@ -161,12 +158,6 @@
                 &:first-child {
                     border-top: 0;
                 }
-                &:nth-child(even) {
-                    background-color: $table-bg-accent;
-                }
-                &:nth-child(odd) {
-                    background-color: $table-bg;
-                }
                 > span {
                     padding: $table-cell-padding;
                     display: inline-block;
@@ -191,6 +182,22 @@
             }
         }
     }
+}
+
+#guest-edit-window form .body .item:nth-child(even),
+#guest-edit-window form .task .item:nth-child(even) {
+    background-color: $table-bg-accent;
+}
+
+#guest-edit-window form .body .item:nth-child(odd),
+#guest-edit-window form .task .item:nth-child(odd) {
+    background-color: $table-bg;
+}
+
+#guest-edit-window form .header .cell.column-network .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn),
+#guest-edit-window form .task .cell.column-network .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn),
+#guest-edit-window form .body .cell.column-network .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+  width: 180px;
 }
 
 .guest-edit-snapshot .hide,
