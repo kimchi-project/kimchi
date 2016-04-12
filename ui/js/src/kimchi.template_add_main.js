@@ -313,7 +313,7 @@ kimchi.template_add_main = function() {
             return;
         }
         var data = {
-            "cdrom": isoFile
+            "source_media": isoFile
         };
         addTemplate(data);
     });
@@ -531,9 +531,7 @@ kimchi.template_add_main = function() {
         $('#vm-image-local-box-button').text(i18n['KCHAPI6008M']);
         $('#vm-image-local-box-button').prop('disabled', true);
         addTemplate({
-            disks: [{
-                base: $('input', '#vm-image-local-box').val()
-            }]
+            source_media: $('input', '#vm-image-local-box').val()
         }, function() {
             $('input', '#vm-image-local-box').prop('disabled', false);
             $('#vm-image-local-box-button').text(i18n['KCHAPI6005M']);
@@ -548,7 +546,7 @@ kimchi.template_add_main = function() {
             return;
         }
         var data = {
-            "cdrom": isoUrl
+            "source_media": isoUrl
         };
         addTemplate(data);
     });
@@ -579,7 +577,7 @@ kimchi.template_add_main = function() {
                 var data = {
                     "os_distro": isoInfo.os_distro,
                     "os_version": isoInfo.os_version,
-                    "cdrom": isoInfo.path
+                    "source_media": isoInfo.path
                 };
                 kimchi.createTemplate(data, function() {
                     successNum++;
