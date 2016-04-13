@@ -1,0 +1,164 @@
+13:02:35 <alinefm> #startmeeting
+13:02:35 <kimchi-bot> Meeting started Wed Apr 13 13:02:35 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:02:35 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:02:36 <alinefm> #meetingname scrum
+13:02:36 <alinefm> #info Agenda
+13:02:36 <alinefm> #info 1) Status
+13:02:36 <alinefm> #info 2) Open discussion
+13:02:36 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:37 <alinefm> anything else?
+13:02:41 <ziviani> no
+13:03:10 <pvital> no
+13:03:15 <alinefm> so let's get started
+13:03:16 <alinefm> #topic Status
+13:03:16 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+13:03:34 <samhenri> #info [Wok] samhenri sent patch fixing some Sass issues and adding new mixins
+13:03:36 <ziviani> #info [kimchi] ziviani sent patches to fixes issues on template/storage tabs 919, 920, 923, 924
+13:03:38 <alinefm> #info [kimchi] alinefm sent patch to fix memory hot plug issue on Power machines
+13:03:58 <ziviani> #info [kimchi] ziviani is finishing 924 issue (ui)
+13:04:10 <samhenri> #info [Kimchi] samhenri sent patch to adjust guests SCSS with latest changes from Wok
+13:04:13 <ramonn> #info [kimchi] ramonn merged "installation media" patch. Working on code review tool and other issues
+13:04:22 <lcorreia> #info [wok] lcorreia got Asynchronous Notifications frontend upstream
+13:04:22 <lcorreia> #info [kimchi] lcorreia sent backend V1 for "edit network" feature to review
+13:04:22 <lcorreia> #info [kimchi] lcorreia is working on Kimchi issue #812
+13:04:27 <alinefm> #info [kimchi] alinefm sent patch to adjust Template creation UI according to the latest API changes. Socorro is still working to change the UI properly to do not require the media type from user
+13:04:28 <suresh> #info [ginger] sureshab working on V2 patch for user management
+13:04:28 <danielhb> #info [ginger] danielhb is working in the network management code, fixing issues
+13:04:33 <pvital> #info [Kimchi] pvital is still working on a solution to issue #817 - Add Events support to PCI attach/deattach
+13:04:33 <pvital> <pvital> #info [Wok] [Kimchi] [Ginger*] pvital reviewed patches
+13:04:38 <samhenri> #info [Ginger] samhenri sent patch for OVS bridges front-end
+13:04:50 <alinefm> #info [ginger] alinefm is testing and opening UI issues to improve usability there
+13:05:07 <samhenri> #info [Gingerbase] samhenri working on Debug Reports multiselect
+13:06:10 <alinefm> samhenri, is peter working on package update?
+13:06:21 <samhenri> #info [Ginger] peterpennings working on "Update selected packages only"
+13:06:39 <samhenri> alinefm yes
+13:08:22 <rotru> #info [Gingerbase] rotru Fixed debug reports rename function;
+13:08:55 <rotru> #info [Kimchi] rotru Sent patch to fix issues in Kimchi UI and to avoid send Max CPU higher than CPU to backend;
+13:09:24 <rotru> #info [Kimchi] rotru Sent patch to change label "Memory Available" by "Memory Utilization";
+13:10:14 <alinefm> anything else?
+13:10:19 <pvital> no
+13:10:22 <rotru> nope
+13:10:27 <samhenri> nope
+13:10:47 <alinefm> #topic Open Discussion
+13:11:02 <alinefm> any topics to discuss today?
+13:11:57 <ziviani> hi, just a quick question about the feature tests
+13:12:03 <alinefm> sure
+13:12:35 <ziviani> I made some measures yesterday, it's not taking long, actually it's fast from the moment I start the server
+13:12:42 <ziviani> until it gets fully responsive
+13:13:02 <ziviani> (i mean the capabilities feature)
+13:14:06 <samhenri> I have a question about the accessibility tests/issues @ github. Can't we group them by panel or tab?
+13:14:21 <alinefm> ziviani, really?
+13:14:22 <ziviani> alinefm, the problem was on the list of pci devices, right?
+13:14:38 <alinefm> ziviani, I am on Fedora 23 and the features tests take a long time to complete
+13:14:50 <rotru> ziviani,  yeap, they are fast, usually, one or two hangs
+13:14:51 <ziviani> alinefm, yes, I'll continue with that measurement on other systems
+13:14:58 <alinefm> ziviani, at least, it takes a long time to get the ""Feature Tests completed" on log
+13:15:13 <alinefm> ziviani, I think it is because of the NFS feature tests
+13:15:25 <alinefm> ziviani, I don't think we need to link all the feature tests with server start up
+13:15:26 <ziviani> alinefm, mine was taken 0.05 segs, considering nfs tests as well
+13:15:35 <alinefm> ziviani, which OS?
+13:15:44 <ziviani> alinefm, but it was good to know, I 'll certainly test it on other systems too
+13:15:45 <rotru> ziviani,  yeap, in Fedora, the problem is NFS
+13:15:48 <ziviani> alinefm, ubuntu
+13:16:03 <alinefm> ziviani, maybe that is the difference
+13:16:28 <ziviani> rotru, alinefm good, thanks for that information, i'll check it on fedora
+13:16:40 <alinefm> ziviani, IMO we should start almost all feature tests on resource initialization and keep only the ISO streaming test linked to server start up
+13:17:00 <alinefm> ziviani, the ISO streaming test depends on server to be up and running
+13:17:39 <alinefm> ziviani, maybe it's worth to verify if the NFS test (or other one) still makes sense with the latest distro versions
+13:17:59 <ziviani> alinefm, yes, I'll do it
+13:18:02 <alinefm> probably we can remove some of them if libvirt/qemu get updated or something like it
+13:18:31 <rotru> alinefm,  I would test the versions
+13:18:32 <rotru> =P
+13:19:43 <ziviani> alinefm, 'start almost all feature tests on resource initialization' → this would make difference when kimchi is installed in the system, with the service properly configured, right?
+13:20:19 <alinefm> rotru, hehehe
+13:20:24 <alinefm> rotru, I will not comment on that =P
+13:21:00 <alinefm> ziviani, not sure I understood your question
+13:21:09 <ziviani> alinefm, I mean, if I start my kimchi, cloned from github by hand, it would be still linked to the server start up
+13:21:18 <alinefm> ziviani, no
+13:21:30 <alinefm> ziviani, take a look in the model/config.py file in the CapabilitiesModel()
+13:21:47 <alinefm> ziviani, you will see the set_capabilities() is linked with the cherrypy start up
+13:22:19 <ziviani> alinefm, yes, just saw that 'cherrypy.engine.subscribe('start', self._set_capabilities)'
+13:22:20 <alinefm> which means, it will wait some time to start doing the tests - until the cherrypy server has reached the start up level required there
+13:22:25 <alinefm> ziviani, correct
+13:22:44 <ziviani> alinefm, now I got it, only iso streaming should be there
+13:22:57 <alinefm> ziviani, correct
+13:22:59 <ziviani> alinefm, rotru thank you again :)
+13:23:12 <alinefm> ziviani, if we move all the feature tests to CapibilitiesModel.__init__(), they will start earlier
+13:23:21 <ziviani> perfect
+13:23:25 <alinefm> and probably reduce the time in some way
+13:24:00 <ziviani> makes sense to me
+13:24:04 <alinefm> ziviani, in addition to that, a request to /config/capabilities is made prior to get all the feature tests completed we should raise an error IMO
+13:24:19 <alinefm> today we are returning inconsistent data
+13:24:33 <alinefm> which is leading the UI to disable some feature which may be enabled
+13:25:10 <ziviani> hmmm
+13:25:13 <alinefm> that will imply to change the way the UI gets the /config/capabilities result
+13:25:22 <alinefm> on error, wait some seconds and request again...
+13:25:25 <alinefm> until get the information
+13:25:43 <ziviani> keep polling the server until it gets the final answer
+13:25:44 <ziviani> ok
+13:25:51 <alinefm> yeap
+13:26:52 <alinefm> ziviani, is it ok for you? any more doubts about feature tests and capabilities?
+13:27:10 <ziviani> alinefm, no, it's pretty clear now, thank you :)
+13:27:24 <alinefm> yw
+13:27:49 <alinefm> samhenri, do you mean to group the issues according to panel?
+13:28:01 <alinefm> I can create labels for that if it can help
+13:28:16 <samhenri_> alinefm yes
+13:28:59 <alinefm> samhenri, by tab name is enough?
+13:29:15 <samhenri_> alinefm it will help a lot
+13:29:25 <alinefm> ok
+13:29:29 <alinefm> anything else?
+13:30:07 <samhenri_> nope
+13:32:18 <alinefm> danielhb, lcorreia peterpennings pvital ramonn rotru, what about you? any more topics for today?
+13:32:30 <lcorreia> alinefm, not from me
+13:32:35 <pvital> not from me
+13:32:36 <ramonn> not from me alinefm
+13:32:45 <rotru> alinefm,  I would like to ask about the logs
+13:32:49 <peterpennings> I have one doubt
+13:32:58 <alinefm> rotru, sure
+13:33:18 <rotru> alinefm,  we talked about move logs from setting to another tab.... should we (I) ?
+13:33:41 <rotru> alinefm,  than we must create an issue in order to don't forget this
+13:33:50 <rotru> alinefm,  in WOK
+13:33:53 <alinefm> it was a request from lagarcia
+13:34:45 <alinefm> rotru, with plugins management, I agree it is better to keep the logs in a tab "Dashboard" (suggestions are welcome) and use "Settings" to manage plugins and so
+13:35:50 <lcorreia> alinefm, rotru I agree, logs don't make sense under settings
+13:36:32 <alinefm> rotru, said that, we just need to rename the tab now
+13:36:40 <rotru> alinefm,  do we have more things to add to the "Dashboard" tab  ?
+13:36:52 <alinefm> rotru, and when doing the UI for plugins management, create a new tab named 'Settings'
+13:37:29 <alinefm> rotru, I can't think in anything right now
+13:37:41 <alinefm> need to check the feature requests for wok
+13:38:03 <alinefm> but I can only remember about management features
+13:38:26 <alinefm> rotru, is your suggestion to name the tab as "Logs"?
+13:38:59 <rotru> alinefm,  yes, I would suggest this ... leave as Logs , at this moment ... we can rearrange in the future, if needed
+13:41:50 <alinefm> rotru, ok for me
+13:41:52 <lcorreia> alinefm, rotru "request log" is more specific if you prefer to avoid confusion with access/error logs
+13:43:05 <alinefm> lcorreia, rotru "User Logs"
+13:43:06 <alinefm> ?
+13:43:59 <lcorreia> alinefm, works as well
+13:45:44 <rotru> alinefm, lcorreia  I would use "Logs" for the tab name and "User Logs" or "User Request Logs"  for the section  .... then we would not have problems adding new section to provide functionalities related to ACCESS/ERROR logs
+13:46:45 <rotru> alinefm, lcorreia  but, like I said, this is just a label and easy to change before final release, so I am ok to use User Logs in the tab name at this moment
+13:47:14 <alinefm> rotru, ok
+13:47:37 <rotru> (and  I think we do not have plans to create access/error logs functionality for 2.2 )
+13:47:42 <rotru> :)
+13:47:49 <alinefm> yes
+13:48:03 <lcorreia> rotru, ok, good
+13:48:24 <rotru> alinefm, go ahead
+13:49:11 <alinefm> any other topic?
+13:49:20 <peterpennings> I have one little doubt
+13:49:31 <peterpennings> About the packages update API in gingerbase
+13:50:51 <peterpennings> There is a parameter named 'depends'. Does it have only the packages which one package depends one and are not installed yet? Or does it have all packages that it depends on (including the packages taht are already installed)?
+13:51:16 <alinefm> pvital, ^
+13:51:22 <alinefm> I'd say all the dependencies
+13:51:33 <alinefm> but it is better to confirm with pvital as he developed it
+13:52:12 <pvital> peterpennings, the list of all dependencies that package needs (already installed or not)
+13:52:28 <pvital> peterpennings, but, since we are doing a system update
+13:52:40 <pvital> all of them must be installed
+13:53:08 <peterpennings> pvital ok, I got it. Tks!
+13:53:58 <alinefm> any more topics for today?
+13:54:12 <pvital> peterpennings, the idea  is check if we have a match between the list of dependencies of the package selected, with the list of pakcages to be updated
+13:54:55 <alinefm> peterpennings, for the UI, you just need to display a warning dialog requesting user to confirm to continue or not
+13:55:29 <peterpennings> pvital, yes, that is what i'm doing!!
+13:55:29 <alinefm> "To update package X the following packages will be also updated or installed: Z, W, . Do you want to continue?" Y/N
+13:57:03 <peterpennings> Ok, thanks guys!
+14:02:11 <alinefm> thanks everyone for joining!
+14:02:16 <alinefm> some good discussions today =)
+14:02:20 <alinefm> #endmeeting

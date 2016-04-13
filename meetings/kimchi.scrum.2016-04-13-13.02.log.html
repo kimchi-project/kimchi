@@ -1,0 +1,191 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:02:35</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:02:35</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Apr 13 13:02:35 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:02:35</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:02:36</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:02:36</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda</span>
+<a name="l-6"></a><span class="tm">13:02:36</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">1) Status</span>
+<a name="l-7"></a><span class="tm">13:02:36</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">2) Open discussion</span>
+<a name="l-8"></a><span class="tm">13:02:36</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-9"></a><span class="tm">13:02:37</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-10"></a><span class="tm">13:02:41</span><span class="nk"> &lt;ziviani&gt;</span> no
+<a name="l-11"></a><span class="tm">13:03:10</span><span class="nk"> &lt;pvital&gt;</span> no
+<a name="l-12"></a><span class="tm">13:03:15</span><span class="nk"> &lt;alinefm&gt;</span> so let's get started
+<a name="l-13"></a><span class="tm">13:03:16</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-14"></a><span class="tm">13:03:16</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info [&lt;project] &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-15"></a><span class="tm">13:03:34</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] samhenri sent patch fixing some Sass issues and adding new mixins</span>
+<a name="l-16"></a><span class="tm">13:03:36</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ziviani sent patches to fixes issues on template/storage tabs 919, 920, 923, 924</span>
+<a name="l-17"></a><span class="tm">13:03:38</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] alinefm sent patch to fix memory hot plug issue on Power machines</span>
+<a name="l-18"></a><span class="tm">13:03:58</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ziviani is finishing 924 issue (ui)</span>
+<a name="l-19"></a><span class="tm">13:04:10</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] samhenri sent patch to adjust guests SCSS with latest changes from Wok</span>
+<a name="l-20"></a><span class="tm">13:04:13</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ramonn merged "installation media" patch. Working on code review tool and other issues</span>
+<a name="l-21"></a><span class="tm">13:04:22</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] lcorreia got Asynchronous Notifications frontend upstream</span>
+<a name="l-22"></a><span class="tm">13:04:22</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] lcorreia sent backend V1 for "edit network" feature to review</span>
+<a name="l-23"></a><span class="tm">13:04:22</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] lcorreia is working on Kimchi issue #812</span>
+<a name="l-24"></a><span class="tm">13:04:27</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] alinefm sent patch to adjust Template creation UI according to the latest API changes. Socorro is still working to change the UI properly to do not require the media type from user</span>
+<a name="l-25"></a><span class="tm">13:04:28</span><span class="nk"> &lt;suresh&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] sureshab working on V2 patch for user management</span>
+<a name="l-26"></a><span class="tm">13:04:28</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] danielhb is working in the network management code, fixing issues</span>
+<a name="l-27"></a><span class="tm">13:04:33</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] pvital is still working on a solution to issue #817 - Add Events support to PCI attach/deattach</span>
+<a name="l-28"></a><span class="tm">13:04:33</span><span class="nk"> &lt;pvital&gt;</span> &lt;pvital&gt; #info [Wok] [Kimchi] [Ginger*] pvital reviewed patches
+<a name="l-29"></a><span class="tm">13:04:38</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] samhenri sent patch for OVS bridges front-end</span>
+<a name="l-30"></a><span class="tm">13:04:50</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] alinefm is testing and opening UI issues to improve usability there</span>
+<a name="l-31"></a><span class="tm">13:05:07</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Gingerbase] samhenri working on Debug Reports multiselect</span>
+<a name="l-32"></a><span class="tm">13:06:10</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, is peter working on package update?
+<a name="l-33"></a><span class="tm">13:06:21</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] peterpennings working on "Update selected packages only"</span>
+<a name="l-34"></a><span class="tm">13:06:39</span><span class="nk"> &lt;samhenri&gt;</span> alinefm yes
+<a name="l-35"></a><span class="tm">13:08:22</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Gingerbase] rotru Fixed debug reports rename function;</span>
+<a name="l-36"></a><span class="tm">13:08:55</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] rotru Sent patch to fix issues in Kimchi UI and to avoid send Max CPU higher than CPU to backend;</span>
+<a name="l-37"></a><span class="tm">13:09:24</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] rotru Sent patch to change label "Memory Available" by "Memory Utilization";</span>
+<a name="l-38"></a><span class="tm">13:10:14</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-39"></a><span class="tm">13:10:19</span><span class="nk"> &lt;pvital&gt;</span> no
+<a name="l-40"></a><span class="tm">13:10:22</span><span class="nk"> &lt;rotru&gt;</span> nope
+<a name="l-41"></a><span class="tm">13:10:27</span><span class="nk"> &lt;samhenri&gt;</span> nope
+<a name="l-42"></a><span class="tm">13:10:47</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-43"></a><span class="tm">13:11:02</span><span class="nk"> &lt;alinefm&gt;</span> any topics to discuss today?
+<a name="l-44"></a><span class="tm">13:11:57</span><span class="nk"> &lt;ziviani&gt;</span> hi, just a quick question about the feature tests
+<a name="l-45"></a><span class="tm">13:12:03</span><span class="nk"> &lt;alinefm&gt;</span> sure
+<a name="l-46"></a><span class="tm">13:12:35</span><span class="nk"> &lt;ziviani&gt;</span> I made some measures yesterday, it's not taking long, actually it's fast from the moment I start the server
+<a name="l-47"></a><span class="tm">13:12:42</span><span class="nk"> &lt;ziviani&gt;</span> until it gets fully responsive
+<a name="l-48"></a><span class="tm">13:13:02</span><span class="nk"> &lt;ziviani&gt;</span> (i mean the capabilities feature)
+<a name="l-49"></a><span class="tm">13:14:06</span><span class="nk"> &lt;samhenri&gt;</span> I have a question about the accessibility tests/issues @ github. Can't we group them by panel or tab?
+<a name="l-50"></a><span class="tm">13:14:21</span><span class="nk"> &lt;alinefm&gt;</span> ziviani, really?
+<a name="l-51"></a><span class="tm">13:14:22</span><span class="nk"> &lt;ziviani&gt;</span> alinefm, the problem was on the list of pci devices, right?
+<a name="l-52"></a><span class="tm">13:14:38</span><span class="nk"> &lt;alinefm&gt;</span> ziviani, I am on Fedora 23 and the features tests take a long time to complete
+<a name="l-53"></a><span class="tm">13:14:50</span><span class="nk"> &lt;rotru&gt;</span> ziviani,  yeap, they are fast, usually, one or two hangs
+<a name="l-54"></a><span class="tm">13:14:51</span><span class="nk"> &lt;ziviani&gt;</span> alinefm, yes, I'll continue with that measurement on other systems
+<a name="l-55"></a><span class="tm">13:14:58</span><span class="nk"> &lt;alinefm&gt;</span> ziviani, at least, it takes a long time to get the ""Feature Tests completed" on log
+<a name="l-56"></a><span class="tm">13:15:13</span><span class="nk"> &lt;alinefm&gt;</span> ziviani, I think it is because of the NFS feature tests
+<a name="l-57"></a><span class="tm">13:15:25</span><span class="nk"> &lt;alinefm&gt;</span> ziviani, I don't think we need to link all the feature tests with server start up
+<a name="l-58"></a><span class="tm">13:15:26</span><span class="nk"> &lt;ziviani&gt;</span> alinefm, mine was taken 0.05 segs, considering nfs tests as well
+<a name="l-59"></a><span class="tm">13:15:35</span><span class="nk"> &lt;alinefm&gt;</span> ziviani, which OS?
+<a name="l-60"></a><span class="tm">13:15:44</span><span class="nk"> &lt;ziviani&gt;</span> alinefm, but it was good to know, I 'll certainly test it on other systems too
+<a name="l-61"></a><span class="tm">13:15:45</span><span class="nk"> &lt;rotru&gt;</span> ziviani,  yeap, in Fedora, the problem is NFS
+<a name="l-62"></a><span class="tm">13:15:48</span><span class="nk"> &lt;ziviani&gt;</span> alinefm, ubuntu
+<a name="l-63"></a><span class="tm">13:16:03</span><span class="nk"> &lt;alinefm&gt;</span> ziviani, maybe that is the difference
+<a name="l-64"></a><span class="tm">13:16:28</span><span class="nk"> &lt;ziviani&gt;</span> rotru, alinefm good, thanks for that information, i'll check it on fedora
+<a name="l-65"></a><span class="tm">13:16:40</span><span class="nk"> &lt;alinefm&gt;</span> ziviani, IMO we should start almost all feature tests on resource initialization and keep only the ISO streaming test linked to server start up
+<a name="l-66"></a><span class="tm">13:17:00</span><span class="nk"> &lt;alinefm&gt;</span> ziviani, the ISO streaming test depends on server to be up and running
+<a name="l-67"></a><span class="tm">13:17:39</span><span class="nk"> &lt;alinefm&gt;</span> ziviani, maybe it's worth to verify if the NFS test (or other one) still makes sense with the latest distro versions
+<a name="l-68"></a><span class="tm">13:17:59</span><span class="nk"> &lt;ziviani&gt;</span> alinefm, yes, I'll do it
+<a name="l-69"></a><span class="tm">13:18:02</span><span class="nk"> &lt;alinefm&gt;</span> probably we can remove some of them if libvirt/qemu get updated or something like it
+<a name="l-70"></a><span class="tm">13:18:31</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  I would test the versions
+<a name="l-71"></a><span class="tm">13:18:32</span><span class="nk"> &lt;rotru&gt;</span> =P
+<a name="l-72"></a><span class="tm">13:19:43</span><span class="nk"> &lt;ziviani&gt;</span> alinefm, 'start almost all feature tests on resource initialization' → this would make difference when kimchi is installed in the system, with the service properly configured, right?
+<a name="l-73"></a><span class="tm">13:20:19</span><span class="nk"> &lt;alinefm&gt;</span> rotru, hehehe
+<a name="l-74"></a><span class="tm">13:20:24</span><span class="nk"> &lt;alinefm&gt;</span> rotru, I will not comment on that =P
+<a name="l-75"></a><span class="tm">13:21:00</span><span class="nk"> &lt;alinefm&gt;</span> ziviani, not sure I understood your question
+<a name="l-76"></a><span class="tm">13:21:09</span><span class="nk"> &lt;ziviani&gt;</span> alinefm, I mean, if I start my kimchi, cloned from github by hand, it would be still linked to the server start up
+<a name="l-77"></a><span class="tm">13:21:18</span><span class="nk"> &lt;alinefm&gt;</span> ziviani, no
+<a name="l-78"></a><span class="tm">13:21:30</span><span class="nk"> &lt;alinefm&gt;</span> ziviani, take a look in the model/config.py file in the CapabilitiesModel()
+<a name="l-79"></a><span class="tm">13:21:47</span><span class="nk"> &lt;alinefm&gt;</span> ziviani, you will see the set_capabilities() is linked with the cherrypy start up
+<a name="l-80"></a><span class="tm">13:22:19</span><span class="nk"> &lt;ziviani&gt;</span> alinefm, yes, just saw that 'cherrypy.engine.subscribe('start', self._set_capabilities)'
+<a name="l-81"></a><span class="tm">13:22:20</span><span class="nk"> &lt;alinefm&gt;</span> which means, it will wait some time to start doing the tests - until the cherrypy server has reached the start up level required there
+<a name="l-82"></a><span class="tm">13:22:25</span><span class="nk"> &lt;alinefm&gt;</span> ziviani, correct
+<a name="l-83"></a><span class="tm">13:22:44</span><span class="nk"> &lt;ziviani&gt;</span> alinefm, now I got it, only iso streaming should be there
+<a name="l-84"></a><span class="tm">13:22:57</span><span class="nk"> &lt;alinefm&gt;</span> ziviani, correct
+<a name="l-85"></a><span class="tm">13:22:59</span><span class="nk"> &lt;ziviani&gt;</span> alinefm, rotru thank you again :)
+<a name="l-86"></a><span class="tm">13:23:12</span><span class="nk"> &lt;alinefm&gt;</span> ziviani, if we move all the feature tests to CapibilitiesModel.__init__(), they will start earlier
+<a name="l-87"></a><span class="tm">13:23:21</span><span class="nk"> &lt;ziviani&gt;</span> perfect
+<a name="l-88"></a><span class="tm">13:23:25</span><span class="nk"> &lt;alinefm&gt;</span> and probably reduce the time in some way
+<a name="l-89"></a><span class="tm">13:24:00</span><span class="nk"> &lt;ziviani&gt;</span> makes sense to me
+<a name="l-90"></a><span class="tm">13:24:04</span><span class="nk"> &lt;alinefm&gt;</span> ziviani, in addition to that, a request to /config/capabilities is made prior to get all the feature tests completed we should raise an error IMO
+<a name="l-91"></a><span class="tm">13:24:19</span><span class="nk"> &lt;alinefm&gt;</span> today we are returning inconsistent data
+<a name="l-92"></a><span class="tm">13:24:33</span><span class="nk"> &lt;alinefm&gt;</span> which is leading the UI to disable some feature which may be enabled
+<a name="l-93"></a><span class="tm">13:25:10</span><span class="nk"> &lt;ziviani&gt;</span> hmmm
+<a name="l-94"></a><span class="tm">13:25:13</span><span class="nk"> &lt;alinefm&gt;</span> that will imply to change the way the UI gets the /config/capabilities result
+<a name="l-95"></a><span class="tm">13:25:22</span><span class="nk"> &lt;alinefm&gt;</span> on error, wait some seconds and request again...
+<a name="l-96"></a><span class="tm">13:25:25</span><span class="nk"> &lt;alinefm&gt;</span> until get the information
+<a name="l-97"></a><span class="tm">13:25:43</span><span class="nk"> &lt;ziviani&gt;</span> keep polling the server until it gets the final answer
+<a name="l-98"></a><span class="tm">13:25:44</span><span class="nk"> &lt;ziviani&gt;</span> ok
+<a name="l-99"></a><span class="tm">13:25:51</span><span class="nk"> &lt;alinefm&gt;</span> yeap
+<a name="l-100"></a><span class="tm">13:26:52</span><span class="nk"> &lt;alinefm&gt;</span> ziviani, is it ok for you? any more doubts about feature tests and capabilities?
+<a name="l-101"></a><span class="tm">13:27:10</span><span class="nk"> &lt;ziviani&gt;</span> alinefm, no, it's pretty clear now, thank you :)
+<a name="l-102"></a><span class="tm">13:27:24</span><span class="nk"> &lt;alinefm&gt;</span> yw
+<a name="l-103"></a><span class="tm">13:27:49</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, do you mean to group the issues according to panel?
+<a name="l-104"></a><span class="tm">13:28:01</span><span class="nk"> &lt;alinefm&gt;</span> I can create labels for that if it can help
+<a name="l-105"></a><span class="tm">13:28:16</span><span class="nk"> &lt;samhenri_&gt;</span> alinefm yes
+<a name="l-106"></a><span class="tm">13:28:59</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, by tab name is enough?
+<a name="l-107"></a><span class="tm">13:29:15</span><span class="nk"> &lt;samhenri_&gt;</span> alinefm it will help a lot
+<a name="l-108"></a><span class="tm">13:29:25</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-109"></a><span class="tm">13:29:29</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-110"></a><span class="tm">13:30:07</span><span class="nk"> &lt;samhenri_&gt;</span> nope
+<a name="l-111"></a><span class="tm">13:32:18</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, lcorreia peterpennings pvital ramonn rotru, what about you? any more topics for today?
+<a name="l-112"></a><span class="tm">13:32:30</span><span class="nk"> &lt;lcorreia&gt;</span> alinefm, not from me
+<a name="l-113"></a><span class="tm">13:32:35</span><span class="nk"> &lt;pvital&gt;</span> not from me
+<a name="l-114"></a><span class="tm">13:32:36</span><span class="nk"> &lt;ramonn&gt;</span> not from me alinefm
+<a name="l-115"></a><span class="tm">13:32:45</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  I would like to ask about the logs
+<a name="l-116"></a><span class="tm">13:32:49</span><span class="nk"> &lt;peterpennings&gt;</span> I have one doubt
+<a name="l-117"></a><span class="tm">13:32:58</span><span class="nk"> &lt;alinefm&gt;</span> rotru, sure
+<a name="l-118"></a><span class="tm">13:33:18</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  we talked about move logs from setting to another tab.... should we (I) ?
+<a name="l-119"></a><span class="tm">13:33:41</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  than we must create an issue in order to don't forget this
+<a name="l-120"></a><span class="tm">13:33:50</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  in WOK
+<a name="l-121"></a><span class="tm">13:33:53</span><span class="nk"> &lt;alinefm&gt;</span> it was a request from lagarcia
+<a name="l-122"></a><span class="tm">13:34:45</span><span class="nk"> &lt;alinefm&gt;</span> rotru, with plugins management, I agree it is better to keep the logs in a tab "Dashboard" (suggestions are welcome) and use "Settings" to manage plugins and so
+<a name="l-123"></a><span class="tm">13:35:50</span><span class="nk"> &lt;lcorreia&gt;</span> alinefm, rotru I agree, logs don't make sense under settings
+<a name="l-124"></a><span class="tm">13:36:32</span><span class="nk"> &lt;alinefm&gt;</span> rotru, said that, we just need to rename the tab now
+<a name="l-125"></a><span class="tm">13:36:40</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  do we have more things to add to the "Dashboard" tab  ?
+<a name="l-126"></a><span class="tm">13:36:52</span><span class="nk"> &lt;alinefm&gt;</span> rotru, and when doing the UI for plugins management, create a new tab named 'Settings'
+<a name="l-127"></a><span class="tm">13:37:29</span><span class="nk"> &lt;alinefm&gt;</span> rotru, I can't think in anything right now
+<a name="l-128"></a><span class="tm">13:37:41</span><span class="nk"> &lt;alinefm&gt;</span> need to check the feature requests for wok
+<a name="l-129"></a><span class="tm">13:38:03</span><span class="nk"> &lt;alinefm&gt;</span> but I can only remember about management features
+<a name="l-130"></a><span class="tm">13:38:26</span><span class="nk"> &lt;alinefm&gt;</span> rotru, is your suggestion to name the tab as "Logs"?
+<a name="l-131"></a><span class="tm">13:38:59</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  yes, I would suggest this ... leave as Logs , at this moment ... we can rearrange in the future, if needed
+<a name="l-132"></a><span class="tm">13:41:50</span><span class="nk"> &lt;alinefm&gt;</span> rotru, ok for me
+<a name="l-133"></a><span class="tm">13:41:52</span><span class="nk"> &lt;lcorreia&gt;</span> alinefm, rotru "request log" is more specific if you prefer to avoid confusion with access/error logs
+<a name="l-134"></a><span class="tm">13:43:05</span><span class="nk"> &lt;alinefm&gt;</span> lcorreia, rotru "User Logs"
+<a name="l-135"></a><span class="tm">13:43:06</span><span class="nk"> &lt;alinefm&gt;</span> ?
+<a name="l-136"></a><span class="tm">13:43:59</span><span class="nk"> &lt;lcorreia&gt;</span> alinefm, works as well
+<a name="l-137"></a><span class="tm">13:45:44</span><span class="nk"> &lt;rotru&gt;</span> alinefm, lcorreia  I would use "Logs" for the tab name and "User Logs" or "User Request Logs"  for the section  .... then we would not have problems adding new section to provide functionalities related to ACCESS/ERROR logs
+<a name="l-138"></a><span class="tm">13:46:45</span><span class="nk"> &lt;rotru&gt;</span> alinefm, lcorreia  but, like I said, this is just a label and easy to change before final release, so I am ok to use User Logs in the tab name at this moment
+<a name="l-139"></a><span class="tm">13:47:14</span><span class="nk"> &lt;alinefm&gt;</span> rotru, ok
+<a name="l-140"></a><span class="tm">13:47:37</span><span class="nk"> &lt;rotru&gt;</span> (and  I think we do not have plans to create access/error logs functionality for 2.2 )
+<a name="l-141"></a><span class="tm">13:47:42</span><span class="nk"> &lt;rotru&gt;</span> :)
+<a name="l-142"></a><span class="tm">13:47:49</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-143"></a><span class="tm">13:48:03</span><span class="nk"> &lt;lcorreia&gt;</span> rotru, ok, good
+<a name="l-144"></a><span class="tm">13:48:24</span><span class="nk"> &lt;rotru&gt;</span> alinefm, go ahead
+<a name="l-145"></a><span class="tm">13:49:11</span><span class="nk"> &lt;alinefm&gt;</span> any other topic?
+<a name="l-146"></a><span class="tm">13:49:20</span><span class="nk"> &lt;peterpennings&gt;</span> I have one little doubt
+<a name="l-147"></a><span class="tm">13:49:31</span><span class="nk"> &lt;peterpennings&gt;</span> About the packages update API in gingerbase
+<a name="l-148"></a><span class="tm">13:50:51</span><span class="nk"> &lt;peterpennings&gt;</span> There is a parameter named 'depends'. Does it have only the packages which one package depends one and are not installed yet? Or does it have all packages that it depends on (including the packages taht are already installed)?
+<a name="l-149"></a><span class="tm">13:51:16</span><span class="nk"> &lt;alinefm&gt;</span> pvital, ^
+<a name="l-150"></a><span class="tm">13:51:22</span><span class="nk"> &lt;alinefm&gt;</span> I'd say all the dependencies
+<a name="l-151"></a><span class="tm">13:51:33</span><span class="nk"> &lt;alinefm&gt;</span> but it is better to confirm with pvital as he developed it
+<a name="l-152"></a><span class="tm">13:52:12</span><span class="nk"> &lt;pvital&gt;</span> peterpennings, the list of all dependencies that package needs (already installed or not)
+<a name="l-153"></a><span class="tm">13:52:28</span><span class="nk"> &lt;pvital&gt;</span> peterpennings, but, since we are doing a system update
+<a name="l-154"></a><span class="tm">13:52:40</span><span class="nk"> &lt;pvital&gt;</span> all of them must be installed
+<a name="l-155"></a><span class="tm">13:53:08</span><span class="nk"> &lt;peterpennings&gt;</span> pvital ok, I got it. Tks!
+<a name="l-156"></a><span class="tm">13:53:58</span><span class="nk"> &lt;alinefm&gt;</span> any more topics for today?
+<a name="l-157"></a><span class="tm">13:54:12</span><span class="nk"> &lt;pvital&gt;</span> peterpennings, the idea  is check if we have a match between the list of dependencies of the package selected, with the list of pakcages to be updated
+<a name="l-158"></a><span class="tm">13:54:55</span><span class="nk"> &lt;alinefm&gt;</span> peterpennings, for the UI, you just need to display a warning dialog requesting user to confirm to continue or not
+<a name="l-159"></a><span class="tm">13:55:29</span><span class="nk"> &lt;peterpennings&gt;</span> pvital, yes, that is what i'm doing!!
+<a name="l-160"></a><span class="tm">13:55:29</span><span class="nk"> &lt;alinefm&gt;</span> "To update package X the following packages will be also updated or installed: Z, W, . Do you want to continue?" Y/N
+<a name="l-161"></a><span class="tm">13:57:03</span><span class="nk"> &lt;peterpennings&gt;</span> Ok, thanks guys!
+<a name="l-162"></a><span class="tm">14:02:11</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining!
+<a name="l-163"></a><span class="tm">14:02:16</span><span class="nk"> &lt;alinefm&gt;</span> some good discussions today =)
+<a name="l-164"></a><span class="tm">14:02:20</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
