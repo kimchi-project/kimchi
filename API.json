@@ -388,6 +388,38 @@
                 "interfaces": {
                     "description": "An array of network interfaces of the host",
                     "type": "array",
+                    "minItems": 1,
+                    "error": "KCHNET0014E"
+                },
+                "vlan_id": {
+                    "description": "Network's VLAN ID",
+                    "type": "integer",
+                    "maximum": 4094,
+                    "minimum": 1,
+                    "error": "KCHNET0015E"
+                }
+            }
+        },
+        "network_update": {
+            "type": "object",
+            "additionalProperties": false,
+            "error": "KCHAPI0001E",
+            "properties": {
+                "name": {
+                    "description": "The new name of the network",
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "^[^/\"]*$",
+                    "error": "KCHNET0011E"
+                },
+                "subnet": {
+                    "description": "Network segment in slash-separated format with ip address and prefix or netmask",
+                    "type": "string",
+                    "error": "KCHNET0013E"
+                },
+                "interfaces": {
+                    "description": "An array of network interfaces of the host",
+                    "type": "array",
                     "error": "KCHNET0014E"
                 },
                 "vlan_id": {

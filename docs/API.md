@@ -736,6 +736,15 @@ A interface represents available interface on host.
 * **DELETE**: Remove the Network
 * **POST**: *See Network Actions*
 
+* **PUT**: Update the Network. The network type cannot be changed.
+    * name *(optional)*: The new name of the Network
+    * subnet *(optional)*: Network segment in slash-separated format with ip address and prefix.
+              Applies only to NAT and isolated networks
+    * interfaces *(optional)*: An array of network interfaces that belongs to this network.
+                  Applies only to bridge, macvtap and VEPA networks. For bridge and macvtap,
+                  only one interface is allowed. For VEPA, you can specify multiple interfaces.
+    * vlan_id *(optional)*: VLAN tagging ID for the bridge network.
+
 **Actions (POST):**
 
 * activate: Activate an inactive Network

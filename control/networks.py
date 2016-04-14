@@ -27,6 +27,7 @@ NETWORKS_REQUESTS = {
 
 NETWORK_REQUESTS = {
     'DELETE': {'default': "Remove virtual network '%(ident)s'"},
+    'PUT': {'default': "Update virtual network '%(ident)s'"},
     'POST': {
         'activate': "Activate virtual network '%(ident)s'",
         'deactivate': "Deactivate virtual network '%(ident)s'",
