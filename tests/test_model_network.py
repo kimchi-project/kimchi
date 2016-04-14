@@ -92,8 +92,25 @@ def _do_network_test(self, model, params):
         network = json.loads(resp.read())
         self.assertEquals('inactive', network['state'])
 
+        # Define network update parameters
+        updateParams = {'name': net_name + u'renamed'}
+        connection = params.get('connection')
+        if connection in ['isolated', 'nat'] and 'subnet' in params:
+            updateParams['subnet'] = '127.0.200.0/24'
+        elif connection == 'bridge' and 'vlan_id' in params:
+            updateParams['vlan_id'] = 389
+
+        # Test network update
+        req = json.dumps(updateParams)
+        resp = self.request(uri, req, 'PUT')
+        self.assertEquals(303, resp.status)
+
+        # Assert old name does not exist anymore
+        resp = self.request(uri, '{}', 'GET')
+        self.assertEquals(404, resp.status)
+
         # Delete the network
-        resp = self.request(uri, '{}', 'DELETE')
+        resp = self.request(uri + 'renamed'.encode('utf-8'), '{}', 'DELETE')
         self.assertEquals(204, resp.status)
 
 
