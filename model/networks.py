@@ -17,6 +17,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import copy
 import ipaddr
 import libvirt
 import sys
@@ -33,6 +34,8 @@ from wok.plugins.kimchi import netinfo
 from wok.plugins.kimchi import network as knetwork
 from wok.plugins.kimchi.config import kimchiPaths
 from wok.plugins.kimchi.model.config import CapabilitiesModel
+from wok.plugins.kimchi.netinfo import get_vlan_device, is_bridge, is_vlan
+from wok.plugins.kimchi.netinfo import ports
 from wok.plugins.kimchi.osinfo import defaults as tmpl_defaults
 from wok.plugins.kimchi.xmlutils.interface import get_iface_xml
 from wok.plugins.kimchi.xmlutils.network import create_linux_bridge_xml
@@ -109,7 +112,7 @@ class NetworksModel(object):
 
         try:
             network = conn.networkDefineXML(xml.encode("utf-8"))
-            network.setAutostart(True)
+            network.setAutostart(params.get('autostart', True))
         except libvirt.libvirtError as e:
             raise OperationFailed("KCHNET0008E",
                                   {'name': name, 'err': e.get_error_message()})
@@ -339,6 +342,7 @@ class NetworkModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
         self.objstore = kargs['objstore']
+        self.collection = NetworksModel(**kargs)
 
     def lookup(self, name):
         network = self.get_network(self.conn.get(), name)
@@ -499,3 +503,45 @@ class NetworkModel(object):
                 iface = conn.interfaceLookupByName(bridge)
                 iface.isActive() and iface.destroy(0)
                 iface.undefine()
+
+    def update(self, name, params):
+        info = self.lookup(name)
+        original = copy.deepcopy(info)
+        original['name'] = name
+
+        # validate update parameters
+        connection = info['connection']
+        if connection in ['bridge', 'macvtap', 'vepa']:
+            if params.get('subnet'):
+                raise InvalidParameter("KCHNET0031E")
+        elif connection in ['nat', 'isolated']:
+            if params.get('vlan_id') or params.get('interfaces'):
+                raise InvalidParameter("KCHNET0032E")
+
+        # get target device if bridge was created by Kimchi
+        if connection == 'bridge':
+            iface = info['interfaces'][0]
+            if is_bridge(iface) and iface.startswith(KIMCHI_BRIDGE_PREFIX):
+                port = ports(iface)[0]
+                if is_vlan(port):
+                    dev = get_vlan_device(port)
+                    info['interfaces'] = original['interfaces'] = [dev]
+                # nic
+                else:
+                    info['interfaces'] = original['interfaces'] = [port]
+
+        # merge parameters
+        info.update(params)
+
+        # delete original network
+        self.delete(name)
+
+        try:
+            # create new network
+            network = self.collection.create(info)
+        except:
+            # restore original network
+            self.collection.create(original)
+            raise
+
+        return network
