@@ -321,6 +321,8 @@ messages = {
     "KCHCPUINF0005E": _("When CPU topology is defined, vCPUs must be a multiple of a product of cores and threads."),
     "KCHCPUINF0006E": _("The number of threads is too large for this system."),
     "KCHCPUINF0007E": _("When CPU topology is specified, sockets, cores and threads are required paramaters."),
+    "KCHCPUINF0008E": _("Parameter 'cpu_info' expects an object with fields among: 'vcpus', 'maxvcpus', 'topology'."),
+    "KCHCPUINF0009E": _("Parameter 'topology' expects an object with fields among: 'sockets', 'cores', 'threads'."),
 
     "KCHLVMS0001E": _("Invalid volume group name parameter: %(name)s."),
 
