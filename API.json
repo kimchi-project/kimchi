@@ -62,9 +62,13 @@
                             "minimum": 1,
                             "error": "KCHTMPL0026E"
                         }
-                    }
+                    },
+                    "additionalProperties": false,
+                    "error": "KCHCPUINF0009E"
                 }
-            }
+            },
+            "additionalProperties": false,
+            "error": "KCHCPUINF0008E"
         },
         "memory": {
             "description": "Current memory and maximum memory values",
