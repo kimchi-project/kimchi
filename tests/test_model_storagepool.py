@@ -95,7 +95,7 @@ class StoragepoolTests(unittest.TestCase):
                 p = json.loads(resp.read())
                 keys = [u'name', u'state', u'capacity', u'allocated',
                         u'available', u'path', u'source', u'type',
-                        u'nr_volumes', u'autostart', u'persistent']
+                        u'nr_volumes', u'autostart', u'persistent', 'in_use']
                 self.assertEquals(sorted(keys), sorted(p.keys()))
                 self.assertEquals(name, p['name'])
                 self.assertEquals('inactive', p['state'])

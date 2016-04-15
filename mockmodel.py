@@ -125,6 +125,7 @@ class MockModel(Model):
         DevicesModel.get_list = self._mock_devices_get_list
         StoragePoolsModel._check_lvm = self._check_lvm
         StoragePoolModel._update_lvm_disks = self._update_lvm_disks
+        StoragePoolModel._pool_used_by_template = self._pool_used_by_template
         StorageVolumesModel.get_list = self._mock_storagevolumes_get_list
         StorageVolumeModel.doUpload = self._mock_storagevolume_doUpload
         LibvirtVMTemplate._get_volume_path = self._get_volume_path
@@ -259,6 +260,9 @@ class MockModel(Model):
     def _check_lvm(self, name, from_vg):
         # do not do any verification while using MockModel
         pass
+
+    def _pool_used_by_template(self, pool_name):
+        return False
 
     def _update_lvm_disks(self, pool_name, disks):
         conn = self.conn.get()
