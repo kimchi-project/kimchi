@@ -357,7 +357,8 @@ class StoragePoolModel(object):
                'allocated': info[2],
                'available': info[3],
                'nr_volumes': nr_volumes,
-               'persistent': persistent}
+               'persistent': persistent,
+               'in_use': self._pool_used_by_template(name)}
 
         if not pool.isPersistent():
             # Deal with deep scan generated pool
