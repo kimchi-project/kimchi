@@ -123,7 +123,7 @@
                     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true"><span class="edit-alt"></span>$_("Actions")<span class="caret"></span></button>
                     <ul class="dropdown-menu actionsheet">
                         <li role="presentation">
-                            <a href="#" class="pool-deactivate" data-stat="{state}" data-name="{name}" data-persistent="{persistent}" href="#"><i class="fa fa-minus-circle"></i>$_("Deactivate")</a>
+                            <a href="#" class="pool-deactivate" data-inuse="{in_use}" data-stat="{state}" data-name="{name}" data-persistent="{persistent}" href="#"><i class="fa fa-minus-circle"></i>$_("Deactivate")</a>
                         </li>
                         <li role="presentation">
                             <a href="#" class="pool-activate" data-stat="{state}" data-name="{name}"><i class="fa fa-power-off"></i>$_("Activate")</a>
@@ -135,7 +135,7 @@
                             <a href="#" class="pool-extend" data-stat="{state}" data-name="{name}" data-toggle="modal" data-target="#logicalPoolExtend"><i class="fa fa-external-link-square"></i>$_("Extend")</a>
                         </li>
                         <li role="presentation" class="critical">
-                            <a href="#" class="pool-delete" data-stat="{state}" data-name="{name}"><i class="fa fa-ban"></i>$_("Undefine")</a>
+                        <a href="#" class="pool-delete" data-inuse="{in_use}" data-stat="{state}" data-name="{name}"><i class="fa fa-ban"></i>$_("Undefine")</a>
                         </li>
                     </ul>
                 </div>

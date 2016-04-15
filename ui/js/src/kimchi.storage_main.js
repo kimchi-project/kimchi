@@ -180,10 +180,18 @@ kimchi.storageBindClick = function() {
             event.preventDefault();
             var storage_action = $(this);
             var deleteButton = storage_action.find('.pool-delete');
-            if ('active' === deleteButton.data('stat')) {
+            var deactivateButton = storage_action.find('.pool-deactivate');
+            var in_use = deleteButton.data('inuse');
+            if ('active' === deleteButton.data('stat') || in_use) {
                 deleteButton.parent().addClass('disabled');
             } else {
                 deleteButton.parent().removeClass('disabled');
+            }
+
+            if (in_use) {
+                deactivateButton.parent().addClass('disabled');
+            } else {
+                deactivateButton.parent().removeClass('disabled');
             }
         });
 
@@ -194,9 +202,6 @@ kimchi.storageBindClick = function() {
             partitions = $(this).data('name');
             //$("#logicalPoolExtend").dialog("option", "poolName", $(this).data('name'));
         });
-
-
-
     }
 
     $('.wok-datagrid-row .handle ').on('click', function(event) {
