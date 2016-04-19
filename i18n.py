@@ -155,6 +155,7 @@ messages = {
     "KCHVMIF0011E": _("Cannot change MAC address of a running virtual machine"),
 
     "KCHTMPL0001E": _("Template %(name)s already exists"),
+    "KCHTMPL0002E": _("Source media %(path)s not found"),
     "KCHTMPL0003E": _("Network '%(network)s' specified for template %(template)s does not exist"),
     "KCHTMPL0004E": _("Storage pool %(pool)s specified for template %(template)s does not exist"),
     "KCHTMPL0006E": _("Invalid parameter '%(param)s' specified for CDROM."),
@@ -181,6 +182,7 @@ messages = {
     "KCHTMPL0029E": _("Disk format must be 'raw', for logical, iscsi, and scsi pools."),
     "KCHTMPL0030E": _("Memory expects an object with one or both parameters: 'current' and 'maxmemory'"),
     "KCHTMPL0031E": _("Memory value (%(mem)sMiB) must be equal or lesser than maximum memory value (%(maxmem)sMiB)"),
+    "KCHTMPL0032E": _("Unable to update template due error: %(err)s"),
 
     "KCHPOOL0001E": _("Storage pool %(name)s already exists"),
     "KCHPOOL0002E": _("Storage pool %(name)s does not exist"),

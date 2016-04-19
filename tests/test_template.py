@@ -256,7 +256,11 @@ class TemplateTests(unittest.TestCase):
         self.assertEquals(1024, update_tmpl['memory']['maxmemory'])
 
         # Update cdrom
-        cdrom_data = {'cdrom': '/tmp/mock2.iso'}
+        cdrom_data = {'cdrom': 'inexistent.iso'}
+        resp = self.request(new_tmpl_uri, json.dumps(cdrom_data), 'PUT')
+        self.assertEquals(400, resp.status)
+
+        cdrom_data = {'cdrom': '/tmp/existent.iso'}
         resp = self.request(new_tmpl_uri, json.dumps(cdrom_data), 'PUT')
         self.assertEquals(200, resp.status)
         update_tmpl = json.loads(resp.read())
