@@ -72,8 +72,7 @@ class TemplatesModel(object):
 
         # image does not exists: raise error
         elif not os.path.exists(path):
-            raise InvalidParameter("Unable to find file %(path)s" %
-                                   {"path": path})
+            raise InvalidParameter("KCHTMPL0002E", {'path': path})
 
         # create magic object to discover file type
         file_type = magic.open(magic.MAGIC_NONE)
@@ -204,31 +203,30 @@ class TemplateModel(object):
             raise OperationFailed('KCHTMPL0021E', {'err': e.message})
 
     def update(self, name, params):
-        old_t = self.lookup(name)
-        new_t = copy.copy(old_t)
+        edit_template = self.lookup(name)
 
         # Merge graphics settings
         graph_args = params.get('graphics')
         if graph_args:
-            graphics = dict(new_t['graphics'])
+            graphics = dict(edit_template['graphics'])
             graphics.update(graph_args)
             params['graphics'] = graphics
 
         # Merge cpu_info settings
         new_cpu_info = params.get('cpu_info')
         if new_cpu_info:
-            cpu_info = dict(new_t['cpu_info'])
+            cpu_info = dict(edit_template['cpu_info'])
             cpu_info.update(new_cpu_info)
             params['cpu_info'] = cpu_info
 
         # Fix memory values, because method update does not work recursively
         new_mem = params.get('memory')
         if new_mem is not None:
-            params['memory'] = copy.copy(old_t.get('memory'))
+            params['memory'] = copy.copy(edit_template.get('memory'))
             params['memory'].update(new_mem)
             validate_memory(params['memory'])
 
-        new_t.update(params)
+        edit_template.update(params)
 
         for net_name in params.get(u'networks', []):
             try:
@@ -238,13 +236,24 @@ class TemplateModel(object):
                 raise InvalidParameter("KCHTMPL0003E", {'network': net_name,
                                                         'template': name})
 
-        self.delete(name)
         try:
-            ident = self.templates.save_template(new_t)
-        except:
-            ident = self.templates.save_template(old_t)
+            # make sure the new template will be created
+            t = LibvirtVMTemplate(edit_template, scan=True, conn=self.conn)
+            t.cpuinfo_validate()
+            t._validate_memory()
+
+            # remove the current one
+            self.delete(name)
+
+            # save the template
+            return self.templates.save_template(edit_template)
+
+        except InvalidOperation:
             raise
-        return ident
+        except Exception, e:
+            raise OperationFailed('KCHTMPL0032E', {'err': e.message})
+
+        return params['name']
 
 
 def validate_memory(memory):
