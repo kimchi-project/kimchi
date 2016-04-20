@@ -29,16 +29,6 @@
             </div>
             <div class="modal-body">
                 <div class="template-modal-container">
-                    <div>
-                        <span id="alert-modal-container"></span>
-                        <h5>$_("Where is the source media for this template? ")</h5>
-                        <input type="radio" checked="checked" name="iso-source" id="iso-local" value="iso-local" class="wok-radio">
-                        <label for="iso-local">$_("Local ISO Image")</label>
-                        <input type="radio" name="iso-source" id="vm-image-local" value="vm-image-local" class="wok-radio">
-                        <label for="vm-image-local">$_("Local Image File")</label>
-                        <input type="radio" name="iso-source" id="iso-remote" value="iso-remote" class="wok-radio">
-                        <label for="iso-remote">$_("Remote ISO Image")</label>
-                    </div>
                 </div>
                 <div class="template-pager">
                     <div class="page-list">
@@ -47,7 +37,7 @@
                                 <div id="iso-file-field">
                                     <div id="iso-file-box" class="custom-iso-field">
                                         <div class="form-group">
-                                        <label for="iso-file">$_("Provide a File Path for a specific ISO image:")</label>
+                                        <label for="iso-file">$_("File Path:")</label>
                                         <input type="text" class="form-control" id="iso-file" name="iso-file">
                                         </div>
                                     </div>
@@ -56,8 +46,16 @@
                                 <span id="local-iso-error-container"></span>
                                 <button class="btn btn-primary" id="iso-search" style="display: none">$_("Search ISOs")</button>
                                 <button class="btn btn-primary" id="iso-search-loading" style="display: none"><span class="wok-loading-icon"></span> $_("Please, wait...")</button>
+
                                 <!-- 1-1-1 -->
                                 <div id="local-iso-field" class="iso-field" style="display: none;">
+                                    <form id="form-template-add">
+                                        <div class="filter">
+                                            <div class="form-group pull-right">
+                                                <input type="text" class="form-control" id="template-add-iso-filter" placeholder="$_("Filter")" />
+                                            </div>
+                                        </div>
+                                    </form>
                                     <div class="row">
                                         <p>$_("The following ISOs are available:")</p>
                                     </div>
@@ -66,7 +64,7 @@
                                             <input type="checkbox" id="select-all-local-iso">$_("All")
                                         </label>
                                     </div>
-                                    <div class="row">
+                                    <div class="row" id="isoRow">
                                         <form id="form-local-iso">
                                         <ul id="list-local-iso" class="list-iso">
                                         </ul>
@@ -88,6 +86,7 @@
                                                                 <dt>{capacity}</dt>
                                                                 <dd>$_("Size")</dd>
                                                             </dl>
+                                                            <span class="iso-image-indicator"><i class="{icon}"></i></span>
                                                         </span>
                                                     </span>
                                                 </label>
@@ -108,69 +107,11 @@
                             </div>
                         </div>
 
-                        <!-- 1-2 -->
-                        <div class="page" id="iso-remote-box">
-                            <!-- 1-2-2 -->
-                            <div id="iso-url-field" style="display: none;">
-                                <div id="iso-url-box" class="form-group">
-                                    <label for="iso-url">$_("Provide a URL for a specific ISO image:")</label>
-                                    <input type="text" class="form-control" id="iso-url" name="iso-url">
-                                </div>
-                            </div>
-                            <!-- 1-2-0 -->
-                            <div id="load-remote-iso">
-                                <p><span class="wok-loading-icon"></span> $_("Loading default remote ISOs ...")</p>
-                            </div>
-                            <span id="remote-iso-warning-container"></span>
-                            <span id="remote-iso-error-container"></span>
-                            <!-- 1-2-1 -->
-                            <div id="remote-iso-field" class="iso-field" style="display: none;">
-                                <div class="row">
-                                    <p>$_("The following ISOs are available:")</p>
-                                </div>
-                                <div class="checkbox">
-                                    <label class="check-all">
-                                        <input type="checkbox" id="select-all-remote-iso">$_("All")
-                                    </label>
-                                </div>
-                                <div class="row">
-                                    <form id="form-remote-iso">
-                                    <ul id="list-remote-iso" class="list-iso">
-                                    </ul>
-                                    </form>
-                                    <script id="tmpl-list-remote-iso" type="text/html">
-                                        <li class="col-md-3">
-                                            <label class="box-iso-outer">
-                                                <input type="checkbox" class="iso-checkbox-hidden" name="iso" value="{isoId}">
-                                                <span class="box-iso-border">
-                                                    <span class="box-iso-inner">
-                                                        <h3 class="iso-title {os_distro}" title="{name}">
-                                                            {name}
-                                                        </h3>
-                                                        <dl class="iso-info">
-                                                            <dt>{os_distro}</dt>
-                                                            <dd>$_("OS")</dd>
-                                                            <dt>{os_version}</dt>
-                                                            <dd>$_("Version")</dd>
-                                                            <dt>{os_arch}</dt>
-                                                            <dd>$_("Arch")</dd>
-                                                        </dl>
-                                                    </span>
-                                                </span>
-                                            </label>
-                                        </li>
-                                    </script>
-                                </div>
-                            </div>
-                    </div>
         </div>
     </div>
     <div class="modal-footer">
                 <button class="btn btn-default" id="btn-template-file-create" disabled="disabled">$_("Create")</button>
                 <button class="btn btn-default" id="btn-template-local-iso-create" disabled="disabled">$_("Create")</button>
-                <button id="vm-image-local-box-button" class="btn btn-default ui-button-primary">$_("Create")</button>
-                <button class="btn btn-default" id="btn-template-url-create" disabled="disabled">$_("Create")</button>
-                <button class="btn btn-default" id="btn-template-remote-iso-create" disabled="disabled">$_("Create")</button>
                 <button class="btn btn-default" data-dismiss="modal" type="button">$_("Cancel")</button>
     </div>
 </div>

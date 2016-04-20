@@ -1628,6 +1628,42 @@ body.wok-gallery {
   left: 0;
 }
 
+#template-add-window .filter {
+  height: 40px;
+  overflow: visible;
+  clear: both;
+}
+
+#template-add-window .pull-right .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+  width: 133px;
+}
+
+#template-add-window .filter input[type="text"].form-control {
+  width: 460px;
+  height: 40px;
+  float: right;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+#template-add-window .filter .bootstrap-select.btn-group .btn .caret {
+  border-left: 0;
+}
+
+#template-add-window .filter button.btn.dropdown-toggle.form-control.selectpicker.btn-default {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  background: #fcfcfc;
+  border-right: 0;
+}
+
+#template-add-window span.iso-image-indicator {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-size: 32px;
+}
+
 /* VM List View classes*/
 #templates-root-container .grid-control input[type="text"] {
   height: 38px;
