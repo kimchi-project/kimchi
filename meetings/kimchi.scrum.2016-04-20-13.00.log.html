@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:00:53</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:00:53</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Apr 20 13:00:53 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:00:53</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:00:53</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:00:53</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:01:04</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda</span>
+<a name="l-7"></a><span class="tm">13:01:05</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">1) Status</span>
+<a name="l-8"></a><span class="tm">13:01:05</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">2) Open discussion</span>
+<a name="l-9"></a><span class="tm">13:01:05</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-10"></a><span class="tm">13:02:09</span><span class="nk"> &lt;ramonn&gt;</span> nop
+<a name="l-11"></a><span class="tm">13:03:13</span><span class="nk"> &lt;alinefm&gt;</span> so let's get started
+<a name="l-12"></a><span class="tm">13:03:36</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-13"></a><span class="tm">13:03:36</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info [&lt;project] &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-14"></a><span class="tm">13:03:41</span><span class="nk"> &lt;pvital&gt;</span> hahahaha
+<a name="l-15"></a><span class="tm">13:04:03</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] socorro Stopped working on Edit Virtual Network UI as focus is on new adjustments for Create Template UI based on feedback.</span>
+<a name="l-16"></a><span class="tm">13:04:03</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] socorro In addition to eliminating all radio buttons and only have one panel, a proposal was made to add icons to distinguish between local and remote ISOs and also add filtering.</span>
+<a name="l-17"></a><span class="tm">13:04:03</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] socorro Implemented all but filtering is lacking the select box although filtering does exist by user typing in letters instead.  Continuing to work on other part of filtering and also minor UI issues found.</span>
+<a name="l-18"></a><span class="tm">13:04:23</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ziviani is working on the capabilities feature to improve the performance</span>
+<a name="l-19"></a><span class="tm">13:04:43</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger*] [kimchi] danielhb reviewed and applied patches</span>
+<a name="l-20"></a><span class="tm">13:04:46</span><span class="nk"> &lt;peterpennings&gt;</span> <span class="cmd">#info </span><span class="cmdline">[gingerbase] peterpennings is working on update only selected packages</span>
+<a name="l-21"></a><span class="tm">13:05:00</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] danielhb working in SR-IOV enhancements in the Network feature</span>
+<a name="l-22"></a><span class="tm">13:05:03</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] pvital investigated and is waiting feedback related to issue#845 - Kimchi don't start on CentOS 7.2</span>
+<a name="l-23"></a><span class="tm">13:05:03</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] pvital submitted patch "Update AsyncResource class with delete method." as part of solution to Kimchi issue#817</span>
+<a name="l-24"></a><span class="tm">13:05:03</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] pvital submitted V1, V2 and V3 patch-set to solve issue#817 - PCI attach/detach improvements.</span>
+<a name="l-25"></a><span class="tm">13:05:03</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] pvital submitted V2 and V3 patch-set to solve issue#372 - Add support to netboot installation.</span>
+<a name="l-26"></a><span class="tm">13:05:05</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] pvital started to investigate the issue#201 - Kimchi should handle libvirt connection failures.</span>
+<a name="l-27"></a><span class="tm">13:05:08</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] pvital is working in V4 patch-set to solve issue#372 - Add support to netboot installation.</span>
+<a name="l-28"></a><span class="tm">13:05:09</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ziviani sent patches to fix issues #924 and #920</span>
+<a name="l-29"></a><span class="tm">13:05:10</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] [Wok] [Ginger*] pvital reviewed patches</span>
+<a name="l-30"></a><span class="tm">13:05:34</span><span class="nk"> &lt;lcorreia_&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] lcorreia got "edit network" feature upstream</span>
+<a name="l-31"></a><span class="tm">13:05:34</span><span class="nk"> &lt;lcorreia_&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] lcorreia is working on Kimchi issue #812</span>
+<a name="l-32"></a><span class="tm">13:05:34</span><span class="nk"> &lt;lcorreia_&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] lcorreia will use Asynchronous Notifications and Libvirt Events to handle libvirt event ENOSPC</span>
+<a name="l-33"></a><span class="tm">13:05:34</span><span class="nk"> &lt;lcorreia_&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] lcorreia is working on issue in fibre channel listing</span>
+<a name="l-34"></a><span class="tm">13:05:34</span><span class="nk"> &lt;lcorreia_&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] lcorreia will work on adding translation to User Request Log messages</span>
+<a name="l-35"></a><span class="tm">13:05:41</span><span class="nk"> &lt;peterpennings&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] peter pennings is working on V2 patch to disable invalid templates</span>
+<a name="l-36"></a><span class="tm">13:06:52</span><span class="nk"> &lt;peterpennings&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] samhenri is working on debug reports</span>
+<a name="l-37"></a><span class="tm">13:06:55</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] rotru  Started to code "Enable/Disable Plugins" feature</span>
+<a name="l-38"></a><span class="tm">13:07:49</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi][Wok] rotru Working in bug fixes in Guests and Templates updates</span>
+<a name="l-39"></a><span class="tm">13:09:17</span><span class="nk"> &lt;alinefm&gt;</span> peterpennings, do you have updates from samuel to share?
+<a name="l-40"></a><span class="tm">13:09:25</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ramonn working on template issues while updating image based templates</span>
+<a name="l-41"></a><span class="tm">13:09:48</span><span class="nk"> &lt;peterpennings&gt;</span> yes, I sent..
+<a name="l-42"></a><span class="tm">13:09:54</span><span class="nk"> &lt;peterpennings&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] samhenri is working on debug reports</span>
+<a name="l-43"></a><span class="tm">13:10:06</span><span class="nk"> &lt;alinefm&gt;</span> oh sorry hehe
+<a name="l-44"></a><span class="tm">13:10:08</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] ramonn working on spec issues</span>
+<a name="l-45"></a><span class="tm">13:10:16</span><span class="nk"> &lt;peterpennings&gt;</span> no problems :)
+<a name="l-46"></a><span class="tm">13:10:22</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] ramonn merged patch about error on list network interfaces</span>
+<a name="l-47"></a><span class="tm">13:10:59</span><span class="nk"> &lt;alinefm&gt;</span> anything else, guys?
+<a name="l-48"></a><span class="tm">13:11:18</span><span class="nk"> &lt;pvital&gt;</span> not from me
+<a name="l-49"></a><span class="tm">13:12:17</span><span class="nk"> &lt;alinefm&gt;</span> moving on...
+<a name="l-50"></a><span class="tm">13:12:23</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-51"></a><span class="tm">13:12:32</span><span class="nk"> &lt;alinefm&gt;</span> what do you want to discuss today?
+<a name="l-52"></a><span class="tm">13:13:17</span><span class="nk"> &lt;pvital&gt;</span> alinefm, I have a question....
+<a name="l-53"></a><span class="tm">13:13:45</span><span class="nk"> &lt;alinefm&gt;</span> go ahead
+<a name="l-54"></a><span class="tm">13:14:31</span><span class="nk"> &lt;pvital&gt;</span> in Kimchi issue #845, I replied to the person who reported the issue, but he hasn't replied to me
+<a name="l-55"></a><span class="tm">13:14:48</span><span class="nk"> &lt;pvital&gt;</span> how long should we wait until ask to close the issue?
+<a name="l-56"></a><span class="tm">13:15:42</span><span class="nk"> &lt;alinefm&gt;</span> I'd say one month
+<a name="l-57"></a><span class="tm">13:15:54</span><span class="nk"> &lt;alinefm&gt;</span> it should be time enough to someone take an update on the issue
+<a name="l-58"></a><span class="tm">13:16:28</span><span class="nk"> &lt;alinefm&gt;</span> pvital, have you explicitly call the person attention there using @&lt;nick&gt; ?
+<a name="l-59"></a><span class="tm">13:16:49</span><span class="nk"> &lt;pvital&gt;</span> alinefm, I think so
+<a name="l-60"></a><span class="tm">13:16:53</span><span class="nk"> &lt;pvital&gt;</span> :-P
+<a name="l-61"></a><span class="tm">13:17:13</span><span class="nk"> &lt;alinefm&gt;</span> ok - so let's wait some weeks and with no response we can close it
+<a name="l-62"></a><span class="tm">13:17:44</span><span class="nk"> &lt;alinefm&gt;</span> pvital, what do you think?
+<a name="l-63"></a><span class="tm">13:17:59</span><span class="nk"> &lt;pvital&gt;</span> that's OK for me!
+<a name="l-64"></a><span class="tm">13:18:20</span><span class="nk"> &lt;alinefm&gt;</span> pvital, I also want to talk to you about the libvirt events patches
+<a name="l-65"></a><span class="tm">13:18:32</span><span class="nk"> &lt;pvital&gt;</span> OMG....
+<a name="l-66"></a><span class="tm">13:18:38</span><span class="nk"> &lt;pvital&gt;</span> let's go
+<a name="l-67"></a><span class="tm">13:18:38</span><span class="nk"> &lt;alinefm&gt;</span> I was testing it before this meeting and I saw some errors while running the tests
+<a name="l-68"></a><span class="tm">13:18:45</span><span class="nk"> &lt;alinefm&gt;</span> https://paste.fedoraproject.org/357767/57922146/
+<a name="l-69"></a><span class="tm">13:18:57</span><span class="nk"> &lt;alinefm&gt;</span> pvital, also there are some duplicated log inputs related to that
+<a name="l-70"></a><span class="tm">13:19:34</span><span class="nk"> &lt;alinefm&gt;</span> I was planning to merge the PCI attach/detach patches (as they do not depend on libvirt events) today and ask you to take care about those issues later
+<a name="l-71"></a><span class="tm">13:19:37</span><span class="nk"> &lt;alinefm&gt;</span> what do you think?
+<a name="l-72"></a><span class="tm">13:20:04</span><span class="nk"> &lt;pvital&gt;</span> <span class="hi">libvirt:</span>  error : invalid argument: event callback already tracked
+<a name="l-73"></a><span class="tm">13:20:09</span><span class="nk"> &lt;pvital&gt;</span> alinefm, ^this?
+<a name="l-74"></a><span class="tm">13:20:43</span><span class="nk"> &lt;alinefm&gt;</span> yes
+<a name="l-75"></a><span class="tm">13:20:46</span><span class="nk"> &lt;alinefm&gt;</span> and also:
+<a name="l-76"></a><span class="tm">13:20:47</span><span class="nk"> &lt;alinefm&gt;</span> <span class="hi">TypeError:</span> not all arguments converted during string formatting
+<a name="l-77"></a><span class="tm">13:20:47</span><span class="nk"> &lt;alinefm&gt;</span> Logged from file vmhostdevs.py, line 449
+<a name="l-78"></a><span class="tm">13:20:52</span><span class="nk"> &lt;pvital&gt;</span> interesting. may be the test cases are instantiating the libvirt class more than once
+<a name="l-79"></a><span class="tm">13:21:06</span><span class="nk"> &lt;alinefm&gt;</span> on server starts up there are duplicated messgaes about the FEATURETEST_VM
+<a name="l-80"></a><span class="tm">13:21:39</span><span class="nk"> &lt;pvital&gt;</span> alinefm, there are not duplicated messages
+<a name="l-81"></a><span class="tm">13:22:04</span><span class="nk"> &lt;pvital&gt;</span> they are the messages generated by the libvirt events
+<a name="l-82"></a><span class="tm">13:22:34</span><span class="nk"> &lt;pvital&gt;</span> if the event happens more than once for the same guest, the message will be logged again
+<a name="l-83"></a><span class="tm">13:22:56</span><span class="nk"> &lt;alinefm&gt;</span> pvital, oh ok but those message are filling up the logs files without any useful information
+<a name="l-84"></a><span class="tm">13:23:15</span><span class="nk"> &lt;pvital&gt;</span> alinefm, they are useful
+<a name="l-85"></a><span class="tm">13:23:38</span><span class="nk"> &lt;pvital&gt;</span> they say what happened to the guest, the livecycle of it
+<a name="l-86"></a><span class="tm">13:23:58</span><span class="nk"> &lt;alinefm&gt;</span> pvital, we already log those actions through the API log
+<a name="l-87"></a><span class="tm">13:25:36</span><span class="nk"> &lt;pvital&gt;</span> alinefm, really??? that's interesting because I've never saw a log message when the XML of a guest was updated, or the guest was destroyed (shutdown) or restarted or started up
+<a name="l-88"></a><span class="tm">13:26:12</span><span class="nk"> &lt;pvital&gt;</span> but OK, the pci attach/detach is more important for the moment
+<a name="l-89"></a><span class="tm">13:26:42</span><span class="nk"> &lt;pvital&gt;</span> them I can fix the libvirt events stuff and submit new patches if necessary
+<a name="l-90"></a><span class="tm">13:27:27</span><span class="nk"> &lt;alinefm&gt;</span> pvital, you can also see those logs using the user log activity on wok
+<a name="l-91"></a><span class="tm">13:27:47</span><span class="nk"> &lt;alinefm&gt;</span> pvital, I only don't want to mess the log files with information which will be not useful
+<a name="l-92"></a><span class="tm">13:28:01</span><span class="nk"> &lt;alinefm&gt;</span> pvital, we can log that info on debug only mode, for example
+<a name="l-93"></a><span class="tm">13:28:19</span><span class="nk"> &lt;alinefm&gt;</span> or only enable libvirt events without registering any event right now
+<a name="l-94"></a><span class="tm">13:28:30</span><span class="nk"> &lt;alinefm&gt;</span> lcorreia_ will use on future for ENOSPC events
+<a name="l-95"></a><span class="tm">13:29:01</span><span class="nk"> &lt;pvital&gt;</span> Ok
+<a name="l-96"></a><span class="tm">13:29:24</span><span class="nk"> &lt;alinefm&gt;</span> pvital, I tried to apply only the 2 patches related to PCI attach/detach and I got a merge conflict
+<a name="l-97"></a><span class="tm">13:29:36</span><span class="nk"> &lt;alinefm&gt;</span> could you separate the patch set and resend only the PCI patches?
+<a name="l-98"></a><span class="tm">13:29:41</span><span class="nk"> &lt;pvital&gt;</span> sure
+<a name="l-99"></a><span class="tm">13:30:57</span><span class="nk"> &lt;alinefm&gt;</span> thanks
+<a name="l-100"></a><span class="tm">13:31:07</span><span class="nk"> &lt;alinefm&gt;</span> anything else for today?
+<a name="l-101"></a><span class="tm">13:31:46</span><span class="nk"> &lt;ziviani&gt;</span> no
+<a name="l-102"></a><span class="tm">13:33:13</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-103"></a><span class="tm">13:33:19</span><span class="nk"> &lt;alinefm&gt;</span> so thanks everyone for joining!
+<a name="l-104"></a><span class="tm">13:33:21</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

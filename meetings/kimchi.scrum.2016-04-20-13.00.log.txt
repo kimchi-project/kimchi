@@ -1,0 +1,104 @@
+13:00:53 <alinefm> #startmeeting
+13:00:53 <kimchi-bot> Meeting started Wed Apr 20 13:00:53 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:00:53 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:00:53 <alinefm> #meetingname scrum
+13:00:53 <kimchi-bot> The meeting name has been set to 'scrum'
+13:01:04 <alinefm> #info Agenda
+13:01:05 <alinefm> #info 1) Status
+13:01:05 <alinefm> #info 2) Open discussion
+13:01:05 <alinefm> anything else?
+13:02:09 <ramonn> nop
+13:03:13 <alinefm> so let's get started
+13:03:36 <alinefm> #topic Status
+13:03:36 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+13:03:41 <pvital> hahahaha
+13:04:03 <alinefm> #info [kimchi] socorro Stopped working on Edit Virtual Network UI as focus is on new adjustments for Create Template UI based on feedback.
+13:04:03 <alinefm> #info [kimchi] socorro In addition to eliminating all radio buttons and only have one panel, a proposal was made to add icons to distinguish between local and remote ISOs and also add filtering.
+13:04:03 <alinefm> #info [kimchi] socorro Implemented all but filtering is lacking the select box although filtering does exist by user typing in letters instead.  Continuing to work on other part of filtering and also minor UI issues found.
+13:04:23 <ziviani> #info [kimchi] ziviani is working on the capabilities feature to improve the performance
+13:04:43 <danielhb> #info [ginger*] [kimchi] danielhb reviewed and applied patches
+13:04:46 <peterpennings> #info [gingerbase] peterpennings is working on update only selected packages
+13:05:00 <danielhb> #info [ginger] danielhb working in SR-IOV enhancements in the Network feature
+13:05:03 <pvital> #info [Kimchi] pvital investigated and is waiting feedback related to issue#845 - Kimchi don't start on CentOS 7.2
+13:05:03 <pvital> #info [Wok] pvital submitted patch "Update AsyncResource class with delete method." as part of solution to Kimchi issue#817
+13:05:03 <pvital> #info [Kimchi] pvital submitted V1, V2 and V3 patch-set to solve issue#817 - PCI attach/detach improvements.
+13:05:03 <pvital> #info [Kimchi] pvital submitted V2 and V3 patch-set to solve issue#372 - Add support to netboot installation.
+13:05:05 <pvital> #info [Kimchi] pvital started to investigate the issue#201 - Kimchi should handle libvirt connection failures.
+13:05:08 <pvital> #info [Kimchi] pvital is working in V4 patch-set to solve issue#372 - Add support to netboot installation.
+13:05:09 <ziviani> #info [kimchi] ziviani sent patches to fix issues #924 and #920
+13:05:10 <pvital> #info [Kimchi] [Wok] [Ginger*] pvital reviewed patches
+13:05:34 <lcorreia_> #info [kimchi] lcorreia got "edit network" feature upstream
+13:05:34 <lcorreia_> #info [kimchi] lcorreia is working on Kimchi issue #812
+13:05:34 <lcorreia_> #info [kimchi] lcorreia will use Asynchronous Notifications and Libvirt Events to handle libvirt event ENOSPC
+13:05:34 <lcorreia_> #info [ginger] lcorreia is working on issue in fibre channel listing
+13:05:34 <lcorreia_> #info [wok] lcorreia will work on adding translation to User Request Log messages
+13:05:41 <peterpennings> #info [kimchi] peter pennings is working on V2 patch to disable invalid templates
+13:06:52 <peterpennings> #info [ginger] samhenri is working on debug reports
+13:06:55 <rotru> #info [Kimchi] rotru  Started to code "Enable/Disable Plugins" feature
+13:07:49 <rotru> #info [Kimchi][Wok] rotru Working in bug fixes in Guests and Templates updates
+13:09:17 <alinefm> peterpennings, do you have updates from samuel to share?
+13:09:25 <ramonn> #info [kimchi] ramonn working on template issues while updating image based templates
+13:09:48 <peterpennings> yes, I sent..
+13:09:54 <peterpennings> #info [ginger] samhenri is working on debug reports
+13:10:06 <alinefm> oh sorry hehe
+13:10:08 <ramonn> #info [ginger] ramonn working on spec issues
+13:10:16 <peterpennings> no problems :)
+13:10:22 <ramonn> #info [ginger] ramonn merged patch about error on list network interfaces
+13:10:59 <alinefm> anything else, guys?
+13:11:18 <pvital> not from me
+13:12:17 <alinefm> moving on...
+13:12:23 <alinefm> #topic Open Discussion
+13:12:32 <alinefm> what do you want to discuss today?
+13:13:17 <pvital> alinefm, I have a question....
+13:13:45 <alinefm> go ahead
+13:14:31 <pvital> in Kimchi issue #845, I replied to the person who reported the issue, but he hasn't replied to me
+13:14:48 <pvital> how long should we wait until ask to close the issue?
+13:15:42 <alinefm> I'd say one month
+13:15:54 <alinefm> it should be time enough to someone take an update on the issue
+13:16:28 <alinefm> pvital, have you explicitly call the person attention there using @<nick> ?
+13:16:49 <pvital> alinefm, I think so
+13:16:53 <pvital> :-P
+13:17:13 <alinefm> ok - so let's wait some weeks and with no response we can close it
+13:17:44 <alinefm> pvital, what do you think?
+13:17:59 <pvital> that's OK for me!
+13:18:20 <alinefm> pvital, I also want to talk to you about the libvirt events patches
+13:18:32 <pvital> OMG....
+13:18:38 <pvital> let's go
+13:18:38 <alinefm> I was testing it before this meeting and I saw some errors while running the tests
+13:18:45 <alinefm> https://paste.fedoraproject.org/357767/57922146/
+13:18:57 <alinefm> pvital, also there are some duplicated log inputs related to that
+13:19:34 <alinefm> I was planning to merge the PCI attach/detach patches (as they do not depend on libvirt events) today and ask you to take care about those issues later
+13:19:37 <alinefm> what do you think?
+13:20:04 <pvital> libvirt:  error : invalid argument: event callback already tracked
+13:20:09 <pvital> alinefm, ^this?
+13:20:43 <alinefm> yes
+13:20:46 <alinefm> and also:
+13:20:47 <alinefm> TypeError: not all arguments converted during string formatting
+13:20:47 <alinefm> Logged from file vmhostdevs.py, line 449
+13:20:52 <pvital> interesting. may be the test cases are instantiating the libvirt class more than once
+13:21:06 <alinefm> on server starts up there are duplicated messgaes about the FEATURETEST_VM
+13:21:39 <pvital> alinefm, there are not duplicated messages
+13:22:04 <pvital> they are the messages generated by the libvirt events
+13:22:34 <pvital> if the event happens more than once for the same guest, the message will be logged again
+13:22:56 <alinefm> pvital, oh ok but those message are filling up the logs files without any useful information
+13:23:15 <pvital> alinefm, they are useful
+13:23:38 <pvital> they say what happened to the guest, the livecycle of it
+13:23:58 <alinefm> pvital, we already log those actions through the API log
+13:25:36 <pvital> alinefm, really??? that's interesting because I've never saw a log message when the XML of a guest was updated, or the guest was destroyed (shutdown) or restarted or started up
+13:26:12 <pvital> but OK, the pci attach/detach is more important for the moment
+13:26:42 <pvital> them I can fix the libvirt events stuff and submit new patches if necessary
+13:27:27 <alinefm> pvital, you can also see those logs using the user log activity on wok
+13:27:47 <alinefm> pvital, I only don't want to mess the log files with information which will be not useful
+13:28:01 <alinefm> pvital, we can log that info on debug only mode, for example
+13:28:19 <alinefm> or only enable libvirt events without registering any event right now
+13:28:30 <alinefm> lcorreia_ will use on future for ENOSPC events
+13:29:01 <pvital> Ok
+13:29:24 <alinefm> pvital, I tried to apply only the 2 patches related to PCI attach/detach and I got a merge conflict
+13:29:36 <alinefm> could you separate the patch set and resend only the PCI patches?
+13:29:41 <pvital> sure
+13:30:57 <alinefm> thanks
+13:31:07 <alinefm> anything else for today?
+13:31:46 <ziviani> no
+13:33:13 <alinefm> ok
+13:33:19 <alinefm> so thanks everyone for joining!
+13:33:21 <alinefm> #endmeeting
