@@ -15,41 +15,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-kimchi.switchPage = function(fromPageId, toPageId, direction) {
-    $('.tab-content').css('overflow', 'hidden');
-    direction = direction || 'left';
-    var toLeftBegin;
-    var fromLeftEnd;
-    if ('left' === direction) {
-        toLeftBegin = '100%';
-        fromLeftEnd = '-100%';
-    } else if ('right' === direction) {
-        toLeftBegin = '-100%';
-        fromLeftEnd = '100%';
-    }
-    var formPage = $('#' + fromPageId);
-    var toPage = $('#' + toPageId);
-    toPage.css({
-        left: toLeftBegin
-    });
-    formPage.animate({
-        left: fromLeftEnd,
-        opacity: 0.1
-    }, 400, function() {
-        $('.tab-content').css('overflow', 'visible');
-    });
-    toPage.animate({
-        left: '0',
-        opacity: 1
-    }, 400, function() {
-        $('.tab-content').css('overflow', 'visible');
-    });
-};
-
 kimchi.template_add_main = function() {
     "use strict";
-    var currentPage = 'iso-local-box';
     kimchi.deepScanHandler = null;
+    var isos = [];
+    var local_isos = [];
+    var remote_isos = [];
 
     var deepScan = function(button) {
         kimchi.deepScanHandler = kimchi.stepListDeepScanIsos(function(isos, isFinished) {
@@ -76,7 +47,6 @@ kimchi.template_add_main = function() {
         });
     };
 
-    //1-1-1 local iso list
     var initLocalIsoField = function() {
         kimchi.isoInfo = {};
         $('#local-iso-field').hide();
@@ -94,51 +64,43 @@ kimchi.template_add_main = function() {
         $('#iso-url').val(''); // 4 - Remote folder path text
         $('#btn-template-file-create').attr('disabled', 'disabled').css('display', 'inline-block'); // 1 - Folder path
         $('#btn-template-local-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 2 - Selected ISOs
-        $('#vm-image-local-box-button').attr('disabled', 'disabled').css('display', 'none'); // 3 - File path
-        $('#btn-template-url-create').attr('disabled', 'disabled').css('display', 'none'); // 4 - Remote folder path
-        $('#btn-template-remote-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 5 - Remote selected isos
         $('#select-all-local-iso, #select-all-remote-iso').prop('checked', false); // False to all select-all checkboxes
         $('#list-local-iso [type="checkbox"], #list-remote-iso [type="checkbox"]').prop('checked', false); // False to all list checkboxes
-
     };
 
     var showLocalIsoField = function(isos) {
         var html = '';
         var template = $('#tmpl-list-local-iso').html();
         $.each(isos, function(index, volume) {
+            if ((volume.path).indexOf('http') === -1) { // Didn't find 'http', so must be local
+                volume.icon = 'fa fa-hdd-o';
+            } else {
+                volume.icon = 'fa fa-globe';
+            }
             var isoId = volume.os_distro + '*' + volume.name + '*' + volume.os_version;
             if (!kimchi.isoInfo[isoId]) {
                 volume.isoId = isoId;
                 volume.capacity = wok.changetoProperUnit(volume.capacity, 1);
+                if (volume.capacity === "") {
+                    volume.capacity = i18n['KCHTMPL6006M'];
+                }
                 kimchi.isoInfo[isoId] = volume;
                 html += wok.substitute(template, volume);
             }
         });
+
         $('#list-local-iso').append(html);
         $('#local-iso-field').show();
     };
 
-
-    //1-1-2 local iso file
     var initIsoFileField = function() {
-        //$('#iso-file-check').prop('checked', false);
         $('#iso-file').val('');
         $('vm-image-local-text').val('');
         $('#iso-url').val('');
         $('#btn-template-file-create').attr('disabled', 'disabled').css('display', 'inline-block');
-
         $('#btn-template-local-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 2 - Selected ISOs
-
-        $('#vm-image-local-box-button').attr('disabled', 'disabled').css('display', 'none'); // 3 - File path
-
-        $('#btn-template-url-create').attr('disabled', 'disabled').css('display', 'none'); // 4 - Remote folder path
-
-        $('#btn-template-remote-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 5 - Remote selected isos
-
         $('#select-all-local-iso, #select-all-remote-iso').prop('checked', false); // False to all select-all checkboxes
-
         $('#list-local-iso [type="checkbox"], #list-remote-iso [type="checkbox"]').prop('checked', false); // False to all list checkboxes
-
     };
 
     $('#iso-file').on('input propertychange keyup focus cut paste click', function() {
@@ -152,9 +114,6 @@ kimchi.template_add_main = function() {
         }, 0);
         if ($('#iso-file').val()) {
             $('#btn-template-local-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 2 - Selected ISOs
-            $('#vm-image-local-box-button').attr('disabled', 'disabled').css('display', 'none'); // 3 - File path
-            $('#btn-template-url-create').attr('disabled', 'disabled').css('display', 'none'); // 4 - Remote folder path
-            $('#btn-template-remote-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 5 - Remote selected isos
         } else {
             $('#btn-template-file-create').attr('disabled', 'disabled');
         }
@@ -162,57 +121,58 @@ kimchi.template_add_main = function() {
 
     initLocalIsoField();
     initIsoFileField();
-    kimchi.listIsos(function(isos) {
-        if (isos && isos.length) {
-            showLocalIsoField(isos);
-            $('#iso-more').show();
-        } else {
-            $('#iso-search').show();
-        }
+
+    kimchi.listIsos(function(local_isos) { //local ISOs
+        kimchi.listDistros(function(remote_isos) {  //remote ISOs
+            isos = local_isos.concat(remote_isos); //all isos
+            if (isos && isos.length) {
+                showLocalIsoField(isos);
+                $('#iso-more').show();
+            } else {
+                $('#iso-search').show();
+            }
+        });
     }, function(err) {
         wok.message.error(err.responseJSON.reason, '#local-iso-error-container');
     });
+
     $('#template-add-window .modal-body .template-pager').animate({
         height: "689px"
     }, 400);
 
-    // 1-1 local iso
-    $('#iso-local').change(function() {
-        if (this.checked) {
-            if (currentPage === 'vm-image-local-box') {
-                kimchi.switchPage(currentPage, 'iso-local-box', 'right');
-            } else if (currentPage === 'iso-remote-box') {
-                kimchi.switchPage(currentPage, 'iso-local-box', 'right');
-            }
-            currentPage = 'iso-local-box';
-            $('#template-add-window .modal-body .template-pager').animate({
-                height: "689px"
-            }, 400);
-            initLocalIsoField();
-            initIsoFileField();
-
-            $('#btn-template-file-create').attr('disabled', 'disabled').css('display', 'inline-block'); // 1 - Folder path
-
-            $('#btn-template-local-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 2 - Selected ISOs
-
-            $('#vm-image-local-box-button').attr('disabled', 'disabled').css('display', 'none'); // 3 - File path
-
-            $('#btn-template-url-create').attr('disabled', 'disabled').css('display', 'none'); // 4 - Remote folder path
-
-            $('#btn-template-remote-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 5 - Remote selected isos
-
-            kimchi.listIsos(function(isos) {
-                if (isos && isos.length) {
-                    showLocalIsoField(isos);
-                    $('#iso-more').show();
-                } else {
-                    $('#iso-search').show();
-                }
-            }, function(err) {
-                wok.message.error(err.responseJSON.reason, '#local-iso-error-container');
-            });
+    var filterISOs = function(group, text) {
+        text = text.trim().split(" ");
+        var list = $('#isoRow').find('li');
+        if(text === ""){
+            list.show();
+            return;
         }
-    });
+        list.hide();
+
+        list.filter(function(index, value){
+            var $li = $(this);
+            for (var i = 0; i < text.length; ++i){
+                if ($li.is(":containsNC('" + text[i] + "')")) {
+                    if (group === 'all') {
+                        return true;
+                    } else if (group === 'local') {
+                        return true;
+                    } else if (group === 'remote') {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }).show();
+    };
+
+    var setupFilters = function() {
+        $('input#template-add-iso-filter', '#form-template-add').on('keyup', function() {
+            filterISOs("all", $(this).val());  // Default to 'all' for now
+        });
+    };
+
+    setupFilters();
 
     $('#iso-search').click(function() {
         var settings = {
@@ -263,12 +223,6 @@ kimchi.template_add_main = function() {
 
             $('#btn-template-local-iso-create').removeAttr('disabled').css('display', 'inline-block'); // 2 - Selected ISOs
 
-            $('#vm-image-local-box-button').attr('disabled', 'disabled').css('display', 'none'); // 3 - File path
-
-            $('#btn-template-url-create').attr('disabled', 'disabled').css('display', 'none'); // 4 - Remote folder path
-
-            $('#btn-template-remote-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 5 - Remote selected isos
-
         } else {
             $('#btn-template-local-iso-create').attr('disabled', 'disabled');
         }
@@ -282,14 +236,8 @@ kimchi.template_add_main = function() {
         $('#iso-url').val('');
 
         $('#btn-template-file-create').attr('disabled', 'disabled').css('display', 'none'); // 1 - Folder path
-
         $('#btn-template-local-iso-create').attr('disabled', 'disabled').css('display', 'inline-block'); // 2 - Selected ISOs
 
-        $('#vm-image-local-box-button').attr('disabled', 'disabled').css('display', 'none'); // 3 - File path
-
-        $('#btn-template-url-create').attr('disabled', 'disabled').css('display', 'none'); // 4 - Remote folder path
-
-        $('#btn-template-remote-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 5 - Remote selected isos
         if (checkedLength) {
             $('#btn-template-local-iso-create').removeAttr('disabled');
             var length = $('#list-local-iso [type="checkbox"]').length;
@@ -302,12 +250,11 @@ kimchi.template_add_main = function() {
     });
 
     $('#btn-template-local-iso-create').click(function() {
-        submitIso('form-local-iso');
+        submitIso();
     });
 
     $('#btn-template-file-create').click(function() {
         var isoFile = $('#iso-file').val();
-        $('vm-image-local-text').val('');
         if (!kimchi.template_check_path(isoFile)) {
             wok.message.error(i18n['KCHAPI6003E'],'#local-iso-error-container');
             return;
@@ -318,9 +265,6 @@ kimchi.template_add_main = function() {
         addTemplate(data);
     });
 
-    //1-2 remote iso
-    $('#iso-remote').attr("disabled", true).css('cursor', 'not-allowed');
-
     var enabledRemoteIso = function() {
         if (kimchi.capabilities === undefined) {
             setTimeout(enabledRemoteIso, 2000);
@@ -330,36 +274,15 @@ kimchi.template_add_main = function() {
         if (kimchi.capabilities.qemu_stream !== true) {
             return;
         }
-
-        $('#iso-remote').attr("disabled", false).css('cursor', 'pointer');
-        $('#iso-remote').change(function() {
-            if (this.checked) {
-                if (currentPage === 'iso-local-box') { // slide twice
-                    kimchi.switchPage(currentPage, 'iso-remote-box', 'left');
-                } else if (currentPage === 'vm-image-local-box') { // slide once
-                    kimchi.switchPage(currentPage, 'iso-remote-box', 'left');
-                }
-                currentPage = 'iso-remote-box';
-                $('#template-add-window .modal-body .template-pager').animate({
-                    height: "635px"
-                }, 400);
-                initRemoteIsoField();
-                initIsoUrlField();
-                kimchi.listDistros(function(isos) {
-                    showRemoteIsoField(isos);
-                }, function() {});
-            }
-        });
     };
+
     enabledRemoteIso();
 
-    //1-2-1 remote iso list
     var initRemoteIsoField = function() {
         $('#load-remote-iso').show();
         $('#remote-iso-field').hide();
         $('#iso-url-field').hide();
         $('#select-all-remote-iso').prop('checked', false);
-        $('#btn-template-remote-iso-create').attr('disabled', 'disabled');
 
         $('#iso-file').val('');
         $('vm-image-local-text').val('');
@@ -368,12 +291,6 @@ kimchi.template_add_main = function() {
         $('#btn-template-file-create').attr('disabled', 'disabled').css('display', 'none'); // 1 - Folder path
 
         $('#btn-template-local-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 2 - Selected ISOs
-
-        $('#vm-image-local-box-button').attr('disabled', 'disabled').css('display', 'none'); // 3 - File path
-
-        $('#btn-template-url-create').attr('disabled', 'disabled').css('display', 'inline-block'); // 4 - Remote folder path
-
-        $('#btn-template-remote-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 5 - Remote selected isos
 
         $('#select-all-local-iso, #select-all-remote-iso').prop('checked', false); // False to all select-all checkboxes
 
@@ -405,152 +322,14 @@ kimchi.template_add_main = function() {
         }
     };
 
-    $('#select-all-remote-iso').click(function() {
-        $('#list-remote-iso [type="checkbox"]').prop('checked', $(this).prop('checked'));
-        if ($(this).prop('checked')) {
-
-            $('#iso-file').val('');
-            $('vm-image-local-text').val('');
-            $('#iso-url').val('');
-            $('#iso-url').parent().removeClass('has-error');
-
-            $('#btn-template-file-create').attr('disabled', 'disabled').css('display', 'none'); // 1 - Folder path
-
-            $('#btn-template-local-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 2 - Selected ISOs
-
-            $('#vm-image-local-box-button').attr('disabled', 'disabled').css('display', 'none'); // 3 - File path
-
-            $('#btn-template-url-create').attr('disabled', 'disabled').css('display', 'none'); // 4 - Remote folder path
-
-            $('#btn-template-remote-iso-create').removeAttr('disabled').css('display', 'inline-block'); // 5 - Remote selected isos
-
-        } else {
-            $('#btn-template-remote-iso-create').attr('disabled', 'disabled');
-        }
-    });
-
-    $('#list-remote-iso').on('click', '[type="checkbox"]', function() {
-        $('#iso-url').parent().removeClass('has-error');
-        var checkedLength = $('#list-remote-iso [type="checkbox"]:checked').length;
-        if (checkedLength) {
-            $('#btn-template-remote-iso-create').removeAttr('disabled');
-            var length = $('#list-remote-iso [type="checkbox"]').length;
-            $('#select-all-remote-iso').prop('checked', length === checkedLength);
-
-            $('#iso-file').val('');
-            $('vm-image-local-text').val('');
-            $('#iso-url').val('');
-
-            $('#btn-template-file-create').attr('disabled', 'disabled').css('display', 'none'); // 1 - Folder path
-
-            $('#btn-template-local-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 2 - Selected ISOs
-
-            $('#vm-image-local-box-button').attr('disabled', 'disabled').css('display', 'none'); // 3 - File path
-
-            $('#btn-template-url-create').attr('disabled', 'disabled').css('display', 'none'); // 4 - Remote folder path
-
-            $('#btn-template-remote-iso-create').removeAttr('disabled').css('display', 'inline-block'); // 5 - Remote selected isos
-
-        } else {
-            $('#select-all-remote-iso').prop('checked', false);
-            $('#btn-template-remote-iso-create').attr('disabled', 'disabled');
-        }
-    });
-
-    $('#btn-template-remote-iso-create').click(function() {
-        submitIso('form-remote-iso');
-    });
-
-    //1-2-2 remote iso url
-    var initIsoUrlField = function() {
-
-        $('#iso-file').val('');
-        $('vm-image-local-text').val('');
-        $('#iso-url').val('');
-
-        $('#btn-template-file-create').attr('disabled', 'disabled').css('display', 'none'); // 1 - Folder path
-
-        $('#btn-template-local-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 2 - Selected ISOs
-
-        $('#vm-image-local-box-button').attr('disabled', 'disabled').css('display', 'none'); // 3 - File path
-
-        $('#btn-template-url-create').attr('disabled', 'disabled').css('display', 'inline-block'); // 4 - Remote folder path
-
-        $('#btn-template-remote-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 5 - Remote selected isos
-
-    };
-
     $('#iso-url').on('input propertychange keyup focus cut paste click', function() {
         $('#select-all-local-iso, #select-all-remote-iso').prop('checked', false);
         $('#list-local-iso [type="checkbox"], #list-remote-iso [type="checkbox"]').prop('checked', false);
-        $('#btn-template-url-create').attr('disabled', 'disabled').css('display', 'inline-block');
-        $('#btn-template-remote-iso-create').attr('disabled', 'disabled').css('display', 'none');
         setTimeout(function() {
             var isValid = kimchi.template_check_url($('input#iso-url').val());
             $('input#iso-url').parent().toggleClass('has-error', !isValid);
-            $('#btn-template-url-create').attr('disabled', (isValid ? false : true));
         }, 0);
     });
-
-    $('#vm-image-local').change(function() {
-        if (this.checked) {
-            if (currentPage === 'iso-local-box') {
-                kimchi.switchPage(currentPage, 'vm-image-local-box', 'left');
-            } else if (currentPage === 'iso-remote-box') {
-                kimchi.switchPage(currentPage, 'vm-image-local-box', 'right');
-            }
-            currentPage = 'vm-image-local-box';
-            $('#template-add-window .modal-body .template-pager').animate({
-                height: "100px"
-            }, 400);
-
-            $('#btn-template-file-create').attr('disabled', 'disabled').css('display', 'none'); // 1 - Folder path
-            $('#btn-template-local-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 2 - Selected ISOs
-            $('#vm-image-local-box-button').attr('disabled', 'disabled').css('display', 'inline-block'); // 3 - File path
-            $('#btn-template-url-create').attr('disabled', 'disabled').css('display', 'none'); // 4 - Remote folder path
-            $('#btn-template-remote-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 5 - Remote selected isos
-
-        }
-    });
-    $('input', '#vm-image-local-box').on('input propertychange keyup focus cut paste click', function() {
-        setTimeout(function() {
-            var isValid = kimchi.template_check_path($('input', '#vm-image-local-box').val());
-            $('input', '#vm-image-local-box').parent().toggleClass('has-error', !isValid);
-            $('#vm-image-local-box-button').attr('disabled', (isValid ? false : true));
-        }, 0);
-    });
-    $('input', '#vm-image-local-box').on('input propertychange keyup focus cut paste click', function() {
-        setTimeout(function() {
-            var isValid = kimchi.template_check_path($('input', '#vm-image-local-box').val());
-            $('input', '#vm-image-local-box').parent().toggleClass('has-error', !isValid);
-            $('#vm-image-local-box-button').attr('disabled', (isValid ? false : true));
-        }, 0);
-    });
-    $('#vm-image-local-box-button').on('click', function(){
-        $('input', '#vm-image-local-box').prop('disabled', true);
-        $('#vm-image-local-box-button').text(i18n['KCHAPI6008M']);
-        $('#vm-image-local-box-button').prop('disabled', true);
-        addTemplate({
-            source_media: $('input', '#vm-image-local-box').val()
-        }, function() {
-            $('input', '#vm-image-local-box').prop('disabled', false);
-            $('#vm-image-local-box-button').text(i18n['KCHAPI6005M']);
-            $('#vm-image-local-box-button').prop('disabled', false);
-        });
-    });
-
-    $('#btn-template-url-create').click(function() {
-        var isoUrl = $('#iso-url').val();
-        if (!kimchi.template_check_url(isoUrl)) {
-            wok.message.error.code('KCHAPI6004E');
-            return;
-        }
-        var data = {
-            "source_media": isoUrl
-        };
-        addTemplate(data);
-    });
-
     //do create
     var addTemplate = function(data, callback) {
         kimchi.createTemplate(data, function() {
@@ -568,8 +347,8 @@ kimchi.template_add_main = function() {
         });
     };
 
-    var submitIso = function(formId) {
-        var formData = $('#' + formId).serializeObject();
+    var submitIso = function() {
+        var formData = $('#form-local-iso').serializeObject();
         if (formData.iso) {
             var length = 0;
             var successNum = 0;
