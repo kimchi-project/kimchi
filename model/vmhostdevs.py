@@ -420,6 +420,8 @@ class VMHostDevsModel(object):
 class VMHostDevModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
+        self.objstore = kargs['objstore']
+        self.task = TaskModel(**kargs)
 
     def lookup(self, vmid, dev_name):
         dom = VMModel.get_vm(vmid, self.conn)
@@ -457,6 +459,23 @@ class VMHostDevModel(object):
             raise NotFoundError('KCHVMHDEV0001E',
                                 {'vmid': vmid, 'dev_name': dev_name})
 
+        task_params = {'vmid': vmid,
+                       'dev_name': dev_name,
+                       'dom': dom,
+                       'hostdev': hostdev}
+        task_uri = u'/plugins/kimchi/vms/%s/hostdevs/%s' % \
+            (VMModel.get_vm(vmid, self.conn).name(), dev_name)
+        taskid = add_task(task_uri, self._detach_device, self.objstore,
+                          task_params)
+        return self.task.lookup(taskid)
+
+    def _detach_device(self, cb, params):
+        cb('Detaching device.')
+        vmid = params['vmid']
+        dev_name = params['dev_name']
+        dom = params['dom']
+        hostdev = params['hostdev']
+
         pci_devs = [(DeviceModel.deduce_dev_name(e, self.conn), e)
                     for e in hostdev if e.attrib['type'] == 'pci']
 
@@ -470,17 +489,22 @@ class VMHostDevModel(object):
         for e in hostdev:
             if DeviceModel.deduce_dev_name(e, self.conn) == dev_name:
                 xmlstr = etree.tostring(e)
+                cb('Detaching device from VM...')
                 dom.detachDeviceFlags(
                     xmlstr, get_vm_config_flag(dom, mode='all'))
                 if e.attrib['type'] == 'pci':
+                    cb('Deleting affected PCI devices...')
                     self._delete_affected_pci_devices(dom, dev_name, pci_devs)
                 if is_3D_device:
+                    cb('Updating MMIO from VM...')
                     devsmodel = VMHostDevsModel(conn=self.conn)
                     devsmodel.update_mmio_guest(vmid, False)
                 break
         else:
             raise NotFoundError('KCHVMHDEV0001E',
                                 {'vmid': vmid, 'dev_name': dev_name})
+
+        cb('OK', True)
 
     def _delete_affected_pci_devices(self, dom, dev_name, pci_devs):
         dev_model = DeviceModel(conn=self.conn)

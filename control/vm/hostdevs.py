@@ -17,7 +17,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-from wok.control.base import AsyncCollection, Resource
+from wok.control.base import AsyncCollection, AsyncResource
 from wok.control.utils import UrlSubNode
 
 
@@ -46,7 +46,7 @@ class VMHostDevs(AsyncCollection):
         })
 
 
-class VMHostDev(Resource):
+class VMHostDev(AsyncResource):
     def __init__(self, model, vmid, ident):
         super(VMHostDev, self).__init__(model, ident)
         self.vmid = vmid
