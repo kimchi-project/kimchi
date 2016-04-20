@@ -68,11 +68,7 @@ class StoragePools(Collection):
         res = self.resource(self.model, *args)
         res.lookup()
         resp = res.get()
-
-        if 'task_id' in res.data:
-            cherrypy.response.status = 202
-        else:
-            cherrypy.response.status = 201
+        cherrypy.response.status = 202 if 'task_id' in res.data else 201
 
         return resp
 
