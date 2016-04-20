@@ -27,8 +27,9 @@ from operator import itemgetter
 
 from wok.exception import InvalidOperation, InvalidParameter, NotFoundError
 from wok.exception import OperationFailed
+from wok.model.tasks import TaskModel
 from wok.rollbackcontext import RollbackContext
-from wok.utils import run_command, wok_log
+from wok.utils import add_task, run_command, wok_log
 
 from wok.plugins.kimchi.model.config import CapabilitiesModel
 from wok.plugins.kimchi.model.host import DeviceModel, DevicesModel
@@ -45,7 +46,9 @@ WINDOW_SIZE_BAR = 0x800000000
 class VMHostDevsModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
+        self.objstore = kargs['objstore']
         self.caps = CapabilitiesModel(**kargs)
+        self.task = TaskModel(**kargs)
 
     def get_list(self, vmid):
         dom = VMModel.get_vm(vmid, self.conn)
@@ -70,7 +73,11 @@ class VMHostDevsModel(object):
         dev_info = DeviceModel(conn=self.conn).lookup(dev_name)
 
         if dev_info['device_type'] == 'pci':
-            return self._attach_pci_device(vmid, dev_info)
+            taskid = add_task(u'/plugins/kimchi/vms/%s/hostdevs/' %
+                              VMModel.get_vm(vmid, self.conn).name(),
+                              self._attach_pci_device, self.objstore,
+                              {'vmid': vmid, 'dev_info': dev_info})
+            return self.task.lookup(taskid)
 
         with RollbackContext() as rollback:
             try:
@@ -81,13 +88,14 @@ class VMHostDevsModel(object):
             else:
                 rollback.prependDefer(dev.reAttach)
 
-            attach_device = getattr(
-                self, '_attach_%s_device' % dev_info['device_type'])
-
-            info = attach_device(vmid, dev_info)
             rollback.commitAll()
 
-        return info
+        taskid = add_task(u'/plugins/kimchi/vms/%s/hostdevs/' %
+                          VMModel.get_vm(vmid, self.conn).name(),
+                          '_attach_%s_device' % dev_info['device_type'],
+                          self.objstore, {'vmid': vmid, 'dev_info': dev_info})
+
+        return self.task.lookup(taskid)
 
     def _get_pci_device_xml(self, dev_info, slot, is_multifunction):
         if 'detach_driver' not in dev_info:
@@ -162,7 +170,10 @@ class VMHostDevsModel(object):
 
         return free+1
 
-    def _attach_pci_device(self, vmid, dev_info):
+    def _attach_pci_device(self, cb, params):
+        cb('Attaching PCI device')
+        vmid = params['vmid']
+        dev_info = params['dev_info']
         self._validate_pci_passthrough_env()
 
         dom = VMModel.get_vm(vmid, self.conn)
@@ -227,10 +238,12 @@ class VMHostDevsModel(object):
         with RollbackContext() as rollback:
             for pci_info in pci_infos:
                 pci_info['detach_driver'] = driver
+                cb('Reading source device XML')
                 xmlstr = self._get_pci_device_xml(pci_info,
                                                   slot,
                                                   is_multifunction)
                 try:
+                    cb('Attaching device to VM')
                     dom.attachDeviceFlags(xmlstr, device_flags)
                 except libvirt.libvirtError:
                     wok_log.error(
@@ -241,7 +254,7 @@ class VMHostDevsModel(object):
                                       xmlstr, device_flags)
             rollback.commitAll()
 
-        return dev_info['name']
+        cb('OK', True)
 
     def _count_3D_devices_attached(self, dom):
         counter = 0
@@ -348,11 +361,27 @@ class VMHostDevsModel(object):
                              mode='subsystem', type='scsi', sgio='unfiltered')
         return etree.tostring(host_dev)
 
-    def _attach_scsi_device(self, vmid, dev_info):
-        xmlstr = self._get_scsi_device_xml(dev_info)
+    def _attach_scsi_device(self, cb, params):
+        cb('Attaching SCSI device...')
+        vmid = params['vmid']
+        dev_info = params['dev_info']
         dom = VMModel.get_vm(vmid, self.conn)
-        dom.attachDeviceFlags(xmlstr, get_vm_config_flag(dom, mode='all'))
-        return dev_info['name']
+
+        with RollbackContext() as rollback:
+            cb('Reading source device XML')
+            xmlstr = self._get_scsi_device_xml(dev_info)
+            device_flags = get_vm_config_flag(dom, mode='all')
+            try:
+                cb('Attaching device to VM')
+                dom.attachDeviceFlags(xmlstr, device_flags)
+            except libvirt.libvirtError:
+                wok_log.error('Failed to attach host device %s to VM %s: \n%s',
+                              dev_info['name'], vmid, xmlstr)
+                raise
+            rollback.prependDefer(dom.detachDeviceFlags, xmlstr, device_flags)
+            rollback.commitAll()
+
+        cb('OK', True)
 
     def _get_usb_device_xml(self, dev_info):
         source = E.source(
@@ -365,11 +394,27 @@ class VMHostDevsModel(object):
                              ype='usb', managed='yes')
         return etree.tostring(host_dev)
 
-    def _attach_usb_device(self, vmid, dev_info):
-        xmlstr = self._get_usb_device_xml(dev_info)
+    def _attach_usb_device(self, cb, params):
+        cb('Attaching USB device...')
+        vmid = params['vmid']
+        dev_info = params['dev_info']
         dom = VMModel.get_vm(vmid, self.conn)
-        dom.attachDeviceFlags(xmlstr, get_vm_config_flag(dom, mode='all'))
-        return dev_info['name']
+
+        with RollbackContext() as rollback:
+            cb('Reading source device XML')
+            xmlstr = self._get_usb_device_xml(dev_info)
+            device_flags = get_vm_config_flag(dom, mode='all')
+            try:
+                cb('Attaching device to VM')
+                dom.attachDeviceFlags(xmlstr, device_flags)
+            except libvirt.libvirtError:
+                wok_log.error('Failed to attach host device %s to VM %s: \n%s',
+                              dev_info['name'], vmid, xmlstr)
+                raise
+            rollback.prependDefer(dom.detachDeviceFlags, xmlstr, device_flags)
+            rollback.commitAll()
+
+        cb('OK', True)
 
 
 class VMHostDevModel(object):
