@@ -1165,7 +1165,15 @@ class VMModel(object):
 
     def lookup(self, name):
         dom = self.get_vm(name, self.conn)
-        info = dom.info()
+        try:
+            # Avoid race condition, where guests may be deleted before below
+            # command.
+            info = dom.info()
+        except libvirt.libvirtError as e:
+            wok_log.error('Operation error while retrieving virtual machine '
+                          '"%s" information: %s', name, e.message)
+            raise OperationFailed('KCHVM0009E', {'name': name,
+                                                 'err': e.message})
         state = DOM_STATE_MAP[info[0]]
         screenshot = None
         # (type, listen, port, passwd, passwdValidTo)
