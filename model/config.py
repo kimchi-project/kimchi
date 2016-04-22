@@ -56,10 +56,12 @@ class CapabilitiesModel(object):
         self.nm_running = False
         self.mem_hotplug_support = False
 
+        # run feature tests
+        self._set_capabilities()
+
         # Subscribe function to set host capabilities to be run when cherrypy
-        # server is up
-        # It is needed because some features tests depends on the server
-        cherrypy.engine.subscribe('start', self._set_capabilities)
+        # server is up for features that depends on the server
+        cherrypy.engine.subscribe('start', self._set_depend_capabilities)
 
         # Subscribe function to clean any Kimchi leftovers
         cherrypy.engine.subscribe('stop', self._clean_leftovers)
@@ -83,21 +85,27 @@ class CapabilitiesModel(object):
 
         FeatureTests.enable_libvirt_error_logging()
 
-    def _set_capabilities(self):
-        wok_log.info("*** Running feature tests ***")
+    def _set_depend_capabilities(self):
+        wok_log.info("*** Running dependable feature tests ***")
         conn = self.conn.get()
         self.qemu_stream = FeatureTests.qemu_supports_iso_stream()
-        self.nfs_target_probe = FeatureTests.libvirt_support_nfs_probe(conn)
-        self.fc_host_support = FeatureTests.libvirt_support_fc_host(conn)
-        self.kernel_vfio = FeatureTests.kernel_support_vfio()
-        self.nm_running = FeatureTests.is_nm_running()
-        self.mem_hotplug_support = FeatureTests.has_mem_hotplug_support(conn)
 
         self.libvirt_stream_protocols = []
         for p in ['http', 'https', 'ftp', 'ftps', 'tftp']:
             if FeatureTests.libvirt_supports_iso_stream(conn, p):
                 self.libvirt_stream_protocols.append(p)
 
+        wok_log.info("*** Dependable feature tests completed ***")
+    _set_depend_capabilities.priority = 90
+
+    def _set_capabilities(self):
+        wok_log.info("*** Running feature tests ***")
+        conn = self.conn.get()
+        self.nfs_target_probe = FeatureTests.libvirt_support_nfs_probe(conn)
+        self.fc_host_support = FeatureTests.libvirt_support_fc_host(conn)
+        self.kernel_vfio = FeatureTests.kernel_support_vfio()
+        self.nm_running = FeatureTests.is_nm_running()
+        self.mem_hotplug_support = FeatureTests.has_mem_hotplug_support(conn)
         wok_log.info("*** Feature tests completed ***")
     _set_capabilities.priority = 90
 
