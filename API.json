@@ -714,7 +714,8 @@
                         }
                     },
                     "minItems": 1,
-                    "uniqueItems": true
+                    "uniqueItems": true,
+                    "error": "KCHTMPL0033E"
                 },
                 "networks": {
                     "description": "list of which networks will be assigned to the new VM.",
