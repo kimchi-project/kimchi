@@ -20,6 +20,7 @@ kimchi.template_edit_main = function() {
     var origDisks;
     var origNetworks;
     var templateDiskSize;
+    var baseImageTemplate;
     $('#template-name', templateEditMain).val(kimchi.selectedTemplate);
     $('#edit-template-tabs a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         $('.tab-content').css('overflow','hidden');
@@ -89,6 +90,7 @@ kimchi.template_edit_main = function() {
             }
             return false;
         }
+        baseImageTemplate = isImageBasedTemplate();
         enableSpice();
         $('#template-edit-graphics').selectpicker();
 
@@ -341,6 +343,11 @@ kimchi.template_edit_main = function() {
                 'size' : Number($(diskEntity).find('.template-storage-disk').val()),
                 'format' : $(diskEntity).find('.template-storage-disk-format').val()
             };
+
+            // image based template: add base to dictionary
+            if ((baseImageTemplate) && (index == 0))  {
+                newDisk["base"] = $('#template-edit-vmimage-textbox').val();
+            }
 
             var storageType = $(diskEntity).find('.template-storage-type').val();
             if(storageType === 'iscsi' || storageType === 'scsi') {
