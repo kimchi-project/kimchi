@@ -183,6 +183,7 @@ messages = {
     "KCHTMPL0030E": _("Memory expects an object with one or both parameters: 'current' and 'maxmemory'"),
     "KCHTMPL0031E": _("Memory value (%(mem)sMiB) must be equal or lesser than maximum memory value (%(maxmem)sMiB)"),
     "KCHTMPL0032E": _("Unable to update template due error: %(err)s"),
+    "KCHTMPL0033E": _("Parameter 'disks' requires at least one disk object"),
 
     "KCHPOOL0001E": _("Storage pool %(name)s already exists"),
     "KCHPOOL0002E": _("Storage pool %(name)s does not exist"),
