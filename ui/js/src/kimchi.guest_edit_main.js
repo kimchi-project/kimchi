@@ -746,14 +746,14 @@ kimchi.guest_edit_main = function() {
         }
 
         // Test memory values before submit. Avoid requests we know are going to fail
-        if ($('#guest-edit-memory-textbox').val() > $('#guest-edit-max-memory-textbox').val()) {
+        if (parseInt($('#guest-edit-memory-textbox').val()) > parseInt($('#guest-edit-max-memory-textbox').val())) {
             wok.message.error(i18n['KCHVM0002E'], '#alert-modal-container');
             $(saveButton).prop('disabled', false);
             return;
         }
 
         // Test CPU values before submit. Avoid requests we know are going to fail
-        if ($('#guest-edit-cores-textbox').val() > $('#guest-edit-max-processor-textbox').val()) {
+        if (parseInt($('#guest-edit-cores-textbox').val()) > parseInt($('#guest-edit-max-processor-textbox').val())) {
             wok.message.error(i18n['KCHVM0003E'], '#alert-modal-container');
             $(saveButton).prop('disabled', false);
             return;
