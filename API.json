@@ -505,9 +505,21 @@
                 },
                 "memory": { "$ref": "#/kimchitype/memory" },
                 "source_media": {
-                    "description": "Path for installation media (ISO, disk, remote ISO)",
-                    "type" : "string",
-                    "pattern" : "^((/)|(http)[s]?:|[t]?(ftp)[s]?:)+.*$",
+                    "type" : "object",
+                    "properties" : {
+                        "type": {
+                            "description": "Type of source media: disk or netboot",
+                            "type": "string",
+                            "pattern": "^disk|netboot$",
+                            "required": true
+                        },
+                        "path": {
+                            "description": "Path for installation media (ISO, disk, remote ISO)",
+                            "type": "string",
+                            "pattern" : "^((/)|(http)[s]?:|[t]?(ftp)[s]?:)+.*$"
+                        }
+                    },
+                    "additionalProperties": false,
                     "required": true
                 },
                 "disks": {
