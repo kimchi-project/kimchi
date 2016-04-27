@@ -42,7 +42,7 @@ from wok.plugins.kimchi.xmlutils.serial import get_serial_xml
 
 
 class VMTemplate(object):
-    def __init__(self, args, scan=False):
+    def __init__(self, args, scan=False, netboot=False):
         """
         Construct a VM Template from a widely variable amount of information.
         The only required parameter is a name for the VMTemplate.  If present,
@@ -50,15 +50,20 @@ class VMTemplate(object):
         settings.  Any parameters provided by the caller will override the
         defaults.  If scan is True and a cdrom or a base img is present, the
         operating system will be detected by probing the installation media.
+        If netboot is True, no cdrom or base img will be used to boot the VM.
         """
         self.info = {}
         self.fc_host_support = args.get('fc_host_support')
 
         # Fetch defaults based on the os distro and version
-        try:
-            distro, version = self._get_os_info(args, scan)
-        except ImageFormatError as e:
-            raise OperationFailed('KCHTMPL0020E', {'err': e.message})
+        if netboot:
+            distro = version = 'unknown'
+        else:
+            try:
+                distro, version = self._get_os_info(args, scan)
+            except ImageFormatError as e:
+                raise OperationFailed('KCHTMPL0020E', {'err': e.message})
+
         os_distro = args.get('os_distro', distro)
         os_version = args.get('os_version', version)
         entry = osinfo.lookup(os_distro, os_version)

@@ -63,9 +63,20 @@ class TemplatesModel(object):
                                                         'template': name})
 
         # get source_media
-        path = params.pop("source_media")
+        source_media = params.pop("source_media")
+
+        if source_media['type'] == 'netboot':
+            params['netboot'] = True
+            return self.save_template(params)
+        else:
+            # Get path of source media if it's based on disk type.
+            path = source_media.get('path', None)
+
+        if path is None:
+            raise InvalidParameter("KCHTMPL0016E")
 
         # not local image: set as remote ISO
+        path = path.encode('utf-8')
         if urlparse.urlparse(path).scheme in ["http", "https", "tftp", "ftp",
                                               "ftps"]:
             params["cdrom"] = path
@@ -301,7 +312,8 @@ def validate_memory(memory):
 class LibvirtVMTemplate(VMTemplate):
     def __init__(self, args, scan=False, conn=None):
         self.conn = conn
-        VMTemplate.__init__(self, args, scan)
+        netboot = True if 'netboot' in args.keys() else False
+        VMTemplate.__init__(self, args, scan, netboot)
         self.set_cpu_info()
 
     def _validate_memory(self):
