@@ -100,7 +100,9 @@ class AuthorizationTests(unittest.TestCase):
         self.assertEquals(403, resp.status)
 
         # Non-root users can only get vms authorized to them
-        model.templates_create({'name': u'test', 'source_media': fake_iso})
+        model.templates_create({'name': u'test',
+                                'source_media': {'type': 'disk',
+                                                 'path': fake_iso}})
 
         task_info = model.vms_create({
             'name': u'test-me',

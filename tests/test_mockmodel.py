@@ -66,7 +66,8 @@ class MockModelTests(unittest.TestCase):
 
     def test_screenshot_refresh(self):
         # Create a VM
-        req = json.dumps({'name': 'test', 'source_media': fake_iso})
+        req = json.dumps({'name': 'test',
+                          'source_media': {'type': 'disk', 'path': fake_iso}})
         request(host, ssl_port, '/plugins/kimchi/templates', req, 'POST')
         req = json.dumps({'name': 'test-vm',
                           'template': '/plugins/kimchi/templates/test'})
@@ -96,7 +97,8 @@ class MockModelTests(unittest.TestCase):
                           resp.getheader('last-modified'))
 
     def test_vm_list_sorted(self):
-        req = json.dumps({'name': 'test', 'source_media': fake_iso})
+        req = json.dumps({'name': 'test',
+                          'source_media': {'type': 'disk', 'path': fake_iso}})
         request(host, ssl_port, '/plugins/kimchi/templates', req, 'POST')
 
         def add_vm(name):
@@ -116,7 +118,8 @@ class MockModelTests(unittest.TestCase):
 
     def test_memory_window_changes(self):
         model.templates_create({'name': u'test',
-                                'source_media': fake_iso})
+                                'source_media': {'type': 'disk', 
+                                                 'path': fake_iso}})
         task = model.vms_create({'name': u'test-vm',
                                  'template': '/plugins/kimchi/templates/test'})
         wait_task(model.task_lookup, task['id'])
@@ -128,7 +131,8 @@ class MockModelTests(unittest.TestCase):
 
     def test_hotplug_3D_card(self):
         model.templates_create({'name': u'test',
-                                'source_media': fake_iso})
+                                'source_media': {'type': 'disk',
+                                                 'path': fake_iso}})
         task = model.vms_create({'name': u'test-vm',
                                  'template': '/plugins/kimchi/templates/test'})
         wait_task(model.task_lookup, task['id'])
@@ -148,7 +152,8 @@ class MockModelTests(unittest.TestCase):
 
     def test_vm_info(self):
         model.templates_create({'name': u'test',
-                                'source_media': fake_iso})
+                                'source_media': {'type': 'disk',
+                                                 'path': fake_iso}})
         task = model.vms_create({'name': u'test-vm',
                                  'template': '/plugins/kimchi/templates/test'})
         wait_task(model.task_lookup, task['id'])

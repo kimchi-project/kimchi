@@ -135,3 +135,20 @@ class VMTemplateTests(unittest.TestCase):
         self.assertEquals(['foo'], t.info.get('networks'))
         self.assertEquals(self.iso, t.info.get('cdrom'))
         self.assertEquals(graphics, t.info.get('graphics'))
+
+    def test_netboot_vmtemplate(self):
+        disk_bus = get_template_default('old', 'disk_bus')
+        memory = get_template_default('old', 'memory')
+        nic_model = get_template_default('old', 'nic_model')
+        fields = (('name', 'test'), ('os_distro', 'unknown'),
+                  ('os_version', 'unknown'),
+                  ('cpu_info', {'vcpus': 1, 'maxvcpus': 1}),
+                  ('memory', memory), ('networks', ['default']),
+                  ('disk_bus', disk_bus), ('nic_model', nic_model),
+                  ('graphics', {'type': 'vnc', 'listen': '127.0.0.1'}))
+
+        t = VMTemplate({'name': 'test'}, netboot=True)
+        for name, val in fields:
+            self.assertEquals(val, t.info.get(name))
+
+        self.assertNotIn('cdrom', t.info.keys())
