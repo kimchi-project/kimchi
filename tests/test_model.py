@@ -136,7 +136,8 @@ class ModelTests(unittest.TestCase):
             task = inst.task_lookup(task['id'])
             self.assertEquals('finished', task['status'])
 
-            params = {'name': 'test', 'source_media': UBUNTU_ISO}
+            params = {'name': 'test',
+                      'source_media': {'type': 'disk', 'path': UBUNTU_ISO}}
 
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
@@ -269,7 +270,7 @@ class ModelTests(unittest.TestCase):
                          "networks": ["default"], "memory": {'current': 1024},
                          "folder": [], "icon": "images/icon-vm.png",
                          "os_distro": "unknown", "os_version": "unknown",
-                         "source_media": vol_path}
+                         "source_media": {'type': 'disk', 'path': vol_path}}
 
             inst.templates_create(tmpl_info)
             rollback.prependDefer(inst.template_delete, tmpl_name)
@@ -296,7 +297,8 @@ class ModelTests(unittest.TestCase):
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_vm_graphics(self):
         inst = model.Model(objstore_loc=self.tmp_store)
-        params = {'name': 'test', 'source_media': UBUNTU_ISO}
+        params = {'name': 'test',
+                  'source_media': {'type': 'disk', 'path': UBUNTU_ISO}}
         inst.templates_create(params)
         with RollbackContext() as rollback:
             params = {'name': 'kimchi-vnc',
@@ -326,7 +328,8 @@ class ModelTests(unittest.TestCase):
     @unittest.skipUnless(utils.running_as_root(), "Must be run as root")
     def test_vm_serial(self):
         inst = model.Model(objstore_loc=self.tmp_store)
-        params = {'name': 'test', 'source_media': UBUNTU_ISO}
+        params = {'name': 'test',
+                  'source_media': {'type': 'disk', 'path': UBUNTU_ISO}}
         inst.templates_create(params)
         with RollbackContext() as rollback:
             params = {'name': 'kimchi-serial',
@@ -347,7 +350,8 @@ class ModelTests(unittest.TestCase):
     def test_vm_ifaces(self):
         inst = model.Model(objstore_loc=self.tmp_store)
         with RollbackContext() as rollback:
-            params = {'name': 'test', 'source_media': UBUNTU_ISO}
+            params = {'name': 'test',
+                      'source_media': {'type': 'disk', 'path': UBUNTU_ISO}}
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
 
@@ -414,6 +418,37 @@ class ModelTests(unittest.TestCase):
                 self.assertEquals(mac, iface['mac'])
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
+    def test_vm_netboot(self):
+        inst = model.Model(objstore_loc=self.tmp_store)
+        with RollbackContext() as rollback:
+            params = {'name': 'test-netboot',
+                      'source_media': {'type': 'netboot'}}
+            inst.templates_create(params)
+            rollback.prependDefer(inst.template_delete, 'test-netboot')
+
+            params = {'name': 'kimchi-netboot-vm',
+                      'template': '/plugins/kimchi/templates/test-netboot'}
+            task = inst.vms_create(params)
+            rollback.prependDefer(inst.vm_delete, 'kimchi-netboot-vm')
+            inst.task_wait(task['id'], 10)
+            task = inst.task_lookup(task['id'])
+            self.assertEquals('finished', task['status'])
+
+            vms = inst.vms_get_list()
+            self.assertTrue('kimchi-netboot-vm' in vms)
+
+            inst.vm_start('kimchi-netboot-vm')
+
+            info = inst.vm_lookup('kimchi-netboot-vm')
+            self.assertEquals('running', info['state'])
+
+            inst.vm_poweroff(u'kimchi-netboot-vm')
+            vm = inst.vm_lookup(u'kimchi-netboot-vm')
+
+        vms = inst.vms_get_list()
+        self.assertFalse('kimchi-netboot-vm' in vms)
+
+    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_vm_disk(self):
         disk_path = os.path.join(TMP_DIR, 'existent2.iso')
         open(disk_path, 'w').close()
@@ -463,7 +498,8 @@ class ModelTests(unittest.TestCase):
             inst.task_wait(task_id)
 
             vm_name = 'kimchi-cdrom'
-            params = {'name': 'test', 'disks': [], 'source_media': UBUNTU_ISO}
+            params = {'name': 'test', 'disks': [],
+                      'source_media': {'type': 'disk', 'path': UBUNTU_ISO}}
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
             params = {'name': vm_name,
@@ -507,7 +543,7 @@ class ModelTests(unittest.TestCase):
 
             vm_name = 'kimchi-ide-bus-vm'
             params = {'name': 'old_distro_template', 'disks': [],
-                      'source_media': old_distro_iso}
+                      'source_media': {'type': 'disk', 'path': old_distro_iso}}
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'old_distro_template')
             params = {
@@ -532,7 +568,8 @@ class ModelTests(unittest.TestCase):
         inst = model.Model(objstore_loc=self.tmp_store)
         with RollbackContext() as rollback:
             vm_name = 'kimchi-cdrom'
-            params = {'name': 'test', 'disks': [], 'source_media': UBUNTU_ISO}
+            params = {'name': 'test', 'disks': [],
+                      'source_media': {'type': 'disk', 'path': UBUNTU_ISO}}
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
             params = {'name': vm_name,
@@ -623,7 +660,7 @@ class ModelTests(unittest.TestCase):
         with RollbackContext() as rollback:
             params = {'name': 'test', 'disks': [{'size': 1, 'pool': {
                       'name': '/plugins/kimchi/storagepools/default'}}],
-                      'source_media': UBUNTU_ISO}
+                      'source_media': {'type': 'disk', 'path': UBUNTU_ISO}}
 
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
@@ -683,7 +720,7 @@ class ModelTests(unittest.TestCase):
 
             params = {'name': 'test', 'disks': [{'size': 1, 'pool': {
                       'name': '/plugins/kimchi/storagepools/default'}}],
-                      'source_media': UBUNTU_ISO}
+                      'source_media': {'type': 'disk', 'path': UBUNTU_ISO}}
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
 
@@ -711,7 +748,7 @@ class ModelTests(unittest.TestCase):
             params = {'name': 'test', 'disks': [{
                 'size': 1, 'format': user_vol,
                 'pool': {'name': '/plugins/kimchi/storagepools/default'}}],
-                'source_media': UBUNTU_ISO}
+                'source_media': {'type': 'disk', 'path': UBUNTU_ISO}}
 
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
@@ -737,7 +774,7 @@ class ModelTests(unittest.TestCase):
 
             params = {'name': 'test', 'disks': [{'size': 1, 'pool': {
                       'name': '/plugins/kimchi/storagepools/default'}}],
-                      'source_media': UBUNTU_ISO}
+                      'source_media': {'type': 'disk', 'path': UBUNTU_ISO}}
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
 
@@ -757,7 +794,7 @@ class ModelTests(unittest.TestCase):
         inst = model.Model(None, objstore_loc=self.tmp_store)
         orig_params = {'name': 'test',
                        'memory': {'current': 1024, 'maxmemory': 3072},
-                       'source_media': UBUNTU_ISO}
+                       'source_media': {'type': 'disk', 'path': UBUNTU_ISO}}
         inst.templates_create(orig_params)
 
         with RollbackContext() as rollback:
@@ -794,7 +831,8 @@ class ModelTests(unittest.TestCase):
         # only supports this format
         orig_params = {
             'name': 'test', 'memory': {'current': 1024},
-            'cpu_info': {'vcpus': 1}, 'source_media': UBUNTU_ISO,
+            'cpu_info': {'vcpus': 1},
+            'source_media': {'type': 'disk', 'path': UBUNTU_ISO},
             'disks': [{'size': 1, 'format': 'qcow2', 'pool': {
                        'name': '/plugins/kimchi/storagepools/default'}}]}
         inst.templates_create(orig_params)
@@ -1033,7 +1071,8 @@ class ModelTests(unittest.TestCase):
         inst = model.Model(objstore_loc=self.tmp_store)
 
         with RollbackContext() as rollback:
-            params = {'name': u'test', 'disks': [], 'source_media': UBUNTU_ISO}
+            params = {'name': u'test', 'disks': [],
+                      'source_media': {'type': 'disk', 'path': UBUNTU_ISO}}
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
 
@@ -1059,7 +1098,8 @@ class ModelTests(unittest.TestCase):
         inst = model.Model(objstore_loc=self.tmp_store)
 
         with RollbackContext() as rollback:
-            params = {'name': 'test', 'disks': [], 'source_media': UBUNTU_ISO}
+            params = {'name': 'test', 'disks': [],
+                      'source_media': {'type': 'disk', 'path': UBUNTU_ISO}}
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
 
@@ -1130,7 +1170,7 @@ class ModelTests(unittest.TestCase):
         with RollbackContext() as rollback:
             params = {
                 'name': 'test',
-                'source_media': UBUNTU_ISO,
+                'source_media': {'type': 'disk', 'path': UBUNTU_ISO},
                 'domain': 'test',
                 'arch': 'i686',
                 'disks': []
