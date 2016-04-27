@@ -33,6 +33,7 @@ from wok.plugins.kimchi import imageinfo
 from wok.plugins.kimchi import osinfo
 from wok.plugins.kimchi.isoinfo import IsoImage
 from wok.plugins.kimchi.utils import check_url_path, pool_name_from_uri
+from wok.plugins.kimchi.xmlutils.bootorder import get_bootorder_xml
 from wok.plugins.kimchi.xmlutils.cpu import get_cpu_xml
 from wok.plugins.kimchi.xmlutils.disk import get_disk_xml
 from wok.plugins.kimchi.xmlutils.graphics import get_graphics_xml
@@ -175,7 +176,7 @@ class VMTemplate(object):
 
     def _get_cdrom_xml(self, libvirt_stream_protocols):
         if 'cdrom' not in self.info:
-            return ''
+            return None
 
         params = {}
         params['type'] = 'cdrom'
@@ -355,12 +356,18 @@ class VMTemplate(object):
         libvirt_stream_protocols = kwargs.get('libvirt_stream_protocols', [])
         cdrom_xml = self._get_cdrom_xml(libvirt_stream_protocols)
 
-        if not urlparse.urlparse(self.info.get('cdrom', "")).scheme in \
-                libvirt_stream_protocols and \
-                params.get('iso_stream', False):
-            params['qemu-stream-cmdline'] = cdrom_xml
-        else:
-            params['cdroms'] = cdrom_xml
+        # Add information of CD-ROM device only if template have info about it.
+        if cdrom_xml is not None:
+            if not urlparse.urlparse(self.info.get('cdrom', "")).scheme in \
+                    libvirt_stream_protocols and \
+                    params.get('iso_stream', False):
+                params['qemu-stream-cmdline'] = cdrom_xml
+            else:
+                params['cdroms'] = cdrom_xml
+
+        # Set the boot order of VM
+        # TODO: need modify this when boot order edition feature came upstream.
+        params['boot_order'] = get_bootorder_xml()
 
         # Setting maximum number of slots to avoid errors when hotplug memory
         # Number of slots are the numbers of chunks of 1GB that fit inside
@@ -414,8 +421,7 @@ class VMTemplate(object):
           %(cpu_info_xml)s
           <os>
             <type arch='%(arch)s'>hvm</type>
-            <boot dev='hd'/>
-            <boot dev='cdrom'/>
+            %(boot_order)s
           </os>
           <features>
             <acpi/>
