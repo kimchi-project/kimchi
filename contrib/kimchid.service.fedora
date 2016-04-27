@@ -4,4 +4,4 @@ After=libvirtd.service wokd.service
 
 [Service]
 Nice=0
-PrivateTmp=yes
+PrivateTmp=no
