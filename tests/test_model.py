@@ -443,7 +443,6 @@ class ModelTests(unittest.TestCase):
             self.assertEquals('running', info['state'])
 
             inst.vm_poweroff(u'kimchi-netboot-vm')
-            vm = inst.vm_lookup(u'kimchi-netboot-vm')
 
         vms = inst.vms_get_list()
         self.assertFalse('kimchi-netboot-vm' in vms)

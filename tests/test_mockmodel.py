@@ -118,7 +118,7 @@ class MockModelTests(unittest.TestCase):
 
     def test_memory_window_changes(self):
         model.templates_create({'name': u'test',
-                                'source_media': {'type': 'disk', 
+                                'source_media': {'type': 'disk',
                                                  'path': fake_iso}})
         task = model.vms_create({'name': u'test-vm',
                                  'template': '/plugins/kimchi/templates/test'})

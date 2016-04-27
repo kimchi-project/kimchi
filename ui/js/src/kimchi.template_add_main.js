@@ -260,7 +260,7 @@ kimchi.template_add_main = function() {
             return;
         }
         var data = {
-            "source_media": isoFile
+            "source_media": {"type": "disk", "path": isoFile}
         };
         addTemplate(data);
     });
@@ -356,7 +356,7 @@ kimchi.template_add_main = function() {
                 var data = {
                     "os_distro": isoInfo.os_distro,
                     "os_version": isoInfo.os_version,
-                    "source_media": isoInfo.path
+                    "source_media": {"type": "disk", "path": isoInfo.path}
                 };
                 kimchi.createTemplate(data, function() {
                     successNum++;
