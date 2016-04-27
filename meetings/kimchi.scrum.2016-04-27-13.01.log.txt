@@ -1,0 +1,149 @@
+13:01:51 <alinefm> #startmeeting
+13:01:51 <kimchi-bot> Meeting started Wed Apr 27 13:01:51 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:51 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:51 <alinefm> #meetingname scrum
+13:01:51 <kimchi-bot> The meeting name has been set to 'scrum'
+13:01:54 <transhuman> ok no problem you just gave me something to workwith
+13:02:00 <alinefm> #info Agenda
+13:02:00 <alinefm> #info 1) Status
+13:02:00 <alinefm> #info 2) Open discussion
+13:02:00 <alinefm> anything else?
+13:02:05 <danielhb> no
+13:02:30 <ziviani> no
+13:02:46 <alinefm> so let's get started
+13:02:58 <alinefm> #topic Status
+13:02:58 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+13:03:22 <alinefm> #info [kimchi] socorro Continue to make adjustments on create template UI based on feedback
+13:03:22 <alinefm> #info [kimchi] socorro Off and on working on Edit Virtual Network UI
+13:03:22 <alinefm> #info [kimchi] socorro Test/Review Kimchi patches
+13:03:38 <peterpennings> #info [gingerbase] peterpennings is still working on update selected packages only
+13:03:41 <samhenri> #info [Wok] samhenri sent patch to update wok.list.js
+13:04:08 <samhenri> #info [Ginger] samhenri working on OVS bridges front-end v2
+13:04:08 <ziviani> #info [kimchi] sent patches, already applied, to improve the feature test performance
+13:04:32 <lcorreia> #info [ginger] lcorreia is discussing design for fix in fibre channel listing
+13:04:32 <lcorreia> #info [kimchi] lcorreia sent V1 for VEPA network tests
+13:04:32 <lcorreia> #info [kimchi] lcorreia is working on handling libvirt event ENOSPC
+13:04:41 <samhenri> #info [Gingerbase] samhenri sent patch to allow multiple selection in Debug Reports and Repositories + initial support for mobile navigation
+13:04:49 <alinefm> #info [wok] [kimchi] [ginger*] Reviewed and tested patches from ML
+13:05:03 <danielhb> #info [ginger*] danielhb reviewed and applied patches
+13:05:08 <ziviani> #info [kimchi] ziviani is working on a bug in ligbuestfs with libvirt, still investigating but looks to happen in newer versions of fedora and rhel
+13:05:08 <rotru> #info [Kimchi] rotru sent patch to fix race condition in guest lookup;
+13:05:09 <rotru> #info [Wok] rotru sent patch to fix collection get_list return when resource lookup fails;
+13:05:09 <rotru> #info [kimchi] rotru sent path to fix error message when user edit Templates and pass an empty disk list;
+13:05:09 <rotru> #info [Kimchi] rotru sent patch to fix typo and integer evaluation in Guest edit window;
+13:05:09 <rotru> #info [Wok] rotru still coding Enable/Disable plugins feature;
+13:05:24 <danielhb> #info [ginger*] danielhb working in SR-IOV support for ConnectX-4 cards. danielhb intends to finish this work this week
+13:06:00 <pvital> #info [Kimchi] pvital commented in pull request #932
+13:06:00 <pvital> #info [Kimchi] pvital submitted V4 patch-set to solve issue#817 - PCI attach/detach improvements.
+13:06:00 <pvital> #info [Wok] pvital commented in issues #106 and #107
+13:06:00 <pvital> #info [Wok] pvital commented in pull request #108
+13:06:01 <pvital> #info [Kimchi] pvital submitted V5 patch-set to solve issue#372 - Add support to netboot installation.
+13:06:02 <pvital> #info [Kimchi] pvital submitted a RFC for issue#201 - Kimchi should handle libvirt connection failures.
+13:06:04 <pvital> #info [Kimchi] [Wok] [Ginger*] pvital reviewed patches
+13:07:08 <alinefm> ramonn, anything else from your side?
+13:07:22 <ramonn> alinefm, yeah
+13:07:49 <ramonn> #info ramonn [ginger] will send patch to fix update issues
+13:08:10 <ramonn> #info ramonn [kimchi] merged patch that fix template update (UI)
+13:08:38 <ramonn> #info [ginger] ramonn  will send patch to fix update issues
+13:08:50 <ramonn> #info [kimchi] ramonn will send patch to fix update issues
+13:08:58 <ramonn> alinefm, done
+13:09:03 <alinefm> thanks! =)
+13:09:09 <alinefm> thanks all for the update
+13:09:18 <alinefm> can we move on?
+13:09:29 <rotru> yes
+13:09:53 <alinefm> #topic Open Discussion
+13:10:08 <alinefm> What do you want to discuss today?
+13:11:04 <ziviani> hello
+13:11:25 <rotru> alinefm,  [all] I have a doubt in the implementation of my feature: enable/disable plugins for wok
+13:11:25 <danielhb> ziviani, hi there, how are you?
+13:11:32 <ziviani> I'm thinking to change the way we probe images using libguestfs
+13:11:43 <alinefm> danielhb, hehe
+13:11:48 <ziviani> danielhb, good, thanks, and you?
+13:11:50 <alinefm> rotru, go ahead
+13:12:10 <danielhb> ziviani, I am doing great. Eating cake while typing
+13:12:16 <rotru> alinefm,  when a plugin is disabled or enabled, this is not going to be reflected unless Wok is restarted
+13:12:32 <alinefm> ziviani, I was thinking about this issues, and shouldn't it be a permission issues? is the image inside a storage pool?
+13:12:47 <rotru> So, do you guys know a way to reload cherrypy tree/apps ??
+13:13:01 <rotru> Or is that the case of implement a way to restart wok
+13:13:02 <ziviani> alinefm, yes it's
+13:13:02 <rotru> ?
+13:13:14 <alinefm> rotru, thinking...
+13:13:51 <ziviani> alinefm, it's wired because if I run the same code manually (not using wokd systemd service), it works
+13:14:27 <alinefm> ziviani, ¬¬
+13:14:48 <alinefm> ziviani, probably some selinux configuration on systemd settings (?)
+13:14:57 <ziviani> alinefm, selinux was disabled
+13:15:00 <ziviani> :P
+13:15:14 <alinefm> ziviani, hrm... you are dropping all my guess
+13:15:15 <alinefm> heheh
+13:15:32 <alinefm> rotru, did you try to call tree.mount() again with the new configuration?
+13:15:52 <rotru> alinefm, humm, I did not
+13:15:54 <alinefm> not sure if it will work, but it is the only thing I can think right now
+13:16:42 <rotru> alinefm, yeap, I would have to rebuild the tree and try to load again ...
+13:17:01 <alinefm> rotru, or try:
+13:17:15 <rotru> alinefm, is there a way to restart Wok server from itself today ?? does it makes sense ?
+13:17:16 <alinefm> del cherrypy.config[/plugin-name]
+13:17:30 <alinefm> cherrypy.config.update({/plugin-name: config})
+13:18:03 <alinefm> rotru, there are some functions to do that
+13:18:10 <alinefm> let me check the code
+13:18:11 <alinefm> one minute
+13:18:39 <alinefm> cherrypy.engine.start()
+13:18:40 <ziviani> found a bug about it, I'll read it carefully to see what we can do
+13:18:41 <ziviani> https://bugzilla.redhat.com/show_bug.cgi?id=913774
+13:18:42 <alinefm> cherrypy.engine.exit()
+13:18:50 <ziviani> openstack guys had the same issue
+13:19:05 <alinefm> ziviani, what was your suggestion to change the way to use libguestfs?
+13:19:47 <alinefm> rotru, there is a cherrypy.engine.restart() too
+13:19:54 <alinefm> maybe it is better than stop/start it
+13:19:59 <rotru> alinefm,  cool
+13:20:18 <rotru> alinefm,  I am going to test this then !
+13:20:55 <ziviani> alinefm, run imageinfo.py as a command line tool
+13:21:22 <ziviani> alinefm, it already has a:
+13:21:24 <ziviani> if __name__ == '__main__':
+13:21:24 <ziviani> print probe_image(sys.argv[1])
+13:21:25 <alinefm> ziviani, os.popen(...) ?
+13:22:01 <ziviani> alinefm, yep, in a separete process, maybe I can get out of libvirt control
+13:22:37 <alinefm> ziviani, seems a 'gambiarra' hehe
+13:23:14 <alinefm> I think we first need to identify why libvirt is conflicting with libguestfs
+13:23:24 <alinefm> does libvirt have the file control?
+13:23:41 <alinefm> if the image is outside a pool, do you get the same error?
+13:23:59 <ziviani> alinefm, yes :( another way is to run probe_image in a different process
+13:24:18 <ziviani> I didn't test with an image outside the pool
+13:25:18 <ziviani> alinefm, as per https://bugzilla.redhat.com/show_bug.cgi?id=913774#c6, the problem is that libvirt sets the socket permission in a way that qemu (and libguestfs) cannot read
+13:26:05 <ziviani> alinefm, I'll investigate if I can pass 'LIBGUESTFS_BACKEND=direct' as a parameter to libguestfs
+13:26:07 <alinefm> ziviani, hmm.. but it is odd if you can get libguestfs working in a separated process
+13:26:16 <alinefm> shouldn't the socket permission be the same?
+13:27:32 <lagarcia> alinefm, no... according to the bug it is libvirt setting the socket permission incorrectly
+13:27:50 <lagarcia> alinefm, if you run as a separate process, it will have a different set of permissions and will work
+13:28:39 <alinefm> lagarcia, hmm... can't we set the permission by ourselves ?
+13:28:49 <alinefm> or libvirt will change it anyway?
+13:29:02 <lagarcia> alinefm, if you are using libvirt to start libguestfs, libvirt will set the permission
+13:29:38 <ziviani> alinefm, this is something that libvirt does, as per https://bugzilla.redhat.com/show_bug.cgi?id=913774#c4: There isn't any good way to solve this: You probably wouldn't
+13:29:39 <ziviani> want the sockets to be 0777.  I think this is something that can
+13:29:39 <ziviani> only be truly solved by having libvirtd open the sockets and pass
+13:29:39 <ziviani> the file descriptor over to qemu.
+13:30:07 <lagarcia> alinefm, ziviani however, in the bug, it is said that this is not anymore reproducible. We might be facing something that was fixed in Fedora but that is not yet reflected in other package versions
+13:30:27 <ziviani> Daniel Berrange commented on that too, but the bug was closed without a solution
+13:30:47 <lagarcia> ziviani, actually they say the bug is not happening anymore (even though no one said it was fixed hehe)
+13:30:56 <alinefm> lagarcia, it is odd to me libguestfs conflicts to libvirt as per Kimchi code there is no relation between them
+13:30:58 <lagarcia> ziviani, this probably just disappeared and people moved one
+13:31:03 <alinefm> unless the image file is inside a pool
+13:31:04 <ziviani> lagarcia, hmmm
+13:31:42 <lagarcia> alinefm, libguestfs usually acts through libvirt. The issue is not in Kimchi code
+13:32:02 <lagarcia> alinefm, libguestfs has two backends: one that goes throgh libvirt (preferred) and another one that directly interacts with QEMU (legacy)
+13:32:48 <ziviani> lagarcia, I'm investigating if I can ask libguestfs to bypass libvirt backend and access the image directly
+13:33:03 <lagarcia> ziviani, yep... that might "fix" this
+13:33:26 <alinefm> ziviani, or use the flag you mentioned before
+13:33:50 <ziviani> lagarcia, also I can go through the package version, check if a newer version does that for us
+13:34:26 <ziviani> alinefm, this 'LIBGUESTFS_BACKEND=direct'?
+13:34:42 <alinefm> yes
+13:34:52 <ziviani> alinefm, yes, I'm going to see if I can pass it to the code
+13:35:21 <ziviani> alinefm, something like it, because that LIBGUESTFS_BACKEND is an environment variable
+13:35:48 <ziviani> alinefm, but I believe that libguestfs has a set_backend() method
+13:36:13 <alinefm> I hope so
+13:37:38 <alinefm> any other topic for today?
+13:37:53 <rotru> not from me
+13:38:22 <ziviani> nope
+13:39:30 <samhenri> nope
+13:41:13 <alinefm> ok
+13:41:23 <alinefm> so thanks everyone for joining!
+13:41:40 <alinefm> #endmeeting
