@@ -111,8 +111,8 @@ def upgrade_objectstore_data(item, old_uri, new_uri):
     except sqlite3.Error, e:
         if conn:
             conn.rollback()
+        wok_log.error("Error while upgrading objectstore data: %s", e.args[0])
         raise OperationFailed("KCHUTILS0006E")
-        wok_log.error("Error while upgrading objectstore data:", e.args[0])
     finally:
         if conn:
             conn.close()
@@ -157,8 +157,8 @@ def upgrade_objectstore_template_disks(libv_conn):
     except sqlite3.Error, e:
         if conn:
             conn.rollback()
+        wok_log.error("Error while upgrading objectstore data: %s", e.args[0])
         raise OperationFailed("KCHUTILS0006E")
-        wok_log.error("Error while upgrading objectstore data:", e.args[0])
     finally:
         if conn:
             conn.close()
@@ -200,8 +200,8 @@ def upgrade_objectstore_memory():
     except sqlite3.Error, e:
         if conn:
             conn.rollback()
+        wok_log.error("Error while upgrading objectstore data: %s", e.args[0])
         raise OperationFailed("KCHUTILS0006E")
-        wok_log.error("Error while upgrading objectstore data:", e.args[0])
     finally:
         if conn:
             conn.close()
