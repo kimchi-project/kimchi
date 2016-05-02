@@ -51,12 +51,17 @@
                             <ul id="templateTile" class="list-template tile-check tile-template">
                             </ul>
                                 <script type="html/text" id="tmpl-template" class="tmpl-html">
-                                    <li class="col-md-3">
+                                    <li class="col-md-3 template-opacity" data-invalid="{invalid_indicator}">
                                         <label class="box-iso-outer">
-                                            <input type="radio" name="template" value="/plugins/kimchi/templates/{name}" class="iso-radio-hidden">
+                                            <input type="radio" name="template" value="/plugins/kimchi/templates/{name}" class="iso-radio-hidden" data-invalid="{invalid_indicator}">
                                             <span class="box-iso-border">
                                                 <span class="box-iso-inner">
-                                                    <h3 class="iso-title {os_distro}" title="{name}">{name}</h3>
+
+                                                    <h3 class="iso-title {os_distro}" title="{name}">
+                                                        <span data-invalid="{invalid_indicator}"  data-placement="top" class="template-status" data-toggle="tooltip" title="$_("This template has invalid parameters.")">
+                                                            <i role="presentation" class="fa fa-exclamation-triangle invalid-icon"></i>
+                                                            <span class="sr-only">$_("This template has invalid parameters")</span>
+                                                        </span>{name}</h3>
                                                         <dl class="iso-info">
                                                             <dt>{os_distro}</dt>
                                                             <dd>$_("OS")</dd>

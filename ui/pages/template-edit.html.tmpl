@@ -93,9 +93,13 @@
                                     </div>
                                     <div class="template-edit-wrapper-controls templ-edit-cdrom">
                                         <input id="template-edit-cdrom-textbox" class="form-control" name="cdrom" type="text" disabled="disabled" />
+                                        <span class="form-control-feedback">
+                                            <i class="fa fa-times"></i>
+                                        </span>
                                     </div>
                                     <div class="template-edit-wrapper-controls templ-edit-vm-image hide">
                                         <input id="template-edit-vmimage-textbox"  class="form-control" name="vm-image" type="text" disabled="disabled" />
+                                        <span class="fa fa-times form-control-feedback"></span>
                                     </div>
                                     <div class="template-edit-wrapper-controls">
                                             <select id="template-edit-graphics" name="graphics" class="form-control"  />
@@ -172,7 +176,7 @@
     <div id="storageRow{storageIndex}" class='item'>
         <span class="template-storage-cell storage-pool">
             <input class="template-storage-name" value={storageName} type="text" style="display:none" />
-            <select id="selectStorageName"></select>
+            <select id="selectStorageName-{storageIndex}" class="selectStorageName"></select>
         </span>
         <span class="template-storage-cell type">
             <input class="template-storage-type form-control" value={storageType} readonly=true type="text" />

@@ -60,11 +60,11 @@
                         <button type="button" class="btn dropdown-toggle form-control selectpicker btn-default sort-button" data-toggle="dropdown" title="Status" aria-expanded="false"><span class="filter-option pull-left">$_("Status")</span>&nbsp;<span class="caret"></span></button>
                         <div class="dropdown-menu open" style="max-height: 668px; overflow: hidden; min-height: 0px;padding: 0px;">
                             <ul class="dropdown-menu inner selectpicker" role="menu" style="max-height: 656px; overflow-y: auto; min-height: 0px;">
-                                <li role="presentation" nwAct="sort"><a href="#" class="sort" data-sort="name-filter">$_("Name")</a></li>
-                                <li role="presentation" nwAct="clone"><a href="#" class="sort" data-sort="os-type-filter">$_("OS")</a></li>
-                                <li role="presentation" nwAct="clone"><a href="#" class="sort" data-sort="os-version-filter">$_("Version")</a></li>
-                                <li role="presentation" nwAct="clone"><a href="#" class="sort" data-sort="cpus-filter">$_("Current CPUs")</a></li>
-                                <li role="presentation" nwAct="clone"><a href="#" class="sort" data-sort="memory-filter">$_("Memory")</a></li>
+                                <li nwAct="sort"><a href="#" class="sort" data-sort="name-filter">$_("Name")</a></li>
+                                <li nwAct="clone"><a href="#" class="sort" data-sort="os-type-filter">$_("OS")</a></li>
+                                <li nwAct="clone"><a href="#" class="sort" data-sort="os-version-filter">$_("Version")</a></li>
+                                <li nwAct="clone"><a href="#" class="sort" data-sort="cpus-filter">$_("Current CPUs")</a></li>
+                                <li nwAct="clone"><a href="#" class="sort" data-sort="memory-filter">$_("Memory")</a></li>
                             </ul>
                         </div>
                     </div>
@@ -108,17 +108,21 @@
     kimchi.template_main();
     </script>
     <script id="templateTmpl" type="html/text">
-        <li class="wok-vm-body">
-            <span class='column-name name-filter name-distro-icon icon-{os_distro}' title="{name}" val="{name}">{name}</span><!--
+        <li class="wok-vm-body" data-invalid="{invalid_indicator}">
+            <span class='column-name name-filter name-distro-icon icon-{os_distro}' title="{name}" val="{name}">
+                <span class="template-status" data-invalid="{invalid_indicator}" data-toggle="tooltip" title="$_("This template has invalid parameters.")">
+                    <i role="presentation" class="fa fa-exclamation-triangle invalid-icon"></i>
+                    <span class="sr-only">$_("This template has invalid parameters")</span>
+                </span>{name}</span><!--
             --><span class='column-action pull-right'>
                 <span class="pull-right">
                     <div class="dropdown menu-flat">
                         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"><span class="edit-alt"></span>$_("Actions")<span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li role="presentation" nwAct="edit" class='template-edit'><a href="#" data-template='{name}'><i class="fa fa-pencil"></i>$_("Edit")</a></li>
-                            <li role="presentation" nwAct="clone" class='template-clone'><a href="#" data-template='{name}'><i class="fa fa-files-o"></i>$_("Clone")</a></li>
-                            <li role="presentation" nwAct="delete" class='critical template-delete'><a href="#" data-template='{name}'><i class="fa fa-minus-circle"></i>$_("Delete")</a></li>
+                            <li nwAct="edit" class='template-edit'><a href="#" data-template='{name}'><i class="fa fa-pencil"></i>$_("Edit")</a></li>
+                            <li nwAct="clone" class='template-clone'><a href="#" data-template='{name}'><i class="fa fa-files-o"></i>$_("Clone")</a></li>
+                            <li nwAct="delete" class='critical template-delete'><a href="#" data-template='{name}'><i class="fa fa-minus-circle"></i>$_("Delete")</a></li>
                         </ul>
                     </div>
                 </span>

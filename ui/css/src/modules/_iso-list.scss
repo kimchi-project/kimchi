@@ -46,8 +46,28 @@
     label.box-iso-outer span.box-iso-inner {
         display: block;
         border: 1px solid transparent;
-        background: $gray-lighter;
+        background: $body-bg;
         transition: all .1s ease-in-out;
+    }
+    label.box-iso-outer span.box-iso-inner .tooltip-inner {
+        font-size: 10pt;
+        padding: 6px 8px;
+    }
+    label.box-iso-outer span.box-iso-inner .tooltip-inner {
+        max-width: 300px;
+    }
+    label.box-iso-outer span.box-iso-inner .tooltip[style] {
+       left: 7px !important;
+       right: 7px !important;
+    }
+    label.box-iso-outer span.box-iso-inner .tooltip-arrow[style] {
+       left: 216px !important;
+    }
+    li[data-invalid="invalid"] label.box-iso-outer {
+        color: $gray-light !important;
+    }
+    li[data-invalid="invalid"] label.box-iso-outer span.box-iso-inner {
+        background: rgba($body-bg, 0.4);
     }
     ul.list-template,
     ul.list-iso {

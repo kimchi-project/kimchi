@@ -133,9 +133,14 @@ kimchi.template_edit_main = function() {
                     storageOptions += '<option value="' + poolName + '">' + poolName + '</option>';
                 });
 
-                $(storageRow + ' #selectStorageName').append(storageOptions);
-                $(storageRow + ' #selectStorageName').val(storageData.storageName);
-                $(storageRow + ' #selectStorageName').selectpicker();
+                $(storageRow + ' .selectStorageName').append(storageOptions);
+                if(!$(storageRow + ' .selectStorageName option[value="'+storageData.storageName+'"]').length){
+                    var invalidOption = '<option disabled="disabled" selected="selected" value="' + storageData.storageName + '">' + storageData.storageName + '</option>';
+                    $(storageRow + ' .selectStorageName').prepend(invalidOption);
+                    $(storageRow + ' .selectStorageName').parent().addClass('has-error')
+                }
+                $(storageRow + ' .selectStorageName').val(storageData.storageName);
+                $(storageRow + ' .selectStorageName').selectpicker();
 
                 if (storageData.storageType === 'iscsi' || storageData.storageType  === 'scsi') {
                     $(storageRow + ' .template-storage-disk').attr('readonly', true).prop('disabled', true);
@@ -164,7 +169,8 @@ kimchi.template_edit_main = function() {
                     $(this).parent().parent().remove();
                 });
 
-                $(storageRow + ' #selectStorageName').change(function() {
+                $(storageRow + ' select.selectStorageName').change(function() {
+                    $(this).parent().parent().removeClass('has-error');
                     var poolType = storagePoolsInfo[$(this).val()].type;
                     $(storageRow + ' .template-storage-name').val($(this).val());
                     $(storageRow + ' .template-storage-type').val(poolType);
@@ -319,9 +325,24 @@ kimchi.template_edit_main = function() {
                 $('#guest-show-max-processor i.fa').toggleClass('fa-plus-circle fa-minus-circle');
             });
         };
+
+        var checkInvalids = function(){
+            $.each(template.invalid, function(key, value) {
+                if(key === 'cdrom' || key === 'vm-image'){
+                    $('.tab-content input[name="'+key+'"]').attr('disabled',false).parent().addClass('has-error has-feedback has-changes');
+                    return true;
+                }else if(key === 'storagepools'){
+                    return true;
+                }else {
+                    return false;
+                }
+            });
+        }
+
         kimchi.listNetworks(initInterface);
         kimchi.listStoragePools(initStorage);
         initProcessor();
+        checkInvalids();
     };
     kimchi.retrieveTemplate(kimchi.selectedTemplate, initTemplate);
 
@@ -383,6 +404,14 @@ kimchi.template_edit_main = function() {
             maxCpuFinal = maxCpu;
         }
 
+        if($('.tab-content .has-changes > input[name="cdrom"]').length){
+            data['cdrom'] = $('.tab-content input[name="cdrom"]').val();
+        }
+
+        if($('.tab-content .has-changes > input[name="vm-image"]').length){
+            data['vm-image'] = $('.tab-content input[name="vm-image"]').val();
+        }
+
          if($("input:checkbox", "#form-template-processor").prop("checked")){
             //Check if maxCpu field has a value
             data['cpu_info'] = {
@@ -415,16 +444,27 @@ kimchi.template_edit_main = function() {
             data.networks = [];
         }
 
-        kimchi.updateTemplate($('#template-name').val(), data, function() {
-            kimchi.doListTemplates();
-            wok.window.close();
-        }, function(err) {
+        if($('.has-error', '#form-template-storage').length){
+            // Workaround to check if invalid storage wasn't changed
+            $('a[href="#storage"]','#edit-template-tabs').tab('show');
             $button.html(i18n['KCHAPI6007M']);
             $('.modal input[type="text"]').prop('disabled', false);
             $('.modal input[type="checkbox"]').prop('disabled', false);
             $('.modal select').prop('disabled', false);
             $('.modal .selectpicker').removeClass('disabled');
-            wok.message.error(err.responseJSON.reason,'#alert-modal-container');
-        });
+            wok.message.error(i18n['KCHTMPL6007M'],'#alert-modal-container');
+        }else {
+            kimchi.updateTemplate($('#template-name').val(), data, function() {
+                kimchi.doListTemplates();
+                wok.window.close();
+            }, function(err) {
+                $button.html(i18n['KCHAPI6007M']);
+                $('.modal input[type="text"]').prop('disabled', false);
+                $('.modal input[type="checkbox"]').prop('disabled', false);
+                $('.modal select').prop('disabled', false);
+                $('.modal .selectpicker').removeClass('disabled');
+                wok.message.error(err.responseJSON.reason,'#alert-modal-container');
+            });
+        }
     });
 };

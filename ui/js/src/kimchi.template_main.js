@@ -7,7 +7,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0invalid_indicator_template
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -24,6 +24,10 @@ kimchi.doListTemplates = function() {
             var listHtml = '';
             var templateHtml = $('#templateTmpl').html();
             $.each(result, function(index, value) {
+                value.invalid_indicator = "invalid";
+                if ($.isEmptyObject(value.invalid)) {
+                    value.invalid_indicator = "valid";
+                }
                 listHtml += wok.substitute(templateHtml, value);
             });
             $('.wok-vm-list').removeClass('hidden');
@@ -31,6 +35,7 @@ kimchi.doListTemplates = function() {
             $('#templateList').html(listHtml);
             kimchi.templateBindClick();
             $('.wok-mask').fadeOut(300, function() {});
+            $('.template-status[data-invalid="valid"]').hide();
         } else {
             $('#templateList').html('');
             $('#noTemplates').show();
@@ -43,7 +48,7 @@ kimchi.doListTemplates = function() {
             valueNames: ['name-filter', 'os-type-filter', 'os-version-filter', 'cpus-filter', 'memory-filter']
         };
         var templatesList = new List('templates-container', options);
-
+        $('[data-invalid="invalid"][data-toggle="tooltip"]').tooltip();
     }, function(err) {
         wok.message.error(err.responseJSON.reason);
         $('.wok-mask').fadeOut(300, function() {

@@ -29,9 +29,16 @@ kimchi.guest_add_main = function() {
                 var html = '';
                 var tmpl = $('#tmpl-template').html();
                 $.each(result, function(index, value) {
+                    value.invalid_indicator = "invalid";
+                    if ($.isEmptyObject(value.invalid)) {
+                        value.invalid_indicator = "valid";
+                    }
                     html += wok.substitute(tmpl, value);
                 });
                 $('#templateTile').html(html);
+                $('.iso-radio-hidden[data-invalid="invalid"]').attr("disabled", true);
+                $('.template-status[data-invalid="valid"]').hide();
+                $('[data-toggle="tooltip"]').tooltip();
                 return;
             }
 
