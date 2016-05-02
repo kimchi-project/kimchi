@@ -38,6 +38,12 @@
         overflow: auto;
         padding: 10px 30px;
     }
+    .template-status {
+        position: absolute;
+        right: 15px;
+        bottom: 15px;
+        font-size: 32px;
+    }
 }
 
 #guest-add-window {
