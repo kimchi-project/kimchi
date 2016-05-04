@@ -37,7 +37,7 @@ from wok.rollbackcontext import RollbackContext
 from wok.utils import add_task, get_task_id
 from wok.xmlutils.utils import xpath_get_text
 
-from wok.plugins.kimchi import netinfo
+from wok.plugins.gingerbase import netinfo
 from wok.plugins.kimchi import osinfo
 from wok.plugins.kimchi.config import kimchiPaths as paths
 from wok.plugins.kimchi.model import model

@@ -30,12 +30,12 @@ from wok.exception import MissingParameter, NotFoundError, OperationFailed
 from wok.utils import run_command, wok_log
 from wok.xmlutils.utils import xpath_get_text
 
-from wok.plugins.kimchi import netinfo
+from wok.plugins.gingerbase import netinfo
+from wok.plugins.gingerbase.netinfo import get_vlan_device, is_bridge, is_vlan
+from wok.plugins.gingerbase.netinfo import ports
 from wok.plugins.kimchi import network as knetwork
 from wok.plugins.kimchi.config import kimchiPaths
 from wok.plugins.kimchi.model.config import CapabilitiesModel
-from wok.plugins.kimchi.netinfo import get_vlan_device, is_bridge, is_vlan
-from wok.plugins.kimchi.netinfo import ports
 from wok.plugins.kimchi.osinfo import defaults as tmpl_defaults
 from wok.plugins.kimchi.xmlutils.interface import get_iface_xml
 from wok.plugins.kimchi.xmlutils.network import create_linux_bridge_xml
