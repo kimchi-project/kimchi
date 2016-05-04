@@ -1,0 +1,199 @@
+13:02:55 <alinefm> #startmeeting
+13:02:55 <kimchi-bot> Meeting started Wed May  4 13:02:55 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:02:55 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:02:55 <alinefm> #meetingname scrum
+13:02:55 <kimchi-bot> The meeting name has been set to 'scrum'
+13:03:05 <lcorreia> hi
+13:03:07 <alinefm> #info Agenda
+13:03:07 <alinefm> #info 1) Status
+13:03:07 <alinefm> #info 2) Open discussion
+13:03:07 <alinefm> anything else?
+13:03:21 <lcorreia> no
+13:03:33 <rotru> hi there
+13:03:39 <ziviani> hello
+13:03:42 <ramonn> nop
+13:03:49 <ziviani> nope
+13:03:55 <samhenri> No
+13:03:57 <alinefm> so let's get started
+13:04:02 <alinefm> #topic Status
+13:04:02 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+13:04:13 <samhenri> #info [Ginger] samhenri working on OVS bridges UI, about to send patch today
+13:04:37 <ramonn> #info [ginger] ramonn merged patch that fixes systemd checking on ginger.spec
+13:04:46 <alinefm> #info [wok] alinefm is working on  make session timeout configurable
+13:04:47 <samhenri> #info [Kimchi] samhenri sent "Disable invalid templates" v3
+13:04:57 <ziviani> #info kimchi ziviani is working on bugs and working on fixing issues on template using image - backing image
+13:04:59 <pvital> #info [Kimchi] pvital is working on issue #201 - Kimchi should handle libvirt connection failures.
+13:04:59 <pvital> #info [Kimchi] pvital submitted V6 patch-set to solve issue#372 - Add support to netboot installation.
+13:04:59 <pvital> #info [Gingerbase] pvital submitted patch "Update apt-get command to upgrade specific package"
+13:04:59 <pvital> #info [Kimchi] [Wok] [Ginger*] pvital reviewed patches
+13:05:05 <alinefm> #info [wok] alinefm identified some issues with session timeout and will also fix them
+13:05:09 <ramonn> #info [ginger] ramonn sent a RFC to discuss sensors fix (we got trouble with units returned by REST API)
+13:05:36 <alinefm> #info [kimchi] socorro Attempted to make adjustments on create template UI but went back
+13:05:36 <alinefm> #info [kimchi] socorro to focusing on Edit Virtual Network
+13:05:36 <alinefm> #info [kimchi] socorro Spent quite a bit of time to try to get an environment set up in
+13:05:36 <alinefm> #info [kimchi] socorro order to debug/test edit virtual networks. Making some progress
+13:05:36 <alinefm> #info [kimchi] socorro but not having a good environment is causing some delay
+13:05:37 <alinefm> #info [kimchi] socorro Updated bugs and ensuring it is properly assigned
+13:05:43 <lcorreia> #info [ginger] lcorreia sent V1 and working on V2 to make fibre channel listing arch-independent
+13:05:43 <lcorreia> #info [wok] lcorreia is working on storing notifications in memory instead of objectstore
+13:05:43 <lcorreia> #info [kimchi] lcorreia is working on handling libvirt event ENOSPC
+13:06:06 <danielhb> #info [ginger*] [kimchi] danielhb reviewed/applied patches
+13:06:27 <danielhb> #info [ginger] danielhb finished the backend for SR-IOV feature for ConnectX-4 cards
+13:06:58 <danielhb> #info [gingerbase] danielhb created a net netinfo.py in gingerbase that aggregates both Ginger and Kimchi netinfo modules
+13:07:11 <danielhb> #info [kimchi] danielhb fixed an UI bug in VEPA  creation
+13:07:11 <rotru> #info [Kimchi] rotru Sent patch to fix error logging in objectstore upgrade functions during Kimchi initialization;
+13:07:12 <rotru> #info [Kimchi] rotru Sent patch to 'move log' to 'data/logs';
+13:07:12 <rotru> #info [Ginger] rotru Sent patch to fix PEP8 errors;
+13:07:12 <rotru> #info [Wok] rotru Sent patch to sort user request log output, avoiding issues with data from backup log files;
+13:07:52 <rotru> #info [Wok] rotru Is working in Plugins Manager task (list/enable/disable)
+13:09:34 <alinefm> samhenri, any update from peter?
+13:10:22 <samhenri> alinefm I believe he was working on Update selected packages and SRIOV
+13:11:25 <alinefm> ok
+13:11:31 <alinefm> can we move on?
+13:11:53 <rotru> yes
+13:11:56 <ramonn> yes
+13:12:02 <alinefm> #topic Open Discussion
+13:12:21 <alinefm> ramonn, do you want to share your thoughts about sensor monitor?
+13:12:56 <ramonn> alinefm, well, i agree with the choice of the team: add unit for each sensor
+13:13:18 <ramonn> alinefm, the main issue was not notice that some sensors monitors multiple devices
+13:13:18 <samhenri> I had created a patch long time ago but It was just a temporary fix for the UI
+13:13:50 <samhenri> But I noticed that the api was returning incorrect values some times
+13:14:40 <pvital> some times? you are very nice samhenri
+13:14:47 <pvital> :-P
+13:14:47 <alinefm> ramonn, and the unit needs to be different according to the device?
+13:14:58 <samhenri> I mean, the only real input I receive are the core temperatures
+13:15:03 <alinefm> ramonn, what is the issue there?
+13:15:14 <samhenri> But the hdd and other devices are random
+13:15:40 <ramonn> alinefm, the issue was using incorrectly units for devices
+13:15:49 <ramonn> like use RPM for measure power (must be in W)
+13:16:13 <ramonn> alinefm, this was caused because the code understand that a sensor only monitor 1 kind of device
+13:16:57 <alinefm> so what is your proposal?
+13:17:40 <ramonn> alinefm, just sent two proposals: group sensors by correct unit OR return unit for each sensor
+13:17:43 <lagarcia> ramonn, do you have an example of a sensor that monitors more than one thing?
+13:17:46 <ramonn> the second one is stronger on the list
+13:18:21 <ramonn> lagarcia, yeap, http://pastebin.hursley.ibm.com/4858
+13:18:56 <lagarcia> ramonn, ?
+13:18:56 <alinefm> ramonn, please, use an open pastebin
+13:19:02 <ramonn> sorry
+13:19:05 <lagarcia> ramonn, I see only one thing per sensor
+13:19:11 <alinefm> fpaste.org
+13:19:12 <rotru> alinefm,  I have some points later
+13:19:18 <alinefm> rotru, ok
+13:19:29 <ramonn> lagarcia, alinefm http://pastebin.com/2QBXDzZr
+13:19:31 <lagarcia> ramonn, I mean, one measurement per sensor
+13:19:48 <ramonn> lagarcia, nop, if you see ibmpowernv-isa-0000, there is fans and power on the sensor
+13:20:11 <lagarcia> ramonn, well... ibmpowernv-isa-0000 is not one sensor afaict
+13:20:19 <lagarcia> ramonn, each entry is a different sensor
+13:20:21 <ramonn> lagarcia, but thats the way the code sees it
+13:20:31 <lagarcia> ramonn, ah, ok... so the code is clearly wrong :)
+13:20:52 <ramonn> yeap
+13:21:09 <lagarcia> ramonn, ok. understood. thx.
+13:21:09 <lcorreia> that makes sensor!
+13:21:15 <lagarcia> haha
+13:21:21 <danielhb> lcorreia, HAHAHAHHAHAAHHAHAHAHHAHAHAHAH
+13:21:23 <alinefm> hehehe
+13:21:50 <alinefm> ramonn, according to your suggestions how the API JSON will look like?
+13:21:59 <transhuman_> hi was somone in hear looking for me? Cant find where someone posted to me, but its flashing! I have been busy with work and so haven't been working on this for the last week
+13:22:02 <ramonn> lcorreia, LOL
+13:22:19 <danielhb> lcorreia, https://youtu.be/CduA0TULnow?t=88
+13:22:46 <ramonn> alinefm, http://pastebin.com/AED84ABL
+13:22:55 <ramonn> add unit to the dict for each device
+13:23:47 <lcorreia> danielhb, lol
+13:24:30 <rotru> transhuman_,  hi, not sure :)
+13:25:45 <rotru> ramonn,  yeap , I think each data  should have its unit
+13:26:09 <alinefm> danielhb, ^
+13:26:19 <alinefm> ramonn, I am Ok with that
+13:26:29 <rotru> ramonn,  or block of data
+13:26:43 * rotru is not 100% sure about the return today
+13:27:58 <rotru> ramonn, once API return is going to change, you will have to interact with UI folks to fix front-end properly .... decide the data return as soon as possible and send to them
+13:28:04 <danielhb> alinefm, ramonn there's an RFC discussion about that already. Perhaps we can carry it on there
+13:28:16 <ramonn> yeap
+13:28:38 <alinefm> danielhb, why do not use the scrum to get a faster feedback?
+13:30:09 <danielhb> alinefm, we can use it, sure. But the discussion already started in the RFC and I see no point asking lcorreia  and pvital and myself to repeat ourselves here
+13:30:52 <alinefm> danielhb, so the conclusion is ...?
+13:30:58 <alinefm> how the sensors API will be?
+13:31:13 <pvital> option 2 of the RFC
+13:31:15 <pvital> :-P
+13:31:30 <danielhb> pvital gets it
+13:31:53 <alinefm> as you have already discussed in the ML and don; t want to do it again here I hope you have a conclusion on that
+13:32:00 <alinefm> and ramonn is not blocked on that anymore
+13:32:48 <danielhb> alinefm, we can discuss it here fine. I just don't see why we can't carry on with what we already started in the ML
+13:33:22 <alinefm> danielhb, why postpone a discussion if we have time to do it now?
+13:33:56 <danielhb> alinefm, alright. ramonn , pvital and lcorreia , please share your RFC thoughts here
+13:34:16 <alinefm> ramonn and pvital have already done that =)
+13:35:00 <lcorreia> yes, I agree with RFC option 2
+13:36:16 <alinefm> danielhb, what about you?
+13:36:36 <danielhb> RFC option 2
+13:36:40 <alinefm> \o/
+13:36:54 <alinefm> danielhb, it didn't hurt, huh?!
+13:37:02 <danielhb> RFC option 2 is '2) Show unit for each sensor. '
+13:37:27 <alinefm> danielhb, yeap - ramonn have already explained the 2 options in the beginning of this conversation
+13:37:31 <lcorreia> we are all unit-ed!
+13:37:41 <alinefm> heheh
+13:37:54 <alinefm> rotru, what is your topic for today?
+13:38:09 <rotru> alinefm,  I have 3 actually:
+13:38:24 <rotru> 1- [WOK] Wok command line options does not follow a pattern... some have '-'  others have '_' in the name. We need a task to fix this and also check if there are new options we can include or that are missing. I would like to work on this;
+13:38:24 <rotru> 2- [Ginger] Ginger SPEC file are not ok yet IMHO. I was talking to ramonn and the spec is making wokd restart 2 times when the package is update, this is not good. Ramon and I had some ideas and we can fix this. Need to create an ISSUE ??
+13:38:24 <rotru> 3- [Kimchi] The Guests UI is not recognizing VMs in states like 'PAUSED' this makes UI looks weird and is not possible to open any VM console in the browser. I wonder whether this issue is known by UI folks: socorro, samhenri, peterpennings;
+13:38:55 <danielhb> alinefm, doesn't hurt to read and answer the RFC either :P
+13:39:05 <rotru> danielhb, alinefm  focus
+13:39:44 <alinefm> rotru, about 1) OK! we also need to check if the manpage doc is updated with the latest changes on wokd command
+13:40:14 <rotru> alinefm, can I create a issue-resquest ? or do you do this  ?
+13:40:25 <alinefm> rotru, please, do
+13:40:30 <rotru> ok
+13:40:52 <alinefm> about 2) it would be good to have a single solution for all the plugins
+13:41:03 <alinefm> I am not sure but maybe it is a common plugin among all them
+13:41:26 <alinefm> and restart wokd on package update is not a good approach from a user perspective
+13:41:30 <rotru> alinefm,  common "problem" ?
+13:41:44 <alinefm> correct =)
+13:42:08 <alinefm> in fact, restarting wokd while updating plugin package may broken the packages update feature from gingerbae
+13:42:11 <alinefm> *gingerbase
+13:42:24 <rotru> alinefm,  yeap
+13:42:35 <peterpennings> rotru, about 3. This problem is new for me, I'll take a look
+13:43:06 <rotru> alinefm,  like you, ramonn and I  were discussing ... lets check the fedora/ubuntu/debian guidelines
+13:43:08 <alinefm> rotru, about 3. open an issue and I will assign to peterpennings
+13:43:20 <alinefm> rotru, yeap - it is a good point of start
+13:44:04 <rotru> alinefm,  then, we can make an approach that will help to deliver the packages to that distros as well
+13:44:21 <rotru> alinefm,  about 3, ok
+13:44:37 <rotru> alinefm,  should I open an issue of 2 as well /???
+13:45:27 <alinefm> rotru, it is up to you
+13:45:57 <rotru> alinefm,  asking because i am not sure if there are issues already open, tracking RPM/DEB packages
+13:46:14 <rotru> alinefm, will check ...
+13:46:23 <rotru> ok, so 3 issues to open :)
+13:47:02 <rotru> ramonn,  do you want to work on "2" with me ?
+13:47:20 <ramonn> rotru, yeap
+13:47:29 <rotru> ramonn,  cool
+13:47:43 <ramonn> rotru, i like your suggestion yesterday, after reading the guidelines, we can improve the fix
+13:49:02 <rotru> alinefm,  thats all from my side  :)
+13:49:07 <alinefm> thanks, rotru
+13:49:11 <alinefm> anything else for today?
+13:49:26 <rotru> alinefm,  who manages kimchi-bot  ?
+13:49:34 <ramonn> nop
+13:49:41 <alinefm> rotru, me
+13:49:50 <rotru> ok
+13:50:07 <rotru> alinefm,  where does it run ?
+13:50:17 <alinefm> in my laptop
+13:50:20 <alinefm> it is a meetingbot plugin
+13:50:38 <rotru> alinefm,  ok
+13:50:46 <alinefm> I have a configuration file to join a specific IRC server and channel e log the meeting to be upload to github
+13:50:53 <alinefm> *and log...
+13:51:42 <rotru> alinefm,  does it log only "#info" lines ?
+13:52:02 <alinefm> no
+13:52:47 <rotru> ok ok thanks :)
+13:53:06 <alinefm> it logs everything from #startmeeting to #endmeeting
+13:53:30 <alinefm> the lines with specific commands, eg, #info, #topic, are filtered out in some log files
+13:53:33 <danielhb> I have one more thing
+13:53:36 <alinefm> for example: http://kimchi-project.github.io/kimchi/meetings/kimchi.scrum.2016-04-27-13.01.html
+13:54:05 <alinefm> rotru, but all the meeting is recorded in another file: http://kimchi-project.github.io/kimchi/meetings/kimchi.scrum.2016-04-27-13.01.log.html
+13:54:12 <alinefm> danielhb, go ahead
+13:54:21 <danielhb> I urge everyone interested to review " [Gingerbase] netinfo.py: merging Ginger and Kimchi versions​" due to its impact in both plug-ins
+13:54:40 <danielhb> And no, I will not by any means copy/paste the patch here for discussion <--- ramonn pvital
+13:54:54 <rotru> hehe
+13:54:58 <lcorreia> :)
+13:55:16 <alinefm> danielhb, will do that after meeting
+13:55:44 <danielhb> alinefm, thx!
+13:56:29 <alinefm> is that all for today?
+13:56:38 <rotru> yes
+13:57:01 <danielhb> yes, send it home
+13:57:15 <alinefm> thanks everyone for joining!
+13:57:18 <alinefm> #endmeeting

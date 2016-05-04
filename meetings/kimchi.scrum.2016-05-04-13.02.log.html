@@ -1,0 +1,226 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:02:55</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:02:55</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed May  4 13:02:55 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:02:55</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:02:55</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:02:55</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:03:05</span><span class="nk"> &lt;lcorreia&gt;</span> hi
+<a name="l-7"></a><span class="tm">13:03:07</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda</span>
+<a name="l-8"></a><span class="tm">13:03:07</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">1) Status</span>
+<a name="l-9"></a><span class="tm">13:03:07</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">2) Open discussion</span>
+<a name="l-10"></a><span class="tm">13:03:07</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-11"></a><span class="tm">13:03:21</span><span class="nk"> &lt;lcorreia&gt;</span> no
+<a name="l-12"></a><span class="tm">13:03:33</span><span class="nk"> &lt;rotru&gt;</span> hi there
+<a name="l-13"></a><span class="tm">13:03:39</span><span class="nk"> &lt;ziviani&gt;</span> hello
+<a name="l-14"></a><span class="tm">13:03:42</span><span class="nk"> &lt;ramonn&gt;</span> nop
+<a name="l-15"></a><span class="tm">13:03:49</span><span class="nk"> &lt;ziviani&gt;</span> nope
+<a name="l-16"></a><span class="tm">13:03:55</span><span class="nk"> &lt;samhenri&gt;</span> No
+<a name="l-17"></a><span class="tm">13:03:57</span><span class="nk"> &lt;alinefm&gt;</span> so let's get started
+<a name="l-18"></a><span class="tm">13:04:02</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-19"></a><span class="tm">13:04:02</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info [&lt;project] &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-20"></a><span class="tm">13:04:13</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] samhenri working on OVS bridges UI, about to send patch today</span>
+<a name="l-21"></a><span class="tm">13:04:37</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] ramonn merged patch that fixes systemd checking on ginger.spec</span>
+<a name="l-22"></a><span class="tm">13:04:46</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] alinefm is working on  make session timeout configurable</span>
+<a name="l-23"></a><span class="tm">13:04:47</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] samhenri sent "Disable invalid templates" v3</span>
+<a name="l-24"></a><span class="tm">13:04:57</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">kimchi ziviani is working on bugs and working on fixing issues on template using image - backing image</span>
+<a name="l-25"></a><span class="tm">13:04:59</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] pvital is working on issue #201 - Kimchi should handle libvirt connection failures.</span>
+<a name="l-26"></a><span class="tm">13:04:59</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] pvital submitted V6 patch-set to solve issue#372 - Add support to netboot installation.</span>
+<a name="l-27"></a><span class="tm">13:04:59</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Gingerbase] pvital submitted patch "Update apt-get command to upgrade specific package"</span>
+<a name="l-28"></a><span class="tm">13:04:59</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] [Wok] [Ginger*] pvital reviewed patches</span>
+<a name="l-29"></a><span class="tm">13:05:05</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] alinefm identified some issues with session timeout and will also fix them</span>
+<a name="l-30"></a><span class="tm">13:05:09</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] ramonn sent a RFC to discuss sensors fix (we got trouble with units returned by REST API)</span>
+<a name="l-31"></a><span class="tm">13:05:36</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] socorro Attempted to make adjustments on create template UI but went back</span>
+<a name="l-32"></a><span class="tm">13:05:36</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] socorro to focusing on Edit Virtual Network</span>
+<a name="l-33"></a><span class="tm">13:05:36</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] socorro Spent quite a bit of time to try to get an environment set up in</span>
+<a name="l-34"></a><span class="tm">13:05:36</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] socorro order to debug/test edit virtual networks. Making some progress</span>
+<a name="l-35"></a><span class="tm">13:05:36</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] socorro but not having a good environment is causing some delay</span>
+<a name="l-36"></a><span class="tm">13:05:37</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] socorro Updated bugs and ensuring it is properly assigned</span>
+<a name="l-37"></a><span class="tm">13:05:43</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] lcorreia sent V1 and working on V2 to make fibre channel listing arch-independent</span>
+<a name="l-38"></a><span class="tm">13:05:43</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] lcorreia is working on storing notifications in memory instead of objectstore</span>
+<a name="l-39"></a><span class="tm">13:05:43</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] lcorreia is working on handling libvirt event ENOSPC</span>
+<a name="l-40"></a><span class="tm">13:06:06</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger*] [kimchi] danielhb reviewed/applied patches</span>
+<a name="l-41"></a><span class="tm">13:06:27</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] danielhb finished the backend for SR-IOV feature for ConnectX-4 cards</span>
+<a name="l-42"></a><span class="tm">13:06:58</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[gingerbase] danielhb created a net netinfo.py in gingerbase that aggregates both Ginger and Kimchi netinfo modules</span>
+<a name="l-43"></a><span class="tm">13:07:11</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] danielhb fixed an UI bug in VEPA  creation</span>
+<a name="l-44"></a><span class="tm">13:07:11</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] rotru Sent patch to fix error logging in objectstore upgrade functions during Kimchi initialization;</span>
+<a name="l-45"></a><span class="tm">13:07:12</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] rotru Sent patch to 'move log' to 'data/logs';</span>
+<a name="l-46"></a><span class="tm">13:07:12</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] rotru Sent patch to fix PEP8 errors;</span>
+<a name="l-47"></a><span class="tm">13:07:12</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] rotru Sent patch to sort user request log output, avoiding issues with data from backup log files;</span>
+<a name="l-48"></a><span class="tm">13:07:52</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] rotru Is working in Plugins Manager task (list/enable/disable)</span>
+<a name="l-49"></a><span class="tm">13:09:34</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, any update from peter?
+<a name="l-50"></a><span class="tm">13:10:22</span><span class="nk"> &lt;samhenri&gt;</span> alinefm I believe he was working on Update selected packages and SRIOV
+<a name="l-51"></a><span class="tm">13:11:25</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-52"></a><span class="tm">13:11:31</span><span class="nk"> &lt;alinefm&gt;</span> can we move on?
+<a name="l-53"></a><span class="tm">13:11:53</span><span class="nk"> &lt;rotru&gt;</span> yes
+<a name="l-54"></a><span class="tm">13:11:56</span><span class="nk"> &lt;ramonn&gt;</span> yes
+<a name="l-55"></a><span class="tm">13:12:02</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-56"></a><span class="tm">13:12:21</span><span class="nk"> &lt;alinefm&gt;</span> ramonn, do you want to share your thoughts about sensor monitor?
+<a name="l-57"></a><span class="tm">13:12:56</span><span class="nk"> &lt;ramonn&gt;</span> alinefm, well, i agree with the choice of the team: add unit for each sensor
+<a name="l-58"></a><span class="tm">13:13:18</span><span class="nk"> &lt;ramonn&gt;</span> alinefm, the main issue was not notice that some sensors monitors multiple devices
+<a name="l-59"></a><span class="tm">13:13:18</span><span class="nk"> &lt;samhenri&gt;</span> I had created a patch long time ago but It was just a temporary fix for the UI
+<a name="l-60"></a><span class="tm">13:13:50</span><span class="nk"> &lt;samhenri&gt;</span> But I noticed that the api was returning incorrect values some times
+<a name="l-61"></a><span class="tm">13:14:40</span><span class="nk"> &lt;pvital&gt;</span> some times? you are very nice samhenri
+<a name="l-62"></a><span class="tm">13:14:47</span><span class="nk"> &lt;pvital&gt;</span> :-P
+<a name="l-63"></a><span class="tm">13:14:47</span><span class="nk"> &lt;alinefm&gt;</span> ramonn, and the unit needs to be different according to the device?
+<a name="l-64"></a><span class="tm">13:14:58</span><span class="nk"> &lt;samhenri&gt;</span> I mean, the only real input I receive are the core temperatures
+<a name="l-65"></a><span class="tm">13:15:03</span><span class="nk"> &lt;alinefm&gt;</span> ramonn, what is the issue there?
+<a name="l-66"></a><span class="tm">13:15:14</span><span class="nk"> &lt;samhenri&gt;</span> But the hdd and other devices are random
+<a name="l-67"></a><span class="tm">13:15:40</span><span class="nk"> &lt;ramonn&gt;</span> alinefm, the issue was using incorrectly units for devices
+<a name="l-68"></a><span class="tm">13:15:49</span><span class="nk"> &lt;ramonn&gt;</span> like use RPM for measure power (must be in W)
+<a name="l-69"></a><span class="tm">13:16:13</span><span class="nk"> &lt;ramonn&gt;</span> alinefm, this was caused because the code understand that a sensor only monitor 1 kind of device
+<a name="l-70"></a><span class="tm">13:16:57</span><span class="nk"> &lt;alinefm&gt;</span> so what is your proposal?
+<a name="l-71"></a><span class="tm">13:17:40</span><span class="nk"> &lt;ramonn&gt;</span> alinefm, just sent two proposals: group sensors by correct unit OR return unit for each sensor
+<a name="l-72"></a><span class="tm">13:17:43</span><span class="nk"> &lt;lagarcia&gt;</span> ramonn, do you have an example of a sensor that monitors more than one thing?
+<a name="l-73"></a><span class="tm">13:17:46</span><span class="nk"> &lt;ramonn&gt;</span> the second one is stronger on the list
+<a name="l-74"></a><span class="tm">13:18:21</span><span class="nk"> &lt;ramonn&gt;</span> lagarcia, yeap, http://pastebin.hursley.ibm.com/4858
+<a name="l-75"></a><span class="tm">13:18:56</span><span class="nk"> &lt;lagarcia&gt;</span> ramonn, ?
+<a name="l-76"></a><span class="tm">13:18:56</span><span class="nk"> &lt;alinefm&gt;</span> ramonn, please, use an open pastebin
+<a name="l-77"></a><span class="tm">13:19:02</span><span class="nk"> &lt;ramonn&gt;</span> sorry
+<a name="l-78"></a><span class="tm">13:19:05</span><span class="nk"> &lt;lagarcia&gt;</span> ramonn, I see only one thing per sensor
+<a name="l-79"></a><span class="tm">13:19:11</span><span class="nk"> &lt;alinefm&gt;</span> fpaste.org
+<a name="l-80"></a><span class="tm">13:19:12</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  I have some points later
+<a name="l-81"></a><span class="tm">13:19:18</span><span class="nk"> &lt;alinefm&gt;</span> rotru, ok
+<a name="l-82"></a><span class="tm">13:19:29</span><span class="nk"> &lt;ramonn&gt;</span> lagarcia, alinefm http://pastebin.com/2QBXDzZr
+<a name="l-83"></a><span class="tm">13:19:31</span><span class="nk"> &lt;lagarcia&gt;</span> ramonn, I mean, one measurement per sensor
+<a name="l-84"></a><span class="tm">13:19:48</span><span class="nk"> &lt;ramonn&gt;</span> lagarcia, nop, if you see ibmpowernv-isa-0000, there is fans and power on the sensor
+<a name="l-85"></a><span class="tm">13:20:11</span><span class="nk"> &lt;lagarcia&gt;</span> ramonn, well... ibmpowernv-isa-0000 is not one sensor afaict
+<a name="l-86"></a><span class="tm">13:20:19</span><span class="nk"> &lt;lagarcia&gt;</span> ramonn, each entry is a different sensor
+<a name="l-87"></a><span class="tm">13:20:21</span><span class="nk"> &lt;ramonn&gt;</span> lagarcia, but thats the way the code sees it
+<a name="l-88"></a><span class="tm">13:20:31</span><span class="nk"> &lt;lagarcia&gt;</span> ramonn, ah, ok... so the code is clearly wrong :)
+<a name="l-89"></a><span class="tm">13:20:52</span><span class="nk"> &lt;ramonn&gt;</span> yeap
+<a name="l-90"></a><span class="tm">13:21:09</span><span class="nk"> &lt;lagarcia&gt;</span> ramonn, ok. understood. thx.
+<a name="l-91"></a><span class="tm">13:21:09</span><span class="nk"> &lt;lcorreia&gt;</span> that makes sensor!
+<a name="l-92"></a><span class="tm">13:21:15</span><span class="nk"> &lt;lagarcia&gt;</span> haha
+<a name="l-93"></a><span class="tm">13:21:21</span><span class="nk"> &lt;danielhb&gt;</span> lcorreia, HAHAHAHHAHAAHHAHAHAHHAHAHAHAH
+<a name="l-94"></a><span class="tm">13:21:23</span><span class="nk"> &lt;alinefm&gt;</span> hehehe
+<a name="l-95"></a><span class="tm">13:21:50</span><span class="nk"> &lt;alinefm&gt;</span> ramonn, according to your suggestions how the API JSON will look like?
+<a name="l-96"></a><span class="tm">13:21:59</span><span class="nk"> &lt;transhuman_&gt;</span> hi was somone in hear looking for me? Cant find where someone posted to me, but its flashing! I have been busy with work and so haven't been working on this for the last week
+<a name="l-97"></a><span class="tm">13:22:02</span><span class="nk"> &lt;ramonn&gt;</span> lcorreia, LOL
+<a name="l-98"></a><span class="tm">13:22:19</span><span class="nk"> &lt;danielhb&gt;</span> lcorreia, https://youtu.be/CduA0TULnow?t=88
+<a name="l-99"></a><span class="tm">13:22:46</span><span class="nk"> &lt;ramonn&gt;</span> alinefm, http://pastebin.com/AED84ABL
+<a name="l-100"></a><span class="tm">13:22:55</span><span class="nk"> &lt;ramonn&gt;</span> add unit to the dict for each device
+<a name="l-101"></a><span class="tm">13:23:47</span><span class="nk"> &lt;lcorreia&gt;</span> danielhb, lol
+<a name="l-102"></a><span class="tm">13:24:30</span><span class="nk"> &lt;rotru&gt;</span> transhuman_,  hi, not sure :)
+<a name="l-103"></a><span class="tm">13:25:45</span><span class="nk"> &lt;rotru&gt;</span> ramonn,  yeap , I think each data  should have its unit
+<a name="l-104"></a><span class="tm">13:26:09</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, ^
+<a name="l-105"></a><span class="tm">13:26:19</span><span class="nk"> &lt;alinefm&gt;</span> ramonn, I am Ok with that
+<a name="l-106"></a><span class="tm">13:26:29</span><span class="nk"> &lt;rotru&gt;</span> ramonn,  or block of data
+<a name="l-107"></a><span class="tm">13:26:43 </span><span class="nka">* rotru</span> <span class="ac">is not 100% sure about the return today</span>
+<a name="l-108"></a><span class="tm">13:27:58</span><span class="nk"> &lt;rotru&gt;</span> ramonn, once API return is going to change, you will have to interact with UI folks to fix front-end properly .... decide the data return as soon as possible and send to them
+<a name="l-109"></a><span class="tm">13:28:04</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, ramonn there's an RFC discussion about that already. Perhaps we can carry it on there
+<a name="l-110"></a><span class="tm">13:28:16</span><span class="nk"> &lt;ramonn&gt;</span> yeap
+<a name="l-111"></a><span class="tm">13:28:38</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, why do not use the scrum to get a faster feedback?
+<a name="l-112"></a><span class="tm">13:30:09</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, we can use it, sure. But the discussion already started in the RFC and I see no point asking lcorreia  and pvital and myself to repeat ourselves here
+<a name="l-113"></a><span class="tm">13:30:52</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, so the conclusion is ...?
+<a name="l-114"></a><span class="tm">13:30:58</span><span class="nk"> &lt;alinefm&gt;</span> how the sensors API will be?
+<a name="l-115"></a><span class="tm">13:31:13</span><span class="nk"> &lt;pvital&gt;</span> option 2 of the RFC
+<a name="l-116"></a><span class="tm">13:31:15</span><span class="nk"> &lt;pvital&gt;</span> :-P
+<a name="l-117"></a><span class="tm">13:31:30</span><span class="nk"> &lt;danielhb&gt;</span> pvital gets it
+<a name="l-118"></a><span class="tm">13:31:53</span><span class="nk"> &lt;alinefm&gt;</span> as you have already discussed in the ML and don; t want to do it again here I hope you have a conclusion on that
+<a name="l-119"></a><span class="tm">13:32:00</span><span class="nk"> &lt;alinefm&gt;</span> and ramonn is not blocked on that anymore
+<a name="l-120"></a><span class="tm">13:32:48</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, we can discuss it here fine. I just don't see why we can't carry on with what we already started in the ML
+<a name="l-121"></a><span class="tm">13:33:22</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, why postpone a discussion if we have time to do it now?
+<a name="l-122"></a><span class="tm">13:33:56</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, alright. ramonn , pvital and lcorreia , please share your RFC thoughts here
+<a name="l-123"></a><span class="tm">13:34:16</span><span class="nk"> &lt;alinefm&gt;</span> ramonn and pvital have already done that =)
+<a name="l-124"></a><span class="tm">13:35:00</span><span class="nk"> &lt;lcorreia&gt;</span> yes, I agree with RFC option 2
+<a name="l-125"></a><span class="tm">13:36:16</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, what about you?
+<a name="l-126"></a><span class="tm">13:36:36</span><span class="nk"> &lt;danielhb&gt;</span> RFC option 2
+<a name="l-127"></a><span class="tm">13:36:40</span><span class="nk"> &lt;alinefm&gt;</span> \o/
+<a name="l-128"></a><span class="tm">13:36:54</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, it didn't hurt, huh?!
+<a name="l-129"></a><span class="tm">13:37:02</span><span class="nk"> &lt;danielhb&gt;</span> RFC option 2 is '2) Show unit for each sensor. '
+<a name="l-130"></a><span class="tm">13:37:27</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, yeap - ramonn have already explained the 2 options in the beginning of this conversation
+<a name="l-131"></a><span class="tm">13:37:31</span><span class="nk"> &lt;lcorreia&gt;</span> we are all unit-ed!
+<a name="l-132"></a><span class="tm">13:37:41</span><span class="nk"> &lt;alinefm&gt;</span> heheh
+<a name="l-133"></a><span class="tm">13:37:54</span><span class="nk"> &lt;alinefm&gt;</span> rotru, what is your topic for today?
+<a name="l-134"></a><span class="tm">13:38:09</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  I have 3 actually:
+<a name="l-135"></a><span class="tm">13:38:24</span><span class="nk"> &lt;rotru&gt;</span> 1- [WOK] Wok command line options does not follow a pattern... some have '-'  others have '_' in the name. We need a task to fix this and also check if there are new options we can include or that are missing. I would like to work on this;
+<a name="l-136"></a><span class="tm">13:38:24</span><span class="nk"> &lt;rotru&gt;</span> 2- [Ginger] Ginger SPEC file are not ok yet IMHO. I was talking to ramonn and the spec is making wokd restart 2 times when the package is update, this is not good. Ramon and I had some ideas and we can fix this. Need to create an ISSUE ??
+<a name="l-137"></a><span class="tm">13:38:24</span><span class="nk"> &lt;rotru&gt;</span> 3- [Kimchi] The Guests UI is not recognizing VMs in states like 'PAUSED' this makes UI looks weird and is not possible to open any VM console in the browser. I wonder whether this issue is known by UI folks: socorro, samhenri, peterpennings;
+<a name="l-138"></a><span class="tm">13:38:55</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, doesn't hurt to read and answer the RFC either :P
+<a name="l-139"></a><span class="tm">13:39:05</span><span class="nk"> &lt;rotru&gt;</span> danielhb, alinefm  focus
+<a name="l-140"></a><span class="tm">13:39:44</span><span class="nk"> &lt;alinefm&gt;</span> rotru, about 1) OK! we also need to check if the manpage doc is updated with the latest changes on wokd command
+<a name="l-141"></a><span class="tm">13:40:14</span><span class="nk"> &lt;rotru&gt;</span> alinefm, can I create a issue-resquest ? or do you do this  ?
+<a name="l-142"></a><span class="tm">13:40:25</span><span class="nk"> &lt;alinefm&gt;</span> rotru, please, do
+<a name="l-143"></a><span class="tm">13:40:30</span><span class="nk"> &lt;rotru&gt;</span> ok
+<a name="l-144"></a><span class="tm">13:40:52</span><span class="nk"> &lt;alinefm&gt;</span> about 2) it would be good to have a single solution for all the plugins
+<a name="l-145"></a><span class="tm">13:41:03</span><span class="nk"> &lt;alinefm&gt;</span> I am not sure but maybe it is a common plugin among all them
+<a name="l-146"></a><span class="tm">13:41:26</span><span class="nk"> &lt;alinefm&gt;</span> and restart wokd on package update is not a good approach from a user perspective
+<a name="l-147"></a><span class="tm">13:41:30</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  common "problem" ?
+<a name="l-148"></a><span class="tm">13:41:44</span><span class="nk"> &lt;alinefm&gt;</span> correct =)
+<a name="l-149"></a><span class="tm">13:42:08</span><span class="nk"> &lt;alinefm&gt;</span> in fact, restarting wokd while updating plugin package may broken the packages update feature from gingerbae
+<a name="l-150"></a><span class="tm">13:42:11</span><span class="nk"> &lt;alinefm&gt;</span> *gingerbase
+<a name="l-151"></a><span class="tm">13:42:24</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  yeap
+<a name="l-152"></a><span class="tm">13:42:35</span><span class="nk"> &lt;peterpennings&gt;</span> rotru, about 3. This problem is new for me, I'll take a look
+<a name="l-153"></a><span class="tm">13:43:06</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  like you, ramonn and I  were discussing ... lets check the fedora/ubuntu/debian guidelines
+<a name="l-154"></a><span class="tm">13:43:08</span><span class="nk"> &lt;alinefm&gt;</span> rotru, about 3. open an issue and I will assign to peterpennings
+<a name="l-155"></a><span class="tm">13:43:20</span><span class="nk"> &lt;alinefm&gt;</span> rotru, yeap - it is a good point of start
+<a name="l-156"></a><span class="tm">13:44:04</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  then, we can make an approach that will help to deliver the packages to that distros as well
+<a name="l-157"></a><span class="tm">13:44:21</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  about 3, ok
+<a name="l-158"></a><span class="tm">13:44:37</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  should I open an issue of 2 as well /???
+<a name="l-159"></a><span class="tm">13:45:27</span><span class="nk"> &lt;alinefm&gt;</span> rotru, it is up to you
+<a name="l-160"></a><span class="tm">13:45:57</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  asking because i am not sure if there are issues already open, tracking RPM/DEB packages
+<a name="l-161"></a><span class="tm">13:46:14</span><span class="nk"> &lt;rotru&gt;</span> alinefm, will check ...
+<a name="l-162"></a><span class="tm">13:46:23</span><span class="nk"> &lt;rotru&gt;</span> ok, so 3 issues to open :)
+<a name="l-163"></a><span class="tm">13:47:02</span><span class="nk"> &lt;rotru&gt;</span> ramonn,  do you want to work on "2" with me ?
+<a name="l-164"></a><span class="tm">13:47:20</span><span class="nk"> &lt;ramonn&gt;</span> rotru, yeap
+<a name="l-165"></a><span class="tm">13:47:29</span><span class="nk"> &lt;rotru&gt;</span> ramonn,  cool
+<a name="l-166"></a><span class="tm">13:47:43</span><span class="nk"> &lt;ramonn&gt;</span> rotru, i like your suggestion yesterday, after reading the guidelines, we can improve the fix
+<a name="l-167"></a><span class="tm">13:49:02</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  thats all from my side  :)
+<a name="l-168"></a><span class="tm">13:49:07</span><span class="nk"> &lt;alinefm&gt;</span> thanks, rotru
+<a name="l-169"></a><span class="tm">13:49:11</span><span class="nk"> &lt;alinefm&gt;</span> anything else for today?
+<a name="l-170"></a><span class="tm">13:49:26</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  who manages kimchi-bot  ?
+<a name="l-171"></a><span class="tm">13:49:34</span><span class="nk"> &lt;ramonn&gt;</span> nop
+<a name="l-172"></a><span class="tm">13:49:41</span><span class="nk"> &lt;alinefm&gt;</span> rotru, me
+<a name="l-173"></a><span class="tm">13:49:50</span><span class="nk"> &lt;rotru&gt;</span> ok
+<a name="l-174"></a><span class="tm">13:50:07</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  where does it run ?
+<a name="l-175"></a><span class="tm">13:50:17</span><span class="nk"> &lt;alinefm&gt;</span> in my laptop
+<a name="l-176"></a><span class="tm">13:50:20</span><span class="nk"> &lt;alinefm&gt;</span> it is a meetingbot plugin
+<a name="l-177"></a><span class="tm">13:50:38</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  ok
+<a name="l-178"></a><span class="tm">13:50:46</span><span class="nk"> &lt;alinefm&gt;</span> I have a configuration file to join a specific IRC server and channel e log the meeting to be upload to github
+<a name="l-179"></a><span class="tm">13:50:53</span><span class="nk"> &lt;alinefm&gt;</span> *and log...
+<a name="l-180"></a><span class="tm">13:51:42</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  does it log only "#info" lines ?
+<a name="l-181"></a><span class="tm">13:52:02</span><span class="nk"> &lt;alinefm&gt;</span> no
+<a name="l-182"></a><span class="tm">13:52:47</span><span class="nk"> &lt;rotru&gt;</span> ok ok thanks :)
+<a name="l-183"></a><span class="tm">13:53:06</span><span class="nk"> &lt;alinefm&gt;</span> it logs everything from #startmeeting to #endmeeting
+<a name="l-184"></a><span class="tm">13:53:30</span><span class="nk"> &lt;alinefm&gt;</span> the lines with specific commands, eg, #info, #topic, are filtered out in some log files
+<a name="l-185"></a><span class="tm">13:53:33</span><span class="nk"> &lt;danielhb&gt;</span> I have one more thing
+<a name="l-186"></a><span class="tm">13:53:36</span><span class="nk"> &lt;alinefm&gt;</span> for example: http://kimchi-project.github.io/kimchi/meetings/kimchi.scrum.2016-04-27-13.01.html
+<a name="l-187"></a><span class="tm">13:54:05</span><span class="nk"> &lt;alinefm&gt;</span> rotru, but all the meeting is recorded in another file: http://kimchi-project.github.io/kimchi/meetings/kimchi.scrum.2016-04-27-13.01.log.html
+<a name="l-188"></a><span class="tm">13:54:12</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, go ahead
+<a name="l-189"></a><span class="tm">13:54:21</span><span class="nk"> &lt;danielhb&gt;</span> I urge everyone interested to review " [Gingerbase] netinfo.py: merging Ginger and Kimchi versions​" due to its impact in both plug-ins
+<a name="l-190"></a><span class="tm">13:54:40</span><span class="nk"> &lt;danielhb&gt;</span> And no, I will not by any means copy/paste the patch here for discussion &lt;--- ramonn pvital
+<a name="l-191"></a><span class="tm">13:54:54</span><span class="nk"> &lt;rotru&gt;</span> hehe
+<a name="l-192"></a><span class="tm">13:54:58</span><span class="nk"> &lt;lcorreia&gt;</span> :)
+<a name="l-193"></a><span class="tm">13:55:16</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, will do that after meeting
+<a name="l-194"></a><span class="tm">13:55:44</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, thx!
+<a name="l-195"></a><span class="tm">13:56:29</span><span class="nk"> &lt;alinefm&gt;</span> is that all for today?
+<a name="l-196"></a><span class="tm">13:56:38</span><span class="nk"> &lt;rotru&gt;</span> yes
+<a name="l-197"></a><span class="tm">13:57:01</span><span class="nk"> &lt;danielhb&gt;</span> yes, send it home
+<a name="l-198"></a><span class="tm">13:57:15</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining!
+<a name="l-199"></a><span class="tm">13:57:18</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
