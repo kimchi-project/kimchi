@@ -20,7 +20,7 @@
 import unittest
 from cherrypy.lib.reprconf import Parser
 
-from wok.config import CACHEEXPIRES, SESSIONSTIMEOUT
+from wok.config import CACHEEXPIRES
 from wok.config import Paths, PluginPaths
 
 from wok.plugins.kimchi.config import get_screenshot_path
@@ -94,8 +94,7 @@ class ConfigTests(unittest.TestCase):
                 'tools.sessions.secure': True,
                 'tools.sessions.httponly': True,
                 'tools.sessions.locking': 'explicit',
-                'tools.sessions.storage_type': 'ram',
-                'tools.sessions.timeout': SESSIONSTIMEOUT
+                'tools.sessions.storage_type': 'ram'
             },
             '/novnc': {
                 'tools.wokauth.on': True,
