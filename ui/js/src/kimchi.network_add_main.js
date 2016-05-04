@@ -35,6 +35,10 @@ kimchi.startNetworkCreation = function() {
         interfaces: [ network.interface ],
         vlan_id: network.vlan_id
     };
+    // in VEPA connection case, network.interface is already an array
+    if (data.connection === kimchi.NETWORK_TYPE_VEPA) {
+        data.interfaces = network.interface;
+    }
 
     kimchi.createNetwork(data, function(result) {
         network.state = result.state === "active" ? "up" : "down";
