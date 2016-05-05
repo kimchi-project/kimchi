@@ -309,8 +309,7 @@ class TemplateTests(unittest.TestCase):
 
         # For all supported types, edit the template and check if
         # the change was made.
-        disk_types = ['bochs', 'cloop', 'cow', 'dmg', 'qcow', 'qcow2',
-                      'qed', 'raw', 'vmdk', 'vpc']
+        disk_types = ['qcow', 'qcow2', 'qed', 'raw', 'vmdk', 'vpc']
         for disk_type in disk_types:
             disk_data = {'disks': [{'index': 0, 'format': disk_type,
                          'size': 10, 'pool': {'name': DEFAULT_POOL}}]}

@@ -116,7 +116,7 @@ class VMStoragesModel(object):
                 raise InvalidParameter("KCHVMSTOR0016E")
 
             valid_format = {
-                "disk": ["raw", "bochs", "qcow", "qcow2", "qed", "vmdk"],
+                "disk": ["raw", "qcow", "qcow2", "qed", "vmdk", "vpc"],
                 "cdrom": "iso"}
 
             if vol_info['type'] == 'file':

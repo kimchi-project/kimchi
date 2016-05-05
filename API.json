@@ -230,7 +230,7 @@
                 "format": {
                     "description": "The format of the volume",
                     "type": "string",
-                    "pattern": "^(|bochs|cloop|cow|dmg|qcow|qcow2|qed|raw|vmdk|vpc)$",
+                    "pattern": "^(|qcow|qcow2|qed|raw|vmdk|vpc)$",
                     "error": "KCHVOL0015E"
                 },
                 "url": {
@@ -536,7 +536,7 @@
                             "format": {
                                 "description": "Type of the image of the disk",
                                 "type": "string",
-                                "pattern":  "^(bochs|cloop|cow|dmg|qcow|qcow2|qed|raw|vmdk|vpc)$",
+                                "pattern":  "^(qcow|qcow2|qed|raw|vmdk|vpc)$",
                                 "error": "KCHTMPL0027E"
                             },
                             "size": {
@@ -708,7 +708,7 @@
                             "format": {
                                 "description": "Type of the image of the disk",
                                 "type": "string",
-                                "pattern":  "^(bochs|cloop|cow|dmg|qcow|qcow2|qed|raw|vmdk|vpc)$",
+                                "pattern":  "^(qcow|qcow2|qed|raw|vmdk|vpc)$",
                                 "error": "KCHTMPL0027E"
                             },
                             "pool": {
