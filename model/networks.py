@@ -23,7 +23,6 @@ import libvirt
 import sys
 import time
 from libvirt import VIR_INTERFACE_XML_INACTIVE
-from xml.sax.saxutils import escape
 
 from wok.exception import InvalidOperation, InvalidParameter
 from wok.exception import MissingParameter, NotFoundError, OperationFailed
@@ -107,7 +106,6 @@ class NetworksModel(object):
                 self._set_network_vepa(params)
 
         # create network XML
-        params['name'] = escape(params['name'])
         xml = to_network_xml(**params)
 
         try:

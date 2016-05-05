@@ -149,7 +149,7 @@ class NetworkTests(unittest.TestCase):
     def test_network_lifecycle(self):
         # Verify all the supported network type
         networks = [{'name': u'kīмсhī-пet', 'connection': 'isolated'},
-                    {'name': u'nat-network', 'connection': 'nat'},
+                    {'name': u'<!nat-network>&', 'connection': 'nat'},
                     {'name': u'subnet-network', 'connection': 'nat',
                      'subnet': '127.0.100.0/24'}]
 
