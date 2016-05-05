@@ -75,7 +75,7 @@ kimchi.guest_storage_add_main = function() {
     var rbExisting = 'false';
 
     var getFormatList = function() {
-        var format = ["bochs", "cloop", "cow", "dmg", "qcow", "qcow2", "qed", "raw", "vmdk", "vpc"];
+        var format = ["qcow", "qcow2", "qed", "raw", "vmdk", "vpc"];
         var selectFormatHTML = '';
         var i;
         for (i = 0; i < format.length; i++) {
@@ -182,7 +182,7 @@ kimchi.guest_storage_add_main = function() {
         selectStorageVolHTML = '';
         volTextbox.empty();
         kimchi.listStorageVolumes($(this).val(), function(result) {
-            var validVolType = { cdrom: /iso/, disk: /^(raw|qcow|qcow2|bochs|qed|vmdk)$/};
+            var validVolType = { cdrom: /iso/, disk: /^(raw|qcow|qcow2|qed|vmdk|vpc)$/};
             if (result.length) {
                 $.each(result, function(index, value) {
                     // Only unused volume can be attached
