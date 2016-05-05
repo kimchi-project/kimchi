@@ -154,7 +154,7 @@ class StorageVolumesModel(object):
             pool.createXML(xml, 0)
         except libvirt.libvirtError as e:
             raise OperationFailed("KCHVOL0007E",
-                                  {'name': name, 'pool': pool,
+                                  {'name': name, 'pool': pool_name,
                                    'err': e.get_error_message()})
 
         vol_info = StorageVolumeModel(conn=self.conn,

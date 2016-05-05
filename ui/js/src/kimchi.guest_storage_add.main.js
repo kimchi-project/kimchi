@@ -341,9 +341,12 @@ kimchi.guest_storage_add_main = function() {
                         setTimeout(monitorTask, 2000);
                         $(submitButton).prop('disabled', true);
                     } else if (status === "failed") {
-                        var errText = result['reason'] ||
+                        var errText = result['message'] ||
                         result['responseJSON']['reason'];
-                        $(submitButton).prop('disabled', true);
+                        $(submitButton).text(i18n['KCHVMCD6002M']);
+                        $(submitButton).prop('disabled', false);
+                        $(capacityTextbox).prop('disabled', false);
+                        $(formatTextbox).prop('disabled', false);
                         wok.message.error(errText, '#alert-modal-container2');
                     }
                 });
