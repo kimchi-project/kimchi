@@ -68,10 +68,9 @@ class TemplatesModel(object):
         if source_media['type'] == 'netboot':
             params['netboot'] = True
             return self.save_template(params)
-        else:
-            # Get path of source media if it's based on disk type.
-            path = source_media.get('path', None)
 
+        # Get path of source media if it's based on disk type.
+        path = source_media.get('path', None)
         if path is None:
             raise InvalidParameter("KCHTMPL0016E")
 
@@ -80,9 +79,10 @@ class TemplatesModel(object):
         if urlparse.urlparse(path).scheme in ["http", "https", "tftp", "ftp",
                                               "ftps"]:
             params["cdrom"] = path
+            return self.save_template(params)
 
-        # image does not exists: raise error
-        elif not os.path.exists(path):
+        # Local file (ISO/Img) does not exist: raise error
+        if not os.path.exists(path):
             raise InvalidParameter("KCHTMPL0002E", {'path': path})
 
         # create magic object to discover file type
