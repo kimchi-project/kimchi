@@ -295,6 +295,10 @@ Represents a snapshot of the Virtual Machine's primary monitor.
 * **GET**: Retrieve a summarized list of all defined Templates
 * **POST**: Create a new Template
     * name: The name of the Template.  Used to identify the Template in this API
+    * source_media: dictionary. The type of media to be used in the installation.
+        * type: the type of the media. Values: 'netboot' and 'disk'.
+        * path: applicable for type = 'disk' only. Indicates the path of the
+                source media.
     * os_distro *(optional)*: The operating system distribution
     * os_version *(optional)*: The version of the operating system distribution
     * memory *(optional)*: The memory parameters of the template, specify one
@@ -302,7 +306,6 @@ Represents a snapshot of the Virtual Machine's primary monitor.
         * current: The amount of memory that will be assigned to the VM.
         * maxmemory: The maximum total of memory that the VM can have. Amount
           over current will be used exclusively for memory hotplug
-    * cdrom *(optional)*: A volume name or URI to an ISO image.
     * networks *(optional)*: list of networks will be assigned to the new VM.
       Default is '[default]'
     * disks *(optional)*: An array of requested disks with the following optional fields
@@ -312,8 +315,6 @@ Represents a snapshot of the Virtual Machine's primary monitor.
         * format: Format of the image. Valid formats: qcow, qcow2, qed, raw, vmdk, vpc
         * pool: Storage pool information
             * name: URI of the storagepool where disk will be created
-        * base: Base image of this disk
-
     * graphics *(optional)*: The graphics paramenters of this template
         * type: The type of graphics. It can be VNC or spice or None.
             * vnc: Graphical display using the Virtual Network
