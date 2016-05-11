@@ -1,0 +1,178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:03:21</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:03:22</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed May 11 13:03:21 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:03:22</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:03:22</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:03:22</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:03:30</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda</span>
+<a name="l-7"></a><span class="tm">13:03:30</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">1) Status</span>
+<a name="l-8"></a><span class="tm">13:03:30</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">2) Open discussion</span>
+<a name="l-9"></a><span class="tm">13:03:30</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-10"></a><span class="tm">13:03:39</span><span class="nk"> &lt;ziviani&gt;</span> no
+<a name="l-11"></a><span class="tm">13:03:44</span><span class="nk"> &lt;pvital&gt;</span> no
+<a name="l-12"></a><span class="tm">13:03:56</span><span class="nk"> &lt;alinefm&gt;</span> so let's get started =)
+<a name="l-13"></a><span class="tm">13:04:05</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-14"></a><span class="tm">13:04:05</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info [&lt;project] &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-15"></a><span class="tm">13:04:38</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] pvital submitted V1 of the patch "Add support to Libvirt Events."</span>
+<a name="l-16"></a><span class="tm">13:04:38</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] pvital submitted V1 of the patch-set "Issue #201: Handling libvirt connection failures"</span>
+<a name="l-17"></a><span class="tm">13:04:38</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] pvital is investigating some performance issues in wokd (high CPU consumption when idle)</span>
+<a name="l-18"></a><span class="tm">13:04:38</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] [Kimchi] [Ginger*] pvital reviewed patches</span>
+<a name="l-19"></a><span class="tm">13:04:43</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">ramonn [ginger] merged fix on ginger sensors</span>
+<a name="l-20"></a><span class="tm">13:04:53</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] danielhb applied and reviewed patches</span>
+<a name="l-21"></a><span class="tm">13:05:05</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi]  danielhb sent VEPA enhancements</span>
+<a name="l-22"></a><span class="tm">13:05:06</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] alinefm sent patch to make session timeout configurable and also fixed issues related to that</span>
+<a name="l-23"></a><span class="tm">13:05:21</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] danielhb finished SR-IOV and RDMA backend support</span>
+<a name="l-24"></a><span class="tm">13:05:36</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ziviani woked on bugs and is sending a new patch for iso permissions</span>
+<a name="l-25"></a><span class="tm">13:05:48</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi][ginger] reviewed code</span>
+<a name="l-26"></a><span class="tm">13:06:00</span><span class="nk"> &lt;ziviani&gt;</span> *worked
+<a name="l-27"></a><span class="tm">13:06:01</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi][ginger*] alinefm sent patch to remove cherrypy configuration from plugin config file</span>
+<a name="l-28"></a><span class="tm">13:06:05</span><span class="nk"> &lt;peterpennings&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Gingerbase] peterpennings is working on packages update</span>
+<a name="l-29"></a><span class="tm">13:06:19</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] alinefm sent patch to fix issue related to create template from remote ISO</span>
+<a name="l-30"></a><span class="tm">13:06:30</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] samhenri sent a patch to enable toggleswitch checkboxes</span>
+<a name="l-31"></a><span class="tm">13:06:36</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] alinefm sent patch to allow user create network with XML special characters</span>
+<a name="l-32"></a><span class="tm">13:06:51</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] samhenri sent patch to fix filter position in Add Template modal window</span>
+<a name="l-33"></a><span class="tm">13:07:00</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] alinefm sent patch to restrict volume creation to valid disk formats</span>
+<a name="l-34"></a><span class="tm">13:07:03</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] samhenri sent OVS Bridges V5</span>
+<a name="l-35"></a><span class="tm">13:07:10</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] lcorreia sent to ML V1 for handling libvirt event ENOSPC</span>
+<a name="l-36"></a><span class="tm">13:07:10</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] lcorreia blocked on s390x access to make fibre channel listing arch-independent</span>
+<a name="l-37"></a><span class="tm">13:07:10</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] lcorreia got upstream "notifications in memory instead of objectstore"</span>
+<a name="l-38"></a><span class="tm">13:07:10</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] lcorreia is working on adding translation to User Request Log messages</span>
+<a name="l-39"></a><span class="tm">13:07:35</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] rotru Fixed 2 problems caused by Libvirt changes regarding MEMORY Hotplug: now libvirt changes the 'currentMemory' when attaches a memory device, making Kimchi return wrong memory value; and now Libvirt does not add automatically memory device slots, causing Kimchi error when decrease memory. Will send both patches later today.</span>
+<a name="l-40"></a><span class="tm">13:07:35</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] rotru Coding and finishing tests of 'support to memory hotplug in non-NUMA guests', plan is send the patch today.</span>
+<a name="l-41"></a><span class="tm">13:07:47</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] samhenri sent a patch for System Services front-end</span>
+<a name="l-42"></a><span class="tm">13:08:56</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] danielhb is now working in live migration enhancements</span>
+<a name="l-43"></a><span class="tm">13:09:11</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] socorro Addressed the 3 suggestions that Aline brought up for</span>
+<a name="l-44"></a><span class="tm">13:09:11</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] socorro Create Template.  samhenri is helping with one of those</span>
+<a name="l-45"></a><span class="tm">13:09:11</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] socorro issues.  Planning on sending out a patch later today.</span>
+<a name="l-46"></a><span class="tm">13:09:11</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] socorro Still don't have an env for testing bridged network as</span>
+<a name="l-47"></a><span class="tm">13:09:11</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] socorro kop5 seems to go down when I do use it for that scenario;</span>
+<a name="l-48"></a><span class="tm">13:09:13</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] socorro using kop5 for other scenarios and most are working; just</span>
+<a name="l-49"></a><span class="tm">13:09:14</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] socorro have some UI-specific issues to deal with.</span>
+<a name="l-50"></a><span class="tm">13:09:16</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] socorro Reviewed/Tested kimchi patches</span>
+<a name="l-51"></a><span class="tm">13:11:47</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-52"></a><span class="tm">13:13:47</span><span class="nk"> &lt;danielhb&gt;</span> no
+<a name="l-53"></a><span class="tm">13:14:58</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-54"></a><span class="tm">13:15:01</span><span class="nk"> &lt;alinefm&gt;</span> any topics for today?
+<a name="l-55"></a><span class="tm">13:15:05</span><span class="nk"> &lt;ramonn&gt;</span> nop
+<a name="l-56"></a><span class="tm">13:15:28</span><span class="nk"> &lt;samhenri&gt;</span> I'd like to discuss the Sensors JSON
+<a name="l-57"></a><span class="tm">13:15:38</span><span class="nk"> &lt;alinefm&gt;</span> sure
+<a name="l-58"></a><span class="tm">13:15:39</span><span class="nk"> &lt;peterpennings&gt;</span> I want to suggest to add a javascript test tool in the project. maybe in the next release
+<a name="l-59"></a><span class="tm">13:15:40</span><span class="nk"> &lt;alinefm&gt;</span> go ahead
+<a name="l-60"></a><span class="tm">13:16:04</span><span class="nk"> &lt;alinefm&gt;</span> peterpennings, it would be great! any suggestion on which tool to use?
+<a name="l-61"></a><span class="tm">13:16:32</span><span class="nk"> &lt;peterpennings&gt;</span> we can make a research for it. but I will suggest Jasmine
+<a name="l-62"></a><span class="tm">13:17:56</span><span class="nk"> &lt;samhenri&gt;</span> I didn't like the new sensor output. It doesn't look like standard json object and keys
+<a name="l-63"></a><span class="tm">13:18:13</span><span class="nk"> &lt;alinefm&gt;</span> ramonn, danielhb ^
+<a name="l-64"></a><span class="tm">13:18:19</span><span class="nk"> &lt;samhenri&gt;</span> i mean, each device has different properties
+<a name="l-65"></a><span class="tm">13:18:21</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, what is your suggestion?
+<a name="l-66"></a><span class="tm">13:18:43</span><span class="nk"> &lt;ramonn&gt;</span> <span class="hi">alinefm:</span> im following
+<a name="l-67"></a><span class="tm">13:19:15</span><span class="nk"> &lt;samhenri&gt;</span> if we used standard keys for each device then with just one line and the html template, wok.substitute would to the trick
+<a name="l-68"></a><span class="tm">13:19:31</span><span class="nk"> &lt;samhenri&gt;</span> but taking the fans for instance
+<a name="l-69"></a><span class="tm">13:19:41</span><span class="nk"> &lt;samhenri&gt;</span> we have:
+<a name="l-70"></a><span class="tm">13:19:46</span><span class="nk"> &lt;samhenri&gt;</span> "fan1":{
+<a name="l-71"></a><span class="tm">13:19:48</span><span class="nk"> &lt;samhenri&gt;</span> "unit":"RPM",
+<a name="l-72"></a><span class="tm">13:19:50</span><span class="nk"> &lt;samhenri&gt;</span> "fan1_input":5818.0,
+<a name="l-73"></a><span class="tm">13:19:51</span><span class="nk"> &lt;samhenri&gt;</span> "fan1_min":0.0,
+<a name="l-74"></a><span class="tm">13:19:53</span><span class="nk"> &lt;samhenri&gt;</span> "fan1_fault":0.0
+<a name="l-75"></a><span class="tm">13:19:54</span><span class="nk"> &lt;samhenri&gt;</span> }
+<a name="l-76"></a><span class="tm">13:20:10</span><span class="nk"> &lt;danielhb&gt;</span> samhenri, "Add unit for each sensor and add 0 when value is N/A" was sent 2 days ago and the only review was mine
+<a name="l-77"></a><span class="tm">13:20:37</span><span class="nk"> &lt;samhenri&gt;</span> i would have to loop through all devices and see if they have matched the device name and add the _input, _min and _fault
+<a name="l-78"></a><span class="tm">13:21:16</span><span class="nk"> &lt;samhenri&gt;</span> then moving to the Cores: "temp18_input":31.0
+<a name="l-79"></a><span class="tm">13:21:27</span><span class="nk"> &lt;samhenri&gt;</span> i know that the output is from sensors -u
+<a name="l-80"></a><span class="tm">13:21:49</span><span class="nk"> &lt;samhenri&gt;</span> but the design spec looks like sensors, which is very different
+<a name="l-81"></a><span class="tm">13:22:10</span><span class="nk"> &lt;samhenri&gt;</span> my question is, should we redesign the panel to look like sensors -u output, then I'm ok with this json
+<a name="l-82"></a><span class="tm">13:22:35</span><span class="nk"> &lt;samhenri&gt;</span> or do we have to shape this json output into the current mockup in the design spec?
+<a name="l-83"></a><span class="tm">13:22:41</span><span class="nk"> &lt;alinefm&gt;</span> IMO we should redesign the panel to looks better from a user perspective
+<a name="l-84"></a><span class="tm">13:22:57</span><span class="nk"> &lt;alinefm&gt;</span> display only a list of values does not make sense to me
+<a name="l-85"></a><span class="tm">13:23:05</span><span class="nk"> &lt;samhenri&gt;</span> agreed
+<a name="l-86"></a><span class="tm">13:23:10</span><span class="nk"> &lt;alinefm&gt;</span> we should groupd the sensors in a table view, for example
+<a name="l-87"></a><span class="tm">13:23:25</span><span class="nk"> &lt;samhenri&gt;</span> my sensors output only has ambient and the cores temperature
+<a name="l-88"></a><span class="tm">13:23:27</span><span class="nk"> &lt;alinefm&gt;</span> grouped by fans, devices, etc...
+<a name="l-89"></a><span class="tm">13:23:31</span><span class="nk"> &lt;samhenri&gt;</span> but if we have a machine with tons of devices
+<a name="l-90"></a><span class="tm">13:23:38</span><span class="nk"> &lt;samhenri&gt;</span> this table would require an horizonal scrollbar
+<a name="l-91"></a><span class="tm">13:24:38</span><span class="nk"> &lt;samhenri&gt;</span> or at least use a Tree Table: http://www.hameister.org/images/TreeTableMac.png
+<a name="l-92"></a><span class="tm">13:25:18</span><span class="nk"> &lt;alinefm&gt;</span> yeap! I liked that tree table
+<a name="l-93"></a><span class="tm">13:25:24</span><span class="nk"> &lt;samhenri&gt;</span> danielhb I'll check this patch, but i'm referring to the one posted on the Github
+<a name="l-94"></a><span class="tm">13:25:24</span><span class="nk"> &lt;alinefm&gt;</span> getting back to the API
+<a name="l-95"></a><span class="tm">13:26:00</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, how does this patch you mention solve the problem reported by samhenri ?
+<a name="l-96"></a><span class="tm">13:26:25</span><span class="nk"> &lt;samhenri&gt;</span> my concern is not exactly with the units, but with the json keys
+<a name="l-97"></a><span class="tm">13:26:46</span><span class="nk"> &lt;samhenri&gt;</span> if we display "temp18_input" in the table, then I'm fine
+<a name="l-98"></a><span class="tm">13:26:58</span><span class="nk"> &lt;alinefm&gt;</span> =o
+<a name="l-99"></a><span class="tm">13:27:04</span><span class="nk"> &lt;alinefm&gt;</span> I don't think we want this
+<a name="l-100"></a><span class="tm">13:27:10</span><span class="nk"> &lt;samhenri&gt;</span> but if this key won't be displayed in the screen
+<a name="l-101"></a><span class="tm">13:27:27</span><span class="nk"> &lt;samhenri&gt;</span> then whats the point of it? make a standard json with temp_input
+<a name="l-102"></a><span class="tm">13:28:16</span><span class="nk"> &lt;samhenri&gt;</span> then with just a json response i can use the wok.substitute.js to replace a {input} in the HTML
+<a name="l-103"></a><span class="tm">13:28:40</span><span class="nk"> &lt;samhenri&gt;</span> instead of iterating through the whole json object and filtering, using substring, split, regex and etc
+<a name="l-104"></a><span class="tm">13:29:14</span><span class="nk"> &lt;samhenri&gt;</span> it is not difficult, but it just sounds wrong or troublesome from a "don't repeat yourself" perspective
+<a name="l-105"></a><span class="tm">13:29:23</span><span class="nk"> &lt;ramonn&gt;</span> i guess no regexp will be used, just split
+<a name="l-106"></a><span class="tm">13:29:44</span><span class="nk"> &lt;ramonn&gt;</span> since the suffix is defined and standard
+<a name="l-107"></a><span class="tm">13:30:16</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, what problem? samhenri disliking how ramonn solved the API problem isn't a problem, is a matter of taste. ramonn posted this exact API here https://github.com/kimchi-project/ginger/issues/320 5 days ago, no comments were made. API was pushed upstream as is yesterday, in that patch I mentioned.
+<a name="l-108"></a><span class="tm">13:31:48</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, I remembered samhenri and ramonn discussing about it in this channel this week
+<a name="l-109"></a><span class="tm">13:32:13</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, samhenri is giving his opinion on how the API will not fit the UI requirements
+<a name="l-110"></a><span class="tm">13:32:14</span><span class="nk"> &lt;samhenri&gt;</span> my output only return the core temperatures so it looks like i can use split just fine, but i'm worried about devices that i don't have here
+<a name="l-111"></a><span class="tm">13:32:24</span><span class="nk"> &lt;alinefm&gt;</span> should we only ignore? or trying to find a solution to it?
+<a name="l-112"></a><span class="tm">13:33:12</span><span class="nk"> &lt;ramonn&gt;</span> but, we are going to omit values like min and fault, just returning temperature on REST API ?
+<a name="l-113"></a><span class="tm">13:33:27</span><span class="nk"> &lt;samhenri&gt;</span> nope, i'm not saying that we should omit these values
+<a name="l-114"></a><span class="tm">13:33:40</span><span class="nk"> &lt;ramonn&gt;</span> i guess is better to return a complete json by rest, and UI deal with the values to make readable
+<a name="l-115"></a><span class="tm">13:33:47</span><span class="nk"> &lt;samhenri&gt;</span> the ui will definitely change, i will add these columns
+<a name="l-116"></a><span class="tm">13:34:49</span><span class="nk"> &lt;ramonn&gt;</span> so samhenri, you would like to make a standard in all devices? like, all of the as input, fault and min /
+<a name="l-117"></a><span class="tm">13:34:52</span><span class="nk"> &lt;ramonn&gt;</span> ?
+<a name="l-118"></a><span class="tm">13:35:10</span><span class="nk"> &lt;samhenri&gt;</span> standard keys
+<a name="l-119"></a><span class="tm">13:35:47</span><span class="nk"> &lt;samhenri&gt;</span> just temp_input, temp_max, temp_crit
+<a name="l-120"></a><span class="tm">13:36:29</span><span class="nk"> &lt;samhenri&gt;</span> if a device doesn't have the key, then it won't display the key and the UI will adapt
+<a name="l-121"></a><span class="tm">13:36:31</span><span class="nk"> &lt;ramonn&gt;</span> ok, how can we add max and crit for devices that did not retrieve this?
+<a name="l-122"></a><span class="tm">13:36:37</span><span class="nk"> &lt;ramonn&gt;</span> ahh ok
+<a name="l-123"></a><span class="tm">13:36:40</span><span class="nk"> &lt;ramonn&gt;</span> like returning empty
+<a name="l-124"></a><span class="tm">13:36:44</span><span class="nk"> &lt;samhenri&gt;</span> not empty
+<a name="l-125"></a><span class="tm">13:36:59</span><span class="nk"> &lt;samhenri&gt;</span> simply not existing in the device/object
+<a name="l-126"></a><span class="tm">13:37:56</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, it is not RESTful
+<a name="l-127"></a><span class="tm">13:38:11</span><span class="nk"> &lt;alinefm&gt;</span> the keys should always exist in the JSON
+<a name="l-128"></a><span class="tm">13:38:22</span><span class="nk"> &lt;samhenri&gt;</span> ah, yes
+<a name="l-129"></a><span class="tm">13:39:54</span><span class="nk"> &lt;ramonn&gt;</span> right. Some devices has only _input, other has _fault and _min, and other has _max
+<a name="l-130"></a><span class="tm">13:40:05</span><span class="nk"> &lt;ramonn&gt;</span> so we are going to retrieve all of them in all devices?
+<a name="l-131"></a><span class="tm">13:40:34</span><span class="nk"> &lt;samhenri&gt;</span> fan properties with fans, core properties with cores etc, right?
+<a name="l-132"></a><span class="tm">13:40:59</span><span class="nk"> &lt;samhenri&gt;</span> if they're from different sensors
+<a name="l-133"></a><span class="tm">13:41:01</span><span class="nk"> &lt;ramonn&gt;</span> right
+<a name="l-134"></a><span class="tm">13:43:11</span><span class="nk"> &lt;ramonn&gt;</span> ok, so let's do this: answer the issue https://github.com/kimchi-project/ginger/issues/320, showing how rest return the output today
+<a name="l-135"></a><span class="tm">13:43:14</span><span class="nk"> &lt;ramonn&gt;</span> and a propose one
+<a name="l-136"></a><span class="tm">13:43:33</span><span class="nk"> &lt;ramonn&gt;</span> it will make easier to understand the new standard
+<a name="l-137"></a><span class="tm">13:43:58</span><span class="nk"> &lt;samhenri&gt;</span> ok, i'll try to create one with mock objects because mine is not complete
+<a name="l-138"></a><span class="tm">13:44:39</span><span class="nk"> &lt;ramonn&gt;</span> <span class="hi">samhenri:</span> i have here a sensors -u output very long
+<a name="l-139"></a><span class="tm">13:45:07</span><span class="nk"> &lt;samhenri&gt;</span> ok, send it to me
+<a name="l-140"></a><span class="tm">13:45:46</span><span class="nk"> &lt;ramonn&gt;</span> i ll do it
+<a name="l-141"></a><span class="tm">13:46:04</span><span class="nk"> &lt;ramonn&gt;</span> <span class="hi">alinefm:</span> we can proceed to the next item
+<a name="l-142"></a><span class="tm">13:46:19</span><span class="nk"> &lt;alinefm&gt;</span> ramonn, ok
+<a name="l-143"></a><span class="tm">13:46:24</span><span class="nk"> &lt;alinefm&gt;</span> any other topic?
+<a name="l-144"></a><span class="tm">13:46:58</span><span class="nk"> &lt;ziviani&gt;</span> no
+<a name="l-145"></a><span class="tm">13:47:17</span><span class="nk"> &lt;ramonn&gt;</span> <span class="hi">samhenri:</span> http://pastebin.com/6xqX72RH
+<a name="l-146"></a><span class="tm">13:47:19</span><span class="nk"> &lt;rotru&gt;</span> no
+<a name="l-147"></a><span class="tm">13:47:23</span><span class="nk"> &lt;ramonn&gt;</span> nop
+<a name="l-148"></a><span class="tm">13:48:05</span><span class="nk"> &lt;lcorreia&gt;</span> no
+<a name="l-149"></a><span class="tm">13:48:17</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-150"></a><span class="tm">13:48:23</span><span class="nk"> &lt;alinefm&gt;</span> so thanks everyone for joining!
+<a name="l-151"></a><span class="tm">13:48:26</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

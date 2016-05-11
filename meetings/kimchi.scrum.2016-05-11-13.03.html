@@ -1,0 +1,274 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi Meeting</title>
+<style type="text/css">
+/* This is for the .html in the HTML2 writer */
+body {
+    font-family: Helvetica, sans-serif;
+    font-size:14px;
+}
+h1 {
+    text-align: center;
+}
+a {
+    color:navy;
+    text-decoration: none;
+    border-bottom:1px dotted navy;
+}
+a:hover {
+    text-decoration:none;
+    border-bottom: 0;
+    color:#0000B9;
+}
+hr {
+    border: 1px solid #ccc;
+}
+/* The (nick, time) item pairs, and other body text things. */
+.details {
+    font-size: 12px;
+    font-weight:bold;
+}
+/* The 'AGREED:', 'IDEA', etc, prefix to lines. */
+.itemtype {
+    font-style: normal;    /* un-italics it */
+    font-weight: bold;
+}
+/* Example: change single item types.  Capitalized command name.
+/* .TOPIC  {  color:navy;  } */
+/* .AGREED {  color:lime;  } */
+
+</style>
+</head>
+
+<body>
+<h1>#kimchi Meeting</h1>
+<span class="details">
+Meeting started by alinefm at 13:03:21 UTC
+(<a href="kimchi.scrum.2016-05-11-13.03.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Meeting summary</h3>
+<ol>
+<li>
+<ol type="a">
+  <li><span class="INFO">Agenda</span> <span class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-6'>alinefm</a>,
+    13:03:30)</span></li>
+  <li><span class="INFO">1) Status</span> <span class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-7'>alinefm</a>,
+    13:03:30)</span></li>
+  <li><span class="INFO">2) Open discussion</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-8'>alinefm</a>,
+    13:03:30)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Status</b> <span class="details">(<a href='kimchi.scrum.2016-05-11-13.03.log.html#l-13'>alinefm</a>, 13:04:05)</span>
+<ol type="a">
+  <li><span class="INFO">Please provide your status using the #info
+    command: #info [&lt;project] &lt;nickname&gt; &lt;status&gt;</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-14'>alinefm</a>,
+    13:04:05)</span></li>
+  <li><span class="INFO">[Kimchi] pvital submitted V1 of the patch "Add
+    support to Libvirt Events."</span> <span class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-15'>pvital</a>,
+    13:04:38)</span></li>
+  <li><span class="INFO">[Kimchi] pvital submitted V1 of the patch-set
+    "Issue #201: Handling libvirt connection failures"</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-16'>pvital</a>,
+    13:04:38)</span></li>
+  <li><span class="INFO">[Wok] pvital is investigating some performance
+    issues in wokd (high CPU consumption when idle)</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-17'>pvital</a>,
+    13:04:38)</span></li>
+  <li><span class="INFO">[Wok] [Kimchi] [Ginger*] pvital reviewed
+    patches</span> <span class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-18'>pvital</a>,
+    13:04:38)</span></li>
+  <li><span class="INFO">ramonn [ginger] merged fix on ginger
+    sensors</span> <span class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-19'>ramonn</a>,
+    13:04:43)</span></li>
+  <li><span class="INFO">[*] danielhb applied and reviewed
+    patches</span> <span class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-20'>danielhb</a>,
+    13:04:53)</span></li>
+  <li><span class="INFO">[Kimchi]  danielhb sent VEPA
+    enhancements</span> <span class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-21'>danielhb</a>,
+    13:05:05)</span></li>
+  <li><span class="INFO">[Wok] alinefm sent patch to make session
+    timeout configurable and also fixed issues related to that</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-22'>alinefm</a>,
+    13:05:06)</span></li>
+  <li><span class="INFO">[Ginger] danielhb finished SR-IOV and RDMA
+    backend support</span> <span class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-23'>danielhb</a>,
+    13:05:21)</span></li>
+  <li><span class="INFO">[kimchi] ziviani woked on bugs and is sending a
+    new patch for iso permissions</span> <span class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-24'>ziviani</a>,
+    13:05:36)</span></li>
+  <li><span class="INFO">[kimchi][ginger] reviewed code</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-25'>ziviani</a>,
+    13:05:48)</span></li>
+  <li><span class="INFO">[kimchi][ginger*] alinefm sent patch to remove
+    cherrypy configuration from plugin config file</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-27'>alinefm</a>,
+    13:06:01)</span></li>
+  <li><span class="INFO">[Gingerbase] peterpennings is working on
+    packages update</span> <span class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-28'>peterpennings</a>,
+    13:06:05)</span></li>
+  <li><span class="INFO">[kimchi] alinefm sent patch to fix issue
+    related to create template from remote ISO</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-29'>alinefm</a>,
+    13:06:19)</span></li>
+  <li><span class="INFO">[wok] samhenri sent a patch to enable
+    toggleswitch checkboxes</span> <span class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-30'>samhenri</a>,
+    13:06:30)</span></li>
+  <li><span class="INFO">[kimchi] alinefm sent patch to allow user
+    create network with XML special characters</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-31'>alinefm</a>,
+    13:06:36)</span></li>
+  <li><span class="INFO">[kimchi] samhenri sent patch to fix filter
+    position in Add Template modal window</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-32'>samhenri</a>,
+    13:06:51)</span></li>
+  <li><span class="INFO">[kimchi] alinefm sent patch to restrict volume
+    creation to valid disk formats</span> <span class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-33'>alinefm</a>,
+    13:07:00)</span></li>
+  <li><span class="INFO">[ginger] samhenri sent OVS Bridges V5</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-34'>samhenri</a>,
+    13:07:03)</span></li>
+  <li><span class="INFO">[kimchi] lcorreia sent to ML V1 for handling
+    libvirt event ENOSPC</span> <span class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-35'>lcorreia</a>,
+    13:07:10)</span></li>
+  <li><span class="INFO">[ginger] lcorreia blocked on s390x access to
+    make fibre channel listing arch-independent</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-36'>lcorreia</a>,
+    13:07:10)</span></li>
+  <li><span class="INFO">[wok] lcorreia got upstream "notifications in
+    memory instead of objectstore"</span> <span class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-37'>lcorreia</a>,
+    13:07:10)</span></li>
+  <li><span class="INFO">[wok] lcorreia is working on adding translation
+    to User Request Log messages</span> <span class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-38'>lcorreia</a>,
+    13:07:10)</span></li>
+  <li><span class="INFO">[Kimchi] rotru Fixed 2 problems caused by
+    Libvirt changes regarding MEMORY Hotplug: now libvirt changes the
+    'currentMemory' when attaches a memory device, making Kimchi return
+    wrong memory value; and now Libvirt does not add automatically
+    memory device slots, causing Kimchi error when decrease memory. Will
+    send both patches later today.</span> <span class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-39'>rotru</a>,
+    13:07:35)</span></li>
+  <li><span class="INFO">[Kimchi] rotru Coding and finishing tests of
+    'support to memory hotplug in non-NUMA guests', plan is send the
+    patch today.</span> <span class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-40'>rotru</a>,
+    13:07:35)</span></li>
+  <li><span class="INFO">[ginger] samhenri sent a patch for System
+    Services front-end</span> <span class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-41'>samhenri</a>,
+    13:07:47)</span></li>
+  <li><span class="INFO">[Kimchi] danielhb is now working in live
+    migration enhancements</span> <span class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-42'>danielhb</a>,
+    13:08:56)</span></li>
+  <li><span class="INFO">[kimchi] socorro Addressed the 3 suggestions
+    that Aline brought up for</span> <span class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-43'>alinefm</a>,
+    13:09:11)</span></li>
+  <li><span class="INFO">[kimchi] socorro Create Template.  samhenri is
+    helping with one of those</span> <span class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-44'>alinefm</a>,
+    13:09:11)</span></li>
+  <li><span class="INFO">[kimchi] socorro issues.  Planning on sending
+    out a patch later today.</span> <span class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-45'>alinefm</a>,
+    13:09:11)</span></li>
+  <li><span class="INFO">[kimchi] socorro Still don't have an env for
+    testing bridged network as</span> <span class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-46'>alinefm</a>,
+    13:09:11)</span></li>
+  <li><span class="INFO">[kimchi] socorro kop5 seems to go down when I
+    do use it for that scenario;</span> <span class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-47'>alinefm</a>,
+    13:09:11)</span></li>
+  <li><span class="INFO">[kimchi] socorro using kop5 for other scenarios
+    and most are working; just</span> <span class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-48'>alinefm</a>,
+    13:09:13)</span></li>
+  <li><span class="INFO">[kimchi] socorro have some UI-specific issues
+    to deal with.</span> <span class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-49'>alinefm</a>,
+    13:09:14)</span></li>
+  <li><span class="INFO">[kimchi] socorro Reviewed/Tested kimchi
+    patches</span> <span class="details">(<a
+    href='kimchi.scrum.2016-05-11-13.03.log.html#l-50'>alinefm</a>,
+    13:09:16)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Open Discussion</b> <span class="details">(<a href='kimchi.scrum.2016-05-11-13.03.log.html#l-53'>alinefm</a>, 13:14:58)</span>
+</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">
+Meeting ended at 13:48:26 UTC
+(<a href="kimchi.scrum.2016-05-11-13.03.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Action items</h3>
+<ol>
+  <li>(none)</li>
+</ol>
+<br><br>
+
+
+
+<h3>People present (lines said)</h3>
+<ol>
+  <li>alinefm (49)</li>
+  <li>samhenri (48)</li>
+  <li>ramonn (23)</li>
+  <li>danielhb (7)</li>
+  <li>pvital (5)</li>
+  <li>ziviani (5)</li>
+  <li>lcorreia (5)</li>
+  <li>peterpennings (3)</li>
+  <li>rotru (3)</li>
+  <li>kimchi-bot (3)</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">Generated by <a href="http://wiki.debian.org/MeetBot">MeetBot</a> 0.1.4.</span>
+</body></html>

@@ -1,0 +1,151 @@
+13:03:21 <alinefm> #startmeeting
+13:03:22 <kimchi-bot> Meeting started Wed May 11 13:03:21 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:03:22 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:03:22 <alinefm> #meetingname scrum
+13:03:22 <kimchi-bot> The meeting name has been set to 'scrum'
+13:03:30 <alinefm> #info Agenda
+13:03:30 <alinefm> #info 1) Status
+13:03:30 <alinefm> #info 2) Open discussion
+13:03:30 <alinefm> anything else?
+13:03:39 <ziviani> no
+13:03:44 <pvital> no
+13:03:56 <alinefm> so let's get started =)
+13:04:05 <alinefm> #topic Status
+13:04:05 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+13:04:38 <pvital> #info [Kimchi] pvital submitted V1 of the patch "Add support to Libvirt Events."
+13:04:38 <pvital> #info [Kimchi] pvital submitted V1 of the patch-set "Issue #201: Handling libvirt connection failures"
+13:04:38 <pvital> #info [Wok] pvital is investigating some performance issues in wokd (high CPU consumption when idle)
+13:04:38 <pvital> #info [Wok] [Kimchi] [Ginger*] pvital reviewed patches
+13:04:43 <ramonn> #info ramonn [ginger] merged fix on ginger sensors
+13:04:53 <danielhb> #info [*] danielhb applied and reviewed patches
+13:05:05 <danielhb> #info [Kimchi]  danielhb sent VEPA enhancements
+13:05:06 <alinefm> #info [Wok] alinefm sent patch to make session timeout configurable and also fixed issues related to that
+13:05:21 <danielhb> #info [Ginger] danielhb finished SR-IOV and RDMA backend support
+13:05:36 <ziviani> #info [kimchi] ziviani woked on bugs and is sending a new patch for iso permissions
+13:05:48 <ziviani> #info [kimchi][ginger] reviewed code
+13:06:00 <ziviani> *worked
+13:06:01 <alinefm> #info [kimchi][ginger*] alinefm sent patch to remove cherrypy configuration from plugin config file
+13:06:05 <peterpennings> #info [Gingerbase] peterpennings is working on packages update
+13:06:19 <alinefm> #info [kimchi] alinefm sent patch to fix issue related to create template from remote ISO
+13:06:30 <samhenri> #info [wok] samhenri sent a patch to enable toggleswitch checkboxes
+13:06:36 <alinefm> #info [kimchi] alinefm sent patch to allow user create network with XML special characters
+13:06:51 <samhenri> #info [kimchi] samhenri sent patch to fix filter position in Add Template modal window
+13:07:00 <alinefm> #info [kimchi] alinefm sent patch to restrict volume creation to valid disk formats
+13:07:03 <samhenri> #info [ginger] samhenri sent OVS Bridges V5
+13:07:10 <lcorreia> #info [kimchi] lcorreia sent to ML V1 for handling libvirt event ENOSPC
+13:07:10 <lcorreia> #info [ginger] lcorreia blocked on s390x access to make fibre channel listing arch-independent
+13:07:10 <lcorreia> #info [wok] lcorreia got upstream "notifications in memory instead of objectstore"
+13:07:10 <lcorreia> #info [wok] lcorreia is working on adding translation to User Request Log messages
+13:07:35 <rotru> #info [Kimchi] rotru Fixed 2 problems caused by Libvirt changes regarding MEMORY Hotplug: now libvirt changes the 'currentMemory' when attaches a memory device, making Kimchi return wrong memory value; and now Libvirt does not add automatically memory device slots, causing Kimchi error when decrease memory. Will send both patches later today.
+13:07:35 <rotru> #info [Kimchi] rotru Coding and finishing tests of 'support to memory hotplug in non-NUMA guests', plan is send the patch today.
+13:07:47 <samhenri> #info [ginger] samhenri sent a patch for System Services front-end
+13:08:56 <danielhb> #info [Kimchi] danielhb is now working in live migration enhancements
+13:09:11 <alinefm> #info [kimchi] socorro Addressed the 3 suggestions that Aline brought up for
+13:09:11 <alinefm> #info [kimchi] socorro Create Template.  samhenri is helping with one of those
+13:09:11 <alinefm> #info [kimchi] socorro issues.  Planning on sending out a patch later today.
+13:09:11 <alinefm> #info [kimchi] socorro Still don't have an env for testing bridged network as
+13:09:11 <alinefm> #info [kimchi] socorro kop5 seems to go down when I do use it for that scenario;
+13:09:13 <alinefm> #info [kimchi] socorro using kop5 for other scenarios and most are working; just
+13:09:14 <alinefm> #info [kimchi] socorro have some UI-specific issues to deal with.
+13:09:16 <alinefm> #info [kimchi] socorro Reviewed/Tested kimchi patches
+13:11:47 <alinefm> anything else?
+13:13:47 <danielhb> no
+13:14:58 <alinefm> #topic Open Discussion
+13:15:01 <alinefm> any topics for today?
+13:15:05 <ramonn> nop
+13:15:28 <samhenri> I'd like to discuss the Sensors JSON
+13:15:38 <alinefm> sure
+13:15:39 <peterpennings> I want to suggest to add a javascript test tool in the project. maybe in the next release
+13:15:40 <alinefm> go ahead
+13:16:04 <alinefm> peterpennings, it would be great! any suggestion on which tool to use?
+13:16:32 <peterpennings> we can make a research for it. but I will suggest Jasmine
+13:17:56 <samhenri> I didn't like the new sensor output. It doesn't look like standard json object and keys
+13:18:13 <alinefm> ramonn, danielhb ^
+13:18:19 <samhenri> i mean, each device has different properties
+13:18:21 <alinefm> samhenri, what is your suggestion?
+13:18:43 <ramonn> alinefm: im following
+13:19:15 <samhenri> if we used standard keys for each device then with just one line and the html template, wok.substitute would to the trick
+13:19:31 <samhenri> but taking the fans for instance
+13:19:41 <samhenri> we have:
+13:19:46 <samhenri> "fan1":{
+13:19:48 <samhenri> "unit":"RPM",
+13:19:50 <samhenri> "fan1_input":5818.0,
+13:19:51 <samhenri> "fan1_min":0.0,
+13:19:53 <samhenri> "fan1_fault":0.0
+13:19:54 <samhenri> }
+13:20:10 <danielhb> samhenri, "Add unit for each sensor and add 0 when value is N/A" was sent 2 days ago and the only review was mine
+13:20:37 <samhenri> i would have to loop through all devices and see if they have matched the device name and add the _input, _min and _fault
+13:21:16 <samhenri> then moving to the Cores: "temp18_input":31.0
+13:21:27 <samhenri> i know that the output is from sensors -u
+13:21:49 <samhenri> but the design spec looks like sensors, which is very different
+13:22:10 <samhenri> my question is, should we redesign the panel to look like sensors -u output, then I'm ok with this json
+13:22:35 <samhenri> or do we have to shape this json output into the current mockup in the design spec?
+13:22:41 <alinefm> IMO we should redesign the panel to looks better from a user perspective
+13:22:57 <alinefm> display only a list of values does not make sense to me
+13:23:05 <samhenri> agreed
+13:23:10 <alinefm> we should groupd the sensors in a table view, for example
+13:23:25 <samhenri> my sensors output only has ambient and the cores temperature
+13:23:27 <alinefm> grouped by fans, devices, etc...
+13:23:31 <samhenri> but if we have a machine with tons of devices
+13:23:38 <samhenri> this table would require an horizonal scrollbar
+13:24:38 <samhenri> or at least use a Tree Table: http://www.hameister.org/images/TreeTableMac.png
+13:25:18 <alinefm> yeap! I liked that tree table
+13:25:24 <samhenri> danielhb I'll check this patch, but i'm referring to the one posted on the Github
+13:25:24 <alinefm> getting back to the API
+13:26:00 <alinefm> danielhb, how does this patch you mention solve the problem reported by samhenri ?
+13:26:25 <samhenri> my concern is not exactly with the units, but with the json keys
+13:26:46 <samhenri> if we display "temp18_input" in the table, then I'm fine
+13:26:58 <alinefm> =o
+13:27:04 <alinefm> I don't think we want this
+13:27:10 <samhenri> but if this key won't be displayed in the screen
+13:27:27 <samhenri> then whats the point of it? make a standard json with temp_input
+13:28:16 <samhenri> then with just a json response i can use the wok.substitute.js to replace a {input} in the HTML
+13:28:40 <samhenri> instead of iterating through the whole json object and filtering, using substring, split, regex and etc
+13:29:14 <samhenri> it is not difficult, but it just sounds wrong or troublesome from a "don't repeat yourself" perspective
+13:29:23 <ramonn> i guess no regexp will be used, just split
+13:29:44 <ramonn> since the suffix is defined and standard
+13:30:16 <danielhb> alinefm, what problem? samhenri disliking how ramonn solved the API problem isn't a problem, is a matter of taste. ramonn posted this exact API here https://github.com/kimchi-project/ginger/issues/320 5 days ago, no comments were made. API was pushed upstream as is yesterday, in that patch I mentioned.
+13:31:48 <alinefm> danielhb, I remembered samhenri and ramonn discussing about it in this channel this week
+13:32:13 <alinefm> danielhb, samhenri is giving his opinion on how the API will not fit the UI requirements
+13:32:14 <samhenri> my output only return the core temperatures so it looks like i can use split just fine, but i'm worried about devices that i don't have here
+13:32:24 <alinefm> should we only ignore? or trying to find a solution to it?
+13:33:12 <ramonn> but, we are going to omit values like min and fault, just returning temperature on REST API ?
+13:33:27 <samhenri> nope, i'm not saying that we should omit these values
+13:33:40 <ramonn> i guess is better to return a complete json by rest, and UI deal with the values to make readable
+13:33:47 <samhenri> the ui will definitely change, i will add these columns
+13:34:49 <ramonn> so samhenri, you would like to make a standard in all devices? like, all of the as input, fault and min /
+13:34:52 <ramonn> ?
+13:35:10 <samhenri> standard keys
+13:35:47 <samhenri> just temp_input, temp_max, temp_crit
+13:36:29 <samhenri> if a device doesn't have the key, then it won't display the key and the UI will adapt
+13:36:31 <ramonn> ok, how can we add max and crit for devices that did not retrieve this?
+13:36:37 <ramonn> ahh ok
+13:36:40 <ramonn> like returning empty
+13:36:44 <samhenri> not empty
+13:36:59 <samhenri> simply not existing in the device/object
+13:37:56 <alinefm> samhenri, it is not RESTful
+13:38:11 <alinefm> the keys should always exist in the JSON
+13:38:22 <samhenri> ah, yes
+13:39:54 <ramonn> right. Some devices has only _input, other has _fault and _min, and other has _max
+13:40:05 <ramonn> so we are going to retrieve all of them in all devices?
+13:40:34 <samhenri> fan properties with fans, core properties with cores etc, right?
+13:40:59 <samhenri> if they're from different sensors
+13:41:01 <ramonn> right
+13:43:11 <ramonn> ok, so let's do this: answer the issue https://github.com/kimchi-project/ginger/issues/320, showing how rest return the output today
+13:43:14 <ramonn> and a propose one
+13:43:33 <ramonn> it will make easier to understand the new standard
+13:43:58 <samhenri> ok, i'll try to create one with mock objects because mine is not complete
+13:44:39 <ramonn> samhenri: i have here a sensors -u output very long
+13:45:07 <samhenri> ok, send it to me
+13:45:46 <ramonn> i ll do it
+13:46:04 <ramonn> alinefm: we can proceed to the next item
+13:46:19 <alinefm> ramonn, ok
+13:46:24 <alinefm> any other topic?
+13:46:58 <ziviani> no
+13:47:17 <ramonn> samhenri: http://pastebin.com/6xqX72RH
+13:47:19 <rotru> no
+13:47:23 <ramonn> nop
+13:48:05 <lcorreia> no
+13:48:17 <alinefm> ok
+13:48:23 <alinefm> so thanks everyone for joining!
+13:48:26 <alinefm> #endmeeting
