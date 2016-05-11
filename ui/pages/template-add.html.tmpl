@@ -50,20 +50,15 @@
 
                                 <!-- 1-1-1 -->
                                 <div id="local-iso-field" class="iso-field" style="display: none;">
-                                    <form id="form-template-add">
-                                        <div class="filter">
-                                            <div class="form-group pull-right">
-                                                <input type="text" class="form-control" id="template-add-iso-filter" placeholder="$_("Filter")" />
-                                            </div>
-                                        </div>
-                                    </form>
                                     <div class="row">
                                         <p>$_("The following ISOs are available:")</p>
                                     </div>
-                                    <div class="checkbox">
-                                        <label class="check-all">
-                                            <input type="checkbox" id="select-all-local-iso">$_("All")
-                                        </label>
+                                    <div class="checkbox row">
+                                        <input type="checkbox" class="wok-checkbox" id="select-all-local-iso">
+                                        <label class="check-all" for="select-all-local-iso">$_("All")</label>
+                                        <div id="template-filter" class="form-group filter">
+                                                <input type="text" class="form-control" id="template-add-iso-filter" placeholder="$_("Filter")" />
+                                        </div>
                                     </div>
                                     <div class="row" id="isoRow">
                                         <form id="form-local-iso">

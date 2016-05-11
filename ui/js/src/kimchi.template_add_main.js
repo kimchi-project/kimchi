@@ -167,7 +167,7 @@ kimchi.template_add_main = function() {
     };
 
     var setupFilters = function() {
-        $('input#template-add-iso-filter', '#form-template-add').on('keyup', function() {
+        $('input#template-add-iso-filter', '#template-filter').on('keyup', function() {
             filterISOs("all", $(this).val());  // Default to 'all' for now
         });
     };
