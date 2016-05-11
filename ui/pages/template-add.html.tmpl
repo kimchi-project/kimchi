@@ -34,6 +34,14 @@
                 <div class="template-pager">
                     <div class="page-list">
                         <div class="page" id="iso-local-box">
+                            <div id="loading-isos">
+                                <div class="wok-mask-loader-container">
+                                    <div class="wok-mask-loading">
+                                        <div class="wok-mask-loading-icon"></div>
+                                        <div class="wok-mask-loading-text">$_("Loading...")</div>
+                                    </div>
+                                </div>
+                            </div>
                                 <!-- 1-1-2 -->
                                 <div id="iso-file-field">
                                     <div id="iso-file-box" class="custom-iso-field">
@@ -95,14 +103,6 @@
                                     </div>
                                 </div>
                         </div>
-
-                        <div class="page" id="vm-image-local-box">
-                            <div class="from-group">
-                                <label for="vm-image-local-text">$_("File Path:")</label>
-                                <input type="text" class="form-control" id="vm-image-local-text" />
-                            </div>
-                        </div>
-
         </div>
     </div>
     <div class="modal-footer">
