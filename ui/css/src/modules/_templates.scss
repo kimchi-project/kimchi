@@ -47,6 +47,13 @@
     form {
         margin: 15px 0 0;
     }
+    label.check-all {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100px;
+        display: inline-block;
+        vertical-align: middle;
+    }
     .hide {
         display: none;
     }
@@ -208,7 +215,6 @@
     }
     &.modal-content button#iso-more,
     &.modal-content button#iso-more-loading {
-        margin-bottom: 17px;
         clear: both;
     }
     &.modal-content div#iso-remote-box {
@@ -217,10 +223,18 @@
     &.modal-content div#iso-local-box {
         left: 0;
     }
+    .check-all {
+        margin-right: 0 !important;
+        padding-left: 0 !important;
+    }
     .filter {
+         width: 977px;
         height: 40px;
         overflow: visible;
         clear: both;
+        margin-bottom: 0;
+        display: inline-block;
+        vertical-align: middle;
     }
     .pull-right .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
         width: 133px;

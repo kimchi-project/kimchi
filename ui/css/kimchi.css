@@ -1462,6 +1462,14 @@ body.wok-gallery {
   margin: 15px 0 0;
 }
 
+#template-edit-window label.check-all {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
 #template-edit-window .hide {
   display: none;
 }
@@ -1655,7 +1663,6 @@ body.wok-gallery {
 
 #template-add-window.modal-content button#iso-more,
 #template-add-window.modal-content button#iso-more-loading {
-  margin-bottom: 17px;
   clear: both;
 }
 
@@ -1667,10 +1674,19 @@ body.wok-gallery {
   left: 0;
 }
 
+#template-add-window .check-all {
+  margin-right: 0 !important;
+  padding-left: 0 !important;
+}
+
 #template-add-window .filter {
+  width: 977px;
   height: 40px;
   overflow: visible;
   clear: both;
+  margin-bottom: 0;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 #template-add-window .pull-right .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
