@@ -129,3 +129,21 @@ def metadata_exists(dom):
     if root.find("metadata") is None:
         return False
     return True
+
+
+def has_cpu_numa(dom):
+    """
+    Verify if domain has NUMA configuration
+    Returns: True or False
+    """
+    root = etree.fromstring(dom.XMLDesc(0))
+    return (root.find('./cpu/numa') is not None)
+
+
+def set_numa_memory(mem, root):
+    """
+    Set new NUMA memory value
+    Returns: etree element updated
+    """
+    root.find('./cpu/numa/cell').set('memory', str(mem))
+    return root

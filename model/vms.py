@@ -61,9 +61,9 @@ from wok.plugins.kimchi.model.utils import set_metadata_node
 from wok.plugins.kimchi.screenshot import VMScreenshot
 from wok.plugins.kimchi.utils import get_next_clone_name
 from wok.plugins.kimchi.utils import template_name_from_uri
-from wok.plugins.kimchi.xmlutils.cpu import get_cpu_xml, get_numa_xml
 from wok.plugins.kimchi.xmlutils.cpu import get_topology_xml
 from wok.plugins.kimchi.xmlutils.disk import get_vm_disk_info, get_vm_disks
+from utils import has_cpu_numa, set_numa_memory
 
 
 DOM_STATE_MAP = {0: 'nostate',
@@ -769,10 +769,10 @@ class VMModel(object):
             # topology is being undefined: remove it
             new_xml = xml_item_remove(new_xml, XPATH_TOPOLOGY)
 
-        # Updating memory and NUMA if necessary, if vm is offline
+        # Updating memory if vm is offline
         if (not dom.isActive() and 'memory' in params and
            params['memory'] != {}):
-            new_xml = self._update_memory_config(new_xml, params)
+            new_xml = self._update_memory_config(new_xml, params, dom)
 
         if 'graphics' in params:
             new_xml = self._update_graphics(dom, new_xml, params)
@@ -810,7 +810,7 @@ class VMModel(object):
             vm_name = name
         return (nonascii_name if nonascii_name is not None else vm_name, dom)
 
-    def _update_memory_config(self, xml, params):
+    def _update_memory_config(self, xml, params, dom):
         # Cannot pass max memory if there is not support to memory hotplug
         # Then set max memory as memory, just to continue with the update
         if not self.caps.mem_hotplug_support:
@@ -905,38 +905,24 @@ class VMModel(object):
                 root.remove(currentMem)
 
             memory = root.find('.memory')
-            # If host/guest does not support memory hot plug, then there is
-            # NUMA configure, we must update the tag directly
-            if not self.caps.mem_hotplug_support:
-                if memory is not None:
-                    memory.text = str(newMem)
-            else:
+            # Set NUMA parameterers if necessary. NUMA is not required for CPU
+            # and Memory hotplug anymore on PowerPC systems
+            if has_cpu_numa(dom):
                 if memory is not None:
                     # Libvirt is going to set the value automatically with
                     # the value configured in NUMA tag
                     root.remove(memory)
+                root = set_numa_memory(newMem, root)
+            else:
+                # update the memory tag directly
+                if memory is not None:
+                    memory.text = str(newMem)
 
             if (maxMemTag is not None) and (not hasMaxMem):
                 if newMem == newMaxMem:
                     root.remove(maxMemTag)
                 else:
                     maxMemTag.set('slots', str(_get_slots(newMem, newMaxMem)))
-
-        # Set NUMA parameterers and create it if does not exist
-        # CPU tag DO NOT exist? Create it
-        cpu = root.find(XPATH_CPU)
-        if cpu is None:
-            cpu = get_cpu_xml(0, newMem)
-            root.insert(0, ET.fromstring(cpu))
-        else:
-            # Does NUMA tag exist ?
-            numaTag = cpu.find('./numa')
-            if numaTag is None:
-                numa_element = get_numa_xml(0, newMem)
-                cpu.insert(0, ET.fromstring(numa_element))
-            else:
-                cellTag = cpu.find('./numa/cell')
-                cellTag.set('memory', str(newMem))
 
         # Setting memory hard limit to max_memory + 1GiB
         memtune = root.find('memtune')
@@ -990,12 +976,9 @@ class VMModel(object):
         if not self.caps.mem_hotplug_support:
             raise InvalidOperation("KCHVM0046E")
 
-        # Check if the vm xml supports memory hotplug, if not, static update
-        # must be done firstly, then Kimchi is going to update the xml
         xml = dom.XMLDesc(0)
-        numa_mem = xpath_get_text(xml, XPATH_NUMA_CELL + '/@memory')
         max_mem = xpath_get_text(xml, './maxMemory')
-        if numa_mem == [] or max_mem == []:
+        if max_mem == []:
             raise OperationFailed('KCHVM0042E', {'name': dom.name()})
 
         # Memory live update must be done in chunks of 1024 Mib or 1Gib
@@ -1038,12 +1021,10 @@ class VMModel(object):
         # Hot add given number of memory devices in the guest
         flags = libvirt.VIR_DOMAIN_MEM_CONFIG | libvirt.VIR_DOMAIN_MEM_LIVE
         # Create memory device xml
-        mem_dev_xml = etree.tostring(
-            E.memory(
-                E.target(
-                    E.size('1', unit='GiB'),
-                    E.node('0')),
-                model='dimm'))
+        tmp_xml = E.memory(E.target(E.size('1', unit='GiB')), model='dimm')
+        if has_cpu_numa(dom):
+            tmp_xml.find('target').append(E.node('0'))
+        mem_dev_xml = etree.tostring(tmp_xml)
         # Add chunks of 1G of memory
         for i in range(amount):
             dom.attachDeviceFlags(mem_dev_xml, flags)
