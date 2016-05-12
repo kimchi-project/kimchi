@@ -17,11 +17,11 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-import cherrypy
 import libvirt
 import threading
 import time
 
+from wok.model.notifications import add_notification
 from wok.utils import wok_log
 
 
@@ -101,8 +101,9 @@ class LibvirtConnection(object):
                                           "your libvirt URI which is often "
                                           "defined in "
                                           "/etc/libvirt/libvirt.conf")
-                            cherrypy.engine.stop()
-                            exit(1)
+                            add_notification("KCHCONN0001E",
+                                             plugin_name="/plugins/kimchi")
+                            return None
                     time.sleep(2)
 
                 for name in dir(libvirt.virConnect):
