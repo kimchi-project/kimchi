@@ -1325,7 +1325,7 @@ class RestTests(unittest.TestCase):
 
         keys = [u'libvirt_stream_protocols', u'qemu_stream', u'qemu_spice',
                 u'screenshot', u'kernel_vfio', u'nm_running',
-                u'mem_hotplug_support']
+                u'mem_hotplug_support', u'libvirtd_running']
         self.assertEquals(sorted(keys), sorted(conf.keys()))
 
     def test_peers(self):

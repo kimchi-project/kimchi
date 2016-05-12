@@ -31,7 +31,7 @@ from wok.plugins.kimchi.model.featuretests import FeatureTests
 from wok.plugins.kimchi.model.featuretests import FEATURETEST_POOL_NAME
 from wok.plugins.kimchi.model.featuretests import FEATURETEST_VM_NAME
 from wok.plugins.kimchi.screenshot import VMScreenshot
-from wok.plugins.kimchi.utils import check_url_path
+from wok.plugins.kimchi.utils import check_url_path, is_libvirtd_up
 
 
 class ConfigModel(object):
@@ -55,6 +55,7 @@ class CapabilitiesModel(object):
         self.kernel_vfio = False
         self.nm_running = False
         self.mem_hotplug_support = False
+        self.libvirtd_running = False
 
         # run feature tests
         self._set_capabilities()
@@ -106,6 +107,7 @@ class CapabilitiesModel(object):
         self.kernel_vfio = FeatureTests.kernel_support_vfio()
         self.nm_running = FeatureTests.is_nm_running()
         self.mem_hotplug_support = FeatureTests.has_mem_hotplug_support(conn)
+        self.libvirtd_running = is_libvirtd_up()
         wok_log.info("*** Feature tests completed ***")
     _set_capabilities.priority = 90
 
@@ -122,13 +124,24 @@ class CapabilitiesModel(object):
         return False
 
     def lookup(self, *ident):
+        if not is_libvirtd_up():
+            return {'libvirt_stream_protocols': [],
+                    'qemu_spice': False,
+                    'qemu_stream': False,
+                    'screenshot': None,
+                    'kernel_vfio': self.kernel_vfio,
+                    'nm_running': FeatureTests.is_nm_running(),
+                    'mem_hotplug_support': False,
+                    'libvirtd_running': False}
+
         return {'libvirt_stream_protocols': self.libvirt_stream_protocols,
                 'qemu_spice': self._qemu_support_spice(),
                 'qemu_stream': self.qemu_stream,
                 'screenshot': VMScreenshot.get_stream_test_result(),
                 'kernel_vfio': self.kernel_vfio,
                 'nm_running': FeatureTests.is_nm_running(),
-                'mem_hotplug_support': self.mem_hotplug_support}
+                'mem_hotplug_support': self.mem_hotplug_support,
+                'libvirtd_running': True}
 
 
 class DistrosModel(object):

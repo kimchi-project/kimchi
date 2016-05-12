@@ -20,6 +20,7 @@
 
 import contextlib
 import json
+import platform
 import re
 import sqlite3
 import time
@@ -30,7 +31,7 @@ from urlparse import urlparse
 from wok.exception import InvalidParameter, OperationFailed
 from wok.plugins.kimchi import config
 from wok.plugins.kimchi.osinfo import get_template_default
-from wok.utils import wok_log
+from wok.utils import run_command, wok_log
 from wok.xmlutils.utils import xpath_get_text
 
 MAX_REDIRECTION_ALLOWED = 5
@@ -257,3 +258,17 @@ def get_next_clone_name(all_names, basename, name_suffix='', ts=False):
         new_name = new_name + name_suffix
 
     return new_name
+
+
+def is_libvirtd_up():
+    """
+    Checks if libvirtd.service is up.
+    """
+    distro, _, _ = platform.linux_distribution()
+    if distro.lower() == 'ubuntu':
+        cmd = ['systemctl', 'is-active', 'libvirt-bin.service']
+    else:
+        cmd = ['systemctl', 'is-active', 'libvirtd.service']
+
+    output, error, rc = run_command(cmd, silent=True)
+    return True if output == 'active\n' else False
