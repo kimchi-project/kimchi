@@ -1174,6 +1174,7 @@ class RestTests(unittest.TestCase):
         self.assertEquals('17', storagevolume['os_version'])
         self.assertEquals('fedora', storagevolume['os_distro'])
         self.assertEquals(True, storagevolume['bootable'])
+        self.assertEquals(True, storagevolume['has_permission'])
 
         # Create a template
         # In real model os distro/version can be omitted

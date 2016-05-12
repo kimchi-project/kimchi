@@ -30,12 +30,14 @@ from lxml.builder import E
 
 from wok.exception import InvalidOperation, InvalidParameter, IsoFormatError
 from wok.exception import MissingParameter, NotFoundError, OperationFailed
-from wok.utils import add_task, get_unique_file_name, wok_log
+from wok.utils import add_task, get_unique_file_name
+from wok.utils import probe_file_permission_as_user, wok_log
 from wok.xmlutils.utils import xpath_get_text
 from wok.model.tasks import TaskModel
 
 from wok.plugins.kimchi.config import READONLY_POOL_TYPE
 from wok.plugins.kimchi.isoinfo import IsoImage
+from wok.plugins.kimchi.kvmusertests import UserTests
 from wok.plugins.kimchi.model.diskutils import get_disk_used_by
 from wok.plugins.kimchi.model.diskutils import set_disk_used_by
 from wok.plugins.kimchi.model.storagepools import StoragePoolModel
@@ -273,6 +275,7 @@ class StorageVolumeModel(object):
         self.task = TaskModel(**kargs)
         self.storagevolumes = StorageVolumesModel(**kargs)
         self.storagepool = StoragePoolModel(**kargs)
+        self.libvirt_user = UserTests().probe_user()
 
     @staticmethod
     def get_storagevolume(poolname, name, conn):
@@ -329,13 +332,15 @@ class StorageVolumeModel(object):
                 isvalid = False
 
         used_by = get_disk_used_by(self.objstore, self.conn, path)
+        ret, _ = probe_file_permission_as_user(path, self.libvirt_user)
         res = dict(type=VOLUME_TYPE_MAP[info[0]],
                    capacity=info[1],
                    allocation=info[2],
                    path=path,
                    used_by=used_by,
                    format=fmt,
-                   isvalid=isvalid)
+                   isvalid=isvalid,
+                   has_permission=ret)
         if fmt == 'iso':
             if os.path.islink(path):
                 path = os.path.join(os.path.dirname(path), os.readlink(path))
@@ -347,6 +352,7 @@ class StorageVolumeModel(object):
                 bootable = True
             except IsoFormatError:
                 bootable = False
+
             res.update(
                 dict(os_distro=os_distro, os_version=os_version, path=path,
                      bootable=bootable))

@@ -614,6 +614,8 @@ A interface represents available network interface on VM.
     * bootable *(optional)*: True if iso image is bootable and not corrupted.
     * used_by: Name of vms which use this volume.
     * isvalid: True if is a valid volume.
+    * has_permission: qemu/libvirt user has the right permission to
+                      to use the image
 
 * **DELETE**: Remove the Storage Volume
 * **POST**: *See Storage Volume Actions*

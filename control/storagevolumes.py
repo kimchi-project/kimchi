@@ -83,7 +83,8 @@ class StorageVolume(Resource):
                'path': self.info['path'],
                'used_by': self.info['used_by'],
                'format': self.info['format'],
-               'isvalid': self.info['isvalid']}
+               'isvalid': self.info['isvalid'],
+               'has_permission': self.info['has_permission']}
 
         for key in ('os_version', 'os_distro', 'bootable', 'base'):
             val = self.info.get(key)
