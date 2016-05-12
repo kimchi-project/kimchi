@@ -1,5 +1,6 @@
 [Unit]
-Requires=libvirtd.service wokd.service
+Requires=wokd.service
+Wants=libvirtd.service
 After=libvirtd.service wokd.service
 
 [Service]
