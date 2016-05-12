@@ -1271,7 +1271,7 @@ class RestTests(unittest.TestCase):
         resp = self.request('/plugins/kimchi/interfaces').read()
         self.assertIn('name', resp)
         interfaces = json.loads(resp)
-        keys = ['name', 'type', 'ipaddr', 'netmask', 'status']
+        keys = ['name', 'type', 'ipaddr', 'netmask', 'status', 'module']
         for interface in interfaces:
             self.assertEquals(sorted(keys), sorted(interface.keys()))
 

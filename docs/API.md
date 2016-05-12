@@ -664,6 +664,8 @@ A interface represents available interface on host.
        * bonding: The combination of network interfaces on one host for redundancy
                   and/or increased throughput.
        * bridge: A network device that connects multiple network segments.
+    * module: the name of the kernel module used to load this interface. Returns
+              'unknown' if not applicable (ex: interface is a vlan).
 
 * **POST**: *See Interface Actions*
 
