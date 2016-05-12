@@ -331,4 +331,6 @@ messages = {
 
     "KCHLVMS0001E": _("Invalid volume group name parameter: %(name)s."),
 
+    "KCHCONN0001E": _("Unable to establish connection with libvirt. Please check your libvirt URI which is often defined in /etc/libvirt/libvirt.conf"),
+
 }
