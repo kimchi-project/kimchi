@@ -169,7 +169,8 @@ kimchi.enableBridgeOptions = function(enable, networkType, networkDestinationTyp
 };
 
 kimchi.loadInterfaces = function(interfaceFilterArray) {
-   kimchi.getInterfaces(function(result) {
+
+    var loadInterfacesHTML = function(result) {
         var options = [];
         $selectDestination = $('#networkDestinationID');
         var nics = {};
@@ -194,5 +195,12 @@ kimchi.loadInterfaces = function(interfaceFilterArray) {
         $('#networkDestinationID').selectpicker('refresh');
         kimchi.setDefaultNetworkType(result.length!==0);
         kimchi.changeNetworkDestination();
-    });
+    };
+
+    var networkType = $("#networkType").val();
+    if (networkType === kimchi.NETWORK_TYPE_VEPA) {
+        kimchi.getVEPAInterfaces(loadInterfacesHTML);
+    } else {
+        kimchi.getInterfaces(loadInterfacesHTML);
+    }
 };
