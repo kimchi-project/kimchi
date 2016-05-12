@@ -54,6 +54,19 @@ invalid_repository_urls = ['www.fedora.org',       # missing protocol
 
 TMP_DIR = '/var/lib/kimchi/tests/'
 UBUNTU_ISO = TMP_DIR + 'ubuntu14.04.iso'
+NON_NUMA_XML = """
+<domain type='kvm'>
+  <name>non-numa-kimchi-test</name>
+  <maxMemory slots='2' unit='GiB'>4</maxMemory>
+  <memory unit='GiB'>2</memory>
+  <os>
+    <type arch='ppc64'>hvm</type>
+    <boot dev='hd'/>
+  </os>
+  <features>
+    <acpi/>
+  </features>
+</domain>"""
 
 
 def setUpModule():
@@ -820,6 +833,38 @@ class ModelTests(unittest.TestCase):
             else:
                 self.assertRaises(InvalidOperation, inst.vm_update,
                                   'kimchi-vm1', params)
+
+    msg = "Memory hotplug in non-numa guests only for PowerPC arch."
+
+    @unittest.skipUnless(('ppc64' in os.uname()[4]), msg)
+    def test_non_numa_vm_memory_hotplug(self):
+        config.set("authentication", "method", "pam")
+        inst = model.Model(None, objstore_loc=self.tmp_store)
+        conn = inst.conn.get()
+        vm = 'non-numa-kimchi-test'
+
+        with RollbackContext() as rollback:
+            conn.defineXML(NON_NUMA_XML)
+            rollback.prependDefer(conn.lookupByName(vm).undefine)
+
+            # Start vm
+            inst.vm_start(vm)
+
+            # Hotplug memory
+            params = {'memory': {'current': 3072}}
+            inst.vm_update(vm, params)
+            self.assertEquals(params['memory']['current'],
+                              inst.vm_lookup(vm)['memory']['current'])
+
+            params = {'memory': {'current': 4096}}
+            inst.vm_update(vm, params)
+            self.assertEquals(params['memory']['current'],
+                              inst.vm_lookup(vm)['memory']['current'])
+
+            # Stop vm and test persistence
+            inst.vm_poweroff(vm)
+            self.assertEquals(params['memory']['current'],
+                              inst.vm_lookup(vm)['memory']['current'])
 
     def test_vm_edit(self):
         config.set("authentication", "method", "pam")
