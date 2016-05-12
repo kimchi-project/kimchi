@@ -634,6 +634,20 @@ var kimchi = {
         });
     },
 
+    getVEPAInterfaces : function(suc, err) {
+        wok.requestJSON({
+            url : 'plugins/kimchi/interfaces?module=^(?!mlx5_core|mlx5-core).*$',
+            type : 'GET',
+            contentType : 'application/json',
+            dataType : 'json',
+            resend : true,
+            success : suc,
+            error : err ? err : function(data) {
+                wok.message.error(data.responseJSON.reason);
+            }
+        });
+    },
+
     deleteNetwork : function(name, suc, err) {
         wok.requestJSON({
             url : 'plugins/kimchi/networks/' + encodeURIComponent(name),
