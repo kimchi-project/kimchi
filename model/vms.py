@@ -1228,24 +1228,21 @@ class VMModel(object):
                 'threads': threads,
             }
 
-        if state == 'shutoff':
-            val = xpath_get_text(xml, XPATH_DOMAIN_MEMORY)[0]
-            unit_list = xpath_get_text(xml, XPATH_DOMAIN_MEMORY_UNIT)
-            if len(unit_list) > 0:
-                unit = unit_list[0]
-            else:
-                unit = 'KiB'
-            memory = convert_data_size(val, unit, 'MiB')
-        else:
-            # Return current memory plus the amount of memory given by memory
-            # devices
+        # Kimchi does not make use of 'currentMemory' tag, it only updates
+        # NUMA memory config or 'memory' tag directly. In memory hotplug,
+        # Libvirt always updates 'memory', so we can use this tag retrieving
+        # from Libvirt API maxMemory() function, regardeless of the VM state
+        # Case VM changed currentMemory outside Kimchi, sum mem devs
+        memory = dom.maxMemory() >> 10
+        curr_mem = (info[2] >> 10)
+        if memory != curr_mem:
             root = ET.fromstring(xml)
             totMemDevs = 0
             for size in root.findall('./devices/memory/target/size'):
                 totMemDevs += convert_data_size(size.text,
                                                 size.get('unit'),
                                                 'MiB')
-            memory = (info[2] >> 10) + totMemDevs
+            memory = curr_mem + totMemDevs
 
         # assure there is no zombie process left
         for proc in self._serial_procs[:]:
