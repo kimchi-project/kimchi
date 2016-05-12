@@ -476,14 +476,16 @@ class MockStorageVolumes(object):
                                             'type': 'block',
                                             'path': base_path + '1',
                                             'used_by': [],
-                                            'isvalid': True},
+                                            'isvalid': True,
+                                            'has_permission': True},
                              'unit:0:0:2': {'capacity': 2048,
                                             'format': 'unknown',
                                             'allocation': 512,
                                             'type': 'block',
                                             'path': base_path + '2',
                                             'used_by': [],
-                                            'isvalid': True}}
+                                            'isvalid': True,
+                                            'has_permission': True}}
 
 
 class MockVolumeGroups(object):
