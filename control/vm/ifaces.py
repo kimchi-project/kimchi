@@ -23,16 +23,16 @@ from wok.control.utils import UrlSubNode
 
 VMIFACES_REQUESTS = {
     'POST': {
-        'default': "Attach network interface '%(network)s' to guest '%(vm)s'",
+        'default': "KCHVMIF0001L",
     },
 }
 
 VMIFACE_REQUESTS = {
     'DELETE': {
-        'default': "Detach network interface '%(ident)s' from guest '%(vm)s'",
+        'default': "KCHVMIF0002L",
     },
     'PUT': {
-        'default': "Update network interface '%(ident)s' at guest '%(vm)s'",
+        'default': "KCHVMIF0003L",
     },
 }
 

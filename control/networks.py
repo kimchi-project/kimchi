@@ -22,15 +22,15 @@ from wok.control.utils import UrlSubNode
 
 
 NETWORKS_REQUESTS = {
-    'POST': {'default': "Create %(connection)s virtual network '%(name)s'"},
+    'POST': {'default': "KCHNET0001L"},
 }
 
 NETWORK_REQUESTS = {
-    'DELETE': {'default': "Remove virtual network '%(ident)s'"},
-    'PUT': {'default': "Update virtual network '%(ident)s'"},
+    'DELETE': {'default': "KCHNET0002L"},
+    'PUT': {'default': "KCHNET0003L"},
     'POST': {
-        'activate': "Activate virtual network '%(ident)s'",
-        'deactivate': "Deactivate virtual network '%(ident)s'",
+        'activate': "KCHNET0004L",
+        'deactivate': "KCHNET0005L",
     },
 }
 

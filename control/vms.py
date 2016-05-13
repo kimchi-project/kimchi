@@ -25,24 +25,24 @@ from wok.plugins.kimchi.control.vm import sub_nodes
 
 VMS_REQUESTS = {
     'POST': {
-        'default': "Create guest '%(name)s' from template '%(template)s'",
+        'default': "KCHVM0001L",
     },
 }
 
 VM_REQUESTS = {
-    'DELETE': {'default': "Remove guest '%(ident)s'"},
-    'PUT': {'default': "Edit guest '%(ident)s'"},
+    'DELETE': {'default': "KCHVM0002L"},
+    'PUT': {'default': "KCHVM0003L"},
     'POST': {
-        'start': "Start guest '%(ident)s'",
-        'poweroff': "Power off guest '%(ident)s'",
-        'shutdown': "Shutdown guest '%(ident)s'",
-        'reset': "Restart guest '%(ident)s'",
-        'connect': "Connect to guest '%(ident)s' through novnc/spice",
-        'clone': "Clone guest '%(ident)s'",
-        'migrate': "Migrate guest '%(ident)s' to '%(remote_host)s'",
-        'suspend': "Suspend guest '%(ident)s'",
-        'resume': "Resume guest '%(ident)s'",
-        'serial': "Connect to guest '%(ident)s' through serial",
+        'start': "KCHVM0004L",
+        'poweroff': "KCHVM0005L",
+        'shutdown': "KCHVM0006L",
+        'reset': "KCHVM0007L",
+        'connect': "KCHVM0008L",
+        'clone': "KCHVM0009L",
+        'migrate': "KCHVM0010L",
+        'suspend': "KCHVM0011L",
+        'resume': "KCHVM0012L",
+        'serial': "KCHVM0013L",
     },
 }
 

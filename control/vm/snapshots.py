@@ -22,13 +22,13 @@ from wok.control.utils import UrlSubNode
 
 
 VMSNAPSHOTS_REQUESTS = {
-    'POST': {'default': "Create snapshot '%(name)s' at guest '%(vm)s'"},
+    'POST': {'default': "KCHSNAP0001L"},
 }
 
 VMSNAPSHOT_REQUESTS = {
-    'DELETE': {'default': "Remove snapshot '%(ident)s' from guest '%(vm)s'"},
+    'DELETE': {'default': "KCHSNAP0002L"},
     'POST': {
-        'revert': "Revert guest '%(vm)s' to snapshot '%(ident)s'",
+        'revert': "KCHSNAP0003L",
     },
 }
 

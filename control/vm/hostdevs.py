@@ -22,12 +22,12 @@ from wok.control.utils import UrlSubNode
 
 
 VMHOSTDEVS_REQUESTS = {
-    'POST': {'default': "Attach host device '%(name)s' to guest '%(vmid)s'"},
+    'POST': {'default': "KCHVMHDEV0001L"},
 }
 
 VMHOSTDEV_REQUESTS = {
     'DELETE': {
-        'default': "Detach host device '%(ident)s' from guest '%(vmid)s'",
+        'default': "KCHVMHDEV0002L",
     },
 }
 
