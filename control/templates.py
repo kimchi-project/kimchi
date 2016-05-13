@@ -22,14 +22,14 @@ from wok.control.utils import UrlSubNode
 
 
 TEMPLATES_REQUESTS = {
-    'POST': {'default': "Create template '%(name)s'"},
+    'POST': {'default': "KCHTMPL0001L"},
 }
 
 TEMPLATE_REQUESTS = {
-    'DELETE': {'default': "Remove template '%(ident)s'"},
-    'PUT': {'default': "Update template '%(ident)s'"},
+    'DELETE': {'default': "KCHTMPL0002L"},
+    'PUT': {'default': "KCHTMPL0003L"},
     'POST': {
-        'clone': "Clone template '%(ident)s'",
+        'clone': "KCHTMPL0004L",
     },
 }
 

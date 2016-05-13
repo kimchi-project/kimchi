@@ -23,18 +23,16 @@ from wok.control.utils import get_class_name, model_fn
 
 
 STORAGEVOLUMES_REQUESTS = {
-    'POST': {'default': "Create storage volume '%(name)s' at pool '%(pool)s'"},
+    'POST': {'default': "KCHVOL0001L"},
 }
 
 STORAGEVOLUME_REQUESTS = {
-    'DELETE': {'default': "Remove storage volume '%(ident)s' from "
-                          "pool '%(pool)s'"},
-    'PUT': {'default': "Update storage volume '%(ident)s' at pool '%(pool)s'"},
+    'DELETE': {'default': "KCHVOL0002L"},
+    'PUT': {'default': "KCHVOL0003L"},
     'POST': {
-        'wipe': "Wipe storage volume '%(ident)s' off pool '%(pool)s'",
-        'resize': "Resize storage volume '%(ident)s' at pool '%(pool)s' with "
-                  "size %(size)s",
-        'clone': "Clone storage volume '%(ident)s' at pool '%(pool)s'",
+        'wipe': "KCHVOL0004L",
+        'resize': "KCHVOL0005L",
+        'clone': "KCHVOL0006L",
     },
 }
 

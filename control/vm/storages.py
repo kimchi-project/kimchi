@@ -23,13 +23,13 @@ from wok.control.utils import UrlSubNode
 
 VMSTORAGES_REQUESTS = {
     'POST': {
-        'default': "Attach %(type)s storage '%(path)s' to guest '%(vm)s'",
+        'default': "KCHVMSTOR0001L",
     },
 }
 
 VMSTORAGE_REQUESTS = {
-    'DELETE': {'default': "Remove storage '%(ident)s' from guest '%(vm)s'"},
-    'PUT': {'default': "Update storage '%(ident)s' at guest '%(vm)s'"},
+    'DELETE': {'default': "KCHVMSTOR0002L"},
+    'PUT': {'default': "KCHVMSTOR0003L"},
 }
 
 

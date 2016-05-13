@@ -30,15 +30,15 @@ from wok.plugins.kimchi.model.storagepools import ISO_POOL_NAME
 
 
 STORAGEPOOLS_REQUESTS = {
-    'POST': {'default': "Create %(type)s storage pool '%(name)s'"},
+    'POST': {'default': "KCHPOOL0001L"},
 }
 
 STORAGEPOOL_REQUESTS = {
-    'DELETE': {'default': "Remove storage pool '%(ident)s'"},
-    'PUT': {'default': "Update storage pool '%(ident)s'"},
+    'DELETE': {'default': "KCHPOOL0002L"},
+    'PUT': {'default': "KCHPOOL0003L"},
     'POST': {
-        'activate': "Activate storage pool '%(ident)s'",
-        'deactivate': "Deactivate storage pool '%(ident)s'",
+        'activate': "KCHPOOL0004L",
+        'deactivate': "KCHPOOL0005L",
     },
 }
 
