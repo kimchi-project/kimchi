@@ -504,8 +504,8 @@ class NetworkModel(object):
 
     def update(self, name, params):
         info = self.lookup(name)
+        info['name'] = name
         original = copy.deepcopy(info)
-        original['name'] = name
 
         # validate update parameters
         connection = info['connection']
