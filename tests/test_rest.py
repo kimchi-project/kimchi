@@ -811,8 +811,8 @@ class RestTests(unittest.TestCase):
             os.remove('/tmp/attach-volume')
 
             # Change path of storage cdrom
-            cdrom = u'http://mirrors.kernel.org/fedora/releases/21/Live/'\
-                    'x86_64/Fedora-Live-KDE-x86_64-21-5.iso'
+            cdrom = u'http://mirrors.kernel.org/fedora/releases/23/Live/'\
+                    'x86_64/Fedora-Live-KDE-x86_64-23-10.iso'
             req = json.dumps({'path': cdrom})
             resp = self.request('/plugins/kimchi/vms/test-vm/storages/' +
                                 cd_dev, req, 'PUT')
