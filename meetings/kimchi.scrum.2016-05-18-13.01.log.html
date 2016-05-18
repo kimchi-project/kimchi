@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:01:35</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:01:35</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed May 18 13:01:35 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:01:35</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:01:36</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:01:36</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:01:45</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda</span>
+<a name="l-7"></a><span class="tm">13:01:45</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">1) Status</span>
+<a name="l-8"></a><span class="tm">13:01:45</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">2) Open discussion</span>
+<a name="l-9"></a><span class="tm">13:01:45</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-10"></a><span class="tm">13:02:39</span><span class="nk"> &lt;pvital&gt;</span> no
+<a name="l-11"></a><span class="tm">13:02:59</span><span class="nk"> &lt;alinefm&gt;</span> so let's get started =)
+<a name="l-12"></a><span class="tm">13:03:01</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-13"></a><span class="tm">13:03:01</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info [&lt;project] &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-14"></a><span class="tm">13:03:17</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] pvital is investigating some performance issues in wokd (high CPU consumption when idle)</span>
+<a name="l-15"></a><span class="tm">13:03:17</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] pvital submitted V2 and V3 of the patch "Add support to Libvirt Events."</span>
+<a name="l-16"></a><span class="tm">13:03:17</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] pvital submitted V2 of the patch-set "Issue #201: Handling Libvirt connection failures"</span>
+<a name="l-17"></a><span class="tm">13:03:17</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] pvital submitted the patch "Isolate unit tests execution."</span>
+<a name="l-18"></a><span class="tm">13:03:17</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] [Kimchi] [Ginger*] pvital reviewed patches</span>
+<a name="l-19"></a><span class="tm">13:03:20</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] danielhb reviewed and applied patches</span>
+<a name="l-20"></a><span class="tm">13:03:40</span><span class="nk"> &lt;peterpennings&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Gingerbase] peterpennings is working on select update packages V2</span>
+<a name="l-21"></a><span class="tm">13:03:43</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi]  danielhb sent a patch set to implement a new forward mode to macvtap networks</span>
+<a name="l-22"></a><span class="tm">13:03:48</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ziviani is working on hot-plug of multi-function pci devices</span>
+<a name="l-23"></a><span class="tm">13:05:54</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] alinefm reviewed and applied patches</span>
+<a name="l-24"></a><span class="tm">13:06:42</span><span class="nk"> &lt;alinefm&gt;</span> rotru, ramonn, anything else?
+<a name="l-25"></a><span class="tm">13:06:49</span><span class="nk"> &lt;rotru&gt;</span> yes
+<a name="l-26"></a><span class="tm">13:06:51</span><span class="nk"> &lt;alinefm&gt;</span> peterpennings, do you know about Samuel?
+<a name="l-27"></a><span class="tm">13:06:51</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] rotru - Added support to memory Hotplug in non-NUMA guests for PowerPC;</span>
+<a name="l-28"></a><span class="tm">13:06:51</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] rotru - Sent V1 of support to memory hotplug of DIMMs with more than 1GB - [coding V2 due to issues when remove devices if guest is offline];</span>
+<a name="l-29"></a><span class="tm">13:06:51</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] rotru - Fixed minor issue with a test case not reaching Fedora 21 image in mirrors.kernel.org;</span>
+<a name="l-30"></a><span class="tm">13:06:51</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] rotru - Coded patch to change number of slots of memory devices supported [Send later today];</span>
+<a name="l-31"></a><span class="tm">13:06:53</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] rotru - Still working in change the guest update behavior, separating static from live updates completely [fixing some issues in test cases, alinefm is helping on this];</span>
+<a name="l-32"></a><span class="tm">13:07:50</span><span class="nk"> &lt;peterpennings&gt;</span> alinefm, I guess samhenri is working on list view for storage volumes
+<a name="l-33"></a><span class="tm">13:08:46</span><span class="nk"> &lt;alinefm&gt;</span> peterpennings, will he get online soon?
+<a name="l-34"></a><span class="tm">13:09:10</span><span class="nk"> &lt;peterpennings&gt;</span> I really dont know, he is not feeling well since yesterday.
+<a name="l-35"></a><span class="tm">13:09:11</span><span class="nk"> &lt;alinefm&gt;</span> just because danielhb would have his opinion on a change which involves all plugins =)
+<a name="l-36"></a><span class="tm">13:09:46</span><span class="nk"> &lt;alinefm&gt;</span> oh... hope he gets better soon
+<a name="l-37"></a><span class="tm">13:09:55</span><span class="nk"> &lt;alinefm&gt;</span> anything else, guys?
+<a name="l-38"></a><span class="tm">13:10:55</span><span class="nk"> &lt;danielhb&gt;</span> no
+<a name="l-39"></a><span class="tm">13:11:12</span><span class="nk"> &lt;rotru&gt;</span> no
+<a name="l-40"></a><span class="tm">13:12:09</span><span class="nk"> &lt;ramonn&gt;</span> alinefm, yes
+<a name="l-41"></a><span class="tm">13:12:55</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] ramonn understanding how session is managed by cherrypy</span>
+<a name="l-42"></a><span class="tm">13:13:11</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] ramonn reading rpm guidelines from communities</span>
+<a name="l-43"></a><span class="tm">13:15:31</span><span class="nk"> &lt;alinefm&gt;</span> ramonn, thanks!
+<a name="l-44"></a><span class="tm">13:15:36</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-45"></a><span class="tm">13:15:42</span><span class="nk"> &lt;alinefm&gt;</span> any other topic for today?
+<a name="l-46"></a><span class="tm">13:16:47</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, can you review my macvtap patch set plz?
+<a name="l-47"></a><span class="tm">13:16:54</span><span class="nk"> &lt;ziviani&gt;</span> <span class="hi">alinefm:</span> I forgot the date we'll get in code freeze for this release
+<a name="l-48"></a><span class="tm">13:16:58 </span><span class="nka">* danielhb</span> <span class="ac">think this is a good topic</span>
+<a name="l-49"></a><span class="tm">13:17:10</span><span class="nk"> &lt;danielhb&gt;</span> ziviani, Friday
+<a name="l-50"></a><span class="tm">13:19:01</span><span class="nk"> &lt;ziviani&gt;</span> <span class="hi">danielhb:</span> thank you
+<a name="l-51"></a><span class="tm">13:19:03</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, no
+<a name="l-52"></a><span class="tm">13:19:05</span><span class="nk"> &lt;alinefm&gt;</span> ziviani, no
+<a name="l-53"></a><span class="tm">13:19:23</span><span class="nk"> &lt;alinefm&gt;</span> ziviani, for 2.2 releases, the code freeze is June 1st
+<a name="l-54"></a><span class="tm">13:19:25</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, ^
+<a name="l-55"></a><span class="tm">13:19:36</span><span class="nk"> &lt;ziviani&gt;</span> <span class="hi">alinefm:</span> thank you :D
+<a name="l-56"></a><span class="tm">13:19:37</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, sure! I will do that after this meeting
+<a name="l-57"></a><span class="tm">13:19:47</span><span class="nk"> &lt;alinefm&gt;</span> in fact, there are some pending patches on ML waiting for review
+<a name="l-58"></a><span class="tm">13:20:00</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, let me know if you need a hand reviewing stuff
+<a name="l-59"></a><span class="tm">13:20:52</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, sure
+<a name="l-60"></a><span class="tm">13:21:05</span><span class="nk"> &lt;alinefm&gt;</span> any other topic, question, doubt?
+<a name="l-61"></a><span class="tm">13:22:42</span><span class="nk"> &lt;rotru&gt;</span> not from me
+<a name="l-62"></a><span class="tm">13:22:47</span><span class="nk"> &lt;ziviani&gt;</span> nope
+<a name="l-63"></a><span class="tm">13:22:48</span><span class="nk"> &lt;danielhb&gt;</span> no
+<a name="l-64"></a><span class="tm">13:24:00</span><span class="nk"> &lt;alinefm&gt;</span> so thanks everyone for joining!
+<a name="l-65"></a><span class="tm">13:24:03</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

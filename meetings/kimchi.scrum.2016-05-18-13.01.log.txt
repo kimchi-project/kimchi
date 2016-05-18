@@ -1,0 +1,65 @@
+13:01:35 <alinefm> #startmeeting
+13:01:35 <kimchi-bot> Meeting started Wed May 18 13:01:35 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:35 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:36 <alinefm> #meetingname scrum
+13:01:36 <kimchi-bot> The meeting name has been set to 'scrum'
+13:01:45 <alinefm> #info Agenda
+13:01:45 <alinefm> #info 1) Status
+13:01:45 <alinefm> #info 2) Open discussion
+13:01:45 <alinefm> anything else?
+13:02:39 <pvital> no
+13:02:59 <alinefm> so let's get started =)
+13:03:01 <alinefm> #topic Status
+13:03:01 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+13:03:17 <pvital> #info [Wok] pvital is investigating some performance issues in wokd (high CPU consumption when idle)
+13:03:17 <pvital> #info [Kimchi] pvital submitted V2 and V3 of the patch "Add support to Libvirt Events."
+13:03:17 <pvital> #info [Kimchi] pvital submitted V2 of the patch-set "Issue #201: Handling Libvirt connection failures"
+13:03:17 <pvital> #info [Kimchi] pvital submitted the patch "Isolate unit tests execution."
+13:03:17 <pvital> #info [Wok] [Kimchi] [Ginger*] pvital reviewed patches
+13:03:20 <danielhb> #info [*] danielhb reviewed and applied patches
+13:03:40 <peterpennings> #info [Gingerbase] peterpennings is working on select update packages V2
+13:03:43 <danielhb> #info [Kimchi]  danielhb sent a patch set to implement a new forward mode to macvtap networks
+13:03:48 <ziviani> #info [kimchi] ziviani is working on hot-plug of multi-function pci devices
+13:05:54 <alinefm> #info [*] alinefm reviewed and applied patches
+13:06:42 <alinefm> rotru, ramonn, anything else?
+13:06:49 <rotru> yes
+13:06:51 <alinefm> peterpennings, do you know about Samuel?
+13:06:51 <rotru> #info [Kimchi] rotru - Added support to memory Hotplug in non-NUMA guests for PowerPC;
+13:06:51 <rotru> #info [Kimchi] rotru - Sent V1 of support to memory hotplug of DIMMs with more than 1GB - [coding V2 due to issues when remove devices if guest is offline];
+13:06:51 <rotru> #info [Kimchi] rotru - Fixed minor issue with a test case not reaching Fedora 21 image in mirrors.kernel.org;
+13:06:51 <rotru> #info [Kimchi] rotru - Coded patch to change number of slots of memory devices supported [Send later today];
+13:06:53 <rotru> #info [Kimchi] rotru - Still working in change the guest update behavior, separating static from live updates completely [fixing some issues in test cases, alinefm is helping on this];
+13:07:50 <peterpennings> alinefm, I guess samhenri is working on list view for storage volumes
+13:08:46 <alinefm> peterpennings, will he get online soon?
+13:09:10 <peterpennings> I really dont know, he is not feeling well since yesterday.
+13:09:11 <alinefm> just because danielhb would have his opinion on a change which involves all plugins =)
+13:09:46 <alinefm> oh... hope he gets better soon
+13:09:55 <alinefm> anything else, guys?
+13:10:55 <danielhb> no
+13:11:12 <rotru> no
+13:12:09 <ramonn> alinefm, yes
+13:12:55 <ramonn> #info [wok] ramonn understanding how session is managed by cherrypy
+13:13:11 <ramonn> #info [ginger] ramonn reading rpm guidelines from communities
+13:15:31 <alinefm> ramonn, thanks!
+13:15:36 <alinefm> #topic Open Discussion
+13:15:42 <alinefm> any other topic for today?
+13:16:47 <danielhb> alinefm, can you review my macvtap patch set plz?
+13:16:54 <ziviani> alinefm: I forgot the date we'll get in code freeze for this release
+13:16:58 * danielhb think this is a good topic
+13:17:10 <danielhb> ziviani, Friday
+13:19:01 <ziviani> danielhb: thank you
+13:19:03 <alinefm> danielhb, no
+13:19:05 <alinefm> ziviani, no
+13:19:23 <alinefm> ziviani, for 2.2 releases, the code freeze is June 1st
+13:19:25 <alinefm> danielhb, ^
+13:19:36 <ziviani> alinefm: thank you :D
+13:19:37 <alinefm> danielhb, sure! I will do that after this meeting
+13:19:47 <alinefm> in fact, there are some pending patches on ML waiting for review
+13:20:00 <danielhb> alinefm, let me know if you need a hand reviewing stuff
+13:20:52 <alinefm> danielhb, sure
+13:21:05 <alinefm> any other topic, question, doubt?
+13:22:42 <rotru> not from me
+13:22:47 <ziviani> nope
+13:22:48 <danielhb> no
+13:24:00 <alinefm> so thanks everyone for joining!
+13:24:03 <alinefm> #endmeeting
