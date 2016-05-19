@@ -692,6 +692,14 @@ A interface represents available interface on host.
                    specified interface.
         * vepa: All traffic will be forward to one or more physical devices
                 directly connected to a VEPA-enabled switch.
+        * passthrough: A connection of this type uses a "direct" connection in
+                       "passthrough" mode to connect each guest to the network.
+                       Each guest will use one of the available physical
+                       devices included in this network. Only one device can
+                       be used for each guest - libvirt will keep track of which
+                       interfaces are in use. Thus, a network of type 'passthrough'
+                       with N devices will support the maximum of N guests
+                       running at the same time.
         * bridge: All traffic on this network will be bridged through a Linux
                   bridged, which is created upon specified interface in case
                   it is not already a Linux bridge.

@@ -261,7 +261,7 @@ messages = {
     "KCHNET0009E": _("Unable to find a free IP address for network '%(name)s'"),
     "KCHNET0010E": _("The interface %(iface)s already exists."),
     "KCHNET0011E": _("Network name must be a string without slashes (/) or quotes (\")"),
-    "KCHNET0012E": _("Supported network types are isolated, NAT, macvtap, bridge and vepa"),
+    "KCHNET0012E": _("Supported network types are isolated, NAT, macvtap, bridge, vepa and passthrough."),
     "KCHNET0013E": _("Network subnet must be a string with IP address and prefix or netmask"),
     "KCHNET0014E": _("Network interfaces must be an array."),
     "KCHNET0015E": _("Network VLAN ID must be an integer between 1 and 4094"),
