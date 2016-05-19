@@ -79,7 +79,7 @@ def _get_forward_elem(**kwargs):
     forward = E.forward()
     if 'mode' in kwargs.keys():
         forward.set('mode', kwargs['mode'])
-        if kwargs['mode'] == 'vepa':
+        if kwargs['mode'] in ['passthrough', 'vepa']:
             devs = kwargs['devs']
             forward.set('dev', devs[0])
 
