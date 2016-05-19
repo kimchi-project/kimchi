@@ -35,8 +35,10 @@ kimchi.startNetworkCreation = function() {
         interfaces: [ network.interface ],
         vlan_id: network.vlan_id
     };
-    // in VEPA connection case, network.interface is already an array
-    if (data.connection === kimchi.NETWORK_TYPE_VEPA) {
+    // in PASSTHROUGH and VEPA connection case,
+    // network.interface is already an array
+    if (data.connection === kimchi.NETWORK_TYPE_PASSTHROUGH ||
+        data.connection === kimchi.NETWORK_TYPE_VEPA ) {
         data.interfaces = network.interface;
     }
 
@@ -86,7 +88,9 @@ kimchi.getNetworkDialogValues = function() {
         name : $("#networkName").val(),
         type : $("#networkType").val()
     };
-    if (network.type === kimchi.NETWORK_TYPE_MACVTAP ||  network.type === kimchi.NETWORK_TYPE_VEPA) {
+    if (network.type === kimchi.NETWORK_TYPE_MACVTAP ||
+        network.type === kimchi.NETWORK_TYPE_PASSTHROUGH ||
+        network.type === kimchi.NETWORK_TYPE_VEPA) {
         network.interface = $("#networkDestinationID").val();
     }
     if (network.type === kimchi.NETWORK_TYPE_BRIDGED) {
@@ -110,15 +114,18 @@ kimchi.setupNetworkFormEvent = function() {
 
     $('#networkType').on('change', function() {
         var selectedType = $("#networkType").val();
-        if(selectedType === kimchi.NETWORK_TYPE_MACVTAP || selectedType === kimchi.NETWORK_TYPE_VEPA) {
-            if (selectedType === kimchi.NETWORK_TYPE_VEPA){
+        if(selectedType === kimchi.NETWORK_TYPE_MACVTAP ||
+           selectedType === kimchi.NETWORK_TYPE_PASSTHROUGH ||
+           selectedType === kimchi.NETWORK_TYPE_VEPA) {
+
+            if (selectedType === kimchi.NETWORK_TYPE_MACVTAP) {
+                $('#networkDestinationID').attr('multiple', false).data('liveSearch',false);
+            }
+            else {
                 $('#networkDestinationID').attr('multiple', true);
                 if($('#networkDestinationID option').length > 10 ) {
                     $('#networkDestinationID').data('liveSearch',true);
                 }
-            }
-            else {
-                $('#networkDestinationID').attr('multiple', false).data('liveSearch',false);
             }
             $('#networkDestinationID').selectpicker('destroy');
             kimchi.loadInterfaces(new Array("nic", "bonding"));
