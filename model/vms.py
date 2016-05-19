@@ -271,8 +271,20 @@ class VMModel(object):
                     raise InvalidParameter('KCHVM0074E',
                                            {'params': ', '.join(ext_params)})
 
-            self._live_vm_update(dom, params)
-            vm_name, dom = self._static_vm_update(name, dom, params)
+            # METADATA can be updated offline or online
+            self._vm_update_access_metadata(dom, params)
+
+            # GRAPHICS can be updated offline or online
+            if 'graphics' in params:
+                dom = self._update_graphics(dom, params)
+
+            # Live updates
+            if dom.isActive():
+                self._live_vm_update(dom, params)
+
+            vm_name = name
+            if (DOM_STATE_MAP[dom.info()[0]] == 'shutoff'):
+                vm_name, dom = self._static_vm_update(name, dom, params)
             return vm_name
 
     def clone(self, name):
@@ -649,11 +661,11 @@ class VMModel(object):
         os_elem = ET.fromstring(os_xml)
         return (os_elem.attrib.get("version"), os_elem.attrib.get("distro"))
 
-    def _update_graphics(self, dom, xml, params):
-        root = objectify.fromstring(xml)
+    def _update_graphics(self, dom, params):
+        root = objectify.fromstring(dom.XMLDesc(0))
         graphics = root.devices.find("graphics")
         if graphics is None:
-            return xml
+            return dom
 
         password = params['graphics'].get("passwd")
         if password is not None and len(password.strip()) == 0:
@@ -675,13 +687,14 @@ class VMModel(object):
             valid_to = time.strftime('%Y-%m-%dT%H:%M:%S', expire_time)
             graphics.attrib['passwdValidTo'] = valid_to
 
+        conn = self.conn.get()
         if not dom.isActive():
-            return ET.tostring(root, encoding="utf-8")
+            return conn.defineXML(ET.tostring(root, encoding="utf-8"))
 
         xml = dom.XMLDesc(libvirt.VIR_DOMAIN_XML_SECURE)
         dom.updateDeviceFlags(etree.tostring(graphics),
                               libvirt.VIR_DOMAIN_AFFECT_LIVE)
-        return xml
+        return conn.defineXML(xml)
 
     def _backup_snapshots(self, snap, all_info):
         """ Append "snap" and the children of "snap" to the list "all_info".
@@ -723,19 +736,14 @@ class VMModel(object):
             remove_metadata_node(dom, 'name')
 
     def _static_vm_update(self, vm_name, dom, params):
-        old_xml = new_xml = dom.XMLDesc(0)
+        old_xml = new_xml = dom.XMLDesc(libvirt.VIR_DOMAIN_XML_SECURE)
         params = copy.deepcopy(params)
 
         # Update name
         name = params.get('name')
         nonascii_name = None
-        state = DOM_STATE_MAP[dom.info()[0]]
 
         if name is not None:
-            if state != 'shutoff':
-                msg_args = {'name': vm_name, 'new_name': params['name']}
-                raise InvalidParameter("KCHVM0003E", msg_args)
-
             params['name'], nonascii_name = get_ascii_nonascii_name(name)
             new_xml = xml_item_update(new_xml, XPATH_NAME, name, None)
 
@@ -769,13 +777,9 @@ class VMModel(object):
             # topology is being undefined: remove it
             new_xml = xml_item_remove(new_xml, XPATH_TOPOLOGY)
 
-        # Updating memory if vm is offline
-        if (not dom.isActive() and 'memory' in params and
-           params['memory'] != {}):
+        # Updating memory
+        if ('memory' in params and params['memory'] != {}):
             new_xml = self._update_memory_config(new_xml, params, dom)
-
-        if 'graphics' in params:
-            new_xml = self._update_graphics(dom, new_xml, params)
 
         snapshots_info = []
         conn = self.conn.get()
@@ -973,9 +977,8 @@ class VMModel(object):
         return cpu_info
 
     def _live_vm_update(self, dom, params):
-        self._vm_update_access_metadata(dom, params)
-        if (('memory' in params) and ('current' in params['memory']) and
-           dom.isActive()):
+        # Memory Hotplug/Unplug
+        if (('memory' in params) and ('current' in params['memory'])):
             self._update_memory_live(dom, params)
 
     def _get_mem_dev_total_size(self, xml):

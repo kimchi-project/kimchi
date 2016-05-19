@@ -957,7 +957,7 @@ class ModelTests(unittest.TestCase):
         # template disk format must be qcow2 because vmsnapshot
         # only supports this format
         orig_params = {
-            'name': 'test', 'memory': {'current': 1024},
+            'name': 'test', 'memory': {'current': 1024, 'maxmemory': 2048},
             'cpu_info': {'vcpus': 1},
             'source_media': {'type': 'disk', 'path': UBUNTU_ISO},
             'disks': [{'size': 1, 'format': 'qcow2', 'pool': {
