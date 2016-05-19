@@ -102,8 +102,8 @@ class NetworksModel(object):
                 self._set_network_macvtap(params)
             elif connection == 'bridge':
                 self._set_network_bridge(params)
-            elif connection == 'vepa':
-                self._set_network_vepa(params)
+            elif connection in ['passthrough', 'vepa']:
+                self._set_network_multiple_interfaces(params)
 
         # create network XML
         xml = to_network_xml(**params)
@@ -194,13 +194,16 @@ class NetworksModel(object):
         # set macvtap network
         params['forward'] = {'mode': 'bridge', 'dev': iface}
 
-    def _set_network_vepa(self, params):
+    def _set_network_multiple_interfaces(self, params):
         for iface in params['interfaces']:
             if ('vlan_id' in params or not (netinfo.is_bare_nic(iface) or
                netinfo.is_bonding(iface))):
                 raise InvalidParameter('KCHNET0028E', {'name': iface})
 
-        params['forward'] = {'mode': 'vepa', 'devs': params['interfaces']}
+        params['forward'] = {
+            'mode': params["connection"],
+            'devs': params['interfaces']
+        }
 
     def _set_network_bridge(self, params):
         params['forward'] = {'mode': 'bridge'}
@@ -369,7 +372,7 @@ class NetworkModel(object):
             subnet = ipaddr.IPNetwork(subnet)
             subnet = "%s/%s" % (subnet.network, subnet.prefixlen)
 
-        if connection == 'vepa':
+        if connection in ['passthrough', 'vepa']:
             interfaces = xpath_get_text(
                 xml,
                 "/network/forward/interface/@dev"
@@ -509,7 +512,7 @@ class NetworkModel(object):
 
         # validate update parameters
         connection = info['connection']
-        if connection in ['bridge', 'macvtap', 'vepa']:
+        if connection in ['bridge', 'macvtap', 'passthrough', 'vepa']:
             if params.get('subnet'):
                 raise InvalidParameter("KCHNET0031E")
         elif connection in ['nat', 'isolated']:

@@ -195,6 +195,48 @@ class NetworkXmlTests(unittest.TestCase):
         xml_str = nxml.to_network_xml(**params)
         self.assertEqual(xml_str, expected_xml)
 
+    def test_passthrough_network_singledev_xml(self):
+        expected_xml = """<network>\
+<name>test_passthrough</name>\
+<forward mode="passthrough" dev="passthrough_interface">\
+<interface dev="passthrough_interface"/>\
+</forward>\
+</network>"""
+
+        params = {
+            "name": "test_passthrough",
+            "forward": {
+                "mode": "passthrough",
+                "devs": ["passthrough_interface"]
+            }
+        }
+        xml_str = nxml.to_network_xml(**params)
+        self.assertEqual(xml_str, expected_xml)
+
+    def test_passthrough_network_multipledevs_xml(self):
+        expected_xml = """<network>\
+<name>test_passthrough</name>\
+<forward mode="passthrough" dev="passthrough_interface1">\
+<interface dev="passthrough_interface1"/>\
+<interface dev="passthrough_interface2"/>\
+<interface dev="passthrough_interface3"/>\
+</forward>\
+</network>"""
+
+        params = {
+            "name": "test_passthrough",
+            "forward": {
+                "mode": "passthrough",
+                "devs": [
+                    "passthrough_interface1",
+                    "passthrough_interface2",
+                    "passthrough_interface3"
+                ]
+            }
+        }
+        xml_str = nxml.to_network_xml(**params)
+        self.assertEqual(xml_str, expected_xml)
+
 
 class InterfaceXmlTests(unittest.TestCase):
 
