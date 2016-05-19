@@ -17,6 +17,7 @@
  */
 
 kimchi.NETWORK_TYPE_MACVTAP = "macvtap";
+kimchi.NETWORK_TYPE_PASSTHROUGH = "passthrough";
 kimchi.NETWORK_TYPE_BRIDGED = "bridge";
 kimchi.NETWORK_TYPE_VEPA = "vepa";
 
