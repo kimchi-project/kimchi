@@ -28,7 +28,7 @@ from lxml.builder import E
 
 from wok.exception import NotFoundError, OperationFailed
 from wok.objectstore import ObjectStore
-from wok.utils import add_task
+from wok.utils import add_task, convert_data_size
 from wok.xmlutils.utils import xml_item_update
 
 from wok.plugins.kimchi import imageinfo
@@ -172,9 +172,18 @@ class MockModel(Model):
         xml = MockModel._XMLDesc(dom, flags)
         root = objectify.fromstring(xml)
 
+        mem_devs = root.findall('./devices/memory')
         for dev_xml in MockModel._mock_vms.get(dom.name(), []):
             dev = objectify.fromstring(dev_xml)
-            root.devices.append(dev)
+            add = True
+            if dev.tag == 'memory':
+                for mem_dev in mem_devs:
+                    if mem_dev.target.size == dev.target.size:
+                        mem_devs.remove(mem_dev)
+                        add = False
+                        break
+            if add:
+                root.devices.append(dev)
         return ET.tostring(root, encoding="utf-8")
 
     @staticmethod
@@ -186,6 +195,15 @@ class MockModel(Model):
 
     @staticmethod
     def attachDeviceFlags(dom, xml, flags=0):
+        myxml = objectify.fromstring(xml)
+        if myxml.tag == 'memory':
+            unit = myxml.target.size.get('unit')
+            myxml.target.size.set('unit', 'KiB')
+            myxml.target.size._setText(str(int(convert_data_size(
+                                           myxml.target.size.text,
+                                           unit, 'KiB'))))
+            xml = ET.tostring(myxml)
+            dom.setMaxMemory(int(dom.maxMemory() + myxml.target.size))
         MockModel._mock_vms[dom.name()].append(xml)
 
     @staticmethod
