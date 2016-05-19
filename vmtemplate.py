@@ -18,7 +18,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import os
-import platform
 import stat
 import time
 import urlparse
@@ -369,25 +368,16 @@ class VMTemplate(object):
         # TODO: need modify this when boot order edition feature came upstream.
         params['boot_order'] = get_bootorder_xml()
 
-        # Setting maximum number of slots to avoid errors when hotplug memory
-        # Number of slots are the numbers of chunks of 1GB that fit inside
-        # the max_memory of the host minus memory assigned to the VM. It
-        # cannot have more than 32 slots in Power.
-        memory = self.info['memory'].get('current')
-        maxmemory = self.info['memory'].get('maxmemory')
-
-        slots = (maxmemory - memory) >> 10
-        if slots < 0:
-            raise OperationFailed("KCHVM0041E",
-                                  {'maxmem': str(maxmemory)})
-        elif slots == 0:
-            slots = 1
-        elif slots > 32:
-            distro, _, _ = platform.linux_distribution()
-            if distro == "IBM_PowerKVM":
-                slots = 32
+        # Setting maximum number of memory slots
+        slots = str(self.info['mem_dev_slots'])
 
         # Rearrange memory parameters
+        memory = self.info['memory'].get('current')
+        maxmemory = self.info['memory'].get('maxmemory')
+        if maxmemory < memory:
+            raise OperationFailed("KCHVM0041E",
+                                  {'maxmem': str(maxmemory)})
+
         params['memory'] = self.info['memory'].get('current')
         params['max_memory'] = ""
         # if there is not support to memory hotplug in Libvirt or qemu, we
