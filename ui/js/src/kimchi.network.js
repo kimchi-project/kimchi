@@ -91,6 +91,8 @@ kimchi.getNetworkItemHtml = function(network) {
         startClass : network.state === "up" ? "wok-hide-action-item" : "",
         stopClass : network.state === "down" ? "wok-hide-action-item" : disable_in_use,
         stopDisabled : network.in_use ? "disabled" : "",
+        editClass : network.state === "up" || network.in_use ? "disabled" : "",
+        editDisabled : network.state === "up" || network.in_use ? "disabled" : "",
         deleteClass : network.state === "up" || network.in_use ? "disabled" : "",
         deleteDisabled: network.state === "up" || network.in_use ? "disabled" : ""
     });
@@ -107,6 +109,8 @@ kimchi.stopNetwork = function(network,menu) {
         if (!network.in_use) {
             $("[nwAct='delete']", menu).removeClass("disabled");
             $(":first-child", $("[nwAct='delete']", menu)).removeAttr("disabled");
+            $("[nwAct='edit']", menu).removeClass("disabled");
+            $(":first-child", $("[nwAct='edit']", menu)).removeAttr("disabled");
         }
         $(".network-state", $("#" + wok.escapeStr(network.name))).switchClass("loading", "down");
     }, function(err) {
@@ -128,6 +132,8 @@ kimchi.addNetworkActions = function(network) {
             $("[nwAct='start']", menu).addClass("disabled");
             $("[nwAct='delete']", menu).addClass("disabled");
             $(":first-child", $("[nwAct='delete']", menu)).attr("disabled", true);
+            $("[nwAct='edit']", menu).addClass("disabled");
+            $(":first-child", $("[nwAct='edit']", menu)).attr("disabled", true);
             kimchi.toggleNetwork(network.name, true, function() {
                 $("[nwAct='start']", menu).addClass("wok-hide-action-item");
                 $("[nwAct='start']", menu).removeClass("disabled");
@@ -142,8 +148,10 @@ kimchi.addNetworkActions = function(network) {
                 $("[nwAct='start']", menu).removeClass("disabled");
                 if (!network.in_use) {
                     $("[nwAct='delete']", menu).removeClass("disabled");
+                    $("[nwAct='edit']", menu).removeClass("disabled");
                 }
                 $(":first-child", $("[nwAct='delete']", menu)).removeAttr("disabled");
+                $(":first-child", $("[nwAct='edit']", menu)).removeAttr("disabled");
                 wok.message.error(err.responseJSON.reason);
             });
         } else if ($(evt.currentTarget).attr("nwAct") === "stop") {
@@ -180,6 +188,12 @@ kimchi.addNetworkActions = function(network) {
                     $('#networkGrid').dataGrid('deleteRow', $(evt.currentTarget).parents(".wok-datagrid-row"));
                 });
             }, null);
+        } else if ($(evt.currentTarget).attr("nwAct") === "edit") {
+            if (network.state === "up" || network.in_use) {
+                return false;
+            }
+            kimchi.selectedNetwork = network.name;
+            wok.window.open('plugins/kimchi/network-edit.html');
         }
     });
 

@@ -56,7 +56,7 @@ kimchi.startNetworkCreation = function() {
 };
 
 kimchi.openNetworkDialog = function(okCallback) {
-    kimchi.loadInterfaces();
+    kimchi.loadInterfaces(undefined, false);
 
     $("#networkFormOk").on("click", function() {
         $("#networkFormOk").button("disable");
@@ -73,10 +73,12 @@ kimchi.openNetworkDialog = function(okCallback) {
     });
 };
 
-kimchi.setDefaultNetworkType = function(isInterfaceAvail) {
+kimchi.setDefaultNetworkType = function(isInterfaceAvail, bEdit) {
     $("#networkType").selectpicker();
     if (!isInterfaceAvail) {
-        kimchi.enableBridgeOptions(false);
+        if (!bEdit) {
+            kimchi.enableBridgeOptions(false);
+        }
         $("#networkBriDisabledLabel").removeClass('hidden');
     } else {
         $("#networkBriDisabledLabel").remove();
@@ -128,9 +130,9 @@ kimchi.setupNetworkFormEvent = function() {
                 }
             }
             $('#networkDestinationID').selectpicker('destroy');
-            kimchi.loadInterfaces(new Array("nic", "bonding"));
+            kimchi.loadInterfaces(new Array("nic", "bonding"), false);
         } else {
-            kimchi.loadInterfaces();
+            kimchi.loadInterfaces(undefined, false);
         }
     });
 
@@ -175,7 +177,7 @@ kimchi.enableBridgeOptions = function(enable, networkType, networkDestinationTyp
     };
 };
 
-kimchi.loadInterfaces = function(interfaceFilterArray) {
+kimchi.loadInterfaces = function(interfaceFilterArray, bEdit) {
 
     var loadInterfacesHTML = function(result) {
         var options = [];
@@ -200,8 +202,10 @@ kimchi.loadInterfaces = function(interfaceFilterArray) {
         }
         $selectDestination.append(selectDestinationOptionHTML);
         $('#networkDestinationID').selectpicker('refresh');
-        kimchi.setDefaultNetworkType(result.length!==0);
-        kimchi.changeNetworkDestination();
+        kimchi.setDefaultNetworkType(result.length!==0, bEdit);
+        if (!bEdit) {
+            kimchi.changeNetworkDestination();
+        }
     };
 
     var networkType = $("#networkType").val();
