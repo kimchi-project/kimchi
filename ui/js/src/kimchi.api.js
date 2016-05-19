@@ -648,6 +648,17 @@ var kimchi = {
         });
     },
 
+    retrieveNetwork : function(name, suc, err) {
+        wok.requestJSON({
+            url : 'plugins/kimchi/networks/' + encodeURIComponent(name),
+            type : 'GET',
+            contentType : 'application/json',
+            dataType : 'json',
+            success: suc,
+            error: err
+        });
+    },
+
     deleteNetwork : function(name, suc, err) {
         wok.requestJSON({
             url : 'plugins/kimchi/networks/' + encodeURIComponent(name),
@@ -658,6 +669,18 @@ var kimchi = {
             error : err ? err : function(data) {
                 wok.message.error(data.responseJSON.reason);
             }
+        });
+    },
+
+    updateNetwork : function(name, settings, suc, err) {
+         wok.requestJSON({
+            url : "plugins/kimchi/networks/" + encodeURIComponent(name),
+            type : 'PUT',
+            contentType : 'application/json',
+            data : JSON.stringify(settings),
+            dataType : 'json',
+            success: suc,
+            error: err
         });
     },
 
