@@ -837,23 +837,26 @@ class VMModel(object):
 
         # Adjust memory devices to new memory, if necessary
         memDevs = root.findall('./devices/memory')
+        memDevsAmount = self._get_mem_dev_total_size(ET.tostring(root))
+
         if len(memDevs) != 0 and hasMem:
-            if newMem == newMaxMem:
-                for dev in memDevs:
-                    root.find('./devices').remove(dev)
-            elif newMem > (oldMem << 10):
-                newMem = newMem - (len(memDevs) * (1024 << 10))
+            if newMem > (oldMem << 10):
+                newMem = newMem - memDevsAmount
             elif newMem < (oldMem << 10):
-                devsRemove = len(memDevs) - (oldMem - (newMem >> 10))/1024 - 1
-                for dev in enumerate(memDevs):
-                    if dev[0] > devsRemove:
-                        root.find('./devices').remove(dev[1])
-                newMem = \
-                    newMem - (
-                        len(root.findall('./devices/memory')) * 1024 << 10
-                    )
+                memDevs.reverse()
+                totRemoved = 0
+                for dev in memDevs:
+                    size = dev.find('./target/size')
+                    totRemoved += int(convert_data_size(size.text,
+                                                        size.get('unit'),
+                                                        'KiB'))
+                    root.find('./devices').remove(dev)
+                    if ((oldMem << 10) - totRemoved) <= newMem:
+                        newMem = newMem - self._get_mem_dev_total_size(
+                            ET.tostring(root))
+                        break
             elif newMem == (oldMem << 10):
-                newMem = newMem - ((len(memDevs) * 1024) << 10)
+                newMem = newMem - memDevsAmount
 
         def _get_slots(mem, maxMem):
             slots = (maxMem - mem) >> 10 >> 10
@@ -893,8 +896,11 @@ class VMModel(object):
                 maxMemTag.text = str(newMaxMem)
                 maxMemTag.set('slots', str(_get_slots(newMem, newMaxMem)))
             elif (maxMemTag is not None) and (newMem == newMaxMem):
-                # Remove the tag
-                root.remove(maxMemTag)
+                if self._get_mem_dev_total_size(ET.tostring(root)) == 0:
+                    # Remove the tag
+                    root.remove(maxMemTag)
+                else:
+                    maxMemTag.text = str(newMaxMem)
 
         # Update memory, if necessary
         if hasMem:
@@ -919,7 +925,8 @@ class VMModel(object):
                     memory.text = str(newMem)
 
             if (maxMemTag is not None) and (not hasMaxMem):
-                if newMem == newMaxMem:
+                if (newMem == newMaxMem and
+                   (self._get_mem_dev_total_size(ET.tostring(root)) == 0)):
                     root.remove(maxMemTag)
                 else:
                     maxMemTag.set('slots', str(_get_slots(newMem, newMaxMem)))
@@ -971,6 +978,15 @@ class VMModel(object):
            dom.isActive()):
             self._update_memory_live(dom, params)
 
+    def _get_mem_dev_total_size(self, xml):
+        root = ET.fromstring(xml)
+        totMemDevs = 0
+        for size in root.findall('./devices/memory/target/size'):
+            totMemDevs += convert_data_size(size.text,
+                                            size.get('unit'),
+                                            'KiB')
+        return int(totMemDevs)
+
     def _update_memory_live(self, dom, params):
         # Check if host supports memory device
         if not self.caps.mem_hotplug_support:
@@ -979,55 +995,41 @@ class VMModel(object):
         xml = dom.XMLDesc(0)
         max_mem = xpath_get_text(xml, './maxMemory')
         if max_mem == []:
-            raise OperationFailed('KCHVM0042E', {'name': dom.name()})
+            raise InvalidOperation('KCHVM0042E', {'name': dom.name()})
 
-        # Memory live update must be done in chunks of 1024 Mib or 1Gib
         new_mem = params['memory']['current']
         old_mem = int(xpath_get_text(xml, XPATH_DOMAIN_MEMORY)[0]) >> 10
-        if new_mem < old_mem:
-            raise OperationFailed('KCHVM0043E')
-        if (new_mem - old_mem) % 1024 != 0:
-            raise OperationFailed('KCHVM0044E')
+        memory = new_mem - old_mem
+        flags = libvirt.VIR_DOMAIN_MEM_CONFIG | libvirt.VIR_DOMAIN_MEM_LIVE
 
-        # make sure memory is alingned in 256MiB in PowerPC
         distro, _, _ = platform.linux_distribution()
-        if (distro == "IBM_PowerKVM" and new_mem % PPC_MEM_ALIGN != 0):
-            raise InvalidParameter('KCHVM0071E',
-                                   {'param': "Memory",
-                                    'mem': str(new_mem),
-                                    'alignment': str(PPC_MEM_ALIGN)})
+        if distro == "IBM_PowerKVM":
+            # make sure memory is alingned in 256MiB in PowerPC
+            if (new_mem % PPC_MEM_ALIGN != 0):
+                raise InvalidParameter('KCHVM0071E',
+                                       {'param': "Memory",
+                                        'mem': str(new_mem),
+                                        'alignment': str(PPC_MEM_ALIGN)})
+            # PPC suports only 32 memory slots
+            if len(xpath_get_text(xml, './devices/memory')) == 32:
+                raise InvalidOperation('KCHVM0045E')
 
-        # Check slot spaces:
-        total_slots = int(xpath_get_text(xml, './maxMemory/@slots')[0])
-        needed_slots = (new_mem - old_mem) >> 10
-        used_slots = len(xpath_get_text(xml, './devices/memory'))
-        if needed_slots > (total_slots - used_slots):
-            raise OperationFailed('KCHVM0045E')
-        elif needed_slots == 0:
-            # New memory value is same that current memory set
+        if memory == 0:
+            # Nothing to do
             return
+        if memory < 0:
+            raise InvalidOperation('KCHVM0043E')
 
-        distro, _, _ = platform.linux_distribution()
-        if distro == "IBM_PowerKVM" and needed_slots > 32:
-            raise OperationFailed('KCHVM0045E')
-
-        # Finally, we are ok to hot add the memory devices
+        # Finally HotPlug operation ( memory > 0 )
         try:
-            self._hot_add_memory_devices(dom, needed_slots)
+            # Create memory device xml
+            tmp_xml = E.memory(E.target(E.size(str(memory),
+                                        unit='MiB')), model='dimm')
+            if has_cpu_numa(dom):
+                tmp_xml.find('target').append(E.node('0'))
+            dom.attachDeviceFlags(etree.tostring(tmp_xml), flags)
         except Exception as e:
             raise OperationFailed("KCHVM0047E", {'error': e.message})
-
-    def _hot_add_memory_devices(self, dom, amount):
-        # Hot add given number of memory devices in the guest
-        flags = libvirt.VIR_DOMAIN_MEM_CONFIG | libvirt.VIR_DOMAIN_MEM_LIVE
-        # Create memory device xml
-        tmp_xml = E.memory(E.target(E.size('1', unit='GiB')), model='dimm')
-        if has_cpu_numa(dom):
-            tmp_xml.find('target').append(E.node('0'))
-        mem_dev_xml = etree.tostring(tmp_xml)
-        # Add chunks of 1G of memory
-        for i in range(amount):
-            dom.attachDeviceFlags(mem_dev_xml, flags)
 
     def _has_video(self, dom):
         dom = ElementTree.fromstring(dom.XMLDesc(0))
@@ -1217,13 +1219,7 @@ class VMModel(object):
         memory = dom.maxMemory() >> 10
         curr_mem = (info[2] >> 10)
         if memory != curr_mem:
-            root = ET.fromstring(xml)
-            totMemDevs = 0
-            for size in root.findall('./devices/memory/target/size'):
-                totMemDevs += convert_data_size(size.text,
-                                                size.get('unit'),
-                                                'MiB')
-            memory = curr_mem + totMemDevs
+            memory = curr_mem + (self._get_mem_dev_total_size(xml) >> 10)
 
         # assure there is no zombie process left
         for proc in self._serial_procs[:]:
