@@ -19,6 +19,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import grp
+import lxml.etree as ET
 import os
 import pwd
 import re
@@ -34,7 +35,7 @@ from wok.config import config
 from wok.exception import InvalidOperation
 from wok.exception import InvalidParameter, NotFoundError, OperationFailed
 from wok.rollbackcontext import RollbackContext
-from wok.utils import add_task, get_task_id
+from wok.utils import add_task, convert_data_size, get_task_id
 from wok.xmlutils.utils import xpath_get_text
 
 from wok.plugins.gingerbase import netinfo
@@ -58,7 +59,7 @@ NON_NUMA_XML = """
 <domain type='kvm'>
   <name>non-numa-kimchi-test</name>
   <maxMemory slots='2' unit='GiB'>4</maxMemory>
-  <memory unit='GiB'>2</memory>
+  <memory unit='GiB'>1</memory>
   <os>
     <type arch='ppc64'>hvm</type>
     <boot dev='hd'/>
@@ -805,7 +806,7 @@ class ModelTests(unittest.TestCase):
         config.set("authentication", "method", "pam")
         inst = model.Model(None, objstore_loc=self.tmp_store)
         orig_params = {'name': 'test',
-                       'memory': {'current': 1024, 'maxmemory': 3072},
+                       'memory': {'current': 1024, 'maxmemory': 4096},
                        'source_media': {'type': 'disk', 'path': UBUNTU_ISO}}
         inst.templates_create(orig_params)
 
@@ -827,9 +828,77 @@ class ModelTests(unittest.TestCase):
                 inst.vm_update('kimchi-vm1', params)
                 rollback.prependDefer(utils.rollback_wrapper, inst.vm_delete,
                                       'kimchi-vm1')
-                params['memory']['maxmemory'] = 3072
+                params['memory']['maxmemory'] = 4096
                 self.assertEquals(params['memory'],
                                   inst.vm_lookup('kimchi-vm1')['memory'])
+
+                params['memory']['current'] = 4096
+                del params['memory']['maxmemory']
+                inst.vm_update('kimchi-vm1', params)
+                vm = inst.vm_lookup('kimchi-vm1')
+                self.assertEquals(4096, vm['memory']['current'])
+
+                # Test memory devices
+                conn = inst.conn.get()
+                xml = conn.lookupByName('kimchi-vm1').XMLDesc()
+                root = ET.fromstring(xml)
+                devs = root.findall('./devices/memory/target/size')
+                self.assertEquals(2, len(devs))
+                totMemDevs = 0
+                for size in devs:
+                    totMemDevs += convert_data_size(size.text,
+                                                    size.get('unit'),
+                                                    'MiB')
+                self.assertEquals(3072, totMemDevs)
+
+                inst.vm_poweroff('kimchi-vm1')
+                # Remove all devs:
+                params = {'memory': {'current': 1024}}
+                inst.vm_update('kimchi-vm1', params)
+                xml = conn.lookupByName('kimchi-vm1').XMLDesc()
+                root = ET.fromstring(xml)
+                devs = root.findall('./devices/memory')
+                self.assertEquals(0, len(devs))
+
+                # Hotplug 1G DIMM , 512M , 256M and 256M
+                inst.vm_start('kimchi-vm1')
+                params = {'memory': {'current': 2048}}
+                inst.vm_update('kimchi-vm1', params)
+                params = {'memory': {'current': 2560}}
+                inst.vm_update('kimchi-vm1', params)
+                params = {'memory': {'current': 2816}}
+                inst.vm_update('kimchi-vm1', params)
+                params = {'memory': {'current': 3072}}
+                inst.vm_update('kimchi-vm1', params)
+
+                vm = inst.vm_lookup('kimchi-vm1')
+                self.assertEquals(3072, vm['memory']['current'])
+
+                xml = conn.lookupByName('kimchi-vm1').XMLDesc()
+                root = ET.fromstring(xml)
+                devs = root.findall('./devices/memory/target/size')
+                self.assertEquals(4, len(devs))
+                totMemDevs = 0
+                for size in devs:
+                    totMemDevs += convert_data_size(size.text,
+                                                    size.get('unit'),
+                                                    'MiB')
+                self.assertEquals(2048, totMemDevs)
+
+                inst.vm_poweroff('kimchi-vm1')
+                # Remove 2x256M + 1x512M ... then sum 256M to virtual memory
+                params = {'memory': {'current': 2304}}
+                inst.vm_update('kimchi-vm1', params)
+                xml = conn.lookupByName('kimchi-vm1').XMLDesc()
+                root = ET.fromstring(xml)
+                devs = root.findall('./devices/memory/target/size')
+                self.assertEquals(1, len(devs))
+                totMemDevs = 0
+                for size in devs:
+                    totMemDevs += convert_data_size(size.text,
+                                                    size.get('unit'),
+                                                    'MiB')
+                self.assertEquals(1024, totMemDevs)
             else:
                 self.assertRaises(InvalidOperation, inst.vm_update,
                                   'kimchi-vm1', params)
@@ -856,10 +925,24 @@ class ModelTests(unittest.TestCase):
             self.assertEquals(params['memory']['current'],
                               inst.vm_lookup(vm)['memory']['current'])
 
+            # Test number and size of memory device added
+            root = ET.fromstring(conn.lookupByName(vm).XMLDesc())
+            devs = root.findall('./devices/memory/target/size')
+            self.assertEquals(1, len(devs))
+            self.assertEquals(2048 << 10, int(devs[0].text))
+
             params = {'memory': {'current': 4096}}
             inst.vm_update(vm, params)
             self.assertEquals(params['memory']['current'],
                               inst.vm_lookup(vm)['memory']['current'])
+
+            # Test number and size of memory device added
+            root = ET.fromstring(conn.lookupByName(vm).XMLDesc())
+            devs = root.findall('./devices/memory/target/size')
+            self.assertEquals(2, len(devs))
+            self.assertEquals(1024 << 10, int(devs[1].text))
+            self.assertEquals(3072 << 10,
+                              int(devs[0].text) + int(devs[1].text))
 
             # Stop vm and test persistence
             inst.vm_poweroff(vm)
