@@ -25,7 +25,7 @@ import uuid
 
 from wok.xmlutils.utils import xpath_get_text
 
-from wok.plugins.kimchi.osinfo import get_template_default
+from wok.plugins.kimchi.osinfo import get_template_default, MEM_DEV_SLOTS
 from wok.plugins.kimchi.vmtemplate import VMTemplate
 
 DISKS = [{'size': 10, 'format': 'raw', 'index': 0, 'pool': {'name':
@@ -86,6 +86,15 @@ class VMTemplateTests(unittest.TestCase):
         t = VMTemplate(args)
         self.assertEquals(graphics['type'], t.info['graphics']['type'])
         self.assertEquals('127.0.0.1', t.info['graphics']['listen'])
+
+    def test_mem_dev_slots(self):
+        vm_uuid = str(uuid.uuid4()).replace('-', '')
+        t = VMTemplate({'name': 'test-template', 'cdrom': self.iso,
+                        'memory':  {'current': 2048, 'maxmemory': 3072}})
+        xml = t.to_vm_xml('test-vm', vm_uuid)
+        expr = "/domain/maxMemory/@slots"
+        slots = str(MEM_DEV_SLOTS[os.uname()[4]])
+        self.assertEquals(slots, xpath_get_text(xml, expr)[0])
 
     def test_to_xml(self):
         graphics = {'type': 'spice', 'listen': '127.0.0.1'}
