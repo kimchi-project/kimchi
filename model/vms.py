@@ -58,6 +58,7 @@ from wok.plugins.kimchi.model.utils import get_ascii_nonascii_name, get_vm_name
 from wok.plugins.kimchi.model.utils import get_metadata_node
 from wok.plugins.kimchi.model.utils import remove_metadata_node
 from wok.plugins.kimchi.model.utils import set_metadata_node
+from wok.plugins.kimchi.osinfo import defaults
 from wok.plugins.kimchi.screenshot import VMScreenshot
 from wok.plugins.kimchi.utils import get_next_clone_name
 from wok.plugins.kimchi.utils import template_name_from_uri
@@ -862,23 +863,6 @@ class VMModel(object):
             elif newMem == (oldMem << 10):
                 newMem = newMem - memDevsAmount
 
-        def _get_slots(mem, maxMem):
-            slots = (maxMem - mem) >> 10 >> 10
-            # Libvirt does not accepts slots <= 1
-            if slots < 0:
-                raise InvalidParameter("KCHTMPL0031E",
-                                       {'mem': str(mem >> 10),
-                                        'maxmem': str(maxMem >> 10)})
-            elif slots == 0:
-                slots = 1
-
-            # max 32 slots on Power
-            distro, _, _ = platform.linux_distribution()
-            if distro == "IBM_PowerKVM" and slots > 32:
-                slots = 32
-            return slots
-        # End of _get_slots
-
         # There is an issue in Libvirt/Qemu, where Guest does not start if
         # memory and max memory are the same. So we decided to remove max
         # memory and only add it if user explicitly provides it, willing to
@@ -890,7 +874,7 @@ class VMModel(object):
                 max_mem_xml = E.maxMemory(
                     str(newMaxMem),
                     unit='Kib',
-                    slots=str(_get_slots(newMem, newMaxMem)))
+                    slots=str(defaults['mem_dev_slots']))
                 root.insert(0, max_mem_xml)
             elif (maxMemTag is None) and (newMem == newMaxMem):
                 # Nothing to do
@@ -898,7 +882,6 @@ class VMModel(object):
             elif (maxMemTag is not None) and (newMem != newMaxMem):
                 # Just update value in max memory tag
                 maxMemTag.text = str(newMaxMem)
-                maxMemTag.set('slots', str(_get_slots(newMem, newMaxMem)))
             elif (maxMemTag is not None) and (newMem == newMaxMem):
                 if self._get_mem_dev_total_size(ET.tostring(root)) == 0:
                     # Remove the tag
@@ -932,8 +915,6 @@ class VMModel(object):
                 if (newMem == newMaxMem and
                    (self._get_mem_dev_total_size(ET.tostring(root)) == 0)):
                     root.remove(maxMemTag)
-                else:
-                    maxMemTag.set('slots', str(_get_slots(newMem, newMaxMem)))
 
         # Setting memory hard limit to max_memory + 1GiB
         memtune = root.find('memtune')

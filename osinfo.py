@@ -34,6 +34,14 @@ SUPPORTED_ARCHS = {'x86': ('i386', 'i686', 'x86_64'),
                    'ppc64le': ('ppc64le')}
 
 
+# Memory devices slot limits by architecture
+MEM_DEV_SLOTS = {'ppc64': 32,
+                 'ppc64le': 32,
+                 'x86_64': 256,
+                 'i686': 256,
+                 'i386': 256}
+
+
 template_specs = {'x86': {'old': dict(disk_bus='ide',
                                       nic_model='e1000', sound_model='ich6'),
                           'modern': dict(disk_bus='virtio',
@@ -174,6 +182,9 @@ def _get_tmpl_defaults():
 
     # Update defaults values with graphics values
     defaults['graphics'] = default_config.pop('graphics')
+
+    # Setting default memory device slots
+    defaults['mem_dev_slots'] = MEM_DEV_SLOTS.get(os.uname()[4], 32)
 
     return defaults
 
