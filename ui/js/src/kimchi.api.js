@@ -634,6 +634,18 @@ var kimchi = {
         });
     },
 
+    getInterface : function(iface, suc, err, sync) {
+        wok.requestJSON({
+            url : 'plugins/kimchi/interfaces/' + encodeURIComponent(iface),
+            type : 'GET',
+            contentType : 'application/json',
+            async : !sync,
+            dataType : 'json',
+            success : suc,
+            error : err
+        });
+    },
+
     getVEPAInterfaces : function(suc, err) {
         wok.requestJSON({
             url : 'plugins/kimchi/interfaces?module=^(?!mlx5_core|mlx5-core).*$',
