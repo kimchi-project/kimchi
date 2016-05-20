@@ -61,13 +61,6 @@ kimchi.network_edit_main = function() {
         }
 
         kimchi.setupNetworkFormEventForEdit(network);
-
-        //TODO:  Trial and error trying to get select box to show show the one that it's currently set to but it doesn't work
-        var netInterface = network['interfaces'];
-        $('#networkDestinationID').append('val', netInterface);
-        $('#networkDestinationID').val(netInterface);
-        $("#networkDestinationID option[value='+netInterface+']").prop('selected', true);
-        $('#networkDestinationID').selectpicker('refresh');
     };
 
     kimchi.retrieveNetwork(kimchi.selectedNetwork, initNetwork);
@@ -98,6 +91,30 @@ kimchi.setupNetworkFormEventForEdit = function(network) {
         kimchi.updateNetworkFormButtonForEdit();
     });
 
+    var loadIfaces = function(interfaceFilterArray){
+        var buildInterfaceOpts = function(result) {
+            var currentIfaces = network['interfaces'];
+            for (var i = 0; i < currentIfaces.length; i++) {
+                kimchi.getInterface(currentIfaces[i], function(iface) {
+                    result.push(iface);
+                } , null, true);
+            }
+            kimchi.createInterfacesOpts(result, interfaceFilterArray);
+
+            for (var i = 0; i < currentIfaces.length; i++) {
+                $("#networkDestinationID option[value='" + currentIfaces[i] + "']").attr('selected','selected');
+            }
+            $('#networkDestinationID').selectpicker('refresh');
+        };
+
+        var networkType = $("#networkType").val();
+        if (networkType === kimchi.NETWORK_TYPE_VEPA) {
+            kimchi.getVEPAInterfaces(buildInterfaceOpts);
+        } else {
+            kimchi.getInterfaces(buildInterfaceOpts);
+        }
+    }
+
     var selectedType = network['connection'];
     if(selectedType === kimchi.NETWORK_TYPE_MACVTAP ||
        selectedType === kimchi.NETWORK_TYPE_PASSTHROUGH ||
@@ -112,16 +129,10 @@ kimchi.setupNetworkFormEventForEdit = function(network) {
         }
         $('#networkDestinationID').selectpicker('destroy');
 
-        kimchi.loadInterfaces(new Array("nic", "bonding"), true);
+        loadIfaces(new Array("nic", "bonding"));
     } else {
-        kimchi.loadInterfaces(undefined, true);
+        loadIfaces(undefined);
     }
-    //TODO:  Need to confirm if this is still needed
-    var netInterface = network['interfaces'];
-    $('#networkDestinationID').append('val', netInterface);
-    $('#networkDestinationID').val(netInterface);
-    $("#networkDestinationID option[value='+netInterface+']").prop('selected', true);
-    $('#networkDestinationID').selectpicker('refresh');
 };
 
 kimchi.updateNetworkFormButtonForEdit = function() {
@@ -185,9 +196,15 @@ kimchi.updateNetworkValues = function() {
             }
         }
 
-        kimchi.updateNetwork(kimchi.selectedNetwork, data, function() {
-            $("#networkBody").empty();
-            kimchi.initNetworkListView();
+        kimchi.updateNetwork(kimchi.selectedNetwork, data, function(result) {
+            $('#' + kimchi.selectedNetwork).remove();
+            network = result;
+            network.type = result.connection;
+            network.state = result.state === "active" ? "up" : "down";
+            network.interface = result.interfaces ? result.interfaces[0] : i18n["KCHNET6001M"];
+            network.addrSpace = result.subnet ? result.subnet : i18n["KCHNET6001M"];
+            network.persistent = result.persistent;
+            $('#networkGrid').dataGrid('addRow', kimchi.addNetworkItem(network));
             wok.window.close();
         }, function(settings) {
             wok.message.error(settings.responseJSON.reason,'#alert-modal-container');

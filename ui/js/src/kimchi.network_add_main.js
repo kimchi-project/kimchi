@@ -177,31 +177,35 @@ kimchi.enableBridgeOptions = function(enable, networkType, networkDestinationTyp
     };
 };
 
-kimchi.loadInterfaces = function(interfaceFilterArray, bEdit) {
-
-    var loadInterfacesHTML = function(result) {
-        var options = [];
-        $selectDestination = $('#networkDestinationID');
-        var nics = {};
-        $('#networkDestinationID').find('option').remove();
-        var selectDestinationOptionHTML = '';
-        for (var i = 0; i < result.length; i++) {
-            if (typeof interfaceFilterArray === 'undefined') {
-                options.push({label:result[i].name,value:result[i].name});
-                nics[result[i].name] = result[i];
-                selectDestinationOptionHTML += '<option data-type="'+ result[i].type +'" value="'+ result[i].name + '">' + result[i].name + '</option>';
-            } else {
-                for (var k = 0; k < interfaceFilterArray.length; k++) {
-                    if (result[i].type == interfaceFilterArray[k]) {
-                        options.push({label:result[i].name,value:result[i].name});
-                        nics[result[i].name] = result[i];
-                        selectDestinationOptionHTML += '<option data-type="'+ result[i].type +'" value="'+ result[i].name + '">' + result[i].name + '</option>';
-                    }
+kimchi.createInterfacesOpts = function(ifaces, interfaceFilterArray) {
+    var options = [];
+    $selectDestination = $('#networkDestinationID');
+    var nics = {};
+    $('#networkDestinationID').find('option').remove();
+    var selectDestinationOptionHTML = '';
+    for (var i = 0; i < ifaces.length; i++) {
+        if (typeof interfaceFilterArray === 'undefined') {
+            options.push({label:ifaces[i].name,value:ifaces[i].name});
+            nics[ifaces[i].name] = ifaces[i];
+            selectDestinationOptionHTML += '<option data-type="' + ifaces[i].type + '" value="'+ ifaces[i].name + '">' + ifaces[i].name + '</option>';
+        } else {
+            for (var k = 0; k < interfaceFilterArray.length; k++) {
+                if (ifaces[i].type == interfaceFilterArray[k]) {
+                    options.push({label:ifaces[i].name,value:ifaces[i].name});
+                    nics[ifaces[i].name] = ifaces[i];
+                    selectDestinationOptionHTML += '<option data-type="'+ ifaces[i].type +'" value="'+ ifaces[i].name + '">' + ifaces[i].name + '</option>';
                 }
             }
         }
-        $selectDestination.append(selectDestinationOptionHTML);
-        $('#networkDestinationID').selectpicker('refresh');
+    }
+    $selectDestination.append(selectDestinationOptionHTML);
+    $('#networkDestinationID').selectpicker('refresh');
+};
+
+kimchi.loadInterfaces = function(interfaceFilterArray, bEdit) {
+
+    var loadInterfacesHTML = function(result) {
+        kimchi.createInterfacesOpts(result, interfaceFilterArray);
         kimchi.setDefaultNetworkType(result.length!==0, bEdit);
         if (!bEdit) {
             kimchi.changeNetworkDestination();
