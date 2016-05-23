@@ -26,6 +26,7 @@ from wok.plugins.kimchi import config
 from wok.utils import import_module, listPathModules
 
 from wok.plugins.kimchi.model.libvirtconnection import LibvirtConnection
+from wok.plugins.kimchi.model.libvirtevents import LibvirtEvents
 
 
 class Model(BaseModel):
@@ -43,8 +44,10 @@ class Model(BaseModel):
             return instances
 
         self.objstore = ObjectStore(objstore_loc or config.get_object_store())
+        self.events = LibvirtEvents()
         self.conn = LibvirtConnection(libvirt_uri)
-        kargs = {'objstore': self.objstore, 'conn': self.conn}
+        kargs = {'objstore': self.objstore, 'conn': self.conn,
+                 'eventsloop': self.events}
         models = []
 
         # Import task model from Wok
