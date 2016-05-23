@@ -21,6 +21,10 @@
 HAVE_UNITTEST=@HAVE_PYMOD_UNITTEST@
 PYTHON_VER=@PYTHON_VERSION@
 
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+
 if [ "$1" = "-v" ]; then
     OPTS="-v"
     shift
@@ -40,19 +44,43 @@ else
     CMD="python -m unittest"
 fi
 
-LIST=($ARGS)
-MODEL_LIST=()
-MOCK_LIST=()
-for ((i=0;i<${#LIST[@]};i++)); do
-
-    if [[ ${LIST[$i]} == test_model* ]]; then
-        MODEL_LIST+=(${LIST[$i]})
+NUM_TESTS=0
+TIME=0
+declare -A FAILED_UT    # dict to store failed unit tests and its OUTPUT_FILE
+OUTPUT_FILE=$(mktemp)
+for UT in $ARGS; do
+    echo -n "***** Running unit test: $UT... "
+    # ../../../../../ refers to the project root
+    # ../../../../ refers to wok directory
+    # ../../../ refers to plugins directory
+    OUTPUT=$(PYTHONPATH=../../../../../:../../../../:../../../ \
+    PYTHONWARNINGS="ignore:Unverified HTTPS request" \
+    $CMD $OPTS $UT 2>&1)
+    RES=$?
+    if [ $RES -ne 0 ]; then
+        # unit test has failed, so keep the OUTPUT_FILE and print the results
+        echo -e "\t ${RED}FAILED${NC}"
+        ERROR_LOG_BEGIN=$(echo "$OUTPUT" | grep -n "^\==*" | head -n1 | cut -d":" -f1)
+        ERROR_LOG_END=$(echo "$OUTPUT" | wc -l)
+        echo "$OUTPUT" | tail -n $((${ERROR_LOG_END}-${ERROR_LOG_BEGIN}+1))
+        STATS=$(echo "$OUTPUT" | grep "Ran")
+        FAILED_UT+=([$UT]=$(echo "$OUTPUT" | grep FAILED | cut -d" " -f2-4))
+        echo "$OUTPUT" >> $OUTPUT_FILE
     else
-        MOCK_LIST+=(${LIST[$i]})
+        # unit test has passed, so print the results and delete the OUTPUT_FILE
+        STATS=$(echo "$OUTPUT" | grep "Ran")
+        echo -e "\t ${GREEN}PASSED${NC} - $STATS"
     fi
+    TES=$(echo $STATS | cut -d" " -f2)
+    NUM_TESTS=$(echo "$NUM_TESTS + $TES" | bc)
+    TES=$(echo $STATS | cut -d" " -f5)
+    TIME=$(echo "$TIME + ${TES:0:-1}" | bc)
 done
 
-# ../../../../../ refers to the project root
-# ../../../../ refers to wok directory
-# ../../../ refers to plugins directory
-PYTHONPATH=../../../../../:../../../../:../../../ PYTHONWARNINGS="ignore:Unverified HTTPS request" $CMD $OPTS ${MODEL_LIST[@]} ${MOCK_LIST[@]}
+# Print summary results
+echo -e "======================================================================"
+echo -e "===================== Kimchi Unit Tests Summary ======================"
+echo -e "Ran $NUM_TESTS tests in $TIME seconds."
+for i in "${!FAILED_UT[@]}"; do
+    echo -e "$i FAILED: ${FAILED_UT[$i]} - full log available at $OUTPUT_FILE"
+done
