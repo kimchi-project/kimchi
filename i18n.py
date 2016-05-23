@@ -332,6 +332,10 @@ messages = {
     "KCHCONN0001E": _("Unable to establish connection with libvirt. Please check your libvirt URI which is often defined in /etc/libvirt/libvirt.conf"),
     "KCHCONN0002E": _("Libvirt service is not active. Please start the libvirt service in your host system."),
 
+    "KCHEVENT0001E": _("Failed to register the default event implementation."),
+    "KCHEVENT0002E": _("Failed to register timeout event."),
+    "KCHEVENT0003E": _("Failed to Run the default event implementation."),
+
     # These messages (ending with L) are for user log purposes
     "KCHNET0001L": _("Created %(connection)s virtual network '%(name)s'"),
     "KCHNET0002L": _("Removed virtual network '%(ident)s'"),
