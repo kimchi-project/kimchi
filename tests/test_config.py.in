@@ -82,7 +82,6 @@ class ConfigTests(unittest.TestCase):
             'kimchi': {
                 'federation': False,
                 'create_iso_pool': True,
-                'SERIAL_CONSOLE_TIMEOUT': 120
             },
             '/': {
                 'tools.trailing_slash.on': False,
