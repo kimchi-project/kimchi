@@ -50,6 +50,9 @@ class Model(BaseModel):
                  'eventsloop': self.events}
         models = []
 
+        # Register for Libvirt's host ENOSPC event and notify UI if it happens
+        self.events.handleEnospc(self.conn)
+
         # Import task model from Wok
         instances = get_instances('wok.model.tasks')
         for instance in instances:

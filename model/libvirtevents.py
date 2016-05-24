@@ -22,6 +22,9 @@ import libvirt
 import time
 
 from wok.exception import OperationFailed
+from wok.message import WokMessage
+from wok.model.notifications import add_notification
+from wok.utils import wok_log
 
 
 class LibvirtEvents(object):
@@ -57,3 +60,28 @@ class LibvirtEvents(object):
     # Event loop handler used to limit length of waiting for any other event.
     def _kimchi_EventTimeout(self, timer, opaque):
         time.sleep(0.01)
+
+    def event_enospc_cb(self, conn, dom, path, dev, action, reason, args):
+        if reason == "enospc":
+            info = {
+                "vm": dom.name(),
+                "srcPath": path,
+                "devAlias": dev,
+            }
+            add_notification("KCHEVENT0004W", info, '/plugins/kimchi')
+            msg = WokMessage("KCHEVENT0004W", info, '/plugins/kimchi')
+            wok_log.warning(msg.get_text())
+
+    def handleEnospc(self, conn):
+        """
+        Register Libvirt IO_ERROR_REASON event to handle host ENOSPC
+        """
+        try:
+            conn.get().domainEventRegisterAny(
+                None,
+                libvirt.VIR_DOMAIN_EVENT_ID_IO_ERROR_REASON,
+                self.event_enospc_cb,
+                libvirt.VIR_DOMAIN_EVENT_ID_IO_ERROR_REASON
+            )
+        except libvirt.libvirtError as e:
+            wok_log.error("Register of ENOSPC event failed: %s" % e.message)
