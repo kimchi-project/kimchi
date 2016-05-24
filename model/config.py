@@ -87,28 +87,43 @@ class CapabilitiesModel(object):
         FeatureTests.enable_libvirt_error_logging()
 
     def _set_depend_capabilities(self):
-        wok_log.info("*** Running dependable feature tests ***")
+        wok_log.info("\n*** Kimchi: Running dependable feature tests ***")
         conn = self.conn.get()
         self.qemu_stream = FeatureTests.qemu_supports_iso_stream()
+        msg = "QEMU stream support .......: %s"
+        wok_log.info(msg % str(self.qemu_stream))
 
         self.libvirt_stream_protocols = []
         for p in ['http', 'https', 'ftp', 'ftps', 'tftp']:
             if FeatureTests.libvirt_supports_iso_stream(conn, p):
                 self.libvirt_stream_protocols.append(p)
-
-        wok_log.info("*** Dependable feature tests completed ***")
+        msg = "Libvirt Stream Protocols ..: %s"
+        wok_log.info(msg % str(self.libvirt_stream_protocols))
+        wok_log.info("*** Kimchi: Dependable feature tests completed ***\n")
     _set_depend_capabilities.priority = 90
 
     def _set_capabilities(self):
-        wok_log.info("*** Running feature tests ***")
+        wok_log.info("\n*** Kimchi: Running feature tests ***")
         conn = self.conn.get()
         self.nfs_target_probe = FeatureTests.libvirt_support_nfs_probe(conn)
+        msg = "NFS Target Probe support ...: %s"
+        wok_log.info(msg % str(self.nfs_target_probe))
         self.fc_host_support = FeatureTests.libvirt_support_fc_host(conn)
+        msg = "Fibre Channel Host support .: %s"
+        wok_log.info(msg % str(self.fc_host_support))
         self.kernel_vfio = FeatureTests.kernel_support_vfio()
+        msg = "Kernel VFIO support ........: %s"
+        wok_log.info(msg % str(self.kernel_vfio))
         self.nm_running = FeatureTests.is_nm_running()
+        msg = "Network Manager running ....: %s"
+        wok_log.info(msg % str(self.nm_running))
         self.mem_hotplug_support = FeatureTests.has_mem_hotplug_support(conn)
+        msg = "Memory Hotplug support .....: %s"
+        wok_log.info(msg % str(self.mem_hotplug_support))
         self.libvirtd_running = is_libvirtd_up()
-        wok_log.info("*** Feature tests completed ***")
+        msg = "Service Libvirtd running ...: %s"
+        wok_log.info(msg % str(self.libvirtd_running))
+        wok_log.info("*** Kimchi: Feature tests completed ***\n")
     _set_capabilities.priority = 90
 
     def _qemu_support_spice(self):
