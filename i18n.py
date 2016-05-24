@@ -335,6 +335,7 @@ messages = {
     "KCHEVENT0001E": _("Failed to register the default event implementation."),
     "KCHEVENT0002E": _("Failed to register timeout event."),
     "KCHEVENT0003E": _("Failed to Run the default event implementation."),
+    "KCHEVENT0004W": _("I/O error on guest '%(vm)s': storage pool out of space for %(devAlias)s (%(srcPath)s)."),
 
     # These messages (ending with L) are for user log purposes
     "KCHNET0001L": _("Created %(connection)s virtual network '%(name)s'"),
