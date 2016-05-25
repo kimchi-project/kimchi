@@ -1,0 +1,126 @@
+===============
+#kimchi Meeting
+===============
+
+
+Meeting started by alinefm at 13:03:34 UTC.  The full logs are available
+at
+http://kimchi-project.github.io/kimchi/meetings/kimchi.scrum.2016-05-25-13.03.log.html
+.
+
+
+
+Meeting summary
+---------------
+
+* Agenda  (alinefm, 13:03:43)
+* 1) Status  (alinefm, 13:03:43)
+* 2) Open discussion  (alinefm, 13:03:43)
+* Status  (alinefm, 13:05:34)
+  * Please provide your status using the #info command: #info [<project]
+    <nickname> <status>  (alinefm, 13:05:34)
+  * [kimchi] ziviani is working on multi-function pci hotplug  (ziviani,
+    13:06:05)
+  * [kimchi] socorro Sent v2 patch to ML for Edit Virtual Network with
+    (alinefm, 13:06:05)
+  * [kimchi] socorro passthrough support and including addressing issues
+    from  (alinefm, 13:06:06)
+  * [kimchi] socorro feedback; got applied upstream along with
+    (alinefm, 13:06:06)
+  * [kimchi] socorro alinefm's patch to complete edit virtual network
+    feature  (alinefm, 13:06:06)
+  * [kimchi] socorro Working on another issue from feedback regarding
+    (alinefm, 13:06:06)
+  * [kimchi] socorro interfaces showing only for first one even if there
+    are more  (alinefm, 13:06:06)
+  * [kimchi] socorro than one chosen by user.  This is an existing bug
+    and not  (alinefm, 13:06:08)
+  * [kimchi] socorro introduced by edit virtual network patch. Sent
+    proposal  (alinefm, 13:06:10)
+  * [kimchi] socorro to ML on how to display that and currently working
+    on that.  (alinefm, 13:06:12)
+  * [kimchi] socorro Revisited some github UI issues and added comments
+    on them  (alinefm, 13:06:16)
+  * [kimchi] socorro as some may no longer be valid.  (alinefm,
+    13:06:18)
+  * [gingerbase] peterpennings is working in some changes on update
+    selected packages only  (peterpennings, 13:06:39)
+  * [kimchi] ziviani sent a patch to fix the log search by time
+    (ziviani, 13:06:49)
+  * [ginger] read the rpm guidelines and provided fix for issue 334
+    (ramonn, 13:06:51)
+  * [kimchi] ziviani sent a patch to fix an issue on serial console
+    (ziviani, 13:07:10)
+  * [kimchi] alinefm helped socorro with edit network UI issues
+    (alinefm, 13:07:32)
+  * [Kimchi] pvital submitted V2 of patch "Isolate unit tests
+    execution."  (pvital, 13:07:58)
+  * [Kimchi] pvital submitted V4 of patch "Add support to Libvirt
+    Events."  (pvital, 13:07:58)
+  * [Wok] pvital is investigating some performance issues in wokd (high
+    CPU consumption when idle)  (pvital, 13:07:58)
+  * [Wok] pvital is working on Kimchi issue #78 (actually a Wok issue) -
+    make async task stopable  (pvital, 13:07:58)
+  * [Wok] [Kimchi] [Ginger*] pvital reviewed (few) patches (this last
+    week)  (pvital, 13:07:58)
+  * [wok] alinefm sent patch to fix issue on user log activity (user log
+    was displaying "No results found" even when there were logs)
+    (alinefm, 13:08:14)
+  * [kimchi] lcorreia sent to ML V2,V3,V4 for handling libvirt event
+    ENOSPC  (lcorreia, 13:08:48)
+  * [kimchi] lcorreia testing V4 for handling libvirt event ENOSPC with
+    Ziviani's timeout reduction patch  (lcorreia, 13:08:48)
+  * [kimchi] lcorreia helped Aline and Socorro testing edit network UI
+    (lcorreia, 13:08:48)
+  * [ginger] lcorreia got upstream patch to make fibre channel listing
+    arch-independent  (lcorreia, 13:08:48)
+  * [wok] lcorreia got upstream patches for translation of User Request
+    Log messages  (lcorreia, 13:08:49)
+  * [wok] lcorreia got upstream fix for an inconsistency bug on user log
+    download url  (lcorreia, 13:08:49)
+  * [wok] lcorreia investigated UI issue #109: make async notifications
+    persistent across tabs  (lcorreia, 13:08:51)
+  * [*] danielhb reviewed and applied patches  (danielhb, 13:09:00)
+  * [Kimchi]  danielhb implemented a new libvirt network type in Kimchi
+    called 'passthrough'  (danielhb, 13:09:25)
+  * [ginger]  danielhb is at this moment working in SR-IOV fixes after
+    testing the backend in real hardware  (danielhb, 13:09:51)
+  * [Kimchi] rotru Completely separated guest static updates functions
+    from live update functions;  (rotru, 13:12:58)
+  * [Kimchi] rotru Fixed mockmodel functions to support memory devices;
+    (rotru, 13:12:58)
+  * [GingerBase] rotru Sent patch to improved capabilities and their log
+    messages [waiting review/commit];  (rotru, 13:12:58)
+  * [Kimchi] rotru Sent patch to add feature tests log messages [waiting
+    review/commit];  (rotru, 13:12:58)
+  * [kimchi] samhenri sent Storage Management patch v5  (samhenri,
+    13:14:30)
+  * [Kimchi] rotru Finished final version (v2) of Memory HotPlug support
+    to memory devices greater than 1GB.  (rotru, 13:17:35)
+
+* Open Discussion  (alinefm, 13:20:18)
+
+
+
+Meeting ended at 14:17:32 UTC.
+
+
+
+People present (lines said)
+---------------------------
+
+* alinefm (81)
+* pvital (22)
+* peterpennings (18)
+* lcorreia (11)
+* samhenri (10)
+* rotru (6)
+* danielhb (5)
+* ramonn (3)
+* ziviani (3)
+* lagarcia (3)
+* kimchi-bot (3)
+
+
+
+Generated by `MeetBot`_ 0.1.4

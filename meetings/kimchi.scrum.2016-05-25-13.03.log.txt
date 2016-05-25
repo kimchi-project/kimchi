@@ -1,0 +1,165 @@
+13:03:34 <alinefm> #startmeeting
+13:03:34 <kimchi-bot> Meeting started Wed May 25 13:03:34 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:03:34 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:03:34 <alinefm> #meetingname scrum
+13:03:34 <kimchi-bot> The meeting name has been set to 'scrum'
+13:03:43 <alinefm> #info Agenda
+13:03:43 <alinefm> #info 1) Status
+13:03:43 <alinefm> #info 2) Open discussion
+13:03:43 <alinefm> anything else?
+13:03:56 <pvital> no
+13:04:03 <ramonn> nop
+13:04:50 <rotru> Morning
+13:05:20 <alinefm> so let's get started
+13:05:34 <alinefm> #topic Status
+13:05:34 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+13:06:05 <ziviani> #info [kimchi] ziviani is working on multi-function pci hotplug
+13:06:05 <alinefm> #info [kimchi] socorro Sent v2 patch to ML for Edit Virtual Network with
+13:06:06 <alinefm> #info [kimchi] socorro passthrough support and including addressing issues from
+13:06:06 <alinefm> #info [kimchi] socorro feedback; got applied upstream along with
+13:06:06 <alinefm> #info [kimchi] socorro alinefm's patch to complete edit virtual network feature
+13:06:06 <alinefm> #info [kimchi] socorro Working on another issue from feedback regarding
+13:06:06 <alinefm> #info [kimchi] socorro interfaces showing only for first one even if there are more
+13:06:08 <alinefm> #info [kimchi] socorro than one chosen by user.  This is an existing bug and not
+13:06:10 <alinefm> #info [kimchi] socorro introduced by edit virtual network patch. Sent proposal
+13:06:12 <alinefm> #info [kimchi] socorro to ML on how to display that and currently working on that.
+13:06:16 <alinefm> #info [kimchi] socorro Revisited some github UI issues and added comments on them
+13:06:18 <alinefm> #info [kimchi] socorro as some may no longer be valid.
+13:06:39 <peterpennings> #info [gingerbase] peterpennings is working in some changes on update selected packages only
+13:06:49 <ziviani> #info [kimchi] ziviani sent a patch to fix the log search by time
+13:06:51 <ramonn> #info [ginger] read the rpm guidelines and provided fix for issue 334
+13:07:07 <ramonn> #info [ginger] ramonn  read the rpm guidelines and provided fix for issue 334
+13:07:10 <ziviani> #info [kimchi] ziviani sent a patch to fix an issue on serial console
+13:07:32 <alinefm> #info [kimchi] alinefm helped socorro with edit network UI issues
+13:07:58 <pvital> #info [Kimchi] pvital submitted V2 of patch "Isolate unit tests execution."
+13:07:58 <pvital> #info [Kimchi] pvital submitted V4 of patch "Add support to Libvirt Events."
+13:07:58 <pvital> #info [Wok] pvital is investigating some performance issues in wokd (high CPU consumption when idle)
+13:07:58 <pvital> #info [Wok] pvital is working on Kimchi issue #78 (actually a Wok issue) - make async task stopable
+13:07:58 <pvital> #info [Wok] [Kimchi] [Ginger*] pvital reviewed (few) patches (this last week)
+13:08:14 <alinefm> #info [wok] alinefm sent patch to fix issue on user log activity (user log was displaying "No results found" even when there were logs)
+13:08:48 <lcorreia> #info [kimchi] lcorreia sent to ML V2,V3,V4 for handling libvirt event ENOSPC
+13:08:48 <lcorreia> #info [kimchi] lcorreia testing V4 for handling libvirt event ENOSPC with Ziviani's timeout reduction patch
+13:08:48 <lcorreia> #info [kimchi] lcorreia helped Aline and Socorro testing edit network UI
+13:08:48 <lcorreia> #info [ginger] lcorreia got upstream patch to make fibre channel listing arch-independent
+13:08:49 <lcorreia> #info [wok] lcorreia got upstream patches for translation of User Request Log messages
+13:08:49 <lcorreia> #info [wok] lcorreia got upstream fix for an inconsistency bug on user log download url
+13:08:51 <lcorreia> #info [wok] lcorreia investigated UI issue #109: make async notifications persistent across tabs
+13:09:00 <danielhb> #info [*] danielhb reviewed and applied patches
+13:09:25 <danielhb> #info [Kimchi]  danielhb implemented a new libvirt network type in Kimchi called 'passthrough'
+13:09:51 <danielhb> #info [ginger]  danielhb is at this moment working in SR-IOV fixes after testing the backend in real hardware
+13:12:58 <rotru> #info [Kimchi] rotru Completely separated guest static updates functions from live update functions;
+13:12:58 <rotru> #info [Kimchi] rotru Fixed mockmodel functions to support memory devices;
+13:12:58 <rotru> #info [GingerBase] rotru Sent patch to improved capabilities and their log messages [waiting review/commit];
+13:12:58 <rotru> #info [Kimchi] rotru Sent patch to add feature tests log messages [waiting review/commit];
+13:14:30 <samhenri> #info [kimchi] samhenri sent Storage Management patch v5
+13:17:35 <rotru> #info [Kimchi] rotru Finished final version (v2) of Memory HotPlug support to memory devices greater than 1GB.
+13:19:35 <alinefm> anything else?
+13:19:50 <lcorreia> no
+13:20:18 <alinefm> #topic Open Discussion
+13:20:23 <alinefm> any other topic for today?
+13:20:52 <lagarcia> peterpennings, do you have any questions pending on the update selected packages UI?
+13:21:19 <peterpennings> lagarcia, no
+13:21:32 <pvital> I have a question. Actually a help message :-P
+13:21:39 <lagarcia> peterpennings, ok. good. thx.
+13:21:57 <lagarcia> pvital, but I am not looking for help right now (I think)
+13:23:01 <alinefm> hehehe
+13:23:05 <peterpennings> lagarcia, I just want to suggest a new way to deal with async tasks
+13:23:19 <peterpennings> but it can be another discussion
+13:23:26 <pvital> I'm investigating about "gracefully kill an AsyncTask", and noticed that, there's no way in Wok to kill a process (subprocess.Popen) called by a thread (that is started in AsyncTasl class)
+13:23:52 <pvital> do you guys have any idea how to kill the process?
+13:24:22 <alinefm> pvital, I think even AsyncTask must have a function to kill its process and do a cleanup
+13:24:38 <alinefm> we can not only kill the process and leave leftovers in the system
+13:25:02 <pvital> I did some tests using multiprocessing instead of multhreading, but the child process still runs after I send a SIGKILL (or SIGTERM) signal to the process
+13:26:17 <alinefm> take care when using multithreading... it conflicts with cherrypy threads
+13:26:33 <pvital> alinefm, I don't think so. AsyncTask used multithreading instead of extend it.
+13:26:42 <alinefm> pvital, does SIGKILL work?
+13:26:42 <pvital> s/used/usus
+13:26:45 <pvital> uses
+13:28:07 <pvital> alinefm, no! in my tests I send an os.killpg(pid, signal.SIGKILL) but it raises an error saying "No such process"
+13:28:28 <alinefm> we can not have a single way to stop a task as we don't know by hand how this task is running
+13:28:38 <pvital> but the process is there, up and running
+13:28:41 <alinefm> a task can be a python function or an external command or anything...
+13:28:56 <alinefm> pvital, how did you save the pid when started the task?
+13:30:28 <pvital> alinefm, yeah, that's also something I was thinking about. Since user creates a function and passes this function to AsyncTask constructor, I don't know if this function is using run_command or not!
+13:31:38 <alinefm> exactly
+13:31:39 <pvital> alinefm, in this case I'm using multiprocessing instead of threading. then I can get the PID of the new process
+13:31:57 <alinefm> because that I am saying each Async Task must pass the kill function as a parameter
+13:32:54 <lcorreia> alinefm, pvital perhaps we could subclass asynctask for the few? modes of execution
+13:33:55 <pvital> alinefm, I think this issue (https://github.com/kimchi-project/kimchi/issues/78) is too complex. We need think in something to control the tasks different that only start the thread and get the results storing the output on objectstore
+13:34:42 <alinefm> agree
+13:34:50 <alinefm> nobody said it was simple =P
+13:35:12 <alinefm> lcorreia, could you elaborate?
+13:36:25 <lcorreia> alinefm, for example... if the task uses run_command, instantiate CommandAsyncTask, with a specific kill method
+13:36:51 <pvital> alinefm, interesting idea about extent AsyncTask implementation to also receive the "kill function"
+13:37:43 <pvital> then, the kill process will be responsibility of the developer who is using AsyncTask
+13:37:53 <alinefm> yeap
+13:38:25 <alinefm> lcorreia, we can also do that as some tasks use run_command but either way we will need a cleanup function to restore the system state
+13:38:55 <alinefm> for example, while generating a debugreport it uses run_command + sosreport, if we only kill the process some leftovers will be on system
+13:39:04 <alinefm> we need to restore the system state
+13:39:13 <lcorreia> alinefm, I see
+13:39:18 <pvital> but we still need extend how wok control the tasks! today, we only start it (creating and startinf a thread) and get the output and update it's status
+13:39:45 <alinefm> pvital, we continue to not be able to change a task status
+13:39:57 <alinefm> we will need to create a new API DELETE /tasks/<id>
+13:40:10 <alinefm> this delete operation will kill the Task
+13:40:25 <pvital> alinefm, not only this!
+13:42:08 <peterpennings> guys, I know you are discussing a specific point of Async tasks. If you are going to rethink this API, can we consider some UI problems?
+13:42:26 <alinefm> peterpennings, sure
+13:44:41 <peterpennings> The UI can't control anything with this tasks. I really want to pass this control to the backend, and it could be persisted. This problem is happening not just with the packages update, but in all system
+13:46:00 <peterpennings> There is one point in the UI where the code extends de session time out to keep informations in the window. It doesnt make sense
+13:47:11 <alinefm> peterpennings, I don't see any other scenario than package update when the tasks are not doing what is expected
+13:47:18 <alinefm> could you give an example?
+13:49:32 <samhenri> for instance, with live migration or cloning guests
+13:49:45 <samhenri> i did a test here, started the process and logout
+13:49:56 <samhenri> then started wok with a private window
+13:50:22 <peterpennings> Any async task lose informations when changing tabs, or using anonymous window, os session time out.
+13:50:34 <alinefm> I doubt about that
+13:50:42 <alinefm> let me explain
+13:50:43 <samhenri> the guests tab wasn't showing the cloning and migrating guests
+13:50:54 <alinefm> samhenri, I agree! but because an issue on UI logic
+13:51:11 <alinefm> once you started a Task you can get its information using the API /tasks
+13:51:35 <samhenri> yes, but guests and storages do have a function to get ongoingtasks
+13:51:46 <alinefm> samhenri, correct
+13:52:16 <alinefm> when building any Tab which has interactions with Tasks, the UI code should request those tasks and properly update the UI to reflect it
+13:52:48 <alinefm> similar to what we do that (GET /tasks?target_uri=/plugins/kimchi/vms/*/clone => which will get all cloning guests)
+13:53:23 <alinefm> I can see a problem with the package update because in that case the backend blocks a new request when one is already running (which I agree it is a problem and can not be solved on UI)
+13:54:20 <alinefm> but let's say, backend allows simultaneous request to /packagesupdate API, it will allow UI to keep tracking of those tasks to inform user on what is being done
+13:54:27 <alinefm> does that make sense?
+14:00:59 <peterpennings> alinefm, I didn't understand the simultaneous requests
+14:04:31 <alinefm> peterpennings, if you do POST /packagesupdate/packageA/upgrade + POST /packagesupdate/packageB/upgrade
+14:04:45 <alinefm> the second request will return an error saying the package manager is already running
+14:05:01 <alinefm> and in fact it is running to complete the first request related to packageA
+14:05:32 <alinefm> peterpennings, because that you are doing the queue on UI side, waiting the packageA to complete to then send a new request
+14:06:05 <alinefm> if the session timeout or user switches tabs before you do the second request (packageB) you loose information about which packages to be update
+14:06:07 <alinefm> *updated
+14:06:21 <samhenri> alinefm exactly. the problem is that we can't store this "update queue" of selected packages with the UI
+14:06:28 <alinefm> correct
+14:06:56 <samhenri> even with a onGoingTasks() in the update panel
+14:07:06 <alinefm> if we change the backend to wait the package manager to complete the request for packageA to then process the request for packageB, we solve that problem
+14:07:13 <samhenri> it would get only the last package that was running
+14:07:21 <alinefm> correct
+14:07:25 <peterpennings> perfect alinefm
+14:07:33 <alinefm> once the backend receives the request a Task will be created
+14:07:58 <alinefm> so you can use GET /tasks?target_uri=/plugins/gingerbase/packagesupdate/*/upgrade to get all those in progress
+14:08:08 <samhenri> and a status like "pending"
+14:08:19 <peterpennings> but I want to do this for all tasks in the system, a window to see all async tasks and then I know that is going on.
+14:08:51 <peterpennings> When you were talking with pvital to rethink about the tasks API, I told to consider this problem
+14:10:19 <alinefm> samhenri, yeap! we can do something like it
+14:10:47 <alinefm> peterpennings, as I said in the ML, I agree and like this idea to have a single way to see all the running Tasks and control them
+14:10:55 <alinefm> specially if we will be able to stop them
+14:11:05 <danielhb> peterpennings, any ETA on the v3 of the package update UI with the frontend  fixes unrelated to this API discussion?
+14:11:08 <alinefm> but due the time, I think we need to postpone it for the next release
+14:11:23 <peterpennings> I know that it can not be doing right now, but I just want to consider this
+14:11:56 <peterpennings> maybe a parameter in the API to know what the origin of this tasks is a good idea too
+14:12:43 <alinefm> peterpennings, do you mean something readable for the target_uri?
+14:14:13 <peterpennings> yes
+14:14:40 <peterpennings> danielhb, Friday morning
+14:15:02 <danielhb> peterpennings, ok
+14:15:46 <alinefm> peterpennings, got it
+14:15:51 <alinefm> we are over time
+14:15:55 <alinefm> anything else for today?
+14:16:09 <peterpennings> we can discuss this better later.. thanks for the attention
+14:16:53 <alinefm> yw!
+14:17:17 <alinefm> I will think about a solution to backend issue and send an RFC to the ML
+14:17:26 <peterpennings> great!
+14:17:28 <alinefm> thanks everyone for joining!
+14:17:32 <alinefm> #endmeeting
