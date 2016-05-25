@@ -56,4 +56,4 @@ class LibvirtEvents(object):
 
     # Event loop handler used to limit length of waiting for any other event.
     def _kimchi_EventTimeout(self, timer, opaque):
-        time.sleep(1)
+        time.sleep(0.01)
