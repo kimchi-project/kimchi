@@ -97,6 +97,22 @@ class VMHostDevsModel(object):
 
         return self.task.lookup(taskid)
 
+    def _get_pci_devices_xml(self, pci_infos, slot, driver):
+        hostdevs = ''
+        # all devices included in the xml will be sorted in reverse (the
+        # function 0 will be the last one) and will include the guest
+        # address details
+        for dev_info in sorted(pci_infos,
+                               key=itemgetter('function'),
+                               reverse=True):
+
+            dev_info['detach_driver'] = driver
+            hostdevs += self._get_pci_device_xml(dev_info,
+                                                 slot,
+                                                 True)
+
+        return '<devices>%s</devices>' % hostdevs
+
     def _get_pci_device_xml(self, dev_info, slot, is_multifunction):
         if 'detach_driver' not in dev_info:
             dev_info['detach_driver'] = 'kvm'
@@ -108,12 +124,6 @@ class VMHostDevsModel(object):
         driver = E.driver(name=dev_info['detach_driver'])
 
         if is_multifunction:
-            multi = E.address(type='pci',
-                              domain='0',
-                              bus='0',
-                              slot=str(slot),
-                              function=str(dev_info['function']))
-
             if dev_info['function'] == 0:
                 multi = E.address(type='pci',
                                   domain='0',
@@ -121,6 +131,13 @@ class VMHostDevsModel(object):
                                   slot=str(slot),
                                   function=str(dev_info['function']),
                                   multifunction='on')
+
+            else:
+                multi = E.address(type='pci',
+                                  domain='0',
+                                  bus='0',
+                                  slot=str(slot),
+                                  function=str(dev_info['function']))
 
             host_dev = E.hostdev(source, driver, multi,
                                  mode='subsystem', type='pci', managed='yes')
@@ -168,7 +185,7 @@ class VMHostDevsModel(object):
             if free < slot:
                 return free
 
-        return free+1
+        return free + 1
 
     def _attach_pci_device(self, cb, params):
         cb('Attaching PCI device')
@@ -198,8 +215,7 @@ class VMHostDevsModel(object):
         pci_infos = [dev_model.lookup(dev_name) for dev_name in group_names]
         pci_infos.append(dev_info)
 
-        is_multifunction = len(pci_infos) > 1 and \
-            DOM_STATE_MAP[dom.info()[0]] == "shutoff"
+        is_multifunction = len(pci_infos) > 1
         pci_infos = sorted(pci_infos, key=itemgetter('name'))
 
         # does not allow hot-plug of 3D graphic cards
@@ -234,8 +250,32 @@ class VMHostDevsModel(object):
 
         slot = 0
         if is_multifunction:
+            # search for the first available slot in guest xml
             slot = self._available_slot(dom)
+
         with RollbackContext() as rollback:
+            # multifunction hotplug is a special case where all functions
+            # must be attached together within one xml file, the same does
+            # not happen to multifunction coldplug - where each function is
+            # attached individually
+            if DOM_STATE_MAP[dom.info()[0]] != 'shutoff' and is_multifunction:
+                xmlstr = self._get_pci_devices_xml(pci_infos, slot, driver)
+
+                try:
+                    dom.attachDeviceFlags(xmlstr, device_flags)
+
+                except libvirt.libvirtError:
+                    wok_log.error(
+                        'Failed to attach mutifunction device VM %s: \n%s',
+                        vmid, xmlstr)
+                    raise
+
+                rollback.prependDefer(dom.detachDeviceFlags, xmlstr,
+                                      device_flags)
+                rollback.commitAll()
+                cb('OK', True)
+                return
+
             for pci_info in pci_infos:
                 pci_info['detach_driver'] = driver
                 cb('Reading source device XML')
@@ -486,6 +526,14 @@ class VMHostDevModel(object):
             raise InvalidOperation('KCHVMHDEV0006E',
                                    {'name': dev_info['name']})
 
+        if self._hotunplug_multifunction_pci(dom, hostdev, dev_name):
+            if is_3D_device:
+                cb('Updating MMIO from VM...')
+                devsmodel = VMHostDevsModel(conn=self.conn)
+                devsmodel.update_mmio_guest(vmid, False)
+            cb('OK', True)
+            return
+
         for e in hostdev:
             if DeviceModel.deduce_dev_name(e, self.conn) == dev_name:
                 xmlstr = etree.tostring(e)
@@ -505,6 +553,40 @@ class VMHostDevModel(object):
                                 {'vmid': vmid, 'dev_name': dev_name})
 
         cb('OK', True)
+
+    def _get_devices_same_addr(self, hostdev, domain, bus, slot):
+        devices = []
+        for device in hostdev:
+            if device.attrib['type'] != 'pci':
+                continue
+
+            address = device.source.address
+            if int(address.attrib['domain'], 16) != domain or \
+               int(address.attrib['bus'], 16) != bus or \
+               int(address.attrib['slot'], 16) != slot:
+                continue
+
+            devices.append(etree.tostring(device))
+
+        return devices
+
+    def _hotunplug_multifunction_pci(self, dom, hostdev, dev_name):
+        domain, bus, slot, _ = dev_name.split('_')[1:]
+        # get all devices attached to the guest in the same domain+bus+slot
+        # that the one we are going to detach because they must be detached
+        # together
+        devices = self._get_devices_same_addr(hostdev,
+                                              int(domain, 16),
+                                              int(bus, 16),
+                                              int(slot, 16))
+        if len(devices) <= 1:
+            return False
+
+        devices_xml = '<devices>%s</devices>' % ''.join(devices)
+        dom.detachDeviceFlags(devices_xml,
+                              get_vm_config_flag(dom, mode='all'))
+
+        return True
 
     def _delete_affected_pci_devices(self, dom, dev_name, pci_devs):
         dev_model = DeviceModel(conn=self.conn)
