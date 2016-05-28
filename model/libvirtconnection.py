@@ -21,7 +21,8 @@ import libvirt
 import threading
 import time
 
-from wok.model.notifications import add_notification
+from wok.model.notifications import add_notification, del_notification
+from wok.model.notifications import notificationsStore
 from wok.utils import wok_log
 
 from wok.plugins.kimchi.utils import is_libvirtd_up
@@ -90,6 +91,12 @@ class LibvirtConnection(object):
             wok_log.error('Libvirt service is not active.')
             add_notification('KCHCONN0002E', plugin_name='/plugins/kimchi')
             return None
+        elif (notificationsStore.get('KCHCONN0002E') is not None):
+            try:
+                del_notification('KCHCONN0002E')
+            except:
+                # If notification was not found, just ignore
+                pass
 
         with LibvirtConnection._connectionLock:
             conn = self._connections.get(conn_id)
