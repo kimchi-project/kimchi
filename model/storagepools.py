@@ -65,8 +65,9 @@ class StoragePoolsModel(object):
         self.caps = CapabilitiesModel(**kargs)
         self.device = DeviceModel(**kargs)
 
-        if self.conn.isQemuURI():
-            self._check_default_pools()
+        if self.conn.get() is not None:
+            if self.conn.isQemuURI():
+                self._check_default_pools()
 
     def _check_default_pools(self):
         pools = {}

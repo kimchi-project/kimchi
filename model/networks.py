@@ -49,8 +49,9 @@ KIMCHI_BRIDGE_PREFIX = 'kb'
 class NetworksModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
-        if self.conn.isQemuURI():
-            self._check_default_networks()
+        if self.conn.get() is not None:
+            if self.conn.isQemuURI():
+                self._check_default_networks()
 
         self.caps = CapabilitiesModel(**kargs)
 

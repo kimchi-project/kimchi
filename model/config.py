@@ -89,6 +89,10 @@ class CapabilitiesModel(object):
     def _set_depend_capabilities(self):
         wok_log.info("\n*** Kimchi: Running dependable feature tests ***")
         conn = self.conn.get()
+        if conn is None:
+            wok_log.info("*** Kimchi: Dependable feature tests not completed "
+                         "***\n")
+            return
         self.qemu_stream = FeatureTests.qemu_supports_iso_stream()
         msg = "QEMU stream support .......: %s"
         wok_log.info(msg % str(self.qemu_stream))
@@ -104,6 +108,12 @@ class CapabilitiesModel(object):
 
     def _set_capabilities(self):
         wok_log.info("\n*** Kimchi: Running feature tests ***")
+        self.libvirtd_running = is_libvirtd_up()
+        msg = "Service Libvirtd running ...: %s"
+        wok_log.info(msg % str(self.libvirtd_running))
+        if self.libvirtd_running == False:
+            wok_log.info("*** Kimchi: Feature tests not completed ***\n")
+            return
         conn = self.conn.get()
         self.nfs_target_probe = FeatureTests.libvirt_support_nfs_probe(conn)
         msg = "NFS Target Probe support ...: %s"
@@ -120,9 +130,6 @@ class CapabilitiesModel(object):
         self.mem_hotplug_support = FeatureTests.has_mem_hotplug_support(conn)
         msg = "Memory Hotplug support .....: %s"
         wok_log.info(msg % str(self.mem_hotplug_support))
-        self.libvirtd_running = is_libvirtd_up()
-        msg = "Service Libvirtd running ...: %s"
-        wok_log.info(msg % str(self.libvirtd_running))
         wok_log.info("*** Kimchi: Feature tests completed ***\n")
     _set_capabilities.priority = 90
 
@@ -148,6 +155,10 @@ class CapabilitiesModel(object):
                     'nm_running': FeatureTests.is_nm_running(),
                     'mem_hotplug_support': False,
                     'libvirtd_running': False}
+        elif self.libvirtd_running == False:
+            # Libvirt returned, run tests again
+            self._set_capabilities()
+            self._set_depend_capabilities()
 
         return {'libvirt_stream_protocols': self.libvirt_stream_protocols,
                 'qemu_spice': self._qemu_support_spice(),
