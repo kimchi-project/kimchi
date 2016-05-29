@@ -275,7 +275,10 @@ class StorageVolumeModel(object):
         self.task = TaskModel(**kargs)
         self.storagevolumes = StorageVolumesModel(**kargs)
         self.storagepool = StoragePoolModel(**kargs)
-        self.libvirt_user = UserTests().probe_user()
+        if self.conn.get() is not None:
+            self.libvirt_user = UserTests().probe_user()
+        else:
+            self.libvirt_user = None
 
     @staticmethod
     def get_storagevolume(poolname, name, conn):
@@ -332,6 +335,8 @@ class StorageVolumeModel(object):
                 isvalid = False
 
         used_by = get_disk_used_by(self.objstore, self.conn, path)
+        if (self.libvirt_user is None):
+            self.libvirt_user = UserTests().probe_user()
         ret, _ = probe_file_permission_as_user(path, self.libvirt_user)
         res = dict(type=VOLUME_TYPE_MAP[info[0]],
                    capacity=info[1],
