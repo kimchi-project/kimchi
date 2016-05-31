@@ -93,18 +93,21 @@
         }
 
         > span.column-interface {
-            width: 10.3896%;
+            width: 15.3896%;
+            padding-right: 40px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         > span.column-space {
-            width: 30%;
+            width: 25%;
         }
 
         > span.column-action {
             width: 25.909%;
             text-align: right;
         }
-
     }
 
     .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span {

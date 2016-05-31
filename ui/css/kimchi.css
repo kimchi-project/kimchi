@@ -2156,12 +2156,16 @@ body.wok-gallery {
 
 #network-root-container .wok-datagrid > .wok-datagrid-header > span.column-interface,
 #network-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-interface {
-  width: 10.3896%;
+  width: 15.3896%;
+  padding-right: 40px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 #network-root-container .wok-datagrid > .wok-datagrid-header > span.column-space,
 #network-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-space {
-  width: 30%;
+  width: 25%;
 }
 
 #network-root-container .wok-datagrid > .wok-datagrid-header > span.column-action,

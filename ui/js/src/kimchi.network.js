@@ -35,6 +35,7 @@ kimchi.initNetwork = function() {
 kimchi.initNetworkListView = function() {
     $('.wok-mask').removeClass('hidden');
     kimchi.listNetworks(function(data) {
+        $('[data-toggle="tooltip"]').tooltip();
         for (var i = 0; i < data.length; i++) {
             var network = {
                 name : data[i].name,
@@ -46,7 +47,8 @@ kimchi.initNetworkListView = function() {
             } else {
                 network.type = data[i].connection;
             }
-            network.interface = data[i].interfaces ? data[i].interfaces[0] : null;
+            network.interface = data[i].interfaces ? data[i].interfaces : null;
+            network.interface.join();
             network.addrSpace = data[i].subnet ? data[i].subnet : null;
             network.persistent = data[i].persistent;
             kimchi.addNetworkItem(network);
