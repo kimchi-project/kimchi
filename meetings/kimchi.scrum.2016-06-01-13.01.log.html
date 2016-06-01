@@ -1,0 +1,244 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:01:06</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:01:06</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-3"></a><span class="tm">13:01:06</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Jun  1 13:01:06 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-4"></a><span class="tm">13:01:06</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-5"></a><span class="tm">13:01:06</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:01:32</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda</span>
+<a name="l-7"></a><span class="tm">13:01:33</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">1) Status</span>
+<a name="l-8"></a><span class="tm">13:01:33</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">2) Open discussion</span>
+<a name="l-9"></a><span class="tm">13:01:33</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-10"></a><span class="tm">13:01:36</span><span class="nk"> &lt;danielhb&gt;</span> no
+<a name="l-11"></a><span class="tm">13:01:36</span><span class="nk"> &lt;pvital&gt;</span> no
+<a name="l-12"></a><span class="tm">13:03:04</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-13"></a><span class="tm">13:03:06</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info [&lt;project] &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-14"></a><span class="tm">13:03:24</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patch to fix logrotate issue on user log activity</span>
+<a name="l-15"></a><span class="tm">13:03:30</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">kimchi samhenri currently working on Storage Volume management v6</span>
+<a name="l-16"></a><span class="tm">13:03:41</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">alinefm sent patch to set serial session timeout the same of wok session timeout</span>
+<a name="l-17"></a><span class="tm">13:04:02</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] pvital submitted patch "Log error when using tee arg on run_command."</span>
+<a name="l-18"></a><span class="tm">13:04:02</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] pvital submitted patch-set "Power Firmware Update fixes"</span>
+<a name="l-19"></a><span class="tm">13:04:02</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] pvital submitted patch "Print capabilities when environment is dev"</span>
+<a name="l-20"></a><span class="tm">13:04:02</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] pvital is investigating some performance issues in wokd (high CPU consumption when idle)</span>
+<a name="l-21"></a><span class="tm">13:04:02</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] pvital is working on Kimchi issue #78 (actually a Wok issue) - make async task stoppable</span>
+<a name="l-22"></a><span class="tm">13:04:04</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] [Kimchi] [Ginger*] pvital reviewed patches</span>
+<a name="l-23"></a><span class="tm">13:04:05</span><span class="nk"> &lt;peterpennings&gt;</span> <span class="cmd">#info[gingerbase] </span><span class="cmdline">peterpennings is working on some improvements and corrections on selected packages</span>
+<a name="l-24"></a><span class="tm">13:04:07</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] danielhb reviewed and applied patches</span>
+<a name="l-25"></a><span class="tm">13:04:23</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger]  danielhb finished SR-IOV fixes</span>
+<a name="l-26"></a><span class="tm">13:06:02</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] lcorreia got upstream patch for handling libvirt event ENOSPC</span>
+<a name="l-27"></a><span class="tm">13:06:02</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] lcorreia sent V1 to fix vm name conflicts after snapshots are created</span>
+<a name="l-28"></a><span class="tm">13:06:02</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] lcorreia working to fix broken tests in V2 of fix vm name conflicts after snapshots are created</span>
+<a name="l-29"></a><span class="tm">13:08:17</span><span class="nk"> &lt;alinefm&gt;</span> ramonn, rotru anything else?
+<a name="l-30"></a><span class="tm">13:08:57</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] rotru  modified notification backend, exposing delete notification function and fixing issues in get function</span>
+<a name="l-31"></a><span class="tm">13:10:52</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] rotru found and fixed a problem when starting Kimchi from command line and Libvirt service is not running. Sent fixes to avoid errors and allow kimchi start flawlessly, then restore itself when libvirt service is back</span>
+<a name="l-32"></a><span class="tm">13:12:53</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] rotru Sent patches to fix problems with notifications alerts in window tabs. Notifications were not persistent among tabs or were displayed more than once. [patch is in v2 but was not accepted yet due to discussions about best approach (like use browser notifications)]</span>
+<a name="l-33"></a><span class="tm">13:14:18</span><span class="nk"> &lt;rotru&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] rotru finished and sent V1 of basic Plugins Manager feature. [alinefm reviewed and there are changes to do. I will send a v2 soon]</span>
+<a name="l-34"></a><span class="tm">13:15:11</span><span class="nk"> &lt;rotru&gt;</span> alinefm, thats all from my side
+<a name="l-35"></a><span class="tm">13:15:53</span><span class="nk"> &lt;alinefm&gt;</span> rotru, thanks!
+<a name="l-36"></a><span class="tm">13:16:22</span><span class="nk"> &lt;alinefm&gt;</span> rotru, about the browser notifications, apart of that we have discussed to have a unique section in the wok page to display notification
+<a name="l-37"></a><span class="tm">13:16:56</span><span class="nk"> &lt;rotru&gt;</span> alinefm, well remembered
+<a name="l-38"></a><span class="tm">13:17:20</span><span class="nk"> &lt;alinefm&gt;</span> rotru, are you going to do that?
+<a name="l-39"></a><span class="tm">13:17:24</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] ramonn merged patch about spec guideline compliant</span>
+<a name="l-40"></a><span class="tm">13:17:35</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  yes
+<a name="l-41"></a><span class="tm">13:17:45</span><span class="nk"> &lt;alinefm&gt;</span> rotru, ok - thanks
+<a name="l-42"></a><span class="tm">13:17:52</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] ramonn investigating issues with login when network is down</span>
+<a name="l-43"></a><span class="tm">13:18:22</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-44"></a><span class="tm">13:19:17</span><span class="nk"> &lt;rotru&gt;</span> nope
+<a name="l-45"></a><span class="tm">13:19:44</span><span class="nk"> &lt;alinefm&gt;</span> moving on...
+<a name="l-46"></a><span class="tm">13:19:48</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-47"></a><span class="tm">13:20:03</span><span class="nk"> &lt;alinefm&gt;</span> today would be the official code freeze for 2.2 releases
+<a name="l-48"></a><span class="tm">13:20:17</span><span class="nk"> &lt;alinefm&gt;</span> but I'd like to have packages update and storage volume management on it
+<a name="l-49"></a><span class="tm">13:20:31</span><span class="nk"> &lt;alinefm&gt;</span> peterpennings, samhenri, when do you think you are done with those tasks?
+<a name="l-50"></a><span class="tm">13:20:33</span><span class="nk"> &lt;alinefm&gt;</span> still today?
+<a name="l-51"></a><span class="tm">13:21:39</span><span class="nk"> &lt;samhenri&gt;</span> alinefm i can deliver a patch today, not sure about peterpennings but I'll take a look once I finish the v6 patch
+<a name="l-52"></a><span class="tm">13:23:00</span><span class="nk"> &lt;alinefm&gt;</span> rotru, the same for you related to the plugins management api
+<a name="l-53"></a><span class="tm">13:23:29</span><span class="nk"> &lt;rotru&gt;</span> alinefm, do you want the V2 today ?
+<a name="l-54"></a><span class="tm">13:24:07</span><span class="nk"> &lt;alinefm&gt;</span> rotru, I'd like to know if we will get it into 2.2 or not
+<a name="l-55"></a><span class="tm">13:24:25</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  I think we should get it in 2.2
+<a name="l-56"></a><span class="tm">13:24:42</span><span class="nk"> &lt;samhenri&gt;</span> alinefm it looks like the only thing left is a minor CSS bug to fix, I think the same problem happens with Ginger Network tabs so I'll probably write a patch to fix this and it will fix the selected packages minor issues
+<a name="l-57"></a><span class="tm">13:24:44</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  at least beackend
+<a name="l-58"></a><span class="tm">13:24:44</span><span class="nk"> &lt;alinefm&gt;</span> the code freeze is today, but if you, samhenri and peterpennings say, you will get it by tomorrow, I am fine to postpone the code freeze to get all in
+<a name="l-59"></a><span class="tm">13:25:18</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, ok
+<a name="l-60"></a><span class="tm">13:25:19</span><span class="nk"> &lt;alinefm&gt;</span> rotru, yeap
+<a name="l-61"></a><span class="tm">13:25:29</span><span class="nk"> &lt;rotru&gt;</span> alinefm, ok for me
+<a name="l-62"></a><span class="tm">13:27:31</span><span class="nk"> &lt;alinefm&gt;</span> any other topic for today?
+<a name="l-63"></a><span class="tm">13:28:02</span><span class="nk"> &lt;danielhb&gt;</span> I have
+<a name="l-64"></a><span class="tm">13:28:29</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, go ahead
+<a name="l-65"></a><span class="tm">13:28:48</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, we do not have Chandra or any Z folks here apparently, but they are proposing a UI redesign of Ginger tabs and I am very inclined to discuss and go forward with it
+<a name="l-66"></a><span class="tm">13:29:47</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, please, elaborate =)
+<a name="l-67"></a><span class="tm">13:30:01</span><span class="nk"> &lt;alinefm&gt;</span> which changes are being proposed?
+<a name="l-68"></a><span class="tm">13:30:07</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, basically, our current section/accordion design is 'not good' when you have a lot of sections in the same tab and they have big content to show
+<a name="l-69"></a><span class="tm">13:31:08</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, for example the system services tab. We have 2 features there, sysmodules and sysservices. Both are quite large. If I decide to see the services, then "ok let's see the modules now", I have to scroll down quite a bit
+<a name="l-70"></a><span class="tm">13:32:15</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, the proposal is to  change the layout of Ginger tabs for something like addiing a left panel with categories, leaving the rest of the screen to the actual content. This is still under discussion, I will ask Chandra to create an RFC for that in the ML, but I really liked the idea
+<a name="l-71"></a><span class="tm">13:33:04</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, this can also solve some issues with "tab overcrowding" people are reporting in Github
+<a name="l-72"></a><span class="tm">13:33:26</span><span class="nk"> &lt;samhenri&gt;</span> danielhb i was going to propose an arrow to scroll to the top or the bottom of the screen but I think a sidebar could work for both this and the tab overcrowding
+<a name="l-73"></a><span class="tm">13:33:47</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, but, again, this is a Ginger change only, perhaps Gingerbase too (Updates tab has the same problem)
+<a name="l-74"></a><span class="tm">13:33:57</span><span class="nk"> &lt;samhenri&gt;</span> in my tests with a full hd screen the tabs are ok but with a small screen resolution the second navbar wrap to a new line
+<a name="l-75"></a><span class="tm">13:33:58</span><span class="nk"> &lt;danielhb&gt;</span> samhenri, yeah that's what I think too
+<a name="l-76"></a><span class="tm">13:34:44</span><span class="nk"> &lt;samhenri&gt;</span> in the first RFCs e-mails for the secondary nav we had some mockups for sidebars
+<a name="l-77"></a><span class="tm">13:34:47</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, samhenri is the proposal related to the tab content or to the second tab level?
+<a name="l-78"></a><span class="tm">13:35:11</span><span class="nk"> &lt;samhenri&gt;</span> alinefm I think we can work on both
+<a name="l-79"></a><span class="tm">13:35:19</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, I think it solves both issues
+<a name="l-80"></a><span class="tm">13:35:24</span><span class="nk"> &lt;alinefm&gt;</span> and yeap! definitively we need to mockup to make the visualization on how the tab will look like before any code
+<a name="l-81"></a><span class="tm">13:35:46</span><span class="nk"> &lt;samhenri&gt;</span> we don't have to remove the collapsible panels and show only one of them
+<a name="l-82"></a><span class="tm">13:35:48</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, danielhb so that sidebar menu would be a tree menu?
+<a name="l-83"></a><span class="tm">13:35:57</span><span class="nk"> &lt;samhenri&gt;</span> but the titles could be displayed in a tree menu like sidebar
+<a name="l-84"></a><span class="tm">13:36:22</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, but the actual proposal was made on this github https://github.com/kimchi-project/wok/issues/120
+<a name="l-85"></a><span class="tm">13:36:26</span><span class="nk"> &lt;samhenri&gt;</span> alinefm yes
+<a name="l-86"></a><span class="tm">13:36:56</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, yeah, a sidebar with a tree like menu. We can put the whole ginger plug-in in one single tab with this layout
+<a name="l-87"></a><span class="tm">13:37:11</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, not saying that this is what will happen, just about the possibilities
+<a name="l-88"></a><span class="tm">13:37:27</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, danielhb all content into one page?
+<a name="l-89"></a><span class="tm">13:37:36</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, it's a very flexible layout and will standardize how Ginger and Gingerbase will show content
+<a name="l-90"></a><span class="tm">13:38:09</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, samhenri if it is also about the second tab level, it will involve all plugins
+<a name="l-91"></a><span class="tm">13:39:39</span><span class="nk"> &lt;samhenri&gt;</span> alinefm danielhb i think ginger and gingerbase panels could stay the same, but we add a sidebar that shows the current page title and the panel titles as a third level and once the user clicks, it would hide/show the panel
+<a name="l-92"></a><span class="tm">13:39:39</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, I don't see why it does. We're not proposping "let's get rid of the second tab level". What I would like to do is to (1) be able to have a sidebar instead of opening/closing sections and (2) do not have to spam the second tab level for every new Ginger category
+<a name="l-93"></a><span class="tm">13:41:07</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, so keep the second nav level and add a third one?
+<a name="l-94"></a><span class="tm">13:41:25</span><span class="nk"> &lt;samhenri&gt;</span> well, i think we need some design changes to all navigation levels
+<a name="l-95"></a><span class="tm">13:41:39</span><span class="nk"> &lt;samhenri&gt;</span> right now we only have three plugins + ginger for system z
+<a name="l-96"></a><span class="tm">13:41:54</span><span class="nk"> &lt;samhenri&gt;</span> but suppose other people start developing new plugins / new first-level tabs
+<a name="l-97"></a><span class="tm">13:42:07</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, for example, right now we have "WoK", "Host" and "virtualization". In Host we have 6 other tabs. We can have for example "Dashboard", "Updates" and "Administration" , where Administration would hold all Ginger features
+<a name="l-98"></a><span class="tm">13:42:09</span><span class="nk"> &lt;samhenri&gt;</span> I think we could adapt what some people call "mega drop-down menu"
+<a name="l-99"></a><span class="tm">13:42:55</span><span class="nk"> &lt;samhenri&gt;</span> here are some examples:
+<a name="l-100"></a><span class="tm">13:42:57</span><span class="nk"> &lt;samhenri&gt;</span> https://vimeo.com/166812597
+<a name="l-101"></a><span class="tm">13:42:57</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, now I see that samhenri would like to padronize Kimchi UI in this work too. We can discuss if it's viable, but I do not see it as a blocker to solve the UI problems in Ginger
+<a name="l-102"></a><span class="tm">13:43:05</span><span class="nk"> &lt;samhenri&gt;</span> https://vimeo.com/166812599
+<a name="l-103"></a><span class="tm">13:43:09</span><span class="nk"> &lt;samhenri&gt;</span> https://vimeo.com/166812605
+<a name="l-104"></a><span class="tm">13:43:14</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, I see it as a blocker
+<a name="l-105"></a><span class="tm">13:43:27</span><span class="nk"> &lt;alinefm&gt;</span> we need to define the redesign and do it for every plugin at once
+<a name="l-106"></a><span class="tm">13:43:35</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, why? it's not standardize today
+<a name="l-107"></a><span class="tm">13:43:45</span><span class="nk"> &lt;alinefm&gt;</span> otherwise, we will do it for ginger and when starting solving other issue we will need a new redesign for ginger
+<a name="l-108"></a><span class="tm">13:43:46</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, Kimchi does not use accordings that shows/hide contents for example
+<a name="l-109"></a><span class="tm">13:44:37</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, Kimchi UI got redesigned from the old UI to the new one, Ginger UI kept the same old design. We need to address this and IMO this is an isolated Ginger issue
+<a name="l-110"></a><span class="tm">13:45:04</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, it is bigger than a Ginger issue
+<a name="l-111"></a><span class="tm">13:45:11</span><span class="nk"> &lt;alinefm&gt;</span> it how wok deals with navigation
+<a name="l-112"></a><span class="tm">13:45:17</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, we can discuss it further in the ML, together with samhenri and the rest, but I do not think that we need the same layout for all WoK plug-ins
+<a name="l-113"></a><span class="tm">13:45:25</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, do you mean that 'All sections' entry?
+<a name="l-114"></a><span class="tm">13:46:06</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, do you remember how different was the Ginger UI and Kimchi UI before?
+<a name="l-115"></a><span class="tm">13:46:18</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, about the style and so
+<a name="l-116"></a><span class="tm">13:46:30</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, Kimchi UI was completely different. Ginger UI is the same old UI with different widgets
+<a name="l-117"></a><span class="tm">13:46:31</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, I wouldn't have to go back to that phase
+<a name="l-118"></a><span class="tm">13:46:50</span><span class="nk"> &lt;alinefm&gt;</span> s/have/like
+<a name="l-119"></a><span class="tm">13:47:12</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, ok, so this is now a different discussion
+<a name="l-120"></a><span class="tm">13:47:36</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, do we want all WoK plug-ins to follow the exact same layout choices?
+<a name="l-121"></a><span class="tm">13:47:52</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  danielhb  I thought that Kimchi and Ginger would use Wok UI standards
+<a name="l-122"></a><span class="tm">13:47:57</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, at least those controlled by us, yes
+<a name="l-123"></a><span class="tm">13:48:09</span><span class="nk"> &lt;alinefm&gt;</span> rotru, agree
+<a name="l-124"></a><span class="tm">13:48:42</span><span class="nk"> &lt;rotru&gt;</span> samhenri, alinefm,  danielhb  I thought that any plugin would have to use UIs from Wok
+<a name="l-125"></a><span class="tm">13:48:48</span><span class="nk"> &lt;alinefm&gt;</span> what I am seeing here is: danielhb exposed an Ginger issue related to how Ginger displays its content &gt; samhenri pointed a bigger issue on how wok deals with navigation
+<a name="l-126"></a><span class="tm">13:48:58</span><span class="nk"> &lt;alinefm&gt;</span> solving samhenri issue, probably will solve GInger issue
+<a name="l-127"></a><span class="tm">13:49:03</span><span class="nk"> &lt;samhenri&gt;</span> alinefm yes
+<a name="l-128"></a><span class="tm">13:49:22</span><span class="nk"> &lt;alinefm&gt;</span> but solving samhenri issue will involve all plugins managed by this community
+<a name="l-129"></a><span class="tm">13:49:44</span><span class="nk"> &lt;alinefm&gt;</span> so let's do it once and get all done
+<a name="l-130"></a><span class="tm">13:49:50</span><span class="nk"> &lt;alinefm&gt;</span> that is my opinion
+<a name="l-131"></a><span class="tm">13:49:53</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, samhenri and now I will be the selfish maintainer here. Ok, there is a big picture at play here. What about my horrible UIs?
+<a name="l-132"></a><span class="tm">13:50:26</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, do you mean about those issue I open for redesign?
+<a name="l-133"></a><span class="tm">13:50:35</span><span class="nk"> &lt;samhenri&gt;</span> by now I think we could implement a sidebar just for Ginger
+<a name="l-134"></a><span class="tm">13:50:37</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, samhenri this redesign will take *a lot* of  time. Meanwhile Ginger will have a horrible user experience?
+<a name="l-135"></a><span class="tm">13:50:44</span><span class="nk"> &lt;alinefm&gt;</span> that does not follow the standard wok UI style?!
+<a name="l-136"></a><span class="tm">13:50:49</span><span class="nk"> &lt;samhenri&gt;</span> this wouldn't take a lot of time and effort to develop
+<a name="l-137"></a><span class="tm">13:50:49</span><span class="nk"> &lt;danielhb&gt;</span> samhenri, yes, please
+<a name="l-138"></a><span class="tm">13:51:09</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, well, first of you, you accepted them =P
+<a name="l-139"></a><span class="tm">13:51:09</span><span class="nk"> &lt;samhenri&gt;</span> and it could also be used to evaluate usability with the community
+<a name="l-140"></a><span class="tm">13:51:10</span><span class="nk"> &lt;danielhb&gt;</span> samhenri, that's all I am asking
+<a name="l-141"></a><span class="tm">13:51:16</span><span class="nk"> &lt;samhenri&gt;</span> once we collect feedback from ginger
+<a name="l-142"></a><span class="tm">13:51:23</span><span class="nk"> &lt;samhenri&gt;</span> we can work on Wok and Kimchi
+<a name="l-143"></a><span class="tm">13:51:30</span><span class="nk"> &lt;danielhb&gt;</span> samhenri, excellent. I like this idea
+<a name="l-144"></a><span class="tm">13:51:33</span><span class="nk"> &lt;samhenri&gt;</span> and bring a definitive solution
+<a name="l-145"></a><span class="tm">13:51:37</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, I agree we need some redesign on ginger side but it will take some time to be done
+<a name="l-146"></a><span class="tm">13:51:56</span><span class="nk"> &lt;danielhb&gt;</span> samhenri, we can see how it goes and then evaluate if we want it spread out to all plug-ins or not
+<a name="l-147"></a><span class="tm">13:52:10</span><span class="nk"> &lt;danielhb&gt;</span> samhenri, instead of doing everything at once and then "ok that's not working"
+<a name="l-148"></a><span class="tm">13:52:31</span><span class="nk"> &lt;rotru&gt;</span> danielhb,  why dont Ginger creates its own menu ?
+<a name="l-149"></a><span class="tm">13:52:44</span><span class="nk"> &lt;danielhb&gt;</span> rotru, THAT'S THE WHOLE POINT I AM TRYING TO MAKE HERE
+<a name="l-150"></a><span class="tm">13:52:47</span><span class="nk"> &lt;samhenri&gt;</span> exactly, because for now Kimchi and Wok tabs don't need a sidebar to fill the pages
+<a name="l-151"></a><span class="tm">13:52:50</span><span class="nk"> &lt;danielhb&gt;</span> rotru, hahahahhahaha
+<a name="l-152"></a><span class="tm">13:53:46</span><span class="nk"> &lt;rotru&gt;</span> each plugin should take care of what is inside its tab .... for me the only requirement is ONE tab with plugin name
+<a name="l-153"></a><span class="tm">13:54:22</span><span class="nk"> &lt;rotru&gt;</span> alinefm, samhenri  lets be realistic here, wok does not provide a good UI framework now
+<a name="l-154"></a><span class="tm">13:54:51</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, samhenri if you don't change the high nav level, ok for me
+<a name="l-155"></a><span class="tm">13:54:55</span><span class="nk"> &lt;danielhb&gt;</span> samhenri, I will create the RFC in Ginger ML and then ask for feedback. Probably people will be very thrilled to have sidebars in Gigner
+<a name="l-156"></a><span class="tm">13:54:59</span><span class="nk"> &lt;alinefm&gt;</span> if so, it will need to be done for all the plugins
+<a name="l-157"></a><span class="tm">13:55:17</span><span class="nk"> &lt;alinefm&gt;</span> rotru, what do you mean about that?
+<a name="l-158"></a><span class="tm">13:55:34</span><span class="nk"> &lt;alinefm&gt;</span> maybe what is missing from your view to wok be a good web framework?
+<a name="l-159"></a><span class="tm">13:56:31</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  no , I am not saying wok is not a good web framework.... I am saying it does not provide a good UI support
+<a name="l-160"></a><span class="tm">13:57:25</span><span class="nk"> &lt;alinefm&gt;</span> because.... ?
+<a name="l-161"></a><span class="tm">13:57:31</span><span class="nk"> &lt;rotru&gt;</span> alinefm,  samhenri  with new UI design and wok, I thought Wok would provide widgets , screens, and other stuffs to help plugins create its own windows
+<a name="l-162"></a><span class="tm">13:57:42</span><span class="nk"> &lt;danielhb&gt;</span> rotru, but it does
+<a name="l-163"></a><span class="tm">13:57:58</span><span class="nk"> &lt;rotru&gt;</span> danielhb, show me the documentation
+<a name="l-164"></a><span class="tm">13:57:59</span><span class="nk"> &lt;danielhb&gt;</span> rotru, problem is that in Ginger case we're not using it right due to the nature of the content
+<a name="l-165"></a><span class="tm">13:58:07</span><span class="nk"> &lt;danielhb&gt;</span> rotru, hahahahahaha
+<a name="l-166"></a><span class="tm">13:58:13</span><span class="nk"> &lt;danielhb&gt;</span> rotru, touche
+<a name="l-167"></a><span class="tm">13:59:07</span><span class="nk"> &lt;samhenri&gt;</span> since wok ui was developed using Bootstrap, it is almost safe to say that you can use Bootstrap documentation as guide and Wok styles will still be applied
+<a name="l-168"></a><span class="tm">13:59:27</span><span class="nk"> &lt;rotru&gt;</span> danielhb,  you have to use multiple sections in Ginger, right ? what is the support that Wok provides for this ?
+<a name="l-169"></a><span class="tm">13:59:28</span><span class="nk"> &lt;samhenri&gt;</span> but some widgets we were not able to discard from wok because we had to extend Bootstrap functionalty
+<a name="l-170"></a><span class="tm">13:59:33</span><span class="nk"> &lt;samhenri&gt;</span> Wok Windows and Alerts for instance
+<a name="l-171"></a><span class="tm">14:00:07</span><span class="nk"> &lt;samhenri&gt;</span> rotru Ginger multiple sections are using Bootstrap panel groups and Accordions
+<a name="l-172"></a><span class="tm">14:00:22</span><span class="nk"> &lt;danielhb&gt;</span> rotru, if you're asking for something like "WoK UI framework, this is my content. Please generate a default UI with that so I can tune it", then we do not have it
+<a name="l-173"></a><span class="tm">14:00:43</span><span class="nk"> &lt;samhenri&gt;</span> if you look the markup it is almost the same: http://www.w3schools.com/bootstrap/bootstrap_panels.asp
+<a name="l-174"></a><span class="tm">14:01:01</span><span class="nk"> &lt;rotru&gt;</span> samhenri, I do not want to here bootstrap more ! I want to here "Wok Panel  Groups"
+<a name="l-175"></a><span class="tm">14:01:16</span><span class="nk"> &lt;rotru&gt;</span> * I want to hear "Wok Panel  Groups"
+<a name="l-176"></a><span class="tm">14:01:42</span><span class="nk"> &lt;rotru&gt;</span> * samhenri, I do not want to HEAR bootstrap more ! I want to HEAR "Wok Panel  Groups"
+<a name="l-177"></a><span class="tm">14:01:50</span><span class="nk"> &lt;rotru&gt;</span> "Wok Table"
+<a name="l-178"></a><span class="tm">14:01:59</span><span class="nk"> &lt;rotru&gt;</span> "Wok Warning Window"
+<a name="l-179"></a><span class="tm">14:02:11</span><span class="nk"> &lt;samhenri&gt;</span> it is not like a MVV framework like Angular that we can create custom HTML tags that will automatically fill the attributes from the rest API
+<a name="l-180"></a><span class="tm">14:02:55</span><span class="nk"> &lt;samhenri&gt;</span> like &lt;wok-panel-group title="Whatever" filter="true" collapse="true" model="whatever"&gt;&lt;/wok-panel-group&gt;
+<a name="l-181"></a><span class="tm">14:03:02</span><span class="nk"> &lt;rotru&gt;</span> samhenri,  that where I would like to achieve !! So, wok does not provide a UI framework
+<a name="l-182"></a><span class="tm">14:03:32</span><span class="nk"> &lt;danielhb&gt;</span> rotru, I think the effort in making such framework is enormous
+<a name="l-183"></a><span class="tm">14:03:43</span><span class="nk"> &lt;samhenri&gt;</span> when I read "Wok framework" i don't think as an UI framework
+<a name="l-184"></a><span class="tm">14:03:51</span><span class="nk"> &lt;alinefm&gt;</span> rotru, well, it will have a side effect
+<a name="l-185"></a><span class="tm">14:03:52</span><span class="nk"> &lt;samhenri&gt;</span> I think as a KVM HTML interface management framework
+<a name="l-186"></a><span class="tm">14:03:53</span><span class="nk"> &lt;danielhb&gt;</span> rotru, it would be very nice, but I don't think we have the manpower for that
+<a name="l-187"></a><span class="tm">14:04:11</span><span class="nk"> &lt;alinefm&gt;</span> so a UI developer will need to learn about a new UI framework to start developing to Wok?
+<a name="l-188"></a><span class="tm">14:04:24</span><span class="nk"> &lt;samhenri&gt;</span> I do think that some day we could benefit from a MVV framework
+<a name="l-189"></a><span class="tm">14:04:29</span><span class="nk"> &lt;rotru&gt;</span> danielhb, alinefm  , samhenri  yes, yes, I know it should be hard
+<a name="l-190"></a><span class="tm">14:04:30</span><span class="nk"> &lt;alinefm&gt;</span> wsn't it better to rely on bootstrap and get all bootstrap devels in?
+<a name="l-191"></a><span class="tm">14:04:53</span><span class="nk"> &lt;samhenri&gt;</span> but that would require to port all JS from all plugins into that framework code
+<a name="l-192"></a><span class="tm">14:04:55</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, well the UI dev kinda of have to know WoK to do the UI for WoK today .....
+<a name="l-193"></a><span class="tm">14:04:55</span><span class="nk"> &lt;rotru&gt;</span> danielhb, alinefm  so let every plugin do what they want
+<a name="l-194"></a><span class="tm">14:05:13</span><span class="nk"> &lt;danielhb&gt;</span> rotru, YEAH. I WANT FREEDOM FOR MY UI. #OCCUPYWOK
+<a name="l-195"></a><span class="tm">14:05:25</span><span class="nk"> &lt;rotru&gt;</span> danielhb, alinefm  why ginger and kimchi  must be equal ?
+<a name="l-196"></a><span class="tm">14:05:43</span><span class="nk"> &lt;rotru&gt;</span> danielhb, alinefm  why ginger and kimchi  must be similar ?
+<a name="l-197"></a><span class="tm">14:06:08</span><span class="nk"> &lt;alinefm&gt;</span> rotru, they only need to have the same UI style
+<a name="l-198"></a><span class="tm">14:07:01</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, I think rotru has a good point. The UI style should be granted by using the same color themes, widgets and so on. The plug-ins do not need to have the same layout, as it does not have today
+<a name="l-199"></a><span class="tm">14:07:17</span><span class="nk"> &lt;alinefm&gt;</span> my personal opinion is on that way we have a more professional tool
+<a name="l-200"></a><span class="tm">14:07:39</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, rotru samhenri what we can and should do is to write some UI guidelines for WoK plug-ins. But this is yet another big discussion to have and we're out of time already
+<a name="l-201"></a><span class="tm">14:08:03</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, I am not saying about layout! I am saying about style
+<a name="l-202"></a><span class="tm">14:08:32</span><span class="nk"> &lt;samhenri&gt;</span> danielhb we could fork Bootstrap documentation and load wok styles over bootstrap default styles, at least will make people familiar with it
+<a name="l-203"></a><span class="tm">14:08:39</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, as you point, kimchi and ginger have different layouts but using (in most of time) the same style
+<a name="l-204"></a><span class="tm">14:08:59</span><span class="nk"> &lt;danielhb&gt;</span> samhenri, yeah that would be a start
+<a name="l-205"></a><span class="tm">14:09:02</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, is it that easy to do?
+<a name="l-206"></a><span class="tm">14:10:23</span><span class="nk"> &lt;samhenri&gt;</span> alinefm danielhb i'm not sure because we have some styles that are specific for Ginger or Kimchi
+<a name="l-207"></a><span class="tm">14:10:29</span><span class="nk"> &lt;rotru&gt;</span> samhenri, alinefm , danielhb  sorry if I had the wrong idea about the "Wok UI Framework" ...
+<a name="l-208"></a><span class="tm">14:10:53</span><span class="nk"> &lt;samhenri&gt;</span> alinefm danielhb we changed Glyphicons for FontAwesome and we don't use Bootstrap tables
+<a name="l-209"></a><span class="tm">14:10:58</span><span class="nk"> &lt;rotru&gt;</span> samhenri, alinefm , danielhb   I really thought that Wok would provide tons of widgets
+<a name="l-210"></a><span class="tm">14:13:17</span><span class="nk"> &lt;rotru&gt;</span> * samhenri, alinefm , danielhb   I really thought that THE PROPOSAL was Wok provide tons of widgets. But I see that this is difficult
+<a name="l-211"></a><span class="tm">14:14:52</span><span class="nk"> &lt;alinefm&gt;</span> rotru, wok will provide the minimal infrastructure to create plugins
+<a name="l-212"></a><span class="tm">14:15:01</span><span class="nk"> &lt;samhenri&gt;</span> rotru but it does provide some widgets, like I said, instead of using old jQuery-UI widgets we moved them to extend Bootstrap widgets
+<a name="l-213"></a><span class="tm">14:15:13</span><span class="nk"> &lt;alinefm&gt;</span> on sometimes it will provide widgets others only style changes...
+<a name="l-214"></a><span class="tm">14:15:51</span><span class="nk"> &lt;alinefm&gt;</span> guys, we are over time! I will finish the meeting but we can continue discussing about that
+<a name="l-215"></a><span class="tm">14:16:01</span><span class="nk"> &lt;alinefm&gt;</span> thanks for joining and for the great discussions!
+<a name="l-216"></a><span class="tm">14:16:02</span><span class="nk"> &lt;rotru&gt;</span> alinefm, yeap
+<a name="l-217"></a><span class="tm">14:16:03</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

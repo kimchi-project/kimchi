@@ -1,0 +1,217 @@
+13:01:06 <alinefm> #startmeeting
+13:01:06 <alinefm> #meetingname scrum
+13:01:06 <kimchi-bot> Meeting started Wed Jun  1 13:01:06 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:06 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:06 <kimchi-bot> The meeting name has been set to 'scrum'
+13:01:32 <alinefm> #info Agenda
+13:01:33 <alinefm> #info 1) Status
+13:01:33 <alinefm> #info 2) Open discussion
+13:01:33 <alinefm> anything else?
+13:01:36 <danielhb> no
+13:01:36 <pvital> no
+13:03:04 <alinefm> #topic Status
+13:03:06 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+13:03:24 <alinefm> #info alinefm sent patch to fix logrotate issue on user log activity
+13:03:30 <samhenri> #info kimchi samhenri currently working on Storage Volume management v6
+13:03:41 <alinefm> #info alinefm sent patch to set serial session timeout the same of wok session timeout
+13:04:02 <pvital> #info [Wok] pvital submitted patch "Log error when using tee arg on run_command."
+13:04:02 <pvital> #info [Ginger] pvital submitted patch-set "Power Firmware Update fixes"
+13:04:02 <pvital> #info [Ginger] pvital submitted patch "Print capabilities when environment is dev"
+13:04:02 <pvital> #info [Wok] pvital is investigating some performance issues in wokd (high CPU consumption when idle)
+13:04:02 <pvital> #info [Wok] pvital is working on Kimchi issue #78 (actually a Wok issue) - make async task stoppable
+13:04:04 <pvital> #info [Wok] [Kimchi] [Ginger*] pvital reviewed patches
+13:04:05 <peterpennings> #info[gingerbase] peterpennings is working on some improvements and corrections on selected packages
+13:04:07 <danielhb> #info [*] danielhb reviewed and applied patches
+13:04:23 <danielhb> #info [Ginger]  danielhb finished SR-IOV fixes
+13:06:02 <lcorreia> #info [kimchi] lcorreia got upstream patch for handling libvirt event ENOSPC
+13:06:02 <lcorreia> #info [kimchi] lcorreia sent V1 to fix vm name conflicts after snapshots are created
+13:06:02 <lcorreia> #info [kimchi] lcorreia working to fix broken tests in V2 of fix vm name conflicts after snapshots are created
+13:08:17 <alinefm> ramonn, rotru anything else?
+13:08:57 <rotru> #info [wok] rotru  modified notification backend, exposing delete notification function and fixing issues in get function
+13:10:52 <rotru> #info [kimchi] rotru found and fixed a problem when starting Kimchi from command line and Libvirt service is not running. Sent fixes to avoid errors and allow kimchi start flawlessly, then restore itself when libvirt service is back
+13:12:53 <rotru> #info [kimchi] rotru Sent patches to fix problems with notifications alerts in window tabs. Notifications were not persistent among tabs or were displayed more than once. [patch is in v2 but was not accepted yet due to discussions about best approach (like use browser notifications)]
+13:14:18 <rotru> #info [kimchi] rotru finished and sent V1 of basic Plugins Manager feature. [alinefm reviewed and there are changes to do. I will send a v2 soon]
+13:15:11 <rotru> alinefm, thats all from my side
+13:15:53 <alinefm> rotru, thanks!
+13:16:22 <alinefm> rotru, about the browser notifications, apart of that we have discussed to have a unique section in the wok page to display notification
+13:16:56 <rotru> alinefm, well remembered
+13:17:20 <alinefm> rotru, are you going to do that?
+13:17:24 <ramonn> #info [ginger] ramonn merged patch about spec guideline compliant
+13:17:35 <rotru> alinefm,  yes
+13:17:45 <alinefm> rotru, ok - thanks
+13:17:52 <ramonn> #info [wok] ramonn investigating issues with login when network is down
+13:18:22 <alinefm> anything else?
+13:19:17 <rotru> nope
+13:19:44 <alinefm> moving on...
+13:19:48 <alinefm> #topic Open Discussion
+13:20:03 <alinefm> today would be the official code freeze for 2.2 releases
+13:20:17 <alinefm> but I'd like to have packages update and storage volume management on it
+13:20:31 <alinefm> peterpennings, samhenri, when do you think you are done with those tasks?
+13:20:33 <alinefm> still today?
+13:21:39 <samhenri> alinefm i can deliver a patch today, not sure about peterpennings but I'll take a look once I finish the v6 patch
+13:23:00 <alinefm> rotru, the same for you related to the plugins management api
+13:23:29 <rotru> alinefm, do you want the V2 today ?
+13:24:07 <alinefm> rotru, I'd like to know if we will get it into 2.2 or not
+13:24:25 <rotru> alinefm,  I think we should get it in 2.2
+13:24:42 <samhenri> alinefm it looks like the only thing left is a minor CSS bug to fix, I think the same problem happens with Ginger Network tabs so I'll probably write a patch to fix this and it will fix the selected packages minor issues
+13:24:44 <rotru> alinefm,  at least beackend
+13:24:44 <alinefm> the code freeze is today, but if you, samhenri and peterpennings say, you will get it by tomorrow, I am fine to postpone the code freeze to get all in
+13:25:18 <alinefm> samhenri, ok
+13:25:19 <alinefm> rotru, yeap
+13:25:29 <rotru> alinefm, ok for me
+13:27:31 <alinefm> any other topic for today?
+13:28:02 <danielhb> I have
+13:28:29 <alinefm> danielhb, go ahead
+13:28:48 <danielhb> alinefm, we do not have Chandra or any Z folks here apparently, but they are proposing a UI redesign of Ginger tabs and I am very inclined to discuss and go forward with it
+13:29:47 <alinefm> danielhb, please, elaborate =)
+13:30:01 <alinefm> which changes are being proposed?
+13:30:07 <danielhb> alinefm, basically, our current section/accordion design is 'not good' when you have a lot of sections in the same tab and they have big content to show
+13:31:08 <danielhb> alinefm, for example the system services tab. We have 2 features there, sysmodules and sysservices. Both are quite large. If I decide to see the services, then "ok let's see the modules now", I have to scroll down quite a bit
+13:32:15 <danielhb> alinefm, the proposal is to  change the layout of Ginger tabs for something like addiing a left panel with categories, leaving the rest of the screen to the actual content. This is still under discussion, I will ask Chandra to create an RFC for that in the ML, but I really liked the idea
+13:33:04 <danielhb> alinefm, this can also solve some issues with "tab overcrowding" people are reporting in Github
+13:33:26 <samhenri> danielhb i was going to propose an arrow to scroll to the top or the bottom of the screen but I think a sidebar could work for both this and the tab overcrowding
+13:33:47 <danielhb> alinefm, but, again, this is a Ginger change only, perhaps Gingerbase too (Updates tab has the same problem)
+13:33:57 <samhenri> in my tests with a full hd screen the tabs are ok but with a small screen resolution the second navbar wrap to a new line
+13:33:58 <danielhb> samhenri, yeah that's what I think too
+13:34:44 <samhenri> in the first RFCs e-mails for the secondary nav we had some mockups for sidebars
+13:34:47 <alinefm> danielhb, samhenri is the proposal related to the tab content or to the second tab level?
+13:35:11 <samhenri> alinefm I think we can work on both
+13:35:19 <danielhb> alinefm, I think it solves both issues
+13:35:24 <alinefm> and yeap! definitively we need to mockup to make the visualization on how the tab will look like before any code
+13:35:46 <samhenri> we don't have to remove the collapsible panels and show only one of them
+13:35:48 <alinefm> samhenri, danielhb so that sidebar menu would be a tree menu?
+13:35:57 <samhenri> but the titles could be displayed in a tree menu like sidebar
+13:36:22 <danielhb> alinefm, but the actual proposal was made on this github https://github.com/kimchi-project/wok/issues/120
+13:36:26 <samhenri> alinefm yes
+13:36:56 <danielhb> alinefm, yeah, a sidebar with a tree like menu. We can put the whole ginger plug-in in one single tab with this layout
+13:37:11 <danielhb> alinefm, not saying that this is what will happen, just about the possibilities
+13:37:27 <alinefm> samhenri, danielhb all content into one page?
+13:37:36 <danielhb> alinefm, it's a very flexible layout and will standardize how Ginger and Gingerbase will show content
+13:38:09 <alinefm> danielhb, samhenri if it is also about the second tab level, it will involve all plugins
+13:39:39 <samhenri> alinefm danielhb i think ginger and gingerbase panels could stay the same, but we add a sidebar that shows the current page title and the panel titles as a third level and once the user clicks, it would hide/show the panel
+13:39:39 <danielhb> alinefm, I don't see why it does. We're not proposping "let's get rid of the second tab level". What I would like to do is to (1) be able to have a sidebar instead of opening/closing sections and (2) do not have to spam the second tab level for every new Ginger category
+13:41:07 <alinefm> samhenri, so keep the second nav level and add a third one?
+13:41:25 <samhenri> well, i think we need some design changes to all navigation levels
+13:41:39 <samhenri> right now we only have three plugins + ginger for system z
+13:41:54 <samhenri> but suppose other people start developing new plugins / new first-level tabs
+13:42:07 <danielhb> alinefm, for example, right now we have "WoK", "Host" and "virtualization". In Host we have 6 other tabs. We can have for example "Dashboard", "Updates" and "Administration" , where Administration would hold all Ginger features
+13:42:09 <samhenri> I think we could adapt what some people call "mega drop-down menu"
+13:42:55 <samhenri> here are some examples:
+13:42:57 <samhenri> https://vimeo.com/166812597
+13:42:57 <danielhb> alinefm, now I see that samhenri would like to padronize Kimchi UI in this work too. We can discuss if it's viable, but I do not see it as a blocker to solve the UI problems in Ginger
+13:43:05 <samhenri> https://vimeo.com/166812599
+13:43:09 <samhenri> https://vimeo.com/166812605
+13:43:14 <alinefm> danielhb, I see it as a blocker
+13:43:27 <alinefm> we need to define the redesign and do it for every plugin at once
+13:43:35 <danielhb> alinefm, why? it's not standardize today
+13:43:45 <alinefm> otherwise, we will do it for ginger and when starting solving other issue we will need a new redesign for ginger
+13:43:46 <danielhb> alinefm, Kimchi does not use accordings that shows/hide contents for example
+13:44:37 <danielhb> alinefm, Kimchi UI got redesigned from the old UI to the new one, Ginger UI kept the same old design. We need to address this and IMO this is an isolated Ginger issue
+13:45:04 <alinefm> danielhb, it is bigger than a Ginger issue
+13:45:11 <alinefm> it how wok deals with navigation
+13:45:17 <danielhb> alinefm, we can discuss it further in the ML, together with samhenri and the rest, but I do not think that we need the same layout for all WoK plug-ins
+13:45:25 <alinefm> samhenri, do you mean that 'All sections' entry?
+13:46:06 <alinefm> danielhb, do you remember how different was the Ginger UI and Kimchi UI before?
+13:46:18 <alinefm> danielhb, about the style and so
+13:46:30 <danielhb> alinefm, Kimchi UI was completely different. Ginger UI is the same old UI with different widgets
+13:46:31 <alinefm> danielhb, I wouldn't have to go back to that phase
+13:46:50 <alinefm> s/have/like
+13:47:12 <danielhb> alinefm, ok, so this is now a different discussion
+13:47:36 <danielhb> alinefm, do we want all WoK plug-ins to follow the exact same layout choices?
+13:47:52 <rotru> alinefm,  danielhb  I thought that Kimchi and Ginger would use Wok UI standards
+13:47:57 <alinefm> danielhb, at least those controlled by us, yes
+13:48:09 <alinefm> rotru, agree
+13:48:42 <rotru> samhenri, alinefm,  danielhb  I thought that any plugin would have to use UIs from Wok
+13:48:48 <alinefm> what I am seeing here is: danielhb exposed an Ginger issue related to how Ginger displays its content > samhenri pointed a bigger issue on how wok deals with navigation
+13:48:58 <alinefm> solving samhenri issue, probably will solve GInger issue
+13:49:03 <samhenri> alinefm yes
+13:49:22 <alinefm> but solving samhenri issue will involve all plugins managed by this community
+13:49:44 <alinefm> so let's do it once and get all done
+13:49:50 <alinefm> that is my opinion
+13:49:53 <danielhb> alinefm, samhenri and now I will be the selfish maintainer here. Ok, there is a big picture at play here. What about my horrible UIs?
+13:50:26 <alinefm> danielhb, do you mean about those issue I open for redesign?
+13:50:35 <samhenri> by now I think we could implement a sidebar just for Ginger
+13:50:37 <danielhb> alinefm, samhenri this redesign will take *a lot* of  time. Meanwhile Ginger will have a horrible user experience?
+13:50:44 <alinefm> that does not follow the standard wok UI style?!
+13:50:49 <samhenri> this wouldn't take a lot of time and effort to develop
+13:50:49 <danielhb> samhenri, yes, please
+13:51:09 <alinefm> danielhb, well, first of you, you accepted them =P
+13:51:09 <samhenri> and it could also be used to evaluate usability with the community
+13:51:10 <danielhb> samhenri, that's all I am asking
+13:51:16 <samhenri> once we collect feedback from ginger
+13:51:23 <samhenri> we can work on Wok and Kimchi
+13:51:30 <danielhb> samhenri, excellent. I like this idea
+13:51:33 <samhenri> and bring a definitive solution
+13:51:37 <alinefm> danielhb, I agree we need some redesign on ginger side but it will take some time to be done
+13:51:56 <danielhb> samhenri, we can see how it goes and then evaluate if we want it spread out to all plug-ins or not
+13:52:10 <danielhb> samhenri, instead of doing everything at once and then "ok that's not working"
+13:52:31 <rotru> danielhb,  why dont Ginger creates its own menu ?
+13:52:44 <danielhb> rotru, THAT'S THE WHOLE POINT I AM TRYING TO MAKE HERE
+13:52:47 <samhenri> exactly, because for now Kimchi and Wok tabs don't need a sidebar to fill the pages
+13:52:50 <danielhb> rotru, hahahahhahaha
+13:53:46 <rotru> each plugin should take care of what is inside its tab .... for me the only requirement is ONE tab with plugin name
+13:54:22 <rotru> alinefm, samhenri  lets be realistic here, wok does not provide a good UI framework now
+13:54:51 <alinefm> danielhb, samhenri if you don't change the high nav level, ok for me
+13:54:55 <danielhb> samhenri, I will create the RFC in Ginger ML and then ask for feedback. Probably people will be very thrilled to have sidebars in Gigner
+13:54:59 <alinefm> if so, it will need to be done for all the plugins
+13:55:17 <alinefm> rotru, what do you mean about that?
+13:55:34 <alinefm> maybe what is missing from your view to wok be a good web framework?
+13:56:31 <rotru> alinefm,  no , I am not saying wok is not a good web framework.... I am saying it does not provide a good UI support
+13:57:25 <alinefm> because.... ?
+13:57:31 <rotru> alinefm,  samhenri  with new UI design and wok, I thought Wok would provide widgets , screens, and other stuffs to help plugins create its own windows
+13:57:42 <danielhb> rotru, but it does
+13:57:58 <rotru> danielhb, show me the documentation
+13:57:59 <danielhb> rotru, problem is that in Ginger case we're not using it right due to the nature of the content
+13:58:07 <danielhb> rotru, hahahahahaha
+13:58:13 <danielhb> rotru, touche
+13:59:07 <samhenri> since wok ui was developed using Bootstrap, it is almost safe to say that you can use Bootstrap documentation as guide and Wok styles will still be applied
+13:59:27 <rotru> danielhb,  you have to use multiple sections in Ginger, right ? what is the support that Wok provides for this ?
+13:59:28 <samhenri> but some widgets we were not able to discard from wok because we had to extend Bootstrap functionalty
+13:59:33 <samhenri> Wok Windows and Alerts for instance
+14:00:07 <samhenri> rotru Ginger multiple sections are using Bootstrap panel groups and Accordions
+14:00:22 <danielhb> rotru, if you're asking for something like "WoK UI framework, this is my content. Please generate a default UI with that so I can tune it", then we do not have it
+14:00:43 <samhenri> if you look the markup it is almost the same: http://www.w3schools.com/bootstrap/bootstrap_panels.asp
+14:01:01 <rotru> samhenri, I do not want to here bootstrap more ! I want to here "Wok Panel  Groups"
+14:01:16 <rotru> * I want to hear "Wok Panel  Groups"
+14:01:42 <rotru> * samhenri, I do not want to HEAR bootstrap more ! I want to HEAR "Wok Panel  Groups"
+14:01:50 <rotru> "Wok Table"
+14:01:59 <rotru> "Wok Warning Window"
+14:02:11 <samhenri> it is not like a MVV framework like Angular that we can create custom HTML tags that will automatically fill the attributes from the rest API
+14:02:55 <samhenri> like <wok-panel-group title="Whatever" filter="true" collapse="true" model="whatever"></wok-panel-group>
+14:03:02 <rotru> samhenri,  that where I would like to achieve !! So, wok does not provide a UI framework
+14:03:32 <danielhb> rotru, I think the effort in making such framework is enormous
+14:03:43 <samhenri> when I read "Wok framework" i don't think as an UI framework
+14:03:51 <alinefm> rotru, well, it will have a side effect
+14:03:52 <samhenri> I think as a KVM HTML interface management framework
+14:03:53 <danielhb> rotru, it would be very nice, but I don't think we have the manpower for that
+14:04:11 <alinefm> so a UI developer will need to learn about a new UI framework to start developing to Wok?
+14:04:24 <samhenri> I do think that some day we could benefit from a MVV framework
+14:04:29 <rotru> danielhb, alinefm  , samhenri  yes, yes, I know it should be hard
+14:04:30 <alinefm> wsn't it better to rely on bootstrap and get all bootstrap devels in?
+14:04:53 <samhenri> but that would require to port all JS from all plugins into that framework code
+14:04:55 <danielhb> alinefm, well the UI dev kinda of have to know WoK to do the UI for WoK today .....
+14:04:55 <rotru> danielhb, alinefm  so let every plugin do what they want
+14:05:13 <danielhb> rotru, YEAH. I WANT FREEDOM FOR MY UI. #OCCUPYWOK
+14:05:25 <rotru> danielhb, alinefm  why ginger and kimchi  must be equal ?
+14:05:43 <rotru> danielhb, alinefm  why ginger and kimchi  must be similar ?
+14:06:08 <alinefm> rotru, they only need to have the same UI style
+14:07:01 <danielhb> alinefm, I think rotru has a good point. The UI style should be granted by using the same color themes, widgets and so on. The plug-ins do not need to have the same layout, as it does not have today
+14:07:17 <alinefm> my personal opinion is on that way we have a more professional tool
+14:07:39 <danielhb> alinefm, rotru samhenri what we can and should do is to write some UI guidelines for WoK plug-ins. But this is yet another big discussion to have and we're out of time already
+14:08:03 <alinefm> danielhb, I am not saying about layout! I am saying about style
+14:08:32 <samhenri> danielhb we could fork Bootstrap documentation and load wok styles over bootstrap default styles, at least will make people familiar with it
+14:08:39 <alinefm> danielhb, as you point, kimchi and ginger have different layouts but using (in most of time) the same style
+14:08:59 <danielhb> samhenri, yeah that would be a start
+14:09:02 <alinefm> samhenri, is it that easy to do?
+14:10:23 <samhenri> alinefm danielhb i'm not sure because we have some styles that are specific for Ginger or Kimchi
+14:10:29 <rotru> samhenri, alinefm , danielhb  sorry if I had the wrong idea about the "Wok UI Framework" ...
+14:10:53 <samhenri> alinefm danielhb we changed Glyphicons for FontAwesome and we don't use Bootstrap tables
+14:10:58 <rotru> samhenri, alinefm , danielhb   I really thought that Wok would provide tons of widgets
+14:13:17 <rotru> * samhenri, alinefm , danielhb   I really thought that THE PROPOSAL was Wok provide tons of widgets. But I see that this is difficult
+14:14:52 <alinefm> rotru, wok will provide the minimal infrastructure to create plugins
+14:15:01 <samhenri> rotru but it does provide some widgets, like I said, instead of using old jQuery-UI widgets we moved them to extend Bootstrap widgets
+14:15:13 <alinefm> on sometimes it will provide widgets others only style changes...
+14:15:51 <alinefm> guys, we are over time! I will finish the meeting but we can continue discussing about that
+14:16:01 <alinefm> thanks for joining and for the great discussions!
+14:16:02 <rotru> alinefm, yeap
+14:16:03 <alinefm> #endmeeting
