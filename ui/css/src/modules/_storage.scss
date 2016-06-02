@@ -25,6 +25,8 @@
             position: relative;
         }
         .handle {
+            -webkit-user-select: none;
+            -moz-user-select: none;
             user-select: none;
             position: relative;
         }
@@ -58,66 +60,63 @@
         width: 100%;
         background: $navbar-default-toggle-hover-bg;
         display: none;
+
+        .tooltip > .tooltip-inner {
+            width: 150px;
+        }
+
+        input[type=checkbox][disabled].wok-checkbox + label:before {
+            content: '';
+        }
+
+        .toggle-gallery {
+            left: 202px;
+            @media (min-width: $screen-lg) {
+                left: 282px;
+            }
+        }
+
         > .footer {
             z-index: 100;
         }
+
         .volumeslist {
-            padding: 11px;
-            max-height: 285px;
+            padding: 22px;
             min-height: 136px;
-            overflow: auto;
-        }
-        .volume-box {
-            background: $navbar-inverse-toggle-icon-bar-bg;
-            padding: 4px 20px;
-            margin: 11px;
-            display: inline-block;
-            width: 409px;
-            height: 110px;
-        }
-        .volume-title {
-            height: 46px;
-            width: 100%;
-            border-bottom: 1px solid $input-border;
-            position: relative;
-        }
-        .volume-name {
-            font-size: 15pt;
-            font-weight: 300;
-            width: 274px;
-            line-height: 46px;
-            display: inline-block;
+            max-height: 505px;
             overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
         }
-        .volume-utilization {
-            vertical-align: top;
-            text-align: right;
+
+        .volumeslist .row {
+            font-size: 0;
+            margin-bottom: 22px;
+        }
+
+        .volumeslist .filter {
+            width: 344px;
+            height: 38px;
+            margin-top: 1px;
+            @media (min-width: $screen-md) {
+                width: 514px;
+            }
+        }
+
+        .pool-action {
             display: inline-block;
-            width: 90px;
-            height: 46px;
-            line-height: 46px;
+            margin-right: 20px;
         }
+
         .volume-icon {
             display: inline-block;
+            vertical-align: middle;
             width: 27px;
-            height: 46px;
-            line-height: 46px;
+            height: 27px;
+            line-height: 27px;
             background-repeat: no-repeat;
             background-position: 50%;
             background-color: transparent;
         }
-        .volume-usage {
-            vertical-align: top;
-            font-size: 15pt;
-            font-weight: 400;
-            display: inline-block;
-            text-align: right;
-            line-height: 46px;
-            padding-left: 0;
-            margin-left: 5px;
-        }
+
         .volume-icon.icon-high {
             background-image: url('#{$wok-icon-path}/high.png');
         }
@@ -127,14 +126,16 @@
         .volume-icon.icon-low {
             background-image: url('#{$wok-icon-path}/low.png');
         }
+
         .volume-progress {
             position: absolute;
             margin: 0;
-            width: 409px;
-            top: -4px;
-            left: -20px;
+            width: 407px;
+            top: 4px;
+            left: 4px;
+
             .progress-bar-outer {
-                background: transparent;
+                background: $table-bg-hover;
                 height: 6px;
                 overflow: hidden;
                 width: 100%;
@@ -145,6 +146,7 @@
                 width: 100%;
             }
         }
+
         .volume-data {
             margin: 0;
             padding: 0;
@@ -164,10 +166,318 @@
                 }
             }
         }
-        .pool-empty {
+        .pool-empty{
+            width: 100%;
+            cursor: default !important;
+            > span  {
+            width: 100%;
             text-align: center;
             line-height: 136px;
+            vertical-align: middle !important;
+            }
         }
+
+    .wok-gallery {
+
+        &.wok-datagrid {
+            background: transparent;
+            margin-top: -12px;
+        }
+
+        &.wok-datagrid > .wok-datagrid-header {
+            display: none;
+        }
+
+        &.wok-datagrid > .wok-datagrid-body {
+            margin-left: -3px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            max-height: 400px;
+        }
+
+        &.wok-datagrid .wok-datagrid-body > .wok-datagrid-row {
+            position: relative;
+            cursor: pointer;
+            background: $body-bg !important;
+            border: 0 !important;
+            display: inline-block !important;
+            width: 415px !important;
+            margin: 12px 4px 0;
+            &, * {
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                user-select: none;
+            }
+        }
+
+        &.wok-datagrid .wok-datagrid-body > .wok-datagrid-row.selected .volume-box-border {
+            border-color: $guests-color;
+            border-color: rgba($guests-color,1);
+        }
+
+        &.wok-datagrid .wok-datagrid-body > .wok-datagrid-row.selected .volume-box-inner {
+            border-color: $gray-base;
+        }
+
+        .volume-box-outer {
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .volume-box-border {
+            display: block;
+            border-width: 3px;
+            border-style: solid;
+            border-color: transparent;
+            border-color: rgba(255,255,255,0);
+            transition: border-color .1s ease-in-out
+        }
+
+        .volume-box-inner {
+            padding: 0 16px;
+            width: 409px;
+            height: 110px;
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-around;
+            border-width: 1px;
+            border-style: solid;
+            border-color: #fff;
+            background: #fff;
+            transition: border-color .1s ease-in-out;
+        }
+
+        span.column-name,
+        span.column-used {
+            height: 52px;
+            line-height: 52px;
+            border-bottom: 1px solid $input-border;
+            }
+
+        span.column-name {
+            width: 282px;
+            order: 1;
+        }
+
+        span.column-used {
+            width: 93px;
+            order: 2;
+        }
+
+        span.column-used-by {
+            width: 20px;
+            height: 20px;
+            order: 3;
+            position: absolute;
+            right: 22px;
+            top: 20px;
+
+            .fa {
+                display: block;
+                color: #424242;
+            }
+
+            .format-text {
+                display: none !important;
+            }
+
+        }
+
+        span.column-name label.volume-name {
+            width: 100%;
+            height: 52px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            display: block;
+            margin: 0;
+            padding-right: 6px;
+        }
+
+        span.column-allocated,
+        span.column-capacity,
+        span.column-format,
+        span.column-type {
+            order: 3;
+            width: 72px;
+            margin-top: -5px;
+        }
+
+        span.gallery-header {
+            font-weight: 600;
+            display: block;
+        }
+
+        span.column-progress {
+            display: none;
+        }
+
+        .tooltip-iner {
+            font-size: 11pt;
+            padding: 6px 12px;
+        }
+
+    }
+
+    .wok-list {
+
+        span.gallery-header {
+            display: none;
+        }
+
+        .volume-inline-progress {
+            vertical-align: middle;
+            display: inline-block;
+            margin-right: 7px;
+        }
+
+        .volume-inline-progress > span.wok-loading-icon {
+            margin-right: 0;
+        }
+
+        .volume-progress, .volume-progress *  {
+            display: none !important;
+        }
+
+        .volume-box-inner {
+            font-size: 0;
+        }
+
+        &.wok-datagrid > .wok-datagrid-header {
+
+            > span.column-name {
+                padding-left: 41px;
+            }
+
+        }
+
+        &.wok-datagrid > .wok-datagrid-body {
+            overflow-y: auto;
+            overflow-x: hidden;
+            max-height: 350px;
+        }
+
+        &.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row {
+            position: relative;
+            cursor: pointer;
+
+            .volume-box-border {
+                border-color: rgba(255,255,255,0);
+                border-width: 0px;
+                border-style: solid;
+            }
+
+            .volume-box-inner {
+                border-color: rgba(255,255,255,0);
+                border-width: 0px;
+                border-style: solid;
+            }
+
+        }
+
+        &.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row.selected {
+            background: $table-bg-hover !important;
+        }
+
+        &.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div {
+
+            > span {
+                font-family: $font-family-sans-serif;
+                line-height: (1 + $line-height-base);
+                vertical-align: top;
+                font-size: 12.5pt;
+                font-weight: 400;
+            }
+
+            > span.column-name {
+                padding-left: 15px;
+            }
+
+        }
+
+        &.wok-datagrid > .wok-datagrid-header,
+        &.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div {
+
+            >span {
+                display: inline-block;
+                vertical-align: middle;
+            }
+
+            > span.column-format {
+                width: 57px;
+                @media (min-width: $screen-md) {
+                    width: 95px;
+                }
+                @media (min-width: $screen-lg) {
+                    left: 173px;
+                }
+            }
+
+            > span.column-used,
+            > span.column-type,
+            > span.column-capacity,
+            > span.column-allocated,
+            > span.column-progress {
+                width: 79px;
+                text-transform: capitalize;
+                @media (min-width: $screen-md) {
+                    width: 95px;
+                }
+                @media (min-width: $screen-lg) {
+                    left: 165px;
+                }
+            }
+
+            > span.column-used-by {
+                width: 69px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                padding-right: 5px;
+                @media (min-width: $screen-md) {
+                    width: 85px;
+                }
+                @media (min-width: $screen-lg) {
+                    width: 155px;
+                }
+
+                .fa {
+                    display: none !important;
+                }
+            }
+
+            > span.column-name {
+                width: 202px;
+                @media (min-width: $screen-md) {
+                    width: 333px;
+                }
+                @media (min-width: $screen-lg) {
+                    width: 444px;
+                }
+
+                label {
+                    padding: 0 5px 0 0;
+                    margin-right: 0;
+                    margin-bottom: 0;
+                    font-size: inherit;
+                    font-weight: inherit;
+                    width: 100%;
+                    display: block;
+                    height: auto;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+
+            > span.column-progress {
+                white-space: nowrap;
+            }
+        }
+
+    }
+
+
     }
     .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row[data-stat="inactive"] {
         color: $gray-light !important;

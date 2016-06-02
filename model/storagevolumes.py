@@ -440,9 +440,9 @@ class StorageVolumeModel(object):
                   'name': name,
                   'new_pool': new_pool,
                   'new_name': new_name}
-        taskid = add_task(u'/plugins/kimchi/storagepools/%s/storagevolumes/%s'
-                          % (pool, new_name), self._clone_task, self.objstore,
-                          params)
+        target_uri = u'/plugins/kimchi/storagepools/%s/storagevolumes/%s/clone'
+        taskid = add_task(target_uri % (pool, new_name), self._clone_task,
+                          self.objstore, params)
         return self.task.lookup(taskid)
 
     def _clone_task(self, cb, params):
