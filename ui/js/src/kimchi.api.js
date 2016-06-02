@@ -760,6 +760,56 @@ var kimchi = {
         });
     },
 
+    cloneStoragePoolVolume: function(poolName, volumeName, data, suc, err) {
+        var url = 'plugins/kimchi/storagepools/' + encodeURIComponent(poolName) + '/storagevolumes/' + encodeURIComponent(volumeName) + '/clone';
+        wok.requestJSON({
+            url : url,
+            type : 'POST',
+            data : JSON.stringify(data),
+            contentType : 'application/json',
+            dataType : 'json',
+            success : suc,
+            error : err
+        });
+    },
+
+    resizeStoragePoolVolume: function(poolName, volumeName, data, suc, err) {
+        var url = 'plugins/kimchi/storagepools/' + encodeURIComponent(poolName) + '/storagevolumes/' + encodeURIComponent(volumeName) + '/resize';
+        wok.requestJSON({
+            url : url,
+            type : 'POST',
+            data : JSON.stringify(data),
+            contentType : 'application/json',
+            dataType : 'json',
+            success : suc,
+            error : err
+        });
+    },
+
+    wipeStoragePoolVolume: function(poolName, volumeName, suc, err) {
+        var url = 'plugins/kimchi/storagepools/' + encodeURIComponent(poolName) + '/storagevolumes/' + encodeURIComponent(volumeName) + '/wipe';
+        wok.requestJSON({
+            url : url,
+            type : 'POST',
+            contentType : 'application/json',
+            dataType : 'json',
+            success : suc,
+            error : err
+        });
+    },
+
+    deleteStoragePoolVolume: function(poolName, volumeName, suc, err) {
+        var url = 'plugins/kimchi/storagepools/' + encodeURIComponent(poolName) + '/storagevolumes/' + encodeURIComponent(volumeName);
+        wok.requestJSON({
+            url : url,
+            type : 'DELETE',
+            contentType : 'application/json',
+            dataType : 'json',
+            success : suc,
+            error : err
+        });
+    },
+
     getHostVgs: function(suc, err) {
         var url = 'plugins/kimchi/host/vgs/';
         wok.requestJSON({

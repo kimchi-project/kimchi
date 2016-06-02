@@ -2183,6 +2183,8 @@ body.wok-gallery {
 }
 
 #storage-root-container .wok-datagrid-body .handle {
+  -webkit-user-select: none;
+  -moz-user-select: none;
   user-select: none;
   position: relative;
 }
@@ -2221,72 +2223,66 @@ body.wok-gallery {
   display: none;
 }
 
+#storage-root-container .volumes .tooltip > .tooltip-inner {
+  width: 150px;
+}
+
+#storage-root-container .volumes input[type=checkbox][disabled].wok-checkbox + label:before {
+  content: '';
+}
+
+#storage-root-container .volumes .toggle-gallery {
+  left: 202px;
+}
+
+@media (min-width: 1200px) {
+  #storage-root-container .volumes .toggle-gallery {
+    left: 282px;
+  }
+}
+
 #storage-root-container .volumes > .footer {
   z-index: 100;
 }
 
 #storage-root-container .volumes .volumeslist {
-  padding: 11px;
-  max-height: 285px;
+  padding: 22px;
   min-height: 136px;
-  overflow: auto;
-}
-
-#storage-root-container .volumes .volume-box {
-  background: #fff;
-  padding: 4px 20px;
-  margin: 11px;
-  display: inline-block;
-  width: 409px;
-  height: 110px;
-}
-
-#storage-root-container .volumes .volume-title {
-  height: 46px;
-  width: 100%;
-  border-bottom: 1px solid #ccc;
-  position: relative;
-}
-
-#storage-root-container .volumes .volume-name {
-  font-size: 15pt;
-  font-weight: 300;
-  width: 274px;
-  line-height: 46px;
-  display: inline-block;
+  max-height: 505px;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
-#storage-root-container .volumes .volume-utilization {
-  vertical-align: top;
-  text-align: right;
+#storage-root-container .volumes .volumeslist .row {
+  font-size: 0;
+  margin-bottom: 22px;
+}
+
+#storage-root-container .volumes .volumeslist .filter {
+  width: 344px;
+  height: 38px;
+  margin-top: 1px;
+}
+
+@media (min-width: 992px) {
+  #storage-root-container .volumes .volumeslist .filter {
+    width: 514px;
+  }
+}
+
+#storage-root-container .volumes .pool-action {
   display: inline-block;
-  width: 90px;
-  height: 46px;
-  line-height: 46px;
+  margin-right: 20px;
 }
 
 #storage-root-container .volumes .volume-icon {
   display: inline-block;
+  vertical-align: middle;
   width: 27px;
-  height: 46px;
-  line-height: 46px;
+  height: 27px;
+  line-height: 27px;
   background-repeat: no-repeat;
   background-position: 50%;
   background-color: transparent;
-}
-
-#storage-root-container .volumes .volume-usage {
-  vertical-align: top;
-  font-size: 15pt;
-  font-weight: 400;
-  display: inline-block;
-  text-align: right;
-  line-height: 46px;
-  padding-left: 0;
-  margin-left: 5px;
 }
 
 #storage-root-container .volumes .volume-icon.icon-high {
@@ -2304,13 +2300,13 @@ body.wok-gallery {
 #storage-root-container .volumes .volume-progress {
   position: absolute;
   margin: 0;
-  width: 409px;
-  top: -4px;
-  left: -20px;
+  width: 407px;
+  top: 4px;
+  left: 4px;
 }
 
 #storage-root-container .volumes .volume-progress .progress-bar-outer {
-  background: transparent;
+  background: #ddd;
   height: 6px;
   overflow: hidden;
   width: 100%;
@@ -2347,8 +2343,354 @@ body.wok-gallery {
 }
 
 #storage-root-container .volumes .pool-empty {
+  width: 100%;
+  cursor: default !important;
+}
+
+#storage-root-container .volumes .pool-empty > span {
+  width: 100%;
   text-align: center;
   line-height: 136px;
+  vertical-align: middle !important;
+}
+
+#storage-root-container .volumes .wok-gallery.wok-datagrid {
+  background: transparent;
+  margin-top: -12px;
+}
+
+#storage-root-container .volumes .wok-gallery.wok-datagrid > .wok-datagrid-header {
+  display: none;
+}
+
+#storage-root-container .volumes .wok-gallery.wok-datagrid > .wok-datagrid-body {
+  margin-left: -3px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 400px;
+}
+
+#storage-root-container .volumes .wok-gallery.wok-datagrid .wok-datagrid-body > .wok-datagrid-row {
+  position: relative;
+  cursor: pointer;
+  background: #fff !important;
+  border: 0 !important;
+  display: inline-block !important;
+  width: 415px !important;
+  margin: 12px 4px 0;
+}
+
+#storage-root-container .volumes .wok-gallery.wok-datagrid .wok-datagrid-body > .wok-datagrid-row, #storage-root-container .volumes .wok-gallery.wok-datagrid .wok-datagrid-body > .wok-datagrid-row * {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+#storage-root-container .volumes .wok-gallery.wok-datagrid .wok-datagrid-body > .wok-datagrid-row.selected .volume-box-border {
+  border-color: #8cc63f;
+  border-color: #8cc63f;
+}
+
+#storage-root-container .volumes .wok-gallery.wok-datagrid .wok-datagrid-body > .wok-datagrid-row.selected .volume-box-inner {
+  border-color: #000;
+}
+
+#storage-root-container .volumes .wok-gallery .volume-box-outer {
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+#storage-root-container .volumes .wok-gallery .volume-box-border {
+  display: block;
+  border-width: 3px;
+  border-style: solid;
+  border-color: transparent;
+  border-color: rgba(255, 255, 255, 0);
+  transition: border-color .1s ease-in-out;
+}
+
+#storage-root-container .volumes .wok-gallery .volume-box-inner {
+  padding: 0 16px;
+  width: 409px;
+  height: 110px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #fff;
+  background: #fff;
+  transition: border-color .1s ease-in-out;
+}
+
+#storage-root-container .volumes .wok-gallery span.column-name,
+#storage-root-container .volumes .wok-gallery span.column-used {
+  height: 52px;
+  line-height: 52px;
+  border-bottom: 1px solid #ccc;
+}
+
+#storage-root-container .volumes .wok-gallery span.column-name {
+  width: 282px;
+  order: 1;
+}
+
+#storage-root-container .volumes .wok-gallery span.column-used {
+  width: 93px;
+  order: 2;
+}
+
+#storage-root-container .volumes .wok-gallery span.column-used-by {
+  width: 20px;
+  height: 20px;
+  order: 3;
+  position: absolute;
+  right: 22px;
+  top: 20px;
+}
+
+#storage-root-container .volumes .wok-gallery span.column-used-by .fa {
+  display: block;
+  color: #424242;
+}
+
+#storage-root-container .volumes .wok-gallery span.column-used-by .format-text {
+  display: none !important;
+}
+
+#storage-root-container .volumes .wok-gallery span.column-name label.volume-name {
+  width: 100%;
+  height: 52px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: block;
+  margin: 0;
+  padding-right: 6px;
+}
+
+#storage-root-container .volumes .wok-gallery span.column-allocated,
+#storage-root-container .volumes .wok-gallery span.column-capacity,
+#storage-root-container .volumes .wok-gallery span.column-format,
+#storage-root-container .volumes .wok-gallery span.column-type {
+  order: 3;
+  width: 72px;
+  margin-top: -5px;
+}
+
+#storage-root-container .volumes .wok-gallery span.gallery-header {
+  font-weight: 600;
+  display: block;
+}
+
+#storage-root-container .volumes .wok-gallery span.column-progress {
+  display: none;
+}
+
+#storage-root-container .volumes .wok-gallery .tooltip-iner {
+  font-size: 11pt;
+  padding: 6px 12px;
+}
+
+#storage-root-container .volumes .wok-list span.gallery-header {
+  display: none;
+}
+
+#storage-root-container .volumes .wok-list .volume-inline-progress {
+  vertical-align: middle;
+  display: inline-block;
+  margin-right: 7px;
+}
+
+#storage-root-container .volumes .wok-list .volume-inline-progress > span.wok-loading-icon {
+  margin-right: 0;
+}
+
+#storage-root-container .volumes .wok-list .volume-progress, #storage-root-container .volumes .wok-list .volume-progress * {
+  display: none !important;
+}
+
+#storage-root-container .volumes .wok-list .volume-box-inner {
+  font-size: 0;
+}
+
+#storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-header > span.column-name {
+  padding-left: 41px;
+}
+
+#storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body {
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 350px;
+}
+
+#storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row {
+  position: relative;
+  cursor: pointer;
+}
+
+#storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row .volume-box-border {
+  border-color: rgba(255, 255, 255, 0);
+  border-width: 0px;
+  border-style: solid;
+}
+
+#storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row .volume-box-inner {
+  border-color: rgba(255, 255, 255, 0);
+  border-width: 0px;
+  border-style: solid;
+}
+
+#storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row.selected {
+  background: #ddd !important;
+}
+
+#storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span {
+  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+  line-height: 2.42857;
+  vertical-align: top;
+  font-size: 12.5pt;
+  font-weight: 400;
+}
+
+#storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span.column-name {
+  padding-left: 15px;
+}
+
+#storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-header > span,
+#storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-header > span.column-format,
+#storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span.column-format {
+  width: 57px;
+}
+
+@media (min-width: 992px) {
+  #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-header > span.column-format,
+  #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span.column-format {
+    width: 95px;
+  }
+}
+
+@media (min-width: 1200px) {
+  #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-header > span.column-format,
+  #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span.column-format {
+    left: 173px;
+  }
+}
+
+#storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-header > span.column-used,
+#storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-header > span.column-type,
+#storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-header > span.column-capacity,
+#storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-header > span.column-allocated,
+#storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-header > span.column-progress,
+#storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span.column-used,
+#storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span.column-type,
+#storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span.column-capacity,
+#storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span.column-allocated,
+#storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span.column-progress {
+  width: 79px;
+  text-transform: capitalize;
+}
+
+@media (min-width: 992px) {
+  #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-header > span.column-used,
+  #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-header > span.column-type,
+  #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-header > span.column-capacity,
+  #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-header > span.column-allocated,
+  #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-header > span.column-progress,
+  #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span.column-used,
+  #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span.column-type,
+  #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span.column-capacity,
+  #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span.column-allocated,
+  #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span.column-progress {
+    width: 95px;
+  }
+}
+
+@media (min-width: 1200px) {
+  #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-header > span.column-used,
+  #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-header > span.column-type,
+  #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-header > span.column-capacity,
+  #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-header > span.column-allocated,
+  #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-header > span.column-progress,
+  #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span.column-used,
+  #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span.column-type,
+  #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span.column-capacity,
+  #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span.column-allocated,
+  #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span.column-progress {
+    left: 165px;
+  }
+}
+
+#storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-header > span.column-used-by,
+#storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span.column-used-by {
+  width: 69px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 5px;
+}
+
+@media (min-width: 992px) {
+  #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-header > span.column-used-by,
+  #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span.column-used-by {
+    width: 85px;
+  }
+}
+
+@media (min-width: 1200px) {
+  #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-header > span.column-used-by,
+  #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span.column-used-by {
+    width: 155px;
+  }
+}
+
+#storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-header > span.column-used-by .fa,
+#storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span.column-used-by .fa {
+  display: none !important;
+}
+
+#storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-header > span.column-name,
+#storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span.column-name {
+  width: 202px;
+}
+
+@media (min-width: 992px) {
+  #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-header > span.column-name,
+  #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span.column-name {
+    width: 333px;
+  }
+}
+
+@media (min-width: 1200px) {
+  #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-header > span.column-name,
+  #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span.column-name {
+    width: 444px;
+  }
+}
+
+#storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-header > span.column-name label,
+#storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span.column-name label {
+  padding: 0 5px 0 0;
+  margin-right: 0;
+  margin-bottom: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  width: 100%;
+  display: block;
+  height: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-header > span.column-progress,
+#storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span.column-progress {
+  white-space: nowrap;
 }
 
 #storage-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row[data-stat="inactive"] {

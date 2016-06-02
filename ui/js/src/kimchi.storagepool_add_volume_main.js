@@ -180,6 +180,6 @@ kimchi.sp_add_volume_main = function() {
             uploadFile();
         }
         event.preventDefault();
-        $('#modalWindow').modal.close();
+            wok.window.close();
     });
 };

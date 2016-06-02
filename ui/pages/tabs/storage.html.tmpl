@@ -102,90 +102,103 @@
     </div>
 </div>
 <script id="storageTmpl" type="html/text">
-        <div id="{name}" class="storage-li in" data-name="{name}" data-stat="{state}">
-               <span class='column-state' val="{state}">
-                    <span class='storage-state {state}'>
-                        <i class="fa fa-power-off"></i>
-                    </span>
-                </span><!--
-            --><span class='column-name' title="{name}" val="{name}">{name}</span><!--
-            --><span class='column-type' val="{type}">{type}</span><!--
-            --><span class='column-location' val="{path}">{path}</span><!--
-            --><span class='column-usage {state}' val="{usage}" ><span class='usage-icon {icon}'>{usage}</span>%</span><!--
-            --><span class='column-allocated' val="{allocated}">{allocated}</span><!--
-            --><span class='column-capacity' val="{capacity}">{capacity}</span><!--
-            --><span class="column-disks {state}">
-                    <div class="handle arrow-down"></div>
-                </span><!--
-            --><span class="column-action storage-button" style="display:none">
-                <span class="pull-right">
+<div id="{name}" class="storage-li in" data-name="{name}" data-stat="{state}">
+         <span class='column-state' val="{state}"><span class='storage-state {state}'><i class="fa fa-power-off"></i></span></span><!--
+    --><span class='column-name' title="{name}" val="{name}">{name}</span><!--
+    --><span class='column-type' val="{type}">{type}</span><!--
+    --><span class='column-location' val="{path}">{path}</span><!--
+    --><span class='column-usage {state}' val="{usage}" ><span class='usage-icon {icon}'>{usage}</span>%</span><!--
+    --><span class='column-allocated' val="{allocated}">{allocated}</span><!--
+    --><span class='column-capacity' val="{capacity}">{capacity}</span><!--
+    --><span class="column-disks {state}"><div class="handle arrow-down"></div></span><!--
+    --><span class="column-action storage-button" style="display:none">
+            <span class="pull-right">
                 <div class="dropdown menu-flat storage-action" data-state="{state}" data-type="{type}" data-name="{name}">
                     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true"><span class="edit-alt"></span>$_("Actions")<span class="caret"></span></button>
                     <ul class="dropdown-menu actionsheet">
-                        <li role="presentation">
-                            <a href="#" class="pool-deactivate" data-inuse="{in_use}" data-stat="{state}" data-name="{name}" data-persistent="{persistent}" href="#"><i class="fa fa-minus-circle"></i>$_("Deactivate")</a>
-                        </li>
-                        <li role="presentation">
-                            <a href="#" class="pool-activate" data-stat="{state}" data-name="{name}"><i class="fa fa-power-off"></i>$_("Activate")</a>
-                        </li>
-                        <li role="presentation">
-                            <a href="#" class="pool-add-volume" data-stat="{state}" data-name="{name}" data-type="{type}"><i class="fa fa-plus-circle"></i>$_("Add Volume")</a>
-                        </li>
-                        <li role="presentation" class="{enableExt}">
-                            <a href="#" class="pool-extend" data-stat="{state}" data-name="{name}" data-toggle="modal" data-target="#logicalPoolExtend"><i class="fa fa-external-link-square"></i>$_("Extend")</a>
-                        </li>
-                        <li role="presentation" class="critical">
-                        <a href="#" class="pool-delete" data-inuse="{in_use}" data-stat="{state}" data-name="{name}"><i class="fa fa-ban"></i>$_("Undefine")</a>
-                        </li>
+                        <li><a href="#" class="pool-deactivate" data-inuse="{in_use}" data-stat="{state}" data-name="{name}" data-persistent="{persistent}"><i class="fa fa-minus-circle"></i>$_("Deactivate")</a></li>
+                        <li><a href="#" class="pool-activate" data-stat="{state}" data-name="{name}"><i class="fa fa-power-off"></i>$_("Activate")</a></li>
+                        <li class="{enableExt}"><a href="#" class="pool-extend" data-stat="{state}" data-name="{name}" data-toggle="modal" data-target="#logicalPoolExtend"><i class="fa fa-external-link-square"></i>$_("Extend")</a></li>
+                        <li class="critical"><a href="#" class="pool-delete" data-inuse="{in_use}" data-stat="{state}" data-name="{name}"><i class="fa fa-ban"></i>$_("Undefine")</a></li>
                     </ul>
                 </div>
-                </span>
             </span>
-        <div class="volumes">
-           <div id="volume{name}" class="volumeslist" data-name="{name}" ></div>
-           <div class="clear"></div>
-        </div>
-        </div>
+         </span>
+         <div class="volumes">
+            <div id="volume-{name}" class="volumeslist" data-name="{name}">
+                <div class="row">
+                    <div class="pull-left">
+                        <div class="dropdown menu-flat pool-action">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true"><span class="edit-alt"></span>$_("Actions")<span class="caret"></span></button>
+                            <ul class="dropdown-menu actionsheet">
+                                <li><a href="#" class="pool-add-volume" data-stat="{state}" data-name="{name}" data-type="{type}"><i class="fa fa-plus-circle"></i> $_("Add Volume")</a></li>
+                                <li class="disabled"><a href="#" class="volume-resize" data-name="{name}"><i class="fa fa-external-link-square"></i> $_("Resize")</a></li>
+                                <li class="disabled"><a href="#" class="volume-clone" data-name="{name}"><i class="fa fa-copy"></i> $_("Clone")</a></li>
+                                <li class="disabled"><a href="#" class="volume-wipe" data-name="{name}"><i class="fa fa-eraser"></i> $_("Wipe")</a></li>
+                                <li class="disabled critical"><a href="#" class="volume-delete" data-name="{name}"><i class="fa fa-minus-circle"></i> $_("Delete")</a></li>
+                            </ul>
+                        </div>
+                        <button type="button" class="btn btn-default toggle-gallery"><span class="text">$_('View Gallery')</span> <i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></button>
+                    </div>
+                    <div class="pull-right">
+                        <label><span class="sr-only">$_('Filter:')</span>
+                            <input type="text" class="filter form-control search" placeholder="$_('Filter')">
+                        </label>
+                    </div>
+                </div>
+                <div class="wok-datagrid wok-list">
+                    <div class="wok-datagrid-header">
+                        <span class="column-name">$_('Name')</span><!--
+                   --><span class="column-format">$_('Format')</span><!--
+                   --><span class="column-type">$_('Type')</span><!--
+                   --><span class="column-used-by">$_('Used By')</span><!--<!--
+                   --><span class="column-used">$_('Used')</span><!--
+                   --><span class="column-allocated">$_('Allocated')</span><!--
+                   --><span class="column-capacity">$_('Capacity')</span><!--
+                   --><span class="column-progress hidden">$_('Progress')</span>
+                    </div>
+                    <ul class="wok-datagrid-body list" id="volume-{name}-table">
+                    </ul>
+                </div>
+                <div class="wok-mask hidden">
+                    <div class="wok-mask-loader-container">
+                        <div class="wok-mask-loading">
+                            <div class="wok-mask-loading-icon"></div>
+                            <div class="wok-mask-loading-text">$_("Loading...")</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+         </div>
+</div>
 </script>
 <script id="volumeTmpl" type="html/text">
-        <div class="volume-box" data-volume-name="{name}">
-            <div class="volume-title">
-                <div class="volume-name" title="{name}">{name}</div>
-                <div class="volume-utilization">
-                    <span class="volume-icon {capacityIcon}"></span>
-                    <span class="volume-usage">{capacityLevel}%</span>
-                </div>
-                <div class="volume-progress hidden">
-                    <div class="progress-bar-outer">
-                        <div class="progress-bar-inner"></div>
-                    </div>
-                    <div class="progress-label">
-                        <span class="progress-status"></span>
-                        <span class="progress-transferred"></span>
-                    </div>
-                </div>
+<li class="wok-datagrid-row">
+    <div class="volume-progress hidden">
+        <div class="progress-bar-outer progress">
+            <div class="progress-bar-inner progress-bar" role="progressbar" aria-valuenow="0%" aria-valuemin="0%" aria-valuemax="100%" ></div>
+        </div>
+    </div>
+    <div class="volume-box-outer">
+        <div class="volume-box-border">
+            <div class="volume-box-inner" data-volume-name="{name}">
+                <span class="column-name" title="{name}">
+                    <input type="checkbox" class="wok-checkbox" name="selected-volume[]" id="{checkbox}" value="{name}">
+                    <label class="volume-name volume-name-filter" for="{checkbox}"><span class="volume-inline-progress hidden"><span class="wok-loading-icon"></span></span> {name}</label><!--
+                   --></span><!--
+                   --><span class="column-format volume-format-filter"><span class="gallery-header">$_('Format')</span><span class="format-text">{format}</span></span><!--
+                   --><span class="column-type volume-type-filter"><span class="gallery-header">$_('Type')</span>{type}</span><!--
+                   --><span class="column-used-by volume-used-by-filter"><i class="fa fa-exclamation-circle" data-toggle="tooltip" title="$_('Used by the following VMs:') {used_by_formatted}" data-placement="bottom" data-original-title="$_('Used by the following VMs:') {used_by_formatted}"></i><span class="format-text" data-toggle="tooltip" title="$_('Used by the following VMs:') {used_by_formatted}" data-placement="bottom" data-original-title="$_('Used by the following VMs:') {used_by_formatted}">{used_by_text}</span></span><!--
+                   --><span class="column-used"><span role="presentation" class="volume-icon {capacityIcon}"></span> {capacityLevel}%</span><!--
+                   --><span class="column-allocated"><span class="gallery-header">$_('Allocation')</span>{allocation}</span><!--
+                   --><span class="column-capacity"><span class="gallery-header">$_('Capacity')</span>{capacity}</span><!--
+                   --><span class="column-progress hidden"><span class="progress-status"></span> <span class="progress-transferred"></span>
+                        </span>
             </div>
-            <div class="volume-setting">
-            </div>
-            <ul class="volume-data">
-                <li>
-                    <span class="value"  title="{format}">{format}</span>
-                    <span class="key">$_("Format")</span>
-                </li>
-                <li>
-                    <span class="value"  title="{type}">{type}</span>
-                    <span class="key">$_("Type")</span>
-                </li>
-                <li>
-                    <span class="value"  title="{allocation}">{allocation}</span>
-                    <span class="key">$_("Allocation")</span>
-                </li>
-                <li>
-                    <span class="value"  title="{capacity}">{capacity}</span>
-                    <span class="key">$_("Capacity")</span>
-                </li>
-            </ul>
-      </div>
+        </div>
+    </div>
+</li>
 </script>
 <script id="logicalPoolExtendTmpl" type="html/text">
     <div>
