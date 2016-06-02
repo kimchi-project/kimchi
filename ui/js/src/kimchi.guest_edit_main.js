@@ -668,10 +668,8 @@ kimchi.guest_edit_main = function() {
         guest['max-processor'] = guest.cpu_info['maxvcpus'];
         guest['icon'] = guest['icon'] || 'plugins/kimchi/images/icon-vm.png';
         $('#form-guest-edit-general').fillWithObject(guest);
-
         $('#guest-edit-memory-textbox').val(parseInt(guest.memory.current));
         $('#guest-edit-max-memory-textbox').val(parseInt(guest.memory.maxmemory));
-
         kimchi.thisVMState = guest['state'];
         refreshCDROMs();
         $('#guest-edit-attach-cdrom-button').on('click', function(event) {
@@ -706,6 +704,12 @@ kimchi.guest_edit_main = function() {
             $('#guest-show-max-processor i.fa').toggleClass('fa-plus-circle fa-minus-circle');
         });
 
+        if ((kimchi.thisVMState !== "running") && (kimchi.thisVMState !== "paused")) {
+            $("#guest-edit-memory-textbox").bind('keyup blur', function(e) {
+                $('#guest-edit-max-memory-textbox').val($(this).val());
+            });
+        }
+
         var onAttached = function(params) {
             refreshCDROMs();
         };
@@ -736,59 +740,110 @@ kimchi.guest_edit_main = function() {
     kimchi.retrieveVM(kimchi.selectedGuest, initContent);
 
     var generalSubmit = function(event) {
-        $(saveButton).prop('disabled', true);
-        var data = $('#form-guest-edit-general').serializeObject();
-        if (data['memory'] !== undefined) {
-            data['memory'] = Number(data['memory']);
-        }
-        if (data['max-memory'] !== undefined) {
-            data['max-memory'] = Number(data['max-memory']);
-        }
-
-        // Test memory values before submit. Avoid requests we know are going to fail
-        if (parseInt($('#guest-edit-memory-textbox').val()) > parseInt($('#guest-edit-max-memory-textbox').val())) {
-            wok.message.error(i18n['KCHVM0002E'], '#alert-modal-container');
-            $(saveButton).prop('disabled', false);
-            return;
-        }
-
-        // Test CPU values before submit. Avoid requests we know are going to fail
-        if (parseInt($('#guest-edit-cores-textbox').val()) > parseInt($('#guest-edit-max-processor-textbox').val())) {
-            wok.message.error(i18n['KCHVM0003E'], '#alert-modal-container');
-            $(saveButton).prop('disabled', false);
-            return;
-        }
-
-        if (data['vcpus'] !== undefined) {
-            var cpu = Number(data['vcpus']);
-            var maxCpu = Number(data['max-processor']);
-            if (data['max-processor'] !== undefined && data['max-processor'] !== "") {
-                if (maxCpu >= cpu || maxCpu < cpu ) {  // if maxCpu < cpu, this will throw an error from backend
-                    data['cpu_info'] = {
-                        vcpus: cpu,
-                        maxvcpus: maxCpu
-                    };
+        kimchi.retrieveVM(kimchi.selectedGuest, function(org) {
+            $(saveButton).prop('disabled', true);
+            var data = $('#form-guest-edit-general').serializeObject();
+            data['memory'] = {current: Number(data['memory-ui']), maxmemory: Number(data['max-memory'])};
+            data['cpu_info'] = {maxvcpus: Number(data['max-processor']), vcpus: Number(data['vcpus']), topology: org['cpu_info']['topology']};
+            var changedFields = {};
+            for (var key in data) {
+                valueFromUI = data[key];
+                if (valueFromUI instanceof Object) {
+                    // Compare if Objects of original and data are identical
+                    // Handle special case when key is memory and guest is running as valueFromUI will return a null for max mem
+                    // since it is disabled; for cpu_info, when guest is running, just skip it since no processing is required
+                    if (kimchi.thisVMState === 'running' || kimchi.thisVMState === 'paused') {
+                        if (key === 'cpu_info') {
+                            continue;
+                        }
+                        if (key === 'memory') {
+                            // Replace valueFromUI of max mem with one from original as otherwise the value is undefined
+                            data['memory']['maxmemory'] = org.memory.maxmemory;
+                        }
+                    }
+                    // NOTE:  Be aware of using this comparison as the order of the properties matter
+                    if (JSON.stringify(valueFromUI) !== JSON.stringify(org[key])) {
+                        changedFields[key] = valueFromUI;
+                    }
+                } else {
+                    if (org[key] !== undefined) {
+                        if (data[key] != org[key]) {
+                            changedFields[key] = valueFromUI;
+                        }
+                    }
                 }
-            } else {
-                data['cpu_info'] = {
-                    vcpus: cpu,
-                    maxvcpus: cpu
-                };
             }
-            delete data['vcpus'];
-            delete data['max-processor'];
-        }
+            var origMem = Number(org.memory.current);
+            var origMaxMem = Number(org.memory.maxmemory);
+            var origCpu = Number(org.cpu_info.vcpus);
+            var origMaxCpu = Number(org.cpu_info.maxvcpus);
+            var currentMem = data['memory-ui'];
+            var currentMaxMem = data['max-memory'];
+            var currentCpu = data['vcpus'];
+            var currentMaxCpu = data['max-processor'];
 
-        memory = {'current': data['memory'], 'maxmemory': data['max-memory']};
+            if ('memory' in changedFields) {
+                if (currentMaxMem !== undefined) {
+                    currentMaxMem = Number(currentMaxMem);
+                    if (currentMaxMem === origMaxMem) {
+                        delete changedFields.memory.maxmemory;
+                    }
+                } else {
+                    delete changedFields.memory.maxmemory;
+                }
+                if (currentMem !== undefined) {
+                    currentMem = Number(currentMem);
+                    if (kimchi.thisVMState === 'running' || kimchi.thisVMState === 'paused') {
+                        // Compare to original max mem since current max mem is undefined in UI due to being disabled
+                        if (currentMem > origMaxMem) {
+                            wok.message.error(i18n['KCHVM0002E'], '#alert-modal-container');
+                            $(saveButton).prop('disabled', false);
+                            return;
+                        }
+                    }
+                    if (currentMem === origMem) {
+                        delete changedFields.memory.current;
+                    }
+                } else {
+                    delete changedFields.memory.current;
+                }
+            }
+            if ('cpu_info' in changedFields) {
+                if (currentMaxCpu !== undefined) {
+                    currentMaxCpu = Number(currentMaxCpu);
+                    if (currentMaxCpu === origMaxCpu) {
+                        delete changedFields.cpu_info.maxvcpus;
+                    }
+                } else {
+                    delete changedFields.cpu_info.maxvcpus;
+                }
+                if (currentCpu !== undefined) {
+                    currentCpu = Number(currentCpu);
+                    if (currentMaxCpu !== undefined && currentCpu > currentMaxCpu) {
+                        wok.message.error(i18n['KCHVM0003E'], '#alert-modal-container');
+                        $(saveButton).prop('disabled', false);
+                        return;
+                    }
+                    if (currentCpu === origCpu) {
+                        delete changedFields.cpu_info.vcpus;
+                    }
+                    if (currentMaxCpu === origMaxCpu) {
+                        delete changedFields.cpu_info.maxvcpus;
+                    }
+                } else {
+                    delete changedFields.cpu_info.vcpus;
+                }
+                // Delete this as it is not applicable regardless
+                delete changedFields.cpu_info.topology;
+            }
+            kimchi.updateVM(kimchi.selectedGuest, changedFields, function() {
+                kimchi.listVmsAuto();
+                wok.window.close();
+            }, function(err) {
+                wok.message.error(err.responseJSON.reason, '#alert-modal-container');
+                $(saveButton).prop('disabled', false);
+            });
 
-        data.memory = memory;
-        delete data['max-memory'];
-        kimchi.updateVM(kimchi.selectedGuest, data, function() {
-            kimchi.listVmsAuto();
-            wok.window.close();
-        }, function(err) {
-            wok.message.error(err.responseJSON.reason, '#alert-modal-container');
-            $(saveButton).prop('disabled', false);
         });
     };
 
