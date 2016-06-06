@@ -57,6 +57,9 @@ class CapabilitiesModel(object):
         self.mem_hotplug_support = False
         self.libvirtd_running = False
 
+        # make sure there're no Kimchi leftovers from previous executions
+        self._clean_leftovers()
+
         # run feature tests
         self._set_capabilities()
 

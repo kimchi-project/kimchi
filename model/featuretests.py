@@ -24,7 +24,6 @@ import platform
 import subprocess
 from lxml.builder import E
 
-from wok.rollbackcontext import RollbackContext
 from wok.utils import run_command, servermethod, wok_log
 
 
@@ -220,22 +219,24 @@ class FeatureTests(object):
         # Libvirt < 1.2.14 does not support memory devices, so try to attach a
         # device. Then check if QEMU (>= 2.1) supports memory hotplug, starting
         # the guest These steps avoid errors with Libvirt 'test' driver for KVM
-        with RollbackContext() as rollback:
+        conn_type = conn.getType().lower()
+        domain_type = 'test' if conn_type == 'test' else 'kvm'
+        arch = 'i686' if conn_type == 'test' else platform.machine()
+        arch = 'ppc64' if arch == 'ppc64le' else arch
+
+        dom = None
+        try:
             FeatureTests.disable_libvirt_error_logging()
-            rollback.prependDefer(FeatureTests.enable_libvirt_error_logging)
-            conn_type = conn.getType().lower()
-            domain_type = 'test' if conn_type == 'test' else 'kvm'
-            arch = 'i686' if conn_type == 'test' else platform.machine()
-            arch = 'ppc64' if arch == 'ppc64le' else arch
             dom = conn.defineXML(MAXMEM_VM_XML % {'name': FEATURETEST_VM_NAME,
                                                   'domain': domain_type,
                                                   'arch': arch})
-            rollback.prependDefer(dom.undefine)
-            try:
-                dom.attachDeviceFlags(DEV_MEM_XML,
-                                      libvirt.VIR_DOMAIN_MEM_CONFIG)
-                dom.create()
-                rollback.prependDefer(dom.destroy)
-                return True
-            except libvirt.libvirtError:
-                return False
+            dom.attachDeviceFlags(DEV_MEM_XML, libvirt.VIR_DOMAIN_MEM_CONFIG)
+            dom.create()
+        except libvirt.libvirtError:
+            return False
+        finally:
+            if (dom and dom.isActive() == 1):
+                dom.destroy()
+            dom is None or dom.undefine()
+            FeatureTests.enable_libvirt_error_logging()
+        return True
