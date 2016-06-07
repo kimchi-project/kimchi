@@ -23,6 +23,7 @@ kimchi.sp_add_volume_main = function() {
     var remoteURLBox = $('#volume-remote-url');
     var localFileBox = $('#volume-input-file');
     var typeRadios = $('input.volume-type');
+    var selectedStoragePool = kimchi.selectedSP.slice(0); // Makes a copy of kimchi.selectedSP
 
     var isValidURL = function() {
         var url = $(remoteURLBox).val();
@@ -70,7 +71,7 @@ kimchi.sp_add_volume_main = function() {
         var volumeURL = remoteURLBox.val();
         var volumeName = volumeURL.split(/(\\|\/)/g).pop();
         kimchi.downloadVolumeToSP({
-            sp: kimchi.selectedSP,
+            sp: selectedStoragePool,
             url: volumeURL
         }, function(result) {
             wok.window.close();
@@ -85,7 +86,7 @@ kimchi.sp_add_volume_main = function() {
         var blobFile = $(localFileBox)[0].files[0];
 
         var createUploadVol = function() {
-            kimchi.createVolumeWithCapacity(kimchi.selectedSP, {
+            kimchi.createVolumeWithCapacity(selectedStoragePool, {
                 name: blobFile.name,
                 format: '',
                 capacity: blobFile.size,
@@ -101,7 +102,7 @@ kimchi.sp_add_volume_main = function() {
             fd.append('chunk', blob);
             fd.append('chunk_size', blob.size);
 
-            kimchi.uploadVolumeToSP(kimchi.selectedSP, blobFile.name, {
+            kimchi.uploadVolumeToSP(selectedStoragePool, blobFile.name, {
                 formData: fd
             }, function(result) {
                 if (uploaded < blobFile.size){
