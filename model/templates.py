@@ -177,7 +177,10 @@ class TemplateModel(object):
         self.templates = TemplatesModel(**kargs)
 
     @staticmethod
-    def get_template(name, objstore, conn, overrides={}):
+    def get_template(name, objstore, conn, overrides=None):
+        if overrides is None:
+            overrides = {}
+
         with objstore as session:
             params = session.get('template', name)
         if overrides and 'storagepool' in overrides:

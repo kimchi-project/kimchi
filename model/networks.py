@@ -123,7 +123,10 @@ class NetworksModel(object):
         names = conn.listNetworks() + conn.listDefinedNetworks()
         return sorted(map(lambda x: x.decode('utf-8'), names))
 
-    def _get_available_address(self, addr_pools=[]):
+    def _get_available_address(self, addr_pools=None):
+        if addr_pools is None:
+            addr_pools = []
+
         invalid_addrs = []
         for net_name in self.get_list():
             network = NetworkModel.get_network(self.conn.get(), net_name)
