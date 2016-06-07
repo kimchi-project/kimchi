@@ -714,7 +714,10 @@ class MockDevices(object):
 
 
 class MockVMSnapshot(object):
-    def __init__(self, name, params={}):
+    def __init__(self, name, params=None):
+        if params is None:
+            params = {}
+
         self.name = name
         self.current = True
 

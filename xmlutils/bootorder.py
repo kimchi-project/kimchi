@@ -21,7 +21,7 @@ import lxml.etree as ET
 from lxml.builder import E
 
 
-def get_bootorder_xml(boot_order=['hd', 'cdrom', 'network']):
+def get_bootorder_xml(boot_order=None):
     """
     Returns the XML for boot order. The default return includes the following:
 
@@ -31,6 +31,9 @@ def get_bootorder_xml(boot_order=['hd', 'cdrom', 'network']):
 
     To a different boot order, specify the order by a list as argument.
     """
+    if boot_order is None:
+        boot_order = ['hd', 'cdrom', 'network']
+
     boot_xml = ''
     for device in boot_order:
         boot = E.boot(dev=device)

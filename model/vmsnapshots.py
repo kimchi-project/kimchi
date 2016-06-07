@@ -40,7 +40,7 @@ class VMSnapshotsModel(object):
         self.vmstorages = VMStoragesModel(**kargs)
         self.vmstorage = VMStorageModel(**kargs)
 
-    def create(self, vm_name, params={}):
+    def create(self, vm_name, params=None):
         """Create a snapshot with the current domain state.
 
         The VM must be stopped and contain only disks with format 'qcow2';
@@ -55,6 +55,8 @@ class VMSnapshotsModel(object):
         Return:
         A Task running the operation.
         """
+        if params is None:
+            params = {}
         vir_dom = VMModel.get_vm(vm_name, self.conn)
         if DOM_STATE_MAP[vir_dom.info()[0]] != u'shutoff':
             raise InvalidOperation('KCHSNAP0001E', {'vm': vm_name})

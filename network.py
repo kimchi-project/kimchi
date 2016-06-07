@@ -52,7 +52,10 @@ def get_dev_netaddrs():
 
 # used_nets should include all the subnet allocated in libvirt network
 # will get host network by get_dev_netaddrs
-def get_one_free_network(used_nets, nets_pool=PrivateNets):
+def get_one_free_network(used_nets, nets_pool=None):
+    if nets_pool is None:
+        nets_pool = PrivateNets
+
     def _get_free_network(nets, used_nets):
         for net in nets.subnet(new_prefix=24):
             if not any(net.overlaps(used) for used in used_nets):

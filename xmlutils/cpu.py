@@ -45,7 +45,7 @@ def get_topology_xml(cpu_topo):
     return ET.tostring(xml)
 
 
-def get_cpu_xml(cpus, memory, cpu_topo={}):
+def get_cpu_xml(cpus, memory, cpu_topo=None):
     # Returns the libvirt CPU element based on given numa and topology
     # CPU element will always have numa element
     #   <cpu>
@@ -54,6 +54,8 @@ def get_cpu_xml(cpus, memory, cpu_topo={}):
     #      </numa>
     #      <topology sockets='1' cores='2' threads='1'/>
     #   </cpu>
+    if cpu_topo is None:
+        cpu_topo = {}
     xml = E.cpu(ET.fromstring(get_numa_xml(cpus, memory)))
     if cpu_topo:
         xml.insert(0, ET.fromstring(get_topology_xml(cpu_topo)))
