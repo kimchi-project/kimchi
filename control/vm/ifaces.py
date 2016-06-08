@@ -47,6 +47,7 @@ class VMIfaces(Collection):
         self.model_args = [self.vm, ]
         self.log_map = VMIFACES_REQUESTS
         self.log_args.update({
+            'network': '',
             'vm': self.vm.encode('utf-8') if self.vm else '',
         })
 

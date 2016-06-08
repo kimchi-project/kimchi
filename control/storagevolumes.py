@@ -46,6 +46,7 @@ class StorageVolumes(AsyncCollection):
         self.model_args = [self.pool, ]
         self.log_map = STORAGEVOLUMES_REQUESTS
         self.log_args.update({
+            'name': '',
             'pool': self.pool.encode('utf-8') if self.pool else '',
         })
 
