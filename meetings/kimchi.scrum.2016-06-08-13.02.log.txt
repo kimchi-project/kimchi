@@ -1,0 +1,108 @@
+13:02:01 <alinefm> #startmeeting
+13:02:01 <kimchi-bot> Meeting started Wed Jun  8 13:02:01 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:02:01 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:02:02 <alinefm> #meetingname scrum
+13:02:02 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:14 <alinefm> #info Agenda
+13:02:14 <alinefm> #info 1) Status
+13:02:14 <alinefm> #info 2) Open discussion
+13:02:14 <alinefm> anything else?
+13:03:39 <pvital> no
+13:03:40 <lcorreia> no
+13:04:25 <alinefm> so let's get started
+13:04:26 <alinefm> #topic Status
+13:04:26 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+13:04:40 <alinefm> #info [kimchi] socorro v2 of Edit Virtual Network was applied upstream
+13:04:41 <alinefm> #info [kimchi] socorro Addressed issues based on feedback for mem hotplug bug; Sent v2
+13:04:41 <alinefm> #info [kimchi] socorro to ML, addressed questions after that and awaiting response
+13:04:41 <alinefm> #info [kimchi] socorro to see whether or not there needs to be any more adjustments
+13:04:41 <alinefm> #info [kimchi] socorro Included in the patch was a fix to github issue#  941.
+13:04:42 <alinefm> #info [kimchi] socorro Followed up on some bugzillas/todos/github issues.
+13:04:44 <alinefm> #info [kimchi] socorro Currently looking at github issue#:  799 - Gallery/List view:
+13:04:46 <alinefm> #info [kimchi] socorro Remember user selection when switching tabs
+13:05:14 <peterpennings> #info[*] peterpennings and samhenri are working in some bug fixes.
+13:05:41 <lcorreia> #info [kimchi] lcorreia sent V2 to fix vm name conflicts after snapshots are created
+13:05:41 <lcorreia> #info [wok] lcorreia sent V1 for issues 100, 102, 105 - add IP address and timezone to user log
+13:05:41 <lcorreia> #info [wok] lcorreia working on issue 100 - log failed user requests
+13:05:51 <danielhb> #info [*] danielhb reviewed and applied patches
+13:05:59 <pvital> #info [Wok] [Kimchi] [Ginger*] pvital reviewed patches
+13:05:59 <pvital> #info [Wok] pvital sent RFC to issue #122 - Make AsyncTask stoppable (no feedback until now)
+13:05:59 <pvital> #info [ Kimchi] pvital submitted patch Clean FEATURETEST_VM effectively.
+13:05:59 <pvital> #info [Wok] pvital is working on use NGINX from system instead of run a new server.
+13:05:59 <pvital> #info [Wok] pvital is investigating some performance issues in wokd (high CPU consumption when idle)
+13:06:05 <danielhb> #info [Ginger] danielhb fixed a RPM issue yesterday
+13:06:28 <danielhb> #info [Kimchi]  danielhb fixed an UI problem in the Storage Pool select in the Edit Template window
+13:06:42 <alinefm> #info [wok][kimchi] alinefm reviewed and applied patches
+13:06:59 <danielhb> #info [Kimchi] danielhb is now investigating feature https://github.com/kimchi-project/kimchi/issues/944
+13:09:41 <rotru> #info [Wok] rotru sent V2 of Plugins Manager
+13:10:05 <rotru> #info [Wok] rotru fixed Sample plugin
+13:10:08 <ramonn> #info [wok] [kimchi] [gingerbase] send patch to fix functions with default values
+13:10:32 <ramonn> #info [wok] [kimchi] [gingerbase] ramonn send patch to fix functions with default values
+13:10:49 <ramonn> #info [wok] ramonn add message at login page when server is not responding
+13:11:24 <ramonn> #info [kimchi] ramonn send patch "make kimchi able to change bootorder". Need to send v2 after rotru review
+13:12:56 <alinefm> anything else, guys?
+13:12:58 <rotru> #info [kimchi] [ginger] [gingerbase] minor changes in plugin configuration file
+13:15:33 <alinefm> ok...
+13:15:35 <alinefm> moving on
+13:15:45 <alinefm> #topic Open Discussion
+13:16:00 <peterpennings> Can anyone help samhenri with this issue? https://github.com/kimchi-project/ginger/issues/320
+13:16:31 <alinefm> ramonn, could you provide the information to samuel ^ ?
+13:16:57 <ramonn> alinefm, yeap
+13:17:10 <peterpennings> tks alinefm, ramonn
+13:18:23 <alinefm> I only want to remember you we are current on code freeze for 2.2 releases
+13:18:39 <alinefm> so only bug fixes are accepted on master from now on up to 2.2 announcement
+13:18:53 <alinefm> the next branch will be created as soon as we get any feature ready to be in
+13:19:06 <alinefm> after 2.2 announcement, next branch will be merged into master
+13:19:20 <alinefm> (it is the exactly the same process you always do)
+13:19:23 <alinefm> any question?
+13:19:28 <rotru> no
+13:19:52 <lcorreia> no
+13:20:22 <pvital> no
+13:20:29 <ramonn> nop
+13:20:43 <alinefm> any other topic to discuss today?
+13:21:08 <rotru> alinefm,  do want to talk about authentication ?
+13:21:15 <danielhb> ooohhh dear
+13:21:19 <rotru> authentication/authorization
+13:21:21 <danielhb> DAT TOPIC
+13:21:30 <alinefm> rotru, go ahead
+13:22:00 <pvital> rotru, you are authorized to talk about it
+13:22:01 <pvital> :-P
+13:22:07 <danielhb> pvital, HAHAHHAHAHAHHA
+13:22:33 <rotru> alinefm, you told me about an issue with them ... I am wondering whether it is the same problem that I opened in the community
+13:22:38 <rotru> pvital,  I got a green card
+13:22:46 <danielhb> rotru, FOR REAL?
+13:23:08 <danielhb> rotru, oh, you meant green light
+13:23:51 <rotru> danielhb,  I have a green card in this community
+13:24:14 <alinefm> rotru, could you share the issue link so I can check?
+13:24:15 <danielhb> rotru, when you said Green Card I thought about the USA one
+13:24:32 <danielhb> rotru, and I was like "how can you still live down here having a USA green card"
+13:24:55 <rotru> alinefm, https://github.com/kimchi-project/wok/issues/131
+13:26:31 <rotru> danielhb, thought that green card mean you are a citizen of the country, so I made a parallel with the community... I am not that good in jokes today, nevermind =P
+13:27:17 <danielhb> rotru, I see. Don't you worry, you have a ginger card with me!
+13:27:40 <lcorreia> kkk
+13:28:01 <lcorreia> or lol
+13:28:16 <rotru> danielhb,  I would expect such phrase from lcorreia
+13:30:17 <alinefm> rotru, yeap! it is the issue I have talked to you about
+13:30:49 <alinefm> we will need to improve the urlsubnode decorator to have its own auth settings independent of its collection
+13:32:28 <danielhb> rotru, when I said "ginger card" I was talking about this http://www.casinogokken.net/images/films/ginger-sharon-stone.jpg
+13:32:32 <rotru> alinefm,  ah, ok ... thought you had found a new issue
+13:33:14 <rotru> alinefm, can you please add more information and thoughts in the issue ?
+13:33:21 <alinefm> the other issue related to auth is to block authenticatoin after many failures
+13:33:27 <alinefm> rotru, sure - will do
+13:33:39 <danielhb> rotru, and this is why I do not approve the current Ginger icon, I was looking forward to have Ginger McKenna as symbol of the project
+13:33:42 <rotru> alinefm, oh , I saw that request
+13:34:06 <rotru> alinefm,  but it is a feature, isn't it ?
+13:34:09 <rotru> danielhb,  lol
+13:34:12 <alinefm> yeap - it will
+13:34:20 <rotru> alinefm, ok, not for 2.2 then
+13:34:27 <alinefm> correct
+13:34:38 <alinefm> but we can get it in as soon as possible on next branch
+13:35:04 <rotru> alinefm, indeed
+13:35:25 <rotru> alinefm,  thank you
+13:36:00 <alinefm> rotru, ye
+13:36:02 <alinefm> yw
+13:36:03 <alinefm> anything else for today?
+13:36:40 <rotru> no
+13:37:46 <danielhb> gg
+13:38:11 <alinefm> thanks everyone for joining!
+13:38:16 <alinefm> #endmeeting
