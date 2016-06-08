@@ -126,7 +126,7 @@ def _do_volume_test(self, model, host, ssl_port, pool_name):
             resp = self.request(vol_uri + '/clone', '{}', 'POST')
             self.assertEquals(202, resp.status)
             task = json.loads(resp.read())
-            cloned_vol_name = task['target_uri'].split('/')[-1]
+            cloned_vol_name = task['target_uri'].split('/')[-2]
             rollback.prependDefer(model.storagevolume_delete, pool_name,
                                   cloned_vol_name)
             wait_task(_task_lookup, task['id'])
