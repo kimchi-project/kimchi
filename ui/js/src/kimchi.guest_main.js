@@ -315,7 +315,7 @@ kimchi.initClone = function() {
 
 
 kimchi.listVmsAuto = function() {
-
+    $('.wok-mask').removeClass('hidden');
     //Check if the actions button is opened or not,
     //if opended stop the reload of the itens until closed
     var $isDropdownOpened = $('[name="guest-actions"] ul.dropdown-menu').is(":visible");
@@ -418,10 +418,12 @@ kimchi.listVmsAuto = function() {
                                 });
                             });
                         }
+                        $('.wok-mask').fadeOut(300, function() {});
                     } else {
                         $('.grid-control').addClass('hidden');
                         $('#guestListField').hide();
                         $('#noGuests').show();
+                        $('.wok-mask').fadeOut(300, function() {});
                     }
                 }
 
