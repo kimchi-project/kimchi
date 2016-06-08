@@ -55,7 +55,7 @@ class VMs(AsyncCollection):
         self.role_key = 'guests'
         self.admin_methods = ['POST']
         self.log_map = VMS_REQUESTS
-        self.log_args.update({'name': ''})
+        self.log_args.update({'name': '', 'template': ''})
 
 
 class VM(Resource):
