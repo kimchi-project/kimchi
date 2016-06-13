@@ -801,15 +801,64 @@ kimchi.guestSetRequestHeader = function(xhr) {
 };
 
 kimchi.toggleGuestsGallery = function() {
-        $(".wok-guest-list, .wok-guest-gallery").toggleClass("wok-guest-list wok-guest-gallery");
-        $(".wok-list, .wok-gallery").toggleClass("wok-list wok-gallery");
-        var text = $('#guest-gallery-table-button span.text').text();
-        $('#guest-gallery-table-button span.text').text(text == i18n['KCHTMPL6005M'] ? i18n['KCHTMPL6004M'] : i18n['KCHTMPL6005M']);
+    $(".wok-guest-list, .wok-guest-gallery").toggleClass("wok-guest-list wok-guest-gallery");
+    $(".wok-list, .wok-gallery").toggleClass("wok-list wok-gallery");
+    var text = $('#guest-gallery-table-button span.text').text();
+    $('#guest-gallery-table-button span.text').text(text == i18n['KCHTMPL6005M'] ? i18n['KCHTMPL6004M'] : i18n['KCHTMPL6005M']);
+    var buttonText = $('#guest-gallery-table-button span.text').text();
+    if (buttonText.indexOf("Gallery") !== -1) {
+        // Currently in list view
+        kimchi.setGuestView("guestView", "list");
+     } else {
+        // Currently in gallery
+        kimchi.setGuestView("guestView", "gallery");
+     }
+};
+
+kimchi.setGuestView = function(name, value) {
+    window.localStorage.setItem(name, value);
+};
+
+kimchi.readGuestView = function(name) {
+    var viewName = window.localStorage.getItem(name);
+    if (viewName !== "") {
+        return viewName;
+    } else {
+        return null;
+    }
+};
+
+kimchi.showGuestGallery = function() {
+    $(".wok-guest-list").addClass("wok-guest-gallery");
+    $(".wok-list").addClass("wok-gallery");
+    $(".wok-guest-gallery").removeClass("wok-guest-list");
+    $(".wok-gallery").removeClass("wok-list");
+    $('#guest-gallery-table-button span.text').text(i18n['KCHTMPL6004M']);
+};
+
+kimchi.showGuestList = function() {
+    $(".wok-guest-list").removeClass("wok-guest-gallery");
+    $(".wok-list").removeClass("wok-gallery");
+    $(".wok-guest-gallery").addClass("wok-guest-list");
+    $(".wok-gallery").addClass("wok-list");
+    $('#guest-gallery-table-button span.text').text(i18n['KCHTMPL6005M']);
 };
 
 kimchi.guest_main = function() {
     $('body').addClass('wok-list');
-
+    var viewFound = kimchi.readGuestView("guestView");
+    if (viewFound) {
+        if(viewFound === "gallery") {
+            // should be showing gallery
+            kimchi.showGuestGallery();
+        } else {
+            // Should be showing list
+            kimchi.showGuestList();
+        }
+    } else {
+        // Default to showing list
+        kimchi.showGuestList();
+    }
     if (wok.tabMode['guests'] === 'admin') {
         $('.tools').attr('style', 'display');
         $("#vm-add").on("click", function(event) {
