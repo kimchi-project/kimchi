@@ -58,7 +58,7 @@ from wok.plugins.kimchi.model.utils import get_ascii_nonascii_name, get_vm_name
 from wok.plugins.kimchi.model.utils import get_metadata_node
 from wok.plugins.kimchi.model.utils import remove_metadata_node
 from wok.plugins.kimchi.model.utils import set_metadata_node
-from wok.plugins.kimchi.osinfo import defaults
+from wok.plugins.kimchi.osinfo import defaults, MEM_DEV_SLOTS
 from wok.plugins.kimchi.screenshot import VMScreenshot
 from wok.plugins.kimchi.utils import get_next_clone_name
 from wok.plugins.kimchi.utils import template_name_from_uri
@@ -994,8 +994,9 @@ class VMModel(object):
                                        {'param': "Memory",
                                         'mem': str(new_mem),
                                         'alignment': str(PPC_MEM_ALIGN)})
-            # PPC suports only 32 memory slots
-            if len(xpath_get_text(xml, './devices/memory')) == 32:
+            # Check number of slots supported
+            if len(xpath_get_text(xml, './devices/memory')) == \
+               MEM_DEV_SLOTS[os.uname()[4]]:
                 raise InvalidOperation('KCHVM0045E')
 
         if memory == 0:
