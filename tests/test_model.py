@@ -159,7 +159,7 @@ class ModelTests(unittest.TestCase):
             params = {'name': 'kimchi-vm',
                       'template': '/plugins/kimchi/templates/test'}
             task = inst.vms_create(params)
-            rollback.prependDefer(inst.vm_delete, 'kimchi-vm')
+            rollback.prependDefer(inst.vm_delete, 'kimchi-vm-new')
             inst.task_wait(task['id'], 10)
             task = inst.task_lookup(task['id'])
             self.assertEquals('finished', task['status'])
@@ -206,7 +206,7 @@ class ModelTests(unittest.TestCase):
             task = inst.vmsnapshots_create(u'kimchi-vm')
             snap_name = task['target_uri'].split('/')[-1]
             rollback.prependDefer(inst.vmsnapshot_delete,
-                                  u'kimchi-vm', snap_name)
+                                  u'kimchi-vm-new', snap_name)
             inst.task_wait(task['id'])
             task = inst.task_lookup(task['id'])
             self.assertEquals('finished', task['status'])
@@ -227,39 +227,38 @@ class ModelTests(unittest.TestCase):
 
             # snapshot revert to the first created vm
             result = inst.vmsnapshot_revert(u'kimchi-vm-new', params['name'])
-            self.assertEquals(result, [u'kimchi-vm', snap['name']])
+            self.assertEquals(result, ['kimchi-vm-new', snap['name']])
 
-            vm = inst.vm_lookup(u'kimchi-vm')
+            vm = inst.vm_lookup(u'kimchi-vm-new')
             self.assertEquals(vm['state'], snap['state'])
 
-            current_snap = inst.currentvmsnapshot_lookup(u'kimchi-vm')
+            current_snap = inst.currentvmsnapshot_lookup(u'kimchi-vm-new')
             self.assertEquals(params['name'], current_snap['name'])
 
-            self.assertRaises(NotFoundError, inst.vmsnapshot_delete,
-                              u'kimchi-vm', u'foobar')
-
             # suspend and resume the VM
-            info = inst.vm_lookup(u'kimchi-vm')
+            info = inst.vm_lookup(u'kimchi-vm-new')
             self.assertEquals(info['state'], 'shutoff')
-            self.assertRaises(InvalidOperation, inst.vm_suspend, u'kimchi-vm')
-            inst.vm_start(u'kimchi-vm')
-            info = inst.vm_lookup(u'kimchi-vm')
+            self.assertRaises(InvalidOperation, inst.vm_suspend,
+                              u'kimchi-vm-new')
+            inst.vm_start(u'kimchi-vm-new')
+            info = inst.vm_lookup(u'kimchi-vm-new')
             self.assertEquals(info['state'], 'running')
-            inst.vm_suspend(u'kimchi-vm')
-            info = inst.vm_lookup(u'kimchi-vm')
+            inst.vm_suspend(u'kimchi-vm-new')
+            info = inst.vm_lookup(u'kimchi-vm-new')
             self.assertEquals(info['state'], 'paused')
-            self.assertRaises(InvalidParameter, inst.vm_update, u'kimchi-vm',
-                              {'name': 'foo'})
-            inst.vm_resume(u'kimchi-vm')
-            info = inst.vm_lookup(u'kimchi-vm')
+            self.assertRaises(InvalidParameter, inst.vm_update,
+                              u'kimchi-vm-new', {'name': 'foo'})
+            inst.vm_resume(u'kimchi-vm-new')
+            info = inst.vm_lookup(u'kimchi-vm-new')
             self.assertEquals(info['state'], 'running')
-            self.assertRaises(InvalidOperation, inst.vm_resume, u'kimchi-vm')
+            self.assertRaises(InvalidOperation, inst.vm_resume,
+                              u'kimchi-vm-new')
             # leave the VM suspended to make sure a paused VM can be
             # deleted correctly
-            inst.vm_suspend(u'kimchi-vm')
+            inst.vm_suspend('kimchi-vm-new')
 
         vms = inst.vms_get_list()
-        self.assertFalse('kimchi-vm' in vms)
+        self.assertFalse('kimchi-vm-new' in vms)
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_image_based_template(self):
