@@ -97,6 +97,8 @@ XPATH_DOMAIN_DEV_CPU_ID = '/domain/devices/spapr-cpu-socket/@id'
 XPATH_CPU = './cpu'
 XPATH_NAME = './name'
 XPATH_NUMA_CELL = './cpu/numa/cell'
+XPATH_SNAP_VM_NAME = './domain/name'
+XPATH_SNAP_VM_UUID = './domain/uuid'
 XPATH_TOPOLOGY = './cpu/topology'
 XPATH_VCPU = './vcpu'
 XPATH_MAX_MEMORY = './maxMemory'
@@ -728,7 +730,15 @@ class VMModel(object):
             if info['current']:
                 flags |= libvirt.VIR_DOMAIN_SNAPSHOT_CREATE_CURRENT
 
-            dom.snapshotCreateXML(info['xml'], flags)
+            # Snapshot XML contains the VM xml from the time it was created.
+            # Thus VM name and uuid must be updated to current ones. Otherwise,
+            # when reverted, the vm name will be inconsistent.
+            name = dom.name().decode('utf-8')
+            uuid = dom.UUIDString().decode('utf-8')
+            xml = xml_item_update(info['xml'], XPATH_SNAP_VM_NAME, name, None)
+            xml = xml_item_update(xml, XPATH_SNAP_VM_UUID, uuid, None)
+
+            dom.snapshotCreateXML(xml, flags)
 
     def _update_metadata_name(self, dom, nonascii_name):
         if nonascii_name is not None:
