@@ -1154,7 +1154,7 @@ class VMModel(object):
         state = DOM_STATE_MAP[info[0]]
         screenshot = None
         # (type, listen, port, passwd, passwdValidTo)
-        graphics = self._vm_get_graphics(name)
+        graphics = self.get_graphics(name, self.conn)
         graphics_port = graphics[2]
         graphics_port = graphics_port if state == 'running' else None
         try:
@@ -1426,8 +1426,9 @@ class VMModel(object):
 
         return True
 
-    def _vm_get_graphics(self, name):
-        dom = self.get_vm(name, self.conn)
+    @staticmethod
+    def get_graphics(name, conn):
+        dom = VMModel.get_vm(name, conn)
         xml = dom.XMLDesc(libvirt.VIR_DOMAIN_XML_SECURE)
 
         expr = "/domain/devices/graphics/@type"
@@ -1492,7 +1493,7 @@ class VMModel(object):
 
     def connect(self, name):
         # (type, listen, port, passwd, passwdValidTo)
-        graphics_port = self._vm_get_graphics(name)[2]
+        graphics_port = self.get_graphics(name, self.conn)[2]
         if graphics_port is not None:
             websocket.add_proxy_token(name.encode('utf-8'), graphics_port)
         else:
