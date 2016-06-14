@@ -286,6 +286,12 @@ Represents a snapshot of the Virtual Machine's primary monitor.
 **URI:** /plugins/kimchi/vms/*:name*/snapshots/current
 * **GET**: Retrieve current snapshot information for the virtual machine.
 
+### Sub-resource: Virt-Viewer File
+**URI:** /plugins/kimchi/vms/*:name*/virtviewerfile
+* **GET**: Retrieve the Virt-Viewer launcher file to connect to the
+           graphics of this virtual machine. Virtual machine must
+           be running.
+
 ### Collection: Templates
 
 **URI:** /plugins/kimchi/templates

@@ -131,6 +131,8 @@ messages = {
     "KCHVM0080E": _("Cannot update Maximum Memory when guest is running."),
     "KCHVM0081E": _("Impossible to create %(dir)s directory."),
     "KCHVM0082E": _("Either the guest %(name)s did not start to listen to the serial or it is not configured to use the serial console."),
+    "KCHVM0083E": _("Unable to retrieve Virt Viewer file for stopped virtual machine %(name)s"),
+    "KCHVM0084E": _("Error occured while retrieving the Virt Viewer file for virtual machine %(name)s : %(err)s"),
 
     "KCHVMHDEV0001E": _("VM %(vmid)s does not contain directly assigned host device %(dev_name)s."),
     "KCHVMHDEV0002E": _("The host device %(dev_name)s is not allowed to directly assign to VM."),
