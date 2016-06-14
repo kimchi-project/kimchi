@@ -755,7 +755,7 @@ class VMModel(object):
         nonascii_name = None
 
         if name is not None:
-            params['name'], nonascii_name = get_ascii_nonascii_name(name)
+            name, nonascii_name = get_ascii_nonascii_name(name)
             new_xml = xml_item_update(new_xml, XPATH_NAME, name, None)
 
         # Update CPU info
