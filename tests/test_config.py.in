@@ -24,6 +24,7 @@ from wok.config import CACHEEXPIRES
 from wok.config import Paths, PluginPaths
 
 from wok.plugins.kimchi.config import get_screenshot_path
+from wok.plugins.kimchi.config import get_virtviewerfiles_path
 from wok.plugins.kimchi.config import KimchiConfig, KimchiPaths
 
 
@@ -149,6 +150,11 @@ class ConfigTests(unittest.TestCase):
             '/data/screenshots': {
                 'tools.nocache.on': False,
                 'tools.staticdir.dir': get_screenshot_path(),
+                'tools.staticdir.on': True
+            },
+            '/data/virtviewerfiles': {
+                'tools.nocache.on': False,
+                'tools.staticdir.dir': get_virtviewerfiles_path(),
                 'tools.staticdir.on': True
             },
             '/ui/config/tab-ext.xml': {

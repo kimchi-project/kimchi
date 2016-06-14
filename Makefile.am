@@ -119,6 +119,7 @@ install-deb: install
 	mkdir -p $(DESTDIR)/$(localstatedir)/lib/kimchi/ws-tokens
 	mkdir -p $(DESTDIR)/$(localstatedir)/lib/kimchi/screenshots
 	mkdir -p $(DESTDIR)/$(localstatedir)/lib/kimchi/isos
+	mkdir -p $(DESTDIR)/$(localstatedir)/lib/kimchi/virtviewerfiles
 
 
 deb: contrib/make-deb.sh
@@ -168,6 +169,7 @@ install-data-local:
 	mkdir -p $(DESTDIR)/$(localstatedir)/lib/kimchi/ws-tokens
 	mkdir -p $(DESTDIR)/$(localstatedir)/lib/kimchi/screenshots
 	mkdir -p $(DESTDIR)/$(localstatedir)/lib/kimchi/isos
+	mkdir -p $(DESTDIR)/$(localstatedir)/lib/kimchi/virtviewerfiles
 
 uninstall-local:
 	@if test -f $(DESTDIR)/etc/systemd/system/wokd.service.d/kimchi.conf; then \
