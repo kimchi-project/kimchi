@@ -65,6 +65,7 @@ class VM(Resource):
         super(VM, self).__init__(model, ident)
         self.role_key = 'guests'
         self.screenshot = VMScreenShot(model, ident)
+        self.virtviewerfile = VMVirtViewerFile(model, ident)
         self.uri_fmt = '/vms/%s'
         for ident, node in sub_nodes.items():
             setattr(self, ident, node(model, self.ident))
@@ -101,5 +102,16 @@ class VMScreenShot(Resource):
 
     def get(self):
         self.lookup()
+        internal_uri = self.info.replace('plugins/kimchi', '')
+        raise internal_redirect(internal_uri)
+
+
+class VMVirtViewerFile(Resource):
+    def __init__(self, model, ident):
+        super(VMVirtViewerFile, self).__init__(model, ident)
+        self.role_key = 'guests'
+
+    @property
+    def data(self):
         internal_uri = self.info.replace('plugins/kimchi', '')
         raise internal_redirect(internal_uri)
