@@ -1,0 +1,68 @@
+13:01:27 <alinefm> #startmeeting
+13:01:27 <kimchi-bot> Meeting started Wed Jun 15 13:01:27 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:27 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:27 <alinefm> #meetingname scrum
+13:01:27 <kimchi-bot> The meeting name has been set to 'scrum'
+13:01:38 <alinefm> #info Agenda
+13:01:41 <alinefm> #info 1) Status
+13:01:41 <alinefm> #info 2) Open discussion
+13:01:41 <alinefm> anything else?
+13:04:31 <alinefm> apparently, not...
+13:04:34 <alinefm> #topic Status
+13:04:34 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+13:04:53 <lcorreia> #info [kimchi] lcorreia sent V3,V4 to fix vm name conflicts after snapshots are created
+13:04:53 <lcorreia> #info [wok] lcorreia sent V2 for issues 100, 102, 105 - add IP address and timezone to user log
+13:04:53 <lcorreia> #info [wok] lcorreia sent V1 for issue 100 - log failed user requests
+13:04:53 <lcorreia> #info [wok] lcorreia sent patch to decrease notification request interval time
+13:04:53 <lcorreia> #info [wok] lcorreia is working to identify date mismatch issue in user log
+13:04:54 <lcorreia> #info [wok] lcorreia is working on a design for changes in user log UI
+13:05:14 <peterpennings> #info[gingerbase] peterpennings is working on a bug fix of update packages UI
+13:05:21 <ramonn> #info [kimchi] ramonn sent v2 patch about "boot order". Waiting review
+13:05:34 <alinefm> #info [kimchi] socorro Mem hotplug bug was applied upstream
+13:05:35 <alinefm> #info [kimchi] socorro In looking at github issue#:  799 - Gallery/List view:
+13:05:35 <alinefm> #info [kimchi] socorro Remember user selection when switching tabs for templates,
+13:05:35 <alinefm> #info [kimchi] socorro the same problem exists in Guests tab - sent out a patch to ML
+13:05:35 <alinefm> #info [kimchi] socorro for review for Guests tab; templates need further
+13:05:35 <alinefm> #info [kimhci] socorro investigation.  Sent out patch to ML for review for Netboot
+13:05:36 <alinefm> #info [kimchi] socorro template - github issue#: 372
+13:05:40 <alinefm> #info [kimchi] socorro Sent out patch to ML for review regarding an issue I came across
+13:05:41 <ramonn> #info [kimchi] ramonn investigating why remote isos does not show globe icon
+13:05:42 <alinefm> #info [kimchi] socorro while working on Guests tab --- when Guests tab is loading, there
+13:05:44 <alinefm> #info [kimchi] socorro was no 'loading' icon.  Currently investigating https://github.com/kimchi-project/wok/issues/133
+13:05:45 <peterpennings> #info[ginger] samhenri is working on Sensor Monitor UI
+13:08:04 <danielhb> #info [*] reviewed and applied patches
+13:08:22 <danielhb> #info [ginger]  danielhb fixed issues on services and sanadapters backend
+13:08:45 <danielhb> #info [kimchi]  danielhb is ATM working in the virt viewer launcher feature, fixing bugs along the way
+13:09:40 <pvital> #info [Wok] [Kimchi] [Ginger*] pvital reviewed patches
+13:09:41 <pvital> #info [Kimchi] pvital helped users with Ubuntu 16.04 issues - issues #951, #952
+13:09:41 <pvital> #info [Wok] pvital was working on issue #122 - Make AsyncTask stoppable.
+13:09:41 <pvital> #info [Wok] pvital was working on use NGINX from system instead of run a new server.
+13:09:41 <pvital> #info [Wok] pvital is investigating some performance issues in wokd (high CPU consumption when idle)
+13:09:42 <pvital> #info [Kimchi] pvital submitted patch to issue #959 - Handle URLError exception when creating Template.
+13:12:19 <alinefm> anything else, team?
+13:12:48 <ramonn> nop
+13:13:47 <alinefm> #topic Open Discussion
+13:14:07 <pvital> I have one
+13:14:08 <alinefm> I only have a reminder, we are one week to the 2.2. releases
+13:14:23 <alinefm> pvital, go ahead
+13:16:25 <pvital> as requested by alinefm, I'm going to create distros (Fedora 23, Ubuntu 16.04, OpenSuse bla) with wok, kimchi and ginger* 2.2 installed and configured to make available to download by users
+13:17:04 <pvital> so, as soon 2.2 is released, I'll create the images and upload to some place
+13:17:10 <alinefm> \o/
+13:17:16 <alinefm> I am looking forward to it
+13:17:21 <pvital> the problem is this. where should this images be located?
+13:17:31 <pvital> these
+13:17:31 <alinefm> github.io pages?
+13:17:55 <alinefm> I think we can load them there in a separated section than the RPM/DEB packages
+13:18:30 <pvital> it's an option, but I'm concern about the size of the images
+13:19:01 <alinefm> good point
+13:19:35 <alinefm> maybe a ftp server would be better
+13:20:21 <pvital> alinefm, don't ovirt.org host these images?
+13:21:09 <alinefm> pvital, I am not sure, but we can check and get in contact with someone there to analyze the possibility
+13:21:29 <pvital> nice
+13:21:38 <alinefm> pvital, you can ping eedri from #ovirt channel to get more information about that
+13:21:49 <pvital> ok
+13:22:12 <alinefm> pvital, and let me know if you need my help on anything to get what you need
+13:23:59 <alinefm> any other topic for today?
+13:26:09 <alinefm> ok...
+13:26:13 <alinefm> thanks everyone for joining!
+13:26:16 <alinefm> #endmeeting

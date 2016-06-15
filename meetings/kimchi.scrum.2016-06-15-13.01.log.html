@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:01:27</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:01:27</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Jun 15 13:01:27 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:01:27</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:01:27</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:01:27</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:01:38</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda</span>
+<a name="l-7"></a><span class="tm">13:01:41</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">1) Status</span>
+<a name="l-8"></a><span class="tm">13:01:41</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">2) Open discussion</span>
+<a name="l-9"></a><span class="tm">13:01:41</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-10"></a><span class="tm">13:04:31</span><span class="nk"> &lt;alinefm&gt;</span> apparently, not...
+<a name="l-11"></a><span class="tm">13:04:34</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-12"></a><span class="tm">13:04:34</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info [&lt;project] &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-13"></a><span class="tm">13:04:53</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] lcorreia sent V3,V4 to fix vm name conflicts after snapshots are created</span>
+<a name="l-14"></a><span class="tm">13:04:53</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] lcorreia sent V2 for issues 100, 102, 105 - add IP address and timezone to user log</span>
+<a name="l-15"></a><span class="tm">13:04:53</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] lcorreia sent V1 for issue 100 - log failed user requests</span>
+<a name="l-16"></a><span class="tm">13:04:53</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] lcorreia sent patch to decrease notification request interval time</span>
+<a name="l-17"></a><span class="tm">13:04:53</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] lcorreia is working to identify date mismatch issue in user log</span>
+<a name="l-18"></a><span class="tm">13:04:54</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] lcorreia is working on a design for changes in user log UI</span>
+<a name="l-19"></a><span class="tm">13:05:14</span><span class="nk"> &lt;peterpennings&gt;</span> <span class="cmd">#info[gingerbase] </span><span class="cmdline">peterpennings is working on a bug fix of update packages UI</span>
+<a name="l-20"></a><span class="tm">13:05:21</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ramonn sent v2 patch about "boot order". Waiting review</span>
+<a name="l-21"></a><span class="tm">13:05:34</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] socorro Mem hotplug bug was applied upstream</span>
+<a name="l-22"></a><span class="tm">13:05:35</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] socorro In looking at github issue#:  799 - Gallery/List view:</span>
+<a name="l-23"></a><span class="tm">13:05:35</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] socorro Remember user selection when switching tabs for templates,</span>
+<a name="l-24"></a><span class="tm">13:05:35</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] socorro the same problem exists in Guests tab - sent out a patch to ML</span>
+<a name="l-25"></a><span class="tm">13:05:35</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] socorro for review for Guests tab; templates need further</span>
+<a name="l-26"></a><span class="tm">13:05:35</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimhci] socorro investigation.  Sent out patch to ML for review for Netboot</span>
+<a name="l-27"></a><span class="tm">13:05:36</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] socorro template - github issue#: 372</span>
+<a name="l-28"></a><span class="tm">13:05:40</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] socorro Sent out patch to ML for review regarding an issue I came across</span>
+<a name="l-29"></a><span class="tm">13:05:41</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ramonn investigating why remote isos does not show globe icon</span>
+<a name="l-30"></a><span class="tm">13:05:42</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] socorro while working on Guests tab --- when Guests tab is loading, there</span>
+<a name="l-31"></a><span class="tm">13:05:44</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] socorro was no 'loading' icon.  Currently investigating https://github.com/kimchi-project/wok/issues/133</span>
+<a name="l-32"></a><span class="tm">13:05:45</span><span class="nk"> &lt;peterpennings&gt;</span> <span class="cmd">#info[ginger] </span><span class="cmdline">samhenri is working on Sensor Monitor UI</span>
+<a name="l-33"></a><span class="tm">13:08:04</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] reviewed and applied patches</span>
+<a name="l-34"></a><span class="tm">13:08:22</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger]  danielhb fixed issues on services and sanadapters backend</span>
+<a name="l-35"></a><span class="tm">13:08:45</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi]  danielhb is ATM working in the virt viewer launcher feature, fixing bugs along the way</span>
+<a name="l-36"></a><span class="tm">13:09:40</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] [Kimchi] [Ginger*] pvital reviewed patches</span>
+<a name="l-37"></a><span class="tm">13:09:41</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] pvital helped users with Ubuntu 16.04 issues - issues #951, #952</span>
+<a name="l-38"></a><span class="tm">13:09:41</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] pvital was working on issue #122 - Make AsyncTask stoppable.</span>
+<a name="l-39"></a><span class="tm">13:09:41</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] pvital was working on use NGINX from system instead of run a new server.</span>
+<a name="l-40"></a><span class="tm">13:09:41</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] pvital is investigating some performance issues in wokd (high CPU consumption when idle)</span>
+<a name="l-41"></a><span class="tm">13:09:42</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] pvital submitted patch to issue #959 - Handle URLError exception when creating Template.</span>
+<a name="l-42"></a><span class="tm">13:12:19</span><span class="nk"> &lt;alinefm&gt;</span> anything else, team?
+<a name="l-43"></a><span class="tm">13:12:48</span><span class="nk"> &lt;ramonn&gt;</span> nop
+<a name="l-44"></a><span class="tm">13:13:47</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-45"></a><span class="tm">13:14:07</span><span class="nk"> &lt;pvital&gt;</span> I have one
+<a name="l-46"></a><span class="tm">13:14:08</span><span class="nk"> &lt;alinefm&gt;</span> I only have a reminder, we are one week to the 2.2. releases
+<a name="l-47"></a><span class="tm">13:14:23</span><span class="nk"> &lt;alinefm&gt;</span> pvital, go ahead
+<a name="l-48"></a><span class="tm">13:16:25</span><span class="nk"> &lt;pvital&gt;</span> as requested by alinefm, I'm going to create distros (Fedora 23, Ubuntu 16.04, OpenSuse bla) with wok, kimchi and ginger* 2.2 installed and configured to make available to download by users
+<a name="l-49"></a><span class="tm">13:17:04</span><span class="nk"> &lt;pvital&gt;</span> so, as soon 2.2 is released, I'll create the images and upload to some place
+<a name="l-50"></a><span class="tm">13:17:10</span><span class="nk"> &lt;alinefm&gt;</span> \o/
+<a name="l-51"></a><span class="tm">13:17:16</span><span class="nk"> &lt;alinefm&gt;</span> I am looking forward to it
+<a name="l-52"></a><span class="tm">13:17:21</span><span class="nk"> &lt;pvital&gt;</span> the problem is this. where should this images be located?
+<a name="l-53"></a><span class="tm">13:17:31</span><span class="nk"> &lt;pvital&gt;</span> these
+<a name="l-54"></a><span class="tm">13:17:31</span><span class="nk"> &lt;alinefm&gt;</span> github.io pages?
+<a name="l-55"></a><span class="tm">13:17:55</span><span class="nk"> &lt;alinefm&gt;</span> I think we can load them there in a separated section than the RPM/DEB packages
+<a name="l-56"></a><span class="tm">13:18:30</span><span class="nk"> &lt;pvital&gt;</span> it's an option, but I'm concern about the size of the images
+<a name="l-57"></a><span class="tm">13:19:01</span><span class="nk"> &lt;alinefm&gt;</span> good point
+<a name="l-58"></a><span class="tm">13:19:35</span><span class="nk"> &lt;alinefm&gt;</span> maybe a ftp server would be better
+<a name="l-59"></a><span class="tm">13:20:21</span><span class="nk"> &lt;pvital&gt;</span> alinefm, don't ovirt.org host these images?
+<a name="l-60"></a><span class="tm">13:21:09</span><span class="nk"> &lt;alinefm&gt;</span> pvital, I am not sure, but we can check and get in contact with someone there to analyze the possibility
+<a name="l-61"></a><span class="tm">13:21:29</span><span class="nk"> &lt;pvital&gt;</span> nice
+<a name="l-62"></a><span class="tm">13:21:38</span><span class="nk"> &lt;alinefm&gt;</span> pvital, you can ping eedri from #ovirt channel to get more information about that
+<a name="l-63"></a><span class="tm">13:21:49</span><span class="nk"> &lt;pvital&gt;</span> ok
+<a name="l-64"></a><span class="tm">13:22:12</span><span class="nk"> &lt;alinefm&gt;</span> pvital, and let me know if you need my help on anything to get what you need
+<a name="l-65"></a><span class="tm">13:23:59</span><span class="nk"> &lt;alinefm&gt;</span> any other topic for today?
+<a name="l-66"></a><span class="tm">13:26:09</span><span class="nk"> &lt;alinefm&gt;</span> ok...
+<a name="l-67"></a><span class="tm">13:26:13</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining!
+<a name="l-68"></a><span class="tm">13:26:16</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
