@@ -74,7 +74,7 @@ template_specs = {'x86': {'old': dict(disk_bus='ide',
                                              tablet_bus='usb')}}
 
 
-custom_specs = {'fedora': {'22': dict(video_model='qxl')}}
+custom_specs = {'fedora': {'22': {'x86': dict(video_model='qxl')}}}
 
 
 modern_version_bases = {'x86': {'debian': '6.0', 'ubuntu': '7.10',
@@ -233,7 +233,7 @@ def lookup(distro, version):
     specs = custom_specs.get(distro, {})
     for v, config in specs.iteritems():
         if LooseVersion(version) >= LooseVersion(v):
-            params.update(config)
+            params.update(config.get(arch, {}))
 
     if distro in icon_available_distros:
         params['icon'] = 'plugins/kimchi/images/icon-%s.png' % distro
