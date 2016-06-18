@@ -74,7 +74,10 @@ template_specs = {'x86': {'old': dict(disk_bus='ide',
                                              tablet_bus='usb')}}
 
 
-custom_specs = {'fedora': {'22': dict(video_model='qxl')}}
+custom_specs = {'fedora': {'22': dict(video_model='qxl')},
+                'windows': {'0': dict(kbd_bus='usb',
+                                      kbd_type="keyboard",
+                                      tablet_bus='usb')}}
 
 
 modern_version_bases = {'x86': {'debian': '6.0', 'ubuntu': '7.10',
