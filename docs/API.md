@@ -908,7 +908,7 @@ List of available groups.
                 Other available values are "fc_host", "net", "pci", "scsi",
                 "storage", "system", "usb" and "usb_device".
         * _passthrough: Filter devices eligible to be assigned to guest
-                        directly. Possible values are "ture" and "false".
+                        directly. Possible values are "true" and "false".
         * _passthrough_affected_by: Filter the affected devices in the same
                                     group of a certain directly assigned device.
                                     The value should be the name of a device.
