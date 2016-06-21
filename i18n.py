@@ -52,6 +52,7 @@ messages = {
                      "to file access control lists for '%(user)s' user if possible, or add the "
                      "'%(user)s' to the ISO path group, or (not recommended) 'chmod -R o+x 'path_to_iso'."
                      "Details: %(err)s" ),
+    "KCHISO0009E": _("Unable to access remote ISO. Details: %(err)s"),
 
     "KCHIMG0001E": _("An error occurred when probing image OS information."),
     "KCHIMG0003E": _("Unable to read image file %(filename)s"),
