@@ -28,7 +28,7 @@ import sys
 import urllib2
 
 
-from wok.exception import IsoFormatError
+from wok.exception import IsoFormatError, OperationFailed
 from wok.plugins.kimchi.utils import check_url_path
 from wok.utils import wok_log
 
@@ -419,11 +419,14 @@ lang=en#!/wiki/W51a7ffcf4dfd_4b40_9d82_446ebc23c550/page/PowerLinux\
 
     def _get_iso_data(self, offset, size):
         if self.remote:
-            request = urllib2.Request(self.path)
-            range_header = "bytes=%d-%d" % (offset, offset + size - 1)
-            request.add_header("range", range_header)
-            with contextlib.closing(urllib2.urlopen(request)) as response:
-                data = response.read()
+            try:
+                request = urllib2.Request(self.path)
+                range_header = "bytes=%d-%d" % (offset, offset + size - 1)
+                request.add_header("range", range_header)
+                with contextlib.closing(urllib2.urlopen(request)) as response:
+                    data = response.read()
+            except urllib2.URLError as e:
+                raise OperationFailed("KCHISO0009E", {'err': e})
         else:
             with open(self.path) as fd:
                 fd.seek(offset)
