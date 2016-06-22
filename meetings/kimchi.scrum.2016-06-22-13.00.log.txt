@@ -1,0 +1,61 @@
+13:00:06 <alinefm> #startmeeting
+13:00:06 <kimchi-bot> Meeting started Wed Jun 22 13:00:06 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:00:06 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:00:06 <alinefm> #meetingname scrum
+13:00:06 <kimchi-bot> The meeting name has been set to 'scrum'
+13:00:14 <lagarcia> hi
+13:00:21 <alinefm> #info Agenda
+13:00:21 <alinefm> #info 1) Status
+13:00:21 <alinefm> #info 2) Open discussion
+13:00:21 <alinefm> anything else?
+13:00:42 <pvital> no
+13:01:05 <alinefm> #topic Status
+13:01:05 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+13:01:12 <pvital> #info [Wok] [Kimchi] [Ginger*] pvital reviewed patches
+13:01:12 <pvital> #info [Kimchi] pvital submitted V1 and V2 patch "Handle URLError exception when creating Template."
+13:01:12 <pvital> #info [Kimchi] pvital helped user with Debian issues: #960, #961
+13:01:12 <pvital> #info [Kimchi] pvital helped user with Arch Linux issues: #963, #964
+13:01:12 <pvital> #info [Kimchi] pvital opened and is working in issue #965 - Fedora 24 iso image not recognized by IsoImage.
+13:01:12 <pvital> #info [Wok] pvital is still investigating some performance issues in wokd (high CPU consumption when idle)
+13:01:48 <peterpennings> #info [Kimchi] peterpennings is working on Disable ISOs with wrong permissions
+13:01:50 <alinefm> #info [kimchi] socorro Sent out v2 patch to ML for review for Netboot
+13:01:50 <alinefm> #info [kimchi] socorro template - github issue#: 372; awaiting review
+13:01:50 <alinefm> #info [kimchi] socorro Guests tab loading icon & save view applied upstream
+13:01:50 <alinefm> #info [kimchi] socorro Sent out patch to ML for review for SR-IOV
+13:01:50 <alinefm> #info [kimchi] socorro Review/test patches
+13:01:50 <alinefm> #info [kimchi] socorro Help investigating bugs
+13:02:46 <danielhb> #info [*] danielhb reviewed and applied patches
+13:03:01 <danielhb> #info [ginger] danielhb worked in SR-IOV improvements
+13:03:14 <danielhb> #info [kimchi] danielhb is now working in Kimchi bugs
+13:04:05 <rotru> #info [kimchi] rotru changed number of maximum memory devices to 256;
+13:04:41 <lcorreia> #info [wok] lcorreia got upstream fix for issues 100, 102, 105 - add IP address and timezone to user log
+13:04:42 <lcorreia> #info [wok] lcorreia got approved fix for issue 100 - log failed user requests - feature to be upstream after 2.2 release
+13:04:42 <lcorreia> #info [wok] lcorreia got upstream patch to decrease notification request interval time
+13:04:42 <lcorreia> #info [wok] lcorreia proposed design for changes in user log UI
+13:04:42 <lcorreia> #info [wok] lcorreia got upstream fix for disabling TLS 1.0 support and add ssl timeout
+13:04:43 <lcorreia> #info [ginger] lcorreia got upstream fix for restricting qxl driver for x86 only
+13:04:45 <lcorreia> #info [kimchi] lcorreia got upstream fix for vm name conflicts after snapshots are created
+13:04:46 <lcorreia> #info [kimchi] lcorreia investigated issue in template creation from qcow2 file
+13:04:52 <samhenri> #info [ginger] samhenri sent patch to "Issue #360: Refreshing volume groups keeps on loading", applied to master
+13:05:15 <samhenri> #info [ginger] samhenri sent v2 patch to "Issue #320: Redesign 'Sensor Monitor' UI"
+13:06:00 <rotru> #info [wok] rotru fixed problems in notification messages, creating a notification-container, to show the message in any tab/screen 'on-the-fly' and allowing that the message be displayed again, if the problem persists in server. Thank you samhenri  ofr the help.
+13:06:24 <samhenri> #info [wok] samhenri fixed "Issue #79: All error messages should keep on UI until user dismiss it", about to send patch to mailing list
+13:07:30 <alinefm> good progress, guys!
+13:07:37 <rotru> #info [wok] rotru coding V3 of Plugins Manager feature, after alinefm's review and design discussions. Thank you alinefm .
+13:07:38 <alinefm> anything else for today?
+13:07:38 <samhenri> #info [kimchi] samhenri currently working on "Issue #948: Kimchi not throwing errors when migration is performed and gives impression of migration doesn't work"
+13:08:47 <rotru> alinefm, no
+13:09:35 <alinefm> moving on...
+13:09:40 <alinefm> #topic Open Discussion
+13:09:55 <alinefm> I want to remember you that 2.2 releases will be announced this Friday
+13:10:07 <alinefm> only critical bug fixes will be merge from now on
+13:10:13 <alinefm> any question?
+13:10:50 <pvital> no
+13:11:57 <rotru> alinefm, no
+13:12:18 <alinefm> any other topic for today?
+13:13:55 <pvital> not from me!
+13:14:18 <lcorreia> no
+13:14:45 <alinefm> a short meeting today...
+13:14:54 <alinefm> thanks everyone for joining!
+13:14:54 <lcorreia> fast and furious
+13:14:55 <alinefm> #endmeeting
