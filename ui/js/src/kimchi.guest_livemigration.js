@@ -24,7 +24,7 @@ kimchi.guest_livemigration_main = function() {
 
 kimchi.getOngoingMigration = function(guestName, toDelete) {
     var guests = [];
-    kimchi.getTasksByFilter('status=running&target_uri=' + encodeURIComponent('^/plugins/kimchi/vms/' + guestName + '/migrate'), function(tasks) {
+    kimchi.getTasksByFilter('status=running&target_uri='+ encodeURIComponent('^/plugins/kimchi/vms/' + guestName + '/migrate'), function(tasks) {
         for (var i = 0; i < tasks.length; i++) {
             var guestUri = tasks[i].target_uri;
             var guestName = guestUri.split('/')[4];
@@ -42,6 +42,7 @@ kimchi.getOngoingMigration = function(guestName, toDelete) {
                 }
                 kimchi.listVmsAuto();
             }, function(guests) {
+                wok.message.error('<strong>'+guestName+'</strong>: '+guests.message,'#alert-container', true, 'failed-migration-'+guests.id);
                 return;
             }, function(guests) {
                 return;
@@ -96,7 +97,7 @@ kimchi.getLiveMigrationInputValues = function() {
 
 kimchi.setupLiveMigrationFormEvent = function() {
     $("#migrateFormOk").prop("disabled", true);
-    $("#remote_host").on("change keyup", function(event) {
+    $("#remote_host").on("keyup", function(event) {
         if (!this.value) {
             $(this).parent().addClass('has-error');
         } else {
@@ -104,7 +105,7 @@ kimchi.setupLiveMigrationFormEvent = function() {
         }
         kimchi.updateLiveMigrationButton();
     });
-    $("#user").on("change keyup", function(event) {
+    $("#user").on("keyup", function(event) {
         if (this.value && !$("#password").val()) {
             $("#user").parent().removeClass('has-warning');
             $("#password").parent().addClass('has-warning');
@@ -114,7 +115,7 @@ kimchi.setupLiveMigrationFormEvent = function() {
         }
         kimchi.updateLiveMigrationButton();
     });
-    $("#password").on("change keyup", function(event) {
+    $("#password").on("keyup", function(event) {
         if (this.value && !$("#user").val()) {
             $("#user").parent().addClass('has-warning');
         } else {

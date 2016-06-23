@@ -418,7 +418,8 @@ kimchi.listVmsAuto = function() {
                                 });
                             });
                         }
-                        $('.wok-mask').fadeOut(300, function() {});
+                        $('.wok-mask').fadeOut(300, function() {
+                        });
                     } else {
                         $('.grid-control').addClass('hidden');
                         $('#guestListField').hide();
@@ -443,7 +444,6 @@ kimchi.listVmsAuto = function() {
         kimchi.vmTimeout = window.setTimeout("kimchi.listVmsAuto();", 5000);
     }
 };
-
 
 kimchi.createGuestLi = function(vmObject, prevScreenImage, openMenu) {
     var result = kimchi.guestElem.clone();
@@ -881,7 +881,6 @@ kimchi.guest_main = function() {
     kimchi.initGuestFilter();
     kimchi.listVmsAuto();
 };
-
 
 kimchi.guest_clonevm_main = function() {
    kimchi.initCloneDialog();
