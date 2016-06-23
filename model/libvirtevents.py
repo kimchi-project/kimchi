@@ -83,5 +83,9 @@ class LibvirtEvents(object):
                 self.event_enospc_cb,
                 libvirt.VIR_DOMAIN_EVENT_ID_IO_ERROR_REASON
             )
-        except libvirt.libvirtError as e:
-            wok_log.error("Register of ENOSPC event failed: %s" % e.message)
+        except (libvirt.libvirtError, AttributeError) as e:
+            if type(e) == AttributeError:
+                reason = 'Libvirt service is not running'
+            else:
+                reason = e.message
+            wok_log.error("Register of ENOSPC event failed: %s" % reason)
