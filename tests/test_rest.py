@@ -1342,14 +1342,14 @@ class RestTests(unittest.TestCase):
             self.assertIn('path', distro)
 
         # Test in X86
-        ident = "Fedora 20"
+        ident = "Fedora 24"
         resp = self.request('/plugins/kimchi/config/distros/%s' %
                             urllib2.quote(ident)).read()
         distro = json.loads(resp)
         if os.uname()[4] in ['x86_64', 'amd64']:
             self.assertEquals(distro['name'], ident)
             self.assertEquals(distro['os_distro'], "fedora")
-            self.assertEquals(distro['os_version'], "20")
+            self.assertEquals(distro['os_version'], "24")
             self.assertEquals(distro['os_arch'], "x86_64")
             self.assertIn('path', distro)
         else:
@@ -1357,15 +1357,15 @@ class RestTests(unittest.TestCase):
             self.assertIn('KCHDISTRO0001E', distro.get('reason'))
 
         # Test in PPC
-        ident = "Fedora 20 (PPC64)"
+        ident = "Fedora 24 LE"
         resp = self.request('/plugins/kimchi/config/distros/%s' %
                             urllib2.quote(ident)).read()
         distro = json.loads(resp)
         if os.uname()[4] == 'ppc64':
             self.assertEquals(distro['name'], ident)
             self.assertEquals(distro['os_distro'], "fedora")
-            self.assertEquals(distro['os_version'], "20")
-            self.assertEquals(distro['os_arch'], "ppc64")
+            self.assertEquals(distro['os_version'], "24")
+            self.assertEquals(distro['os_arch'], "ppc64le")
             self.assertIn('path', distro)
         else:
             # Distro not found error
