@@ -1,9 +1,9 @@
 [
     {
-        "name": "debian-Wheezy",
+        "name": "Debian jessie",
         "os_distro": "debian",
         "os_arch": "x86_64",
-        "os_version": "7.7.0",
-        "path": "http://caesar.acc.umu.se/debian-cd/7.7.0/amd64/iso-cd/debian-7.7.0-amd64-netinst.iso"
+        "os_version": "8.5",
+        "path": "http://ftp.acc.umu.se/debian-cd/8.5.0-live/amd64/iso-hybrid/debian-live-8.5.0-amd64-gnome-desktop.iso"
     }
 ]
