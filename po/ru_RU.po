@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-23 18:42-0300\n"
+"POT-Creation-Date: 2016-06-24 09:43-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -104,6 +104,10 @@ msgstr ""
 "если это возможно, добавьте %(user)s в группу пути к образу ISO или (не "
 "рекомендуется) выполните команду 'chmod -R o+x путь-к-iso'. Сведения: %(err)s"
 
+#, python-format
+msgid "Unable to access remote ISO. Details: %(err)s"
+msgstr ""
+
 msgid "An error occurred when probing image OS information."
 msgstr "Ошибка проверки информации об ОС образа."
 
@@ -126,14 +130,6 @@ msgstr "Виртуальная машина %(name)s уже существует
 #, python-format
 msgid "Virtual machine %(name)s does not exist"
 msgstr "Виртуальная машина %(name)s не существует"
-
-#, python-format
-msgid ""
-"Unable to rename virtual machine %(name)s. The name %(new_name)s is already "
-"in use or the virtual machine is not powered off."
-msgstr ""
-"Не удалось переименовать виртуальную машину %(name)s. Имя %(new_name)s уже "
-"занято, или виртуальная машина не выключена."
 
 #, python-format
 msgid "Unable to retrieve screenshot for stopped virtual machine %(name)s"
@@ -291,15 +287,8 @@ msgstr ""
 msgid "Only increase memory is allowed in active VMs"
 msgstr "В активных виртуальных машинах объем памяти можно только увеличивать"
 
-msgid ""
-"For live memory update, new memory value must be equal old memory value plus "
-"multiples of 1024 Mib"
+msgid "There are not enough free slots to add a new memory device."
 msgstr ""
-"Для оперативного изменения объема памяти новое значение объема памяти должно "
-"быть равно текущему объему памяти плюс величина, кратная 1024 МиБ"
-
-msgid "There are not enough free slots of 1024 Mib in the guest."
-msgstr "Недостаточно свободных разъемов размером 1024 МиБ в гостевой системе."
 
 msgid ""
 "Host's libvirt or qemu version does not support memory devices and memory "
@@ -523,6 +512,10 @@ msgid "Template %(name)s already exists"
 msgstr "Шаблон %(name)s уже существует"
 
 #, python-format
+msgid "Source media %(path)s not found"
+msgstr ""
+
+#, python-format
 msgid ""
 "Network '%(network)s' specified for template %(template)s does not exist"
 msgstr "Сеть '%(network)s', указанная для шаблона %(template)s, не существует"
@@ -531,10 +524,6 @@ msgstr "Сеть '%(network)s', указанная для шаблона %(templ
 msgid ""
 "Storage pool %(pool)s specified for template %(template)s does not exist"
 msgstr "Пул памяти %(pool)s, указанный для шаблона %(template)s, не существует"
-
-#, python-format
-msgid "Storage pool %(pool)s specified for template %(template)s is not active"
-msgstr "Пул памяти %(pool)s, указанный для шаблона %(template)s, неактивен"
 
 #, python-format
 msgid "Invalid parameter '%(param)s' specified for CDROM."
@@ -570,9 +559,9 @@ msgstr "CDROM шаблона должен быть локальным или у�
 msgid "Invalid storage pool URI %(value)s specified for template"
 msgstr "Для шаблона указан недопустимый URI пула памяти %(value)s"
 
-msgid "Specify an ISO image as CDROM or a base image to create a template"
+msgid ""
+"Specify a path to source media (ISO, disk or remote ISO) to create a template"
 msgstr ""
-"Укажите образ ISO в качестве CDROM или базового образа для создания шаблона"
 
 msgid "All networks for the template must be specified in a list."
 msgstr "Все сети для шаблона должны быть указаны в списке."
@@ -595,9 +584,6 @@ msgstr "Не удалось удалить шаблон из-за следующ
 msgid "Disk size must be an integer greater than 1GB."
 msgstr "Размер диска должен быть целым числом больше 1 ГБ."
 
-msgid "Template base image must be a valid local image file"
-msgstr "Базовый образ шаблона должен быть правильным локальным файлом образа"
-
 #, python-format
 msgid "Cannot identify base image %(path)s format"
 msgstr "Не удалось идентифицировать формат %(path)s базового образа"
@@ -610,11 +596,8 @@ msgstr ""
 "больше нуля."
 
 msgid ""
-"Invalid disk image format. Valid formats: bochs, cloop, cow, dmg, qcow, "
-"qcow2, qed, raw, vmdk, vpc."
+"Invalid disk image format. Valid formats: qcow, qcow2, qed, raw, vmdk, vpc."
 msgstr ""
-"Недопустимый формат образа диска. Допустимые форматы: bochs, cloop, cow, "
-"dmg, qcow, qcow2, qed, raw, vmdk, vpc."
 
 msgid ""
 "When setting template disks, following parameters are required: 'index', "
@@ -633,6 +616,13 @@ msgstr ""
 msgid ""
 "Memory value (%(mem)sMiB) must be equal or lesser than maximum memory value "
 "(%(maxmem)sMiB)"
+msgstr ""
+
+#, python-format
+msgid "Unable to update template due error: %(err)s"
+msgstr ""
+
+msgid "Parameter 'disks' requires at least one disk object"
 msgstr ""
 
 #, python-format
@@ -852,11 +842,9 @@ msgid "Storage volume allocation must be an integer number"
 msgstr "Выделение тома должно быть целым числом"
 
 msgid ""
-"Storage volume format not supported. Valid formats: bochs, cloop, cow, dmg, "
-"qcow, qcow2, qed, raw, vmdk, vpc."
+"Storage volume format not supported. Valid formats: qcow, qcow2, qed, raw, "
+"vmdk, vpc."
 msgstr ""
-"Формат тома памяти не поддерживается. Допустимые форматы: bochs, cloop, cow, "
-"dmg, qcow, qcow2, qed, raw, vmdk, vpc."
 
 msgid "Storage volume requires a volume name"
 msgstr "Тому требуется имя"
@@ -938,8 +926,8 @@ msgid "Specify a network interface to create bridged or macvtap networks."
 msgstr ""
 
 #, python-format
-msgid "Unable to delete active network %(name)s"
-msgstr "Не удалось удалить активную сеть %(name)s"
+msgid "Unable to delete or update active network %(name)s"
+msgstr ""
 
 #, python-format
 msgid "Interface %(iface)s specified for network %(network)s is already in use"
@@ -951,8 +939,8 @@ msgstr ""
 "устройством."
 
 #, python-format
-msgid "Unable to create network %(name)s. Details: %(err)s"
-msgstr "Не удалось создать сеть %(name)s. Сведения: %(err)s"
+msgid "Unable to create or update network %(name)s. Details: %(err)s"
+msgstr ""
 
 #, python-format
 msgid "Unable to find a free IP address for network '%(name)s'"
@@ -966,7 +954,9 @@ msgid "Network name must be a string without slashes (/) or quotes (\")"
 msgstr ""
 "Имя сети должно быть строкой без символов косой черты (/) и кавычек (\")"
 
-msgid "Supported network types are isolated, NAT, macvtap, bridge and vepa"
+msgid ""
+"Supported network types are isolated, NAT, macvtap, bridge, vepa and "
+"passthrough."
 msgstr ""
 
 msgid "Network subnet must be a string with IP address and prefix or netmask"
@@ -984,11 +974,9 @@ msgstr "Укажите имя и тип для создания сети"
 
 #, python-format
 msgid ""
-"Unable to delete network %(name)s. There are some virtual machines %(vms)s "
-"and/or templates linked to this network."
+"Unable to delete or update network %(name)s. There are some virtual machines "
+"%(vms)s and/or templates linked to this network."
 msgstr ""
-"Не удалось удалить сеть %(name)s. Есть виртуальные машины %(vms)s или "
-"шаблоны, связанные с данной сетью."
 
 #, python-format
 msgid ""
@@ -1039,6 +1027,14 @@ msgid "Network interfaces parameter must contain at least one interface."
 msgstr ""
 
 msgid "Only one interface is allowed for 'bridge' and 'macvtap' networks."
+msgstr ""
+
+msgid "Subnet is not a valid parameter for this type of virtual network."
+msgstr ""
+
+msgid ""
+"VLAN ID and interfaces are not valid parameters for this type of virtual "
+"network."
 msgstr ""
 
 #, python-format
@@ -1233,8 +1229,220 @@ msgid ""
 "paramaters."
 msgstr ""
 
+msgid ""
+"Parameter 'cpu_info' expects an object with fields among: 'vcpus', "
+"'maxvcpus', 'topology'."
+msgstr ""
+
+msgid ""
+"Parameter 'topology' expects an object with fields among: 'sockets', "
+"'cores', 'threads'."
+msgstr ""
+
 #, python-format
 msgid "Invalid volume group name parameter: %(name)s."
+msgstr ""
+
+msgid ""
+"Unable to establish connection with libvirt. Please check your libvirt URI "
+"which is often defined in /etc/libvirt/libvirt.conf"
+msgstr ""
+
+msgid ""
+"Libvirt service is not active. Please start the libvirt service in your host "
+"system."
+msgstr ""
+
+msgid "Failed to register the default event implementation."
+msgstr ""
+
+msgid "Failed to register timeout event."
+msgstr ""
+
+msgid "Failed to Run the default event implementation."
+msgstr ""
+
+#, python-format
+msgid ""
+"I/O error on guest '%(vm)s': storage pool out of space for %(devAlias)s "
+"(%(srcPath)s)."
+msgstr ""
+
+#, python-format
+msgid "Created %(connection)s virtual network '%(name)s'"
+msgstr ""
+
+#, python-format
+msgid "Removed virtual network '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Updated virtual network '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Activated virtual network '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Deactivated virtual network '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Created %(type)s storage pool '%(name)s'"
+msgstr ""
+
+#, python-format
+msgid "Removed storage pool '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Updated storage pool '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Activated storage pool '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Deactivated storage pool '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Created snapshot '%(name)s' at guest '%(vm)s'"
+msgstr ""
+
+#, python-format
+msgid "Removed snapshot '%(ident)s' from guest '%(vm)s'"
+msgstr ""
+
+#, python-format
+msgid "Reverted guest '%(vm)s' to snapshot '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Created template '%(name)s'"
+msgstr ""
+
+#, python-format
+msgid "Removed template '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Updated template '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Cloned template '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Created guest '%(name)s' from template '%(template)s'"
+msgstr ""
+
+#, python-format
+msgid "Removed guest '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Edited guest '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Started guest '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Powered off guest '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Shutdown guest '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Restarted guest '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Connected to guest '%(ident)s' through novnc/spice"
+msgstr ""
+
+#, python-format
+msgid "Cloned guest '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Migrated guest '%(ident)s' to '%(remote_host)s'"
+msgstr ""
+
+#, python-format
+msgid "Suspended guest '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Resumed guest '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Connected to guest '%(ident)s' through serial"
+msgstr ""
+
+#, python-format
+msgid "Attached host device '%(name)s' to guest '%(vmid)s'"
+msgstr ""
+
+#, python-format
+msgid "Detached host device '%(ident)s' from guest '%(vmid)s'"
+msgstr ""
+
+#, python-format
+msgid "Attached network interface '%(network)s' to guest '%(vm)s'"
+msgstr ""
+
+#, python-format
+msgid "Detached network interface '%(ident)s' from guest '%(vm)s'"
+msgstr ""
+
+#, python-format
+msgid "Updated network interface '%(ident)s' at guest '%(vm)s'"
+msgstr ""
+
+#, python-format
+msgid "Attached %(type)s storage '%(path)s' to guest '%(vm)s'"
+msgstr ""
+
+#, python-format
+msgid "Removed storage '%(ident)s' from guest '%(vm)s'"
+msgstr ""
+
+#, python-format
+msgid "Updated storage '%(ident)s' at guest '%(vm)s'"
+msgstr ""
+
+#, python-format
+msgid "Created storage volume '%(name)s' at pool '%(pool)s'"
+msgstr ""
+
+#, python-format
+msgid "Removed storage volume '%(ident)s' from pool '%(pool)s'"
+msgstr ""
+
+#, python-format
+msgid "Updated storage volume '%(ident)s' at pool '%(pool)s'"
+msgstr ""
+
+#, python-format
+msgid "Wiped storage volume '%(ident)s' off pool '%(pool)s'"
+msgstr ""
+
+#, python-format
+msgid ""
+"Resized storage volume '%(ident)s' at pool '%(pool)s' with size %(size)s"
+msgstr ""
+
+#, python-format
+msgid "Cloned storage volume '%(ident)s' at pool '%(pool)s'"
 msgstr ""
 
 msgid "Create a New Virtual Machine"
@@ -1259,14 +1467,20 @@ msgstr "Создать шаблон"
 msgid "Please choose a template."
 msgstr "Выберите шаблон."
 
+msgid "This template has invalid parameters."
+msgstr ""
+
+msgid "This template has invalid parameters"
+msgstr ""
+
 msgid "OS"
 msgstr "ОС"
 
 msgid "Version"
 msgstr "Версия"
 
-msgid "CPUs"
-msgstr "Процессоры"
+msgid "Current CPUs"
+msgstr ""
 
 msgid "Memory"
 msgstr "Память"
@@ -1279,6 +1493,21 @@ msgstr "Создание..."
 
 msgid "Cancel"
 msgstr "Отмена"
+
+msgid "Clone a Guest"
+msgstr ""
+
+msgid ""
+"When the target guest has SCSI or iSCSI volumes, they will be cloned on the "
+"default storage pool. The same will happen when the target pool does not "
+"have enough space to clone the volumes. Do you want to continue?"
+msgstr ""
+
+msgid "Number of times to clone"
+msgstr ""
+
+msgid "Continue"
+msgstr ""
 
 msgid "Edit Guest"
 msgstr "Изменить гостевую систему"
@@ -1442,7 +1671,7 @@ msgstr ""
 msgid "Processors Utilization"
 msgstr ""
 
-msgid "Memory Available"
+msgid "Memory Utilization"
 msgstr ""
 
 msgid "Storage I/O"
@@ -1553,9 +1782,6 @@ msgstr "Дисковая память"
 msgid "This is not a valid Linux path"
 msgstr "Этот недопустимый путь в Linux"
 
-msgid "This is not a valid URL."
-msgstr "Это недопустимый URL."
-
 msgid "Unable to read file."
 msgstr "Не удалось прочитать файл."
 
@@ -1596,6 +1822,12 @@ msgid "View Table"
 msgstr ""
 
 msgid "View Gallery"
+msgstr ""
+
+msgid "Not Available"
+msgstr ""
+
+msgid "Please check the invalid Storage Pools"
 msgstr ""
 
 msgid ""
@@ -1642,15 +1874,14 @@ msgstr ""
 "Эта виртуальная машина не постоянная. Выключение приведет к ее удалению. "
 "Продолжить?"
 
-msgid ""
-"When the target guest has SCSI or iSCSI volumes, they will be cloned on "
-"default storage pool. The same will happen when the target pool does not "
-"have enough space to clone the volumes. Do you want to continue?"
+msgid "Input is not a number"
 msgstr ""
-"Если у целевой гостевой системы есть тома SCSI или iSCSI, они будут "
-"скопированы в пул памяти по умолчанию. То же самое произойдет, если в "
-"целевом пуле недостаточно свободного места для дублирования томов. "
-"Продолжить?"
+
+msgid "Memory value cannot be higher than Max Memory value"
+msgstr ""
+
+msgid "Current CPUs value cannot be higher than Max CPU value"
+msgstr ""
 
 msgid ""
 "This CDROM will be detached permanently and you can re-attach it. Continue "
@@ -1743,6 +1974,12 @@ msgstr "Не найден iSCSI. Введите."
 msgid "Failed to load iSCSI targets."
 msgstr "Не удалось загрузить целевые объекты iSCSI."
 
+msgid "Would you like to continue?"
+msgstr ""
+
+msgid "This will permanently delete the following storage volumes: %1"
+msgstr ""
+
 msgid "Invalid NFS mount path."
 msgstr "Недопустимый путь монтирования NFS."
 
@@ -1772,6 +2009,12 @@ msgid "Failed!"
 msgstr "Сбой!"
 
 msgid "No LVM found in the system."
+msgstr ""
+
+msgid "This will permanently wipe the following storage volumes: %1"
+msgstr ""
+
+msgid "Wipe Confirmation"
 msgstr ""
 
 msgid "CDROM path needs to be a valid local/remote path and cannot be blank."
@@ -1804,6 +2047,11 @@ msgid "Macvtap: Virtual machines are connected to physical network directly"
 msgstr ""
 
 msgid ""
+"Passthrough: Virtual machines are connected using a macvtap connection in "
+"passthrough mode."
+msgstr ""
+
+msgid ""
 "VEPA: special mode where virtual machines are connected to a VEPA-enabled "
 "switch"
 msgstr ""
@@ -1817,11 +2065,20 @@ msgstr "(Интерфейсы не найдены)"
 msgid "Destination"
 msgstr "Целевое расположение"
 
+msgid "Select an Interface"
+msgstr ""
+
 msgid "Enable VLAN"
 msgstr "Включить VLAN"
 
 msgid "VLAN ID"
 msgstr "Идентификатор VLAN"
+
+msgid "Edit Network"
+msgstr ""
+
+msgid "Address Space"
+msgstr ""
 
 msgid "Define a New Storage Pool"
 msgstr "Создать пул памяти"
@@ -1919,23 +2176,26 @@ msgstr "Передать файл"
 msgid "Choose the file you want to upload."
 msgstr "Выберите файл для передачи."
 
+msgid "Resize Volume"
+msgstr ""
+
+msgid "Size"
+msgstr ""
+
+msgid "The total space which can be used to store data. The unit is megabytes."
+msgstr ""
+
+msgid "Ok"
+msgstr ""
+
 msgid "Add Template"
 msgstr "Добавить шаблон"
 
-msgid "Where is the source media for this template? "
-msgstr "Где находится исходный носитель для этого шаблона? "
-
-msgid "Local ISO Image"
-msgstr "Локальный образ ISO"
-
-msgid "Local Image File"
-msgstr "Локальный файл образа"
-
-msgid "Remote ISO Image"
-msgstr "Удаленный образ ISO"
-
-msgid "Provide a File Path for a specific ISO image:"
+msgid "Loading..."
 msgstr ""
+
+msgid "File Path:"
+msgstr "Путь к файлу:"
 
 msgid "Search ISOs"
 msgstr "Поиск образов ISO"
@@ -1943,23 +2203,8 @@ msgstr "Поиск образов ISO"
 msgid "The following ISOs are available:"
 msgstr "Доступные образы ISO:"
 
-msgid "Size"
-msgstr ""
-
 msgid "Search more ISOs"
 msgstr "Поиск дополнительных образов ISO"
-
-msgid "File Path:"
-msgstr "Путь к файлу:"
-
-msgid "Provide a URL for a specific ISO image:"
-msgstr ""
-
-msgid "Loading default remote ISOs ..."
-msgstr "Загрузка удаленных ISO по умолчанию..."
-
-msgid "Arch"
-msgstr ""
 
 msgid "Edit Template"
 msgstr "Изменить шаблон"
@@ -1994,8 +2239,8 @@ msgstr ""
 msgid "Add Interface"
 msgstr ""
 
-msgid "CPU Number"
-msgstr "Количество процессоров"
+msgid "Current CPU Number"
+msgstr ""
 
 msgid "Manually set CPU topology"
 msgstr "Вручную настроить топологию процессоров"
