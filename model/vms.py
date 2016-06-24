@@ -1731,7 +1731,7 @@ class VMModel(object):
     def _check_if_path_exists_in_remote_host(self, path, remote_host, user):
         username_host = "%s@%s" % ('root', remote_host)
         cmd = ['ssh', '-oStrictHostKeyChecking=no', username_host,
-               'test', '-f', path]
+               'test', '-e', path]
         _, _, returncode = run_command(cmd, 5, silent=True)
         return returncode == 0
 
