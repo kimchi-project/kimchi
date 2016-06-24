@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-23 18:42-0300\n"
+"POT-Creation-Date: 2016-06-24 09:43-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -104,6 +104,10 @@ msgstr ""
 "장하지 않음) 'chmod -R o+x 'path_to_iso'(권장되지 않음)에 추가하십시오. 세부"
 "사항: %(err)s"
 
+#, python-format
+msgid "Unable to access remote ISO. Details: %(err)s"
+msgstr ""
+
 msgid "An error occurred when probing image OS information."
 msgstr "이미지 OS 정보를 프로브하는 중에 오류가 발생했습니다."
 
@@ -126,14 +130,6 @@ msgstr "가상 머신 %(name)s이(가) 이미 존재합니다."
 #, python-format
 msgid "Virtual machine %(name)s does not exist"
 msgstr "가상 머신 %(name)s이(가) 없습니다."
-
-#, python-format
-msgid ""
-"Unable to rename virtual machine %(name)s. The name %(new_name)s is already "
-"in use or the virtual machine is not powered off."
-msgstr ""
-"가상 머신 %(name)s의 이름을 바꿀 수 없습니다. %(new_name)s 이름이 이미사용 중"
-"이거나 가상 머신의 전원이 꺼졌습니다."
 
 #, python-format
 msgid "Unable to retrieve screenshot for stopped virtual machine %(name)s"
@@ -279,15 +275,8 @@ msgstr ""
 msgid "Only increase memory is allowed in active VMs"
 msgstr "활성 VM에서는 메모리 늘리기만 허용됩니다."
 
-msgid ""
-"For live memory update, new memory value must be equal old memory value plus "
-"multiples of 1024 Mib"
+msgid "There are not enough free slots to add a new memory device."
 msgstr ""
-"라이브 메모리 업데이트의 경우 새 메모리 값은 이전 메모리 값에 1024 Mib의 배수"
-"를 더한 값과같아야 합니다."
-
-msgid "There are not enough free slots of 1024 Mib in the guest."
-msgstr "게스트에 1024Mib의 여유 슬롯이 없습니다."
 
 msgid ""
 "Host's libvirt or qemu version does not support memory devices and memory "
@@ -510,6 +499,10 @@ msgid "Template %(name)s already exists"
 msgstr "템플리트 %(name)s이(가) 이미 존재합니다."
 
 #, python-format
+msgid "Source media %(path)s not found"
+msgstr ""
+
+#, python-format
 msgid ""
 "Network '%(network)s' specified for template %(template)s does not exist"
 msgstr "%(template)s 템플리트에 지정된 '%(network)s' 네트워크가 없습니다."
@@ -518,11 +511,6 @@ msgstr "%(template)s 템플리트에 지정된 '%(network)s' 네트워크가 없
 msgid ""
 "Storage pool %(pool)s specified for template %(template)s does not exist"
 msgstr "%(template)s 템플리트에 지정된 스토리지 풀 %(pool)s이(가) 없습니다."
-
-#, python-format
-msgid "Storage pool %(pool)s specified for template %(template)s is not active"
-msgstr ""
-"%(template)s 템플리트에 지정된 스토리지 풀 %(pool)s이(가) 활성이 아닙니다."
 
 #, python-format
 msgid "Invalid parameter '%(param)s' specified for CDROM."
@@ -560,9 +548,9 @@ msgid "Invalid storage pool URI %(value)s specified for template"
 msgstr ""
 "템플리트에 대해 올바르지 않은 스토리지 풀 URI %(value)s이(가) 지정되었습니다."
 
-msgid "Specify an ISO image as CDROM or a base image to create a template"
+msgid ""
+"Specify a path to source media (ISO, disk or remote ISO) to create a template"
 msgstr ""
-"템플리트를 작성하려면 ISO 이미지를 CDROM 또는 기본 이미지로 지정하십시오."
 
 msgid "All networks for the template must be specified in a list."
 msgstr "템플리트의 모든 네트워크가 목록에 지정되어야 합니다."
@@ -585,9 +573,6 @@ msgstr "오류 때문에 템플리트를 삭제할 수 없음: %(err)s"
 msgid "Disk size must be an integer greater than 1GB."
 msgstr "디스크 크기는 1GB보다 큰 정수여야 합니다."
 
-msgid "Template base image must be a valid local image file"
-msgstr "템플리트 기본 이미지는 유효한 로컬 이미지 파일이어야 합니다."
-
 #, python-format
 msgid "Cannot identify base image %(path)s format"
 msgstr "기본 이미지 %(path)s 형식을 식별할 수 없습니다."
@@ -598,11 +583,8 @@ msgid ""
 msgstr "CPU 토폴로지를 지정할 때 각 요소는 0보다 큰 정수여야합니다."
 
 msgid ""
-"Invalid disk image format. Valid formats: bochs, cloop, cow, dmg, qcow, "
-"qcow2, qed, raw, vmdk, vpc."
+"Invalid disk image format. Valid formats: qcow, qcow2, qed, raw, vmdk, vpc."
 msgstr ""
-"올바르지 않은 디스크 이미지 형식입니다. 올바른 형식은 bochs, cloop, cow, "
-"dmg, qcow, qcow2, qed, raw, vmdk, vpc입니다."
 
 msgid ""
 "When setting template disks, following parameters are required: 'index', "
@@ -621,6 +603,13 @@ msgstr ""
 msgid ""
 "Memory value (%(mem)sMiB) must be equal or lesser than maximum memory value "
 "(%(maxmem)sMiB)"
+msgstr ""
+
+#, python-format
+msgid "Unable to update template due error: %(err)s"
+msgstr ""
+
+msgid "Parameter 'disks' requires at least one disk object"
 msgstr ""
 
 #, python-format
@@ -838,11 +827,9 @@ msgid "Storage volume allocation must be an integer number"
 msgstr "스토리지 볼륨 할당은 정수여야 합니다."
 
 msgid ""
-"Storage volume format not supported. Valid formats: bochs, cloop, cow, dmg, "
-"qcow, qcow2, qed, raw, vmdk, vpc."
+"Storage volume format not supported. Valid formats: qcow, qcow2, qed, raw, "
+"vmdk, vpc."
 msgstr ""
-"스토리지 볼륨 형식이 지원되지 않습니다. 올바른 형식은 bochs, cloop, cow, "
-"dmg, qcow, qcow2, qed, raw, vmdk, vpc입니다."
 
 msgid "Storage volume requires a volume name"
 msgstr "스토리지 볼륨은 볼륨 이름이 필요합니다."
@@ -921,8 +908,8 @@ msgid "Specify a network interface to create bridged or macvtap networks."
 msgstr ""
 
 #, python-format
-msgid "Unable to delete active network %(name)s"
-msgstr "활성 네트워크 %(name)s을(를) 삭제할 수 없습니다."
+msgid "Unable to delete or update active network %(name)s"
+msgstr ""
 
 #, python-format
 msgid "Interface %(iface)s specified for network %(network)s is already in use"
@@ -934,8 +921,8 @@ msgid "Interface should be bare NIC, bonding or bridge device."
 msgstr "인터페이스는 순수 NIC, 본딩 또는 브릿지 장치여야 합니다."
 
 #, python-format
-msgid "Unable to create network %(name)s. Details: %(err)s"
-msgstr "%(name)s 네트워크를 작성할 수 없습니다. 세부사항: %(err)s"
+msgid "Unable to create or update network %(name)s. Details: %(err)s"
+msgstr ""
 
 #, python-format
 msgid "Unable to find a free IP address for network '%(name)s'"
@@ -950,7 +937,9 @@ msgstr ""
 "네트워크 이름은 슬래시(/) 또는 따옴표(\")를 포함하지 않는 문자열이어야 합니"
 "다."
 
-msgid "Supported network types are isolated, NAT, macvtap, bridge and vepa"
+msgid ""
+"Supported network types are isolated, NAT, macvtap, bridge, vepa and "
+"passthrough."
 msgstr ""
 
 msgid "Network subnet must be a string with IP address and prefix or netmask"
@@ -968,11 +957,9 @@ msgstr "네트워크를 작성하려면 이름 및 유형을 지정하십시오.
 
 #, python-format
 msgid ""
-"Unable to delete network %(name)s. There are some virtual machines %(vms)s "
-"and/or templates linked to this network."
+"Unable to delete or update network %(name)s. There are some virtual machines "
+"%(vms)s and/or templates linked to this network."
 msgstr ""
-"%(name)s 네트워크를 삭제할 수 없습니다. 이 네트워크에 링크된 일부 가상 머신 "
-"%(vms)s 및/또는 템플리트가 있습니다."
 
 #, python-format
 msgid ""
@@ -1021,6 +1008,14 @@ msgid "Network interfaces parameter must contain at least one interface."
 msgstr ""
 
 msgid "Only one interface is allowed for 'bridge' and 'macvtap' networks."
+msgstr ""
+
+msgid "Subnet is not a valid parameter for this type of virtual network."
+msgstr ""
+
+msgid ""
+"VLAN ID and interfaces are not valid parameters for this type of virtual "
+"network."
 msgstr ""
 
 #, python-format
@@ -1197,8 +1192,220 @@ msgid ""
 "paramaters."
 msgstr ""
 
+msgid ""
+"Parameter 'cpu_info' expects an object with fields among: 'vcpus', "
+"'maxvcpus', 'topology'."
+msgstr ""
+
+msgid ""
+"Parameter 'topology' expects an object with fields among: 'sockets', "
+"'cores', 'threads'."
+msgstr ""
+
 #, python-format
 msgid "Invalid volume group name parameter: %(name)s."
+msgstr ""
+
+msgid ""
+"Unable to establish connection with libvirt. Please check your libvirt URI "
+"which is often defined in /etc/libvirt/libvirt.conf"
+msgstr ""
+
+msgid ""
+"Libvirt service is not active. Please start the libvirt service in your host "
+"system."
+msgstr ""
+
+msgid "Failed to register the default event implementation."
+msgstr ""
+
+msgid "Failed to register timeout event."
+msgstr ""
+
+msgid "Failed to Run the default event implementation."
+msgstr ""
+
+#, python-format
+msgid ""
+"I/O error on guest '%(vm)s': storage pool out of space for %(devAlias)s "
+"(%(srcPath)s)."
+msgstr ""
+
+#, python-format
+msgid "Created %(connection)s virtual network '%(name)s'"
+msgstr ""
+
+#, python-format
+msgid "Removed virtual network '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Updated virtual network '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Activated virtual network '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Deactivated virtual network '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Created %(type)s storage pool '%(name)s'"
+msgstr ""
+
+#, python-format
+msgid "Removed storage pool '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Updated storage pool '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Activated storage pool '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Deactivated storage pool '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Created snapshot '%(name)s' at guest '%(vm)s'"
+msgstr ""
+
+#, python-format
+msgid "Removed snapshot '%(ident)s' from guest '%(vm)s'"
+msgstr ""
+
+#, python-format
+msgid "Reverted guest '%(vm)s' to snapshot '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Created template '%(name)s'"
+msgstr ""
+
+#, python-format
+msgid "Removed template '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Updated template '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Cloned template '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Created guest '%(name)s' from template '%(template)s'"
+msgstr ""
+
+#, python-format
+msgid "Removed guest '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Edited guest '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Started guest '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Powered off guest '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Shutdown guest '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Restarted guest '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Connected to guest '%(ident)s' through novnc/spice"
+msgstr ""
+
+#, python-format
+msgid "Cloned guest '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Migrated guest '%(ident)s' to '%(remote_host)s'"
+msgstr ""
+
+#, python-format
+msgid "Suspended guest '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Resumed guest '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Connected to guest '%(ident)s' through serial"
+msgstr ""
+
+#, python-format
+msgid "Attached host device '%(name)s' to guest '%(vmid)s'"
+msgstr ""
+
+#, python-format
+msgid "Detached host device '%(ident)s' from guest '%(vmid)s'"
+msgstr ""
+
+#, python-format
+msgid "Attached network interface '%(network)s' to guest '%(vm)s'"
+msgstr ""
+
+#, python-format
+msgid "Detached network interface '%(ident)s' from guest '%(vm)s'"
+msgstr ""
+
+#, python-format
+msgid "Updated network interface '%(ident)s' at guest '%(vm)s'"
+msgstr ""
+
+#, python-format
+msgid "Attached %(type)s storage '%(path)s' to guest '%(vm)s'"
+msgstr ""
+
+#, python-format
+msgid "Removed storage '%(ident)s' from guest '%(vm)s'"
+msgstr ""
+
+#, python-format
+msgid "Updated storage '%(ident)s' at guest '%(vm)s'"
+msgstr ""
+
+#, python-format
+msgid "Created storage volume '%(name)s' at pool '%(pool)s'"
+msgstr ""
+
+#, python-format
+msgid "Removed storage volume '%(ident)s' from pool '%(pool)s'"
+msgstr ""
+
+#, python-format
+msgid "Updated storage volume '%(ident)s' at pool '%(pool)s'"
+msgstr ""
+
+#, python-format
+msgid "Wiped storage volume '%(ident)s' off pool '%(pool)s'"
+msgstr ""
+
+#, python-format
+msgid ""
+"Resized storage volume '%(ident)s' at pool '%(pool)s' with size %(size)s"
+msgstr ""
+
+#, python-format
+msgid "Cloned storage volume '%(ident)s' at pool '%(pool)s'"
 msgstr ""
 
 msgid "Create a New Virtual Machine"
@@ -1223,14 +1430,20 @@ msgstr "템플리트 작성"
 msgid "Please choose a template."
 msgstr "템플리트를 선택하십시오."
 
+msgid "This template has invalid parameters."
+msgstr ""
+
+msgid "This template has invalid parameters"
+msgstr ""
+
 msgid "OS"
 msgstr "OS"
 
 msgid "Version"
 msgstr "버전"
 
-msgid "CPUs"
-msgstr "CPU"
+msgid "Current CPUs"
+msgstr ""
 
 msgid "Memory"
 msgstr "메모리"
@@ -1243,6 +1456,21 @@ msgstr "작성 중..."
 
 msgid "Cancel"
 msgstr "취소"
+
+msgid "Clone a Guest"
+msgstr ""
+
+msgid ""
+"When the target guest has SCSI or iSCSI volumes, they will be cloned on the "
+"default storage pool. The same will happen when the target pool does not "
+"have enough space to clone the volumes. Do you want to continue?"
+msgstr ""
+
+msgid "Number of times to clone"
+msgstr ""
+
+msgid "Continue"
+msgstr ""
 
 msgid "Edit Guest"
 msgstr "게스트 편집"
@@ -1406,7 +1634,7 @@ msgstr ""
 msgid "Processors Utilization"
 msgstr ""
 
-msgid "Memory Available"
+msgid "Memory Utilization"
 msgstr ""
 
 msgid "Storage I/O"
@@ -1517,9 +1745,6 @@ msgstr "스토리지"
 msgid "This is not a valid Linux path"
 msgstr "올바른 Linux 경로가 아닙니다."
 
-msgid "This is not a valid URL."
-msgstr "올바른 URL이 아닙니다."
-
 msgid "Unable to read file."
 msgstr "파일을 읽을 수 없습니다. "
 
@@ -1560,6 +1785,12 @@ msgid "View Table"
 msgstr ""
 
 msgid "View Gallery"
+msgstr ""
+
+msgid "Not Available"
+msgstr ""
+
+msgid "Please check the invalid Storage Pools"
 msgstr ""
 
 msgid ""
@@ -1604,14 +1835,14 @@ msgstr ""
 "이 가상 머신은  지속적이지 않습니다. 전원을 끄면 삭제됩니다. 계속하시겠습니"
 "까?"
 
-msgid ""
-"When the target guest has SCSI or iSCSI volumes, they will be cloned on "
-"default storage pool. The same will happen when the target pool does not "
-"have enough space to clone the volumes. Do you want to continue?"
+msgid "Input is not a number"
 msgstr ""
-"대상 게스트에 SCSI 또는 iSCSI 볼륨이 있으면 기본 스토리지 풀에복제됩니다. 대"
-"상 풀에 볼륨을 복제할 수 있는 공간이 충분하지 않은 경우에도마찬가지입니다. 계"
-"속하시겠습니까?"
+
+msgid "Memory value cannot be higher than Max Memory value"
+msgstr ""
+
+msgid "Current CPUs value cannot be higher than Max CPU value"
+msgstr ""
 
 msgid ""
 "This CDROM will be detached permanently and you can re-attach it. Continue "
@@ -1704,6 +1935,12 @@ msgstr "iSCSI가 없습니다. 입력하십시오."
 msgid "Failed to load iSCSI targets."
 msgstr "iSCSI 대상을 로드하지 못했습니다."
 
+msgid "Would you like to continue?"
+msgstr ""
+
+msgid "This will permanently delete the following storage volumes: %1"
+msgstr ""
+
 msgid "Invalid NFS mount path."
 msgstr "올바르지 않은 NFS 마운트 경로입니다."
 
@@ -1735,6 +1972,12 @@ msgstr "실패함!"
 msgid "No LVM found in the system."
 msgstr ""
 
+msgid "This will permanently wipe the following storage volumes: %1"
+msgstr ""
+
+msgid "Wipe Confirmation"
+msgstr ""
+
 msgid "CDROM path needs to be a valid local/remote path and cannot be blank."
 msgstr "CDROM 경로는 올바른 로컬/원격 경로여야 하며 비워둘 수 없습니다."
 
@@ -1763,6 +2006,11 @@ msgid "Macvtap: Virtual machines are connected to physical network directly"
 msgstr ""
 
 msgid ""
+"Passthrough: Virtual machines are connected using a macvtap connection in "
+"passthrough mode."
+msgstr ""
+
+msgid ""
 "VEPA: special mode where virtual machines are connected to a VEPA-enabled "
 "switch"
 msgstr ""
@@ -1776,11 +2024,20 @@ msgstr "(인터페이스를 찾을 수 없음)"
 msgid "Destination"
 msgstr "목적지"
 
+msgid "Select an Interface"
+msgstr ""
+
 msgid "Enable VLAN"
 msgstr "VLAN 사용"
 
 msgid "VLAN ID"
 msgstr "VLAN ID"
+
+msgid "Edit Network"
+msgstr ""
+
+msgid "Address Space"
+msgstr ""
 
 msgid "Define a New Storage Pool"
 msgstr "새 스토리지 풀 정의"
@@ -1879,23 +2136,26 @@ msgstr "파일 업로드"
 msgid "Choose the file you want to upload."
 msgstr "업로드할 파일을 선택하십시오."
 
+msgid "Resize Volume"
+msgstr ""
+
+msgid "Size"
+msgstr ""
+
+msgid "The total space which can be used to store data. The unit is megabytes."
+msgstr ""
+
+msgid "Ok"
+msgstr ""
+
 msgid "Add Template"
 msgstr "템플리트 추가"
 
-msgid "Where is the source media for this template? "
-msgstr "이 템플리트의 소스 매체는 어디에 있습니까?"
-
-msgid "Local ISO Image"
-msgstr "로컬 ISO 이미지"
-
-msgid "Local Image File"
-msgstr "로컬 이미지 파일"
-
-msgid "Remote ISO Image"
-msgstr "원격 ISO 이미지"
-
-msgid "Provide a File Path for a specific ISO image:"
+msgid "Loading..."
 msgstr ""
+
+msgid "File Path:"
+msgstr "파일 경로:"
 
 msgid "Search ISOs"
 msgstr "ISO 검색"
@@ -1903,23 +2163,8 @@ msgstr "ISO 검색"
 msgid "The following ISOs are available:"
 msgstr "다음 ISO가 사용 가능합니다."
 
-msgid "Size"
-msgstr ""
-
 msgid "Search more ISOs"
 msgstr "추가 ISO 검색"
-
-msgid "File Path:"
-msgstr "파일 경로:"
-
-msgid "Provide a URL for a specific ISO image:"
-msgstr ""
-
-msgid "Loading default remote ISOs ..."
-msgstr "기본 원격 ISO 로드 중..."
-
-msgid "Arch"
-msgstr ""
 
 msgid "Edit Template"
 msgstr "템플리트 편집"
@@ -1954,8 +2199,8 @@ msgstr ""
 msgid "Add Interface"
 msgstr ""
 
-msgid "CPU Number"
-msgstr "CPU 번호"
+msgid "Current CPU Number"
+msgstr ""
 
 msgid "Manually set CPU topology"
 msgstr "CPU 토폴로지 수동 설정"

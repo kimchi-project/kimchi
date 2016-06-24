@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-23 18:42-0300\n"
+"POT-Creation-Date: 2016-06-24 09:43-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -109,6 +109,10 @@ msgstr ""
 "inclua o '%(user)s' no grupo de caminhos ISO ou (não recomendado) 'chmod -R o"
 "+x 'path_to_iso'.Detalhes: %(err)s"
 
+#, python-format
+msgid "Unable to access remote ISO. Details: %(err)s"
+msgstr ""
+
 msgid "An error occurred when probing image OS information."
 msgstr "Ocorreu um erro com a imagem de análise das informações de S.O."
 
@@ -131,14 +135,6 @@ msgstr "A máquina virtual %(name)s já existe"
 #, python-format
 msgid "Virtual machine %(name)s does not exist"
 msgstr "A máquina virtual %(name)s não existe"
-
-#, python-format
-msgid ""
-"Unable to rename virtual machine %(name)s. The name %(new_name)s is already "
-"in use or the virtual machine is not powered off."
-msgstr ""
-"Não é possível renomear a máquina virtual %(name)s. O nome %(new_name)s já "
-"existe em uso ou a máquina virtual não está desligada."
 
 #, python-format
 msgid "Unable to retrieve screenshot for stopped virtual machine %(name)s"
@@ -289,15 +285,8 @@ msgstr ""
 msgid "Only increase memory is allowed in active VMs"
 msgstr "Somente aumentar memória é permitido em VMs ativas"
 
-msgid ""
-"For live memory update, new memory value must be equal old memory value plus "
-"multiples of 1024 Mib"
+msgid "There are not enough free slots to add a new memory device."
 msgstr ""
-"Para atualização de memória em tempo real, o novo valor de memória deve ser "
-"igual ao valor de memória antigo mais múltiplos de 1024 Mib"
-
-msgid "There are not enough free slots of 1024 Mib in the guest."
-msgstr "Não há slots livres de 1024 Mib suficientes na máquina guest."
 
 msgid ""
 "Host's libvirt or qemu version does not support memory devices and memory "
@@ -527,6 +516,10 @@ msgid "Template %(name)s already exists"
 msgstr "O modelo %(name)s já existe"
 
 #, python-format
+msgid "Source media %(path)s not found"
+msgstr ""
+
+#, python-format
 msgid ""
 "Network '%(network)s' specified for template %(template)s does not exist"
 msgstr ""
@@ -538,12 +531,6 @@ msgid ""
 msgstr ""
 "O banco de armazenamento %(pool)s especificado para o modelo %(template)s "
 "não existe"
-
-#, python-format
-msgid "Storage pool %(pool)s specified for template %(template)s is not active"
-msgstr ""
-"O banco de armazenamento %(pool)s especificado para o modelo %(template)s "
-"não está ativo"
 
 #, python-format
 msgid "Invalid parameter '%(param)s' specified for CDROM."
@@ -583,10 +570,9 @@ msgid "Invalid storage pool URI %(value)s specified for template"
 msgstr ""
 "URI do banco de armazenamento %(value)s inválido especificado para modelo"
 
-msgid "Specify an ISO image as CDROM or a base image to create a template"
+msgid ""
+"Specify a path to source media (ISO, disk or remote ISO) to create a template"
 msgstr ""
-"Especifique uma imagem ISO como CD-ROM ou uma imagem base para criar um "
-"modelo"
 
 msgid "All networks for the template must be specified in a list."
 msgstr "Todas as redes para o modelo devem ser especificadas em uma lista."
@@ -611,9 +597,6 @@ msgstr "Não é possível excluir o modelo devido ao erro: %(err)s"
 msgid "Disk size must be an integer greater than 1GB."
 msgstr "O tamanho do disco deve ser um número inteiro maior que 1 GB."
 
-msgid "Template base image must be a valid local image file"
-msgstr "A imagem base do modelo deve ser um arquivo de imagem local válido"
-
 #, python-format
 msgid "Cannot identify base image %(path)s format"
 msgstr "Não é possível identificar o formato da imagem base %(path)s"
@@ -626,11 +609,8 @@ msgstr ""
 "maior que zero."
 
 msgid ""
-"Invalid disk image format. Valid formats: bochs, cloop, cow, dmg, qcow, "
-"qcow2, qed, raw, vmdk, vpc."
+"Invalid disk image format. Valid formats: qcow, qcow2, qed, raw, vmdk, vpc."
 msgstr ""
-"Formato da imagem do disco inválido. Formatos válidos: bochs, cloop, cow, "
-"dmg, qcow, qcow2, qed, raw, vmdk, vpc."
 
 msgid ""
 "When setting template disks, following parameters are required: 'index', "
@@ -649,6 +629,13 @@ msgstr ""
 msgid ""
 "Memory value (%(mem)sMiB) must be equal or lesser than maximum memory value "
 "(%(maxmem)sMiB)"
+msgstr ""
+
+#, python-format
+msgid "Unable to update template due error: %(err)s"
+msgstr ""
+
+msgid "Parameter 'disks' requires at least one disk object"
 msgstr ""
 
 #, python-format
@@ -891,11 +878,9 @@ msgid "Storage volume allocation must be an integer number"
 msgstr "A alocação do volume de armazenamento deve ser um número inteiro"
 
 msgid ""
-"Storage volume format not supported. Valid formats: bochs, cloop, cow, dmg, "
-"qcow, qcow2, qed, raw, vmdk, vpc."
+"Storage volume format not supported. Valid formats: qcow, qcow2, qed, raw, "
+"vmdk, vpc."
 msgstr ""
-"Formato do volume de armazenamento não suportado. Formatos válidos: bochs, "
-"cloop, cow, dmg, qcow, qcow2, qed, raw, vmdk, vpc."
 
 msgid "Storage volume requires a volume name"
 msgstr "O volume de armazenamento requer um nome de volume"
@@ -986,8 +971,8 @@ msgid "Specify a network interface to create bridged or macvtap networks."
 msgstr ""
 
 #, python-format
-msgid "Unable to delete active network %(name)s"
-msgstr "Não é possível excluir a rede ativa %(name)s"
+msgid "Unable to delete or update active network %(name)s"
+msgstr ""
 
 #, python-format
 msgid "Interface %(iface)s specified for network %(network)s is already in use"
@@ -998,8 +983,8 @@ msgid "Interface should be bare NIC, bonding or bridge device."
 msgstr "A interface deve ser um dispositivo bare NIC, de ligação ou bridge."
 
 #, python-format
-msgid "Unable to create network %(name)s. Details: %(err)s"
-msgstr "Não é possível criar a rede %(name)s. Detalhes: %(err)s"
+msgid "Unable to create or update network %(name)s. Details: %(err)s"
+msgstr ""
 
 #, python-format
 msgid "Unable to find a free IP address for network '%(name)s'"
@@ -1012,7 +997,9 @@ msgstr "A interface %(iface)s já existe."
 msgid "Network name must be a string without slashes (/) or quotes (\")"
 msgstr "O nome da rede deve ser uma sequência sem barras (/) ou aspas (\")"
 
-msgid "Supported network types are isolated, NAT, macvtap, bridge and vepa"
+msgid ""
+"Supported network types are isolated, NAT, macvtap, bridge, vepa and "
+"passthrough."
 msgstr ""
 
 msgid "Network subnet must be a string with IP address and prefix or netmask"
@@ -1031,11 +1018,9 @@ msgstr "Especifique o nome e o tipo para criar uma Rede"
 
 #, python-format
 msgid ""
-"Unable to delete network %(name)s. There are some virtual machines %(vms)s "
-"and/or templates linked to this network."
+"Unable to delete or update network %(name)s. There are some virtual machines "
+"%(vms)s and/or templates linked to this network."
 msgstr ""
-"Não é possível excluir a rede %(name)s. Existem algumas máquinas virtuais "
-"%(vms)s e/ou modelos vinculados a essa rede."
 
 #, python-format
 msgid ""
@@ -1085,6 +1070,14 @@ msgid "Network interfaces parameter must contain at least one interface."
 msgstr ""
 
 msgid "Only one interface is allowed for 'bridge' and 'macvtap' networks."
+msgstr ""
+
+msgid "Subnet is not a valid parameter for this type of virtual network."
+msgstr ""
+
+msgid ""
+"VLAN ID and interfaces are not valid parameters for this type of virtual "
+"network."
 msgstr ""
 
 #, python-format
@@ -1277,8 +1270,220 @@ msgid ""
 "paramaters."
 msgstr ""
 
+msgid ""
+"Parameter 'cpu_info' expects an object with fields among: 'vcpus', "
+"'maxvcpus', 'topology'."
+msgstr ""
+
+msgid ""
+"Parameter 'topology' expects an object with fields among: 'sockets', "
+"'cores', 'threads'."
+msgstr ""
+
 #, python-format
 msgid "Invalid volume group name parameter: %(name)s."
+msgstr ""
+
+msgid ""
+"Unable to establish connection with libvirt. Please check your libvirt URI "
+"which is often defined in /etc/libvirt/libvirt.conf"
+msgstr ""
+
+msgid ""
+"Libvirt service is not active. Please start the libvirt service in your host "
+"system."
+msgstr ""
+
+msgid "Failed to register the default event implementation."
+msgstr ""
+
+msgid "Failed to register timeout event."
+msgstr ""
+
+msgid "Failed to Run the default event implementation."
+msgstr ""
+
+#, python-format
+msgid ""
+"I/O error on guest '%(vm)s': storage pool out of space for %(devAlias)s "
+"(%(srcPath)s)."
+msgstr ""
+
+#, python-format
+msgid "Created %(connection)s virtual network '%(name)s'"
+msgstr ""
+
+#, python-format
+msgid "Removed virtual network '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Updated virtual network '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Activated virtual network '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Deactivated virtual network '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Created %(type)s storage pool '%(name)s'"
+msgstr ""
+
+#, python-format
+msgid "Removed storage pool '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Updated storage pool '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Activated storage pool '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Deactivated storage pool '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Created snapshot '%(name)s' at guest '%(vm)s'"
+msgstr ""
+
+#, python-format
+msgid "Removed snapshot '%(ident)s' from guest '%(vm)s'"
+msgstr ""
+
+#, python-format
+msgid "Reverted guest '%(vm)s' to snapshot '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Created template '%(name)s'"
+msgstr ""
+
+#, python-format
+msgid "Removed template '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Updated template '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Cloned template '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Created guest '%(name)s' from template '%(template)s'"
+msgstr ""
+
+#, python-format
+msgid "Removed guest '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Edited guest '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Started guest '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Powered off guest '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Shutdown guest '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Restarted guest '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Connected to guest '%(ident)s' through novnc/spice"
+msgstr ""
+
+#, python-format
+msgid "Cloned guest '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Migrated guest '%(ident)s' to '%(remote_host)s'"
+msgstr ""
+
+#, python-format
+msgid "Suspended guest '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Resumed guest '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Connected to guest '%(ident)s' through serial"
+msgstr ""
+
+#, python-format
+msgid "Attached host device '%(name)s' to guest '%(vmid)s'"
+msgstr ""
+
+#, python-format
+msgid "Detached host device '%(ident)s' from guest '%(vmid)s'"
+msgstr ""
+
+#, python-format
+msgid "Attached network interface '%(network)s' to guest '%(vm)s'"
+msgstr ""
+
+#, python-format
+msgid "Detached network interface '%(ident)s' from guest '%(vm)s'"
+msgstr ""
+
+#, python-format
+msgid "Updated network interface '%(ident)s' at guest '%(vm)s'"
+msgstr ""
+
+#, python-format
+msgid "Attached %(type)s storage '%(path)s' to guest '%(vm)s'"
+msgstr ""
+
+#, python-format
+msgid "Removed storage '%(ident)s' from guest '%(vm)s'"
+msgstr ""
+
+#, python-format
+msgid "Updated storage '%(ident)s' at guest '%(vm)s'"
+msgstr ""
+
+#, python-format
+msgid "Created storage volume '%(name)s' at pool '%(pool)s'"
+msgstr ""
+
+#, python-format
+msgid "Removed storage volume '%(ident)s' from pool '%(pool)s'"
+msgstr ""
+
+#, python-format
+msgid "Updated storage volume '%(ident)s' at pool '%(pool)s'"
+msgstr ""
+
+#, python-format
+msgid "Wiped storage volume '%(ident)s' off pool '%(pool)s'"
+msgstr ""
+
+#, python-format
+msgid ""
+"Resized storage volume '%(ident)s' at pool '%(pool)s' with size %(size)s"
+msgstr ""
+
+#, python-format
+msgid "Cloned storage volume '%(ident)s' at pool '%(pool)s'"
 msgstr ""
 
 msgid "Create a New Virtual Machine"
@@ -1303,14 +1508,20 @@ msgstr "Criar um modelo"
 msgid "Please choose a template."
 msgstr "Escolha um modelo."
 
+msgid "This template has invalid parameters."
+msgstr ""
+
+msgid "This template has invalid parameters"
+msgstr ""
+
 msgid "OS"
 msgstr "S.O."
 
 msgid "Version"
 msgstr "Versão"
 
-msgid "CPUs"
-msgstr "CPUs"
+msgid "Current CPUs"
+msgstr ""
 
 msgid "Memory"
 msgstr "Memória"
@@ -1323,6 +1534,21 @@ msgstr "Criando..."
 
 msgid "Cancel"
 msgstr "Cancelar"
+
+msgid "Clone a Guest"
+msgstr ""
+
+msgid ""
+"When the target guest has SCSI or iSCSI volumes, they will be cloned on the "
+"default storage pool. The same will happen when the target pool does not "
+"have enough space to clone the volumes. Do you want to continue?"
+msgstr ""
+
+msgid "Number of times to clone"
+msgstr ""
+
+msgid "Continue"
+msgstr ""
 
 msgid "Edit Guest"
 msgstr "Editar máquina guest"
@@ -1486,7 +1712,7 @@ msgstr ""
 msgid "Processors Utilization"
 msgstr ""
 
-msgid "Memory Available"
+msgid "Memory Utilization"
 msgstr ""
 
 msgid "Storage I/O"
@@ -1597,9 +1823,6 @@ msgstr "Armazenamento"
 msgid "This is not a valid Linux path"
 msgstr "Este não é um caminho do Linux válido"
 
-msgid "This is not a valid URL."
-msgstr "Esta não é uma URL válida."
-
 msgid "Unable to read file."
 msgstr "Não é possível ler o arquivo."
 
@@ -1640,6 +1863,12 @@ msgid "View Table"
 msgstr ""
 
 msgid "View Gallery"
+msgstr ""
+
+msgid "Not Available"
+msgstr ""
+
+msgid "Please check the invalid Storage Pools"
 msgstr ""
 
 msgid ""
@@ -1686,15 +1915,14 @@ msgstr ""
 "Essa máquina virtual não é persistente. O desligamento irá excluí-lo. "
 "Continuar?"
 
-msgid ""
-"When the target guest has SCSI or iSCSI volumes, they will be cloned on "
-"default storage pool. The same will happen when the target pool does not "
-"have enough space to clone the volumes. Do you want to continue?"
+msgid "Input is not a number"
 msgstr ""
-"Quando a máquina guest de destino tiver volumes SCSI ou iSCSI, eles serão "
-"clonados no banco de armazenamento padrão. O mesmo ocorrerá quando o banco "
-"de destino não tiver espaço suficiente para clonar os volumes. Deseja "
-"continuar?"
+
+msgid "Memory value cannot be higher than Max Memory value"
+msgstr ""
+
+msgid "Current CPUs value cannot be higher than Max CPU value"
+msgstr ""
 
 msgid ""
 "This CDROM will be detached permanently and you can re-attach it. Continue "
@@ -1791,6 +2019,12 @@ msgstr "Nenhum iSCSI localizado. Insira um."
 msgid "Failed to load iSCSI targets."
 msgstr "Falha ao carregar destinos iSCSI."
 
+msgid "Would you like to continue?"
+msgstr ""
+
+msgid "This will permanently delete the following storage volumes: %1"
+msgstr ""
+
 msgid "Invalid NFS mount path."
 msgstr "Caminho de montagem do NFS inválido."
 
@@ -1820,6 +2054,12 @@ msgid "Failed!"
 msgstr "Falhou!"
 
 msgid "No LVM found in the system."
+msgstr ""
+
+msgid "This will permanently wipe the following storage volumes: %1"
+msgstr ""
+
+msgid "Wipe Confirmation"
 msgstr ""
 
 msgid "CDROM path needs to be a valid local/remote path and cannot be blank."
@@ -1852,6 +2092,11 @@ msgid "Macvtap: Virtual machines are connected to physical network directly"
 msgstr ""
 
 msgid ""
+"Passthrough: Virtual machines are connected using a macvtap connection in "
+"passthrough mode."
+msgstr ""
+
+msgid ""
 "VEPA: special mode where virtual machines are connected to a VEPA-enabled "
 "switch"
 msgstr ""
@@ -1865,11 +2110,20 @@ msgstr "(Nenhuma interface localizada)"
 msgid "Destination"
 msgstr "Destino"
 
+msgid "Select an Interface"
+msgstr ""
+
 msgid "Enable VLAN"
 msgstr "Ativar VLAN"
 
 msgid "VLAN ID"
 msgstr "ID de VLAN"
+
+msgid "Edit Network"
+msgstr ""
+
+msgid "Address Space"
+msgstr ""
 
 msgid "Define a New Storage Pool"
 msgstr "Definir um novo banco de armazenamento"
@@ -1972,23 +2226,26 @@ msgstr "Fazer upload de um arquivo"
 msgid "Choose the file you want to upload."
 msgstr "Escolher o arquivo do qual você deseja fazer upload."
 
+msgid "Resize Volume"
+msgstr ""
+
+msgid "Size"
+msgstr "Tamanho"
+
+msgid "The total space which can be used to store data. The unit is megabytes."
+msgstr ""
+
+msgid "Ok"
+msgstr ""
+
 msgid "Add Template"
 msgstr "Incluir Modelo"
 
-msgid "Where is the source media for this template? "
-msgstr "Onde está a mídia de origem para este modelo? "
+msgid "Loading..."
+msgstr ""
 
-msgid "Local ISO Image"
-msgstr "Imagem ISO local"
-
-msgid "Local Image File"
-msgstr "Arquivo da imagem local"
-
-msgid "Remote ISO Image"
-msgstr "Imagem ISO remota"
-
-msgid "Provide a File Path for a specific ISO image:"
-msgstr "Forneça o caminho do arquivo para uma imagem ISO específica:"
+msgid "File Path:"
+msgstr "Caminho do arquivo: "
 
 msgid "Search ISOs"
 msgstr "Procurar ISOs"
@@ -1996,23 +2253,8 @@ msgstr "Procurar ISOs"
 msgid "The following ISOs are available:"
 msgstr "Os ISOs a seguir estão disponíveis:"
 
-msgid "Size"
-msgstr "Tamanho"
-
 msgid "Search more ISOs"
 msgstr "Procurar mais ISOs"
-
-msgid "File Path:"
-msgstr "Caminho do arquivo: "
-
-msgid "Provide a URL for a specific ISO image:"
-msgstr "Forneça uma URL para uma imagem ISO específica:"
-
-msgid "Loading default remote ISOs ..."
-msgstr "Carregando ISOs remotos padrão..."
-
-msgid "Arch"
-msgstr "Arq. "
 
 msgid "Edit Template"
 msgstr "Editar modelo"
@@ -2047,8 +2289,8 @@ msgstr "Incluir Armazenamento"
 msgid "Add Interface"
 msgstr "Incluir Interface"
 
-msgid "CPU Number"
-msgstr "Número de CPU"
+msgid "Current CPU Number"
+msgstr ""
 
 msgid "Manually set CPU topology"
 msgstr "Configurar manualmente a topologia da CPU"
