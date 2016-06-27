@@ -52,7 +52,10 @@ class StoragePools(Collection):
         self.resource = StoragePool
         isos = IsoPool(model)
         setattr(self, ISO_POOL_NAME, isos)
+
+        # set user log messages and make sure all parameters are present
         self.log_map = STORAGEPOOLS_REQUESTS
+        self.log_args.update({'name': '', 'type': ''})
 
     def create(self, params, *args):
         try:

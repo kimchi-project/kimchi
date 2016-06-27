@@ -45,6 +45,8 @@ class VMIfaces(Collection):
         self.vm = vm
         self.resource_args = [self.vm, ]
         self.model_args = [self.vm, ]
+
+        # set user log messages and make sure all parameters are present
         self.log_map = VMIFACES_REQUESTS
         self.log_args.update({
             'network': '',
@@ -60,6 +62,8 @@ class VMIface(Resource):
         self.info = {}
         self.model_args = [self.vm, self.ident]
         self.uri_fmt = '/vms/%s/ifaces/%s'
+
+        # set user log messages and make sure all parameters are present
         self.log_map = VMIFACE_REQUESTS
         self.log_args.update({
             'vm': self.vm.encode('utf-8') if self.vm else '',

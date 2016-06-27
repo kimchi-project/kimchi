@@ -40,8 +40,11 @@ class VMHostDevs(AsyncCollection):
         self.vmid = vmid
         self.resource_args = [self.vmid, ]
         self.model_args = [self.vmid, ]
+
+        # set user log messages and make sure all parameters are present
         self.log_map = VMHOSTDEVS_REQUESTS
         self.log_args.update({
+            'name': '',
             'vmid': self.vmid.encode('utf-8') if self.vmid else '',
         })
 
@@ -52,6 +55,8 @@ class VMHostDev(AsyncResource):
         self.vmid = vmid
         self.ident = ident
         self.model_args = [self.vmid, self.ident]
+
+        # set user log messages and make sure all parameters are present
         self.log_map = VMHOSTDEV_REQUESTS
         self.log_args.update({
             'vmid': self.vmid.encode('utf-8') if self.vmid else '',

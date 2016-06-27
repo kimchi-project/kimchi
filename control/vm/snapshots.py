@@ -42,6 +42,8 @@ class VMSnapshots(AsyncCollection):
         self.resource_args = [self.vm, ]
         self.model_args = [self.vm, ]
         self.current = CurrentVMSnapshot(model, vm)
+
+        # set user log messages and make sure all parameters are present
         self.log_map = VMSNAPSHOTS_REQUESTS
         self.log_args.update({
             'vm': self.vm.encode('utf-8') if self.vm else '',
@@ -57,6 +59,8 @@ class VMSnapshot(Resource):
         self.model_args = [self.vm, self.ident]
         self.uri_fmt = '/vms/%s/snapshots/%s'
         self.revert = self.generate_action_handler('revert')
+
+        # set user log messages and make sure all parameters are present
         self.log_map = VMSNAPSHOT_REQUESTS
         self.log_args.update({
             'vm': self.vm.encode('utf-8') if self.vm else '',

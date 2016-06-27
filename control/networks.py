@@ -42,7 +42,10 @@ class Networks(Collection):
         self.role_key = 'network'
         self.admin_methods = ['POST']
         self.resource = Network
+
+        # set user log messages and make sure all parameters are present
         self.log_map = NETWORKS_REQUESTS
+        self.log_args.update({'connection': '', 'name': ''})
 
 
 class Network(Resource):
