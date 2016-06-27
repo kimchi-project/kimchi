@@ -339,12 +339,12 @@ messages = {
     "KCHEVENT0004W": _("I/O error on guest '%(vm)s': storage pool out of space for %(devAlias)s (%(srcPath)s)."),
 
     # These messages (ending with L) are for user log purposes
-    "KCHNET0001L": _("Created %(connection)s virtual network '%(name)s'"),
+    "KCHNET0001L": _("Created virtual network '%(name)s' type '%(connection)s'"),
     "KCHNET0002L": _("Removed virtual network '%(ident)s'"),
     "KCHNET0003L": _("Updated virtual network '%(ident)s'"),
     "KCHNET0004L": _("Activated virtual network '%(ident)s'"),
     "KCHNET0005L": _("Deactivated virtual network '%(ident)s'"),
-    "KCHPOOL0001L": _("Created %(type)s storage pool '%(name)s'"),
+    "KCHPOOL0001L": _("Created storage pool '%(name)s' type '%(type)s'"),
     "KCHPOOL0002L": _("Removed storage pool '%(ident)s'"),
     "KCHPOOL0003L": _("Updated storage pool '%(ident)s'"),
     "KCHPOOL0004L": _("Activated storage pool '%(ident)s'"),

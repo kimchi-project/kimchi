@@ -41,10 +41,13 @@ class VMStorages(Collection):
         self.vm = vm
         self.resource_args = [self.vm, ]
         self.model_args = [self.vm, ]
+
+        # set user log messages and make sure all parameters are present
         self.log_map = VMSTORAGES_REQUESTS
         self.log_args.update({
             'vm': self.vm.encode('utf-8') if self.vm else '',
             'path': '',
+            'type': '',
         })
 
 
@@ -56,6 +59,8 @@ class VMStorage(Resource):
         self.info = {}
         self.model_args = [self.vm, self.ident]
         self.uri_fmt = '/vms/%s/storages/%s'
+
+        # set user log messages and make sure all parameters are present
         self.log_map = VMSTORAGE_REQUESTS
         self.log_args.update({
             'vm': self.vm.encode('utf-8') if self.vm else '',

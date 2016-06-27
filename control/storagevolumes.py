@@ -68,9 +68,12 @@ class StorageVolume(Resource):
         self.resize = self.generate_action_handler('resize', ['size'])
         self.wipe = self.generate_action_handler('wipe')
         self.clone = self.generate_action_handler_task('clone')
+
+        # set user log messages and make sure all parameters are present
         self.log_map = STORAGEVOLUME_REQUESTS
         self.log_args.update({
             'pool': self.pool.encode('utf-8') if self.pool else '',
+            'size': '',
         })
 
     @property

@@ -54,6 +54,8 @@ class VMs(AsyncCollection):
         self.resource = VM
         self.role_key = 'guests'
         self.admin_methods = ['POST']
+
+        # set user log messages and make sure all parameters are present
         self.log_map = VMS_REQUESTS
         self.log_args.update({'name': '', 'template': ''})
 
@@ -82,7 +84,10 @@ class VM(Resource):
         self.suspend = self.generate_action_handler('suspend')
         self.resume = self.generate_action_handler('resume')
         self.serial = self.generate_action_handler('serial')
+
+        # set user log messages and make sure all parameters are present
         self.log_map = VM_REQUESTS
+        self.log_args.update({'remote_host': ''})
 
     @property
     def data(self):

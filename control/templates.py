@@ -41,7 +41,10 @@ class Templates(Collection):
         self.role_key = 'templates'
         self.admin_methods = ['GET', 'POST']
         self.resource = Template
+
+        # set user log messages and make sure all parameters are present
         self.log_map = TEMPLATES_REQUESTS
+        self.log_args.update({'name': ''})
 
 
 class Template(Resource):
