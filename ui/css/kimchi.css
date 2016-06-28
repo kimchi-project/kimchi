@@ -1719,6 +1719,17 @@ body.wok-gallery {
   font-size: 32px;
 }
 
+#template-add-window span.iso-image-alert {
+  position: absolute;
+  bottom: 17px;
+  right: 45px;
+  font-size: 20px;
+}
+
+#template-add-window .tooltip-arrow {
+  display: none;
+}
+
 /* VM List View classes*/
 #templates-root-container .grid-control input[type="text"] {
   height: 38px;

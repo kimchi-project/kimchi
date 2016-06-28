@@ -32,6 +32,7 @@ kimchi.template_add_main = function() {
                     $(button + '-loading').show();
                 }
                 showLocalIsoField(isos);
+                $('[data-toggle="tooltip"]').tooltip();
             } else {
                 if (isFinished) {
                     wok.message.warn(i18n['KCHTMPL6001W'], '#local-iso-warning-container');
@@ -76,6 +77,14 @@ kimchi.template_add_main = function() {
                 volume.icon = 'fa fa-hdd-o';
             } else {
                 volume.icon = 'fa fa-globe';
+            }
+            if (!volume.hasOwnProperty('has_permission')) {
+                volume.has_permission = true;
+            }
+            if (volume.has_permission){
+                volume.volume_hidden = 'hidden';
+            } else {
+                volume.disabled = "disabled";
             }
             var isoId = volume.os_distro + '*' + volume.name + '*' + volume.os_version;
             if (!kimchi.isoInfo[isoId]) {
@@ -131,6 +140,7 @@ kimchi.template_add_main = function() {
                 $('#iso-search').show();
             }
             $('#loading-isos').fadeOut(100, function() {});
+            $('[data-toggle="tooltip"]').tooltip();
         });
     }, function(err) {
         wok.message.error(err.responseJSON.reason, '#local-iso-error-container');
@@ -216,7 +226,7 @@ kimchi.template_add_main = function() {
     });
 
     $('#select-all-local-iso').click(function() {
-        $('#list-local-iso [type="checkbox"]').prop('checked', $(this).prop('checked'));
+        $('#list-local-iso [data-permission="true"]').prop('checked', $(this).prop('checked'));
         if ($(this).prop('checked')) {
             $('#iso-file').val('');
             $('#iso-file').parent().removeClass('has-error');
