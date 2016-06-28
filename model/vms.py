@@ -86,9 +86,8 @@ VM_OFFLINE_UPDATE_PARAMS = ['cpu_info', 'graphics', 'groups', 'memory',
 XPATH_DOMAIN_DISK = "/domain/devices/disk[@device='disk']/source/@file"
 XPATH_DOMAIN_DISK_BY_FILE = "./devices/disk[@device='disk']/source[@file='%s']"
 XPATH_DOMAIN_NAME = '/domain/name'
-XPATH_DOMAIN_MAC = "/domain/devices/interface[@type='network']/mac/@address"
-XPATH_DOMAIN_MAC_BY_ADDRESS = "./devices/interface[@type='network']/"\
-                              "mac[@address='%s']"
+XPATH_DOMAIN_MAC = "/domain/devices/interface/mac/@address"
+XPATH_DOMAIN_MAC_BY_ADDRESS = "./devices/interface/mac[@address='%s']"
 XPATH_DOMAIN_MEMORY = '/domain/memory'
 XPATH_DOMAIN_MEMORY_UNIT = '/domain/memory/@unit'
 XPATH_DOMAIN_UUID = '/domain/uuid'
