@@ -76,7 +76,7 @@
                                         <script id="tmpl-list-local-iso" type="text/html">
                                             <li class="col-md-3">
                                                 <label class="box-iso-outer">
-                                                    <input type="checkbox" class="iso-checkbox-hidden" name="iso" value="{isoId}">
+                                                    <input type="checkbox" class="iso-checkbox-hidden" name="iso" value="{isoId}" {disabled} data-permission="{has_permission}">
                                                     <span class="box-iso-border">
                                                         <span class="box-iso-inner">
                                                             <h3 class="iso-title {os_distro}" title="{name}">
@@ -90,6 +90,7 @@
                                                                 <dt>{capacity}</dt>
                                                                 <dd>$_("Size")</dd>
                                                             </dl>
+                                                            <span data-toggle="tooltip" title="$_('QEMU does not have enough permission to work with this file')" class="{volume_hidden} iso-image-alert"><i class="fa fa-exclamation-triangle fa-lg"></i></span>
                                                             <span class="iso-image-indicator"><i class="{icon}"></i></span>
                                                         </span>
                                                     </span>
