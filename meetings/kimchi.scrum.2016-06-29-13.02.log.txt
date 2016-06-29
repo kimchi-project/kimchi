@@ -1,0 +1,189 @@
+13:02:11 <alinefm> #startmeeting
+13:02:12 <kimchi-bot> Meeting started Wed Jun 29 13:02:11 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:02:12 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:02:12 <alinefm> #meetingname scrum
+13:02:12 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:27 <alinefm> #info Agenda
+13:02:27 <alinefm> #info 1) Status
+13:02:27 <alinefm> #info 2) Open discussion
+13:02:27 <alinefm> anything else?
+13:03:46 <ziviani> no
+13:04:25 <alinefm> so let's get started
+13:04:26 <alinefm> #topic Status
+13:04:27 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+13:04:35 <alinefm> #info [Wok] [Kimchi] [Ginger*] pvital reviewed patches
+13:04:35 <alinefm> #info [Wok] pvital is investigating some performance issues in wokd (high CPU consumption when idle)
+13:04:35 <alinefm> #info [Kimchi] pvital submitted patch "Updates to support Fedora 24 and new distros"
+13:04:35 <alinefm> #info [Kimchi] pvital worked on build distro (Fedora23, openSUSE Leap 42.1 and Ubuntu 16.04) images with Kimchi 2.2 installed and configured.
+13:04:36 <alinefm> #info [Wok] [Kimchi] [Ginger*] pvital opened JIRA issue against oVirt Infrastructure team requesting support to repository service
+13:04:43 <peterpennings> #info [Ginger] peterpennings is working on SAN Adapters redesign
+13:04:47 <peterpennings> #info [Ginger] samhenri is working on Global Network Configuration redesign
+13:04:55 <alinefm> #info [Wok][Kimchi] socorro Tested/Reviewed patches
+13:04:57 <danielhb_> #info [*] danielhb reviewed and applied patches
+13:05:06 <alinefm> #info [Ginger] socorro Sent v2 of SR-IOV patch that takes care of 2 issues but
+13:05:07 <alinefm> #info [Ginger] socorro didn't do i18n per Daniel's feedback due to it being more
+13:05:07 <alinefm> #info [Ginger] socorro involved; just changed button "Ok" to "OK". Awaiting
+13:05:07 <alinefm> #info [Ginger] socorro approval
+13:05:07 <alinefm> #info [Kimchi] socorro Wrote 2 kimchi github issues that I came across when
+13:05:07 <alinefm> #info [Kimchi] socorro testing patches - issues# 969, 970
+13:05:10 <danielhb_> #info [ginger*] danielhb worked in the 2.2 community release
+13:05:22 <alinefm> #info [kimchi][wok] alinefm worked for 2.2 releases
+13:05:26 <danielhb_> #info [kimchi] danielhb worked in a couple of fixes
+13:05:38 <ziviani> #info [*] ziviani returned from vacation
+13:06:08 <bianca> #info [ginger] bianca working on a bug related to deleting configuration backup file in command line and not reflecting back in the UI. Investigating possible solutions.
+13:06:40 <lcorreia> #info [*] lcorreia got patches upstream to make sure log of failed requests does not break on requests with missing parameters
+13:06:40 <lcorreia> #info [wok] lcorreia got upstream fix for issue 100 - log failed user requests
+13:06:40 <lcorreia> #info [wok] lcorreia is working on run_command improvements
+13:06:40 <lcorreia> #info [ginger] lcorreia is working on firmware update improvements
+13:08:44 <alinefm> rotru_, anything else from your side?
+13:09:19 <rotru_> alinefm, no, I have no updates for this week, just continue working in Plugins Manager
+13:09:37 <rotru_> alinefm,  oh
+13:09:40 <rotru_> alinefm,  wait
+13:10:01 <chandra> #info, chandra working on audit pages ...
+13:10:36 <alinefm> rotru_, what about the mem hotplug issues? =)
+13:11:59 <chandra> #info reviewed ginger/gingers390x patches
+13:12:14 <rotru_> #info [ginger] rotru fixed problem to load wok when libvirt service is not running. The code to register libvirt events was breaking Wok start up.
+13:12:56 <chandra> 2
+13:13:43 <rotru_> #info [kimchi]  rotru is working to fix the memory hot plug code in order to support guests xmls with tags MEMORY different of CURRENTMEMORY
+13:14:49 <rotru_> alinefm,  I am also working in the HotUnplug, but this is not going to be merged upstream ... its for OpenPower Host OS only
+13:15:14 <alinefm> rotru_, ok - thanks for the update
+13:15:23 <alinefm> anything else, team?
+13:15:34 <pvital> no
+13:15:36 <pvital> :-P
+13:15:57 <ziviani> no
+13:16:03 <alinefm> pvital, I have shared your status =)
+13:16:09 <alinefm> #topic Open Discussion
+13:16:12 <pvital> alinefm, thanks! :-)
+13:16:25 <alinefm> First of all, I want to thank you all for the great job to have 2,2 releases done!
+13:16:30 <alinefm> keep it up! =)
+13:16:50 <alinefm> I could not think about the next release yet but I will do that and share anything in the ML
+13:17:04 <alinefm> the next release will be on last Friday of September (as always)
+13:17:10 <alinefm> any question?
+13:17:18 <chandra> Congratulations to all !!!
+13:17:53 <pvital> no questions! just want to say that if you need any help, ask us ;-)
+13:18:10 <chandra> alinefm, ticket https://github.com/kimchi-project/wok/issues/134
+13:18:16 <alinefm> pvital, sure!
+13:18:27 <alinefm> any input/suggestion for the next release is more then welcome
+13:18:43 <alinefm> you can propose new features, enhancements...
+13:18:50 <alinefm> all them will take place if you want
+13:19:13 <alinefm> chandra, danielhb_ has commented about that issue to me
+13:19:25 <alinefm> i don't see it as an issue as we enforce the connection via https
+13:20:16 <chandra> alinefm, right now there is way user may try http as well
+13:20:29 <alinefm> chandra, how?
+13:20:40 <alinefm> all http requests are redirected to https
+13:21:34 <chandra> so even user set https_only = false, all the requests redirected via https ?
+13:21:41 <alinefm> yeap
+13:22:00 <chandra> oh is it, in that case we are safe I guess
+13:22:03 <alinefm> chandra, when you do any request to HTTP (port 8000) it will be redirected to HTTPS (8001)
+13:22:21 <alinefm> chandra, yeap! I don't see issues on it since all the requests are done on HTTPS
+13:22:59 <chandra> ok good.
+13:23:20 <alinefm> any other topic for today?
+13:23:56 <chandra> Also any idea on password encryption via java script ?
+13:23:57 <pvital> no
+13:24:36 <chandra> which is translated system password encryption standards ?
+13:25:32 <alinefm> chandra, I don't know about it
+13:25:42 <alinefm> maybe peterpennings or samhenri have more inputs on it to share
+13:25:49 <alinefm> chandra, but how would be good for us?
+13:26:49 <chandra> there is one loop hole I could think of even if the password is transferred to the server and during the password processing on the server side
+13:27:09 <chandra> in the python code by transferring the password as it is...
+13:27:29 <peterpennings> I don´t think is a good idea to do it trought javascript.
+13:27:36 <samhenri> agreed
+13:28:11 <peterpennings> javascript runs on client side, it's not security
+13:28:26 <chandra> there is a possibility of debugs/log some admin with privileges can get to know others credentials ..
+13:29:02 <chandra> But is javascript is handling the password data then I feel it should take care such encryptions too...
+13:29:31 <alinefm> chandra, any admin with root access to the host system can do anything he/she wants
+13:29:34 <chandra> there are some developments in this area, for example cryptjs is one who does this...
+13:29:39 <alinefm> including adding a script to get the others password
+13:30:26 <chandra> nodejs does the password encryption techniques ...
+13:30:59 <alinefm> chandra, but how would that help us on security?
+13:31:16 <alinefm> we will need to decrypt it on server side
+13:31:31 <peterpennings> you mean change everything to nodejs?
+13:31:51 <chandra> alinefm, they encrypt the password on the client side and on the server side you do not require to decrypt if it generates data which system tools can understand it ...
+13:32:34 <chandra> peterpennings, I am not suggesting to change to nodejs but as an example I am referring nodejs does the encryption...
+13:33:10 <peterpennings> yes.. but it is a big change, nodejs runs on server side..
+13:33:23 <chandra> alinefm, you can simply pass same encrypted string to let us say libuser python binding, it understand how to save on to the system.
+13:34:04 <alinefm> to save to the system?
+13:34:06 <chandra> peterpennings, in any means I am not suggesting us to shift to nodejs
+13:34:06 <danielhb_> chandra, I am not sure what are the problem you're trying to address
+13:34:08 <alinefm> we don't save passwords
+13:34:42 <chandra> well ginger module does this for the user creation ... ie applies to password file ...
+13:36:01 <alinefm> chandra, I don't know how the user management works on ginger
+13:36:04 <chandra> danielhb, I am trying to find a way which would help password encryption and server side use the same as it is ... by this you never deal with raw password string
+13:36:18 <alinefm> danielhb_, do we save the password somewhere?
+13:36:27 <samhenri> i think for the user management feature it may be good to add some sort of encryption but retaining the encryption key in the server side
+13:36:30 <alinefm> when managing users
+13:36:58 <chandra> alinefm, user creation we take the password input and provides this to libuser python binding if I am correct ...
+13:37:24 <chandra> like how the adduser passes all the input for user creation ...
+13:37:53 <danielhb> chandra, yeah but this is inside a SSL session in HTTPS
+13:38:00 <danielhb> chandra, it is secure already
+13:38:55 <danielhb> chandra, we can cypher the password in client side? yeah. but the cypher logic will be embedded in the client code, which is not secure and can be easily tampered with. The extra logic will not provide that much security
+13:39:34 <chandra> Did some experiments similar on google gmail account etc...
+13:40:27 <chandra> since they are too web applications, even on the client side it is almost impossible to figure out what the password is...
+13:40:46 <chandra> or the other banking applications...
+13:41:36 <danielhb> chandra, define 'client side'
+13:41:49 <chandra> I am trying to understand why we can not provide similar security both sides if possible... I am may be little bit wage here but I feel there is some possibility for us to increase the security ..
+13:42:18 <chandra> danielhb, 'client side' I mean browser ..
+13:42:20 <danielhb> chandra, because no web application is secure if I load the page, open firebug and change <input='password'> to <input='text'>
+13:43:09 <chandra> danielhb, did any body tried same on the gmail log in page and see if possible to such things ?
+13:43:30 <chandra> *do
+13:44:19 <danielhb> chandra, just did hahaha
+13:44:32 <chandra> is it :-)
+13:44:48 <danielhb> chandra, how can I share a screenshot? let me see how here ....
+13:46:16 <danielhb> chandra,  just a sec! uploading it here ...
+13:46:46 <chandra> danielhb, try not to share your password ;-)
+13:47:58 <danielhb> chandra, http://picpaste.com/Screenshot_from_2016-06-29_10-44-10-P9rQAndu.png
+13:48:40 <chandra> danielhb, I saw that too  ...
+13:50:06 <danielhb> chandra, anyway, as a I said in the bug, there are stuff we can do to enhance, but we can't fully prevent this type of scenario
+13:50:59 <chandra> danielhb, hmm. I request UI developers to look through the defect and propose if you have some thing to help !!!
+13:51:10 <chandra> daneilhb, thanks !!!
+13:53:02 <chandra> danielhb, samhenri, any update on the side pane development for ginger ?
+13:54:15 <samhenri> I will collect some links regarding this later and send to the ML but I think encrypting all password inputs will be very frustrating due how different browsers handle this so I'll look for evidence first
+13:54:43 <samhenri> I've stopped working on Ginger sidebar to develop the redesigned panels for Ginger
+13:55:57 <samhenri> we have a list of priorities that alinefm sent to us and the Network, Storage, Filesystem and San Adapters panels comes first
+13:56:17 <samhenri> btw, we have some blocking issues that we need some confirmation asap
+13:56:43 <alinefm> samhenri, do you want to share that now?
+13:56:49 <samhenri> yes
+13:56:55 <samhenri> it is very quick
+13:57:05 <chandra> samhenri, sure, to update all, atreyee, rajat and mani are working storage and network panels too...
+13:57:39 <chandra> so I would recommend to work with them through github issues if you have any proposals in those areas ...
+13:57:41 <alinefm> chandra, on what are they working on?
+13:57:54 <samhenri> but are they improving the current Bootgrid Tables or working on the API?
+13:58:02 <alinefm> samhenri, is working on those redesign issues I opened some time ago
+13:58:39 <samhenri> yes, I've got ok from alinefm and danielhb to port jQuery Bootgrid to DataTables.net
+13:58:43 <chandra> alinefm, they are working on the API's at the same time addressing some of the concerns proposed by aline as per github discussions
+13:59:18 <samhenri> In fact a patch for Wok was sent already but the mailserver corrupted the minified JS files and I'll sent another one
+13:59:54 <samhenri> Ok, so I guess we'll have to wait them finish these enhancements before porting to DataTables
+13:59:56 <chandra> well not fully sure how this will impact on the overall work
+14:00:00 <alinefm> chandra, I'd suggest to get them concentrated on fixing the bakend (API) and then align the UI with samhenri and peterpennings
+14:00:43 <samhenri> yes, this would be great
+14:00:48 <chandra> alinefm, I would recommend to hold samhenri and peterpennings until atreyee, rajat and mani completes their work
+14:01:20 <alinefm> chandra, why?
+14:01:27 <chandra> alinefm, so questions is are we going to use datatables all over the pages irrespective of the plugins ?
+14:01:33 <alinefm> they should work on API and samhenri on UI side
+14:01:44 <alinefm> chandra, no no
+14:01:52 <alinefm> chandra, we will introduce the library to wok
+14:02:00 <alinefm> and any plugin can use it when needed
+14:02:14 <chandra> alinefm, atreyee, rajat and mani are working on the UI panels of both network and storage ...
+14:02:16 <alinefm> chandra, during the redesign samhenri will use it, but the other code using bootgrid will continue to work
+14:02:39 <samhenri> yes, we are even proposing to use DataTables on Kimchi as well
+14:02:39 <chandra> not on the backend API. they are adding additional support to the UI with actions
+14:02:51 <samhenri> to make wok.datagrid only for Guests, Templates and Storage Volumes
+14:04:17 <chandra> I would recommend to wait till July before we port storage and network to datatables ..
+14:04:38 <chandra> because these pages are getting added with more ui functionality ...
+14:05:59 <chandra> alinefm, samhenri as long as we agree on the overall operation (like multiselections), I am all up for it.. and we should not put duplicate efforts
+14:06:10 <samhenri> well, IMO we can wait until these new functionalities are added
+14:06:49 <chandra> samhenri, I agree with you ...
+14:07:07 <samhenri> this way we can work on other issues like Ginger sidebar, Kimchi Peers dropdown and other minor issues/enhancements
+14:07:28 <samhenri> BTW, I also have a question regarding Kimchi Peers
+14:07:45 <samhenri> Is it going to Ginger, Gingerbase or Wok?
+14:08:24 <samhenri> Issue #921 FYI
+14:10:30 <alinefm> samhenri, not sure right now
+14:10:40 <alinefm> I was supposed to send a email to the ML but I forgot =s
+14:11:24 <alinefm> samhenri, chandra about the redesign issues, I suggest to start working on those not impacted by the API changes
+14:11:32 <alinefm> so we can better use our time
+14:13:25 <alinefm> we are over time!
+14:13:31 <samhenri> ok
+14:13:35 <chandra> ok
+14:13:36 <alinefm> I will end the meeting but we can continue discussing here
+14:13:52 <alinefm> thanks everyone for joining and for the great discussions!
+14:13:55 <alinefm> #endmeeting

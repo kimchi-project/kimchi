@@ -1,0 +1,216 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:02:11</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:02:12</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Jun 29 13:02:11 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:02:12</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:02:12</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:02:12</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:02:27</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda</span>
+<a name="l-7"></a><span class="tm">13:02:27</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">1) Status</span>
+<a name="l-8"></a><span class="tm">13:02:27</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">2) Open discussion</span>
+<a name="l-9"></a><span class="tm">13:02:27</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-10"></a><span class="tm">13:03:46</span><span class="nk"> &lt;ziviani&gt;</span> no
+<a name="l-11"></a><span class="tm">13:04:25</span><span class="nk"> &lt;alinefm&gt;</span> so let's get started
+<a name="l-12"></a><span class="tm">13:04:26</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-13"></a><span class="tm">13:04:27</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info [&lt;project] &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-14"></a><span class="tm">13:04:35</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] [Kimchi] [Ginger*] pvital reviewed patches</span>
+<a name="l-15"></a><span class="tm">13:04:35</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] pvital is investigating some performance issues in wokd (high CPU consumption when idle)</span>
+<a name="l-16"></a><span class="tm">13:04:35</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] pvital submitted patch "Updates to support Fedora 24 and new distros"</span>
+<a name="l-17"></a><span class="tm">13:04:35</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] pvital worked on build distro (Fedora23, openSUSE Leap 42.1 and Ubuntu 16.04) images with Kimchi 2.2 installed and configured.</span>
+<a name="l-18"></a><span class="tm">13:04:36</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] [Kimchi] [Ginger*] pvital opened JIRA issue against oVirt Infrastructure team requesting support to repository service</span>
+<a name="l-19"></a><span class="tm">13:04:43</span><span class="nk"> &lt;peterpennings&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] peterpennings is working on SAN Adapters redesign</span>
+<a name="l-20"></a><span class="tm">13:04:47</span><span class="nk"> &lt;peterpennings&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] samhenri is working on Global Network Configuration redesign</span>
+<a name="l-21"></a><span class="tm">13:04:55</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok][Kimchi] socorro Tested/Reviewed patches</span>
+<a name="l-22"></a><span class="tm">13:04:57</span><span class="nk"> &lt;danielhb_&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] danielhb reviewed and applied patches</span>
+<a name="l-23"></a><span class="tm">13:05:06</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] socorro Sent v2 of SR-IOV patch that takes care of 2 issues but</span>
+<a name="l-24"></a><span class="tm">13:05:07</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] socorro didn't do i18n per Daniel's feedback due to it being more</span>
+<a name="l-25"></a><span class="tm">13:05:07</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] socorro involved; just changed button "Ok" to "OK". Awaiting</span>
+<a name="l-26"></a><span class="tm">13:05:07</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] socorro approval</span>
+<a name="l-27"></a><span class="tm">13:05:07</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] socorro Wrote 2 kimchi github issues that I came across when</span>
+<a name="l-28"></a><span class="tm">13:05:07</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] socorro testing patches - issues# 969, 970</span>
+<a name="l-29"></a><span class="tm">13:05:10</span><span class="nk"> &lt;danielhb_&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger*] danielhb worked in the 2.2 community release</span>
+<a name="l-30"></a><span class="tm">13:05:22</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi][wok] alinefm worked for 2.2 releases</span>
+<a name="l-31"></a><span class="tm">13:05:26</span><span class="nk"> &lt;danielhb_&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] danielhb worked in a couple of fixes</span>
+<a name="l-32"></a><span class="tm">13:05:38</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] ziviani returned from vacation</span>
+<a name="l-33"></a><span class="tm">13:06:08</span><span class="nk"> &lt;bianca&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] bianca working on a bug related to deleting configuration backup file in command line and not reflecting back in the UI. Investigating possible solutions.</span>
+<a name="l-34"></a><span class="tm">13:06:40</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] lcorreia got patches upstream to make sure log of failed requests does not break on requests with missing parameters</span>
+<a name="l-35"></a><span class="tm">13:06:40</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] lcorreia got upstream fix for issue 100 - log failed user requests</span>
+<a name="l-36"></a><span class="tm">13:06:40</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] lcorreia is working on run_command improvements</span>
+<a name="l-37"></a><span class="tm">13:06:40</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] lcorreia is working on firmware update improvements</span>
+<a name="l-38"></a><span class="tm">13:08:44</span><span class="nk"> &lt;alinefm&gt;</span> rotru_, anything else from your side?
+<a name="l-39"></a><span class="tm">13:09:19</span><span class="nk"> &lt;rotru_&gt;</span> alinefm, no, I have no updates for this week, just continue working in Plugins Manager
+<a name="l-40"></a><span class="tm">13:09:37</span><span class="nk"> &lt;rotru_&gt;</span> alinefm,  oh
+<a name="l-41"></a><span class="tm">13:09:40</span><span class="nk"> &lt;rotru_&gt;</span> alinefm,  wait
+<a name="l-42"></a><span class="tm">13:10:01</span><span class="nk"> &lt;chandra&gt;</span> <span class="cmd">#info, </span><span class="cmdline">chandra working on audit pages ...</span>
+<a name="l-43"></a><span class="tm">13:10:36</span><span class="nk"> &lt;alinefm&gt;</span> rotru_, what about the mem hotplug issues? =)
+<a name="l-44"></a><span class="tm">13:11:59</span><span class="nk"> &lt;chandra&gt;</span> <span class="cmd">#info </span><span class="cmdline">reviewed ginger/gingers390x patches</span>
+<a name="l-45"></a><span class="tm">13:12:14</span><span class="nk"> &lt;rotru_&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] rotru fixed problem to load wok when libvirt service is not running. The code to register libvirt events was breaking Wok start up.</span>
+<a name="l-46"></a><span class="tm">13:12:56</span><span class="nk"> &lt;chandra&gt;</span> 2
+<a name="l-47"></a><span class="tm">13:13:43</span><span class="nk"> &lt;rotru_&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi]  rotru is working to fix the memory hot plug code in order to support guests xmls with tags MEMORY different of CURRENTMEMORY</span>
+<a name="l-48"></a><span class="tm">13:14:49</span><span class="nk"> &lt;rotru_&gt;</span> alinefm,  I am also working in the HotUnplug, but this is not going to be merged upstream ... its for OpenPower Host OS only
+<a name="l-49"></a><span class="tm">13:15:14</span><span class="nk"> &lt;alinefm&gt;</span> rotru_, ok - thanks for the update
+<a name="l-50"></a><span class="tm">13:15:23</span><span class="nk"> &lt;alinefm&gt;</span> anything else, team?
+<a name="l-51"></a><span class="tm">13:15:34</span><span class="nk"> &lt;pvital&gt;</span> no
+<a name="l-52"></a><span class="tm">13:15:36</span><span class="nk"> &lt;pvital&gt;</span> :-P
+<a name="l-53"></a><span class="tm">13:15:57</span><span class="nk"> &lt;ziviani&gt;</span> no
+<a name="l-54"></a><span class="tm">13:16:03</span><span class="nk"> &lt;alinefm&gt;</span> pvital, I have shared your status =)
+<a name="l-55"></a><span class="tm">13:16:09</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-56"></a><span class="tm">13:16:12</span><span class="nk"> &lt;pvital&gt;</span> alinefm, thanks! :-)
+<a name="l-57"></a><span class="tm">13:16:25</span><span class="nk"> &lt;alinefm&gt;</span> First of all, I want to thank you all for the great job to have 2,2 releases done!
+<a name="l-58"></a><span class="tm">13:16:30</span><span class="nk"> &lt;alinefm&gt;</span> keep it up! =)
+<a name="l-59"></a><span class="tm">13:16:50</span><span class="nk"> &lt;alinefm&gt;</span> I could not think about the next release yet but I will do that and share anything in the ML
+<a name="l-60"></a><span class="tm">13:17:04</span><span class="nk"> &lt;alinefm&gt;</span> the next release will be on last Friday of September (as always)
+<a name="l-61"></a><span class="tm">13:17:10</span><span class="nk"> &lt;alinefm&gt;</span> any question?
+<a name="l-62"></a><span class="tm">13:17:18</span><span class="nk"> &lt;chandra&gt;</span> Congratulations to all !!!
+<a name="l-63"></a><span class="tm">13:17:53</span><span class="nk"> &lt;pvital&gt;</span> no questions! just want to say that if you need any help, ask us ;-)
+<a name="l-64"></a><span class="tm">13:18:10</span><span class="nk"> &lt;chandra&gt;</span> alinefm, ticket https://github.com/kimchi-project/wok/issues/134
+<a name="l-65"></a><span class="tm">13:18:16</span><span class="nk"> &lt;alinefm&gt;</span> pvital, sure!
+<a name="l-66"></a><span class="tm">13:18:27</span><span class="nk"> &lt;alinefm&gt;</span> any input/suggestion for the next release is more then welcome
+<a name="l-67"></a><span class="tm">13:18:43</span><span class="nk"> &lt;alinefm&gt;</span> you can propose new features, enhancements...
+<a name="l-68"></a><span class="tm">13:18:50</span><span class="nk"> &lt;alinefm&gt;</span> all them will take place if you want
+<a name="l-69"></a><span class="tm">13:19:13</span><span class="nk"> &lt;alinefm&gt;</span> chandra, danielhb_ has commented about that issue to me
+<a name="l-70"></a><span class="tm">13:19:25</span><span class="nk"> &lt;alinefm&gt;</span> i don't see it as an issue as we enforce the connection via https
+<a name="l-71"></a><span class="tm">13:20:16</span><span class="nk"> &lt;chandra&gt;</span> alinefm, right now there is way user may try http as well
+<a name="l-72"></a><span class="tm">13:20:29</span><span class="nk"> &lt;alinefm&gt;</span> chandra, how?
+<a name="l-73"></a><span class="tm">13:20:40</span><span class="nk"> &lt;alinefm&gt;</span> all http requests are redirected to https
+<a name="l-74"></a><span class="tm">13:21:34</span><span class="nk"> &lt;chandra&gt;</span> so even user set https_only = false, all the requests redirected via https ?
+<a name="l-75"></a><span class="tm">13:21:41</span><span class="nk"> &lt;alinefm&gt;</span> yeap
+<a name="l-76"></a><span class="tm">13:22:00</span><span class="nk"> &lt;chandra&gt;</span> oh is it, in that case we are safe I guess
+<a name="l-77"></a><span class="tm">13:22:03</span><span class="nk"> &lt;alinefm&gt;</span> chandra, when you do any request to HTTP (port 8000) it will be redirected to HTTPS (8001)
+<a name="l-78"></a><span class="tm">13:22:21</span><span class="nk"> &lt;alinefm&gt;</span> chandra, yeap! I don't see issues on it since all the requests are done on HTTPS
+<a name="l-79"></a><span class="tm">13:22:59</span><span class="nk"> &lt;chandra&gt;</span> ok good.
+<a name="l-80"></a><span class="tm">13:23:20</span><span class="nk"> &lt;alinefm&gt;</span> any other topic for today?
+<a name="l-81"></a><span class="tm">13:23:56</span><span class="nk"> &lt;chandra&gt;</span> Also any idea on password encryption via java script ?
+<a name="l-82"></a><span class="tm">13:23:57</span><span class="nk"> &lt;pvital&gt;</span> no
+<a name="l-83"></a><span class="tm">13:24:36</span><span class="nk"> &lt;chandra&gt;</span> which is translated system password encryption standards ?
+<a name="l-84"></a><span class="tm">13:25:32</span><span class="nk"> &lt;alinefm&gt;</span> chandra, I don't know about it
+<a name="l-85"></a><span class="tm">13:25:42</span><span class="nk"> &lt;alinefm&gt;</span> maybe peterpennings or samhenri have more inputs on it to share
+<a name="l-86"></a><span class="tm">13:25:49</span><span class="nk"> &lt;alinefm&gt;</span> chandra, but how would be good for us?
+<a name="l-87"></a><span class="tm">13:26:49</span><span class="nk"> &lt;chandra&gt;</span> there is one loop hole I could think of even if the password is transferred to the server and during the password processing on the server side
+<a name="l-88"></a><span class="tm">13:27:09</span><span class="nk"> &lt;chandra&gt;</span> in the python code by transferring the password as it is...
+<a name="l-89"></a><span class="tm">13:27:29</span><span class="nk"> &lt;peterpennings&gt;</span> I don´t think is a good idea to do it trought javascript.
+<a name="l-90"></a><span class="tm">13:27:36</span><span class="nk"> &lt;samhenri&gt;</span> agreed
+<a name="l-91"></a><span class="tm">13:28:11</span><span class="nk"> &lt;peterpennings&gt;</span> javascript runs on client side, it's not security
+<a name="l-92"></a><span class="tm">13:28:26</span><span class="nk"> &lt;chandra&gt;</span> there is a possibility of debugs/log some admin with privileges can get to know others credentials ..
+<a name="l-93"></a><span class="tm">13:29:02</span><span class="nk"> &lt;chandra&gt;</span> But is javascript is handling the password data then I feel it should take care such encryptions too...
+<a name="l-94"></a><span class="tm">13:29:31</span><span class="nk"> &lt;alinefm&gt;</span> chandra, any admin with root access to the host system can do anything he/she wants
+<a name="l-95"></a><span class="tm">13:29:34</span><span class="nk"> &lt;chandra&gt;</span> there are some developments in this area, for example cryptjs is one who does this...
+<a name="l-96"></a><span class="tm">13:29:39</span><span class="nk"> &lt;alinefm&gt;</span> including adding a script to get the others password
+<a name="l-97"></a><span class="tm">13:30:26</span><span class="nk"> &lt;chandra&gt;</span> nodejs does the password encryption techniques ...
+<a name="l-98"></a><span class="tm">13:30:59</span><span class="nk"> &lt;alinefm&gt;</span> chandra, but how would that help us on security?
+<a name="l-99"></a><span class="tm">13:31:16</span><span class="nk"> &lt;alinefm&gt;</span> we will need to decrypt it on server side
+<a name="l-100"></a><span class="tm">13:31:31</span><span class="nk"> &lt;peterpennings&gt;</span> you mean change everything to nodejs?
+<a name="l-101"></a><span class="tm">13:31:51</span><span class="nk"> &lt;chandra&gt;</span> alinefm, they encrypt the password on the client side and on the server side you do not require to decrypt if it generates data which system tools can understand it ...
+<a name="l-102"></a><span class="tm">13:32:34</span><span class="nk"> &lt;chandra&gt;</span> peterpennings, I am not suggesting to change to nodejs but as an example I am referring nodejs does the encryption...
+<a name="l-103"></a><span class="tm">13:33:10</span><span class="nk"> &lt;peterpennings&gt;</span> yes.. but it is a big change, nodejs runs on server side..
+<a name="l-104"></a><span class="tm">13:33:23</span><span class="nk"> &lt;chandra&gt;</span> alinefm, you can simply pass same encrypted string to let us say libuser python binding, it understand how to save on to the system.
+<a name="l-105"></a><span class="tm">13:34:04</span><span class="nk"> &lt;alinefm&gt;</span> to save to the system?
+<a name="l-106"></a><span class="tm">13:34:06</span><span class="nk"> &lt;chandra&gt;</span> peterpennings, in any means I am not suggesting us to shift to nodejs
+<a name="l-107"></a><span class="tm">13:34:06</span><span class="nk"> &lt;danielhb_&gt;</span> chandra, I am not sure what are the problem you're trying to address
+<a name="l-108"></a><span class="tm">13:34:08</span><span class="nk"> &lt;alinefm&gt;</span> we don't save passwords
+<a name="l-109"></a><span class="tm">13:34:42</span><span class="nk"> &lt;chandra&gt;</span> well ginger module does this for the user creation ... ie applies to password file ...
+<a name="l-110"></a><span class="tm">13:36:01</span><span class="nk"> &lt;alinefm&gt;</span> chandra, I don't know how the user management works on ginger
+<a name="l-111"></a><span class="tm">13:36:04</span><span class="nk"> &lt;chandra&gt;</span> danielhb, I am trying to find a way which would help password encryption and server side use the same as it is ... by this you never deal with raw password string
+<a name="l-112"></a><span class="tm">13:36:18</span><span class="nk"> &lt;alinefm&gt;</span> danielhb_, do we save the password somewhere?
+<a name="l-113"></a><span class="tm">13:36:27</span><span class="nk"> &lt;samhenri&gt;</span> i think for the user management feature it may be good to add some sort of encryption but retaining the encryption key in the server side
+<a name="l-114"></a><span class="tm">13:36:30</span><span class="nk"> &lt;alinefm&gt;</span> when managing users
+<a name="l-115"></a><span class="tm">13:36:58</span><span class="nk"> &lt;chandra&gt;</span> alinefm, user creation we take the password input and provides this to libuser python binding if I am correct ...
+<a name="l-116"></a><span class="tm">13:37:24</span><span class="nk"> &lt;chandra&gt;</span> like how the adduser passes all the input for user creation ...
+<a name="l-117"></a><span class="tm">13:37:53</span><span class="nk"> &lt;danielhb&gt;</span> chandra, yeah but this is inside a SSL session in HTTPS
+<a name="l-118"></a><span class="tm">13:38:00</span><span class="nk"> &lt;danielhb&gt;</span> chandra, it is secure already
+<a name="l-119"></a><span class="tm">13:38:55</span><span class="nk"> &lt;danielhb&gt;</span> chandra, we can cypher the password in client side? yeah. but the cypher logic will be embedded in the client code, which is not secure and can be easily tampered with. The extra logic will not provide that much security
+<a name="l-120"></a><span class="tm">13:39:34</span><span class="nk"> &lt;chandra&gt;</span> Did some experiments similar on google gmail account etc...
+<a name="l-121"></a><span class="tm">13:40:27</span><span class="nk"> &lt;chandra&gt;</span> since they are too web applications, even on the client side it is almost impossible to figure out what the password is...
+<a name="l-122"></a><span class="tm">13:40:46</span><span class="nk"> &lt;chandra&gt;</span> or the other banking applications...
+<a name="l-123"></a><span class="tm">13:41:36</span><span class="nk"> &lt;danielhb&gt;</span> chandra, define 'client side'
+<a name="l-124"></a><span class="tm">13:41:49</span><span class="nk"> &lt;chandra&gt;</span> I am trying to understand why we can not provide similar security both sides if possible... I am may be little bit wage here but I feel there is some possibility for us to increase the security ..
+<a name="l-125"></a><span class="tm">13:42:18</span><span class="nk"> &lt;chandra&gt;</span> danielhb, 'client side' I mean browser ..
+<a name="l-126"></a><span class="tm">13:42:20</span><span class="nk"> &lt;danielhb&gt;</span> chandra, because no web application is secure if I load the page, open firebug and change &lt;input='password'&gt; to &lt;input='text'&gt;
+<a name="l-127"></a><span class="tm">13:43:09</span><span class="nk"> &lt;chandra&gt;</span> danielhb, did any body tried same on the gmail log in page and see if possible to such things ?
+<a name="l-128"></a><span class="tm">13:43:30</span><span class="nk"> &lt;chandra&gt;</span> *do
+<a name="l-129"></a><span class="tm">13:44:19</span><span class="nk"> &lt;danielhb&gt;</span> chandra, just did hahaha
+<a name="l-130"></a><span class="tm">13:44:32</span><span class="nk"> &lt;chandra&gt;</span> is it :-)
+<a name="l-131"></a><span class="tm">13:44:48</span><span class="nk"> &lt;danielhb&gt;</span> chandra, how can I share a screenshot? let me see how here ....
+<a name="l-132"></a><span class="tm">13:46:16</span><span class="nk"> &lt;danielhb&gt;</span> chandra,  just a sec! uploading it here ...
+<a name="l-133"></a><span class="tm">13:46:46</span><span class="nk"> &lt;chandra&gt;</span> danielhb, try not to share your password ;-)
+<a name="l-134"></a><span class="tm">13:47:58</span><span class="nk"> &lt;danielhb&gt;</span> chandra, http://picpaste.com/Screenshot_from_2016-06-29_10-44-10-P9rQAndu.png
+<a name="l-135"></a><span class="tm">13:48:40</span><span class="nk"> &lt;chandra&gt;</span> danielhb, I saw that too  ...
+<a name="l-136"></a><span class="tm">13:50:06</span><span class="nk"> &lt;danielhb&gt;</span> chandra, anyway, as a I said in the bug, there are stuff we can do to enhance, but we can't fully prevent this type of scenario
+<a name="l-137"></a><span class="tm">13:50:59</span><span class="nk"> &lt;chandra&gt;</span> danielhb, hmm. I request UI developers to look through the defect and propose if you have some thing to help !!!
+<a name="l-138"></a><span class="tm">13:51:10</span><span class="nk"> &lt;chandra&gt;</span> daneilhb, thanks !!!
+<a name="l-139"></a><span class="tm">13:53:02</span><span class="nk"> &lt;chandra&gt;</span> danielhb, samhenri, any update on the side pane development for ginger ?
+<a name="l-140"></a><span class="tm">13:54:15</span><span class="nk"> &lt;samhenri&gt;</span> I will collect some links regarding this later and send to the ML but I think encrypting all password inputs will be very frustrating due how different browsers handle this so I'll look for evidence first
+<a name="l-141"></a><span class="tm">13:54:43</span><span class="nk"> &lt;samhenri&gt;</span> I've stopped working on Ginger sidebar to develop the redesigned panels for Ginger
+<a name="l-142"></a><span class="tm">13:55:57</span><span class="nk"> &lt;samhenri&gt;</span> we have a list of priorities that alinefm sent to us and the Network, Storage, Filesystem and San Adapters panels comes first
+<a name="l-143"></a><span class="tm">13:56:17</span><span class="nk"> &lt;samhenri&gt;</span> btw, we have some blocking issues that we need some confirmation asap
+<a name="l-144"></a><span class="tm">13:56:43</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, do you want to share that now?
+<a name="l-145"></a><span class="tm">13:56:49</span><span class="nk"> &lt;samhenri&gt;</span> yes
+<a name="l-146"></a><span class="tm">13:56:55</span><span class="nk"> &lt;samhenri&gt;</span> it is very quick
+<a name="l-147"></a><span class="tm">13:57:05</span><span class="nk"> &lt;chandra&gt;</span> samhenri, sure, to update all, atreyee, rajat and mani are working storage and network panels too...
+<a name="l-148"></a><span class="tm">13:57:39</span><span class="nk"> &lt;chandra&gt;</span> so I would recommend to work with them through github issues if you have any proposals in those areas ...
+<a name="l-149"></a><span class="tm">13:57:41</span><span class="nk"> &lt;alinefm&gt;</span> chandra, on what are they working on?
+<a name="l-150"></a><span class="tm">13:57:54</span><span class="nk"> &lt;samhenri&gt;</span> but are they improving the current Bootgrid Tables or working on the API?
+<a name="l-151"></a><span class="tm">13:58:02</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, is working on those redesign issues I opened some time ago
+<a name="l-152"></a><span class="tm">13:58:39</span><span class="nk"> &lt;samhenri&gt;</span> yes, I've got ok from alinefm and danielhb to port jQuery Bootgrid to DataTables.net
+<a name="l-153"></a><span class="tm">13:58:43</span><span class="nk"> &lt;chandra&gt;</span> alinefm, they are working on the API's at the same time addressing some of the concerns proposed by aline as per github discussions
+<a name="l-154"></a><span class="tm">13:59:18</span><span class="nk"> &lt;samhenri&gt;</span> In fact a patch for Wok was sent already but the mailserver corrupted the minified JS files and I'll sent another one
+<a name="l-155"></a><span class="tm">13:59:54</span><span class="nk"> &lt;samhenri&gt;</span> Ok, so I guess we'll have to wait them finish these enhancements before porting to DataTables
+<a name="l-156"></a><span class="tm">13:59:56</span><span class="nk"> &lt;chandra&gt;</span> well not fully sure how this will impact on the overall work
+<a name="l-157"></a><span class="tm">14:00:00</span><span class="nk"> &lt;alinefm&gt;</span> chandra, I'd suggest to get them concentrated on fixing the bakend (API) and then align the UI with samhenri and peterpennings
+<a name="l-158"></a><span class="tm">14:00:43</span><span class="nk"> &lt;samhenri&gt;</span> yes, this would be great
+<a name="l-159"></a><span class="tm">14:00:48</span><span class="nk"> &lt;chandra&gt;</span> alinefm, I would recommend to hold samhenri and peterpennings until atreyee, rajat and mani completes their work
+<a name="l-160"></a><span class="tm">14:01:20</span><span class="nk"> &lt;alinefm&gt;</span> chandra, why?
+<a name="l-161"></a><span class="tm">14:01:27</span><span class="nk"> &lt;chandra&gt;</span> alinefm, so questions is are we going to use datatables all over the pages irrespective of the plugins ?
+<a name="l-162"></a><span class="tm">14:01:33</span><span class="nk"> &lt;alinefm&gt;</span> they should work on API and samhenri on UI side
+<a name="l-163"></a><span class="tm">14:01:44</span><span class="nk"> &lt;alinefm&gt;</span> chandra, no no
+<a name="l-164"></a><span class="tm">14:01:52</span><span class="nk"> &lt;alinefm&gt;</span> chandra, we will introduce the library to wok
+<a name="l-165"></a><span class="tm">14:02:00</span><span class="nk"> &lt;alinefm&gt;</span> and any plugin can use it when needed
+<a name="l-166"></a><span class="tm">14:02:14</span><span class="nk"> &lt;chandra&gt;</span> alinefm, atreyee, rajat and mani are working on the UI panels of both network and storage ...
+<a name="l-167"></a><span class="tm">14:02:16</span><span class="nk"> &lt;alinefm&gt;</span> chandra, during the redesign samhenri will use it, but the other code using bootgrid will continue to work
+<a name="l-168"></a><span class="tm">14:02:39</span><span class="nk"> &lt;samhenri&gt;</span> yes, we are even proposing to use DataTables on Kimchi as well
+<a name="l-169"></a><span class="tm">14:02:39</span><span class="nk"> &lt;chandra&gt;</span> not on the backend API. they are adding additional support to the UI with actions
+<a name="l-170"></a><span class="tm">14:02:51</span><span class="nk"> &lt;samhenri&gt;</span> to make wok.datagrid only for Guests, Templates and Storage Volumes
+<a name="l-171"></a><span class="tm">14:04:17</span><span class="nk"> &lt;chandra&gt;</span> I would recommend to wait till July before we port storage and network to datatables ..
+<a name="l-172"></a><span class="tm">14:04:38</span><span class="nk"> &lt;chandra&gt;</span> because these pages are getting added with more ui functionality ...
+<a name="l-173"></a><span class="tm">14:05:59</span><span class="nk"> &lt;chandra&gt;</span> alinefm, samhenri as long as we agree on the overall operation (like multiselections), I am all up for it.. and we should not put duplicate efforts
+<a name="l-174"></a><span class="tm">14:06:10</span><span class="nk"> &lt;samhenri&gt;</span> well, IMO we can wait until these new functionalities are added
+<a name="l-175"></a><span class="tm">14:06:49</span><span class="nk"> &lt;chandra&gt;</span> samhenri, I agree with you ...
+<a name="l-176"></a><span class="tm">14:07:07</span><span class="nk"> &lt;samhenri&gt;</span> this way we can work on other issues like Ginger sidebar, Kimchi Peers dropdown and other minor issues/enhancements
+<a name="l-177"></a><span class="tm">14:07:28</span><span class="nk"> &lt;samhenri&gt;</span> BTW, I also have a question regarding Kimchi Peers
+<a name="l-178"></a><span class="tm">14:07:45</span><span class="nk"> &lt;samhenri&gt;</span> Is it going to Ginger, Gingerbase or Wok?
+<a name="l-179"></a><span class="tm">14:08:24</span><span class="nk"> &lt;samhenri&gt;</span> Issue #921 FYI
+<a name="l-180"></a><span class="tm">14:10:30</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, not sure right now
+<a name="l-181"></a><span class="tm">14:10:40</span><span class="nk"> &lt;alinefm&gt;</span> I was supposed to send a email to the ML but I forgot =s
+<a name="l-182"></a><span class="tm">14:11:24</span><span class="nk"> &lt;alinefm&gt;</span> samhenri, chandra about the redesign issues, I suggest to start working on those not impacted by the API changes
+<a name="l-183"></a><span class="tm">14:11:32</span><span class="nk"> &lt;alinefm&gt;</span> so we can better use our time
+<a name="l-184"></a><span class="tm">14:13:25</span><span class="nk"> &lt;alinefm&gt;</span> we are over time!
+<a name="l-185"></a><span class="tm">14:13:31</span><span class="nk"> &lt;samhenri&gt;</span> ok
+<a name="l-186"></a><span class="tm">14:13:35</span><span class="nk"> &lt;chandra&gt;</span> ok
+<a name="l-187"></a><span class="tm">14:13:36</span><span class="nk"> &lt;alinefm&gt;</span> I will end the meeting but we can continue discussing here
+<a name="l-188"></a><span class="tm">14:13:52</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining and for the great discussions!
+<a name="l-189"></a><span class="tm">14:13:55</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
