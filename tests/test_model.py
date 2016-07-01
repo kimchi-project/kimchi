@@ -18,14 +18,19 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import __builtin__ as builtins
+
 import grp
 import lxml.etree as ET
 import os
 import pwd
+import mock
 import re
 import shutil
 import time
 import unittest
+
+from mock import call, mock_open, patch
 
 import tests.utils as utils
 
@@ -43,6 +48,7 @@ from wok.plugins.kimchi import osinfo
 from wok.plugins.kimchi.config import kimchiPaths as paths
 from wok.plugins.kimchi.model import model
 from wok.plugins.kimchi.model.libvirtconnection import LibvirtConnection
+from wok.plugins.kimchi.model.virtviewerfile import VMVirtViewerFileModel
 from wok.plugins.kimchi.model.vms import VMModel
 
 import iso_gen
@@ -108,7 +114,8 @@ class ModelTests(unittest.TestCase):
         # test_rest or test_mockmodel to avoid overriding problems
         LibvirtConnection._connections['test:///default'] = {}
 
-        os.unlink(self.tmp_store)
+        if os.path.isfile(self.tmp_store):
+            os.unlink(self.tmp_store)
 
     def test_vm_info(self):
         inst = model.Model('test:///default', self.tmp_store)
@@ -337,6 +344,94 @@ class ModelTests(unittest.TestCase):
             self.assertEquals('127.0.0.1', info['graphics']['listen'])
 
         inst.template_delete('test')
+
+    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
+    def test_vm_virtviewerfile_vmnotrunning(self):
+        inst = model.Model(objstore_loc=self.tmp_store)
+        params = {'name': 'test',
+                  'source_media': {'type': 'disk', 'path': UBUNTU_ISO}}
+        inst.templates_create(params)
+
+        with RollbackContext() as rollback:
+            params = {'name': 'kimchi-vnc',
+                      'template': '/plugins/kimchi/templates/test'}
+            task1 = inst.vms_create(params)
+            inst.task_wait(task1['id'])
+            rollback.prependDefer(inst.vm_delete, 'kimchi-vnc')
+
+            error_msg = "KCHVM0083E"
+            with self.assertRaisesRegexp(InvalidOperation, error_msg):
+                vvmodel = VMVirtViewerFileModel(conn=inst.conn)
+                vvmodel.lookup('kimchi-vnc')
+
+        inst.template_delete('test')
+
+    @mock.patch('wok.plugins.kimchi.model.virtviewerfile._get_request_host')
+    @mock.patch('wok.plugins.kimchi.model.virtviewerfile.'
+                'VMModel.get_graphics')
+    @mock.patch('wok.plugins.kimchi.model.virtviewerfile.'
+                'VMVirtViewerFileModel._check_if_vm_running')
+    def test_vm_virtviewerfile_vnc(self, mock_vm_running, mock_get_graphics,
+                                   mock_get_host):
+
+        mock_get_host.return_value = 'kimchi-test-host'
+        mock_get_graphics.return_value = ['vnc', 'listen', '5999', None]
+        mock_vm_running.return_value = True
+
+        vvmodel = VMVirtViewerFileModel(conn=None)
+
+        open_ = mock_open(read_data='')
+        with patch.object(builtins, 'open', open_):
+            vvfilepath = vvmodel.lookup('kimchi-vm')
+
+        self.assertEqual(
+            vvfilepath,
+            'plugins/kimchi/data/virtviewerfiles/kimchi-vm-access.vv'
+        )
+
+        expected_write_content = "[virt-viewer]\ntype=vnc\n"\
+            "host=kimchi-test-host\nport=5999\n"
+        self.assertEqual(
+            open_().write.mock_calls, [call(expected_write_content)]
+        )
+
+        mock_get_graphics.assert_called_once_with('kimchi-vm', None)
+        mock_vm_running.assert_called_once_with('kimchi-vm')
+
+    @mock.patch('wok.plugins.kimchi.model.virtviewerfile._get_request_host')
+    @mock.patch('wok.plugins.kimchi.model.virtviewerfile.'
+                'VMModel.get_graphics')
+    @mock.patch('wok.plugins.kimchi.model.virtviewerfile.'
+                'VMVirtViewerFileModel._check_if_vm_running')
+    def test_vm_virtviewerfile_spice_passwd(self, mock_vm_running,
+                                            mock_get_graphics,
+                                            mock_get_host):
+
+        mock_get_host.return_value = 'kimchi-test-host'
+        mock_get_graphics.return_value = [
+            'spice', 'listen', '6660', 'spicepasswd'
+        ]
+        mock_vm_running.return_value = True
+
+        vvmodel = VMVirtViewerFileModel(conn=None)
+
+        open_ = mock_open(read_data='')
+        with patch.object(builtins, 'open', open_):
+            vvfilepath = vvmodel.lookup('kimchi-vm')
+
+        self.assertEqual(
+            vvfilepath,
+            'plugins/kimchi/data/virtviewerfiles/kimchi-vm-access.vv'
+        )
+
+        expected_write_content = "[virt-viewer]\ntype=spice\n"\
+            "host=kimchi-test-host\nport=6660\npassword=spicepasswd\n"
+        self.assertEqual(
+            open_().write.mock_calls, [call(expected_write_content)]
+        )
+
+        mock_get_graphics.assert_called_once_with('kimchi-vm', None)
+        mock_vm_running.assert_called_once_with('kimchi-vm')
 
     @unittest.skipUnless(utils.running_as_root(), "Must be run as root")
     def test_vm_serial(self):
