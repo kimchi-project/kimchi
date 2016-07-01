@@ -102,7 +102,7 @@ class KimchiPaths(PluginPaths):
                                        'spice-html5/pages/spice_auto.html')
 
         if __with_spice__ == 'yes':
-            self.spice_dir = self.add_prefix('ui/spice-html5')
+            self.spice_dir = os.path.join(self.ui_dir, 'spice-html5')
         elif os.path.exists('@datadir@/spice-html5'):
             self.spice_dir = '@datadir@/spice-html5'
         else:
