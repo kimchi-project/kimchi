@@ -26,6 +26,7 @@ from wok.config import config as wok_config
 from wok.exception import InvalidOperation, OperationFailed
 from wok.plugins.kimchi import config as kimchi_config
 from wok.plugins.kimchi.model.vms import VMModel
+from wok.utils import run_command, wok_log
 
 
 def write_virt_viewer_file(params):
@@ -98,3 +99,96 @@ class VMVirtViewerFileModel(object):
 
         return 'plugins/kimchi/data/virtviewerfiles/%s' %\
                os.path.basename(file_path)
+
+
+class FirewallManager(object):
+
+    @staticmethod
+    def check_if_firewall_cmd_enabled():
+        _, _, r_code = run_command(['firewall-cmd', '--state', '-q'])
+        return r_code == 0
+
+    @staticmethod
+    def check_if_ufw_enabled():
+        _, _, r_code = run_command(['ufw', 'status'])
+        return r_code == 0
+
+    def __init__(self):
+        self.opened_ports = {}
+        self.firewall_provider = None
+
+        if self.check_if_firewall_cmd_enabled():
+            self.firewall_provider = FirewallCMDProvider()
+        elif self.check_if_ufw_enabled():
+            self.firewall_provider = UFWProvider()
+        else:
+            self.firewall_provider = IPTablesProvider()
+
+    def add_vm_graphics_port(self, vm_name, port):
+        self.firewall_provider.enable_tcp_port(port)
+        self.opened_ports[vm_name] = port
+
+    def remove_vm_graphics_port(self, vm_name):
+        port = self.opened_ports.pop(vm_name, None)
+        if port:
+            self.firewall_provider.disable_tcp_port(port)
+
+    def remove_all_vms_ports(self):
+        for port in self.opened_ports.values():
+            self.firewall_provider.disable_tcp_port(port)
+
+        self.opened_ports = {}
+
+
+class FirewallCMDProvider(object):
+
+    @staticmethod
+    def enable_tcp_port(port):
+        _, err, r_code = run_command(
+            ['firewall-cmd', '--add-port=%s/tcp' % port]
+        )
+        if r_code != 0:
+            wok_log.error('Error when adding port to firewall-cmd: %s' % err)
+
+    @staticmethod
+    def disable_tcp_port(port):
+        _, err, r_code = run_command(
+            ['firewall-cmd', '--remove-port=%s/tcp' % port]
+        )
+        if r_code != 0:
+            wok_log.error('Error when removing port from '
+                          'firewall-cmd: %s' % err)
+
+
+class UFWProvider(object):
+
+    @staticmethod
+    def enable_tcp_port(port):
+        _, err, r_code = run_command(['ufw', 'allow', '%s/tcp' % port])
+        if r_code != 0:
+            wok_log.error('Error when adding port to ufw: %s' % err)
+
+    @staticmethod
+    def disable_tcp_port(port):
+        _, err, r_code = run_command(['ufw', 'deny', '%s/tcp' % port])
+        if r_code != 0:
+            wok_log.error('Error when removing port from ufw: %s' % err)
+
+
+class IPTablesProvider(object):
+
+    @staticmethod
+    def enable_tcp_port(port):
+        cmd = ['iptables', '-I', 'INPUT', '-p', 'tcp', '--dport',
+               port, '-j', 'ACCEPT']
+        _, err, r_code = run_command(cmd)
+        if r_code != 0:
+            wok_log.error('Error when adding port to iptables: %s' % err)
+
+    @staticmethod
+    def disable_tcp_port(port):
+        cmd = ['iptables', '-D', 'INPUT', '-p', 'tcp', '--dport',
+               port, '-j', 'ACCEPT']
+        _, err, r_code = run_command(cmd)
+        if r_code != 0:
+            wok_log.error('Error when removing port from itables: %s' % err)
