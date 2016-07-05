@@ -48,6 +48,7 @@ from wok.plugins.kimchi import osinfo
 from wok.plugins.kimchi.config import kimchiPaths as paths
 from wok.plugins.kimchi.model import model
 from wok.plugins.kimchi.model.libvirtconnection import LibvirtConnection
+from wok.plugins.kimchi.model.virtviewerfile import FirewallManager
 from wok.plugins.kimchi.model.virtviewerfile import VMVirtViewerFileModel
 from wok.plugins.kimchi.model.vms import VMModel
 
@@ -432,6 +433,76 @@ class ModelTests(unittest.TestCase):
 
         mock_get_graphics.assert_called_once_with('kimchi-vm', None)
         mock_vm_running.assert_called_once_with('kimchi-vm')
+
+    @mock.patch('wok.plugins.kimchi.model.virtviewerfile.run_command')
+    def test_firewall_provider_firewallcmd(self, mock_run_cmd):
+        mock_run_cmd.side_effect = [
+            ['', '', 0], ['', '', 0], ['', '', 0]
+        ]
+
+        fw_manager = FirewallManager()
+        fw_manager.add_vm_graphics_port('vm-name', 5905)
+        self.assertEqual(fw_manager.opened_ports, {'vm-name': 5905})
+
+        fw_manager.remove_vm_graphics_port('vm-name')
+        self.assertEqual(fw_manager.opened_ports, {})
+
+        mock_run_cmd.assert_has_calls(
+            [
+                 call(['firewall-cmd', '--state', '-q']),
+                 call(['firewall-cmd', '--add-port=5905/tcp']),
+                 call(['firewall-cmd', '--remove-port=5905/tcp'])
+            ]
+        )
+
+    @mock.patch('wok.plugins.kimchi.model.virtviewerfile.run_command')
+    def test_firewall_provider_ufw(self, mock_run_cmd):
+        mock_run_cmd.side_effect = [
+            ['', '', 1], ['', '', 0], ['', '', 0], ['', '', 0]
+        ]
+
+        fw_manager = FirewallManager()
+        fw_manager.add_vm_graphics_port('vm-name', 5905)
+        self.assertEqual(fw_manager.opened_ports, {'vm-name': 5905})
+
+        fw_manager.remove_vm_graphics_port('vm-name')
+        self.assertEqual(fw_manager.opened_ports, {})
+
+        mock_run_cmd.assert_has_calls(
+            [
+                 call(['firewall-cmd', '--state', '-q']),
+                 call(['ufw', 'status']),
+                 call(['ufw', 'allow', '5905/tcp']),
+                 call(['ufw', 'deny', '5905/tcp'])
+            ]
+        )
+
+    @mock.patch('wok.plugins.kimchi.model.virtviewerfile.run_command')
+    def test_firewall_provider_iptables(self, mock_run_cmd):
+        mock_run_cmd.side_effect = [
+            ['', '', 1], ['', '', 1], ['', '', 0], ['', '', 0]
+        ]
+
+        fw_manager = FirewallManager()
+        fw_manager.add_vm_graphics_port('vm-name', 5905)
+        self.assertEqual(fw_manager.opened_ports, {'vm-name': 5905})
+
+        fw_manager.remove_vm_graphics_port('vm-name')
+        self.assertEqual(fw_manager.opened_ports, {})
+
+        iptables_add = ['iptables', '-I', 'INPUT', '-p', 'tcp', '--dport',
+                        5905, '-j', 'ACCEPT']
+
+        iptables_del = ['iptables', '-D', 'INPUT', '-p', 'tcp', '--dport',
+                        5905, '-j', 'ACCEPT']
+
+        mock_run_cmd.assert_has_calls(
+            [
+                 call(['firewall-cmd', '--state', '-q']),
+                 call(['ufw', 'status']),
+                 call(iptables_add), call(iptables_del)
+            ]
+        )
 
     @unittest.skipUnless(utils.running_as_root(), "Must be run as root")
     def test_vm_serial(self):
