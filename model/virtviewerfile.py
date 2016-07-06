@@ -85,6 +85,16 @@ def create_virt_viewer_file(vm_name, graphics_info):
 class VMVirtViewerFileModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
+        self.firewall_mngr = FirewallManager()
+        self.vm_event_callbacks = {}
+        cherrypy.engine.subscribe('exit', self.cleanup)
+
+    def cleanup(self):
+        wok_log.info('Closing any VNC/SPICE firewall ports '
+                     'opened by Kimchi ...')
+        self.firewall_mngr.remove_all_vms_ports()
+        for cb_id in self.vm_event_callbacks.values():
+            self.conn.get().domainEventDeregisterAny(cb_id)
 
     def _check_if_vm_running(self, name):
         dom = VMModel.get_vm(name, self.conn)
@@ -92,10 +102,40 @@ class VMVirtViewerFileModel(object):
         if d_info[0] != libvirt.VIR_DOMAIN_RUNNING:
             raise InvalidOperation("KCHVM0083E", {'name': name})
 
+    def event_vmshutdown_cb(self, conn, dom, event, detail, *args):
+        if event == libvirt.VIR_DOMAIN_EVENT_STOPPED:
+            vm_name = dom.name()
+            self.firewall_mngr.remove_vm_graphics_port(vm_name)
+            cb_id = self.vm_event_callbacks.pop(vm_name, None)
+            self.conn.get().domainEventDeregisterAny(cb_id)
+
+    def handleVMShutdownPowerOff(self, vm_name):
+        try:
+            dom = VMModel.get_vm(vm_name, self.conn)
+            cb_id = self.conn.get().domainEventRegisterAny(
+                dom,
+                libvirt.VIR_DOMAIN_EVENT_ID_LIFECYCLE,
+                self.event_vmshutdown_cb,
+                None
+            )
+            self.vm_event_callbacks[vm_name] = cb_id
+
+        except (libvirt.libvirtError, AttributeError) as e:
+            if type(e) == AttributeError:
+                reason = 'Libvirt service is not running'
+            else:
+                reason = e.message
+            wok_log.error("Register of LIFECYCLE event failed: %s" % reason)
+
     def lookup(self, name):
         self._check_if_vm_running(name)
         graphics_info = VMModel.get_graphics(name, self.conn)
         file_path = create_virt_viewer_file(name, graphics_info)
+
+        if not self.vm_event_callbacks.get(name, None):
+            graphics_port = graphics_info[2]
+            self.firewall_mngr.add_vm_graphics_port(name, graphics_port)
+            self.handleVMShutdownPowerOff(name)
 
         return 'plugins/kimchi/data/virtviewerfiles/%s' %\
                os.path.basename(file_path)
