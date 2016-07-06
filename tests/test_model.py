@@ -20,6 +20,7 @@
 
 import __builtin__ as builtins
 
+import base64
 import grp
 import lxml.etree as ET
 import os
@@ -353,17 +354,19 @@ class ModelTests(unittest.TestCase):
                   'source_media': {'type': 'disk', 'path': UBUNTU_ISO}}
         inst.templates_create(params)
 
+        vm_name = 'kìmchí-vñç'
+
         with RollbackContext() as rollback:
-            params = {'name': 'kimchi-vnc',
+            params = {'name': vm_name.decode('utf-8'),
                       'template': '/plugins/kimchi/templates/test'}
             task1 = inst.vms_create(params)
             inst.task_wait(task1['id'])
-            rollback.prependDefer(inst.vm_delete, 'kimchi-vnc')
+            rollback.prependDefer(inst.vm_delete, vm_name.decode('utf-8'))
 
             error_msg = "KCHVM0083E"
             with self.assertRaisesRegexp(InvalidOperation, error_msg):
                 vvmodel = VMVirtViewerFileModel(conn=inst.conn)
-                vvmodel.lookup('kimchi-vnc')
+                vvmodel.lookup(vm_name.decode('utf-8'))
 
         inst.template_delete('test')
 
@@ -371,8 +374,13 @@ class ModelTests(unittest.TestCase):
     @mock.patch('wok.plugins.kimchi.model.virtviewerfile.'
                 'VMModel.get_graphics')
     @mock.patch('wok.plugins.kimchi.model.virtviewerfile.'
+                'FirewallManager.add_vm_graphics_port')
+    @mock.patch('wok.plugins.kimchi.model.virtviewerfile.'
+                'VMVirtViewerFileModel.handleVMShutdownPowerOff')
+    @mock.patch('wok.plugins.kimchi.model.virtviewerfile.'
                 'VMVirtViewerFileModel._check_if_vm_running')
-    def test_vm_virtviewerfile_vnc(self, mock_vm_running, mock_get_graphics,
+    def test_vm_virtviewerfile_vnc(self, mock_vm_running, mock_handleVMOff,
+                                   mock_add_port, mock_get_graphics,
                                    mock_get_host):
 
         mock_get_host.return_value = 'kimchi-test-host'
@@ -398,13 +406,21 @@ class ModelTests(unittest.TestCase):
 
         mock_get_graphics.assert_called_once_with('kimchi-vm', None)
         mock_vm_running.assert_called_once_with('kimchi-vm')
+        mock_handleVMOff.assert_called_once_with('kimchi-vm')
+        mock_add_port.assert_called_once_with('kimchi-vm', '5999')
 
     @mock.patch('wok.plugins.kimchi.model.virtviewerfile._get_request_host')
     @mock.patch('wok.plugins.kimchi.model.virtviewerfile.'
                 'VMModel.get_graphics')
     @mock.patch('wok.plugins.kimchi.model.virtviewerfile.'
+                'FirewallManager.add_vm_graphics_port')
+    @mock.patch('wok.plugins.kimchi.model.virtviewerfile.'
+                'VMVirtViewerFileModel.handleVMShutdownPowerOff')
+    @mock.patch('wok.plugins.kimchi.model.virtviewerfile.'
                 'VMVirtViewerFileModel._check_if_vm_running')
     def test_vm_virtviewerfile_spice_passwd(self, mock_vm_running,
+                                            mock_handleVMOff,
+                                            mock_add_port,
                                             mock_get_graphics,
                                             mock_get_host):
 
@@ -433,6 +449,8 @@ class ModelTests(unittest.TestCase):
 
         mock_get_graphics.assert_called_once_with('kimchi-vm', None)
         mock_vm_running.assert_called_once_with('kimchi-vm')
+        mock_handleVMOff.assert_called_once_with('kimchi-vm')
+        mock_add_port.assert_called_once_with('kimchi-vm', '6660')
 
     @mock.patch('wok.plugins.kimchi.model.virtviewerfile.run_command')
     def test_firewall_provider_firewallcmd(self, mock_run_cmd):
@@ -503,6 +521,48 @@ class ModelTests(unittest.TestCase):
                  call(iptables_add), call(iptables_del)
             ]
         )
+
+    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
+    @mock.patch('wok.plugins.kimchi.model.virtviewerfile.'
+                'FirewallManager.remove_vm_graphics_port')
+    @mock.patch('wok.plugins.kimchi.model.virtviewerfile.'
+                'FirewallManager.add_vm_graphics_port')
+    def test_vm_virtviewerfile_vmlifecycle(self, mock_add_port,
+                                           mock_remove_port):
+
+        inst = model.Model(objstore_loc=self.tmp_store)
+        params = {'name': 'test',
+                  'source_media': {'type': 'disk', 'path': UBUNTU_ISO}}
+        inst.templates_create(params)
+
+        vm_name = 'kìmçhí-vñç'
+
+        with RollbackContext() as rollback:
+            params = {'name': u'%s' % vm_name.decode('utf-8'),
+                      'template': '/plugins/kimchi/templates/test'}
+            task1 = inst.vms_create(params)
+            inst.task_wait(task1['id'])
+            rollback.prependDefer(inst.vm_delete, vm_name.decode('utf-8'))
+
+            inst.vm_start(vm_name.decode('utf-8'))
+
+            graphics_info = VMModel.get_graphics(vm_name.decode('utf-8'),
+                                                 inst.conn)
+            graphics_port = graphics_info[2]
+
+            vvmodel = VMVirtViewerFileModel(conn=inst.conn)
+            vvmodel.lookup(vm_name.decode('utf-8'))
+
+            inst.vm_poweroff(vm_name.decode('utf-8'))
+            time.sleep(5)
+
+            mock_add_port.assert_called_once_with(vm_name.decode('utf-8'),
+                                                  graphics_port)
+            mock_remove_port.assert_called_once_with(
+                base64.b64encode(vm_name)
+            )
+
+        inst.template_delete('test')
 
     @unittest.skipUnless(utils.running_as_root(), "Must be run as root")
     def test_vm_serial(self):
