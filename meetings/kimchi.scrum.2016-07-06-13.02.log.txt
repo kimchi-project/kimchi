@@ -1,0 +1,66 @@
+13:02:17 <alinefm> #startmeeting
+13:02:17 <kimchi-bot> Meeting started Wed Jul  6 13:02:17 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:02:17 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:02:17 <alinefm> #meetingname scrum
+13:02:17 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:56 <alinefm> #info Agenda
+13:02:56 <alinefm> #info 1) Plans for next release
+13:02:56 <alinefm> #info 2) Status
+13:02:56 <alinefm> #info 3) Open discussion
+13:02:56 <alinefm> anything else?
+13:03:45 <pvital> no
+13:03:47 <samhenri> nope
+13:03:53 <alinefm> so let's get started
+13:04:01 <alinefm> #topic Plans for next release
+13:04:29 <alinefm> #info Schedule for next release: https://github.com/kimchi-project/wok/wiki/Planning-2.3
+13:04:47 <alinefm> #info All the 4 projects (wok, kimchi, ginger and ginger base) will follow these dates
+13:05:05 <alinefm> #info Wok and Kimchi 2.3
+13:05:09 <alinefm> #info Ginger 2.3
+13:05:36 <alinefm> #info Ginger Base 2.2.1 if no new features are planned for that, otherwise 2.3. I am still discussing that with danielhb
+13:06:03 <alinefm> I will send an email to the ML with the features planned and proper add it to the github wiki
+13:06:12 <alinefm> any suggestion is more than welcome
+13:06:14 <alinefm> any question?
+13:06:38 <ziviani> no
+13:06:50 <pvital> what about the features and tasks to develop?
+13:07:07 <alinefm> I will send an email to the ML with the features planned and proper add it to the github wiki
+13:08:11 <pvital> ok
+13:08:26 <alinefm> I will do that still today
+13:08:49 <alinefm> #topic Status
+13:08:50 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+13:09:11 <danielhb> #info [*] danielhb reviewed and applied patches
+13:09:24 <danielhb> #info [kimchi] danielhb fixed a couple of Kimchi bugs
+13:09:34 <peterpennings> #info [Ginger] peterpennings is working on improvements on Configuration Backup UI
+13:09:40 <danielhb> #info [Kimchi] danielhb is finishing the dreaded Virt Viewer Launch feature
+13:09:47 <samhenri> #info [wok] samhenri sent patch containing Datatables.net and Moment.JS
+13:09:51 <samhenri> #info [ginger] samhenri sent some mockups for Ginger sidebar to Wok mailing list as it would require changes in Wok JS files
+13:09:54 <pvital> #info [Wok] [Kimchi] [Ginger*] pvital reviewed patches
+13:09:55 <pvital> #info [Wok] pvital is investigating some performance issues in wokd (high CPU consumption when idle)
+13:10:00 <samhenri> #info [ginger] samhenri currently working on Global Network Configuration redesign
+13:10:21 <ziviani> #info [kimchi] ziviani is improving the device attachment code to handle libvirt events
+13:10:34 <bianca> #info [ginger] bianca Investigated issue related to "Deleting Configuration Backup file(created using ginger) in command line is not reflecting back in the UI." After some discussion, we thought maybe would be good to include headers in tar files (using tar pax_headers). Due to compatibility issues in old versions, best solution is compare backup dir with system database to check which files has been added and deleted in the backup directory. Working on
+13:10:34 <bianca> that.
+13:10:35 <bianca> #info [ginger] bianca Also got another bug related to backup files, if the back up times out and the the tar is not good then the file needs to be removed from back up directory.
+13:10:54 <ziviani> #info [kimchi] ziviani is working on issues with multi-function hotplug
+13:11:49 <lcorreia> #info [wok] lcorreia sent V1 of run_command improvements for firmware update
+13:11:49 <lcorreia> #info [ginger] lcorreia sent V1 of firmware update backend/UI improvements
+13:11:49 <lcorreia> #info [ginger] lcorreia sent V1 of firmware update failure UI improvements
+13:14:12 <alinefm> samhenri, have the changes on network API commented by Chandra already merged upstream?
+13:14:30 <alinefm> danielhb, ^
+13:14:39 <alinefm> samhenri, just to make sure we will not have any conflict
+13:15:29 <danielhb> alinefm, what network API changes?
+13:16:04 <samhenri> not yet, i saw that socorro sent a patch to SR-IOV that interacts with Network Configuration and it was applied to master
+13:16:10 <alinefm> danielhb, I am not sure exactly but Chandra commented last scrum meeting that there were some people working on network API changes and that may impact the redesign
+13:16:29 <samhenri> but the Global Configuration redesign shouldn't impact other changes
+13:16:32 <alinefm> samhenri, ok - did you get any input from Chandra in the last days?
+13:17:09 <samhenri> in fact, I've posted some screenshots to the Github issue
+13:17:21 <alinefm> oh ok
+13:17:26 <alinefm> I will check there so
+13:17:41 <alinefm> thanks
+13:17:45 <alinefm> can we move on?
+13:17:58 <samhenri> sure
+13:18:06 <alinefm> #topic Open Discussion
+13:18:12 <alinefm> any other topic for today?
+13:20:01 <ziviani> no
+13:21:12 <alinefm> a quick meeting today
+13:21:16 <alinefm> thanks everyone for joining!
+13:21:20 <alinefm> #endmeeting
