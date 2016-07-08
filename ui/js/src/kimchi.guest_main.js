@@ -360,6 +360,17 @@ kimchi.listVmsAuto = function() {
             return guests;
         };
 
+        var trackFailedCloningGuests = function() {
+            kimchi.getTasksByFilter('status=failed&target_uri=' + encodeURIComponent('^/plugins/kimchi/vms/.+/clone'), function(tasks) {
+                for (var i = 0; i < tasks.length; i++) {
+                    if (kimchi.trackingTasks.indexOf(tasks[i].id) == -1)
+                        kimchi.trackTask(tasks[i].id, null, function(err) {
+                           wok.message.error(err.message);
+                        }, null);
+                }
+            }, null, true);
+        };
+
         var getMigratingGuests = function() {
             var guests = [];
             kimchi.getTasksByFilter('status=running&target_uri=' + encodeURIComponent('^/plugins/kimchi/vms/.+/migrate'), function(tasks) {
@@ -381,7 +392,9 @@ kimchi.listVmsAuto = function() {
 
         kimchi.listVMs(function(result, textStatus, jqXHR) {
                 if (result && textStatus == "success") {
-
+                    // Some clone tasks may fail before being tracked. Show
+                    // error message for them.
+                    trackFailedCloningGuests();
                     var migrated = getMigratingGuests();
                     for (i = migrated.length - 1; i >= 0; i--) {
                         for (j = result.length - 1; j >= 0; j--) {
