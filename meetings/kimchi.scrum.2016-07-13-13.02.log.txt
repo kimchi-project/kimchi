@@ -1,0 +1,55 @@
+13:02:00 <alinefm> #startmeeting
+13:02:00 <kimchi-bot> Meeting started Wed Jul 13 13:02:00 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:02:00 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:02:00 <alinefm> #meetingname scrum
+13:02:00 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:12 <alinefm> #info Agenda
+13:02:13 <alinefm> #info 1) Status
+13:02:13 <alinefm> #info 2) Open discussion
+13:02:13 <alinefm> anything else?
+13:02:25 <ramonn> nop
+13:02:45 <pvital> no
+13:02:57 <ziviani> no
+13:03:04 <alinefm> #topic Status
+13:03:05 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+13:03:35 <ziviani> #info [kimchi] ziviani sent a patch to handle events for PCI passthrough
+13:03:45 <peterpennings> #info [Ginger] peterpennings is working on configuration backup ui, redesign
+13:04:03 <ziviani> #info [*] updated open power hostos repos on github
+13:04:08 <pvital> #info [Wok] [Kimchi] [Ginger*] pvital reviewed patches
+13:04:08 <pvital> #info [Wok] pvital is investigating some performance issues in wokd (high CPU consumption when idle)
+13:04:08 <pvital> #info [Wok] pvital submitted patch "Use system's nginx proxy service." and is working in V2 (facing some issues in Fedora24)
+13:04:25 <peterpennings> #info [*] peterpennings is working on mocks for new features
+13:04:34 <ziviani> #info [kimchi] ziviani has been working with multifunction PCI passthrough issues
+13:05:28 <bianca> #info [Ginger] bianca working on an issue related to backup of large files, system times out and the UI displays an error message, still investigating cause and possible solutions.
+13:05:28 <bianca> #info [Ginger] bianca submitted patch "Removing the config files (using command line) not reflecting in the UI"
+13:06:03 <danielhb> #info [Ginger]  danielhb is fixing issues flagged as '2.3' milestone in Github
+13:08:39 <alinefm> thanks for the update
+13:08:44 <alinefm> peterpennings, any updates from samuel?
+13:08:50 <alinefm> ramonn, anything else from you?
+13:08:54 <ramonn> #info [kimchi] ramonn resend patch about "set boot order". Waiting review
+13:09:14 <ramonn> #info [kimchi] ramonn sent RFC to "set bootmenu". Waiting reply
+13:09:18 <ramonn> alinefm, just it
+13:09:25 <peterpennings> alinefm, yesterday samhenri was working on some mockups for ginger sidebar.
+13:09:59 <alinefm> peterpennings, oh ok
+13:10:08 <alinefm> let's move on...
+13:10:13 <alinefm> #topic Open Discussion
+13:10:19 <alinefm> any other topic to discuss today?
+13:11:07 <pvital> no
+13:11:10 <ramonn> nop
+13:11:22 <peterpennings> samhenri just send me his status right now, can I still send?
+13:12:25 <alinefm> sure
+13:12:28 <peterpennings> #info [Ginger] samhenri sent patch for Global Network Configuration
+13:12:32 <peterpennings> #info [Ginger] samhenri sent patch to add scrollbars in System Services panels
+13:12:36 <peterpennings> #info [Wok] samhenri sent mockups for third level navigation that should be implemented with Ginger
+13:12:41 <peterpennings> #info [Kimchi] samhenri currently working on PCI devices when editing guesrs
+13:12:55 <peterpennings> thanks alinefm
+13:14:09 <alinefm> peterpennings, thank you for the update
+13:14:28 <alinefm> if anyone has any other topic we can end earlier today
+13:16:33 <danielhb> alinefm, why would you end early if we have another topic?
+13:16:52 <danielhb> ;)
+13:17:07 <alinefm> ops...
+13:17:08 <alinefm> hehehe
+13:17:17 <alinefm> s/has/does not have
+13:17:18 <alinefm> =)
+13:17:38 <alinefm> thanks everyone for joining!
+13:17:40 <alinefm> #endmeeting

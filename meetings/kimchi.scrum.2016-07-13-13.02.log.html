@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:02:00</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:02:00</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Jul 13 13:02:00 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:02:00</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:02:00</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:02:00</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:02:12</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda</span>
+<a name="l-7"></a><span class="tm">13:02:13</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">1) Status</span>
+<a name="l-8"></a><span class="tm">13:02:13</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">2) Open discussion</span>
+<a name="l-9"></a><span class="tm">13:02:13</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-10"></a><span class="tm">13:02:25</span><span class="nk"> &lt;ramonn&gt;</span> nop
+<a name="l-11"></a><span class="tm">13:02:45</span><span class="nk"> &lt;pvital&gt;</span> no
+<a name="l-12"></a><span class="tm">13:02:57</span><span class="nk"> &lt;ziviani&gt;</span> no
+<a name="l-13"></a><span class="tm">13:03:04</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-14"></a><span class="tm">13:03:05</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info [&lt;project] &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-15"></a><span class="tm">13:03:35</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ziviani sent a patch to handle events for PCI passthrough</span>
+<a name="l-16"></a><span class="tm">13:03:45</span><span class="nk"> &lt;peterpennings&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] peterpennings is working on configuration backup ui, redesign</span>
+<a name="l-17"></a><span class="tm">13:04:03</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] updated open power hostos repos on github</span>
+<a name="l-18"></a><span class="tm">13:04:08</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] [Kimchi] [Ginger*] pvital reviewed patches</span>
+<a name="l-19"></a><span class="tm">13:04:08</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] pvital is investigating some performance issues in wokd (high CPU consumption when idle)</span>
+<a name="l-20"></a><span class="tm">13:04:08</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] pvital submitted patch "Use system's nginx proxy service." and is working in V2 (facing some issues in Fedora24)</span>
+<a name="l-21"></a><span class="tm">13:04:25</span><span class="nk"> &lt;peterpennings&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] peterpennings is working on mocks for new features</span>
+<a name="l-22"></a><span class="tm">13:04:34</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ziviani has been working with multifunction PCI passthrough issues</span>
+<a name="l-23"></a><span class="tm">13:05:28</span><span class="nk"> &lt;bianca&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] bianca working on an issue related to backup of large files, system times out and the UI displays an error message, still investigating cause and possible solutions.</span>
+<a name="l-24"></a><span class="tm">13:05:28</span><span class="nk"> &lt;bianca&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] bianca submitted patch "Removing the config files (using command line) not reflecting in the UI"</span>
+<a name="l-25"></a><span class="tm">13:06:03</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger]  danielhb is fixing issues flagged as '2.3' milestone in Github</span>
+<a name="l-26"></a><span class="tm">13:08:39</span><span class="nk"> &lt;alinefm&gt;</span> thanks for the update
+<a name="l-27"></a><span class="tm">13:08:44</span><span class="nk"> &lt;alinefm&gt;</span> peterpennings, any updates from samuel?
+<a name="l-28"></a><span class="tm">13:08:50</span><span class="nk"> &lt;alinefm&gt;</span> ramonn, anything else from you?
+<a name="l-29"></a><span class="tm">13:08:54</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ramonn resend patch about "set boot order". Waiting review</span>
+<a name="l-30"></a><span class="tm">13:09:14</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ramonn sent RFC to "set bootmenu". Waiting reply</span>
+<a name="l-31"></a><span class="tm">13:09:18</span><span class="nk"> &lt;ramonn&gt;</span> alinefm, just it
+<a name="l-32"></a><span class="tm">13:09:25</span><span class="nk"> &lt;peterpennings&gt;</span> alinefm, yesterday samhenri was working on some mockups for ginger sidebar.
+<a name="l-33"></a><span class="tm">13:09:59</span><span class="nk"> &lt;alinefm&gt;</span> peterpennings, oh ok
+<a name="l-34"></a><span class="tm">13:10:08</span><span class="nk"> &lt;alinefm&gt;</span> let's move on...
+<a name="l-35"></a><span class="tm">13:10:13</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-36"></a><span class="tm">13:10:19</span><span class="nk"> &lt;alinefm&gt;</span> any other topic to discuss today?
+<a name="l-37"></a><span class="tm">13:11:07</span><span class="nk"> &lt;pvital&gt;</span> no
+<a name="l-38"></a><span class="tm">13:11:10</span><span class="nk"> &lt;ramonn&gt;</span> nop
+<a name="l-39"></a><span class="tm">13:11:22</span><span class="nk"> &lt;peterpennings&gt;</span> samhenri just send me his status right now, can I still send?
+<a name="l-40"></a><span class="tm">13:12:25</span><span class="nk"> &lt;alinefm&gt;</span> sure
+<a name="l-41"></a><span class="tm">13:12:28</span><span class="nk"> &lt;peterpennings&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] samhenri sent patch for Global Network Configuration</span>
+<a name="l-42"></a><span class="tm">13:12:32</span><span class="nk"> &lt;peterpennings&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] samhenri sent patch to add scrollbars in System Services panels</span>
+<a name="l-43"></a><span class="tm">13:12:36</span><span class="nk"> &lt;peterpennings&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] samhenri sent mockups for third level navigation that should be implemented with Ginger</span>
+<a name="l-44"></a><span class="tm">13:12:41</span><span class="nk"> &lt;peterpennings&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] samhenri currently working on PCI devices when editing guesrs</span>
+<a name="l-45"></a><span class="tm">13:12:55</span><span class="nk"> &lt;peterpennings&gt;</span> thanks alinefm
+<a name="l-46"></a><span class="tm">13:14:09</span><span class="nk"> &lt;alinefm&gt;</span> peterpennings, thank you for the update
+<a name="l-47"></a><span class="tm">13:14:28</span><span class="nk"> &lt;alinefm&gt;</span> if anyone has any other topic we can end earlier today
+<a name="l-48"></a><span class="tm">13:16:33</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, why would you end early if we have another topic?
+<a name="l-49"></a><span class="tm">13:16:52</span><span class="nk"> &lt;danielhb&gt;</span> ;)
+<a name="l-50"></a><span class="tm">13:17:07</span><span class="nk"> &lt;alinefm&gt;</span> ops...
+<a name="l-51"></a><span class="tm">13:17:08</span><span class="nk"> &lt;alinefm&gt;</span> hehehe
+<a name="l-52"></a><span class="tm">13:17:17</span><span class="nk"> &lt;alinefm&gt;</span> s/has/does not have
+<a name="l-53"></a><span class="tm">13:17:18</span><span class="nk"> &lt;alinefm&gt;</span> =)
+<a name="l-54"></a><span class="tm">13:17:38</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining!
+<a name="l-55"></a><span class="tm">13:17:40</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
