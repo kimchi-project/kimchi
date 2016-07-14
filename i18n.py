@@ -105,6 +105,7 @@ messages = {
     "KCHVM0050E": _("Cannot shutdown %(name)s. Virtual machine is shut off."),
     "KCHVM0051E": _("Cannot reset %(name)s. Virtual machine is already shut off."),
     "KCHVM0052E": _("Boot order must be a list. Devices accepted: hd, cdrom, fd or network."),
+    "KCHVM0053E": _("Bootmenu must be boolean. Values accepted: true of false."),
 
     "KCHVM0055E": _("Migrate to localhost %(host)s is not allowed."),
     "KCHVM0056E": _("To migrate a virtual machine to the remote host %(host)s the user %(user)s must have password-less login to the remote host."),

@@ -176,6 +176,7 @@ server.
             * cores   - The number of cores per socket.
             * threads - The number of threads per core.
     * bootorder: guest bootorder, types accepted: hd, cdrom, network or fd
+    * bootmenu: prompts guest bootmenu. Bool type.
 
 * **POST**: *See Virtual Machine Actions*
 
