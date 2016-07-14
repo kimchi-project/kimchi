@@ -127,7 +127,7 @@ class ModelTests(unittest.TestCase):
 
         keys = set(('name', 'state', 'stats', 'uuid', 'memory', 'cpu_info',
                     'screenshot', 'icon', 'graphics', 'users', 'groups',
-                    'access', 'persistent', 'bootorder'))
+                    'access', 'persistent', 'bootorder', 'bootmenu'))
 
         stats_keys = set(('cpu_utilization', 'mem_utilization',
                           'net_throughput', 'net_throughput_peak',
@@ -1362,6 +1362,12 @@ class ModelTests(unittest.TestCase):
             # try to pass invalid parameter
             self.assertRaises(OperationFailed, inst.vm_update, u'пeω-∨м',
                               {"bootorder": ["bla"]})
+
+            # enable/disable bootmenu
+            inst.vm_update(u'пeω-∨м', {"bootmenu": True})
+            self.assertEquals("yes", inst.vm_lookup(u'пeω-∨м')['bootmenu'])
+            inst.vm_update(u'пeω-∨м', {"bootmenu": False})
+            self.assertEquals("no", inst.vm_lookup(u'пeω-∨м')['bootmenu'])
 
     def test_get_interfaces(self):
         inst = model.Model('test:///default',
