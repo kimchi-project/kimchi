@@ -47,3 +47,6 @@ def get_bootorder_xml(boot_order=None):
         boot_xml += ET.tostring(device, encoding='utf-8', pretty_print=True)
 
     return boot_xml
+
+def get_bootmenu_node():
+    return E.bootmenu(enable="yes", timeout="5000")

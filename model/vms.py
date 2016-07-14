@@ -63,6 +63,7 @@ from wok.plugins.kimchi.screenshot import VMScreenshot
 from wok.plugins.kimchi.utils import get_next_clone_name
 from wok.plugins.kimchi.utils import template_name_from_uri
 from wok.plugins.kimchi.xmlutils.bootorder import get_bootorder_node
+from wok.plugins.kimchi.xmlutils.bootorder import get_bootmenu_node
 from wok.plugins.kimchi.xmlutils.cpu import get_topology_xml
 from wok.plugins.kimchi.xmlutils.disk import get_vm_disk_info, get_vm_disks
 from utils import has_cpu_numa, set_numa_memory
@@ -82,7 +83,7 @@ VM_ONLINE_UPDATE_PARAMS = ['graphics', 'groups', 'memory', 'users']
 
 # update parameters which are updatable when the VM is offline
 VM_OFFLINE_UPDATE_PARAMS = ['cpu_info', 'graphics', 'groups', 'memory',
-                            'name', 'users', 'bootorder']
+                            'name', 'users', 'bootorder', 'bootmenu']
 
 XPATH_DOMAIN_DISK = "/domain/devices/disk[@device='disk']/source/@file"
 XPATH_DOMAIN_DISK_BY_FILE = "./devices/disk[@device='disk']/source[@file='%s']"
@@ -95,6 +96,7 @@ XPATH_DOMAIN_UUID = '/domain/uuid'
 XPATH_DOMAIN_DEV_CPU_ID = '/domain/devices/spapr-cpu-socket/@id'
 
 XPATH_BOOT = 'os/boot/@dev'
+XPATH_BOOTMENU = 'os/bootmenu/@enable'
 XPATH_CPU = './cpu'
 XPATH_NAME = './name'
 XPATH_NUMA_CELL = './cpu/numa/cell'
@@ -758,9 +760,16 @@ class VMModel(object):
         for device in os.findall("boot"):
             os.remove(device)
 
-        # add new
-        for device in get_bootorder_node(params):
-            os.append(device)
+        # add new bootorder
+        if "bootorder" in params:
+            for device in get_bootorder_node(params["bootorder"]):
+                os.append(device)
+
+        # update bootmenu
+        if params.get("bootmenu") is False:
+            [os.remove(bm) for bm in os.findall("bootmenu")]
+        elif params.get("bootmenu") is True:
+            os.append(get_bootmenu_node())
 
         # update <os>
         return ET.tostring(et)
@@ -811,9 +820,9 @@ class VMModel(object):
         if ('memory' in params and params['memory'] != {}):
             new_xml = self._update_memory_config(new_xml, params, dom)
 
-        # update bootorder
-        if "bootorder" in params:
-            new_xml = self._update_bootorder(new_xml, params["bootorder"])
+        # update bootorder or bootmenu
+        if "bootorder" or "bootmenu" in params:
+            new_xml = self._update_bootorder(new_xml, params)
 
         snapshots_info = []
         conn = self.conn.get()
@@ -1252,8 +1261,10 @@ class VMModel(object):
         else:
             maxmemory = memory
 
-        # get boot order
+        # get boot order and bootmenu
         boot = xpath_get_text(xml, XPATH_BOOT)
+        bootmenu = "yes" if "yes" in xpath_get_text(xml, XPATH_BOOTMENU) \
+            else "no"
 
         return {'name': name,
                 'state': state,
@@ -1273,7 +1284,8 @@ class VMModel(object):
                 'groups': groups,
                 'access': 'full',
                 'persistent': True if dom.isPersistent() else False,
-                'bootorder': boot
+                'bootorder': boot,
+                'bootmenu': bootmenu
                 }
 
     def _vm_get_disk_paths(self, dom):

@@ -317,6 +317,11 @@
                         "additionalItems": false,
                         "uniqueItems": true
                 },
+                "bootmenu": {
+                    "description": "Bootmenu on guest power on",
+                    "error": "KCHVM0053E",
+                    "type": "boolean"
+                },
                 "users": {
                     "description": "Array of users who have permission to the VM",
                     "type": "array",
