@@ -532,18 +532,22 @@ var kimchi = {
             var taskStatus = result['status'];
             switch(taskStatus) {
             case 'running':
+                $('html').addClass('in-progress');
                 progress && progress(result);
                 setTimeout(function() {
                     kimchi.trackTask(taskID, suc, err, progress);
                 }, 2000);
                 break;
             case 'finished':
+                $('html').removeClass('in-progress');
                 suc && suc(result);
                 break;
             case 'failed':
+                $('html').removeClass('in-progress');
                 err && err(result);
                 break;
             default:
+                $('html').removeClass('in-progress');
                 break;
             }
         };
