@@ -270,6 +270,10 @@
     .tooltip-arrow {
         display: none;
     }
+    #loading-isos {
+        top: 0 !important;
+        z-index: 4 !important;
+    }
 }
 
 

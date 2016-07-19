@@ -1730,6 +1730,11 @@ body.wok-gallery {
   display: none;
 }
 
+#template-add-window #loading-isos {
+  top: 0 !important;
+  z-index: 4 !important;
+}
+
 /* VM List View classes*/
 #templates-root-container .grid-control input[type="text"] {
   height: 38px;
