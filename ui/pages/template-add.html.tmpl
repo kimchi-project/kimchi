@@ -30,18 +30,17 @@
             <div class="modal-body">
                 <div class="template-modal-container">
                     <div id="alert-modal-container"></div>
+                    <div>
+                        <h5>$_("Where is the source media for this template? ")</h5>
+                        <input type="radio" checked="checked" name="iso-source" id="image-src" value="image-src" class="wok-radio">
+                        <label for="image-src">$_("Image Template")</label>
+                        <input type="radio" name="iso-source" id="netboot-src" value="netboot-src" class="wok-radio">
+                        <label for="netboot-src">$_("Netboot Template")</label>
+                    </div>
                 </div>
                 <div class="template-pager">
                     <div class="page-list">
                         <div class="page" id="iso-local-box">
-                            <div id="loading-isos">
-                                <div class="wok-mask-loader-container">
-                                    <div class="wok-mask-loading">
-                                        <div class="wok-mask-loading-icon"></div>
-                                        <div class="wok-mask-loading-text">$_("Loading...")</div>
-                                    </div>
-                                </div>
-                            </div>
                                 <!-- 1-1-2 -->
                                 <div id="iso-file-field">
                                     <div id="iso-file-box" class="custom-iso-field">
@@ -104,16 +103,30 @@
                                     </div>
                                 </div>
                         </div>
-        </div>
-    </div>
-    <div class="modal-footer">
-                <button class="btn btn-default" id="btn-template-file-create" disabled="disabled">$_("Create")</button>
-                <button class="btn btn-default" id="btn-template-local-iso-create" disabled="disabled">$_("Create")</button>
-                <button class="btn btn-default" data-dismiss="modal" type="button">$_("Cancel")</button>
-    </div>
-</div>
+                        <div class="page" id="netboot-path">
+                        </div>
+                    </div>
+                    <div id="loading-isos">
+                        <div class="wok-mask-loader-container">
+                            <div class="wok-mask-loading">
+                                <div class="wok-mask-loading-icon"></div>
+                                <div class="wok-mask-loading-text">$_("Loading...")</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default" id="btn-template-file-create" disabled="disabled">$_("Create")</button>
+                    <button class="btn btn-default" id="btn-template-local-iso-create" disabled="disabled">$_("Create")</button>
+                    <button class="btn btn-default" id="btn-template-netboot-create" disabled="disabled">$_("Create")</button>
+                    <button class="btn btn-default" data-dismiss="modal" type="button">$_("Cancel")</button>
+                </div>
+            </div>
 <script>
 kimchi.template_add_main();
 </script>
+
+
+</div>
 </body>
 </html>

@@ -17,7 +17,8 @@
  */
 kimchi.template_add_main = function() {
     "use strict";
-    $('#loading-isos').removeClass('hidden');
+    var currentPage = 'iso-local-box';
+    $('#loading-isos').fadeIn(100, function() {});
     kimchi.deepScanHandler = null;
     var isos = [];
     var local_isos = [];
@@ -54,6 +55,7 @@ kimchi.template_add_main = function() {
         $('#local-iso-field').hide();
         $('#select-all-local-iso').prop('checked', false);
         $('#btn-template-local-iso-create').attr('disabled', 'disabled');
+        $('#btn-template-netboot-create').attr('disabled', 'disabled');
         $('#iso-search').hide();
         $('#iso-more').hide();
         $('#iso-search-loading').hide();
@@ -65,6 +67,7 @@ kimchi.template_add_main = function() {
         $('#iso-url').val(''); // 4 - Remote folder path text
         $('#btn-template-file-create').attr('disabled', 'disabled').css('display', 'inline-block'); // 1 - Folder path
         $('#btn-template-local-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 2 - Selected ISOs
+        $('#btn-template-netboot-create').attr('disabled', 'disabled').css('display', 'none'); // 3 - Netboot
         $('#select-all-local-iso, #select-all-remote-iso').prop('checked', false); // False to all select-all checkboxes
         $('#list-local-iso [type="checkbox"], #list-remote-iso [type="checkbox"]').prop('checked', false); // False to all list checkboxes
     };
@@ -107,6 +110,7 @@ kimchi.template_add_main = function() {
         $('#iso-url').val('');
         $('#btn-template-file-create').attr('disabled', 'disabled').css('display', 'inline-block');
         $('#btn-template-local-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 2 - Selected ISOs
+        $('#btn-template-netboot-create').attr('disabled', 'disabled').css('display', 'none'); // 3 - Netboot
         $('#select-all-local-iso, #select-all-remote-iso').prop('checked', false); // False to all select-all checkboxes
         $('#list-local-iso [type="checkbox"], #list-remote-iso [type="checkbox"]').prop('checked', false); // False to all list checkboxes
     };
@@ -125,6 +129,7 @@ kimchi.template_add_main = function() {
         } else {
             $('#btn-template-file-create').attr('disabled', 'disabled');
         }
+        $('#btn-template-netboot-create').attr('disabled', 'disabled').css('display', 'none'); // 3 - Netboot
     });
 
     initLocalIsoField();
@@ -144,9 +149,7 @@ kimchi.template_add_main = function() {
         });
     }, function(err) {
         wok.message.error(err.responseJSON.reason, '#local-iso-error-container');
-        $('#loading-isos').fadeOut(300, function() {
-            $('#loading-isos').addClass('hidden');
-        });
+        $('#loading-isos').fadeOut(300, function() {});
     });
 
     $('#template-add-window .modal-body .template-pager').animate({
@@ -232,12 +235,11 @@ kimchi.template_add_main = function() {
             $('#iso-file').parent().removeClass('has-error');
 
             $('#btn-template-file-create').attr('disabled', 'disabled').css('display', 'none'); // 1 - Folder path
-
             $('#btn-template-local-iso-create').removeAttr('disabled').css('display', 'inline-block'); // 2 - Selected ISOs
-
         } else {
             $('#btn-template-local-iso-create').attr('disabled', 'disabled');
         }
+        $('#btn-template-netboot-create').attr('disabled', 'disabled').css('display', 'none'); // 3 - Netboot
     });
 
     $('#list-local-iso').on('click', '[type="checkbox"]', function() {
@@ -248,6 +250,7 @@ kimchi.template_add_main = function() {
 
         $('#btn-template-file-create').attr('disabled', 'disabled').css('display', 'none'); // 1 - Folder path
         $('#btn-template-local-iso-create').attr('disabled', 'disabled').css('display', 'inline-block'); // 2 - Selected ISOs
+        $('#btn-template-netboot-create').attr('disabled', 'disabled').css('display', 'none'); // 3 - Netboot
 
         if (checkedLength) {
             $('#btn-template-local-iso-create').removeAttr('disabled');
@@ -258,6 +261,16 @@ kimchi.template_add_main = function() {
             $('#select-all-local-iso').prop('checked', false);
             $('#btn-template-local-iso-create').attr('disabled', 'disabled');
         }
+    });
+
+    $('#btn-template-netboot-create').click(function() {
+        var data = {
+            "source_media": {"type": "netboot"}
+        };
+        addTemplate(data, function() {
+            $('#btn-template-netboot-create').text(i18n['KCHAPI6005M']);
+            $('#btn-template-netboot-create').prop('disabled', false);
+        });
     });
 
     $('#btn-template-local-iso-create').click(function() {
@@ -309,11 +322,9 @@ kimchi.template_add_main = function() {
         $('#iso-url').val('');
 
         $('#btn-template-file-create').attr('disabled', 'disabled').css('display', 'none'); // 1 - Folder path
-
         $('#btn-template-local-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 2 - Selected ISOs
-
+        $('#btn-template-netboot-create').attr('disabled', 'disabled').css('display', 'none'); // 3 - Netboot
         $('#select-all-local-iso, #select-all-remote-iso').prop('checked', false); // False to all select-all checkboxes
-
         $('#list-local-iso [type="checkbox"], #list-remote-iso [type="checkbox"]').prop('checked', false); // False to all list checkboxes
 
     };
@@ -350,6 +361,55 @@ kimchi.template_add_main = function() {
             $('input#iso-url').parent().toggleClass('has-error', !isValid);
         }, 0);
     });
+
+    $('#image-src').change(function() {
+        if (this.checked) {
+            if (currentPage === 'netboot-path') {
+                kimchi.switchPage(currentPage, 'iso-local-box', 'right');
+            }
+            currentPage = 'iso-local-box';
+            $('#template-add-window .modal-body .template-pager').animate({
+                height: "700px"
+            }, 400);
+            initLocalIsoField();
+            initIsoFileField();
+            $('#loading-isos').fadeIn(100, function() {});
+            kimchi.listIsos(function(local_isos) { //local ISOs
+                kimchi.listDistros(function(remote_isos) {  //remote ISOs
+
+                    isos = local_isos.concat(remote_isos); //all isos
+                    if (isos && isos.length) {
+                        showLocalIsoField(isos);
+                        $('#iso-more').show();
+                    } else {
+                        $('#iso-search').show();
+                    }
+                    $('#loading-isos').fadeOut(100, function() {});
+                });
+            }, function(err) {
+                wok.message.error(err.responseJSON.reason, '#local-iso-error-container');
+                $('#loading-isos').fadeOut(300, function() {});
+            });
+            setupFilters();
+            enabledRemoteIso();
+        }
+    });
+
+    $('#netboot-src').change(function() {
+        if (this.checked) {
+            if (currentPage === 'iso-local-box') {
+                kimchi.switchPage(currentPage, 'netboot-path', 'left');
+            }
+            currentPage = 'netboot-path';
+            $('#template-add-window .modal-body .template-pager').animate({
+                height: "300px"
+            }, 400);
+            $('#btn-template-file-create').attr('disabled', 'disabled').css('display', 'none'); // 1 - Folder path
+            $('#btn-template-local-iso-create').attr('disabled', 'disabled').css('display', 'none'); // 2 - Selected ISOs
+            $('#btn-template-netboot-create').removeAttr('disabled').css('display', 'inline-block'); // 3 - Netboot
+        }
+    });
+
     //do create
     var addTemplate = function(data, callback) {
         kimchi.createTemplate(data, function() {
