@@ -1,0 +1,78 @@
+13:00:19 <alinefm> #startmeeting
+13:00:19 <kimchi-bot> Meeting started Wed Jul 20 13:00:19 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:00:19 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:00:19 <alinefm> #meetingname scrum
+13:00:19 <kimchi-bot> The meeting name has been set to 'scrum'
+13:00:46 <alinefm> #info Agenda
+13:00:46 <alinefm> #info 1) Status
+13:00:46 <alinefm> #info 2) Open discussion
+13:00:47 <alinefm> anything else?
+13:01:11 <ziviani> no
+13:01:35 <ramonn> nop
+13:01:40 <alinefm> #topic Status
+13:01:40 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+13:02:14 <alinefm> #info [Wok] socorro Tested/Reviewed patch
+13:02:14 <alinefm> #info [*] socorro Followed up/Updated various bugzilla/github issues with
+13:02:14 <alinefm> #info [*] socorro accurate status/info where needed
+13:02:14 <alinefm> #info [Kimchi] socorro - Sent v3 of netboot template to ML for review.  Thanks
+13:02:14 <alinefm> #info [Kimchi] socorro - to Samuel for helping when needed
+13:02:16 <alinefm> #info [Kimchi] socorro - Will start looking at new request regarding PCI passthrough
+13:02:21 <peterpennings> #info [Ginger] peterpennings just sent patch about improvementes on configuration backup UI
+13:02:24 <pvital> #info [Wok] [Kimchi] [Ginger*] pvital reviewed patches
+13:02:25 <pvital> #info  [Wok] pvital submitted V3 of the patch "Use system's nginx proxy service."
+13:02:25 <pvital> #info [Kimchi] submitted RFC to issue #976
+13:02:25 <pvital> #info [Gingerbase] pvital is working in create a new plugin code for HostStatsModel to reduce high CPU consumption when wokd is in idle mode.
+13:02:32 <ramonn> #info [kimchi] ramonn sent RFC about returning remaining time to close session. Paulo answer
+13:02:44 <ziviani> #info ziviani [kimchi] is reviewing and testing the front-end patch written by Samuel
+13:02:51 <ramonn> #info [kimchi] ramonn asking for review to "Make kimchi able to change bootorder" and "Add bootmenu for guests"
+13:03:04 <ziviani> #info [kimchi] ziviani is reviewing and testing the front-end patch written by Samuel
+13:03:24 <ziviani> #info [kimchi] ziviani is working on bugs in pci PT
+13:03:30 <ramonn> #info [wok] ramonn start removing hardcoded js libraries and using upstream packages
+13:03:45 <ramonn> #info [kimchi] ramonn blocked on bug because bianca is using the machine
+13:03:51 <ziviani> #info [*] ziviani updated openpower branches
+13:04:44 <danielhb> #info [ginger] danielhb fixed several github bugs
+13:05:04 <peterpennings> #info [Kimchi] samhenri sent patch about mouse pointer
+13:05:06 <danielhb> #info [gingerbase]  danielhb working on package management enhancements
+13:05:31 <peterpennings> #info [Wok] samhenri sent patch about user log date
+13:05:37 <danielhb> #info [Ginger] bianca is working in bug related to time out while generating config back up file leave the tar file behind. Testing all possibilities using '--ignore-failed-read' to make sure tar command runs without any errors or warnings.
+13:05:44 <danielhb> #info [Kimchi] bianca is working in a issue with kimchi killing Wokd due to sys.exit() calls. Investigating the problem with sys.exit() in 'network' and 'storagepools' files, we've discuss about remove those calls and make an exception to not load the plugin in those cases (still need some tests).
+13:05:59 <alinefm> ramonn, why are you blocked about a machine?
+13:07:55 <ramonn> alinefm, because the bug was reported on the same machine
+13:08:19 <alinefm> ramonn, and why can't you use it at the same time as bianca is using?
+13:08:38 <alinefm> ramonn, you can launch a separate wokd process in different ports...
+13:09:03 <ramonn> alinefm, because bianca is making backups, that makes machine go low
+13:09:17 <ramonn> alinefm, and my bug is about kimchi taking to long to create templates
+13:09:50 <alinefm> ramonn, can't you reproduce that in other machine?
+13:09:59 <alinefm> it should not be a specific machine problem
+13:10:11 <ramonn> alinefm, i don't know. Until now, i don't know if it's specific or not
+13:10:27 <ramonn> would be nice to reproduce on tester machine to verify it
+13:10:45 <alinefm> it would be nice to reproduce it anywhere
+13:10:46 <alinefm> =)
+13:10:58 <ramonn> :)
+13:10:58 <alinefm> try to do that in your machine
+13:11:05 <alinefm> maybe it is simpler than we think
+13:12:17 <ramonn> ok
+13:12:20 <alinefm> can we move on?
+13:12:55 <ramonn> of course
+13:12:58 <alinefm> #topic Open Discussion
+13:13:06 <alinefm> any other topic to discuss today?
+13:13:20 <alinefm> I have one
+13:13:44 <alinefm> I will be out in the next 2 weeks and danielhb will drive the scrum meetings during that time
+13:14:29 <pvital> noooooooooooooooooooooooooooooooo
+13:14:36 <pvital> ops! :-P
+13:14:38 <alinefm> hehehe
+13:14:50 <ramonn> hahahahha
+13:15:04 <ramonn> I have one: asking review for  "Make kimchi able to change bootorder" and "Add bootmenu for guests"
+13:15:13 <ramonn> also, thanks danielhb for review the first
+13:15:20 <alinefm> ramonn, sure
+13:15:31 <alinefm> pvital, hopefully you all will survive hehe
+13:15:36 <ramonn> and thks pvital for reviewing my RFC and pointing suggestions
+13:16:45 <alinefm> ok
+13:16:50 <alinefm> anything else for today?
+13:17:02 <peterpennings> alinefm, is there any updates about some block issues in UI list of tasks?
+13:19:06 <alinefm> peterpennings, I am checking them now
+13:19:27 <peterpennings> great.. tks!
+13:20:14 <alinefm> any other topic, team?
+13:21:19 <ziviani> no
+13:22:04 <alinefm> ok... so thanks everyone for joining!
+13:22:08 <alinefm> #endmeeting
