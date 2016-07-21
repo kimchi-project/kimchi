@@ -21,6 +21,17 @@ import lxml.etree as ET
 from lxml.builder import E
 
 
+def get_bootorder_node(boot_order=None):
+    if boot_order is None:
+        boot_order = ['hd', 'cdrom', 'network']
+
+    boot_nodes = []
+    for device in boot_order:
+        boot_nodes.append(E.boot(dev=device))
+
+    return boot_nodes
+
+
 def get_bootorder_xml(boot_order=None):
     """
     Returns the XML for boot order. The default return includes the following:
@@ -31,12 +42,8 @@ def get_bootorder_xml(boot_order=None):
 
     To a different boot order, specify the order by a list as argument.
     """
-    if boot_order is None:
-        boot_order = ['hd', 'cdrom', 'network']
-
     boot_xml = ''
-    for device in boot_order:
-        boot = E.boot(dev=device)
-        boot_xml += ET.tostring(boot, encoding='utf-8', pretty_print=True)
+    for device in get_bootorder_node(boot_order):
+        boot_xml += ET.tostring(device, encoding='utf-8', pretty_print=True)
 
     return boot_xml
