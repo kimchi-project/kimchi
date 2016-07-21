@@ -146,6 +146,7 @@ server.
       Default is: empty (i.e. only root-users may access).
     * groups: A list of system groups whose users have permission to access
       the VM. Default is: empty (i.e. no groups given access).
+    * bootorder: list of devices in boot order
 * **DELETE**: Remove the Virtual Machine
 * **PUT**: update the parameters of existing VM
     * name: New name for this VM (only applied for shutoff VM)
@@ -174,6 +175,7 @@ server.
             * sockets - The maximum number of sockets to use.
             * cores   - The number of cores per socket.
             * threads - The number of threads per core.
+    * bootorder: guest bootorder, types accepted: hd, cdrom, network or fd
 
 * **POST**: *See Virtual Machine Actions*
 
