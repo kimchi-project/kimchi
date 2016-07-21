@@ -89,3 +89,31 @@ class LibvirtEvents(object):
             else:
                 reason = e.message
             wok_log.error("Register of ENOSPC event failed: %s" % reason)
+
+    def registerAttachDevicesEvent(self, conn, cb, arg):
+        """
+        register libvirt event to listen to devices attachment
+        """
+        try:
+            return conn.get().domainEventRegisterAny(
+                None,
+                libvirt.VIR_DOMAIN_EVENT_ID_DEVICE_ADDED,
+                cb,
+                arg)
+
+        except libvirt.libvirtError as e:
+            wok_log.error("register attach event failed: %s" % e.message)
+
+    def registerDetachDevicesEvent(self, conn, cb, arg):
+        """
+        register libvirt event to listen to devices detachment
+        """
+        try:
+            return conn.get().domainEventRegisterAny(
+                None,
+                libvirt.VIR_DOMAIN_EVENT_ID_DEVICE_REMOVED,
+                cb,
+                arg)
+
+        except libvirt.libvirtError as e:
+            wok_log.error("register detach event failed: %s" % e.message)
