@@ -94,6 +94,7 @@ XPATH_DOMAIN_MEMORY_UNIT = '/domain/memory/@unit'
 XPATH_DOMAIN_UUID = '/domain/uuid'
 XPATH_DOMAIN_DEV_CPU_ID = '/domain/devices/spapr-cpu-socket/@id'
 
+XPATH_BOOT = 'os/boot/@dev'
 XPATH_CPU = './cpu'
 XPATH_NAME = './name'
 XPATH_NUMA_CELL = './cpu/numa/cell'
@@ -1251,6 +1252,9 @@ class VMModel(object):
         else:
             maxmemory = memory
 
+        # get boot order
+        boot = xpath_get_text(xml, XPATH_BOOT)
+
         return {'name': name,
                 'state': state,
                 'stats': res,
@@ -1268,7 +1272,8 @@ class VMModel(object):
                 'users': users,
                 'groups': groups,
                 'access': 'full',
-                'persistent': True if dom.isPersistent() else False
+                'persistent': True if dom.isPersistent() else False,
+                'bootorder': boot
                 }
 
     def _vm_get_disk_paths(self, dom):
