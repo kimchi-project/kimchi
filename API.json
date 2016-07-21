@@ -294,6 +294,29 @@
                     "minLength": 1,
                     "error": "KCHVM0011E"
                 },
+                "bootorder": {
+                        "description": "Boot order",
+                        "type": "array",
+                        "error": "KCHVM0052E",
+                        "items": [
+                            {"type": "string",
+                             "enum": ["hd", "cdrom", "network", "fd"]
+                            },
+                            {"type": "string",
+                             "enum": ["hd", "cdrom", "network", "fd"]
+                            },
+                            {"type": "string",
+                             "enum": ["hd", "cdrom", "network", "fd"]
+                            },
+                            {"type": "string",
+                             "enum": ["hd", "cdrom", "network", "fd"]
+                            }
+                        ],
+                        "minItems": 1,
+                        "maxItems": 4,
+                        "additionalItems": false,
+                        "uniqueItems": true
+                },
                 "users": {
                     "description": "Array of users who have permission to the VM",
                     "type": "array",
