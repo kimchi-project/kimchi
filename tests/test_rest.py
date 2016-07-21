@@ -290,6 +290,17 @@ class RestTests(unittest.TestCase):
         resp = self.request('/plugins/kimchi/vms/∨м-црdαtеd', req, 'PUT')
         self.assertEquals(400, resp.status)
 
+        # change bootorder
+        b_order = ["hd", "network", "cdrom"]
+        req = json.dumps({"bootorder": b_order})
+        resp = self.request('/plugins/kimchi/vms/∨м-црdαtеd', req, 'PUT')
+        self.assertEquals(200, resp.status)
+        self.assertEquals(json.loads(resp.read())["bootorder"], b_order)
+
+        req = json.dumps({"bootorder": ["bla"]})
+        resp = self.request('/plugins/kimchi/vms/∨м-црdαtеd', req, 'PUT')
+        self.assertEquals(400, resp.status)
+
     def test_vm_lifecycle(self):
         # Create a Template
         req = json.dumps({'name': 'test',

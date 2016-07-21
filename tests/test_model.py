@@ -127,7 +127,7 @@ class ModelTests(unittest.TestCase):
 
         keys = set(('name', 'state', 'stats', 'uuid', 'memory', 'cpu_info',
                     'screenshot', 'icon', 'graphics', 'users', 'groups',
-                    'access', 'persistent'))
+                    'access', 'persistent', 'bootorder'))
 
         stats_keys = set(('cpu_utilization', 'mem_utilization',
                           'net_throughput', 'net_throughput_peak',
@@ -1349,6 +1349,19 @@ class ModelTests(unittest.TestCase):
             inst.vm_update(u'пeω-∨м', {'users': [], 'groups': []})
             self.assertEquals([], inst.vm_lookup(u'пeω-∨м')['users'])
             self.assertEquals([], inst.vm_lookup(u'пeω-∨м')['groups'])
+
+            # change bootorder
+            b_order = ["hd", "network", "cdrom"]
+            inst.vm_update(u'пeω-∨м', {"bootorder": b_order})
+            self.assertEquals(b_order, inst.vm_lookup(u'пeω-∨м')['bootorder'])
+
+            # try to add empty list
+            self.assertRaises(OperationFailed, inst.vm_update, u'пeω-∨м',
+                              {"bootorder": [""]})
+
+            # try to pass invalid parameter
+            self.assertRaises(OperationFailed, inst.vm_update, u'пeω-∨м',
+                              {"bootorder": ["bla"]})
 
     def test_get_interfaces(self):
         inst = model.Model('test:///default',
