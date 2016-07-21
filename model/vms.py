@@ -62,6 +62,7 @@ from wok.plugins.kimchi.osinfo import defaults, MEM_DEV_SLOTS
 from wok.plugins.kimchi.screenshot import VMScreenshot
 from wok.plugins.kimchi.utils import get_next_clone_name
 from wok.plugins.kimchi.utils import template_name_from_uri
+from wok.plugins.kimchi.xmlutils.bootorder import get_bootorder_node
 from wok.plugins.kimchi.xmlutils.cpu import get_topology_xml
 from wok.plugins.kimchi.xmlutils.disk import get_vm_disk_info, get_vm_disks
 from utils import has_cpu_numa, set_numa_memory
@@ -81,7 +82,7 @@ VM_ONLINE_UPDATE_PARAMS = ['graphics', 'groups', 'memory', 'users']
 
 # update parameters which are updatable when the VM is offline
 VM_OFFLINE_UPDATE_PARAMS = ['cpu_info', 'graphics', 'groups', 'memory',
-                            'name', 'users']
+                            'name', 'users', 'bootorder']
 
 XPATH_DOMAIN_DISK = "/domain/devices/disk[@device='disk']/source/@file"
 XPATH_DOMAIN_DISK_BY_FILE = "./devices/disk[@device='disk']/source[@file='%s']"
@@ -745,6 +746,24 @@ class VMModel(object):
         else:
             remove_metadata_node(dom, 'name')
 
+    def _update_bootorder(self, xml, params):
+        # get element tree from xml
+        et = ET.fromstring(xml)
+
+        # get machine type
+        os = et.find("os")
+
+        # remove old order
+        for device in os.findall("boot"):
+            os.remove(device)
+
+        # add new
+        for device in get_bootorder_node(params):
+            os.append(device)
+
+        # update <os>
+        return ET.tostring(et)
+
     def _static_vm_update(self, vm_name, dom, params):
         old_xml = new_xml = dom.XMLDesc(libvirt.VIR_DOMAIN_XML_SECURE)
         params = copy.deepcopy(params)
@@ -790,6 +809,10 @@ class VMModel(object):
         # Updating memory
         if ('memory' in params and params['memory'] != {}):
             new_xml = self._update_memory_config(new_xml, params, dom)
+
+        # update bootorder
+        if "bootorder" in params:
+            new_xml = self._update_bootorder(new_xml, params["bootorder"])
 
         snapshots_info = []
         conn = self.conn.get()
