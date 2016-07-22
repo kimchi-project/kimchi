@@ -20,7 +20,6 @@
 import copy
 import ipaddr
 import libvirt
-import sys
 import time
 from libvirt import VIR_INTERFACE_XML_INACTIVE
 
@@ -59,19 +58,19 @@ class NetworksModel(object):
         networks = list(set(tmpl_defaults['networks']))
         conn = self.conn.get()
 
-        error_msg = ("Please, check the configuration in %s/template.conf to "
-                     "ensure it lists only valid networks." %
-                     kimchiPaths.sysconf_dir)
-
         for net_name in networks:
+            error_msg = ("Network %s does not exist or is not "
+                         "active. Please, check the configuration in "
+                         "%s/template.conf to ensure it lists only valid "
+                         "networks." % (net_name, kimchiPaths.sysconf_dir))
+
             try:
                 net = conn.networkLookupByName(net_name)
             except libvirt.libvirtError, e:
                 msg = "Fatal: Unable to find network %s."
                 wok_log.error(msg, net_name)
-                wok_log.error(error_msg)
                 wok_log.error("Details: %s", e.message)
-                sys.exit(1)
+                raise Exception(error_msg)
 
             if net.isActive() == 0:
                 try:
@@ -79,9 +78,8 @@ class NetworksModel(object):
                 except libvirt.libvirtError as e:
                     msg = "Fatal: Unable to activate network %s."
                     wok_log.error(msg, net_name)
-                    wok_log.error(error_msg)
                     wok_log.error("Details: %s", e.message)
-                    sys.exit(1)
+                    raise Exception(error_msg)
 
     def create(self, params):
         conn = self.conn.get()
