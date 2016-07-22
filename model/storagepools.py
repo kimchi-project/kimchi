@@ -19,7 +19,6 @@
 
 import libvirt
 import lxml.etree as ET
-import sys
 from lxml.builder import E
 
 from wok.exception import InvalidOperation, MissingParameter
@@ -82,21 +81,21 @@ class StoragePoolsModel(object):
         if config.get('kimchi', {}).get('create_iso_pool', False):
             pools['ISO'] = {'path': '/var/lib/kimchi/isos'}
 
-        error_msg = ("Please, check the configuration in %s/template.conf to "
-                     "ensure it has a valid storage pool." %
-                     kimchiPaths.sysconf_dir)
-
         conn = self.conn.get()
         for pool_name in pools:
+            error_msg = ("Storage pool %s does not exist or is not "
+                         "active. Please, check the configuration in "
+                         "%s/template.conf to ensure it lists only valid "
+                         "networks." % (pool_name, kimchiPaths.sysconf_dir))
             try:
                 pool = conn.storagePoolLookupByName(pool_name)
             except libvirt.libvirtError, e:
                 pool_path = pools[pool_name].get('path')
                 if pool_path is None:
-                    msg = "Fatal: Unable to find storage pool %s. " + error_msg
+                    msg = "Fatal: Unable to find storage pool %s. "
                     wok_log.error(msg % pool_name)
                     wok_log.error("Details: %s", e.message)
-                    sys.exit(1)
+                    raise Exception(error_msg)
 
                 # Try to create the pool
                 pool = E.pool(E.name(pool_name), type='dir')
@@ -106,10 +105,9 @@ class StoragePoolsModel(object):
                     pool = conn.storagePoolDefineXML(xml, 0)
                 except libvirt.libvirtError, e:
                     msg = "Fatal: Unable to create storage pool %s. "
-                    msg += error_msg
                     wok_log.error(msg % pool_name)
                     wok_log.error("Details: %s", e.message)
-                    sys.exit(1)
+                    raise Exception(error_msg)
 
                 # Build and set autostart value to pool
                 # Ignore error as the pool was already successfully created
@@ -127,10 +125,9 @@ class StoragePoolsModel(object):
                     pool.create(0)
                 except libvirt.libvirtError, e:
                     msg = "Fatal: Unable to craete storage pool %s. "
-                    msg += error_msg
                     wok_log.error(msg % pool_name)
                     wok_log.error("Details: %s", e.message)
-                    sys.exit(1)
+                    raise Exception(error_msg)
 
     def get_list(self):
         try:
