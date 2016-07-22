@@ -389,7 +389,7 @@ kimchi.validateForm = function() {
 kimchi.validateDirForm = function () {
     var path = $('#pathId').val();
     if (!/(^\/.*)$/.test(path)) {
-        wok.message.error.code('KCHAPI6003E');
+        wok.message.error.code('KCHAPI6003E','#alert-modal-container');
         return false;
     }
     return true;
@@ -402,7 +402,7 @@ kimchi.validateNfsForm = function () {
         return false;
     }
     if (!/((\/([0-9a-zA-Z-_\.]+)))$/.test(nfspath)) {
-        wok.message.error.code('KCHPOOL6005E');
+        wok.message.error.code('KCHPOOL6005E','#alert-modal-container');
         return false;
     }
     $('#nfs-mount-loading').removeClass('hidden');
@@ -420,7 +420,7 @@ kimchi.validateIscsiForm = function() {
 
 kimchi.validateServer = function(serverField) {
     if(!wok.isServer(serverField)) {
-        wok.message.error.code('KCHPOOL6009E');
+        wok.message.error.code('KCHPOOL6009E','#alert-modal-container');
         return false;
     }
     return true;
@@ -428,7 +428,7 @@ kimchi.validateServer = function(serverField) {
 
 kimchi.validateLogicalForm = function () {
     if ($("input[name=devices]:checked").length === 0 && $("input[name=lvmTmplRadioSelection]:checked").length === 0) {
-        wok.message.error.code('KCHPOOL6006E');
+        wok.message.error.code('KCHPOOL6006E','#alert-modal-container');
         return false;
     } else {
         return true;
