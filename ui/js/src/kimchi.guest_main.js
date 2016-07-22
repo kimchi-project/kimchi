@@ -313,6 +313,466 @@ kimchi.initClone = function() {
    wok.window.close();
 };
 
+kimchi.guestSetRequestHeader = function(xhr) {
+    xhr.setRequestHeader('Accept', 'text/html');
+};
+
+kimchi.toggleGuestsGallery = function() {
+    $(".wok-guest-list, .wok-guest-gallery").toggleClass("wok-guest-list wok-guest-gallery");
+    $(".wok-list, .wok-gallery").toggleClass("wok-list wok-gallery");
+    var text = $('#guest-gallery-table-button span.text').text();
+    $('#guest-gallery-table-button span.text').text(text == i18n['KCHTMPL6005M'] ? i18n['KCHTMPL6004M'] : i18n['KCHTMPL6005M']);
+    var buttonText = $('#guest-gallery-table-button span.text').text();
+    if (buttonText.indexOf("Gallery") !== -1) {
+        // Currently in list view
+        kimchi.setGuestView("guestView", "list");
+     } else {
+        // Currently in gallery
+        kimchi.setGuestView("guestView", "gallery");
+     }
+};
+
+kimchi.setGuestView = function(name, value) {
+    window.localStorage.setItem(name, value);
+};
+
+kimchi.readGuestView = function(name) {
+    var viewName = window.localStorage.getItem(name);
+    if (viewName !== "") {
+        return viewName;
+    } else {
+        return null;
+    }
+};
+
+kimchi.showGuestGallery = function() {
+    $(".wok-guest-list").addClass("wok-guest-gallery");
+    $(".wok-list").addClass("wok-gallery");
+    $(".wok-guest-gallery").removeClass("wok-guest-list");
+    $(".wok-gallery").removeClass("wok-list");
+    $('#guest-gallery-table-button span.text').text(i18n['KCHTMPL6004M']);
+};
+
+kimchi.showGuestList = function() {
+    $(".wok-guest-list").removeClass("wok-guest-gallery");
+    $(".wok-list").removeClass("wok-gallery");
+    $(".wok-guest-gallery").addClass("wok-guest-list");
+    $(".wok-gallery").addClass("wok-list");
+    $('#guest-gallery-table-button span.text').text(i18n['KCHTMPL6005M']);
+};
+
+kimchi.guest_main = function() {
+    $('body').addClass('wok-list');
+    var viewFound = kimchi.readGuestView("guestView");
+    if (viewFound) {
+        if(viewFound === "gallery") {
+            // should be showing gallery
+            kimchi.showGuestGallery();
+        } else {
+            // Should be showing list
+            kimchi.showGuestList();
+        }
+    } else {
+        // Default to showing list
+        kimchi.showGuestList();
+    }
+    if (wok.tabMode['guests'] === 'admin') {
+        $('.tools').attr('style', 'display');
+        $("#vm-add").on("click", function(event) {
+            wok.window.open('plugins/kimchi/guest-add.html');
+        });
+    }
+    kimchi.guestTemplate = $('#guest-tmpl').html();
+    kimchi.guestElem = $('<div/>').html(kimchi.guestTemplate).find('li[name="guest"]');
+    $('#guests-root-container').on('remove', function() {
+        kimchi.vmTimeout && clearTimeout(kimchi.vmTimeout);
+    });
+
+    $('#guest-gallery-table-button').on('click', function(event) {
+        kimchi.toggleGuestsGallery();
+    });
+
+    kimchi.resetGuestFilter();
+    kimchi.initGuestFilter();
+    kimchi.listVmsAuto();
+};
+
+kimchi.guest_clonevm_main = function() {
+   kimchi.initCloneDialog();
+};
+
+kimchi.initCloneDialog = function(callback) {
+    $("#numberClone").val("1");
+    $("#cloneFormOk").on("click", function() {
+        //Check if input is a number
+        var numClone = parseInt($('#numberClone').val());
+        var err = "";
+        if (isNaN(numClone)) {
+            err = i18n['KCHVM0001E'];
+            wok.message.error(err,'#alert-modal-container');
+        } else {
+            $("#cloneFormOk").prop("disabled", true);
+            kimchi.initClone();
+        }
+   });
+};
+
+
+kimchi.createGuestLi = function(vmObject, prevScreenImage, openMenu) {
+    var result;
+    if (typeof kimchi.guestElem !== 'undefined') {
+        result = kimchi.guestElem.clone();
+        //Setup the VM list entry
+        var currentState = result.find('.guest-state');
+        var vmRunningBool = (vmObject.state == "running");
+        var vmSuspendedBool = (vmObject.state == "paused");
+        var vmPoweredOffBool = (vmObject.state == "shutoff");
+        var vmPersistent = (vmObject.persistent == true);
+
+        if (vmObject.state !== 'undefined') {
+            currentState.addClass(vmObject.state);
+        };
+        result.attr('id', vmObject.name);
+        result.data(vmObject);
+
+        //Add the Name
+        var guestTitle = result.find('.title').attr({ 'val': vmObject.name, 'title': vmObject.name });
+        guestTitle.html(vmObject.name);
+
+        if (vmObject.screenshot !== null) {
+            var scrensh = result.find('.screenshot').css('background-image', 'url(' + vmObject.screenshot + ')');
+            scrensh.attr('title', vmObject.name);
+        } else {
+            var scrensh = result.find('.screenshot').css('background-image', 'none');
+            scrensh.attr('title', vmObject.name);
+        }
+
+        //Add the OS Type and Icon
+        var osType = result.find('.column-type.distro-icon');
+        if (vmObject.icon == 'plugins/kimchi/images/icon-fedora.png') {
+            osType.addClass('icon-fedora');
+            osType.attr('val', 'Fedora');
+            osType.html('Fedora');
+        } else if (vmObject.icon == 'plugins/kimchi/images/icon-ubuntu.png') {
+            osType.addClass('icon-ubuntu');
+            osType.attr('val', 'Ubuntu');
+            osType.html('Ubuntu');
+        } else if (vmObject.icon == 'plugins/kimchi/images/icon-centos.png') {
+            osType.addClass('icon-centos');
+            osType.attr('val', 'Centos');
+            osType.html('Centos');
+        } else if (vmObject.icon == 'plugins/kimchi/images/icon-opensuse.png') {
+            osType.addClass('icon-opensuse');
+            osType.attr('val', 'openSUSE');
+            osType.html('openSUSE');
+        } else if (vmObject.icon == 'plugins/kimchi/images/icon-gentoo.png') {
+            osType.addClass('icon-gentoo');
+            osType.attr('val', 'Gentoo');
+            osType.html('Gentoo');
+        } else if (vmObject.icon == 'plugins/kimchi/images/icon-debian.png') {
+            osType.addClass('icon-debian');
+            osType.attr('val', 'Debian');
+            osType.html('Debian');
+        } else if (vmObject.icon !== null) {
+            osType.css('background-image', vmObject.icon);
+            osType.attr('val', 'Unknown');
+            osType.html('Unknown');
+        } else {
+            //Unknown
+            osType.addClass('icon-unknown');
+            osType.attr('val', 'Unknown');
+            osType.html('Unknown');
+        }
+        //Add the OS Icon to VM name in Gallery View
+        var osName = result.find('.column-name.distro-icon');
+        if (vmObject.icon == 'plugins/kimchi/images/icon-fedora.png') {
+            osName.addClass('icon-fedora');
+        } else if (vmObject.icon == 'plugins/kimchi/images/icon-ubuntu.png') {
+            osName.addClass('icon-ubuntu');
+        } else if (vmObject.icon == 'plugins/kimchi/images/icon-centos.png') {
+            osName.addClass('icon-centos');
+        } else if (vmObject.icon == 'plugins/kimchi/images/icon-opensuse.png') {
+            osName.addClass('icon-opensuse');
+        } else if (vmObject.icon == 'plugins/kimchi/images/icon-gentoo.png') {
+            osName.addClass('icon-gentoo');
+        } else if (vmObject.icon == 'plugins/kimchi/images/icon-debian.png') {
+            osName.addClass('icon-debian');
+        } else if (vmObject.icon !== null) {
+            osName.css('background-image', vmObject.icon);
+        } else {
+            osName.addClass('icon-unknown');
+        }
+
+        //Setup the VM console thumbnail display
+        var curImg = vmObject.icon;
+        if (vmObject.screenshot) {
+            curImg = vmObject.screenshot.replace(/^\//, '');
+        }
+        var load_src = curImg || 'plugins/kimchi/images/icon-vm.png';
+        var tile_src = prevScreenImage || vmObject['load-src'];
+        var liveTile = result.find('div[name=guest-tile] > .tile');
+        liveTile.addClass(vmObject.state);
+        liveTile.find('.imgactive').attr('src', tile_src);
+        var imgLoad = liveTile.find('.imgload');
+        imgLoad.on('load', function() {
+            var oldImg = $(this).parent().find('.imgactive');
+            oldImg.removeClass("imgactive").addClass("imgload");
+            oldImg.attr("src", "");
+            $(this).addClass("imgactive").removeClass("imgload");
+            $(this).off('load');
+        });
+        imgLoad.attr('src', load_src);
+
+        //Link the stopped tile to the start action, the running tile to open the console, and the paused tile to resume
+        if (!(vmObject.isCloning || vmObject.isCreating || vmObject.isMigrating)) {
+            if (vmPoweredOffBool) {
+                liveTile.off("click", function(event) {
+                    event.preventDefault();
+                    kimchi.openVmConsole(event);
+                });
+                liveTile.off("click", function(event) {
+                    event.preventDefault();
+                    kimchi.vmresume(event);
+                });
+                liveTile.on("click", function(event) {
+                    event.preventDefault();
+                    kimchi.vmstart(event);
+                });
+                liveTile.hover("click", function(event) {
+                    event.preventDefault();
+                    $(this).find('.overlay').show()
+                }, function(event) {
+                    $(this).find('.overlay').hide()
+                });
+            } else if (vmSuspendedBool) {
+                liveTile.off("click", function(event) {
+                    event.preventDefault();
+                    kimchi.vmstart(event);
+                });
+                liveTile.off("click", function(event) {
+                    event.preventDefault();
+                    kimchi.openVmConsole(event);
+                });
+                liveTile.on("click", function(event) {
+                    event.preventDefault();
+                    kimchi.vmresume(event);
+                });
+                liveTile.hover("click", function(event) {
+                    event.preventDefault();
+                    $(this).find('.overlay').show()
+                }, function(event) {
+                    $(this).find('.overlay').hide()
+                });
+                if (vmObject.state = "paused") {
+                    liveTile.find('.overlay').attr('src', "plugins/kimchi/images/theme-default/ac24_resume.png");
+                    liveTile.find('.overlay').attr('alt', "Resume");
+                }
+                liveTile.hover(function(event) {
+                    $(this).find('.overlay').show()
+                }, function(event) {
+                    $(this).find('.overlay').hide()
+                });
+            } else {
+                liveTile.off("click", function(event) {
+                    event.preventDefault();
+                    kimchi.vmstart(event);
+                });
+                liveTile.off("click", function(event) {
+                    event.preventDefault();
+                    kimchi.vmresume(event);
+                });
+                liveTile.on("click", function(event) {
+                    event.preventDefault();
+                    kimchi.openVmConsole(event);
+                });
+            }
+        }
+
+        //Setup progress bars
+        if (!vmPoweredOffBool) {
+            var cpuUtilization = 0;
+            var cpuMaxThreshold = 80;
+            var cpuMediumThreshold = 60;
+            cpuUtilization = parseInt(vmObject.stats.cpu_utilization);
+            result.find('.cpu-progress-bar').width(cpuUtilization + '%');
+            result.find('.processors-percentage').html(cpuUtilization + '%');
+            result.find('.medium-grey.cpu').width(cpuMaxThreshold + '%');
+            result.find('.light-grey.cpu').width(cpuMediumThreshold + '%');
+
+            var memoryUtilization = 0;
+            var memoryMaxThreshold = 80;
+            var memoryMediumThreshold = 60;
+            memoryUtilization = parseInt(vmObject.stats.mem_utilization);
+            result.find('.memory-progress-bar').width(memoryUtilization + '%');
+            result.find('.memory-percentage').html(memoryUtilization + '%');
+            result.find('.medium-grey.memory').width(memoryMaxThreshold + '%');
+            result.find('.light-grey.memory').width(memoryMediumThreshold + '%');
+
+            var ioThroughput = 0;
+            var ioMaxThreshold = 80;
+            var ioMediumThreshold = 60;
+            ioValue = parseInt(vmObject.stats.io_throughput);
+            ioThroughput = (ioValue * 100 / vmObject.stats.io_throughput_peak);
+            result.find('.storage-progress-bar').width(ioThroughput + '%');
+            result.find('.storage-percentage').html(Math.round(ioThroughput) + 'KB/s');
+            result.find('.medium-grey.io').width(ioMaxThreshold + '%');
+            result.find('.light-grey.io').width(ioMediumThreshold + '%');
+
+            var netThroughput = 0;
+            var netMaxThreshold = 80;
+            var netMediumThreshold = 60;
+            netValue = parseInt(vmObject.stats.net_throughput);
+            netThroughput = (netValue * 100 / vmObject.stats.net_throughput_peak);
+            result.find('.network-progress-bar').width(netThroughput + '%');
+            result.find('.network-percentage').html(Math.round(netThroughput) + 'KB/s');
+            result.find('.medium-grey.network').width(netMaxThreshold + '%');
+            result.find('.light-grey.network').width(netMediumThreshold + '%');
+        } else {
+            result.find('.progress').css("display", "none");
+            result.find('.percentage-label').html('--');
+            result.find('.measure-label').html('--');
+        }
+
+        //Setup the VM Actions
+        var guestActions = result.find("div[name=guest-actions]");
+        guestActions.find(".shutoff-disabled").prop("disabled", !vmRunningBool);
+        guestActions.find(".running-disabled").prop("disabled", vmRunningBool);
+        guestActions.find(".non-persistent-disabled").prop("disabled", !vmPersistent);
+        guestActions.find(".reset-disabled").prop("disabled", vmPoweredOffBool || !vmPersistent);
+        guestActions.find(".pause-disabled").prop("disabled", vmPoweredOffBool || !vmPersistent);
+
+        if (vmSuspendedBool) { //VM is paused
+            //Hide Start
+            guestActions.find(".running-hidden").hide();
+            //Hide Pause button and menu
+            guestActions.find(".pause-disabled").hide();
+            guestActions.find(".pause-hidden").hide();
+        }
+
+        if (vmRunningBool) { //VM IS running
+            //Hide Start
+            guestActions.find(".running-hidden").hide();
+            //Hide Resume
+            guestActions.find(".resume-hidden").hide();
+        }
+
+        if (vmPoweredOffBool) { //VM is powered off
+            result.addClass('inactive');
+            result.find('.distro-icon').addClass('inactive');
+            result.find('.vnc-link').css("display", "none");
+            result.find('.column-vnc').html('--');
+            //Hide PowerOff
+            guestActions.find(".shutoff-hidden").hide();
+            //Hide Pause
+            guestActions.find(".pause-hidden").hide();
+            //Hide Resume
+            guestActions.find(".resume-hidden").hide();
+        }
+
+        var serialConsoleLinkActions = guestActions.find("[name=vm-serial-console]");
+        serialConsoleLinkActions.on("click", function(event) {
+            event.preventDefault();
+            kimchi.openVmSerialConsole(event);
+        });
+
+        var consoleActions = guestActions.find("[name=vm-console]");
+        var consoleLinkActions = result.find(".vnc-link");
+
+        if (((vmObject.graphics['type'] == 'vnc') || (vmObject.graphics['type'] == 'spice')) && (!vmPoweredOffBool)) {
+            consoleActions.on("click", function(event) {
+                event.preventDefault();
+                kimchi.openVmConsole(event);
+            });
+            consoleLinkActions.on("click", function(event) {
+                event.preventDefault();
+                kimchi.openVmConsole(event);
+            });
+            consoleActions.show();
+        } else { //we don't recognize the VMs supported graphics, so hide the menu choice
+            result.find('.vnc-link').css("display", "none");
+            result.find('.column-vnc').html('--');
+            consoleActions.hide();
+            consoleActions.off("click", function(event) {
+                event.preventDefault();
+                kimchi.openVmConsole(event);
+            });
+            consoleLinkActions.off("click", function(event) {
+                event.preventDefault();
+                kimchi.openVmConsole(event);
+            });
+        }
+
+        //Setup action event handlers
+        if (!(vmObject.isCloning || vmObject.isCreating || vmObject.isMigrating)) {
+
+            guestActions.find("[name=vm-start]").on("click", function(event) {
+                event.preventDefault();
+                kimchi.vmstart(event);
+            });
+            guestActions.find("[name=vm-poweroff]").on("click", function(event) {
+                event.preventDefault();
+                kimchi.vmpoweroff(event);
+            });
+            if ((vmRunningBool) || (vmSuspendedBool)) {
+                //If the guest is not running, do not enable reset; otherwise, reset is enabled (when running or paused)
+                guestActions.find("[name=vm-reset]").on("click", function(event) {
+                    event.preventDefault();
+                    kimchi.vmreset(event);
+                });
+                //If the guest is not running, do not enable shutdown;otherwise, shutdown is enabled (when running or paused)
+                guestActions.find("[name=vm-shutdown]").on("click", function(event) {
+                    event.preventDefault();
+                    kimchi.vmshutdown(event);
+                });
+            }
+
+            if (vmSuspendedBool) {
+                guestActions.find("[name=vm-resume]").on("click", function(event) {
+                    event.preventDefault();
+                    kimchi.vmresume(event);
+                });
+            }
+
+            if (vmRunningBool) {
+                guestActions.find("[name=vm-pause]").on("click", function(event) {
+                    event.preventDefault();
+                    kimchi.vmsuspend(event);
+                });
+            }
+
+            guestActions.find("[name=vm-edit]").on("click", function(event) {
+                event.preventDefault();
+                kimchi.vmedit(event);
+            });
+            guestActions.find("[name=vm-delete]").on("click", function(event) {
+                event.preventDefault();
+                kimchi.vmdelete(event);
+            });
+            guestActions.find("[name=vm-clone]").on("click", function(event) {
+                event.preventDefault();
+                kimchi.vmclone(event);
+            });
+            guestActions.find("[name=vm-migrate]").on('click', function(event) {
+                event.preventDefault();
+                kimchi.vmmigrate(event);
+            });
+        } else {
+            guestActions.find('.btn').attr('disabled', true);
+            result.find('.guest-done').addClass('hidden');
+            result.find('.guest-state').addClass('hidden');
+            result.find('.guest-pending').removeClass('hidden');
+            pendingText = result.find('.guest-pending .text')
+            if (vmObject.isCloning)
+                pendingText.text(i18n['KCHAPI6009M']);
+            else if (vmObject.isMigrating)
+                pendingText.text(i18n['KCHAPI6012M']);
+            else
+                pendingText.text(i18n['KCHAPI6008M']);
+        }
+    }
+    return result;
+};
+
 
 kimchi.listVmsAuto = function() {
     $('#guests-root-container > .wok-mask').removeClass('hidden');
@@ -457,465 +917,6 @@ kimchi.listVmsAuto = function() {
         kimchi.vmTimeout = window.setTimeout("kimchi.listVmsAuto();", 5000);
     }
 };
-
-kimchi.createGuestLi = function(vmObject, prevScreenImage, openMenu) {
-    var result = kimchi.guestElem.clone();
-    //Setup the VM list entry
-    var currentState = result.find('.guest-state');
-    var vmRunningBool = (vmObject.state == "running");
-    var vmSuspendedBool = (vmObject.state == "paused");
-    var vmPoweredOffBool = (vmObject.state == "shutoff");
-    var vmPersistent = (vmObject.persistent == true);
-
-    if (vmObject.state !== 'undefined') {
-        currentState.addClass(vmObject.state);
-    };
-    result.attr('id', vmObject.name);
-    result.data(vmObject);
-
-    //Add the Name
-    var guestTitle = result.find('.title').attr({'val': vmObject.name, 'title': vmObject.name});
-    guestTitle.html(vmObject.name);
-
-    if(vmObject.screenshot !== null){
-        var scrensh = result.find('.screenshot').css('background-image', 'url('+vmObject.screenshot+')');
-        scrensh.attr('title', vmObject.name);
-    } else {
-        var scrensh = result.find('.screenshot').css('background-image', 'none');
-        scrensh.attr('title', vmObject.name);
-    }
-
-    //Add the OS Type and Icon
-    var osType = result.find('.column-type.distro-icon');
-    if (vmObject.icon == 'plugins/kimchi/images/icon-fedora.png') {
-        osType.addClass('icon-fedora');
-        osType.attr('val', 'Fedora');
-        osType.html('Fedora');
-    } else if (vmObject.icon == 'plugins/kimchi/images/icon-ubuntu.png') {
-        osType.addClass('icon-ubuntu');
-        osType.attr('val', 'Ubuntu');
-        osType.html('Ubuntu');
-    } else if (vmObject.icon == 'plugins/kimchi/images/icon-centos.png') {
-        osType.addClass('icon-centos');
-        osType.attr('val', 'Centos');
-        osType.html('Centos');
-    } else if (vmObject.icon == 'plugins/kimchi/images/icon-opensuse.png') {
-        osType.addClass('icon-opensuse');
-        osType.attr('val', 'openSUSE');
-        osType.html('openSUSE');
-    } else if (vmObject.icon == 'plugins/kimchi/images/icon-gentoo.png') {
-        osType.addClass('icon-gentoo');
-        osType.attr('val', 'Gentoo');
-        osType.html('Gentoo');
-    } else if (vmObject.icon == 'plugins/kimchi/images/icon-debian.png') {
-        osType.addClass('icon-debian');
-        osType.attr('val', 'Debian');
-        osType.html('Debian');
-    } else if (vmObject.icon !== null) {
-        osType.css('background-image',vmObject.icon);
-        osType.attr('val', 'Unknown');
-        osType.html('Unknown');
-    } else {
-        //Unknown
-        osType.addClass('icon-unknown');
-        osType.attr('val', 'Unknown');
-        osType.html('Unknown');
-    }
-    //Add the OS Icon to VM name in Gallery View
-    var osName = result.find('.column-name.distro-icon');
-    if (vmObject.icon == 'plugins/kimchi/images/icon-fedora.png') {
-        osName.addClass('icon-fedora');
-    } else if (vmObject.icon == 'plugins/kimchi/images/icon-ubuntu.png') {
-        osName.addClass('icon-ubuntu');
-    } else if (vmObject.icon == 'plugins/kimchi/images/icon-centos.png') {
-        osName.addClass('icon-centos');
-    } else if (vmObject.icon == 'plugins/kimchi/images/icon-opensuse.png') {
-        osName.addClass('icon-opensuse');
-    } else if (vmObject.icon == 'plugins/kimchi/images/icon-gentoo.png') {
-        osName.addClass('icon-gentoo');
-    } else if (vmObject.icon == 'plugins/kimchi/images/icon-debian.png') {
-        osName.addClass('icon-debian');
-    } else if (vmObject.icon !== null) {
-        osName.css('background-image',vmObject.icon);
-    } else {
-        osName.addClass('icon-unknown');
-    }
-
-    //Setup the VM console thumbnail display
-    var curImg = vmObject.icon;
-    if (vmObject.screenshot) {
-        curImg = vmObject.screenshot.replace(/^\//, '');
-    }
-    var load_src = curImg || 'plugins/kimchi/images/icon-vm.png';
-    var tile_src = prevScreenImage || vmObject['load-src'];
-    var liveTile = result.find('div[name=guest-tile] > .tile');
-    liveTile.addClass(vmObject.state);
-    liveTile.find('.imgactive').attr('src', tile_src);
-    var imgLoad = liveTile.find('.imgload');
-    imgLoad.on('load', function() {
-        var oldImg = $(this).parent().find('.imgactive');
-        oldImg.removeClass("imgactive").addClass("imgload");
-        oldImg.attr("src", "");
-        $(this).addClass("imgactive").removeClass("imgload");
-        $(this).off('load');
-    });
-    imgLoad.attr('src', load_src);
-
-    //Link the stopped tile to the start action, the running tile to open the console, and the paused tile to resume
-    if (!(vmObject.isCloning || vmObject.isCreating || vmObject.isMigrating)) {
-        if (vmPoweredOffBool) {
-            liveTile.off("click", function(event) {
-                event.preventDefault();
-                kimchi.openVmConsole(event);
-            });
-            liveTile.off("click", function(event) {
-                event.preventDefault();
-                kimchi.vmresume(event);
-            });
-            liveTile.on("click", function(event) {
-                event.preventDefault();
-                kimchi.vmstart(event);
-            });
-            liveTile.hover("click", function(event) {
-                event.preventDefault();
-                $(this).find('.overlay').show()
-            }, function(event) {
-                $(this).find('.overlay').hide()
-            });
-        } else if (vmSuspendedBool) {
-            liveTile.off("click", function(event) {
-                event.preventDefault();
-                kimchi.vmstart(event);
-            });
-            liveTile.off("click", function(event) {
-                event.preventDefault();
-                kimchi.openVmConsole(event);
-            });
-            liveTile.on("click", function(event) {
-                event.preventDefault();
-                kimchi.vmresume(event);
-            });
-            liveTile.hover("click", function(event) {
-                event.preventDefault();
-                $(this).find('.overlay').show()
-            }, function(event) {
-                $(this).find('.overlay').hide()
-            });
-            if (vmObject.state = "paused") {
-                liveTile.find('.overlay').attr('src', "plugins/kimchi/images/theme-default/ac24_resume.png");
-                liveTile.find('.overlay').attr('alt', "Resume");
-            }
-            liveTile.hover(function(event) {
-                $(this).find('.overlay').show()
-            }, function(event) {
-                $(this).find('.overlay').hide()
-            });
-        } else {
-            liveTile.off("click", function(event) {
-                event.preventDefault();
-                kimchi.vmstart(event);
-            });
-            liveTile.off("click", function(event) {
-                event.preventDefault();
-                kimchi.vmresume(event);
-            });
-            liveTile.on("click", function(event) {
-                event.preventDefault();
-                kimchi.openVmConsole(event);
-            });
-        }
-    }
-
-    //Setup progress bars
-    if (!vmPoweredOffBool) {
-        var cpuUtilization = 0;
-        var cpuMaxThreshold = 80;
-        var cpuMediumThreshold = 60;
-        cpuUtilization = parseInt(vmObject.stats.cpu_utilization);
-        result.find('.cpu-progress-bar').width(cpuUtilization + '%');
-        result.find('.processors-percentage').html(cpuUtilization + '%');
-        result.find('.medium-grey.cpu').width(cpuMaxThreshold + '%');
-        result.find('.light-grey.cpu').width(cpuMediumThreshold + '%');
-
-        var memoryUtilization = 0;
-        var memoryMaxThreshold = 80;
-        var memoryMediumThreshold = 60;
-        memoryUtilization = parseInt(vmObject.stats.mem_utilization);
-        result.find('.memory-progress-bar').width(memoryUtilization + '%');
-        result.find('.memory-percentage').html(memoryUtilization + '%');
-        result.find('.medium-grey.memory').width(memoryMaxThreshold + '%');
-        result.find('.light-grey.memory').width(memoryMediumThreshold + '%');
-
-        var ioThroughput = 0;
-        var ioMaxThreshold = 80;
-        var ioMediumThreshold = 60;
-        ioValue = parseInt(vmObject.stats.io_throughput);
-        ioThroughput = (ioValue * 100 / vmObject.stats.io_throughput_peak);
-        result.find('.storage-progress-bar').width(ioThroughput + '%');
-        result.find('.storage-percentage').html(Math.round(ioThroughput) + 'KB/s');
-        result.find('.medium-grey.io').width(ioMaxThreshold + '%');
-        result.find('.light-grey.io').width(ioMediumThreshold + '%');
-
-        var netThroughput = 0;
-        var netMaxThreshold = 80;
-        var netMediumThreshold = 60;
-        netValue = parseInt(vmObject.stats.net_throughput);
-        netThroughput = (netValue * 100 / vmObject.stats.net_throughput_peak);
-        result.find('.network-progress-bar').width(netThroughput + '%');
-        result.find('.network-percentage').html(Math.round(netThroughput) + 'KB/s');
-        result.find('.medium-grey.network').width(netMaxThreshold + '%');
-        result.find('.light-grey.network').width(netMediumThreshold + '%');
-    } else {
-        result.find('.progress').css("display", "none");
-        result.find('.percentage-label').html('--');
-        result.find('.measure-label').html('--');
-    }
-
-    //Setup the VM Actions
-    var guestActions = result.find("div[name=guest-actions]");
-    guestActions.find(".shutoff-disabled").prop("disabled", !vmRunningBool);
-    guestActions.find(".running-disabled").prop("disabled", vmRunningBool);
-    guestActions.find(".non-persistent-disabled").prop("disabled", !vmPersistent);
-    guestActions.find(".reset-disabled").prop("disabled", vmPoweredOffBool || !vmPersistent);
-    guestActions.find(".pause-disabled").prop("disabled", vmPoweredOffBool || !vmPersistent);
-
-    if (vmSuspendedBool) { //VM is paused
-        //Hide Start
-        guestActions.find(".running-hidden").hide();
-        //Hide Pause button and menu
-        guestActions.find(".pause-disabled").hide();
-        guestActions.find(".pause-hidden").hide();
-    }
-
-    if (vmRunningBool) { //VM IS running
-        //Hide Start
-        guestActions.find(".running-hidden").hide();
-        //Hide Resume
-        guestActions.find(".resume-hidden").hide();
-    }
-
-    if (vmPoweredOffBool) { //VM is powered off
-        result.addClass('inactive');
-        result.find('.distro-icon').addClass('inactive');
-        result.find('.vnc-link').css("display", "none");
-        result.find('.column-vnc').html('--');
-        //Hide PowerOff
-        guestActions.find(".shutoff-hidden").hide();
-        //Hide Pause
-        guestActions.find(".pause-hidden").hide();
-        //Hide Resume
-        guestActions.find(".resume-hidden").hide();
-    }
-
-    var serialConsoleLinkActions = guestActions.find("[name=vm-serial-console]");
-    serialConsoleLinkActions.on("click", function(event) {
-        event.preventDefault();
-        kimchi.openVmSerialConsole(event);
-    });
-
-    var consoleActions = guestActions.find("[name=vm-console]");
-    var consoleLinkActions = result.find(".vnc-link");
-
-    if (((vmObject.graphics['type'] == 'vnc') || (vmObject.graphics['type'] == 'spice'))
-       && (!vmPoweredOffBool)) {
-        consoleActions.on("click", function(event) {
-            event.preventDefault();
-            kimchi.openVmConsole(event);
-        });
-        consoleLinkActions.on("click", function(event) {
-            event.preventDefault();
-            kimchi.openVmConsole(event);
-        });
-        consoleActions.show();
-    } else { //we don't recognize the VMs supported graphics, so hide the menu choice
-        result.find('.vnc-link').css("display", "none");
-        result.find('.column-vnc').html('--');
-        consoleActions.hide();
-        consoleActions.off("click", function(event) {
-            event.preventDefault();
-            kimchi.openVmConsole(event);
-        });
-        consoleLinkActions.off("click", function(event) {
-            event.preventDefault();
-            kimchi.openVmConsole(event);
-        });
-    }
-
-    //Setup action event handlers
-    if (!(vmObject.isCloning || vmObject.isCreating || vmObject.isMigrating)) {
-
-        guestActions.find("[name=vm-start]").on("click", function(event) {
-            event.preventDefault();
-            kimchi.vmstart(event);
-        });
-        guestActions.find("[name=vm-poweroff]").on("click", function(event) {
-            event.preventDefault();
-            kimchi.vmpoweroff(event);
-        });
-        if ((vmRunningBool) || (vmSuspendedBool)) {
-            //If the guest is not running, do not enable reset; otherwise, reset is enabled (when running or paused)
-            guestActions.find("[name=vm-reset]").on("click", function(event) {
-                event.preventDefault();
-                kimchi.vmreset(event);
-            });
-            //If the guest is not running, do not enable shutdown;otherwise, shutdown is enabled (when running or paused)
-            guestActions.find("[name=vm-shutdown]").on("click", function(event) {
-                event.preventDefault();
-                kimchi.vmshutdown(event);
-            });
-        }
-
-        if (vmSuspendedBool) {
-            guestActions.find("[name=vm-resume]").on("click", function(event) {
-                event.preventDefault();
-                kimchi.vmresume(event);
-            });
-        }
-
-        if (vmRunningBool) {
-            guestActions.find("[name=vm-pause]").on("click", function(event) {
-                event.preventDefault();
-                kimchi.vmsuspend(event);
-            });
-        }
-
-        guestActions.find("[name=vm-edit]").on("click", function(event) {
-            event.preventDefault();
-            kimchi.vmedit(event);
-        });
-        guestActions.find("[name=vm-delete]").on("click", function(event) {
-            event.preventDefault();
-            kimchi.vmdelete(event);
-        });
-        guestActions.find("[name=vm-clone]").on("click", function(event) {
-            event.preventDefault();
-            kimchi.vmclone(event);
-        });
-        guestActions.find("[name=vm-migrate]").on('click', function(event) {
-            event.preventDefault();
-            kimchi.vmmigrate(event);
-        });
-    } else {
-        guestActions.find('.btn').attr('disabled', true);
-        result.find('.guest-done').addClass('hidden');
-        result.find('.guest-state').addClass('hidden');
-        result.find('.guest-pending').removeClass('hidden');
-        pendingText = result.find('.guest-pending .text')
-        if (vmObject.isCloning)
-            pendingText.text(i18n['KCHAPI6009M']);
-        else if (vmObject.isMigrating)
-            pendingText.text(i18n['KCHAPI6012M']);
-        else
-            pendingText.text(i18n['KCHAPI6008M']);
-    }
-    return result;
-};
-
-kimchi.guestSetRequestHeader = function(xhr) {
-    xhr.setRequestHeader('Accept', 'text/html');
-};
-
-kimchi.toggleGuestsGallery = function() {
-    $(".wok-guest-list, .wok-guest-gallery").toggleClass("wok-guest-list wok-guest-gallery");
-    $(".wok-list, .wok-gallery").toggleClass("wok-list wok-gallery");
-    var text = $('#guest-gallery-table-button span.text').text();
-    $('#guest-gallery-table-button span.text').text(text == i18n['KCHTMPL6005M'] ? i18n['KCHTMPL6004M'] : i18n['KCHTMPL6005M']);
-    var buttonText = $('#guest-gallery-table-button span.text').text();
-    if (buttonText.indexOf("Gallery") !== -1) {
-        // Currently in list view
-        kimchi.setGuestView("guestView", "list");
-     } else {
-        // Currently in gallery
-        kimchi.setGuestView("guestView", "gallery");
-     }
-};
-
-kimchi.setGuestView = function(name, value) {
-    window.localStorage.setItem(name, value);
-};
-
-kimchi.readGuestView = function(name) {
-    var viewName = window.localStorage.getItem(name);
-    if (viewName !== "") {
-        return viewName;
-    } else {
-        return null;
-    }
-};
-
-kimchi.showGuestGallery = function() {
-    $(".wok-guest-list").addClass("wok-guest-gallery");
-    $(".wok-list").addClass("wok-gallery");
-    $(".wok-guest-gallery").removeClass("wok-guest-list");
-    $(".wok-gallery").removeClass("wok-list");
-    $('#guest-gallery-table-button span.text').text(i18n['KCHTMPL6004M']);
-};
-
-kimchi.showGuestList = function() {
-    $(".wok-guest-list").removeClass("wok-guest-gallery");
-    $(".wok-list").removeClass("wok-gallery");
-    $(".wok-guest-gallery").addClass("wok-guest-list");
-    $(".wok-gallery").addClass("wok-list");
-    $('#guest-gallery-table-button span.text').text(i18n['KCHTMPL6005M']);
-};
-
-kimchi.guest_main = function() {
-    $('body').addClass('wok-list');
-    var viewFound = kimchi.readGuestView("guestView");
-    if (viewFound) {
-        if(viewFound === "gallery") {
-            // should be showing gallery
-            kimchi.showGuestGallery();
-        } else {
-            // Should be showing list
-            kimchi.showGuestList();
-        }
-    } else {
-        // Default to showing list
-        kimchi.showGuestList();
-    }
-    if (wok.tabMode['guests'] === 'admin') {
-        $('.tools').attr('style', 'display');
-        $("#vm-add").on("click", function(event) {
-            wok.window.open('plugins/kimchi/guest-add.html');
-        });
-    }
-    kimchi.guestTemplate = $('#guest-tmpl').html();
-    kimchi.guestElem = $('<div/>').html(kimchi.guestTemplate).find('li[name="guest"]');
-    $('#guests-root-container').on('remove', function() {
-        kimchi.vmTimeout && clearTimeout(kimchi.vmTimeout);
-    });
-
-    $('#guest-gallery-table-button').on('click', function(event) {
-        kimchi.toggleGuestsGallery();
-    });
-
-    kimchi.resetGuestFilter();
-    kimchi.initGuestFilter();
-    kimchi.listVmsAuto();
-};
-
-kimchi.guest_clonevm_main = function() {
-   kimchi.initCloneDialog();
-};
-
-kimchi.initCloneDialog = function(callback) {
-    $("#numberClone").val("1");
-    $("#cloneFormOk").on("click", function() {
-        //Check if input is a number
-        var numClone = parseInt($('#numberClone').val());
-        var err = "";
-        if (isNaN(numClone)) {
-            err = i18n['KCHVM0001E'];
-            wok.message.error(err,'#alert-modal-container');
-        } else {
-            $("#cloneFormOk").prop("disabled", true);
-            kimchi.initClone();
-        }
-   });
-};
-
-
 
 kimchi.editTemplate = function(guestTemplate, oldPopStat) {
     if (oldPopStat) {

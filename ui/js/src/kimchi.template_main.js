@@ -28,7 +28,9 @@ kimchi.doListTemplates = function() {
                 if ($.isEmptyObject(value.invalid)) {
                     value.invalid_indicator = "valid";
                 }
-                listHtml += wok.substitute(templateHtml, value);
+                if (typeof templateHtml !== 'undefined') {
+                    listHtml += wok.substitute(templateHtml, value);
+                }
             });
             $('ul#templates-grid').removeClass('hidden');
             $('#templates-container').removeClass('hidden');
