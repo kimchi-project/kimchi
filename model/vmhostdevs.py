@@ -28,6 +28,7 @@ from operator import itemgetter
 
 from wok.exception import InvalidOperation, InvalidParameter, NotFoundError
 from wok.exception import OperationFailed
+from wok.message import WokMessage
 from wok.model.tasks import TaskModel
 from wok.rollbackcontext import RollbackContext
 from wok.utils import add_task, run_command, wok_log
@@ -215,7 +216,12 @@ class VMHostDevsModel(object):
         lock = params['lock']
 
         with lock:
-            self._validate_pci_passthrough_env()
+            try:
+                self._validate_pci_passthrough_env()
+
+            except InvalidOperation as e:
+                cb(e.message, False)
+                raise
 
             dom = VMModel.get_vm(vmid, self.conn)
             # Due to libvirt limitation, we don't support live assigne device
@@ -246,6 +252,8 @@ class VMHostDevsModel(object):
             # does not allow hot-plug of 3D graphic cards
             is_3D_device = dev_model.is_device_3D_controller(dev_info)
             if is_3D_device and DOM_STATE_MAP[dom.info()[0]] != "shutoff":
+                msg = WokMessage('KCHVMHDEV0006E', {'name': dev_info['name']})
+                cb(msg.get_text(), False)
                 raise InvalidOperation('KCHVMHDEV0006E',
                                        {'name': dev_info['name']})
 
@@ -258,6 +266,9 @@ class VMHostDevsModel(object):
                             pci_info['name'])
                         dev.dettach()
                     except Exception:
+                        msg = WokMessage('KCHVMHDEV0005E',
+                                         {'name': pci_info['name']})
+                        cb(msg.get_text(), False)
                         raise OperationFailed('KCHVMHDEV0005E',
                                               {'name': pci_info['name']})
                     else:
@@ -291,6 +302,10 @@ class VMHostDevsModel(object):
                         dom.attachDeviceFlags(xmlstr, device_flags)
 
                     except libvirt.libvirtError:
+                        msg = WokMessage('KCHVMHDEV0007E',
+                                         {'device': pci_info['name'],
+                                          'vm': vmid})
+                        cb(msg.get_text(), False)
                         wok_log.error(
                             'Failed to attach mutifunction device VM %s: \n%s',
                             vmid, xmlstr)
@@ -310,13 +325,20 @@ class VMHostDevsModel(object):
                                                       is_multifunction)
                     try:
                         dom.attachDeviceFlags(xmlstr, device_flags)
+
                     except libvirt.libvirtError:
+                        msg = WokMessage('KCHVMHDEV0007E',
+                                         {'device': pci_info['name'],
+                                          'vm': vmid})
+                        cb(msg.get_text(), False)
                         wok_log.error(
                             'Failed to attach host device %s to VM %s: \n%s',
                             pci_info['name'], vmid, xmlstr)
                         raise
+
                     rollback.prependDefer(dom.detachDeviceFlags,
                                           xmlstr, device_flags)
+
                 rollback.commitAll()
 
         if DOM_STATE_MAP[dom.info()[0]] == "shutoff":
@@ -443,11 +465,17 @@ class VMHostDevsModel(object):
                 try:
                     cb('Attaching device to VM')
                     dom.attachDeviceFlags(xmlstr, device_flags)
+
                 except libvirt.libvirtError:
+                    msg = WokMessage('KCHVMHDEV0007E',
+                                     {'device': dev_info['name'],
+                                      'vm': vmid})
+                    cb(msg.get_text(), False)
                     wok_log.error(
                         'Failed to attach host device %s to VM %s: \n%s',
                         dev_info['name'], vmid, xmlstr)
                     raise
+
                 rollback.prependDefer(dom.detachDeviceFlags, xmlstr,
                                       device_flags)
                 rollback.commitAll()
@@ -481,11 +509,17 @@ class VMHostDevsModel(object):
                 try:
                     cb('Attaching device to VM')
                     dom.attachDeviceFlags(xmlstr, device_flags)
+
                 except libvirt.libvirtError:
+                    msg = WokMessage('KCHVMHDEV0007E',
+                                     {'device': dev_info['name'],
+                                      'vm': vmid})
+                    cb(msg.get_text(), False)
                     wok_log.error(
                         'Failed to attach host device %s to VM %s: \n%s',
                         dev_info['name'], vmid, xmlstr)
                     raise
+
                 rollback.prependDefer(dom.detachDeviceFlags, xmlstr,
                                       device_flags)
                 rollback.commitAll()
@@ -538,6 +572,7 @@ class VMHostDevModel(object):
 
         try:
             hostdev = root.devices.hostdev
+
         except AttributeError:
             raise NotFoundError('KCHVMHDEV0001E',
                                 {'vmid': vmid, 'dev_name': dev_name})
@@ -606,6 +641,9 @@ class VMHostDevModel(object):
                         devsmodel.update_mmio_guest(vmid, False)
                     break
             else:
+                msg = WokMessage('KCHVMHDEV0001E',
+                                 {'vmid': vmid, 'dev_name': dev_name})
+                cb(msg.get_text(), False)
                 raise NotFoundError('KCHVMHDEV0001E',
                                     {'vmid': vmid, 'dev_name': dev_name})
 
