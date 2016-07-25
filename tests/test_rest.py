@@ -348,6 +348,18 @@ class RestTests(unittest.TestCase):
         self.assertEquals(200, resp.status)
         self.assertTrue(resp.getheader('Content-type').startswith('image'))
 
+        # Test Virt Viewer file
+        resp = self.request(
+            '/plugins/kimchi/vms/test-vm/virtviewerfile',
+            '{}',
+            'GET')
+        self.assertEquals(200, resp.status)
+        vvfilecontent = resp.read()
+        self.assertEqual(
+            vvfilecontent,
+            "[virt-viewer]\ntype=vnc\nhost=127.0.0.1\nport=5999\n"
+        )
+
         # Clone a running VM
         resp = self.request('/plugins/kimchi/vms/test-vm/clone', '{}', 'POST')
         self.assertEquals(400, resp.status)

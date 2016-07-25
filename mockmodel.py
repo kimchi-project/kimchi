@@ -17,9 +17,11 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import cherrypy
 import libvirt
 import lxml.etree as ET
 import os
+import tempfile
 import time
 
 from collections import defaultdict
@@ -107,6 +109,7 @@ class MockModel(Model):
         # and BaseModel
         # Because that a normal method override will not work here
         # Instead of that we also need to do the override on runtime
+
         for method in dir(self):
             if method.startswith('_mock_'):
                 mock_method = getattr(self, method)
@@ -133,6 +136,21 @@ class MockModel(Model):
         imageinfo.probe_image = self._probe_image
         VMHostDevsModel._get_pci_device_xml = self._get_pci_device_xml
         VMHostDevsModel._validate_pci_passthrough_env = self._validate_pci
+
+        self._create_virt_viewer_tmp_file()
+        cherrypy.engine.subscribe('exit', self.virtviewertmpfile_cleanup)
+
+    def _create_virt_viewer_tmp_file(self):
+        self.virtviewerfile_tmp = tempfile.NamedTemporaryFile(
+            dir='../data/virtviewerfiles/',
+            delete=False
+        )
+        file_content = "[virt-viewer]\ntype=vnc\nhost=127.0.0.1\nport=5999\n"
+        self.virtviewerfile_tmp.write(file_content)
+        self.virtviewerfile_tmp.close()
+
+    def virtviewertmpfile_cleanup(self):
+        os.unlink(self.virtviewerfile_tmp.name)
 
     def reset(self):
         MockModel._mock_vms = defaultdict(list)
@@ -385,6 +403,11 @@ class MockModel(Model):
         snapshots = MockModel._mock_snapshots.get(name, [])
         MockModel._mock_snapshots[new_name] = snapshots
         return self._model_vm_clone(name)
+
+    def _mock_vmvirtviewerfile_lookup(self, vm_name):
+        file_name = 'plugins/kimchi/data/virtviewerfiles/%s' %\
+            os.path.basename(self.virtviewerfile_tmp.name)
+        return file_name
 
     def _mock_vmsnapshots_create(self, vm_name, params):
         name = params.get('name', unicode(int(time.time())))
