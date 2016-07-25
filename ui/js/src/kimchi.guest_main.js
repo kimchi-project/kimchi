@@ -315,7 +315,7 @@ kimchi.initClone = function() {
 
 
 kimchi.listVmsAuto = function() {
-    $('.wok-mask').removeClass('hidden');
+    $('#guests-root-container > .wok-mask').removeClass('hidden');
     //Check if the actions button is opened or not,
     //if opended stop the reload of the itens until closed
     var $isDropdownOpened = $('[name="guest-actions"] ul.dropdown-menu').is(":visible");
@@ -431,13 +431,13 @@ kimchi.listVmsAuto = function() {
                                 });
                             });
                         }
-                        $('.wok-mask').fadeOut(300, function() {
+                        $('#guests-root-container > .wok-mask').fadeOut(300, function() {
                         });
                     } else {
                         $('.grid-control').addClass('hidden');
                         $('#guestListField').hide();
                         $('#noGuests').show();
-                        $('.wok-mask').fadeOut(300, function() {});
+                        $('#guests-root-container > .wok-mask').fadeOut(300, function() {});
                     }
                 }
 
@@ -446,8 +446,8 @@ kimchi.listVmsAuto = function() {
             function(errorResponse, textStatus, errorThrown) {
                 if (errorResponse.responseJSON && errorResponse.responseJSON.reason) {
                     wok.message.error(errorResponse.responseJSON.reason);
-                    $('.wok-mask').fadeOut(300, function() {
-                        $('.wok-mask').addClass('hidden');
+                    $('#guests-root-container > .wok-mask').fadeOut(300, function() {
+                        $('#guests-root-container > .wok-mask').addClass('hidden');
                     });
                 }
                 kimchi.vmTimeout = window.setTimeout("kimchi.listVmsAuto();", 5000);

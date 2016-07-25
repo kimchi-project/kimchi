@@ -510,7 +510,7 @@ class VMHostDevModel(object):
         return self.task.lookup(taskid)
 
     def _detach_device(self, cb, params):
-        cb('Detaching device.')
+        cb('Detaching device')
         vmid = params['vmid']
         dev_name = params['dev_name']
         dom = params['dom']

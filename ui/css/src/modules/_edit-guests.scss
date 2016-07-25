@@ -62,6 +62,10 @@
         }
     }
     #form-guest-edit-pci {
+        .wok-mask {
+            top: 0 !important;
+            z-index: 2 !important;
+        }
         .column-actions {
             width: 4.47%;
         }

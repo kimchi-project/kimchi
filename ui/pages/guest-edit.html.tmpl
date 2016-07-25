@@ -160,6 +160,14 @@
                     </div>
                     <div class="body"></div>
                 </div>
+                <div class="wok-mask" role="presentation" class="hidden">
+                    <div class="wok-mask-loader-container">
+                        <div class="wok-mask-loading">
+                            <div class="wok-mask-loading-icon"></div>
+                            <div class="wok-mask-loading-text">$_("Loading")...</div>
+                        </div>
+                    </div>
+                </div>
             </form>
             <form role="tabpanel" id="form-guest-edit-snapshot" class="guest-edit-snapshot tab-pane">
                 <div class="btn-group">
@@ -273,17 +281,7 @@
     <label>{val}</label>
 </div>
 </script>
-<script id="pci-tmpl" type="text/html">
-<div class="item {status}" id="{name}">
-    <span class="cell status column-pci-status">
-        <i class="fa fa-power-off"></i>
-    </span>
-    <span class="cell name column-pci-name" title="{name}">{name}</span>
-    <span class="cell product column-product" title="{product}">{product}</span>
-    <span class="cell vendor column-vendor" title="{vendor}">{vendor}</span>
-    <span class="cell column-actions action-area"><button class="btn btn-link"><i class="fa"></i></button></span>
-</div>
-</script>
+<script id="pci-tmpl" type="text/html"><div class="item {status}" id="{name}"><span class="cell status column-pci-status"><i class="fa fa-power-off"></i></span><span class="cell name column-pci-name" title="{name}">{name}</span><span class="cell product column-product" title="{product}">{product}</span><span class="cell vendor column-vendor" title="{vendor}">{vendor}</span><span class="cell column-actions action-area"><button class="btn btn-link"><i class="fa"></i></button></span></div></script>
 <script id="snapshot-tmpl" type="text/html">
     <div class="item" id="{name}">
         <span class="cell column-sel">
