@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:01:55</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:01:55</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Jul 27 13:01:55 2016 UTC.  The chair is danielhb. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:01:55</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:02:02</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:02:02</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:02:19</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda</span>
+<a name="l-7"></a><span class="tm">13:02:20</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">1) Status</span>
+<a name="l-8"></a><span class="tm">13:02:20</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">2) Open discussion</span>
+<a name="l-9"></a><span class="tm">13:02:26</span><span class="nk"> &lt;danielhb&gt;</span> anything else for today?
+<a name="l-10"></a><span class="tm">13:02:33</span><span class="nk"> &lt;pvital&gt;</span> no
+<a name="l-11"></a><span class="tm">13:03:32</span><span class="nk"> &lt;ramonn&gt;</span> nop
+<a name="l-12"></a><span class="tm">13:03:42</span><span class="nk"> &lt;danielhb&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-13"></a><span class="tm">13:03:48</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info [&lt;project] &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-14"></a><span class="tm">13:04:06</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] danielhb applied and reviewed patches</span>
+<a name="l-15"></a><span class="tm">13:04:19</span><span class="nk"> &lt;peterpennings&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Gingerbase] peterpennings is working on some bug fixes on Host Updates tab</span>
+<a name="l-16"></a><span class="tm">13:04:30</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] danielhb fixed a couple of gGithub issues</span>
+<a name="l-17"></a><span class="tm">13:04:54</span><span class="nk"> &lt;peterpennings&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] peterpennings is working on a improvement in user session timeout alert</span>
+<a name="l-18"></a><span class="tm">13:04:57</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] [Kimchi] [Ginger*] pvital reviewed patches</span>
+<a name="l-19"></a><span class="tm">13:04:57</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] pvital submitted V4 patch to "Use system's nginx proxy service"</span>
+<a name="l-20"></a><span class="tm">13:04:57</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Gingerbase] pvital tested an approach to reduce high CPU consumption when wokd is in idle mode by creating a new plugin code for HostStatsModel class.  There is no difference with normal execution.</span>
+<a name="l-21"></a><span class="tm">13:04:57</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Gingerbase] pvital is investigating new ways to reduce high CPU consumption when wokd is in idle mode caused by HostStatsModel class.</span>
+<a name="l-22"></a><span class="tm">13:05:02</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] danielhb is now replacing alinefm on her vacations and will be focused mostly on mailing list reviews of all 5 plug-ins</span>
+<a name="l-23"></a><span class="tm">13:05:03</span><span class="nk"> &lt;suresh&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] sureshab working on enabling kimchi for s390x</span>
+<a name="l-24"></a><span class="tm">13:05:13</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ramonn waiting for review</span>
+<a name="l-25"></a><span class="tm">13:05:28</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] ramonn working to set UI to use js libraries from rpms</span>
+<a name="l-26"></a><span class="tm">13:06:19</span><span class="nk"> &lt;bianca&gt;</span> just a min, will give my status
+<a name="l-27"></a><span class="tm">13:06:41</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] [Kimchi] socorro Tested/Reviewed patches</span>
+<a name="l-28"></a><span class="tm">13:06:42</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] socorro Followed up/Updated various bugzilla/github issues with</span>
+<a name="l-29"></a><span class="tm">13:06:42</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] socorro accurate status/info where needed; requested for some issues</span>
+<a name="l-30"></a><span class="tm">13:06:42</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] socorro to be retried by test as they are no longer reproducable in</span>
+<a name="l-31"></a><span class="tm">13:06:42</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] socorro our environment - Ginger issue# 350, Kimchi issue# 948, 953</span>
+<a name="l-32"></a><span class="tm">13:06:43</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] socorro Started looking at new request regarding PCI passthrough</span>
+<a name="l-33"></a><span class="tm">13:06:45</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] socorro companions but at the same time, there were still issues being</span>
+<a name="l-34"></a><span class="tm">13:06:47</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] socorro worked on by Samuel/Ziviani in the same code base that made it hard</span>
+<a name="l-35"></a><span class="tm">13:06:49</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ziviani had patches applied upstream</span>
+<a name="l-36"></a><span class="tm">13:06:49</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] socorro to keep up as it was a moving target.  Per discussion w/Ziviani, he</span>
+<a name="l-37"></a><span class="tm">13:06:51</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] socorro will work on it as it made sense to do so as I will be on vacation</span>
+<a name="l-38"></a><span class="tm">13:06:53</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] socorro soon but will provide any assistance if needed until then</span>
+<a name="l-39"></a><span class="tm">13:06:55</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] socorro Requested to have patch resent for Kimchi issue# 968</span>
+<a name="l-40"></a><span class="tm">13:06:57</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] socorro as I was not able to apply it; turns out it depended on another</span>
+<a name="l-41"></a><span class="tm">13:06:59</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] socorro patch being applied first.  Updated to latest src in order</span>
+<a name="l-42"></a><span class="tm">13:07:01</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] socorro to test and it turns out I need to upgrade Ubuntu due to</span>
+<a name="l-43"></a><span class="tm">13:07:03</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] socorro python-libvirt not supporting new nginx process</span>
+<a name="l-44"></a><span class="tm">13:07:05</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] socorro Netboot template applied upstream</span>
+<a name="l-45"></a><span class="tm">13:07:15</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ziviani sent small fix for passthrough frontend</span>
+<a name="l-46"></a><span class="tm">13:07:34</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] ziviani updated openpower tree on github</span>
+<a name="l-47"></a><span class="tm">13:07:57</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ziviani started working on cpu/memory hotplug</span>
+<a name="l-48"></a><span class="tm">13:08:31</span><span class="nk"> &lt;bianca&gt;</span> <span class="cmd">#info[Kimchi][Wok] </span><span class="cmdline">bianca  submitted 2 patches "Kimchi kills Wokd due to sys.exit() calls in files networks.py and storagepools.py"</span>
+<a name="l-49"></a><span class="tm">13:08:31</span><span class="nk"> &lt;bianca&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] bianca is still working on a issue related to time out when generating configuration backups. Testing to make sure solution is working, should be implemented soon.</span>
+<a name="l-50"></a><span class="tm">13:08:32</span><span class="nk"> &lt;bianca&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] bianca is also working in a bug related to storage tab under Edit Guest option hangs for few minutes after clicking on +Add button. Investigating the problem at the moment.</span>
+<a name="l-51"></a><span class="tm">13:12:37</span><span class="nk"> &lt;danielhb&gt;</span> can we move on?
+<a name="l-52"></a><span class="tm">13:13:22</span><span class="nk"> &lt;bianca&gt;</span> yes
+<a name="l-53"></a><span class="tm">13:14:13</span><span class="nk"> &lt;danielhb&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-54"></a><span class="tm">13:14:25</span><span class="nk"> &lt;danielhb&gt;</span> any other topics for this scrum meeting?
+<a name="l-55"></a><span class="tm">13:14:58</span><span class="nk"> &lt;ziviani&gt;</span> no
+<a name="l-56"></a><span class="tm">13:15:23</span><span class="nk"> &lt;pvital&gt;</span> not from me
+<a name="l-57"></a><span class="tm">13:15:45</span><span class="nk"> &lt;ramonn&gt;</span> nop
+<a name="l-58"></a><span class="tm">13:16:20</span><span class="nk"> &lt;danielhb&gt;</span> Thanks for joining and have a nice day!
+<a name="l-59"></a><span class="tm">13:16:22</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

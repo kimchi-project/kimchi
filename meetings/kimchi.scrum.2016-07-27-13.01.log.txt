@@ -1,0 +1,59 @@
+13:01:55 <danielhb> #startmeeting
+13:01:55 <kimchi-bot> Meeting started Wed Jul 27 13:01:55 2016 UTC.  The chair is danielhb. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:55 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:02:02 <danielhb> #meetingname scrum
+13:02:02 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:19 <danielhb> #info Agenda
+13:02:20 <danielhb> #info 1) Status
+13:02:20 <danielhb> #info 2) Open discussion
+13:02:26 <danielhb> anything else for today?
+13:02:33 <pvital> no
+13:03:32 <ramonn> nop
+13:03:42 <danielhb> #topic Status
+13:03:48 <danielhb> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+13:04:06 <danielhb> #info [*] danielhb applied and reviewed patches
+13:04:19 <peterpennings> #info [Gingerbase] peterpennings is working on some bug fixes on Host Updates tab
+13:04:30 <danielhb> #info [Ginger] danielhb fixed a couple of gGithub issues
+13:04:54 <peterpennings> #info [Wok] peterpennings is working on a improvement in user session timeout alert
+13:04:57 <pvital> #info [Wok] [Kimchi] [Ginger*] pvital reviewed patches
+13:04:57 <pvital> #info [Wok] pvital submitted V4 patch to "Use system's nginx proxy service"
+13:04:57 <pvital> #info [Gingerbase] pvital tested an approach to reduce high CPU consumption when wokd is in idle mode by creating a new plugin code for HostStatsModel class.  There is no difference with normal execution.
+13:04:57 <pvital> #info [Gingerbase] pvital is investigating new ways to reduce high CPU consumption when wokd is in idle mode caused by HostStatsModel class.
+13:05:02 <danielhb> #info [*] danielhb is now replacing alinefm on her vacations and will be focused mostly on mailing list reviews of all 5 plug-ins
+13:05:03 <suresh> #info [kimchi] sureshab working on enabling kimchi for s390x
+13:05:13 <ramonn> #info [kimchi] ramonn waiting for review
+13:05:28 <ramonn> #info [wok] ramonn working to set UI to use js libraries from rpms
+13:06:19 <bianca> just a min, will give my status
+13:06:41 <danielhb> #info [Wok] [Kimchi] socorro Tested/Reviewed patches
+13:06:42 <danielhb> #info [*] socorro Followed up/Updated various bugzilla/github issues with
+13:06:42 <danielhb> #info [*] socorro accurate status/info where needed; requested for some issues
+13:06:42 <danielhb> #info [*] socorro to be retried by test as they are no longer reproducable in
+13:06:42 <danielhb> #info [*] socorro our environment - Ginger issue# 350, Kimchi issue# 948, 953
+13:06:43 <danielhb> #info [Kimchi] socorro Started looking at new request regarding PCI passthrough
+13:06:45 <danielhb> #info [Kimchi] socorro companions but at the same time, there were still issues being
+13:06:47 <danielhb> #info [Kimchi] socorro worked on by Samuel/Ziviani in the same code base that made it hard
+13:06:49 <ziviani> #info [kimchi] ziviani had patches applied upstream
+13:06:49 <danielhb> #info [Kimchi] socorro to keep up as it was a moving target.  Per discussion w/Ziviani, he
+13:06:51 <danielhb> #info [Kimchi] socorro will work on it as it made sense to do so as I will be on vacation
+13:06:53 <danielhb> #info [Kimchi] socorro soon but will provide any assistance if needed until then
+13:06:55 <danielhb> #info [Kimchi] socorro Requested to have patch resent for Kimchi issue# 968
+13:06:57 <danielhb> #info [Kimchi] socorro as I was not able to apply it; turns out it depended on another
+13:06:59 <danielhb> #info [Kimchi] socorro patch being applied first.  Updated to latest src in order
+13:07:01 <danielhb> #info [Kimchi] socorro to test and it turns out I need to upgrade Ubuntu due to
+13:07:03 <danielhb> #info [Kimchi] socorro python-libvirt not supporting new nginx process
+13:07:05 <danielhb> #info [Kimchi] socorro Netboot template applied upstream
+13:07:15 <ziviani> #info [kimchi] ziviani sent small fix for passthrough frontend
+13:07:34 <ziviani> #info [*] ziviani updated openpower tree on github
+13:07:57 <ziviani> #info [kimchi] ziviani started working on cpu/memory hotplug
+13:08:31 <bianca> #info[Kimchi][Wok] bianca  submitted 2 patches "Kimchi kills Wokd due to sys.exit() calls in files networks.py and storagepools.py"
+13:08:31 <bianca> #info [Ginger] bianca is still working on a issue related to time out when generating configuration backups. Testing to make sure solution is working, should be implemented soon.
+13:08:32 <bianca> #info [Wok] bianca is also working in a bug related to storage tab under Edit Guest option hangs for few minutes after clicking on +Add button. Investigating the problem at the moment.
+13:12:37 <danielhb> can we move on?
+13:13:22 <bianca> yes
+13:14:13 <danielhb> #topic Open Discussion
+13:14:25 <danielhb> any other topics for this scrum meeting?
+13:14:58 <ziviani> no
+13:15:23 <pvital> not from me
+13:15:45 <ramonn> nop
+13:16:20 <danielhb> Thanks for joining and have a nice day!
+13:16:22 <danielhb> #endmeeting
