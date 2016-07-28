@@ -534,7 +534,7 @@ kimchi.guest_edit_main = function() {
         });
     };
     var pciDeviceButtonHandler = function() {
-        $('button', '#form-guest-edit-pci').on('click', function(event) {
+        $('.btn.btn-link', '#form-guest-edit-pci').on('click', function(event) {
             event.preventDefault();
             var obj = $(this);
             var objIcon = obj.find('i');
@@ -546,9 +546,11 @@ kimchi.guest_edit_main = function() {
                     wok.message.error(err.responseJSON.reason, '#alert-modal-container');
                 });
             } else {
+                $('html').addClass('in-progress');
+                $('#form-guest-edit-pci > .wok-mask').show();
+                var haveCompanions = false;
+                var pciTitle = i18n['KCHVMED6007M'] + '\n';
                 kimchi.getPCIDeviceCompanions(id, function(infoData) {
-                    var pciTitle = i18n['KCHVMED6007M'] + '\n';
-                    var haveCompanions = false;
                     for (var p = 0; p < infoData.length; p++) {
                         if (infoData[p].device_type === 'net') {
                             haveCompanions = true;
@@ -564,24 +566,19 @@ kimchi.guest_edit_main = function() {
                             pciTitle += ', ' + i18n['KCHVMED6006M'] + ' ' + infoData[p].model + '\n';
                         }
                     }
-                    var settings = {
-                        title: i18n['KCHVMED6012M'],
-                        content: pciTitle,
-                        confirm: i18n['KCHAPI6002M'],
-                        cancel: i18n['KCHAPI6003M']
-                    };
+                });
+                $('#form-guest-edit-pci > .wok-mask').fadeOut(300, function() {});
+                $('html').removeClass('in-progress');
 
-                    if (haveCompanions) {
-                        wok.confirm(settings, function() {
-                            kimchi.addVMPCIDevice(kimchi.selectedGuest, {
-                                name: id
-                            }, function(task) {
-                                getOngoingAttachingDevices(task);
-                            }, function(err) {
-                                wok.message.error(err.responseJSON.reason, '#alert-modal-container');
-                            });
-                        });
-                    } else {
+                var settings = {
+                    title: i18n['KCHVMED6012M'],
+                    content: pciTitle,
+                    confirm: i18n['KCHAPI6002M'],
+                    cancel: i18n['KCHAPI6003M']
+                };
+
+                if (haveCompanions) {
+                    wok.confirm(settings, function() {
                         kimchi.addVMPCIDevice(kimchi.selectedGuest, {
                             name: id
                         }, function(task) {
@@ -589,8 +586,16 @@ kimchi.guest_edit_main = function() {
                         }, function(err) {
                             wok.message.error(err.responseJSON.reason, '#alert-modal-container');
                         });
-                    }
-                });
+                    });
+                } else {
+                    kimchi.addVMPCIDevice(kimchi.selectedGuest, {
+                        name: id
+                    }, function(task) {
+                        getOngoingAttachingDevices(task);
+                    }, function(err) {
+                        wok.message.error(err.responseJSON.reason, '#alert-modal-container');
+                    });
+                }
             }
         });
     };
