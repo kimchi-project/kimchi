@@ -900,8 +900,7 @@ kimchi.listVmsAuto = function() {
                         $('#guests-root-container > .wok-mask').fadeOut(300, function() {});
                     }
                 }
-
-                kimchi.vmTimeout = window.setTimeout("kimchi.listVmsAuto();", 5000);
+                kimchi.setListVMAutoTimeout();
             },
             function(errorResponse, textStatus, errorThrown) {
                 if (errorResponse.responseJSON && errorResponse.responseJSON.reason) {
@@ -910,11 +909,11 @@ kimchi.listVmsAuto = function() {
                         $('#guests-root-container > .wok-mask').addClass('hidden');
                     });
                 }
-                kimchi.vmTimeout = window.setTimeout("kimchi.listVmsAuto();", 5000);
+                kimchi.setListVMAutoTimeout();
             });
     } else {
         clearTimeout(kimchi.vmTimeout);
-        kimchi.vmTimeout = window.setTimeout("kimchi.listVmsAuto();", 5000);
+        kimchi.setListVMAutoTimeout();
     }
 };
 
@@ -924,3 +923,7 @@ kimchi.editTemplate = function(guestTemplate, oldPopStat) {
     }
     return guestTemplate;
 };
+
+kimchi.setListVMAutoTimeout = function() {
+    kimchi.vmTimeout = window.setTimeout("kimchi.listVmsAuto();", 5000);
+}
