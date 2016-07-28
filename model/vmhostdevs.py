@@ -89,7 +89,6 @@ class VMHostDevsModel(object):
 
     def create(self, vmid, params):
         dev_name = params['name']
-        self._passthrough_device_validate(dev_name)
         dev_info = self.dev_model.lookup(dev_name)
 
         if dev_info['device_type'] == 'pci':
@@ -215,6 +214,13 @@ class VMHostDevsModel(object):
         vmid = params['vmid']
         dev_info = params['dev_info']
         lock = params['lock']
+
+        try:
+            self._passthrough_device_validate(dev_info['name'])
+
+        except InvalidParameter as e:
+            cb(e.message, False)
+            raise
 
         with lock:
             try:
@@ -455,6 +461,13 @@ class VMHostDevsModel(object):
         dev_info = params['dev_info']
         lock = params['lock']
 
+        try:
+            self._passthrough_device_validate(dev_info['name'])
+
+        except InvalidParameter as e:
+            cb(e.message, False)
+            raise
+
         with lock:
             dom = VMModel.get_vm(vmid, self.conn)
 
@@ -500,6 +513,13 @@ class VMHostDevsModel(object):
         dev_info = params['dev_info']
         dom = VMModel.get_vm(vmid, self.conn)
         lock = params['lock']
+
+        try:
+            self._passthrough_device_validate(dev_info['name'])
+
+        except InvalidParameter as e:
+            cb(e.message, False)
+            raise
 
         with lock:
             with RollbackContext() as rollback:
