@@ -20,6 +20,11 @@ kimchi.guest_edit_main = function() {
     var formTargetId;
     var guestEditForm = $('#form-guest-edit-general');
     var saveButton = $('#guest-edit-button-save');
+    clearTimeout(kimchi.vmTimeout);
+
+    $('#modalWindow').on('hidden.bs.modal', function() {
+        kimchi.setListVMAutoTimeout();
+    });
 
     $('#guest-edit-window a[data-toggle="tab"]').on('show.bs.tab', function(tab) {
         tab.target; // newly activated tab
