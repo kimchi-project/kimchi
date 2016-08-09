@@ -36,6 +36,11 @@ def get_serial_xml(params):
          <target type='serial' port='1'/>
          <address type='spapr-vio' reg='0x30001000'/>
      </console>
+
+    For s390x
+    <console type='pty'>
+      <target type='sclp' port='0'/>
+    </console>
     """
     # pcc serial console
     if params["arch"] in ["ppc", "ppc64"]:
@@ -43,7 +48,11 @@ def get_serial_xml(params):
         console.append(E.target(type="serial", port='1'))
         console.append(E.address(type="spapr-vio", reg="0x30001000"))
         return ET.tostring(console, encoding='utf-8', pretty_print=True)
-
+    # for s390x
+    elif params["arch"] in ["s390x"]:
+        console = E.console(type="pty")
+        console.append(E.target(type="sclp", port='0'))
+        return ET.tostring(console, encoding='utf-8', pretty_print=True)
     # for x
     else:
         serial = E.serial(type="pty")
