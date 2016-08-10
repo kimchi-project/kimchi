@@ -350,7 +350,10 @@ class VMTemplate(object):
 
         graphics = dict(self.info['graphics'])
         graphics.update(kwargs.get('graphics', {}))
-        params['graphics'] = get_graphics_xml(graphics)
+        # Graphics is not supported on s390x, this check will
+        # not add graphics tag in domain xml.
+        if params['arch'] not in ['s390x']:
+            params['graphics'] = get_graphics_xml(graphics)
 
         libvirt_stream_protocols = kwargs.get('libvirt_stream_protocols', [])
         cdrom_xml = self._get_cdrom_xml(libvirt_stream_protocols)
