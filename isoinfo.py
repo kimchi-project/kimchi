@@ -395,6 +395,14 @@ lang=en#!/wiki/W51a7ffcf4dfd_4b40_9d82_446ebc23c550/page/PowerLinux\
         # If reached this point the file wasn't found = not bootable
         self.bootable = False
 
+    def _scan_s390x(self):
+        """
+        s390x firmware does not use the conventional El Torito boot
+        specification. This method will be used to check s390x image
+        is bootable or not. Till then this will set bootable True.
+        """
+        self.bootable = True
+
     def _scan_primary_vol(self, data):
         """
         Scan one sector for a Primary Volume Descriptor and extract the
@@ -445,6 +453,8 @@ lang=en#!/wiki/W51a7ffcf4dfd_4b40_9d82_446ebc23c550/page/PowerLinux\
         self._scan_primary_vol(data)
         if platform.machine().startswith('ppc'):
             self._scan_ppc()
+        elif platform.machine().startswith('s390x'):
+            self._scan_s390x()
         else:
             self._scan_el_torito(data)
 
