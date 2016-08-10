@@ -17,7 +17,6 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-import guestfs
 import json
 import os
 import sys
@@ -48,11 +47,14 @@ def probe_image(image_path):
     if not os.access(image_path, os.R_OK):
         raise ImageFormatError("KCHIMG0003E", {'filename': image_path})
 
-    g = guestfs.GuestFS(python_return_dict=True)
-    g.add_drive_opts(image_path, readonly=1)
-    g.launch()
     try:
+        import guestfs
+        g = guestfs.GuestFS(python_return_dict=True)
+        g.add_drive_opts(image_path, readonly=1)
+        g.launch()
         roots = g.inspect_os()
+    except ImportError:
+        return ("unknown", "unknown")
     except:
         raise ImageFormatError("KCHIMG0001E")
 
