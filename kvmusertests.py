@@ -36,6 +36,9 @@ class UserTests(object):
         <type arch='%(arch)s'>hvm</type>
         <boot dev='hd'/>
       </os>
+      <on_poweroff>destroy</on_poweroff>
+      <on_reboot>restart</on_reboot>
+      <on_crash>restart</on_crash>
     </domain>"""
     lock = threading.Lock()
     user = None
