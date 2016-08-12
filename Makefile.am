@@ -135,17 +135,30 @@ kimchi.spec: contrib/kimchi.spec.fedora contrib/kimchi.spec.suse
 		/bin/false ;                                        \
 	fi
 
-rpm: dist kimchi.spec
+check_files:
+	@if [ -d '.git' ]; then                                           \
+               if [ `git status --porcelain --untracked-files=no | wc -l` -gt 0 ]; then        \
+                       echo "***** Aborting 'make rpm' command *****";    \
+                       echo "There are some changes not commited in your working \
+directory. To avoid losing them, please commit or stage before run 'make rpm' command.";       \
+                       exit 1;                                            \
+               fi                                                         \
+       fi
+
+rpm: check_files dist kimchi.spec
 	$(MKDIR_P) rpm/BUILD rpm/RPMS rpm/SOURCES rpm/SPECS rpm/SRPMS
 	cp $(top_srcdir)/kimchi.spec rpm/SPECS/kimchi.spec
 	cp $(DIST_ARCHIVES) rpm/SOURCES
 	rpmbuild -ba --define "_topdir `pwd`/rpm" rpm/SPECS/kimchi.spec
+	@if [ -d '.git' ]; then                         \
+		git reset --hard;                       \
+	fi
 
-fedora-rpm: contrib/kimchi.spec.fedora
+fedora-rpm: check_files contrib/kimchi.spec.fedora
 	ln -sf contrib/kimchi.spec.fedora kimchi.spec
 	$(MAKE) rpm
 
-suse-rpm: contrib/kimchi.spec.suse
+suse-rpm: check_files contrib/kimchi.spec.suse
 	ln -sf contrib/kimchi.spec.suse kimchi.spec
 	$(MAKE) rpm
 
