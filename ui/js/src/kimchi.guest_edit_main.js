@@ -536,6 +536,8 @@ kimchi.guest_edit_main = function() {
     var pciDeviceButtonHandler = function() {
         $('.btn.btn-link', '#form-guest-edit-pci').on('click', function(event) {
             event.preventDefault();
+            if (event.originalEvent.detail > 1)
+                return;
             var obj = $(this);
             var objIcon = obj.find('i');
             var id = obj.parent().parent().attr('id');
