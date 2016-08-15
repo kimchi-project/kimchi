@@ -153,9 +153,9 @@ kimchi.changeNetworkDestination = function() {
 
 kimchi.updateNetworkFormButton = function() {
     if($("#networkName").hasClass("invalid-field")){
-        $("#networkFormOk").button("disable");
-    }else{
-        $("#networkFormOk").button("enable");
+        $("#networkFormOk").attr('disabled', true);
+    } else{
+        $("#networkFormOk").attr('disabled', false);
     }
 };
 
