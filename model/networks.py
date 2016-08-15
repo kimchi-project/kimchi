@@ -145,7 +145,7 @@ class NetworksModel(object):
         try:
             ip = ipaddr.IPNetwork(netaddr)
         except ValueError:
-            raise InvalidParameter("KCHNET0003E", {'subent': netaddr,
+            raise InvalidParameter("KCHNET0003E", {'subnet': netaddr,
                                                    'network': params['name']})
 
         if ip.ip == ip.network:
@@ -235,6 +235,7 @@ class NetworksModel(object):
                     self._create_vlan_tagged_bridge(str(iface),
                                                     str(params['vlan_id']))
             else:
+                
                 # create Linux bridge interface and use it as actual iface
                 iface = self._create_linux_bridge(iface)
                 params['bridge'] = iface
