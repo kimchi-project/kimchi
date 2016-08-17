@@ -141,8 +141,12 @@ class MockModel(Model):
         cherrypy.engine.subscribe('exit', self.virtviewertmpfile_cleanup)
 
     def _create_virt_viewer_tmp_file(self):
+        path = '../data/virtviewerfiles/'
+        if not os.path.isdir(path):
+            os.makedirs(path)
+
         self.virtviewerfile_tmp = tempfile.NamedTemporaryFile(
-            dir='../data/virtviewerfiles/',
+            dir=path,
             delete=False
         )
         file_content = "[virt-viewer]\ntype=vnc\nhost=127.0.0.1\nport=5999\n"
