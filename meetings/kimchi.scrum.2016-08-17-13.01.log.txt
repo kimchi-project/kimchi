@@ -1,0 +1,132 @@
+13:01:56 <alinefm> #startmeeting
+13:01:56 <kimchi-bot> Meeting started Wed Aug 17 13:01:56 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:56 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:57 <alinefm> #meetingname scrum
+13:01:57 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:14 <alinefm> #info Agenda
+13:02:14 <alinefm> #info 1) Status
+13:02:14 <alinefm> #info 2) Open discussion
+13:02:14 <alinefm> anything else?
+13:02:23 <danielhb> no
+13:03:00 <alinefm> so let's get started
+13:03:09 <alinefm> #topic Status
+13:03:09 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+13:03:23 <lcorreia> #info [wok] lcorreia got upstream fixes for issues #140, #142
+13:03:24 <lcorreia> #info [*] lcorreia got upstream improvements/fixes for user log messages
+13:03:24 <lcorreia> #info [ginger] lcorreia got upstream fix for issue #380
+13:03:24 <lcorreia> #info [*] lcorreia sent RFC/working on Wok issue #141
+13:03:33 <danielhb> #info [*] danielhb reviewed and applied patches
+13:03:40 <ramonn> #info [wok] ramonn worked on js rpm libs. Let patch in review waiting for help with makefiles
+13:03:46 <bianca> #info [*] bianca submitted a patch to issue #585 - 'make clean' does not revert its changes from 'make rpm'.
+13:03:46 <bianca> #info [Kimchi] bianca is working on a feature request #860 - Support Guest Autostart, sent a RFC to ML waiting for responses.
+13:03:48 <danielhb> #info [*] danielhb made control changes across all plug-ins
+13:03:53 <pvital> #info [Wok] [Kimchi] [Ginger*] pvital reviewed patches
+13:03:53 <pvital> #info [Wok] [Kimchi] [Ginger*] pvital is working with oVirt team to use their infra-structure to automatically build packages and images of our projects.
+13:03:53 <pvital> #info [Wok] pvital is working issue #122 - Make AsyncTask stoppable.
+13:03:53 <pvital> #info [Kimchi] pvital is helping user with issue #980 - cannot save permission setting for VM
+13:04:03 <danielhb> #info [Wok] socorro Tested/Reviewed patch
+13:04:03 <danielhb> #info [*] socorro Followed up/Updated various bugzilla/github issues with
+13:04:03 <danielhb> #info [*] socorro accurate status/info where needed; requested for some issues
+13:04:03 <danielhb> #info [*] socorro to be retried by the reporter as they may no longer be valid -
+13:04:03 <danielhb> #info [*] socorro issues# 490, 425
+13:04:04 <danielhb> #info [Kimchi] socorro Patch sent out to ML for issue# 317; already applied upstream
+13:04:05 <danielhb> #info [Kimchi] socorro Have some concerns about cpu hotplug fix that was applied
+13:04:07 <danielhb> #info [Kimchi] socorro recently; working w/Ziviani
+13:04:07 <ramonn> #info [kimchi] ramonn sent patch to implement title and description. Waiting review at v3
+13:04:23 <peterpennings> #info [Ginger] peterpennings is working on put the resources name in confirmations dialog
+13:04:52 <ramonn> #info [kimchi] ramonn will sent patch about "Do not delete pool and network in use by templates or guests " after scrum
+13:06:41 <samhenri> #info [Ginger] samhenri currently working on Redesigned Network Configuration
+13:07:15 <ziviani> #info [*] ziviani updated openpower trees
+13:08:13 <samhenri> #info [Wok] samhenri fixed some minor issues with Datatables JS and CSS, added a ip-address sort plugin (MIT license) for Network Configuration. Will send patch once the redesigned panel is finished
+13:09:22 <alinefm> anything else for today?
+13:10:31 <lcorreia> no
+13:10:38 <samhenri> nope
+13:10:43 <alinefm> moving on...
+13:10:44 <alinefm> #topic Open Discussion
+13:10:45 <alinefm> Any other topics you would like to discuss?
+13:12:51 <pvital> I have something regarding my wok issue -  #122 - Make AsyncTask stoppable.
+13:13:01 <alinefm> go ahead
+13:14:09 <pvital> the RFC "approved and discussed" is good, but implementing it I started to face some issues due to how we use AsyncTasks on all plugins
+13:14:45 <pvital> so I was discussing with danielhb and I think this issue, is a task of something bigger (a story)
+13:15:01 <alinefm> what is the problem?
+13:15:04 <danielhb> bigger than myself
+13:15:10 <danielhb> and I am big I tell you
+13:15:23 <pvital> and the story is something related to what peterpennings sent to ML sometime ago - to have a task manager in wok
+13:16:09 <alinefm> what is the problem in implementing on what was 'approved and discussed' ?
+13:16:29 <pvital> today we don't have the control of the objects created to execute the AsyncTasks, so even following what was proposed in the RFC, there's no way to call to kill (or stop) the tasks
+13:16:38 <pvital> because I don't know where it is
+13:17:37 <alinefm> all that because the asynctask is store in the objectstore?
+13:17:53 <pvital> with a task manager (actually an improvement in today's AsyncTask implementation) I'll be able to execute action and control better the tasks running (and all those finisehd)
+13:18:04 <pvital> NO
+13:18:20 <pvital> because the  asynctask is NOT stored in the objectstore
+13:18:30 <pvital> but only it's information (status and messages)
+13:18:44 <alinefm> no! the asynctask is stored in the objectstore (I am sure about that)
+13:18:59 <pvital> I only have information about the tasks running, not the instance/object itself
+13:19:02 <alinefm> and because that you don't have a instance of it and only plan text
+13:19:25 <alinefm> so the question is: do we need to store the asynctask in the objectstore?
+13:19:47 <alinefm> why do not keep it on memory as the tasks are cleaned up on server reboot?
+13:20:59 <pvital> if I don't want to execute anything else on the AsyncTask, we can keep them on objectsotre or memory
+13:21:08 <pvital> but if I want manipulate them
+13:21:15 <pvital> like, ask to stop it
+13:21:24 <pvital> as issue 122 is requesting
+13:21:38 <pvital> them we need improve how we handle with tasks
+13:22:03 <alinefm> agree
+13:22:20 <alinefm> but it is completely different from what peterpennings proposed related to task management
+13:22:22 <alinefm> =)
+13:22:39 <pvital> so, what I was discussing is about create a task to implement a task manager, with issue 122 as part of this bigger feature, to control and make actions in top of the tasks
+13:22:50 <alinefm> no no
+13:23:36 <alinefm> the proposal about task management was only to have view mode without any interaction
+13:24:02 <alinefm> with issue #122 I want to be able to stop a guest cloning or a storage volume download
+13:24:46 <alinefm> but you only need to implement the infrastructure and each plugin/action will be responsible to each 'stop' operation
+13:25:29 <peterpennings> alinefm, is it not a good idea to combine both ideas?
+13:25:40 <alinefm> given your problem I can see 2 solutions: 1) do not store tasks on objectstore anymore! keep it on memory with the AsynTask instance (we need to evaluate the cons about that - performance and so)
+13:25:43 <pvital> I see all this as a big feature (story) with many tasks to be implemented
+13:26:09 <pvital> both peterpennings' idea and my are part of a 'task manager'
+13:26:19 <alinefm> 2) keep using objectstore for status/message but keep on memory a map on task ID and task instance
+13:27:27 <alinefm> peterpennings, pvital OK - we can use the stop task action on task manager when the time comes
+13:27:43 <alinefm> the first problem here is how to implement the stop action on Task
+13:27:53 <alinefm> which is what is requested on issue #122
+13:28:13 <alinefm> when the API is done /tasks/<id>/stop the task manager can only use it
+13:28:40 <alinefm> I am not understanding why we need to make bigger a simple task (make a task stoppable)
+13:28:57 <danielhb> alinefm, I think pvital 's point here is that, depending on how much work it is required to do #122, he might as well go all the way and do the task management. I sympathize with the idea
+13:29:08 <alinefm> NO
+13:29:18 <alinefm> what is a task management?!
+13:29:37 <alinefm> it is a bunch of APIs to manipulate tasks, right?
+13:29:49 <alinefm> how do we can manipulate tasks?
+13:30:07 <alinefm> 1) the user can not create a task by own
+13:30:17 <alinefm> a task is generated by an action in a resource
+13:30:23 <alinefm> 2) the user can stop a task
+13:30:30 <alinefm> woowww!! that is the issue #122
+13:30:43 <alinefm> 3) the user can pause a task (?)
+13:30:50 <alinefm> 4) the user can resume a task (?)
+13:30:56 <alinefm> and that is all!!!
+13:31:11 <alinefm> why do not focus on item 2. ?
+13:31:29 <pvital> the main problem is that a task, is not more than a thread running in background
+13:31:39 <alinefm> agree
+13:32:02 <alinefm> now we start talking about solution for 2. instead of getting it bigger and complex than it is really is =)
+13:32:04 <pvital> and how it's implemented today, I can NOT do anything more than start it and wait for it's end
+13:32:12 <alinefm> agree
+13:32:20 <alinefm> what do you need to change it to make it be stoppable?
+13:32:31 <pvital> if you want to start manipulate them, we need re-disign the whole thing
+13:32:35 <alinefm> move it to memory? save a map of ids and instances?
+13:34:23 <alinefm> pvital, I understand that with what we have today is not possible to stop a task (otherwise, the issue #122 would not exist) but we need to think about solutions for that
+13:34:36 <alinefm> if you need a AsyncTask instance to make it happen, do it
+13:34:54 <alinefm> how? I proposed 2 solutions, whichi is better?
+13:35:01 <pvital> alinefm, oh sorry! i thought I was doing that - proposing an update in the cirrent implementation
+13:35:01 <alinefm> maybe more solutions are around too
+13:35:25 <alinefm> pvital, for me you were trying to make a bug problem with a simple issue =)
+13:36:34 <pvital> ok then! no more comments (or topics to discuss)!
+13:37:24 <alinefm> pvital, are you going to send RFC for that? to discuss if it is a good idea to move async task to memory or not?
+13:37:56 <alinefm> or...? any other idea on that?
+13:39:18 <pvital> I'll solve my issue and if necessary more changes in API, be sure I'll send a RFC
+13:41:29 <alinefm> ok
+13:41:33 <alinefm> anything else?
+13:41:58 <danielhb> no
+13:42:24 <alinefm> I have one =)
+13:42:44 <alinefm> I want to thank danielhb for all the support and help during the time I was out
+13:42:56 <alinefm> thanks, danielhb! I really appreciated that
+13:43:12 <danielhb> alinefm, _o>
+13:43:30 <danielhb> alinefm, anytime!
+13:44:25 <alinefm> =)
+13:44:30 <alinefm> thanks everyone for joining! =)
+13:44:33 <alinefm> #endmeeting

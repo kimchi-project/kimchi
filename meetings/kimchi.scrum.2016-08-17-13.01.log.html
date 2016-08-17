@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:01:56</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:01:56</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Aug 17 13:01:56 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:01:56</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:01:57</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:01:57</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:02:14</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda</span>
+<a name="l-7"></a><span class="tm">13:02:14</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">1) Status</span>
+<a name="l-8"></a><span class="tm">13:02:14</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">2) Open discussion</span>
+<a name="l-9"></a><span class="tm">13:02:14</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-10"></a><span class="tm">13:02:23</span><span class="nk"> &lt;danielhb&gt;</span> no
+<a name="l-11"></a><span class="tm">13:03:00</span><span class="nk"> &lt;alinefm&gt;</span> so let's get started
+<a name="l-12"></a><span class="tm">13:03:09</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-13"></a><span class="tm">13:03:09</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info [&lt;project] &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-14"></a><span class="tm">13:03:23</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] lcorreia got upstream fixes for issues #140, #142</span>
+<a name="l-15"></a><span class="tm">13:03:24</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] lcorreia got upstream improvements/fixes for user log messages</span>
+<a name="l-16"></a><span class="tm">13:03:24</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] lcorreia got upstream fix for issue #380</span>
+<a name="l-17"></a><span class="tm">13:03:24</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] lcorreia sent RFC/working on Wok issue #141</span>
+<a name="l-18"></a><span class="tm">13:03:33</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] danielhb reviewed and applied patches</span>
+<a name="l-19"></a><span class="tm">13:03:40</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] ramonn worked on js rpm libs. Let patch in review waiting for help with makefiles</span>
+<a name="l-20"></a><span class="tm">13:03:46</span><span class="nk"> &lt;bianca&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] bianca submitted a patch to issue #585 - 'make clean' does not revert its changes from 'make rpm'.</span>
+<a name="l-21"></a><span class="tm">13:03:46</span><span class="nk"> &lt;bianca&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] bianca is working on a feature request #860 - Support Guest Autostart, sent a RFC to ML waiting for responses.</span>
+<a name="l-22"></a><span class="tm">13:03:48</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] danielhb made control changes across all plug-ins</span>
+<a name="l-23"></a><span class="tm">13:03:53</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] [Kimchi] [Ginger*] pvital reviewed patches</span>
+<a name="l-24"></a><span class="tm">13:03:53</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] [Kimchi] [Ginger*] pvital is working with oVirt team to use their infra-structure to automatically build packages and images of our projects.</span>
+<a name="l-25"></a><span class="tm">13:03:53</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] pvital is working issue #122 - Make AsyncTask stoppable.</span>
+<a name="l-26"></a><span class="tm">13:03:53</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] pvital is helping user with issue #980 - cannot save permission setting for VM</span>
+<a name="l-27"></a><span class="tm">13:04:03</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] socorro Tested/Reviewed patch</span>
+<a name="l-28"></a><span class="tm">13:04:03</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] socorro Followed up/Updated various bugzilla/github issues with</span>
+<a name="l-29"></a><span class="tm">13:04:03</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] socorro accurate status/info where needed; requested for some issues</span>
+<a name="l-30"></a><span class="tm">13:04:03</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] socorro to be retried by the reporter as they may no longer be valid -</span>
+<a name="l-31"></a><span class="tm">13:04:03</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] socorro issues# 490, 425</span>
+<a name="l-32"></a><span class="tm">13:04:04</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] socorro Patch sent out to ML for issue# 317; already applied upstream</span>
+<a name="l-33"></a><span class="tm">13:04:05</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] socorro Have some concerns about cpu hotplug fix that was applied</span>
+<a name="l-34"></a><span class="tm">13:04:07</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] socorro recently; working w/Ziviani</span>
+<a name="l-35"></a><span class="tm">13:04:07</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ramonn sent patch to implement title and description. Waiting review at v3</span>
+<a name="l-36"></a><span class="tm">13:04:23</span><span class="nk"> &lt;peterpennings&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] peterpennings is working on put the resources name in confirmations dialog</span>
+<a name="l-37"></a><span class="tm">13:04:52</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ramonn will sent patch about "Do not delete pool and network in use by templates or guests " after scrum</span>
+<a name="l-38"></a><span class="tm">13:06:41</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] samhenri currently working on Redesigned Network Configuration</span>
+<a name="l-39"></a><span class="tm">13:07:15</span><span class="nk"> &lt;ziviani&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] ziviani updated openpower trees</span>
+<a name="l-40"></a><span class="tm">13:08:13</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] samhenri fixed some minor issues with Datatables JS and CSS, added a ip-address sort plugin (MIT license) for Network Configuration. Will send patch once the redesigned panel is finished</span>
+<a name="l-41"></a><span class="tm">13:09:22</span><span class="nk"> &lt;alinefm&gt;</span> anything else for today?
+<a name="l-42"></a><span class="tm">13:10:31</span><span class="nk"> &lt;lcorreia&gt;</span> no
+<a name="l-43"></a><span class="tm">13:10:38</span><span class="nk"> &lt;samhenri&gt;</span> nope
+<a name="l-44"></a><span class="tm">13:10:43</span><span class="nk"> &lt;alinefm&gt;</span> moving on...
+<a name="l-45"></a><span class="tm">13:10:44</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-46"></a><span class="tm">13:10:45</span><span class="nk"> &lt;alinefm&gt;</span> Any other topics you would like to discuss?
+<a name="l-47"></a><span class="tm">13:12:51</span><span class="nk"> &lt;pvital&gt;</span> I have something regarding my wok issue -  #122 - Make AsyncTask stoppable.
+<a name="l-48"></a><span class="tm">13:13:01</span><span class="nk"> &lt;alinefm&gt;</span> go ahead
+<a name="l-49"></a><span class="tm">13:14:09</span><span class="nk"> &lt;pvital&gt;</span> the RFC "approved and discussed" is good, but implementing it I started to face some issues due to how we use AsyncTasks on all plugins
+<a name="l-50"></a><span class="tm">13:14:45</span><span class="nk"> &lt;pvital&gt;</span> so I was discussing with danielhb and I think this issue, is a task of something bigger (a story)
+<a name="l-51"></a><span class="tm">13:15:01</span><span class="nk"> &lt;alinefm&gt;</span> what is the problem?
+<a name="l-52"></a><span class="tm">13:15:04</span><span class="nk"> &lt;danielhb&gt;</span> bigger than myself
+<a name="l-53"></a><span class="tm">13:15:10</span><span class="nk"> &lt;danielhb&gt;</span> and I am big I tell you
+<a name="l-54"></a><span class="tm">13:15:23</span><span class="nk"> &lt;pvital&gt;</span> and the story is something related to what peterpennings sent to ML sometime ago - to have a task manager in wok
+<a name="l-55"></a><span class="tm">13:16:09</span><span class="nk"> &lt;alinefm&gt;</span> what is the problem in implementing on what was 'approved and discussed' ?
+<a name="l-56"></a><span class="tm">13:16:29</span><span class="nk"> &lt;pvital&gt;</span> today we don't have the control of the objects created to execute the AsyncTasks, so even following what was proposed in the RFC, there's no way to call to kill (or stop) the tasks
+<a name="l-57"></a><span class="tm">13:16:38</span><span class="nk"> &lt;pvital&gt;</span> because I don't know where it is
+<a name="l-58"></a><span class="tm">13:17:37</span><span class="nk"> &lt;alinefm&gt;</span> all that because the asynctask is store in the objectstore?
+<a name="l-59"></a><span class="tm">13:17:53</span><span class="nk"> &lt;pvital&gt;</span> with a task manager (actually an improvement in today's AsyncTask implementation) I'll be able to execute action and control better the tasks running (and all those finisehd)
+<a name="l-60"></a><span class="tm">13:18:04</span><span class="nk"> &lt;pvital&gt;</span> NO
+<a name="l-61"></a><span class="tm">13:18:20</span><span class="nk"> &lt;pvital&gt;</span> because the  asynctask is NOT stored in the objectstore
+<a name="l-62"></a><span class="tm">13:18:30</span><span class="nk"> &lt;pvital&gt;</span> but only it's information (status and messages)
+<a name="l-63"></a><span class="tm">13:18:44</span><span class="nk"> &lt;alinefm&gt;</span> no! the asynctask is stored in the objectstore (I am sure about that)
+<a name="l-64"></a><span class="tm">13:18:59</span><span class="nk"> &lt;pvital&gt;</span> I only have information about the tasks running, not the instance/object itself
+<a name="l-65"></a><span class="tm">13:19:02</span><span class="nk"> &lt;alinefm&gt;</span> and because that you don't have a instance of it and only plan text
+<a name="l-66"></a><span class="tm">13:19:25</span><span class="nk"> &lt;alinefm&gt;</span> so the question is: do we need to store the asynctask in the objectstore?
+<a name="l-67"></a><span class="tm">13:19:47</span><span class="nk"> &lt;alinefm&gt;</span> why do not keep it on memory as the tasks are cleaned up on server reboot?
+<a name="l-68"></a><span class="tm">13:20:59</span><span class="nk"> &lt;pvital&gt;</span> if I don't want to execute anything else on the AsyncTask, we can keep them on objectsotre or memory
+<a name="l-69"></a><span class="tm">13:21:08</span><span class="nk"> &lt;pvital&gt;</span> but if I want manipulate them
+<a name="l-70"></a><span class="tm">13:21:15</span><span class="nk"> &lt;pvital&gt;</span> like, ask to stop it
+<a name="l-71"></a><span class="tm">13:21:24</span><span class="nk"> &lt;pvital&gt;</span> as issue 122 is requesting
+<a name="l-72"></a><span class="tm">13:21:38</span><span class="nk"> &lt;pvital&gt;</span> them we need improve how we handle with tasks
+<a name="l-73"></a><span class="tm">13:22:03</span><span class="nk"> &lt;alinefm&gt;</span> agree
+<a name="l-74"></a><span class="tm">13:22:20</span><span class="nk"> &lt;alinefm&gt;</span> but it is completely different from what peterpennings proposed related to task management
+<a name="l-75"></a><span class="tm">13:22:22</span><span class="nk"> &lt;alinefm&gt;</span> =)
+<a name="l-76"></a><span class="tm">13:22:39</span><span class="nk"> &lt;pvital&gt;</span> so, what I was discussing is about create a task to implement a task manager, with issue 122 as part of this bigger feature, to control and make actions in top of the tasks
+<a name="l-77"></a><span class="tm">13:22:50</span><span class="nk"> &lt;alinefm&gt;</span> no no
+<a name="l-78"></a><span class="tm">13:23:36</span><span class="nk"> &lt;alinefm&gt;</span> the proposal about task management was only to have view mode without any interaction
+<a name="l-79"></a><span class="tm">13:24:02</span><span class="nk"> &lt;alinefm&gt;</span> with issue #122 I want to be able to stop a guest cloning or a storage volume download
+<a name="l-80"></a><span class="tm">13:24:46</span><span class="nk"> &lt;alinefm&gt;</span> but you only need to implement the infrastructure and each plugin/action will be responsible to each 'stop' operation
+<a name="l-81"></a><span class="tm">13:25:29</span><span class="nk"> &lt;peterpennings&gt;</span> alinefm, is it not a good idea to combine both ideas?
+<a name="l-82"></a><span class="tm">13:25:40</span><span class="nk"> &lt;alinefm&gt;</span> given your problem I can see 2 solutions: 1) do not store tasks on objectstore anymore! keep it on memory with the AsynTask instance (we need to evaluate the cons about that - performance and so)
+<a name="l-83"></a><span class="tm">13:25:43</span><span class="nk"> &lt;pvital&gt;</span> I see all this as a big feature (story) with many tasks to be implemented
+<a name="l-84"></a><span class="tm">13:26:09</span><span class="nk"> &lt;pvital&gt;</span> both peterpennings' idea and my are part of a 'task manager'
+<a name="l-85"></a><span class="tm">13:26:19</span><span class="nk"> &lt;alinefm&gt;</span> 2) keep using objectstore for status/message but keep on memory a map on task ID and task instance
+<a name="l-86"></a><span class="tm">13:27:27</span><span class="nk"> &lt;alinefm&gt;</span> peterpennings, pvital OK - we can use the stop task action on task manager when the time comes
+<a name="l-87"></a><span class="tm">13:27:43</span><span class="nk"> &lt;alinefm&gt;</span> the first problem here is how to implement the stop action on Task
+<a name="l-88"></a><span class="tm">13:27:53</span><span class="nk"> &lt;alinefm&gt;</span> which is what is requested on issue #122
+<a name="l-89"></a><span class="tm">13:28:13</span><span class="nk"> &lt;alinefm&gt;</span> when the API is done /tasks/&lt;id&gt;/stop the task manager can only use it
+<a name="l-90"></a><span class="tm">13:28:40</span><span class="nk"> &lt;alinefm&gt;</span> I am not understanding why we need to make bigger a simple task (make a task stoppable)
+<a name="l-91"></a><span class="tm">13:28:57</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, I think pvital 's point here is that, depending on how much work it is required to do #122, he might as well go all the way and do the task management. I sympathize with the idea
+<a name="l-92"></a><span class="tm">13:29:08</span><span class="nk"> &lt;alinefm&gt;</span> NO
+<a name="l-93"></a><span class="tm">13:29:18</span><span class="nk"> &lt;alinefm&gt;</span> what is a task management?!
+<a name="l-94"></a><span class="tm">13:29:37</span><span class="nk"> &lt;alinefm&gt;</span> it is a bunch of APIs to manipulate tasks, right?
+<a name="l-95"></a><span class="tm">13:29:49</span><span class="nk"> &lt;alinefm&gt;</span> how do we can manipulate tasks?
+<a name="l-96"></a><span class="tm">13:30:07</span><span class="nk"> &lt;alinefm&gt;</span> 1) the user can not create a task by own
+<a name="l-97"></a><span class="tm">13:30:17</span><span class="nk"> &lt;alinefm&gt;</span> a task is generated by an action in a resource
+<a name="l-98"></a><span class="tm">13:30:23</span><span class="nk"> &lt;alinefm&gt;</span> 2) the user can stop a task
+<a name="l-99"></a><span class="tm">13:30:30</span><span class="nk"> &lt;alinefm&gt;</span> woowww!! that is the issue #122
+<a name="l-100"></a><span class="tm">13:30:43</span><span class="nk"> &lt;alinefm&gt;</span> 3) the user can pause a task (?)
+<a name="l-101"></a><span class="tm">13:30:50</span><span class="nk"> &lt;alinefm&gt;</span> 4) the user can resume a task (?)
+<a name="l-102"></a><span class="tm">13:30:56</span><span class="nk"> &lt;alinefm&gt;</span> and that is all!!!
+<a name="l-103"></a><span class="tm">13:31:11</span><span class="nk"> &lt;alinefm&gt;</span> why do not focus on item 2. ?
+<a name="l-104"></a><span class="tm">13:31:29</span><span class="nk"> &lt;pvital&gt;</span> the main problem is that a task, is not more than a thread running in background
+<a name="l-105"></a><span class="tm">13:31:39</span><span class="nk"> &lt;alinefm&gt;</span> agree
+<a name="l-106"></a><span class="tm">13:32:02</span><span class="nk"> &lt;alinefm&gt;</span> now we start talking about solution for 2. instead of getting it bigger and complex than it is really is =)
+<a name="l-107"></a><span class="tm">13:32:04</span><span class="nk"> &lt;pvital&gt;</span> and how it's implemented today, I can NOT do anything more than start it and wait for it's end
+<a name="l-108"></a><span class="tm">13:32:12</span><span class="nk"> &lt;alinefm&gt;</span> agree
+<a name="l-109"></a><span class="tm">13:32:20</span><span class="nk"> &lt;alinefm&gt;</span> what do you need to change it to make it be stoppable?
+<a name="l-110"></a><span class="tm">13:32:31</span><span class="nk"> &lt;pvital&gt;</span> if you want to start manipulate them, we need re-disign the whole thing
+<a name="l-111"></a><span class="tm">13:32:35</span><span class="nk"> &lt;alinefm&gt;</span> move it to memory? save a map of ids and instances?
+<a name="l-112"></a><span class="tm">13:34:23</span><span class="nk"> &lt;alinefm&gt;</span> pvital, I understand that with what we have today is not possible to stop a task (otherwise, the issue #122 would not exist) but we need to think about solutions for that
+<a name="l-113"></a><span class="tm">13:34:36</span><span class="nk"> &lt;alinefm&gt;</span> if you need a AsyncTask instance to make it happen, do it
+<a name="l-114"></a><span class="tm">13:34:54</span><span class="nk"> &lt;alinefm&gt;</span> how? I proposed 2 solutions, whichi is better?
+<a name="l-115"></a><span class="tm">13:35:01</span><span class="nk"> &lt;pvital&gt;</span> alinefm, oh sorry! i thought I was doing that - proposing an update in the cirrent implementation
+<a name="l-116"></a><span class="tm">13:35:01</span><span class="nk"> &lt;alinefm&gt;</span> maybe more solutions are around too
+<a name="l-117"></a><span class="tm">13:35:25</span><span class="nk"> &lt;alinefm&gt;</span> pvital, for me you were trying to make a bug problem with a simple issue =)
+<a name="l-118"></a><span class="tm">13:36:34</span><span class="nk"> &lt;pvital&gt;</span> ok then! no more comments (or topics to discuss)!
+<a name="l-119"></a><span class="tm">13:37:24</span><span class="nk"> &lt;alinefm&gt;</span> pvital, are you going to send RFC for that? to discuss if it is a good idea to move async task to memory or not?
+<a name="l-120"></a><span class="tm">13:37:56</span><span class="nk"> &lt;alinefm&gt;</span> or...? any other idea on that?
+<a name="l-121"></a><span class="tm">13:39:18</span><span class="nk"> &lt;pvital&gt;</span> I'll solve my issue and if necessary more changes in API, be sure I'll send a RFC
+<a name="l-122"></a><span class="tm">13:41:29</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-123"></a><span class="tm">13:41:33</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-124"></a><span class="tm">13:41:58</span><span class="nk"> &lt;danielhb&gt;</span> no
+<a name="l-125"></a><span class="tm">13:42:24</span><span class="nk"> &lt;alinefm&gt;</span> I have one =)
+<a name="l-126"></a><span class="tm">13:42:44</span><span class="nk"> &lt;alinefm&gt;</span> I want to thank danielhb for all the support and help during the time I was out
+<a name="l-127"></a><span class="tm">13:42:56</span><span class="nk"> &lt;alinefm&gt;</span> thanks, danielhb! I really appreciated that
+<a name="l-128"></a><span class="tm">13:43:12</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, _o&gt;
+<a name="l-129"></a><span class="tm">13:43:30</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, anytime!
+<a name="l-130"></a><span class="tm">13:44:25</span><span class="nk"> &lt;alinefm&gt;</span> =)
+<a name="l-131"></a><span class="tm">13:44:30</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining! =)
+<a name="l-132"></a><span class="tm">13:44:33</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
