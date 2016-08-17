@@ -127,7 +127,8 @@ class ModelTests(unittest.TestCase):
 
         keys = set(('name', 'state', 'stats', 'uuid', 'memory', 'cpu_info',
                     'screenshot', 'icon', 'graphics', 'users', 'groups',
-                    'access', 'persistent', 'bootorder', 'bootmenu'))
+                    'access', 'persistent', 'bootorder', 'bootmenu', 'title',
+                    'description'))
 
         stats_keys = set(('cpu_utilization', 'mem_utilization',
                           'net_throughput', 'net_throughput_peak',
