@@ -90,6 +90,8 @@ server.
                      Independent Computing Environments
             * null: Graphics is disabled or type not supported
         * listen: The network which the vnc/spice server listens on.
+    * description: VM description
+    * title: VM title
 
 
 ### Resource: Virtual Machine
@@ -147,6 +149,8 @@ server.
     * groups: A list of system groups whose users have permission to access
       the VM. Default is: empty (i.e. no groups given access).
     * bootorder: list of devices in boot order
+    * description: VM description
+    * title: VM title
 * **DELETE**: Remove the Virtual Machine
 * **PUT**: update the parameters of existing VM
     * name: New name for this VM (only applied for shutoff VM)
@@ -177,6 +181,8 @@ server.
             * threads - The number of threads per core.
     * bootorder: guest bootorder, types accepted: hd, cdrom, network or fd
     * bootmenu: prompts guest bootmenu. Bool type.
+    * description: VM description
+    * title: VM title
 
 * **POST**: *See Virtual Machine Actions*
 
