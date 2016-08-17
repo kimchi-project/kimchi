@@ -83,7 +83,8 @@ VM_ONLINE_UPDATE_PARAMS = ['graphics', 'groups', 'memory', 'users']
 
 # update parameters which are updatable when the VM is offline
 VM_OFFLINE_UPDATE_PARAMS = ['cpu_info', 'graphics', 'groups', 'memory',
-                            'name', 'users', 'bootorder', 'bootmenu']
+                            'name', 'users', 'bootorder', 'bootmenu',
+                            'description', 'title']
 
 XPATH_DOMAIN_DISK = "/domain/devices/disk[@device='disk']/source/@file"
 XPATH_DOMAIN_DISK_BY_FILE = "./devices/disk[@device='disk']/source[@file='%s']"
@@ -98,10 +99,12 @@ XPATH_DOMAIN_DEV_CPU_ID = '/domain/devices/spapr-cpu-socket/@id'
 XPATH_BOOT = 'os/boot/@dev'
 XPATH_BOOTMENU = 'os/bootmenu/@enable'
 XPATH_CPU = './cpu'
+XPATH_DESCRIPTION = './description'
 XPATH_NAME = './name'
 XPATH_NUMA_CELL = './cpu/numa/cell'
 XPATH_SNAP_VM_NAME = './domain/name'
 XPATH_SNAP_VM_UUID = './domain/uuid'
+XPATH_TITLE = './title'
 XPATH_TOPOLOGY = './cpu/topology'
 XPATH_VCPU = './vcpu'
 XPATH_MAX_MEMORY = './maxMemory'
@@ -138,7 +141,9 @@ class VMsModel(object):
 
         t.validate()
         data = {'name': name, 'template': t,
-                'graphics': params.get('graphics', {})}
+                'graphics': params.get('graphics', {}),
+                "title": params.get("title", ""),
+                "description": params.get("description", "")}
         taskid = add_task(u'/plugins/kimchi/vms/%s' % name, self._create_task,
                           self.objstore, data)
 
@@ -152,6 +157,8 @@ class VMsModel(object):
             - name: The name for the new VM
         """
         vm_uuid = str(uuid.uuid4())
+        title = params.get('title', '')
+        description = params.get('description', '')
         t = params['template']
         name, nonascii_name = get_ascii_nonascii_name(params['name'])
         conn = self.conn.get()
@@ -178,7 +185,8 @@ class VMsModel(object):
         xml = t.to_vm_xml(name, vm_uuid,
                           libvirt_stream_protocols=stream_protocols,
                           graphics=graphics,
-                          mem_hotplug_support=self.caps.mem_hotplug_support)
+                          mem_hotplug_support=self.caps.mem_hotplug_support,
+                          title=title, description=description)
 
         cb('Defining new VM')
         try:
@@ -786,6 +794,24 @@ class VMModel(object):
             name, nonascii_name = get_ascii_nonascii_name(name)
             new_xml = xml_item_update(new_xml, XPATH_NAME, name, None)
 
+        if 'title' in params:
+            if len(xpath_get_text(new_xml, XPATH_TITLE)) > 0:
+                new_xml = xml_item_update(new_xml, XPATH_TITLE,
+                                          params['title'], None)
+            else:
+                et = ET.fromstring(new_xml)
+                et.append(E.title(params["title"]))
+                new_xml = ET.tostring(et)
+
+        if 'description' in params:
+            if len(xpath_get_text(new_xml, XPATH_DESCRIPTION)) > 0:
+                new_xml = xml_item_update(new_xml, XPATH_DESCRIPTION,
+                                          params['description'], None)
+            else:
+                et = ET.fromstring(new_xml)
+                et.append(E.description(params["description"]))
+                new_xml = ET.tostring(et)
+
         # Update CPU info
         cpu_info = params.get('cpu_info', {})
         cpu_info = self._update_cpu_info(new_xml, dom, cpu_info)
@@ -1267,6 +1293,8 @@ class VMModel(object):
             else "no"
 
         return {'name': name,
+                'title': "".join(xpath_get_text(xml, XPATH_TITLE)),
+                'description': "".join(xpath_get_text(xml, XPATH_DESCRIPTION)),
                 'state': state,
                 'stats': res,
                 'uuid': dom.UUIDString(),

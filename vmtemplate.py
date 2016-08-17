@@ -347,7 +347,8 @@ class VMTemplate(object):
         params['qemu-stream-cmdline'] = ''
         params['disks'] = self._get_disks_xml(vm_uuid)
         params['serial'] = get_serial_xml(params)
-
+        params['title'] = kwargs.get('title', '')
+        params['description'] = kwargs.get('description', '')
         graphics = dict(self.info['graphics'])
         graphics.update(kwargs.get('graphics', {}))
         # Graphics is not supported on s390x, this check will
@@ -404,6 +405,8 @@ class VMTemplate(object):
         <domain type='%(domain)s'>
           %(qemu-stream-cmdline)s
           <name>%(name)s</name>
+          <title>%(title)s</title>
+          <description>%(description)s</description>
           <uuid>%(uuid)s</uuid>
           <memtune>
             <hard_limit unit='MiB'>%(hard_limit)s</hard_limit>
