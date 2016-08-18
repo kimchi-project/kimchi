@@ -492,12 +492,18 @@ class VMTemplate(object):
         if invalid_networks:
             invalid['networks'] = invalid_networks
 
-        # validate storagepools integrity
+        # validate storagepools and image-based templates integrity
         for disk in self.info['disks']:
             pool_uri = disk['pool']['name']
             pool_name = pool_name_from_uri(pool_uri)
             if pool_name not in self._get_active_storagepools_name():
                 invalid['storagepools'] = [pool_name]
+
+            if disk.get("base") is None:
+                continue
+
+            if os.path.exists(disk.get("base")) is False:
+                invalid['vm-image'] = disk["base"]
 
         # validate iso integrity
         # FIXME when we support multiples cdrom devices
