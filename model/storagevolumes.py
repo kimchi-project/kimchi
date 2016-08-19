@@ -284,7 +284,7 @@ class StorageVolumeModel(object):
     def get_storagevolume(poolname, name, conn):
         pool = StoragePoolModel.get_storagepool(poolname, conn)
         if not pool.isActive():
-            raise InvalidOperation("KCHVOL0006E", {'name': pool})
+            raise InvalidOperation("KCHVOL0006E", {'pool': poolname})
         try:
             return pool.storageVolLookupByName(name.encode("utf-8"))
         except libvirt.libvirtError as e:
