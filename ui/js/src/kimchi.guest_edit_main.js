@@ -815,13 +815,12 @@ kimchi.guest_edit_main = function() {
             for (var key in data) {
                 valueFromUI = data[key];
                 if (valueFromUI instanceof Object) {
-                    // Compare if Objects of original and data are identical.
-                    // Handle special case when key is memory and guest is
-                    // running as valueFromUI will return a null for max mem
-                    // since it is disabled.
+                    // Compare if Objects of original and data are identical
+                    // Handle special case when key is memory and guest is running as valueFromUI will return a null for max mem
+                    // since it is disabled; for cpu_info, when guest is running, just skip it since no processing is required
                     if (kimchi.thisVMState === 'running' || kimchi.thisVMState === 'paused') {
                         if (key === 'cpu_info') {
-                            data['cpu_info']['maxvcpus'] = org.cpu_info.maxvcpus;
+                            continue;
                         }
                         if (key === 'memory') {
                             // Replace valueFromUI of max mem with one from original as otherwise the value is undefined
