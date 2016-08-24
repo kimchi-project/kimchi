@@ -686,6 +686,9 @@ class VMHostDevModel(object):
         return devices
 
     def _hotunplug_multifunction_pci(self, dom, hostdev, dev_name):
+        if DOM_STATE_MAP[dom.info()[0]] == "shutoff":
+            return False
+
         domain, bus, slot, _ = dev_name.split('_')[1:]
         # get all devices attached to the guest in the same domain+bus+slot
         # that the one we are going to detach because they must be detached
