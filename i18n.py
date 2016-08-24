@@ -227,6 +227,7 @@ messages = {
     "KCHPOOL0036E": _("A volume group named '%(name)s' already exists. Please, choose another name to create the logical pool."),
     "KCHPOOL0037E": _("Unable to update database with deep scan information due error: %(err)s"),
     "KCHPOOL0038E": _("No volume group '%(name)s' found. Please, specify an existing volume group to create the logical pool from."),
+    "KCHPOOL0039E": _("Unable to delete pool %(name)s as it is associated with guests: %(vms)s"),
 
     "KCHVOL0001E": _("Storage volume %(name)s already exists"),
     "KCHVOL0002E": _("Storage volume %(name)s does not exist in storage pool %(pool)s"),

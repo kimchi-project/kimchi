@@ -475,11 +475,33 @@ class StoragePoolModel(object):
         pool = self.get_storagepool(name, self.conn)
         if pool.isActive():
             raise InvalidOperation("KCHPOOL0005E", {'name': name})
+
+        vms = self._get_vms_attach_to_storagepool(name)
+        if len(vms) > 0:
+            raise InvalidOperation('KCHPOOL0039E', {'name': name,
+                                                    'vms': ",".join(vms)})
         try:
             pool.undefine()
         except libvirt.libvirtError as e:
             raise OperationFailed("KCHPOOL0011E",
                                   {'name': name, 'err': e.get_error_message()})
+
+    def _get_vms_attach_to_storagepool(self, storagepool):
+        conn = self.conn.get()
+
+        # get storage pool path
+        pool = self.get_storagepool(storagepool, self.conn)
+        path = "".join(xpath_get_text(pool.XMLDesc(), "/pool/target/path"))
+
+        # activate and deactive quickly to get volumes
+        vms = []
+        for dom in conn.listAllDomains(0):
+            xml = dom.XMLDesc(0)
+            files = "/domain/devices/disk[@device='disk']/source/@file"
+            for file in xpath_get_text(xml, files):
+                if file not in vms and file.startswith(path):
+                    vms.append(dom.name())
+        return vms
 
 
 class IsoPoolModel(object):
