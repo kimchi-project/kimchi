@@ -1,0 +1,213 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:02:47</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:02:47</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Aug 24 13:02:47 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:02:47</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:02:47</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:02:47</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:02:56</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda</span>
+<a name="l-7"></a><span class="tm">13:02:56</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">1) Status</span>
+<a name="l-8"></a><span class="tm">13:02:56</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">2) Open discussion</span>
+<a name="l-9"></a><span class="tm">13:02:56</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-10"></a><span class="tm">13:03:52</span><span class="nk"> &lt;samhenri&gt;</span> no
+<a name="l-11"></a><span class="tm">13:03:54</span><span class="nk"> &lt;danielhb&gt;</span> nay
+<a name="l-12"></a><span class="tm">13:04:16</span><span class="nk"> &lt;pvital&gt;</span> no
+<a name="l-13"></a><span class="tm">13:05:13</span><span class="nk"> &lt;alinefm&gt;</span> so let's get started
+<a name="l-14"></a><span class="tm">13:05:22</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-15"></a><span class="tm">13:05:22</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info [&lt;project] &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-16"></a><span class="tm">13:05:27</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] danielhb reviewed and applied patches</span>
+<a name="l-17"></a><span class="tm">13:05:31</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] danielhb is working in user removal enhancements</span>
+<a name="l-18"></a><span class="tm">13:05:44</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] lcorreia sent RFC and V1 patches/working on V2 patches for Wok issue #141</span>
+<a name="l-19"></a><span class="tm">13:05:45</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] lcorreia working to fix plugin uri lookup for user log</span>
+<a name="l-20"></a><span class="tm">13:05:51</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ramonn working on "integrety: storage pool deactivate/undefine needs to consider vm usage #355"</span>
+<a name="l-21"></a><span class="tm">13:05:56</span><span class="nk"> &lt;bianca&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] bianca submitted a patch to issue #860 - Support Guest Autostart.</span>
+<a name="l-22"></a><span class="tm">13:05:56</span><span class="nk"> &lt;bianca&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] bianca is working on issue #626 - Snapshot revert does not release storage volume. Investigating the problem and possible solutions.</span>
+<a name="l-23"></a><span class="tm">13:06:02</span><span class="nk"> &lt;peterpennings&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] peterpennings is working on file systems redesign</span>
+<a name="l-24"></a><span class="tm">13:06:10</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] [Kimchi] [Ginger*] pvital reviewed patches</span>
+<a name="l-25"></a><span class="tm">13:06:10</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] [Kimchi] [Ginger*] pvital worked with oVirt team to use their infra-structure to automatically build packages and images of our projects (in hold).</span>
+<a name="l-26"></a><span class="tm">13:06:10</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] pvital is working in issue #122 - Make AsyncTask stoppable</span>
+<a name="l-27"></a><span class="tm">13:06:10</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] pvital is working in issue #158 - Move AsyncTask information to memory</span>
+<a name="l-28"></a><span class="tm">13:06:10</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] pvital helped user with issue #980 - cannot save permission setting for VM</span>
+<a name="l-29"></a><span class="tm">13:06:12</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] pvital submitted patch to issue #982 - make check failing on fedora 24.</span>
+<a name="l-30"></a><span class="tm">13:06:14</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] pvital helped user with issue #983 - creating a snapsht w/wok-kimchi</span>
+<a name="l-31"></a><span class="tm">13:06:16</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] pvital helped user with issue #988 - Not able to load kimchi plugin</span>
+<a name="l-32"></a><span class="tm">13:06:18</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] pvital submitted patch to update documentation with new required packages - part of solution to issue #386</span>
+<a name="l-33"></a><span class="tm">13:06:33</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] samhenri fixing some minor bugs with Wok and Datatables SCSS/CSS in order to send patch for Redesigned Network Panels (Ginger)</span>
+<a name="l-34"></a><span class="tm">13:06:55</span><span class="nk"> &lt;jkatta&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] jkatta Working on backend code implementation for Audit and Auditdispatcher, soon will be sending pacthes for the same</span>
+<a name="l-35"></a><span class="tm">13:06:56</span><span class="nk"> &lt;samhenri&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] samhenri polishing some minor issues with the redesigned network panel and removing legacy code</span>
+<a name="l-36"></a><span class="tm">13:08:49</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-37"></a><span class="tm">13:09:10</span><span class="nk"> &lt;chandra&gt;</span> <span class="cmd">#info, </span><span class="cmdline">chandra working on supporting Kimchi on s390x platform</span>
+<a name="l-38"></a><span class="tm">13:10:08</span><span class="nk"> &lt;chandra&gt;</span> @alinefm @ziviani, if we are ready for open discussion I have one topic
+<a name="l-39"></a><span class="tm">13:10:44</span><span class="nk"> &lt;alinefm&gt;</span> sure
+<a name="l-40"></a><span class="tm">13:10:48</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-41"></a><span class="tm">13:10:51</span><span class="nk"> &lt;alinefm&gt;</span> chandra, go ahead
+<a name="l-42"></a><span class="tm">13:11:16</span><span class="nk"> &lt;chandra&gt;</span> ok, On s390x we have challenge in making the serial console in the interactive mode
+<a name="l-43"></a><span class="tm">13:11:48</span><span class="nk"> &lt;chandra&gt;</span> Trouble with websocify  where it is not able to understand the data sent from web page to back end
+<a name="l-44"></a><span class="tm">13:12:08</span><span class="nk"> &lt;chandra&gt;</span> [root@zfwpc155 ~]# wokd
+<a name="l-45"></a><span class="tm">13:12:09</span><span class="nk"> &lt;chandra&gt;</span> WebSocket server settings:
+<a name="l-46"></a><span class="tm">13:12:09</span><span class="nk"> &lt;chandra&gt;</span> - Listen on 127.0.0.1:64667
+<a name="l-47"></a><span class="tm">13:12:09</span><span class="nk"> &lt;chandra&gt;</span> - Flash security policy server
+<a name="l-48"></a><span class="tm">13:12:09</span><span class="nk"> &lt;chandra&gt;</span> - SSL/TLS support
+<a name="l-49"></a><span class="tm">13:12:10</span><span class="nk"> &lt;chandra&gt;</span> - proxying from 127.0.0.1:64667 to targets in /var/lib/kimchi/ws-tokens
+<a name="l-50"></a><span class="tm">13:12:11</span><span class="nk"> &lt;chandra&gt;</span> <span class="hi">1:</span> 127.0.0.1: Plain non-SSL (ws://) WebSocket connection
+<a name="l-51"></a><span class="tm">13:12:13</span><span class="nk"> &lt;chandra&gt;</span> <span class="hi">1:</span> 127.0.0.1: Version hybi-13, base64: 'True'
+<a name="l-52"></a><span class="tm">13:12:15</span><span class="nk"> &lt;chandra&gt;</span> <span class="hi">1:</span> 127.0.0.1: Path: '/websockify?token=dWJ1bnR1MTYuMDQtbGludXgtY29uc29sZQ'
+<a name="l-53"></a><span class="tm">13:12:17</span><span class="nk"> &lt;chandra&gt;</span> <span class="hi">1:</span> connecting to unix socket: /run/ubuntu16.04-linux
+<a name="l-54"></a><span class="tm">13:12:19</span><span class="nk"> &lt;chandra&gt;</span> Exception while b64decoding buffer: '\x81\x84{\xa5\x12\xe8!\xe4/\xd5'
+<a name="l-55"></a><span class="tm">13:12:21</span><span class="nk"> &lt;chandra&gt;</span> <span class="hi">1:</span> handler exception: Incorrect padding
+<a name="l-56"></a><span class="tm">13:12:23</span><span class="nk"> &lt;chandra&gt;</span> &gt; /usr/lib/python2.7/site-packages/wok/plugins/kimchi/serialconsole.py(188)listen()
+<a name="l-57"></a><span class="tm">13:12:25</span><span class="nk"> &lt;chandra&gt;</span> -&gt; wok_log.info("[%s] Shutting down the socket server to %s console",
+<a name="l-58"></a><span class="tm">13:12:28</span><span class="nk"> &lt;chandra&gt;</span> (Pdb)
+<a name="l-59"></a><span class="tm">13:12:29</span><span class="nk"> &lt;chandra&gt;</span> Process SocketServer-4:
+<a name="l-60"></a><span class="tm">13:12:31</span><span class="nk"> &lt;chandra&gt;</span> Traceback (most recent call last):
+<a name="l-61"></a><span class="tm">13:12:35</span><span class="nk"> &lt;chandra&gt;</span> File "/usr/lib64/python2.7/multiprocessing/process.py", line 258, in _bootstrap
+<a name="l-62"></a><span class="tm">13:12:40</span><span class="nk"> &lt;chandra&gt;</span> self.run()
+<a name="l-63"></a><span class="tm">13:12:40</span><span class="nk"> &lt;chandra&gt;</span> File "/usr/lib/python2.7/site-packages/wok/plugins/kimchi/serialconsole.py", line 89, in run
+<a name="l-64"></a><span class="tm">13:12:41</span><span class="nk"> &lt;chandra&gt;</span> self.listen()
+<a name="l-65"></a><span class="tm">13:12:43</span><span class="nk"> &lt;chandra&gt;</span> File "/usr/lib/python2.7/site-packages/wok/plugins/kimchi/serialconsole.py", line 188, in listen
+<a name="l-66"></a><span class="tm">13:12:45</span><span class="nk"> &lt;chandra&gt;</span> wok_log.info("[%s] Shutting down the socket server to %s console",
+<a name="l-67"></a><span class="tm">13:12:47</span><span class="nk"> &lt;chandra&gt;</span> File "/usr/lib/python2.7/site-packages/wok/plugins/kimchi/serialconsole.py", line 188, in listen
+<a name="l-68"></a><span class="tm">13:12:52</span><span class="nk"> &lt;chandra&gt;</span> wok_log.info("[%s] Shutting down the socket server to %s console",
+<a name="l-69"></a><span class="tm">13:12:52</span><span class="nk"> &lt;chandra&gt;</span> File "/usr/lib64/python2.7/bdb.py", line 49, in trace_dispatch
+<a name="l-70"></a><span class="tm">13:12:53</span><span class="nk"> &lt;chandra&gt;</span> return self.dispatch_line(frame)
+<a name="l-71"></a><span class="tm">13:12:55</span><span class="nk"> &lt;chandra&gt;</span> File "/usr/lib64/python2.7/bdb.py", line 68, in dispatch_line
+<a name="l-72"></a><span class="tm">13:12:57</span><span class="nk"> &lt;chandra&gt;</span> if self.quitting: raise BdbQuit
+<a name="l-73"></a><span class="tm">13:12:59</span><span class="nk"> &lt;chandra&gt;</span> BdbQuit
+<a name="l-74"></a><span class="tm">13:13:01</span><span class="nk"> &lt;chandra&gt;</span> Basically padding issue while decoding the text in the back end ...
+<a name="l-75"></a><span class="tm">13:13:10</span><span class="nk"> &lt;chandra&gt;</span> Server socket is gettign closed once after type in a character in the console ...
+<a name="l-76"></a><span class="tm">13:13:58</span><span class="nk"> &lt;chandra&gt;</span> Any body know how to enable websockify logs for further debugging...
+<a name="l-77"></a><span class="tm">13:14:13</span><span class="nk"> &lt;alinefm&gt;</span> chandra, seems an issue with websocktify
+<a name="l-78"></a><span class="tm">13:14:27</span><span class="nk"> &lt;alinefm&gt;</span> hmm... I have never done that before
+<a name="l-79"></a><span class="tm">13:14:31</span><span class="nk"> &lt;chandra&gt;</span> I was not successful in using pdb stack trace as this is socket code ...
+<a name="l-80"></a><span class="tm">13:15:02</span><span class="nk"> &lt;alinefm&gt;</span> ziviani, have you already enabled logs on websocktify for debugging?
+<a name="l-81"></a><span class="tm">13:15:55</span><span class="nk"> &lt;chandra&gt;</span> I got in touch with ziviani yesterday but we could not done further debugging due to time constraints ..
+<a name="l-82"></a><span class="tm">13:16:52</span><span class="nk"> &lt;chandra&gt;</span> I also ran python tests on s390x:
+<a name="l-83"></a><span class="tm">13:16:54</span><span class="nk"> &lt;chandra&gt;</span> [root@zfwpc155 websockify]# python setup.py nosetests --verbosity=3
+<a name="l-84"></a><span class="tm">13:16:54</span><span class="nk"> &lt;chandra&gt;</span> running nosetests
+<a name="l-85"></a><span class="tm">13:16:54</span><span class="nk"> &lt;chandra&gt;</span> running egg_info
+<a name="l-86"></a><span class="tm">13:16:54</span><span class="nk"> &lt;chandra&gt;</span> creating websockify.egg-info
+<a name="l-87"></a><span class="tm">13:16:54</span><span class="nk"> &lt;chandra&gt;</span> writing requirements to websockify.egg-info/requires.txt
+<a name="l-88"></a><span class="tm">13:16:56</span><span class="nk"> &lt;chandra&gt;</span> writing websockify.egg-info/PKG-INFO
+<a name="l-89"></a><span class="tm">13:16:57</span><span class="nk"> &lt;chandra&gt;</span> writing top-level names to websockify.egg-info/top_level.txt
+<a name="l-90"></a><span class="tm">13:16:59</span><span class="nk"> &lt;chandra&gt;</span> writing dependency_links to websockify.egg-info/dependency_links.txt
+<a name="l-91"></a><span class="tm">13:17:01</span><span class="nk"> &lt;chandra&gt;</span> writing entry points to websockify.egg-info/entry_points.txt
+<a name="l-92"></a><span class="tm">13:17:03</span><span class="nk"> &lt;chandra&gt;</span> writing manifest file 'websockify.egg-info/SOURCES.txt'
+<a name="l-93"></a><span class="tm">13:17:07</span><span class="nk"> &lt;chandra&gt;</span> reading manifest file 'websockify.egg-info/SOURCES.txt'
+<a name="l-94"></a><span class="tm">13:17:09</span><span class="nk"> &lt;chandra&gt;</span> reading manifest template 'MANIFEST.in'
+<a name="l-95"></a><span class="tm">13:17:11</span><span class="nk"> &lt;chandra&gt;</span> writing manifest file 'websockify.egg-info/SOURCES.txt'
+<a name="l-96"></a><span class="tm">13:17:13</span><span class="nk"> &lt;chandra&gt;</span> running build_ext
+<a name="l-97"></a><span class="tm">13:17:15</span><span class="nk"> &lt;chandra&gt;</span> <span class="hi">nose.config:</span> INFO: Set working dir to /root/websockify
+<a name="l-98"></a><span class="tm">13:17:17</span><span class="nk"> &lt;chandra&gt;</span> <span class="hi">nose.config:</span> INFO: Ignoring files matching ['^\\.', '^_', '^setup\\.py$']
+<a name="l-99"></a><span class="tm">13:17:19</span><span class="nk"> &lt;chandra&gt;</span> <span class="hi">nose.selector:</span> INFO: /root/websockify/rebind is executable; skipped
+<a name="l-100"></a><span class="tm">13:17:21</span><span class="nk"> &lt;chandra&gt;</span> <span class="hi">nose.selector:</span> INFO: /root/websockify/run is executable; skipped
+<a name="l-101"></a><span class="tm">13:17:23</span><span class="nk"> &lt;chandra&gt;</span> <span class="hi">nose.selector:</span> INFO: /root/websockify/websockify/websocketproxy.py is executable; skipped
+<a name="l-102"></a><span class="tm">13:17:25</span><span class="nk"> &lt;chandra&gt;</span> <span class="hi">nose.selector:</span> INFO: /root/websockify/websockify.py is executable; skipped
+<a name="l-103"></a><span class="tm">13:17:27</span><span class="nk"> &lt;chandra&gt;</span> <span class="hi">nose.selector:</span> INFO: /root/websockify/tests/b64_vs_utf8.py is executable; skipped
+<a name="l-104"></a><span class="tm">13:17:29</span><span class="nk"> &lt;chandra&gt;</span> <span class="hi">nose.selector:</span> INFO: /root/websockify/tests/echo.py is executable; skipped
+<a name="l-105"></a><span class="tm">13:17:31</span><span class="nk"> &lt;chandra&gt;</span> <span class="hi">nose.selector:</span> INFO: /root/websockify/tests/echo.rb is executable; skipped
+<a name="l-106"></a><span class="tm">13:17:33</span><span class="nk"> &lt;chandra&gt;</span> <span class="hi">nose.selector:</span> INFO: /root/websockify/tests/latency.py is executable; skipped
+<a name="l-107"></a><span class="tm">13:17:37</span><span class="nk"> &lt;chandra&gt;</span> <span class="hi">nose.selector:</span> INFO: /root/websockify/tests/load.py is executable; skipped
+<a name="l-108"></a><span class="tm">13:17:40</span><span class="nk"> &lt;chandra&gt;</span> <span class="hi">nose.selector:</span> INFO: /root/websockify/tests/utf8-list.py is executable; skipped
+<a name="l-109"></a><span class="tm">13:17:44</span><span class="nk"> &lt;chandra&gt;</span> test_garbage_auth (test_auth_plugins.BasicHTTPAuthTestCase) ... ok
+<a name="l-110"></a><span class="tm">13:17:44</span><span class="nk"> &lt;chandra&gt;</span> test_invalid_password (test_auth_plugins.BasicHTTPAuthTestCase) ... ok
+<a name="l-111"></a><span class="tm">13:17:45</span><span class="nk"> &lt;chandra&gt;</span> test_no_auth (test_auth_plugins.BasicHTTPAuthTestCase) ... ok
+<a name="l-112"></a><span class="tm">13:17:47</span><span class="nk"> &lt;chandra&gt;</span> test_valid_password (test_auth_plugins.BasicHTTPAuthTestCase) ... ok
+<a name="l-113"></a><span class="tm">13:17:49</span><span class="nk"> &lt;chandra&gt;</span> <span class="hi">Failure:</span> ImportError (No module named mox3) ... ERROR
+<a name="l-114"></a><span class="tm">13:17:51</span><span class="nk"> &lt;chandra&gt;</span> <span class="hi">Failure:</span> ImportError (No module named mox3) ... ERROR
+<a name="l-115"></a><span class="tm">13:17:53</span><span class="nk"> &lt;chandra&gt;</span> ======================================================================
+<a name="l-116"></a><span class="tm">13:18:01</span><span class="nk"> &lt;chandra&gt;</span> <span class="hi">ERROR:</span> Failure: ImportError (No module named mox3)
+<a name="l-117"></a><span class="tm">13:18:01</span><span class="nk"> &lt;chandra&gt;</span> ----------------------------------------------------------------------
+<a name="l-118"></a><span class="tm">13:18:01</span><span class="nk"> &lt;chandra&gt;</span> Traceback (most recent call last):
+<a name="l-119"></a><span class="tm">13:18:02</span><span class="nk"> &lt;chandra&gt;</span> File "/usr/lib/python2.7/site-packages/nose/loader.py", line 413, in loadTestsFromName
+<a name="l-120"></a><span class="tm">13:18:12</span><span class="nk"> &lt;chandra&gt;</span> addr.filename, addr.module)
+<a name="l-121"></a><span class="tm">13:18:12</span><span class="nk"> &lt;chandra&gt;</span> File "/usr/lib/python2.7/site-packages/nose/importer.py", line 47, in importFromPath
+<a name="l-122"></a><span class="tm">13:18:12</span><span class="nk"> &lt;chandra&gt;</span> return self.importFromDir(dir_path, fqname)
+<a name="l-123"></a><span class="tm">13:18:12</span><span class="nk"> &lt;chandra&gt;</span> File "/usr/lib/python2.7/site-packages/nose/importer.py", line 94, in importFromDir
+<a name="l-124"></a><span class="tm">13:18:13</span><span class="nk"> &lt;chandra&gt;</span> mod = load_module(part_fqname, fh, filename, desc)
+<a name="l-125"></a><span class="tm">13:18:15</span><span class="nk"> &lt;chandra&gt;</span> File "/root/websockify/tests/test_websocket.py", line 25, in &lt;module&gt;
+<a name="l-126"></a><span class="tm">13:18:18</span><span class="nk"> &lt;chandra&gt;</span> from mox3 import stubout
+<a name="l-127"></a><span class="tm">13:18:19</span><span class="nk"> &lt;chandra&gt;</span> <span class="hi">ImportError:</span> No module named mox3
+<a name="l-128"></a><span class="tm">13:18:21</span><span class="nk"> &lt;chandra&gt;</span> ======================================================================
+<a name="l-129"></a><span class="tm">13:18:23</span><span class="nk"> &lt;chandra&gt;</span> <span class="hi">ERROR:</span> Failure: ImportError (No module named mox3)
+<a name="l-130"></a><span class="tm">13:18:55</span><span class="nk"> &lt;chandra&gt;</span> ----------------------------------------------------------------------
+<a name="l-131"></a><span class="tm">13:18:55</span><span class="nk"> &lt;chandra&gt;</span> Traceback (most recent call last):
+<a name="l-132"></a><span class="tm">13:18:55</span><span class="nk"> &lt;chandra&gt;</span> File "/usr/lib/python2.7/site-packages/nose/loader.py", line 413, in loadTestsFromName
+<a name="l-133"></a><span class="tm">13:18:55</span><span class="nk"> &lt;chandra&gt;</span> addr.filename, addr.module)
+<a name="l-134"></a><span class="tm">13:18:55</span><span class="nk"> &lt;chandra&gt;</span> File "/usr/lib/python2.7/site-packages/nose/importer.py", line 47, in importFromPath
+<a name="l-135"></a><span class="tm">13:18:55</span><span class="nk"> &lt;chandra&gt;</span> return self.importFromDir(dir_path, fqname)
+<a name="l-136"></a><span class="tm">13:18:55</span><span class="nk"> &lt;chandra&gt;</span> File "/usr/lib/python2.7/site-packages/nose/importer.py", line 94, in importFromDir
+<a name="l-137"></a><span class="tm">13:18:55</span><span class="nk"> &lt;chandra&gt;</span> mod = load_module(part_fqname, fh, filename, desc)
+<a name="l-138"></a><span class="tm">13:18:55</span><span class="nk"> &lt;chandra&gt;</span> File "/root/websockify/tests/test_websocketproxy.py", line 23, in &lt;module&gt;
+<a name="l-139"></a><span class="tm">13:18:55</span><span class="nk"> &lt;chandra&gt;</span> from mox3 import stubout
+<a name="l-140"></a><span class="tm">13:18:55</span><span class="nk"> &lt;chandra&gt;</span> <span class="hi">ImportError:</span> No module named mox3
+<a name="l-141"></a><span class="tm">13:18:55</span><span class="nk"> &lt;chandra&gt;</span> ----------------------------------------------------------------------
+<a name="l-142"></a><span class="tm">13:18:55</span><span class="nk"> &lt;chandra&gt;</span> Ran 6 tests in 0.076s
+<a name="l-143"></a><span class="tm">13:18:55</span><span class="nk"> &lt;chandra&gt;</span> FAILED (errors=2)
+<a name="l-144"></a><span class="tm">13:18:55</span><span class="nk"> &lt;chandra&gt;</span> some deps miss ..
+<a name="l-145"></a><span class="tm">13:19:17</span><span class="nk"> &lt;alinefm&gt;</span> were you able to find out the mox3 module in another python package?
+<a name="l-146"></a><span class="tm">13:20:04</span><span class="nk"> &lt;alinefm&gt;</span> about the debugging, I think ziviani could help more on it as he is the person who worked more closed to websockify in the past
+<a name="l-147"></a><span class="tm">13:20:37</span><span class="nk"> &lt;chandra&gt;</span> ok i installed mox3 and all tests passed
+<a name="l-148"></a><span class="tm">13:20:59</span><span class="nk"> &lt;chandra&gt;</span> yeah sure
+<a name="l-149"></a><span class="tm">13:22:13</span><span class="nk"> &lt;alinefm&gt;</span> at least some progress with mox3 =)
+<a name="l-150"></a><span class="tm">13:22:26</span><span class="nk"> &lt;alinefm&gt;</span> anything else to discuss today?
+<a name="l-151"></a><span class="tm">13:23:09</span><span class="nk"> &lt;lcorreia&gt;</span> no
+<a name="l-152"></a><span class="tm">13:23:18</span><span class="nk"> &lt;chandra&gt;</span> @alinefm, on nginx selinux policy
+<a name="l-153"></a><span class="tm">13:23:22</span><span class="nk"> &lt;archana&gt;</span> On kimchi unittest cases are failing on fedora24.
+<a name="l-154"></a><span class="tm">13:23:30</span><span class="nk"> &lt;chandra&gt;</span> what is your recommendation
+<a name="l-155"></a><span class="tm">13:24:29</span><span class="nk"> &lt;pvital&gt;</span> I just want as peterpennings and/or samhenri to help with https://github.com/kimchi-project/kimchi/issues/980 if possible (no discussions here, just asking support)
+<a name="l-156"></a><span class="tm">13:24:59</span><span class="nk"> &lt;alinefm&gt;</span> archana, I think pvital has fixed the unittest issue on fedora 24
+<a name="l-157"></a><span class="tm">13:25:18</span><span class="nk"> &lt;alinefm&gt;</span> chandra, have you followed the instructions provided on troubleshooting?
+<a name="l-158"></a><span class="tm">13:25:29</span><span class="nk"> &lt;alinefm&gt;</span> https://github.com/kimchi-project/wok/blob/master/docs/troubleshooting.md#selinux
+<a name="l-159"></a><span class="tm">13:26:07</span><span class="nk"> &lt;archana&gt;</span> i have raised issue #982, and with logs its looks like looking for objectstore in data folder instead of the test object store. @pvital suggested a clean wait of running unittest cases, still its failing.
+<a name="l-160"></a><span class="tm">13:26:55</span><span class="nk"> &lt;chandra&gt;</span> @alinefm, we followed the instruction and it all worked ...
+<a name="l-161"></a><span class="tm">13:27:11</span><span class="nk"> &lt;alinefm&gt;</span> chandra, great!
+<a name="l-162"></a><span class="tm">13:27:19</span><span class="nk"> &lt;chandra&gt;</span> @alinefm, another suggestion in front of us is # semanage port -a -t http_port_t -p tcp 8000
+<a name="l-163"></a><span class="tm">13:27:28</span><span class="nk"> &lt;alinefm&gt;</span> I am discussing with pvital to add the selinux config file to the wok package
+<a name="l-164"></a><span class="tm">13:28:05</span><span class="nk"> &lt;samhenri&gt;</span> pvital I've seen the gray empty modal before but I thought that it was fixed. Usually it shows on the developer console that the request is still being sent and the UI renders the modal box before getting the response (the modal content) from the server
+<a name="l-165"></a><span class="tm">13:29:18</span><span class="nk"> &lt;alinefm&gt;</span> archana, are you running on a fresh fedora 24 install on x86?
+<a name="l-166"></a><span class="tm">13:29:23</span><span class="nk"> &lt;archana&gt;</span> yes
+<a name="l-167"></a><span class="tm">13:30:03</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, are you using fedora 24? have you already seen this problem with the test cases?
+<a name="l-168"></a><span class="tm">13:30:17</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, no I haven't
+<a name="l-169"></a><span class="tm">13:30:26</span><span class="nk"> &lt;alinefm&gt;</span> chandra, you can edit the troubleshooting page to add this command too
+<a name="l-170"></a><span class="tm">13:31:00</span><span class="nk"> &lt;alinefm&gt;</span> pvital, samhenri we need to proper prioritize the issue with the other UI tasks
+<a name="l-171"></a><span class="tm">13:31:23</span><span class="nk"> &lt;alinefm&gt;</span> the code freeze starts next week so we should focus on feature devel until there
+<a name="l-172"></a><span class="tm">13:31:30</span><span class="nk"> &lt;alinefm&gt;</span> as we will have more time to fix issues
+<a name="l-173"></a><span class="tm">13:32:35</span><span class="nk"> &lt;chandra&gt;</span> @alinefm, thanks !!!
+<a name="l-174"></a><span class="tm">13:33:48</span><span class="nk"> &lt;samhenri&gt;</span> alinefm ok
+<a name="l-175"></a><span class="tm">13:35:26</span><span class="nk"> &lt;alinefm&gt;</span> anything else, guys?
+<a name="l-176"></a><span class="tm">13:36:37</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Just a reminder that 2.3 code freeze phase starts next week which means only bug fixes will be accepted on master branch until the 2.3 announcement. New features will be merged into next branch as usual and merged into master when the announcement is made.</span>
+<a name="l-177"></a><span class="tm">13:42:45</span><span class="nk"> &lt;alinefm&gt;</span> ok... apparently we have done for today
+<a name="l-178"></a><span class="tm">13:42:50</span><span class="nk"> &lt;alinefm&gt;</span> I forgot to share socorro status
+<a name="l-179"></a><span class="tm">13:42:53</span><span class="nk"> &lt;alinefm&gt;</span> let me do it now
+<a name="l-180"></a><span class="tm">13:43:01</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] socorro More housekeeping done w/PCI bugzilla bugs and github issues</span>
+<a name="l-181"></a><span class="tm">13:43:02</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] socorro v2 of patch sent out to ML for issue# 973; awaiting review</span>
+<a name="l-182"></a><span class="tm">13:43:02</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] socorro Had some concerns about cpu hotplug fix that was applied</span>
+<a name="l-183"></a><span class="tm">13:43:02</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] socorro recently; worked w/Ziviani and came to a resolution</span>
+<a name="l-184"></a><span class="tm">13:43:02</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] socorro Looking into github issue# 979</span>
+<a name="l-185"></a><span class="tm">13:43:08</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining!
+<a name="l-186"></a><span class="tm">13:43:10</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

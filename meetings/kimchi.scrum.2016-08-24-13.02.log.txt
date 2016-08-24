@@ -1,0 +1,186 @@
+13:02:47 <alinefm> #startmeeting
+13:02:47 <kimchi-bot> Meeting started Wed Aug 24 13:02:47 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:02:47 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:02:47 <alinefm> #meetingname scrum
+13:02:47 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:56 <alinefm> #info Agenda
+13:02:56 <alinefm> #info 1) Status
+13:02:56 <alinefm> #info 2) Open discussion
+13:02:56 <alinefm> anything else?
+13:03:52 <samhenri> no
+13:03:54 <danielhb> nay
+13:04:16 <pvital> no
+13:05:13 <alinefm> so let's get started
+13:05:22 <alinefm> #topic Status
+13:05:22 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+13:05:27 <danielhb> #info [*] danielhb reviewed and applied patches
+13:05:31 <danielhb> #info [Ginger] danielhb is working in user removal enhancements
+13:05:44 <lcorreia> #info [*] lcorreia sent RFC and V1 patches/working on V2 patches for Wok issue #141
+13:05:45 <lcorreia> #info [wok] lcorreia working to fix plugin uri lookup for user log
+13:05:51 <ramonn> #info [kimchi] ramonn working on "integrety: storage pool deactivate/undefine needs to consider vm usage #355"
+13:05:56 <bianca> #info [Kimchi] bianca submitted a patch to issue #860 - Support Guest Autostart.
+13:05:56 <bianca> #info [Kimchi] bianca is working on issue #626 - Snapshot revert does not release storage volume. Investigating the problem and possible solutions.
+13:06:02 <peterpennings> #info [Ginger] peterpennings is working on file systems redesign
+13:06:10 <pvital> #info [Wok] [Kimchi] [Ginger*] pvital reviewed patches
+13:06:10 <pvital> #info [Wok] [Kimchi] [Ginger*] pvital worked with oVirt team to use their infra-structure to automatically build packages and images of our projects (in hold).
+13:06:10 <pvital> #info [Wok] pvital is working in issue #122 - Make AsyncTask stoppable
+13:06:10 <pvital> #info [Wok] pvital is working in issue #158 - Move AsyncTask information to memory
+13:06:10 <pvital> #info [Kimchi] pvital helped user with issue #980 - cannot save permission setting for VM
+13:06:12 <pvital> #info [Kimchi] pvital submitted patch to issue #982 - make check failing on fedora 24.
+13:06:14 <pvital> #info [Kimchi] pvital helped user with issue #983 - creating a snapsht w/wok-kimchi
+13:06:16 <pvital> #info [Kimchi] pvital helped user with issue #988 - Not able to load kimchi plugin
+13:06:18 <pvital> #info [Ginger] pvital submitted patch to update documentation with new required packages - part of solution to issue #386
+13:06:33 <samhenri> #info [Wok] samhenri fixing some minor bugs with Wok and Datatables SCSS/CSS in order to send patch for Redesigned Network Panels (Ginger)
+13:06:55 <jkatta> #info [Ginger] jkatta Working on backend code implementation for Audit and Auditdispatcher, soon will be sending pacthes for the same
+13:06:56 <samhenri> #info [Ginger] samhenri polishing some minor issues with the redesigned network panel and removing legacy code
+13:08:49 <alinefm> anything else?
+13:09:10 <chandra> #info, chandra working on supporting Kimchi on s390x platform
+13:10:08 <chandra> @alinefm @ziviani, if we are ready for open discussion I have one topic
+13:10:44 <alinefm> sure
+13:10:48 <alinefm> #topic Open Discussion
+13:10:51 <alinefm> chandra, go ahead
+13:11:16 <chandra> ok, On s390x we have challenge in making the serial console in the interactive mode
+13:11:48 <chandra> Trouble with websocify  where it is not able to understand the data sent from web page to back end
+13:12:08 <chandra> [root@zfwpc155 ~]# wokd
+13:12:09 <chandra> WebSocket server settings:
+13:12:09 <chandra> - Listen on 127.0.0.1:64667
+13:12:09 <chandra> - Flash security policy server
+13:12:09 <chandra> - SSL/TLS support
+13:12:10 <chandra> - proxying from 127.0.0.1:64667 to targets in /var/lib/kimchi/ws-tokens
+13:12:11 <chandra> 1: 127.0.0.1: Plain non-SSL (ws://) WebSocket connection
+13:12:13 <chandra> 1: 127.0.0.1: Version hybi-13, base64: 'True'
+13:12:15 <chandra> 1: 127.0.0.1: Path: '/websockify?token=dWJ1bnR1MTYuMDQtbGludXgtY29uc29sZQ'
+13:12:17 <chandra> 1: connecting to unix socket: /run/ubuntu16.04-linux
+13:12:19 <chandra> Exception while b64decoding buffer: '\x81\x84{\xa5\x12\xe8!\xe4/\xd5'
+13:12:21 <chandra> 1: handler exception: Incorrect padding
+13:12:23 <chandra> > /usr/lib/python2.7/site-packages/wok/plugins/kimchi/serialconsole.py(188)listen()
+13:12:25 <chandra> -> wok_log.info("[%s] Shutting down the socket server to %s console",
+13:12:28 <chandra> (Pdb)
+13:12:29 <chandra> Process SocketServer-4:
+13:12:31 <chandra> Traceback (most recent call last):
+13:12:35 <chandra> File "/usr/lib64/python2.7/multiprocessing/process.py", line 258, in _bootstrap
+13:12:40 <chandra> self.run()
+13:12:40 <chandra> File "/usr/lib/python2.7/site-packages/wok/plugins/kimchi/serialconsole.py", line 89, in run
+13:12:41 <chandra> self.listen()
+13:12:43 <chandra> File "/usr/lib/python2.7/site-packages/wok/plugins/kimchi/serialconsole.py", line 188, in listen
+13:12:45 <chandra> wok_log.info("[%s] Shutting down the socket server to %s console",
+13:12:47 <chandra> File "/usr/lib/python2.7/site-packages/wok/plugins/kimchi/serialconsole.py", line 188, in listen
+13:12:52 <chandra> wok_log.info("[%s] Shutting down the socket server to %s console",
+13:12:52 <chandra> File "/usr/lib64/python2.7/bdb.py", line 49, in trace_dispatch
+13:12:53 <chandra> return self.dispatch_line(frame)
+13:12:55 <chandra> File "/usr/lib64/python2.7/bdb.py", line 68, in dispatch_line
+13:12:57 <chandra> if self.quitting: raise BdbQuit
+13:12:59 <chandra> BdbQuit
+13:13:01 <chandra> Basically padding issue while decoding the text in the back end ...
+13:13:10 <chandra> Server socket is gettign closed once after type in a character in the console ...
+13:13:58 <chandra> Any body know how to enable websockify logs for further debugging...
+13:14:13 <alinefm> chandra, seems an issue with websocktify
+13:14:27 <alinefm> hmm... I have never done that before
+13:14:31 <chandra> I was not successful in using pdb stack trace as this is socket code ...
+13:15:02 <alinefm> ziviani, have you already enabled logs on websocktify for debugging?
+13:15:55 <chandra> I got in touch with ziviani yesterday but we could not done further debugging due to time constraints ..
+13:16:52 <chandra> I also ran python tests on s390x:
+13:16:54 <chandra> [root@zfwpc155 websockify]# python setup.py nosetests --verbosity=3
+13:16:54 <chandra> running nosetests
+13:16:54 <chandra> running egg_info
+13:16:54 <chandra> creating websockify.egg-info
+13:16:54 <chandra> writing requirements to websockify.egg-info/requires.txt
+13:16:56 <chandra> writing websockify.egg-info/PKG-INFO
+13:16:57 <chandra> writing top-level names to websockify.egg-info/top_level.txt
+13:16:59 <chandra> writing dependency_links to websockify.egg-info/dependency_links.txt
+13:17:01 <chandra> writing entry points to websockify.egg-info/entry_points.txt
+13:17:03 <chandra> writing manifest file 'websockify.egg-info/SOURCES.txt'
+13:17:07 <chandra> reading manifest file 'websockify.egg-info/SOURCES.txt'
+13:17:09 <chandra> reading manifest template 'MANIFEST.in'
+13:17:11 <chandra> writing manifest file 'websockify.egg-info/SOURCES.txt'
+13:17:13 <chandra> running build_ext
+13:17:15 <chandra> nose.config: INFO: Set working dir to /root/websockify
+13:17:17 <chandra> nose.config: INFO: Ignoring files matching ['^\\.', '^_', '^setup\\.py$']
+13:17:19 <chandra> nose.selector: INFO: /root/websockify/rebind is executable; skipped
+13:17:21 <chandra> nose.selector: INFO: /root/websockify/run is executable; skipped
+13:17:23 <chandra> nose.selector: INFO: /root/websockify/websockify/websocketproxy.py is executable; skipped
+13:17:25 <chandra> nose.selector: INFO: /root/websockify/websockify.py is executable; skipped
+13:17:27 <chandra> nose.selector: INFO: /root/websockify/tests/b64_vs_utf8.py is executable; skipped
+13:17:29 <chandra> nose.selector: INFO: /root/websockify/tests/echo.py is executable; skipped
+13:17:31 <chandra> nose.selector: INFO: /root/websockify/tests/echo.rb is executable; skipped
+13:17:33 <chandra> nose.selector: INFO: /root/websockify/tests/latency.py is executable; skipped
+13:17:37 <chandra> nose.selector: INFO: /root/websockify/tests/load.py is executable; skipped
+13:17:40 <chandra> nose.selector: INFO: /root/websockify/tests/utf8-list.py is executable; skipped
+13:17:44 <chandra> test_garbage_auth (test_auth_plugins.BasicHTTPAuthTestCase) ... ok
+13:17:44 <chandra> test_invalid_password (test_auth_plugins.BasicHTTPAuthTestCase) ... ok
+13:17:45 <chandra> test_no_auth (test_auth_plugins.BasicHTTPAuthTestCase) ... ok
+13:17:47 <chandra> test_valid_password (test_auth_plugins.BasicHTTPAuthTestCase) ... ok
+13:17:49 <chandra> Failure: ImportError (No module named mox3) ... ERROR
+13:17:51 <chandra> Failure: ImportError (No module named mox3) ... ERROR
+13:17:53 <chandra> ======================================================================
+13:18:01 <chandra> ERROR: Failure: ImportError (No module named mox3)
+13:18:01 <chandra> ----------------------------------------------------------------------
+13:18:01 <chandra> Traceback (most recent call last):
+13:18:02 <chandra> File "/usr/lib/python2.7/site-packages/nose/loader.py", line 413, in loadTestsFromName
+13:18:12 <chandra> addr.filename, addr.module)
+13:18:12 <chandra> File "/usr/lib/python2.7/site-packages/nose/importer.py", line 47, in importFromPath
+13:18:12 <chandra> return self.importFromDir(dir_path, fqname)
+13:18:12 <chandra> File "/usr/lib/python2.7/site-packages/nose/importer.py", line 94, in importFromDir
+13:18:13 <chandra> mod = load_module(part_fqname, fh, filename, desc)
+13:18:15 <chandra> File "/root/websockify/tests/test_websocket.py", line 25, in <module>
+13:18:18 <chandra> from mox3 import stubout
+13:18:19 <chandra> ImportError: No module named mox3
+13:18:21 <chandra> ======================================================================
+13:18:23 <chandra> ERROR: Failure: ImportError (No module named mox3)
+13:18:55 <chandra> ----------------------------------------------------------------------
+13:18:55 <chandra> Traceback (most recent call last):
+13:18:55 <chandra> File "/usr/lib/python2.7/site-packages/nose/loader.py", line 413, in loadTestsFromName
+13:18:55 <chandra> addr.filename, addr.module)
+13:18:55 <chandra> File "/usr/lib/python2.7/site-packages/nose/importer.py", line 47, in importFromPath
+13:18:55 <chandra> return self.importFromDir(dir_path, fqname)
+13:18:55 <chandra> File "/usr/lib/python2.7/site-packages/nose/importer.py", line 94, in importFromDir
+13:18:55 <chandra> mod = load_module(part_fqname, fh, filename, desc)
+13:18:55 <chandra> File "/root/websockify/tests/test_websocketproxy.py", line 23, in <module>
+13:18:55 <chandra> from mox3 import stubout
+13:18:55 <chandra> ImportError: No module named mox3
+13:18:55 <chandra> ----------------------------------------------------------------------
+13:18:55 <chandra> Ran 6 tests in 0.076s
+13:18:55 <chandra> FAILED (errors=2)
+13:18:55 <chandra> some deps miss ..
+13:19:17 <alinefm> were you able to find out the mox3 module in another python package?
+13:20:04 <alinefm> about the debugging, I think ziviani could help more on it as he is the person who worked more closed to websockify in the past
+13:20:37 <chandra> ok i installed mox3 and all tests passed
+13:20:59 <chandra> yeah sure
+13:22:13 <alinefm> at least some progress with mox3 =)
+13:22:26 <alinefm> anything else to discuss today?
+13:23:09 <lcorreia> no
+13:23:18 <chandra> @alinefm, on nginx selinux policy
+13:23:22 <archana> On kimchi unittest cases are failing on fedora24.
+13:23:30 <chandra> what is your recommendation
+13:24:29 <pvital> I just want as peterpennings and/or samhenri to help with https://github.com/kimchi-project/kimchi/issues/980 if possible (no discussions here, just asking support)
+13:24:59 <alinefm> archana, I think pvital has fixed the unittest issue on fedora 24
+13:25:18 <alinefm> chandra, have you followed the instructions provided on troubleshooting?
+13:25:29 <alinefm> https://github.com/kimchi-project/wok/blob/master/docs/troubleshooting.md#selinux
+13:26:07 <archana> i have raised issue #982, and with logs its looks like looking for objectstore in data folder instead of the test object store. @pvital suggested a clean wait of running unittest cases, still its failing.
+13:26:55 <chandra> @alinefm, we followed the instruction and it all worked ...
+13:27:11 <alinefm> chandra, great!
+13:27:19 <chandra> @alinefm, another suggestion in front of us is # semanage port -a -t http_port_t -p tcp 8000
+13:27:28 <alinefm> I am discussing with pvital to add the selinux config file to the wok package
+13:28:05 <samhenri> pvital I've seen the gray empty modal before but I thought that it was fixed. Usually it shows on the developer console that the request is still being sent and the UI renders the modal box before getting the response (the modal content) from the server
+13:29:18 <alinefm> archana, are you running on a fresh fedora 24 install on x86?
+13:29:23 <archana> yes
+13:30:03 <alinefm> danielhb, are you using fedora 24? have you already seen this problem with the test cases?
+13:30:17 <danielhb> alinefm, no I haven't
+13:30:26 <alinefm> chandra, you can edit the troubleshooting page to add this command too
+13:31:00 <alinefm> pvital, samhenri we need to proper prioritize the issue with the other UI tasks
+13:31:23 <alinefm> the code freeze starts next week so we should focus on feature devel until there
+13:31:30 <alinefm> as we will have more time to fix issues
+13:32:35 <chandra> @alinefm, thanks !!!
+13:33:48 <samhenri> alinefm ok
+13:35:26 <alinefm> anything else, guys?
+13:36:37 <alinefm> #info Just a reminder that 2.3 code freeze phase starts next week which means only bug fixes will be accepted on master branch until the 2.3 announcement. New features will be merged into next branch as usual and merged into master when the announcement is made.
+13:42:45 <alinefm> ok... apparently we have done for today
+13:42:50 <alinefm> I forgot to share socorro status
+13:42:53 <alinefm> let me do it now
+13:43:01 <alinefm> #info [*] socorro More housekeeping done w/PCI bugzilla bugs and github issues
+13:43:02 <alinefm> #info [Kimchi] socorro v2 of patch sent out to ML for issue# 973; awaiting review
+13:43:02 <alinefm> #info [Kimchi] socorro Had some concerns about cpu hotplug fix that was applied
+13:43:02 <alinefm> #info [Kimchi] socorro recently; worked w/Ziviani and came to a resolution
+13:43:02 <alinefm> #info [Kimchi] socorro Looking into github issue# 979
+13:43:08 <alinefm> thanks everyone for joining!
+13:43:10 <alinefm> #endmeeting
