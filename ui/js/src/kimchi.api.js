@@ -1071,20 +1071,6 @@ var kimchi = {
         });
     },
 
-    getPeers : function(suc, err) {
-        wok.requestJSON({
-            url : 'plugins/kimchi/peers',
-            type : 'GET',
-            contentType : 'application/json',
-            dataType : 'json',
-            resend : true,
-            success : suc,
-            error : err ? err : function(data) {
-                wok.message.error(data.responseJSON.reason);
-            }
-        });
-    },
-
     getVMPCIDevices : function(id, suc, err) {
         wok.requestJSON({
             url : 'plugins/kimchi/vms/' + encodeURIComponent(id) + '/hostdevs',
