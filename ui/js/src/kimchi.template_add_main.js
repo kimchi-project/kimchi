@@ -81,6 +81,11 @@ kimchi.template_add_main = function() {
             } else {
                 volume.icon = 'fa fa-globe';
             }
+            if ((volume.path).substr((volume.path).lastIndexOf('.')+1) === 'iso'){
+                volume.format = 'iso';
+            } else {
+                volume.format = 'img';
+            }
             if (!volume.hasOwnProperty('has_permission')) {
                 volume.has_permission = true;
             }

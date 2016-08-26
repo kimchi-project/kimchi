@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+Copyright (c) 2014-2015, Dave Gandy (http://elusiveicons.com),
+with Elusive Icons.
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at:
+http://scripts.sil.org/OFL
+
+
+#################################
+SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
+#################################
+
+PREAMBLE
+The goals of the Open Font License (OFL) are to stimulate worldwide
+development of collaborative font projects, to support the font creation
+efforts of academic and linguistic communities, and to provide a free and
+open framework in which fonts may be shared and improved in partnership
+with others.
+
+The OFL allows the licensed fonts to be used, studied, modified and
+redistributed freely as long as they are not sold by themselves. The
+fonts, including any derivative works, can be bundled, embedded,
+redistributed and/or sold with any software provided that any reserved
+names are not used by derivative works. The fonts and derivatives,
+however, cannot be released under any other type of license. The
+requirement for fonts to remain under this license does not apply
+to any document created using the fonts or their derivatives.
+
+DEFINITIONS
+"Font Software" refers to the set of files released by the Copyright
+Holder(s) under this license and clearly marked as such. This may
+include source files, build scripts and documentation.
+
+"Reserved Font Name" refers to any names specified as such after the
+copyright statement(s).
+
+"Original Version" refers to the collection of Font Software components as
+distributed by the Copyright Holder(s).
+
+"Modified Version" refers to any derivative made by adding to, deleting,
+or substituting - in part or in whole - any of the components of the
+Original Version, by changing formats or by porting the Font Software to a
+new environment.
+
+"Author" refers to any designer, engineer, programmer, technical
+writer or other person who contributed to the Font Software.
+
+PERMISSION & CONDITIONS
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of the Font Software, to use, study, copy, merge, embed, modify,
+redistribute, and sell modified and unmodified copies of the Font
+Software, subject to the following conditions:
+
+1) Neither the Font Software nor any of its individual components,
+in Original or Modified Versions, may be sold by itself.
+
+2) Original or Modified Versions of the Font Software may be bundled,
+redistributed and/or sold with any software, provided that each copy
+contains the above copyright notice and this license. These can be
+included either as stand-alone text files, human-readable headers or
+in the appropriate machine-readable metadata fields within text or
+binary files as long as those fields can be easily viewed by the user.
+
+3) No Modified Version of the Font Software may use the Reserved Font
+Name(s) unless explicit written permission is granted by the corresponding
+Copyright Holder. This restriction only applies to the primary font name as
+presented to the users.
+
+4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font
+Software shall not be used to promote, endorse or advertise any
+Modified Version, except to acknowledge the contribution(s) of the
+Copyright Holder(s) and the Author(s) or with their explicit written
+permission.
+
+5) The Font Software, modified or unmodified, in part or in whole,
+must be distributed entirely under this license, and must not be
+distributed under any other license. The requirement for fonts to
+remain under this license does not apply to any document created
+using the Font Software.
+
+TERMINATION
+This license becomes null and void if any of the above conditions are
+not met.
+
+DISCLAIMER
+THE FONT SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT
+OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE
+COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
+DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
+OTHER DEALINGS IN THE FONT SOFTWARE.
+-->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   width="1792"
+   height="1792"
+   viewBox="0 0 1792 1792"
+   id="file-o-iso"
+   version="1.1">
+  <title id="title">Font Awesome by Dave Gandy - http://fontawesome.io</title>
+  <metadata id="metadata4152">
+      <rdf:RDF>
+          <cc:Work rdf:about="">
+              <dc:format>image/svg+xml</dc:format>
+              <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+              <dc:title>Font Awesome by Dave Gandy - http://fontawesome.io</dc:title>
+              <cc:license rdf:resource="http://scripts.sil.org/OFL" />
+              <dc:creator>
+                  <cc:Agent>
+                      <dc:title>Font Awesome by Dave Gandy - http://fontawesome.io</dc:title>
+                  </cc:Agent>
+              </dc:creator>
+              <dc:rights>
+                  <cc:Agent>
+                      <dc:title>Font Awesome</dc:title>
+                  </cc:Agent>
+              </dc:rights>
+          </cc:Work>
+          <cc:License rdf:about="http://scripts.sil.org/OFL">
+              <cc:permits rdf:resource="http://scripts.sil.org/pub/OFL/Reproduction" />
+              <cc:permits rdf:resource="http://scripts.sil.org/pub/OFL/Distribution" />
+              <cc:permits rdf:resource="http://scripts.sil.org/pub/OFL/Embedding" />
+              <cc:permits rdf:resource="http://scripts.sil.org/pub/OFL/DerivativeWorks" />
+              <cc:requires rdf:resource="http://scripts.sil.org/pub/OFL/Notice" />
+              <cc:requires rdf:resource="http://scripts.sil.org/pub/OFL/Attribution" />
+              <cc:requires rdf:resource="http://scripts.sil.org/pub/OFL/ShareAlike" />
+              <cc:requires rdf:resource="http://scripts.sil.org/pub/OFL/DerivativeRenaming" />
+              <cc:requires rdf:resource="http://scripts.sil.org/pub/OFL/BundlingWhenSelling" />
+          </cc:License>
+      </rdf:RDF>
+  </metadata>
+  <path
+    d="M1596 380q28 28 48 76t20 88v1152q0 40-28 68t-68 28h-1344q-40 0-68-28t-28-68v-1600q0-40 28-68t68-28h896q40 0 88 20t76 48zm-444-244v376h376q-10-29-22-41l-313-313q-12-12-41-22zm384 1528v-1024h-416q-40 0-68-28t-28-68v-416h-768v1536h1280z" />
+  <path
+    d="m 309.39392,848.86503 0,59.02519 108.67577,0 0,400.32948 -108.67577,0 0,59.0253 287.83454,0 0,-59.0253 -108.67576,0 0,-400.32948 108.67576,0 0,-59.02519 -287.83454,0 z" />
+  <path
+    d="m 1018.7377,866.57261 c -24.30448,-9.02739 -47.56736,-15.62433 -69.4414,-20.13802 -22.22124,-4.51369 -43.05363,-6.94413 -62.84443,-6.94413 -51.73386,0 -93.05147,14.23549 -124.30009,42.01202 -31.24862,27.77657 -46.52572,64.92756 -46.52572,111.10613 0,37.15109 10.76341,66.66369 32.63746,88.53789 21.52681,22.2211 56.5947,38.5401 104.85648,49.3035 l 37.49834,8.6801 c 33.33187,7.6385 56.94193,18.0546 70.48301,31.596 13.54108,13.8879 20.48521,33.6788 20.48521,59.3722 0,28.471 -10.06899,50.6921 -29.51259,66.6637 -19.7908,15.9716 -47.22014,23.6101 -82.63526,23.6101 -24.30448,0 -48.26174,-3.8192 -71.87185,-11.805 -23.61006,-7.6385 -48.95615,-20.1383 -75.34389,-37.1511 l 0,74.6495 c 24.65171,10.4161 49.30339,18.4019 73.9551,23.6101 24.30448,5.2079 48.95616,7.6385 73.26064,7.6385 58.33077,0 102.77328,-12.8467 133.32749,-38.8875 30.5542,-25.693 45.8313,-63.5388 45.8313,-112.8419 0,-41.665 -11.1106,-74.9969 -33.3319,-99.3013 -22.22122,-24.3044 -57.63634,-42.012 -106.24531,-53.4701 l -36.80391,-8.3327 c -34.7207,-7.9858 -58.33077,-18.055 -70.8302,-30.207 -12.49947,-11.805 -18.74919,-29.5126 -18.74919,-52.4284 0,-26.04035 9.37457,-46.87283 28.81818,-62.14993 19.09637,-15.2771 45.13688,-23.26288 78.46875,-23.26288 21.52685,0 43.05367,3.47209 64.58049,10.41622 21.52685,6.94413 42.70648,17.36035 64.23329,30.90139 l 0,-71.17739 z" />
+  <path
+    d="m 1409.3455,1108.5758 c 0,76.3855 -7.9858,130.5499 -23.6101,163.1871 -15.6243,32.6376 -41.3176,48.6092 -76.7327,48.6092 -35.4151,0 -61.1084,-16.3186 -76.7327,-48.9561 -15.6243,-32.6376 -23.2629,-86.802 -23.2629,-162.8402 0,-76.0381 7.6386,-130.54984 23.2629,-163.18741 15.6243,-32.63725 41.3176,-48.956 76.7327,-48.956 35.4151,0 61.1084,16.31875 76.7327,48.956 15.6243,32.63757 23.6101,87.14931 23.6101,163.18741 z m 73.2607,0 c 0,-90.2738 -14.5827,-157.97918 -43.0537,-202.42161 -28.471,-44.4425 -72.219,-66.66373 -130.5498,-66.66373 -58.3307,0 -102.0788,22.22123 -130.5498,66.66373 -28.471,44.44243 -42.7065,112.14781 -42.7065,202.42161 0,90.9682 14.2355,158.3262 42.7065,202.4215 28.471,44.4426 71.8718,66.3168 130.5498,66.3168 58.3308,0 102.0788,-22.2215 130.5498,-66.6637 28.471,-44.4427 43.0537,-111.8007 43.0537,-202.0746 z" />
+</svg>

@@ -207,7 +207,7 @@
 #template-add-window.modal-content ul#list-remote-iso li.col-md-3,
 #guest-add-window.modal-content ul#list-local-iso li.col-md-3,
 #guest-add-window.modal-content ul#list-remote-iso li.col-md-3 {
-  width: 241px;
+  width: 239px;
   margin: 10px 5px 0;
 }
 
@@ -1455,6 +1455,11 @@ body.wok-gallery {
   padding: 10px 30px;
 }
 
+#template-edit-window .wok-mask {
+  top: 0 !important;
+  z-index: 3;
+}
+
 #template-edit-window .tab-content .tab-pane {
   position: relative;
 }
@@ -1482,7 +1487,7 @@ body.wok-gallery {
 
 #template-edit-window .template-edit-wrapper-label {
   vertical-align: top;
-  min-width: 100px;
+  min-width: 172px;
   height: 35px;
   line-height: 35px;
   margin: 7px 0 8px;
@@ -1491,8 +1496,6 @@ body.wok-gallery {
 #template-edit-window .template-edit-wrapper-controls {
   vertical-align: top;
   width: 400px;
-  vertical-align: top;
-  min-width: 100px;
   height: 35px;
   line-height: 35px;
   margin: 7px 0 8px;
@@ -1542,6 +1545,11 @@ body.wok-gallery {
 
 #template-edit-window .template-tab-body .item > span input[type="text"].form-control {
   height: 40px;
+}
+
+#template-edit-window #template-edit-memory-textbox {
+  width: 308px !important;
+  display: inline;
 }
 
 #template-edit-window #guest-max-processor-panel {
@@ -1662,6 +1670,12 @@ body.wok-gallery {
   font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
+#template-add-window.modal-content label.check-all {
+  display: inline-block;
+  vertical-align: middle;
+  padding-top: 8px;
+}
+
 #template-add-window.modal-content button#iso-more,
 #template-add-window.modal-content button#iso-more-loading {
   clear: both;
@@ -1681,7 +1695,7 @@ body.wok-gallery {
 }
 
 #template-add-window .filter {
-  width: 977px;
+  float: right;
   height: 40px;
   overflow: visible;
   clear: both;
@@ -1718,6 +1732,29 @@ body.wok-gallery {
   bottom: 10px;
   right: 10px;
   font-size: 32px;
+}
+
+#template-add-window span.iso-image-indicator .fa {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#template-add-window span.iso-image-indicator i.fa.fa-file-iso,
+#template-add-window span.iso-image-indicator i.fa.fa-file-img {
+  display: inline-block;
+  width: 27px;
+  height: 25px;
+  margin-right: 3px;
+}
+
+#template-add-window span.iso-image-indicator i.fa.fa-file-iso {
+  background: url("../images/file-o-iso.svg") no-repeat 50% 50%;
+  background-size: contain;
+}
+
+#template-add-window span.iso-image-indicator i.fa.fa-file-img {
+  background: url("../images/file-o-img.svg") no-repeat 50% 50%;
+  background-size: contain;
 }
 
 #template-add-window span.iso-image-alert {

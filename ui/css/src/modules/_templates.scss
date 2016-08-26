@@ -18,6 +18,9 @@
 
 /* Add Template Modal Window */
 
+
+$kimchi-icon-path: '../images';
+
 .templates-modal {
     .modal-dialog {
         width: 1100px;
@@ -41,6 +44,10 @@
 }
 
 #template-edit-window {
+    .wok-mask {
+        top: 0 !important;
+        z-index: 3;
+    }
     .tab-content .tab-pane {
         position: relative;
     }
@@ -63,7 +70,7 @@
     }
     .template-edit-wrapper-label {
         vertical-align: top;
-        min-width: 100px;
+        min-width: 172px;
         height: 35px;
         line-height: 35px;
         margin: 7px 0 8px;
@@ -71,8 +78,6 @@
     .template-edit-wrapper-controls {
         vertical-align: top;
         width: 400px;
-        vertical-align: top;
-        min-width: 100px;
         height: 35px;
         line-height: 35px;
         margin: 7px 0 8px;
@@ -116,6 +121,10 @@
                 }
             }
         }
+    }
+    #template-edit-memory-textbox {
+        width: 308px !important;
+        display: inline;
     }
     #guest-max-processor-panel {
         display: none;
@@ -213,6 +222,11 @@
         font-weight: 400;
         font-family: $font-family-sans-serif;
     }
+    &.modal-content label.check-all {
+        display: inline-block;
+        vertical-align: middle;
+        padding-top: 8px;
+    }
     &.modal-content button#iso-more,
     &.modal-content button#iso-more-loading {
         clear: both;
@@ -228,7 +242,7 @@
         padding-left: 0 !important;
     }
     .filter {
-         width: 977px;
+        float: right;
         height: 40px;
         overflow: visible;
         clear: both;
@@ -260,6 +274,26 @@
         bottom: 10px;
         right: 10px;
         font-size: 32px;
+        .fa {
+            display: inline-block;
+            vertical-align: middle;
+        }
+        i.fa.fa-file-iso,
+        i.fa.fa-file-img {
+            display: inline-block;
+            width: 27px;
+            height: 25px;
+            margin-right: 3px;
+
+        }
+        i.fa.fa-file-iso {
+            background: url('#{$kimchi-icon-path}/file-o-iso.svg') no-repeat 50% 50%;
+            background-size: contain;
+        }
+        i.fa.fa-file-img {
+            background: url('#{$kimchi-icon-path}/file-o-img.svg') no-repeat 50% 50%;
+            background-size: contain;
+        }
     }
     span.iso-image-alert {
         position: absolute;
@@ -453,7 +487,8 @@
             display: none;
         }
         .wok-vm-body {
-            position: relative;;
+            position: relative;
+            ;
             padding: 0 20px 0 20px;
             width: 240px;
             display: inline-block;
@@ -564,29 +599,23 @@
         font-size: 10pt;
         padding: 6px 8px;
     }
-
     .wok-vm-list .tooltip-inner {
         max-width: 300px;
     }
-
-    .wok-vm-list  .tooltip[style] {
-       left: 79px !important;
+    .wok-vm-list .tooltip[style] {
+        left: 79px !important;
     }
-
-    .wok-vm-list   .tooltip-arrow[style] {
-       left: 10px !important;
+    .wok-vm-list .tooltip-arrow[style] {
+        left: 10px !important;
     }
-
     .wok-vm-gallery .tooltip-inner {
         max-width: 320px;
     }
-
     .wok-vm-gallery .tooltip[style] {
-       left: 7px !important;
-       right: 7px !important;
+        left: 7px !important;
+        right: 7px !important;
     }
-
     .wok-vm-gallery .tooltip-arrow[style] {
-       left: 207px !important;
+        left: 207px !important;
     }
 }

@@ -24,145 +24,153 @@
 <html>
 <body>
 <div id="template-edit-window" class="window modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">$_("Edit Template")</h4>
-            </div>
-            <div class="modal-body">
-                <span id="alert-modal-container"></span>
-                <div id="edit-template-tabs">
-                    <input type="hidden" id="template-name" name="templateName" />
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active">
-                            <a href="#general" aria-controls="general" role="tab" data-toggle="tab">$_("General")</a>
-                        </li>
-                        <li role="presentation">
-                            <a href="#storage" aria-controls="storage" role="tab" data-toggle="tab">$_("Storage")</a>
-                        </li>
-                        <li role="presentation">
-                            <a href="#interface" aria-controls="interface" role="tab" data-toggle="tab">$_("Interface")</a>
-                        </li>
-                        <li role="presentation">
-                            <a href="#processor" aria-controls="processor" role="tab" data-toggle="tab">$_("Processor")</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="general">
-                            <form id="form-template-general">
-                                <div class="form-template-inline-wrapper">
-                                    <div class="template-edit-wrapper-label">
-                                        <label for="template-edit-id-textbox">$_("Name")</label>
-                                    </div>
-                                    <div class="template-edit-wrapper-label">
-                                        <label for="template-edit-vendor-textbox">$_("Vendor")</label>
-                                    </div>
-                                    <div class="template-edit-wrapper-label">
-                                        <label for="template-edit-version-textbox">$_("Version")</label>
-                                    </div>
-                                    <div class="template-edit-wrapper-label">
-                                        <label for="template-edit-memory-textbox">$_("Memory (MB)")</label>
-                                    </div>
-                                    <div class="template-edit-wrapper-label max-memory-field" style="display: none;">
-                                        <label for="template-edit-max-memory-textbox">$_("Max Memory (MB)")</label>
-                                    </div>
-                                    <div class="template-edit-wrapper-label templ-edit-cdrom">
-                                        <label for="template-edit-cdrom-textbox">$_("CDROM")</label>
-                                    </div>
-                                    <div class="template-edit-wrapper-label templ-edit-vm-image hide">
-                                        <label for="template-edit-vmimage-textbox">$_("Image File")</label>
-                                    </div>
-                                    <div class="template-edit-wrapper-label">
-                                        <label>$_("Graphics")</label>
-                                    </div>
-                                </div>
-                                <div class="form-template-inline-wrapper">
-                                    <div class="template-edit-wrapper-controls">
-                                        <input id="template-edit-id-textbox" class="form-control" name="name" type="text" />
-                                    </div>
-                                    <div class="template-edit-wrapper-controls">
-                                        <input id="template-edit-vendor-textbox" class="form-control"  name="os_distro" type="text" disabled="disabled" />
-                                    </div>
-                                    <div class="template-edit-wrapper-controls">
-                                        <input id="template-edit-version-textbox" class="form-control"  name="os_version" type="text" disabled="disabled" />
-                                    </div>
-                                    <div class="template-edit-wrapper-controls">
-                                        <input id="template-edit-memory-textbox" class="form-control"  name="memory" type="number" step="1024" min="1024" style="width: 75%; display: inline;"/>
-                                        <button id="template-show-max-memory" class="btn btn-primary" type="button"><i class="fa fa-plus-circle"></i> <span class="text">$_("More")</span></button>
-                                    </div>
-                                    <div class="template-edit-wrapper-controls max-memory-field" style="display: none;">
-                                        <input id="template-edit-max-memory-textbox" class="form-control" name="max-memory" type="number" min="1024" step="1024" />
-                                    </div>
-                                    <div class="template-edit-wrapper-controls templ-edit-cdrom">
-                                        <input id="template-edit-cdrom-textbox" class="form-control" name="cdrom" type="text" disabled="disabled" />
-                                        <span class="form-control-feedback">
-                                            <i class="fa fa-times"></i>
-                                        </span>
-                                    </div>
-                                    <div class="template-edit-wrapper-controls templ-edit-vm-image hide">
-                                        <input id="template-edit-vmimage-textbox"  class="form-control" name="vm-image" type="text" disabled="disabled" />
-                                        <span class="fa fa-times form-control-feedback"></span>
-                                    </div>
-                                    <div class="template-edit-wrapper-controls">
-                                            <select id="template-edit-graphics" name="graphics" class="form-control"  />
-                                    </div>
-                                </div>
-                            </form>
+    <div class="modal-header">
+        <h4 class="modal-title">$_("Edit Template")</h4>
+    </div>
+    <div class="modal-body">
+        <span id="alert-modal-container"></span>
+        <div id="edit-template-tabs">
+            <input type="hidden" id="template-name" name="templateName" />
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="#general" aria-controls="general" role="tab" data-toggle="tab">$_("General")</a>
+                </li>
+                <li role="presentation">
+                    <a href="#storage" aria-controls="storage" role="tab" data-toggle="tab">$_("Storage")</a>
+                </li>
+                <li role="presentation">
+                    <a href="#interface" aria-controls="interface" role="tab" data-toggle="tab">$_("Interface")</a>
+                </li>
+                <li role="presentation">
+                    <a href="#processor" aria-controls="processor" role="tab" data-toggle="tab">$_("Processor")</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="general">
+                    <form id="form-template-general">
+                        <div class="form-template-inline-wrapper">
+                            <div class="template-edit-wrapper-label">
+                                <label for="template-edit-id-textbox">$_("Name")</label>
+                            </div>
+                            <div class="template-edit-wrapper-label">
+                                <label for="template-edit-vendor-textbox">$_("Vendor")</label>
+                            </div>
+                            <div class="template-edit-wrapper-label">
+                                <label for="template-edit-version-textbox">$_("Version")</label>
+                            </div>
+                            <div class="template-edit-wrapper-label">
+                                <label for="template-edit-memory-textbox">$_("Memory (MB)")</label>
+                            </div>
+                            <div class="template-edit-wrapper-label max-memory-field" style="display: none;">
+                                <label for="template-edit-max-memory-textbox">$_("Max Memory (MB)")</label>
+                            </div>
+                            <div class="template-edit-wrapper-label templ-edit-cdrom">
+                                <label for="template-edit-cdrom-textbox">$_("CDROM")</label>
+                            </div>
+                            <div class="template-edit-wrapper-label templ-edit-vm-image hide">
+                                <label for="template-edit-vmimage-textbox">$_("Image File")</label>
+                            </div>
+                            <div class="template-edit-wrapper-label">
+                                <label>$_("Graphics")</label>
+                            </div>
                         </div>
-                        <div role="tabpanel" class="tab-pane" id="storage">
-                            <form id="form-template-storage">
-                                <div class="template-tab-header">
-                                    <span class="template-storage-cell storage-pool">$_("Storage Pool")</span>
-                                    <span class="template-storage-cell type">$_("Type")</span>
-                                    <span class="template-storage-cell disk">$_("Disk(GB)")</span>
-                                    <span class="template-storage-cell format">$_("Disk Format")</span>
-                                    <button type="button" id="template-edit-storage-add-button" class="pull-right btn btn-primary"><i class="fa fa-plus-circle"></i> $_("Add Storage")</button>
-                                </div>
-                                <div class="template-tab-body">
-                                </div>
-                            </form>
+                        <div class="form-template-inline-wrapper">
+                            <div class="template-edit-wrapper-controls">
+                                <input id="template-edit-id-textbox" class="form-control" name="name" type="text" />
+                            </div>
+                            <div class="template-edit-wrapper-controls">
+                                <input id="template-edit-vendor-textbox" class="form-control"  name="os_distro" type="text" disabled="disabled" />
+                            </div>
+                            <div class="template-edit-wrapper-controls">
+                                <input id="template-edit-version-textbox" class="form-control"  name="os_version" type="text" disabled="disabled" />
+                            </div>
+                            <div class="template-edit-wrapper-controls">
+                                <input id="template-edit-memory-textbox" class="form-control"  name="memory" type="number" step="1024" min="1024" />
+                                <button id="template-show-max-memory" class="btn btn-primary" type="button"><i class="fa fa-plus-circle"></i> <span class="text">$_("More")</span></button>
+                            </div>
+                            <div class="template-edit-wrapper-controls max-memory-field" style="display: none;">
+                                <input id="template-edit-max-memory-textbox" class="form-control" name="max-memory" type="number" min="1024" step="1024" />
+                            </div>
+                            <div class="template-edit-wrapper-controls templ-edit-cdrom form-group has-feedback">
+                                <input id="template-edit-cdrom-textbox" class="form-control" name="cdrom" type="text" disabled="disabled" />
+                                <span class="form-control-feedback">
+                                    <i class="fa fa-times"></i>
+                                </span>
+                            </div>
+                            <div class="template-edit-wrapper-controls templ-edit-vm-image form-group has-feedback hide">
+                                <input id="template-edit-vmimage-textbox"  class="form-control" name="vm-image" type="text" disabled="disabled" />
+                                <span class="fa fa-times form-control-feedback"></span>
+                            </div>
+                            <div class="template-edit-wrapper-controls">
+                                    <select id="template-edit-graphics" name="graphics" class="form-control"  />
+                            </div>
                         </div>
-                        <div role="tabpanel" class="tab-pane" id="interface">
-                            <form id="form-template-interface">
-                                <div class="template-tab-header">
-                                    <span class="template-interface-cell network">$_("Network")</span>
-                                    <span class="template-interface-cell type">$_("Type")</span>
-                                    <button type="button" id="template-edit-interface-add-button" class="pull-right btn btn-primary"><i class="fa fa-plus-circle"></i> $_("Add Interface")</button>
-                                </div>
-                                <div class="template-tab-body"></div>
-                            </form>
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="processor">
-                            <form id="form-template-processor">
-                                <div class="form-group">
-                                    <div id="guest-processor">
-                                        <label for="vcpus">$_("Current CPU Number")</label>
-                                        <input id="vcpus" class="form-control" name="processor" type="number" min="1" />
-                                        <button id="guest-show-max-processor" class="btn btn-primary" type="button"><i class="fa fa-plus-circle"></i> <span class="text">$_("More")</span></button>
-                                    </div>
-                                    <div id="guest-max-processor-panel" class="form-group">
-                                        <label for="guest-edit-max-processor-textbox">$_("Max CPU")</label>
-                                        <input id="guest-edit-max-processor-textbox" class="form-control" name="max-processor" type="number" min="1" />
-                                    </div>
-                                </div>
-                                <div class="manual form-group">
-                                    <input type="checkbox" class="wok-checkbox" id="cpus-check" />
-                                    <label for="cpus-check">$_("Manually set CPU topology")</label>
-                                </div>
-                                <div class="topology">
-                                    <div class="form-group">
-                                        <label for="cores">$_("Cores")</label>
-                                        <input type="text" class="form-control" value="1" id="cores" />
-                                    </div>
-                                    <div>
-                                        <div class="form-group">
-                                            <label for="threads">$_("Threads")</label>
-                                            <select id="threads" class="selectpicker col-md-12 col-lg-12"></select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+                    </form>
                 </div>
+                <div role="tabpanel" class="tab-pane" id="storage">
+                    <form id="form-template-storage">
+                        <div class="template-tab-header">
+                            <span class="template-storage-cell storage-pool">$_("Storage Pool")</span>
+                            <span class="template-storage-cell type">$_("Type")</span>
+                            <span class="template-storage-cell disk">$_("Disk(GB)")</span>
+                            <span class="template-storage-cell format">$_("Disk Format")</span>
+                            <button type="button" id="template-edit-storage-add-button" class="pull-right btn btn-primary"><i class="fa fa-plus-circle"></i> $_("Add Storage")</button>
+                        </div>
+                        <div class="template-tab-body">
+                        </div>
+                    </form>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="interface">
+                    <form id="form-template-interface">
+                        <div class="template-tab-header">
+                            <span class="template-interface-cell network">$_("Network")</span>
+                            <span class="template-interface-cell type">$_("Type")</span>
+                            <button type="button" id="template-edit-interface-add-button" class="pull-right btn btn-primary"><i class="fa fa-plus-circle"></i> $_("Add Interface")</button>
+                        </div>
+                        <div class="template-tab-body"></div>
+                    </form>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="processor">
+                    <form id="form-template-processor">
+                        <div class="form-group">
+                            <div id="guest-processor">
+                                <label for="vcpus">$_("Current CPU Number")</label>
+                                <input id="vcpus" class="form-control" name="processor" type="number" min="1" />
+                                <button id="guest-show-max-processor" class="btn btn-primary" type="button"><i class="fa fa-plus-circle"></i> <span class="text">$_("More")</span></button>
+                            </div>
+                            <div id="guest-max-processor-panel" class="form-group">
+                                <label for="guest-edit-max-processor-textbox">$_("Max CPU")</label>
+                                <input id="guest-edit-max-processor-textbox" class="form-control" name="max-processor" type="number" min="1" />
+                            </div>
+                        </div>
+                        <div class="manual form-group">
+                            <input type="checkbox" class="wok-checkbox" id="cpus-check" />
+                            <label for="cpus-check">$_("Manually set CPU topology")</label>
+                        </div>
+                        <div class="topology">
+                            <div class="form-group">
+                                <label for="cores">$_("Cores")</label>
+                                <input type="text" class="form-control" value="1" id="cores" />
+                            </div>
+                            <div>
+                                <div class="form-group">
+                                    <label for="threads">$_("Threads")</label>
+                                    <select id="threads" class="selectpicker col-md-12 col-lg-12"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="wok-mask hidden" role="presentation">
+          <div class="wok-mask-loader-container">
+            <div class="wok-mask-loading">
+                <div class="wok-mask-loading-icon"></div>
+                <div class="wok-mask-loading-text">$_("Loading")...</div>
+            </div>
+          </div>
+        </div>
     </div>
     <div class="modal-footer">
             <button id="tmpl-edit-button-save" class="btn btn-default">$_("Save")</button>
