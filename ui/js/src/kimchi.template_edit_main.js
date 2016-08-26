@@ -22,43 +22,43 @@ kimchi.template_edit_main = function() {
     var templateDiskSize;
     var baseImageTemplate;
     $('#template-name', templateEditMain).val(kimchi.selectedTemplate);
-    $('#edit-template-tabs a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-        $('.tab-content').css('overflow','hidden');
+    $('#edit-template-tabs a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+        $('.tab-content').css('overflow', 'hidden');
         var target = $(this).attr('href');
-        $(target).css('left','-'+$(window).width()+'px');
+        $(target).css('left', '-' + $(window).width() + 'px');
         var left = $(target).offset().left;
         $(target).css({
-                left: left
-            }).animate({
-                    "left": "0px"
-            },400, function() {
-            $('.tab-content').css('overflow','visible');
+            left: left
+        }).animate({
+            "left": "0px"
+        }, 400, function() {
+            $('.tab-content').css('overflow', 'visible');
         });
     });
 
     $('#template-show-max-memory').on('click', function(e) {
-            e.preventDefault;
-            $('.max-memory-field').slideToggle();
-            var text = $('#template-show-max-memory span.text').text();
-            $('#template-show-max-memory span.text').text(text == i18n['KCHVMED6008M'] ? i18n['KCHVMED6009M'] : i18n['KCHVMED6008M']);
-            $('#template-show-max-memory i.fa').toggleClass('fa-plus-circle fa-minus-circle');
+        e.preventDefault;
+        $('.max-memory-field').slideToggle();
+        var text = $('#template-show-max-memory span.text').text();
+        $('#template-show-max-memory span.text').text(text == i18n['KCHVMED6008M'] ? i18n['KCHVMED6009M'] : i18n['KCHVMED6008M']);
+        $('#template-show-max-memory i.fa').toggleClass('fa-plus-circle fa-minus-circle');
     });
 
     var initTemplate = function(template) {
         origDisks = template.disks;
         origNetworks = template.networks;
-        for(var i=0;i<template.disks.length;i++){
-            if(template.disks[i].base){
+        for (var i = 0; i < template.disks.length; i++) {
+            if (template.disks[i].base) {
                 template["vm-image"] = template.disks[i].base;
                 $('.templ-edit-cdrom').addClass('hide');
                 $('.templ-edit-vm-image').removeClass('hide');
                 break;
             }
         }
-        for ( var prop in template) {
+        for (var prop in template) {
             var value = template[prop];
             if (prop == 'graphics') {
-               value = value["type"];
+                value = value["type"];
             }
             $('input[name="' + prop + '"]', templateEditMain).val(value);
         }
@@ -98,18 +98,19 @@ kimchi.template_edit_main = function() {
             // Gather storagepools data
             var storagePoolsInfo = new Object();
             $.each(result, function(index, pool) {
-               if (pool.state === 'active' && pool.type != 'kimchi-iso') {
+                if (pool.state === 'active' && pool.type != 'kimchi-iso') {
                     if (pool.type === 'iscsi' || pool.type === 'scsi') {
                         volumes = new Object();
                         kimchi.listStorageVolumes(pool.name, function(vols) {
                             $.each(vols, function(i, vol) {
                                 storagePoolsInfo[pool.name + "/" + vol.name] = {
-                                    'type' : pool.type,
-                                    'volSize': vol.capacity / Math.pow(1024, 3)};
+                                    'type': pool.type,
+                                    'volSize': vol.capacity / Math.pow(1024, 3)
+                                };
                             });
                         }, null, true);
                     } else {
-                        storagePoolsInfo[pool.name] = { 'type' : pool.type };
+                        storagePoolsInfo[pool.name] = { 'type': pool.type };
                     }
                 }
             });
@@ -134,7 +135,7 @@ kimchi.template_edit_main = function() {
                 });
 
                 $(storageRow + ' .selectStorageName').append(storageOptions);
-                if(!$(storageRow + ' .selectStorageName option[value="'+storageData.storageName+'"]').length){
+                if (!$(storageRow + ' .selectStorageName option[value="' + storageData.storageName + '"]').length) {
                     var invalidOption = '<option disabled="disabled" selected="selected" value="' + storageData.storageName + '">' + storageData.storageName + '</option>';
                     $(storageRow + ' .selectStorageName').prepend(invalidOption);
                     $(storageRow + ' .selectStorageName').parent().addClass('has-error')
@@ -142,7 +143,7 @@ kimchi.template_edit_main = function() {
                 $(storageRow + ' .selectStorageName').val(storageData.storageName);
                 $(storageRow + ' .selectStorageName').selectpicker();
 
-                if (storageData.storageType === 'iscsi' || storageData.storageType  === 'scsi') {
+                if (storageData.storageType === 'iscsi' || storageData.storageType === 'scsi') {
                     $(storageRow + ' .template-storage-disk').attr('readonly', true).prop('disabled', true);
                     $(storageRow + ' #diskFormat').val('raw');
                     $(storageRow + ' #diskFormat').prop('disabled', true).change();
@@ -155,8 +156,7 @@ kimchi.template_edit_main = function() {
                 if (isImageBasedTemplate()) {
                     $(storageRow + ' #diskFormat').val('qcow2');
                     $(storageRow + ' #diskFormat').prop('disabled', 'disabled');
-                }
-                else {
+                } else {
                     $(storageRow + ' #diskFormat').val(storageData.storageDiskFormat);
                     $(storageRow + ' #diskFormat').on('change', function() {
                         $(storageRow + ' .template-storage-disk-format').val($(this).val());
@@ -164,7 +164,7 @@ kimchi.template_edit_main = function() {
                 }
                 $(storageRow + ' #diskFormat').selectpicker();
 
-                $('.delete', '#form-template-storage').on( "click",function(event) {
+                $('.delete', '#form-template-storage').on("click", function(event) {
                     event.preventDefault();
                     $(this).parent().parent().remove();
                 });
@@ -192,34 +192,35 @@ kimchi.template_edit_main = function() {
                     }
                     $(storageRow + ' #diskFormat').selectpicker('refresh');
                 });
-            };  // End of addStorageItem funtion
+            }; // End of addStorageItem funtion
 
             if (origDisks && origDisks.length) {
-                origDisks.sort(function(a, b){return a.index-b.index});
+                origDisks.sort(function(a, b) {
+                    return a.index - b.index });
                 $.each(origDisks, function(index, diskEntities) {
                     var defaultPool = diskEntities.pool.name.split('/').pop()
                     var storageNodeData = {
-                        storageIndex : diskEntities.index,
-                        storageName : diskEntities.volume ? defaultPool + '/' + diskEntities.volume : defaultPool,
-                        storageType : diskEntities.pool.type,
-                        storageDisk : diskEntities.size,
-                        storageDiskFormat : diskEntities.format ? diskEntities.format : 'qcow2',
-                        storageVolume : diskEntities.volume
+                        storageIndex: diskEntities.index,
+                        storageName: diskEntities.volume ? defaultPool + '/' + diskEntities.volume : defaultPool,
+                        storageType: diskEntities.pool.type,
+                        storageDisk: diskEntities.size,
+                        storageDiskFormat: diskEntities.format ? diskEntities.format : 'qcow2',
+                        storageVolume: diskEntities.volume
                     }
                     addStorageItem(storageNodeData);
                 });
             }
 
-            var storageID = origDisks.length -1;
+            var storageID = origDisks.length - 1;
             $('#template-edit-storage-add-button').on("click", function(event) {
                 event.preventDefault();
                 storageID = storageID + 1;
                 var storageNodeData = {
-                    storageName : 'default',
-                    storageType : 'dir',
-                    storageDisk : '10',
-                    storageDiskFormat : 'qcow2',
-                    storageIndex : storageID
+                    storageName: 'default',
+                    storageType: 'dir',
+                    storageDisk: '10',
+                    storageDiskFormat: 'qcow2',
+                    storageIndex: storageID
                 }
                 addStorageItem(storageNodeData);
             });
@@ -231,16 +232,16 @@ kimchi.template_edit_main = function() {
                 var networkName = networkData.networkV;
                 var nodeInterface = $.parseHTML(wok.substitute($('#template-interface-tmpl').html(), networkData));
                 $('.template-tab-body', '#form-template-interface').append(nodeInterface);
-                $('.delete', '#form-template-interface').on( "click",function(event) {
+                $('.delete', '#form-template-interface').on("click", function(event) {
                     event.preventDefault();
                     $(this).parent().parent().remove();
                 });
                 var networkOptions = '';
-                for(var i=0;i<result.length;i++){
-                    if(networkName===result[i].name) {
+                for (var i = 0; i < result.length; i++) {
+                    if (networkName === result[i].name) {
                         networkOptions += '<option selected="selected">' + result[i].name + '</option>';
                     }
-                    if(result[i].state === "active" && networkName!==result[i].name) {
+                    if (result[i].state === "active" && networkName !== result[i].name) {
                         networkOptions += '<option>' + result[i].name + '</option>';
                     }
                 }
@@ -248,70 +249,70 @@ kimchi.template_edit_main = function() {
                 $('select', '#form-template-interface #networkID' + networkItemNum).selectpicker();
                 networkItemNum += 1;
             };
-            if(result && result.length > 0) {
-                for(var i=0;i<origNetworks.length;i++) {
+            if (result && result.length > 0) {
+                for (var i = 0; i < origNetworks.length; i++) {
                     addInterfaceItem({
-                        networkID : 'networkID' + networkItemNum,
-                        networkV : origNetworks[i],
-                        type : 'network'
+                        networkID: 'networkID' + networkItemNum,
+                        networkV: origNetworks[i],
+                        type: 'network'
                     });
                 }
             }
-            $('#template-edit-interface-add-button').on( "click", function(event) {
+            $('#template-edit-interface-add-button').on("click", function(event) {
                 event.preventDefault();
                 addInterfaceItem({
-                    networkID : 'networkID' + networkItemNum,
-                    networkV : 'default',
-                    type : 'network'
+                    networkID: 'networkID' + networkItemNum,
+                    networkV: 'default',
+                    type: 'network'
                 });
             });
         };
 
-        var initProcessor = function(){
-            var setCPUValue = function(){
-                if(!$('#cores').hasClass("invalid-field")&&$('#cores').val()!=""){
-                    var computedCpu = parseInt($("#cores").val())*parseInt($("#threads").val());
+        var initProcessor = function() {
+            var setCPUValue = function() {
+                if (!$('#cores').hasClass("invalid-field") && $('#cores').val() != "") {
+                    var computedCpu = parseInt($("#cores").val()) * parseInt($("#threads").val());
                     $("#vcpus").val(computedCpu);
                     if ($("#cpus-check").prop("checked")) {
                         //If topology is checked, set maxcpu to be the same as # of cpu otherwise, backend gives error
                         $("#guest-edit-max-processor-textbox").val(computedCpu);
                     }
-                }else{
+                } else {
                     $("#vcpus").val('');
                 }
             };
-            $("input:text", "#form-template-processor").on('keyup', function(){
+            $("input:text", "#form-template-processor").on('keyup', function() {
                 $(this).toggleClass("invalid-field", !$(this).val().match('^[0-9]*$'));
-                if($(this).prop('id')=='cores') setCPUValue();
+                if ($(this).prop('id') == 'cores') setCPUValue();
             });
-            $("input:checkbox", "#form-template-processor").click(function(){
+            $("input:checkbox", "#form-template-processor").click(function() {
                 $('#threads').selectpicker();
                 $(".topology", "#form-template-processor").slideToggle();
                 $("#vcpus").attr("disabled", $(this).prop("checked"));
                 $("#guest-edit-max-processor-textbox").attr("disabled", $(this).prop("checked"));
                 setCPUValue();
             });
-            $('#threads').change(function(){
+            $('#threads').change(function() {
                 setCPUValue();
             });
-            kimchi.getCPUInfo(function(data){
+            kimchi.getCPUInfo(function(data) {
                 var options = "";
                 var topo = template.cpu_info.topology;
-                for(var i=0;Math.pow(2,i)<=data.threads_per_core;i++){
-                    var lastOne = Math.pow(2,i+1)>data.threads_per_core?" selected":"";
-                    options += "<option"+lastOne+">"+Math.pow(2,i)+"</option>";
+                for (var i = 0; Math.pow(2, i) <= data.threads_per_core; i++) {
+                    var lastOne = Math.pow(2, i + 1) > data.threads_per_core ? " selected" : "";
+                    options += "<option" + lastOne + ">" + Math.pow(2, i) + "</option>";
                 }
                 $('#threads').append(options);
-                if(template.cpu_info.vcpus){
+                if (template.cpu_info.vcpus) {
                     $("#vcpus").val(template.cpu_info.vcpus);
                 }
-                if(template.cpu_info.maxvcpus){
+                if (template.cpu_info.maxvcpus) {
                     $("#guest-edit-max-processor-textbox").val(template.cpu_info.maxvcpus);
                 }
-                if(topo&&topo.cores){
+                if (topo && topo.cores) {
                     $("#cores").val(topo.cores);
                 }
-                if(topo&&topo.threads){
+                if (topo && topo.threads) {
                     $('#threads').val(topo.threads);
                     $('#threads').selectpicker();
                     $("input:checkbox", "#form-template-processor").trigger('click');
@@ -326,14 +327,14 @@ kimchi.template_edit_main = function() {
             });
         };
 
-        var checkInvalids = function(){
+        var checkInvalids = function() {
             $.each(template.invalid, function(key, value) {
-                if(key === 'cdrom' || key === 'vm-image'){
-                    $('.tab-content input[name="'+key+'"]').attr('disabled',false).parent().addClass('has-error has-feedback has-changes');
+                if (key === 'cdrom' || key === 'vm-image') {
+                    $('.tab-content input[name="' + key + '"]').attr('disabled', false).parent().addClass('has-error has-changes');
                     return true;
-                }else if(key === 'storagepools'){
+                } else if (key === 'storagepools') {
                     return true;
-                }else {
+                } else {
                     return false;
                 }
             });
@@ -348,32 +349,34 @@ kimchi.template_edit_main = function() {
 
     $('#tmpl-edit-button-save').on('click', function() {
         $button = $(this);
-        $button.html('<span class="wok-loading-icon" /> '+i18n['KCHAPI6010M']);
+        $button.html('<span class="wok-loading-icon" /> ' + i18n['KCHAPI6010M']);
+        $button.prop('disabled', true);
+        $('.modal .wok-mask').removeClass('hidden');
         $('.modal input[type="text"]').prop('disabled', true);
         $('.modal input[type="checkbox"]').prop('disabled', true);
         $('.modal select').prop('disabled', true);
         $('.modal .selectpicker').addClass('disabled');
-        var editableFields = [ 'name', 'memory', 'graphics', 'max-memory'];
+        var editableFields = ['name', 'memory', 'graphics', 'max-memory'];
         var data = {};
         var disks = $('.template-tab-body .item', '#form-template-storage');
         var disksForUpdate = new Array();
         $.each(disks, function(index, diskEntity) {
             var newDisk = {
-                'index' : index,
-                'pool' : {'name': '/plugins/kimchi/storagepools/' + $(diskEntity).find('.template-storage-name').val()},
-                'size' : Number($(diskEntity).find('.template-storage-disk').val()),
-                'format' : $(diskEntity).find('.template-storage-disk-format').val()
+                'index': index,
+                'pool': { 'name': '/plugins/kimchi/storagepools/' + $(diskEntity).find('.template-storage-name').val() },
+                'size': Number($(diskEntity).find('.template-storage-disk').val()),
+                'format': $(diskEntity).find('.template-storage-disk-format').val()
             };
 
             // image based template: add base to dictionary
-            if ((baseImageTemplate) && (index == 0))  {
+            if ((baseImageTemplate) && (index == 0)) {
                 newDisk["base"] = $('#template-edit-vmimage-textbox').val();
             }
 
             var storageType = $(diskEntity).find('.template-storage-type').val();
-            if(storageType === 'iscsi' || storageType === 'scsi') {
+            if (storageType === 'iscsi' || storageType === 'scsi') {
                 newDisk['volume'] = newDisk['pool']['name'].split('/').pop();
-                newDisk['pool']['name'] =  newDisk['pool']['name'].slice(0,  newDisk['pool']['name'].lastIndexOf('/'));
+                newDisk['pool']['name'] = newDisk['pool']['name'].slice(0, newDisk['pool']['name'].lastIndexOf('/'));
                 delete newDisk.size;
             }
             disksForUpdate.push(newDisk);
@@ -382,37 +385,36 @@ kimchi.template_edit_main = function() {
 
         $.each(editableFields, function(i, field) {
             if (field == 'graphics') {
-               var type = $('#form-template-general [name="' + field + '"]').val();
-               data[field] = {'type': type};
-            }
-            else {
-               data[field] = $('#form-template-general [name="' + field + '"]').val();
+                var type = $('#form-template-general [name="' + field + '"]').val();
+                data[field] = { 'type': type };
+            } else {
+                data[field] = $('#form-template-general [name="' + field + '"]').val();
             }
         });
         data['memory'] = Number(data['memory']);
         data['max-memory'] = Number(data['max-memory']);
 
-        memory = {'current': data['memory'], 'maxmemory': data['max-memory']};
+        memory = { 'current': data['memory'], 'maxmemory': data['max-memory'] };
 
         data['memory'] = memory;
         delete data['max-memory'];
 
         var cpu = parseInt($('#vcpus').val());
         var maxCpu = parseInt($('#guest-edit-max-processor-textbox').val());
-        var maxCpuFinal = cpu;  //Initially set maxCpu to be the same as cpu
+        var maxCpuFinal = cpu; //Initially set maxCpu to be the same as cpu
         if (maxCpu >= cpu) {
             maxCpuFinal = maxCpu;
         }
 
-        if($('.tab-content .has-changes > input[name="cdrom"]').length){
+        if ($('.tab-content .has-changes > input[name="cdrom"]').length) {
             data['cdrom'] = $('.tab-content input[name="cdrom"]').val();
         }
 
-        if($('.tab-content .has-changes > input[name="vm-image"]').length){
+        if ($('.tab-content .has-changes > input[name="vm-image"]').length) {
             data['vm-image'] = $('.tab-content input[name="vm-image"]').val();
         }
 
-         if($("input:checkbox", "#form-template-processor").prop("checked")){
+        if ($("input:checkbox", "#form-template-processor").prop("checked")) {
             //Check if maxCpu field has a value
             data['cpu_info'] = {
                 vcpus: cpu,
@@ -423,7 +425,7 @@ kimchi.template_edit_main = function() {
                     threads: parseInt($("#threads").val())
                 }
             };
-        }else{
+        } else {
             data['cpu_info'] = {
                 vcpus: cpu,
                 maxvcpus: maxCpuFinal,
@@ -444,26 +446,30 @@ kimchi.template_edit_main = function() {
             data.networks = [];
         }
 
-        if($('.has-error', '#form-template-storage').length){
+        if ($('.has-error', '#form-template-storage').length) {
             // Workaround to check if invalid storage wasn't changed
-            $('a[href="#storage"]','#edit-template-tabs').tab('show');
+            $('a[href="#storage"]', '#edit-template-tabs').tab('show');
+            $('.modal .wok-mask').addClass('hidden');
             $button.html(i18n['KCHAPI6007M']);
+            $button.prop('disabled', false);
             $('.modal input[type="text"]').prop('disabled', false);
             $('.modal input[type="checkbox"]').prop('disabled', false);
             $('.modal select').prop('disabled', false);
             $('.modal .selectpicker').removeClass('disabled');
-            wok.message.error(i18n['KCHTMPL6007M'],'#alert-modal-container');
-        }else {
+            wok.message.error(i18n['KCHTMPL6007M'], '#alert-modal-container');
+        } else {
             kimchi.updateTemplate($('#template-name').val(), data, function() {
                 kimchi.doListTemplates();
                 wok.window.close();
             }, function(err) {
+            $('.modal .wok-mask').addClass('hidden');
                 $button.html(i18n['KCHAPI6007M']);
+                $button.prop('disabled', false);
                 $('.modal input[type="text"]').prop('disabled', false);
                 $('.modal input[type="checkbox"]').prop('disabled', false);
                 $('.modal select').prop('disabled', false);
                 $('.modal .selectpicker').removeClass('disabled');
-                wok.message.error(err.responseJSON.reason,'#alert-modal-container');
+                wok.message.error(err.responseJSON.reason, '#alert-modal-container');
             });
         }
     });
