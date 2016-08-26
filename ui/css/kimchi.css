@@ -525,7 +525,8 @@
   text-align: center;
 }
 
-#guest-content-container .wok-guest-gallery .wok-guest-list-item.inactive span.column-action, #guest-content-container .wok-guest-gallery .wok-guest-list-item.inactive span.column-name {
+#guest-content-container .wok-guest-gallery .wok-guest-list-item.inactive span.column-action,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item.inactive span.column-name {
   display: block !important;
 }
 
@@ -752,6 +753,80 @@
   background-color: #7f1c7d;
 }
 
+#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.running span.running {
+  display: block;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.running .fa {
+  color: #a8d46f;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.pmsuspended span.pmsuspended {
+  display: block;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.pmsuspended .fa {
+  color: #999;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.nostate span.nostate {
+  display: block;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.nostate .fa {
+  color: #999;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.crashed span.crashed {
+  display: block;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.crashed .fa {
+  color: #999;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.shutdown span.shutoff,
+#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.shutdown span.blocked,
+#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.shutdown span.shutdown,
+#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.blocked span.shutoff,
+#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.blocked span.blocked,
+#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.blocked span.shutdown,
+#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.shutoff span.shutoff,
+#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.shutoff span.blocked,
+#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.shutoff span.shutdown {
+  display: block;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.shutdown .fa,
+#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.blocked .fa,
+#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.shutoff .fa {
+  color: #999;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.starting span.starting {
+  display: block;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.starting .fa {
+  color: #999;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.paused span.paused {
+  display: block;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.paused .fa {
+  color: #999;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.resetting span.resetting {
+  display: block;
+}
+
+#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.resetting .fa {
+  color: #a8d46f;
+}
+
 #guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state,
 #guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state {
   width: 40px;
@@ -769,88 +844,9 @@
   display: none;
 }
 
-#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.running span.running,
-#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.running span.running {
-  display: block;
-}
-
-#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.running span.paused,
-#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.running span.shutoff,
-#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.running span.starting,
-#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.running span.resetting,
-#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.running span.paused,
-#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.running span.shutoff,
-#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.running span.starting,
-#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.running span.resetting {
+#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state span,
+#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state span {
   display: none;
-}
-
-#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.running .fa,
-#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.running .fa {
-  color: #a8d46f;
-}
-
-#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.shutoff span.shutoff,
-#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.shutoff span.shutoff {
-  display: block;
-}
-
-#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.shutoff span.paused,
-#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.shutoff span.running,
-#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.shutoff span.starting,
-#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.shutoff span.resetting,
-#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.shutoff span.paused,
-#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.shutoff span.running,
-#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.shutoff span.starting,
-#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.shutoff span.resetting {
-  display: none;
-}
-
-#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.shutoff .fa,
-#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.shutoff .fa {
-  color: #999;
-}
-
-#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.starting span.starting,
-#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.starting span.starting {
-  display: block;
-}
-
-#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.starting span.paused,
-#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.starting span.running,
-#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.starting span.shutoff,
-#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.starting span.resetting,
-#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.starting span.paused,
-#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.starting span.running,
-#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.starting span.shutoff,
-#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.starting span.resetting {
-  display: none;
-}
-
-#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.starting .fa,
-#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.starting .fa {
-  color: #999;
-}
-
-#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.resetting span.resetting,
-#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.resetting span.resetting {
-  display: block;
-}
-
-#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.resetting span.paused,
-#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.resetting span.running,
-#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.resetting span.shutoff,
-#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.resetting span.starting,
-#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.resetting span.paused,
-#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.resetting span.running,
-#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.resetting span.shutoff,
-#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.resetting span.starting {
-  display: none;
-}
-
-#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-state > span.guest-state.resetting .fa,
-#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state > span.guest-state.resetting .fa {
-  color: #a8d46f;
 }
 
 #guest-content-container .wok-guest-list .wok-guest-list-header > span.column-name,
