@@ -105,13 +105,13 @@
             list-style: none;
             padding: 0;
             > li:nth-child(even) {
-              background-color: #fcfcfc;
+                background-color: #fcfcfc;
             }
             > li:nth-child(odd) {
-              background-color: #fff;
+                background-color: #fff;
             }
             > li:first-child {
-              border-top: 0;
+                border-top: 0;
             }
         }
         .wok-guest-list-header {
@@ -239,7 +239,8 @@
                     padding-bottom: 115px;
                     text-align: center;
                 }
-                span.column-action, span.column-name {
+                span.column-action,
+                span.column-name {
                     display: block !important;
                 }
                 .btn {
@@ -296,10 +297,10 @@
                 position: absolute;
             }
             .ul-body {
-            display: inline-block;
-            padding: 0;
-            margin: 0;
-            list-style: none;
+                display: inline-block;
+                padding: 0;
+                margin: 0;
+                list-style: none;
             }
             .column-type,
             .nodata,
@@ -368,13 +369,11 @@
                 padding-left: 21px;
                 border-radius: 0;
                 background: rgba(0, 0, 0, .6) !important;
-
                 > span.guest-state {
                     .fa {
                         margin-right: 10px;
                     }
                 }
-
                 > span.guest-state.running {
                     span.running {
                         display: block;
@@ -451,6 +450,76 @@
             }
         }
     }
+    .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-state {
+        > span.guest-state.running {
+            span.running {
+                display: block;
+            }
+            .fa {
+                color: $fa-green;
+            }
+        }
+        > span.guest-state.pmsuspended {
+            span.pmsuspended {
+                display: block;
+            }
+            .fa {
+                color: $gray-light;
+            }
+        }
+        > span.guest-state.nostate {
+            span.nostate {
+                display: block;
+            }
+            .fa {
+                color: $gray-light;
+            }
+        }
+        > span.guest-state.crashed {
+            span.crashed {
+                display: block;
+            }
+            .fa {
+                color: $gray-light;
+            }
+        }
+        > span.guest-state.shutdown,
+        > span.guest-state.blocked,
+        > span.guest-state.shutoff {
+            span.shutoff,
+            span.blocked,
+            span.shutdown {
+                display: block;
+            }
+            .fa {
+                color: $gray-light;
+            }
+        }
+        > span.guest-state.starting {
+            span.starting {
+                display: block;
+            }
+            .fa {
+                color: $gray-light;
+            }
+        }
+        > span.guest-state.paused {
+            span.paused {
+                display: block;
+            }
+            .fa {
+                color: $gray-light;
+            }
+        }
+        > span.guest-state.resetting {
+            span.resetting {
+                display: block;
+            }
+            .fa {
+                color: $fa-green;
+            }
+        }
+    }
     .wok-guest-list .wok-guest-list-header,
     .wok-guest-list .wok-guest-list-body .wok-guest-list-item {
         > span.column-state {
@@ -463,61 +532,8 @@
                     display: none;
                 }
             }
-            > span.guest-state.running {
-                span.running {
-                    display: block;
-                }
-                span.paused,
-                span.shutoff,
-                span.starting,
-                span.resetting {
-                    display: none;
-                }
-                .fa {
-                    color: $fa-green;
-                }
-            }
-            > span.guest-state.shutoff {
-                span.shutoff {
-                    display: block;
-                }
-                span.paused,
-                span.running,
-                span.starting,
-                span.resetting {
-                    display: none;
-                }
-                .fa {
-                    color: $gray-light;
-                }
-            }
-            > span.guest-state.starting {
-                span.starting {
-                    display: block;
-                }
-                span.paused,
-                span.running,
-                span.shutoff,
-                span.resetting {
-                    display: none;
-                }
-                .fa {
-                    color: $gray-light;
-                }
-            }
-            > span.guest-state.resetting {
-                span.resetting {
-                    display: block;
-                }
-                span.paused,
-                span.running,
-                span.shutoff,
-                span.starting {
-                    display: none;
-                }
-                .fa {
-                    color: $fa-green;
-                }
+            > span.guest-state span {
+                display: none;
             }
         }
         > span.column-name {
@@ -615,6 +631,7 @@
         }
     }
 }
+
 body.wok-gallery {
     background: $input-bg-disabled;
 }
