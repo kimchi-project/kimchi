@@ -36,12 +36,13 @@ from mock import call, mock_open, patch
 import tests.utils as utils
 
 import wok.objectstore
+from wok.asynctask import AsyncTask
 from wok.basemodel import Singleton
 from wok.config import config
 from wok.exception import InvalidOperation
 from wok.exception import InvalidParameter, NotFoundError, OperationFailed
 from wok.rollbackcontext import RollbackContext
-from wok.utils import add_task, convert_data_size, get_task_id
+from wok.utils import convert_data_size
 from wok.xmlutils.utils import xpath_get_text
 
 from wok.plugins.gingerbase import netinfo
@@ -1401,30 +1402,28 @@ class ModelTests(unittest.TestCase):
 
         inst = model.Model('test:///default',
                            objstore_loc=self.tmp_store)
-        taskid = add_task('', quick_op, inst.objstore, 'Hello')
+        taskid = AsyncTask('', quick_op, 'Hello').id
         inst.task_wait(taskid)
-        self.assertEquals(get_task_id(), taskid)
         self.assertEquals('finished', inst.task_lookup(taskid)['status'])
         self.assertEquals('Hello', inst.task_lookup(taskid)['message'])
 
-        taskid = add_task('', long_op, inst.objstore,
-                          {'delay': 3, 'result': False,
-                           'message': 'It was not meant to be'})
-        self.assertEquals(get_task_id(), taskid)
+        params = {'delay': 3, 'result': False,
+                  'message': 'It was not meant to be'}
+        taskid = AsyncTask('', long_op, params).id
         self.assertEquals('running', inst.task_lookup(taskid)['status'])
-        self.assertEquals('OK', inst.task_lookup(taskid)['message'])
+        self.assertEquals('The request is being processing.',
+                          inst.task_lookup(taskid)['message'])
         inst.task_wait(taskid)
         self.assertEquals('failed', inst.task_lookup(taskid)['status'])
         self.assertEquals('It was not meant to be',
                           inst.task_lookup(taskid)['message'])
-        taskid = add_task('', abnormal_op, inst.objstore, {})
+        taskid = AsyncTask('', abnormal_op, {}).id
         inst.task_wait(taskid)
         self.assertEquals('Exception raised',
                           inst.task_lookup(taskid)['message'])
         self.assertEquals('failed', inst.task_lookup(taskid)['status'])
 
-        taskid = add_task('', continuous_ops, inst.objstore,
-                          {'result': True})
+        taskid = AsyncTask('', continuous_ops, {'result': True}).id
         self.assertEquals('running', inst.task_lookup(taskid)['status'])
         inst.task_wait(taskid, timeout=10)
         self.assertEquals('finished', inst.task_lookup(taskid)['status'])

@@ -30,8 +30,8 @@ from functools import partial
 from tests.utils import get_free_port, patch_auth, request
 from tests.utils import run_server, wait_task
 
+from wok.asynctask import AsyncTask
 from wok.rollbackcontext import RollbackContext
-from wok.utils import add_task
 
 from wok.plugins.kimchi import mockmodel
 from wok.plugins.kimchi.osinfo import get_template_default
@@ -1305,22 +1305,19 @@ class RestTests(unittest.TestCase):
         )
 
     def test_tasks(self):
-        id1 = add_task('/plugins/kimchi/tasks/1', self._async_op,
-                       model.objstore)
-        id2 = add_task('/plugins/kimchi/tasks/2', self._except_op,
-                       model.objstore)
-        id3 = add_task('/plugins/kimchi/tasks/3', self._intermid_op,
-                       model.objstore)
+        id1 = AsyncTask('/plugins/kimchi/tasks/1', self._async_op).id
+        id2 = AsyncTask('/plugins/kimchi/tasks/2', self._except_op).id
+        id3 = AsyncTask('/plugins/kimchi/tasks/3', self._intermid_op).id
 
         target_uri = urllib2.quote('^/plugins/kimchi/tasks/*', safe="")
         filter_data = 'status=running&target_uri=%s' % target_uri
         tasks = json.loads(
             self.request('/plugins/kimchi/tasks?%s' % filter_data).read()
         )
-        self.assertEquals(3, len(tasks))
+        self.assertLessEqual(3, len(tasks))
 
         tasks = json.loads(self.request('/plugins/kimchi/tasks').read())
-        tasks_ids = [int(t['id']) for t in tasks]
+        tasks_ids = [t['id'] for t in tasks]
         self.assertEquals(set([id1, id2, id3]) - set(tasks_ids), set([]))
         wait_task(self._task_lookup, id2)
         foo2 = json.loads(
