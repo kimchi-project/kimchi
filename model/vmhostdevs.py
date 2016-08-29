@@ -26,12 +26,13 @@ from lxml import etree, objectify
 from lxml.builder import E, ElementMaker
 from operator import itemgetter
 
+from wok.asynctask import AsyncTask
 from wok.exception import InvalidOperation, InvalidParameter, NotFoundError
 from wok.exception import OperationFailed
 from wok.message import WokMessage
 from wok.model.tasks import TaskModel
 from wok.rollbackcontext import RollbackContext
-from wok.utils import add_task, run_command, wok_log
+from wok.utils import run_command, wok_log
 
 from wok.plugins.kimchi.model.config import CapabilitiesModel
 from wok.plugins.kimchi.model.host import DeviceModel, DevicesModel
@@ -92,11 +93,11 @@ class VMHostDevsModel(object):
         dev_info = self.dev_model.lookup(dev_name)
 
         if dev_info['device_type'] == 'pci':
-            taskid = add_task(u'/plugins/kimchi/vms/%s/hostdevs/' %
-                              VMModel.get_vm(vmid, self.conn).name(),
-                              self._attach_pci_device, self.objstore,
-                              {'vmid': vmid, 'dev_info': dev_info,
-                               'lock': threading.RLock()})
+            taskid = AsyncTask(u'/plugins/kimchi/vms/%s/hostdevs/' %
+                               VMModel.get_vm(vmid, self.conn).name(),
+                               self._attach_pci_device,
+                               {'vmid': vmid, 'dev_info': dev_info,
+                                'lock': threading.RLock()}).id
             return self.task.lookup(taskid)
 
         with RollbackContext() as rollback:
@@ -110,11 +111,11 @@ class VMHostDevsModel(object):
 
             rollback.commitAll()
 
-        taskid = add_task(u'/plugins/kimchi/vms/%s/hostdevs/' %
-                          VMModel.get_vm(vmid, self.conn).name(),
-                          '_attach_%s_device' % dev_info['device_type'],
-                          self.objstore, {'vmid': vmid, 'dev_info': dev_info,
-                                          'lock': threading.RLock()})
+        taskid = AsyncTask(u'/plugins/kimchi/vms/%s/hostdevs/' %
+                           VMModel.get_vm(vmid, self.conn).name(),
+                           '_attach_%s_device' % dev_info['device_type'],
+                           {'vmid': vmid, 'dev_info': dev_info,
+                            'lock': threading.RLock()}).id
 
         return self.task.lookup(taskid)
 
@@ -604,8 +605,7 @@ class VMHostDevModel(object):
                        'lock': threading.RLock()}
         task_uri = u'/plugins/kimchi/vms/%s/hostdevs/%s' % \
             (VMModel.get_vm(vmid, self.conn).name(), dev_name)
-        taskid = add_task(task_uri, self._detach_device, self.objstore,
-                          task_params)
+        taskid = AsyncTask(task_uri, self._detach_device, task_params).id
         return self.task.lookup(taskid)
 
     def _event_devices(self, conn, dom, alias, opaque):

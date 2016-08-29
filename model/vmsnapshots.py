@@ -23,8 +23,8 @@ import time
 from lxml import objectify
 from lxml.builder import E
 
+from wok.asynctask import AsyncTask
 from wok.exception import InvalidOperation, NotFoundError, OperationFailed
-from wok.utils import add_task
 from wok.xmlutils.utils import xpath_get_text
 from wok.model.tasks import TaskModel
 
@@ -74,8 +74,8 @@ class VMSnapshotsModel(object):
         name = params.get('name', unicode(int(time.time())))
 
         task_params = {'vm_name': vm_name, 'name': name}
-        taskid = add_task(u'/plugins/kimchi/vms/%s/snapshots/%s' % (vm_name,
-                          name), self._create_task, self.objstore, task_params)
+        taskid = AsyncTask(u'/plugins/kimchi/vms/%s/snapshots/%s' % (vm_name,
+                           name), self._create_task, task_params).id
         return self.task.lookup(taskid)
 
     def _create_task(self, cb, params):

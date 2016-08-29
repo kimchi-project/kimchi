@@ -28,9 +28,10 @@ import time
 import urllib2
 from lxml.builder import E
 
+from wok.asynctask import AsyncTask
 from wok.exception import InvalidOperation, InvalidParameter, IsoFormatError
 from wok.exception import MissingParameter, NotFoundError, OperationFailed
-from wok.utils import add_task, get_unique_file_name
+from wok.utils import get_unique_file_name
 from wok.utils import probe_file_permission_as_user, wok_log
 from wok.xmlutils.utils import xpath_get_text
 from wok.model.tasks import TaskModel
@@ -124,7 +125,7 @@ class StorageVolumesModel(object):
         params['pool'] = pool_name
         targeturi = '/plugins/kimchi/storagepools/%s/storagevolumes/%s' \
                     % (pool_name, name)
-        taskid = add_task(targeturi, create_func, self.objstore, params)
+        taskid = AsyncTask(targeturi, create_func, params).id
         return self.task.lookup(taskid)
 
     def _create_volume_with_capacity(self, cb, params):
@@ -441,8 +442,8 @@ class StorageVolumeModel(object):
                   'new_pool': new_pool,
                   'new_name': new_name}
         target_uri = u'/plugins/kimchi/storagepools/%s/storagevolumes/%s/clone'
-        taskid = add_task(target_uri % (pool, new_name), self._clone_task,
-                          self.objstore, params)
+        taskid = AsyncTask(target_uri % (pool, new_name), self._clone_task,
+                           params).id
         return self.task.lookup(taskid)
 
     def _clone_task(self, cb, params):
