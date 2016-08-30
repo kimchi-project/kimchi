@@ -138,10 +138,22 @@ def _get_tmpl_defaults():
                              'pool': '/plugins/kimchi/storagepools/default'}},
      'processor': {'vcpus': '1',  'maxvcpus': 1},
      'graphics': {'type': 'spice', 'listen': '127.0.0.1'}}
+
+    The default values on s390x architecture:
+
+    {'memory': {'current': 1024, 'maxmemory': 1024},
+     'storage': { 'disk.0': {'format': 'qcow2', 'size': '10',
+                             'pool': '/plugins/kimchi/storagepools/default'}},
+     'processor': {'vcpus': '1',  'maxvcpus': 1},
+     'graphics': {'type': 'spice', 'listen': '127.0.0.1'}}
     """
     # Create dict with default values
     tmpl_defaults = defaultdict(dict)
-    tmpl_defaults['main']['networks'] = ['default']
+
+    host_arch = _get_arch()
+    if host_arch != 's390x':
+        tmpl_defaults['main']['networks'] = ['default']
+
     tmpl_defaults['memory'] = {'current': _get_default_template_mem(),
                                'maxmemory': _get_default_template_mem()}
     tmpl_defaults['storage']['disk.0'] = {'size': 10, 'format': 'qcow2',
