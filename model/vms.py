@@ -1475,7 +1475,8 @@ class VMModel(object):
         xml = dom.XMLDesc(libvirt.VIR_DOMAIN_XML_SECURE)
 
         expr = "/domain/devices/serial/@type"
-        if not xpath_get_text(xml, expr):
+        # on s390x serial is not supported
+        if platform.machine() != 's390x' and not xpath_get_text(xml, expr):
             return False
 
         expr = "/domain/devices/console/@type"
