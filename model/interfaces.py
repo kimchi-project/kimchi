@@ -17,10 +17,11 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-from wok.exception import NotFoundError
+from wok.exception import InvalidParameter, NotFoundError
 
 from wok.plugins.gingerbase import netinfo
 from wok.plugins.kimchi.model.networks import NetworksModel
+from wok.utils import wok_log
 
 
 class InterfacesModel(object):
@@ -28,9 +29,20 @@ class InterfacesModel(object):
         self.conn = kargs['conn']
         self.networks = NetworksModel(**kargs)
 
-    def get_list(self):
-        return list(set(netinfo.all_favored_interfaces()) -
-                    set(self.networks.get_all_networks_interfaces()))
+    def get_list(self, _inuse=None):
+        if _inuse == "true":
+            return list(set(netinfo.all_favored_interfaces()) &
+                        set(self.networks.get_all_networks_interfaces()))
+        elif _inuse == "false":
+            return list(set(netinfo.all_favored_interfaces()) -
+                        set(self.networks.get_all_networks_interfaces()))
+        elif _inuse is None:
+            return list(set(netinfo.all_favored_interfaces()))
+        else:
+            wok_log.error("Invalid filter _inuse. _inuse: %s. Supported"
+                          " options are %s" % (_inuse, 'true/false'))
+            raise InvalidParameter("KCHIFACE0002E",
+                                   {'supported_inuse': ['true', 'false']})
 
 
 class InterfaceModel(object):

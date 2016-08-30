@@ -258,6 +258,7 @@ messages = {
     "KCHVOL0029E": _("Unable to upload chunk data to storage volume. Details: %(err)s."),
 
     "KCHIFACE0001E": _("Interface %(name)s does not exist"),
+    "KCHIFACE0002E": _("Failed to list interfaces. Invalid _inuse parameter. Supported options for _inuse are: %(supported_inuse)s"),
 
     "KCHNET0001E": _("Network %(name)s already exists"),
     "KCHNET0002E": _("Network %(name)s does not exist"),

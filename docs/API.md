@@ -656,6 +656,9 @@ A interface represents available network interface on VM.
 **Methods:**
 
 * **GET**: Retrieve a summarized list of current Interfaces
+    * Parameters: _inuse:  Filter interfaces list with availability. Currently supports true | false.
+                'true' option lists interfaces used by virtual networks,'false' option lists all
+                interfaces which are not currently in use by virtual networks.
 
 ### Resource: Interface
 
