@@ -55,7 +55,8 @@ class NetworksModel(object):
         self.caps = CapabilitiesModel(**kargs)
 
     def _check_default_networks(self):
-        networks = list(set(tmpl_defaults['networks']))
+        networks = list(set(tmpl_defaults.get('networks', [])))
+
         conn = self.conn.get()
 
         for net_name in networks:

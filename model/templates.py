@@ -358,7 +358,7 @@ class LibvirtVMTemplate(VMTemplate):
         return sorted(map(lambda x: x.decode('utf-8'), names))
 
     def _network_validate(self):
-        names = self.info['networks']
+        names = self.info.get('networks', [])
         for name in names:
             try:
                 conn = self.conn.get()
