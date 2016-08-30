@@ -34,6 +34,7 @@ from wok.objectstore import ObjectStore
 from wok.utils import convert_data_size
 from wok.xmlutils.utils import xml_item_update
 
+from wok.plugins.kimchi import config as kimchi_config
 from wok.plugins.kimchi import imageinfo
 from wok.plugins.kimchi import osinfo
 from wok.plugins.kimchi.model import cpuinfo
@@ -142,7 +143,7 @@ class MockModel(Model):
         cherrypy.engine.subscribe('exit', self.virtviewertmpfile_cleanup)
 
     def _create_virt_viewer_tmp_file(self):
-        path = '../data/virtviewerfiles/'
+        path = kimchi_config.get_virtviewerfiles_path()
         if not os.path.isdir(path):
             os.makedirs(path)
 
