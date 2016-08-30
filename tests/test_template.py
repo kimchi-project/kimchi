@@ -370,8 +370,8 @@ class TemplateTests(unittest.TestCase):
         # Verify the current system has at least one interface to create a
         # bridged network
         interfaces = json.loads(
-            self.request('/plugins/kimchi/interfaces?type=nic').read()
-        )
+            self.request(
+                '/plugins/kimchi/interfaces?_inuse=false&type=nic').read())
         if len(interfaces) > 0:
             iface = interfaces[0]['name']
             networks.append({'name': u'bridge-network',
