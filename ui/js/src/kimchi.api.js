@@ -626,7 +626,7 @@ var kimchi = {
 
     getInterfaces : function(suc, err) {
         wok.requestJSON({
-            url : 'plugins/kimchi/interfaces',
+            url : 'plugins/kimchi/interfaces?_inuse=false',
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
