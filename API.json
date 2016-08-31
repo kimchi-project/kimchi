@@ -404,6 +404,12 @@
                             "description": "Life time for the graphics password.",
                             "type": "number",
                             "error": "KCHVM0032E"
+                        },
+                        "type": {
+                            "description": "Graphics type",
+                            "type": "string",
+                            "enum": ["spice", "vnc"],
+                            "error": "KCHVM0054E"
                         }
                     }
                 },
