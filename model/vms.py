@@ -1398,17 +1398,6 @@ class VMModel(object):
             except Exception as e:
                 raise OperationFailed('KCHVOL0017E', {'err': e.message})
 
-            try:
-                with self.objstore as session:
-                    if path in session.get_list('storagevolume'):
-                        used_by = session.get('storagevolume', path)['used_by']
-                        used_by.remove(name)
-                        session.store('storagevolume', path,
-                                      {'used_by': used_by},
-                                      get_kimchi_version())
-            except Exception as e:
-                raise OperationFailed('KCHVOL0017E', {'err': e.message})
-
         try:
             with self.objstore as session:
                 session.delete('vm', dom.UUIDString(), ignore_missing=True)
