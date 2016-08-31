@@ -1,0 +1,74 @@
+13:00:42 <alinefm> #startmeeting
+13:00:42 <kimchi-bot> Meeting started Wed Aug 31 13:00:42 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:00:42 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:00:42 <alinefm> #meetingname scrum
+13:00:42 <kimchi-bot> The meeting name has been set to 'scrum'
+13:00:55 <alinefm> #info Agenda
+13:00:55 <alinefm> #info 1) Status
+13:00:55 <alinefm> #info 2) Open discussion
+13:00:55 <alinefm> anything else?
+13:03:02 <lcorreia> no
+13:04:09 <bianca> no
+13:04:20 <alinefm> #topic Status
+13:04:20 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+13:04:33 <alinefm> #info [Kimchi] Reviewed/Tested patch
+13:04:34 <alinefm> #info [Kimchi] socorro Working on github issue# 979
+13:04:34 <alinefm> #info [Kimchi] socorro Need to address suggestion for issue# 973
+13:05:07 <alinefm> #info [Wok][Kimchi][Ginger*] Reviewed and applied patches
+13:05:12 <alinefm> #info [Wok][Kimchi][Ginger*] alinefm Reviewed and applied patches
+13:05:36 <bianca> #info [Kimchi] bianca submitted a patch corrections to issue #860 - Support Guest Autostart, waiting review.
+13:05:37 <bianca> #info [Kimchi] bianca submitted a patch to issue #626 - Snapshot revert does not release storage volume. Also correcting some erros in the code to send another version to be reviewed.
+13:05:37 <bianca> #info [Kimchi] bianca is back to work on patch related to Issue #585: 'make clean' does not revert its changes from 'make rpm', investigating why make rpm is changing files when is not supposed to do it.
+13:05:55 <peterpennings> #info [Ginger] peterpennings is working on Redesign Swap Devices UI
+13:06:14 <lcorreia> #info [wok] lcorreia working on V2 patches for Wok issue #141
+13:06:14 <lcorreia> #info [wok] lcorreia working to fix plugin uri lookup for user log
+13:06:14 <lcorreia> #info [ginger*] lcorreia starting Ginger mainternership during Daniel vacations
+13:06:44 <pvital> #info [Wok] [Kimchi] [Ginger*] pvital reviewed patches
+13:06:44 <pvital> #info [Wok] pvital worked in issue #122 - Make AsyncTask stoppable
+13:06:44 <pvital> #info [Wok] pvital worked in issue #158 - Move AsyncTask information to memory
+13:06:44 <pvital> #info [Kimchi, Ginger, Gingerbase, Gingers390x] pvital worked on patch "Update usage of add_task() method." after Wok changes
+13:06:44 <pvital> #info [Kimchi] pvital helped users in issue #989 - Bad Gateway on Ubuntu 16.04
+13:06:46 <pvital> #info [Kimchi] pvital helped users in issue #990 - Details: unsupported configuration: Memory cgroup is not available on this host
+13:07:47 <pvital> #info [Kimchi] pvital is working in issue #733 - Kimchi doesn't allow for proxying to URL like ip:port/arbitrary/path/
+13:10:07 <alinefm> ramonn, anything else to share?
+13:10:18 <alinefm> peterpennings, do you have any update from samuel to share?
+13:11:52 <peterpennings> alinefm, I know he sent some patchs about paused guests and about the icon on template isos. I dont know exactly what he is working right now, he has not arrived yet
+13:12:41 <alinefm> peterpennings,  ok - np
+13:14:25 <alinefm> moving on....
+13:14:31 <alinefm> #topic Open Discussion
+13:15:18 <alinefm> #info Code freeze for 2.3 releases is planned to be this week - today or Friday depending the amount of patches pending in the ML
+13:15:31 <alinefm> any question related to that?
+13:15:51 <pvital> yes
+13:16:05 <pvital> when will you commit my patch?
+13:16:06 <pvital> :-P
+13:17:00 <alinefm> hehehe
+13:17:09 <alinefm> not sure, I need to review it first
+13:17:10 <alinefm> =)
+13:17:40 <alinefm> my plans is to apply all the patches pending on ML today
+13:18:05 <alinefm> so if needed, the code freeze will be postponed to Friday to the people can apply reviews if needed
+13:18:45 <pvital> alinefm, lcorreia has already reviewed, so, you can trust him
+13:18:50 <pvital> :-)
+13:19:10 <lcorreia> :)
+13:19:11 <alinefm> pvital, lcorreia has interests in it so...
+13:19:12 <alinefm> heheheh
+13:19:18 <pvital> LOL
+13:20:41 <lcorreia> alinefm, not in that one
+13:21:01 <alinefm> hehehe
+13:21:06 <alinefm> just kidding...
+13:21:12 <alinefm> any other topic for today?
+13:22:26 <lcorreia> I would like to ask all the team to help me on Ginger* reviews during Daniel absence
+13:23:22 <pvital> lcorreia, what will I win with that?
+13:23:24 <alinefm> bianca, pvital ramonn socorro ^
+13:23:28 <pvital> :-P
+13:23:34 <alinefm> lcorreia, I will try my best there
+13:23:48 <lcorreia> pvital, hmmm experience of course
+13:24:26 <bianca> chocolates
+13:24:29 <bianca> :D
+13:24:48 <lcorreia> chocolate is fair
+13:25:44 <socorro> lcorreia, sure
+13:25:59 <lcorreia> tks team!
+13:26:11 <alinefm> =)
+13:26:23 <alinefm> if no one else has any topic we can end the meeting by now
+13:26:51 <lcorreia> ok
+13:28:17 <alinefm> thanks everyone for joining!
+13:28:20 <alinefm> #endmeeting

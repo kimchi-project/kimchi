@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:00:42</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:00:42</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Aug 31 13:00:42 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:00:42</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:00:42</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:00:42</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:00:55</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda</span>
+<a name="l-7"></a><span class="tm">13:00:55</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">1) Status</span>
+<a name="l-8"></a><span class="tm">13:00:55</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">2) Open discussion</span>
+<a name="l-9"></a><span class="tm">13:00:55</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-10"></a><span class="tm">13:03:02</span><span class="nk"> &lt;lcorreia&gt;</span> no
+<a name="l-11"></a><span class="tm">13:04:09</span><span class="nk"> &lt;bianca&gt;</span> no
+<a name="l-12"></a><span class="tm">13:04:20</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-13"></a><span class="tm">13:04:20</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info [&lt;project] &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-14"></a><span class="tm">13:04:33</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] Reviewed/Tested patch</span>
+<a name="l-15"></a><span class="tm">13:04:34</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] socorro Working on github issue# 979</span>
+<a name="l-16"></a><span class="tm">13:04:34</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] socorro Need to address suggestion for issue# 973</span>
+<a name="l-17"></a><span class="tm">13:05:07</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok][Kimchi][Ginger*] Reviewed and applied patches</span>
+<a name="l-18"></a><span class="tm">13:05:12</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok][Kimchi][Ginger*] alinefm Reviewed and applied patches</span>
+<a name="l-19"></a><span class="tm">13:05:36</span><span class="nk"> &lt;bianca&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] bianca submitted a patch corrections to issue #860 - Support Guest Autostart, waiting review.</span>
+<a name="l-20"></a><span class="tm">13:05:37</span><span class="nk"> &lt;bianca&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] bianca submitted a patch to issue #626 - Snapshot revert does not release storage volume. Also correcting some erros in the code to send another version to be reviewed.</span>
+<a name="l-21"></a><span class="tm">13:05:37</span><span class="nk"> &lt;bianca&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] bianca is back to work on patch related to Issue #585: 'make clean' does not revert its changes from 'make rpm', investigating why make rpm is changing files when is not supposed to do it.</span>
+<a name="l-22"></a><span class="tm">13:05:55</span><span class="nk"> &lt;peterpennings&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] peterpennings is working on Redesign Swap Devices UI</span>
+<a name="l-23"></a><span class="tm">13:06:14</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] lcorreia working on V2 patches for Wok issue #141</span>
+<a name="l-24"></a><span class="tm">13:06:14</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] lcorreia working to fix plugin uri lookup for user log</span>
+<a name="l-25"></a><span class="tm">13:06:14</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger*] lcorreia starting Ginger mainternership during Daniel vacations</span>
+<a name="l-26"></a><span class="tm">13:06:44</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] [Kimchi] [Ginger*] pvital reviewed patches</span>
+<a name="l-27"></a><span class="tm">13:06:44</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] pvital worked in issue #122 - Make AsyncTask stoppable</span>
+<a name="l-28"></a><span class="tm">13:06:44</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Wok] pvital worked in issue #158 - Move AsyncTask information to memory</span>
+<a name="l-29"></a><span class="tm">13:06:44</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi, Ginger, Gingerbase, Gingers390x] pvital worked on patch "Update usage of add_task() method." after Wok changes</span>
+<a name="l-30"></a><span class="tm">13:06:44</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] pvital helped users in issue #989 - Bad Gateway on Ubuntu 16.04</span>
+<a name="l-31"></a><span class="tm">13:06:46</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] pvital helped users in issue #990 - Details: unsupported configuration: Memory cgroup is not available on this host</span>
+<a name="l-32"></a><span class="tm">13:07:47</span><span class="nk"> &lt;pvital&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] pvital is working in issue #733 - Kimchi doesn't allow for proxying to URL like ip:port/arbitrary/path/</span>
+<a name="l-33"></a><span class="tm">13:10:07</span><span class="nk"> &lt;alinefm&gt;</span> ramonn, anything else to share?
+<a name="l-34"></a><span class="tm">13:10:18</span><span class="nk"> &lt;alinefm&gt;</span> peterpennings, do you have any update from samuel to share?
+<a name="l-35"></a><span class="tm">13:11:52</span><span class="nk"> &lt;peterpennings&gt;</span> alinefm, I know he sent some patchs about paused guests and about the icon on template isos. I dont know exactly what he is working right now, he has not arrived yet
+<a name="l-36"></a><span class="tm">13:12:41</span><span class="nk"> &lt;alinefm&gt;</span> peterpennings,  ok - np
+<a name="l-37"></a><span class="tm">13:14:25</span><span class="nk"> &lt;alinefm&gt;</span> moving on....
+<a name="l-38"></a><span class="tm">13:14:31</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-39"></a><span class="tm">13:15:18</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Code freeze for 2.3 releases is planned to be this week - today or Friday depending the amount of patches pending in the ML</span>
+<a name="l-40"></a><span class="tm">13:15:31</span><span class="nk"> &lt;alinefm&gt;</span> any question related to that?
+<a name="l-41"></a><span class="tm">13:15:51</span><span class="nk"> &lt;pvital&gt;</span> yes
+<a name="l-42"></a><span class="tm">13:16:05</span><span class="nk"> &lt;pvital&gt;</span> when will you commit my patch?
+<a name="l-43"></a><span class="tm">13:16:06</span><span class="nk"> &lt;pvital&gt;</span> :-P
+<a name="l-44"></a><span class="tm">13:17:00</span><span class="nk"> &lt;alinefm&gt;</span> hehehe
+<a name="l-45"></a><span class="tm">13:17:09</span><span class="nk"> &lt;alinefm&gt;</span> not sure, I need to review it first
+<a name="l-46"></a><span class="tm">13:17:10</span><span class="nk"> &lt;alinefm&gt;</span> =)
+<a name="l-47"></a><span class="tm">13:17:40</span><span class="nk"> &lt;alinefm&gt;</span> my plans is to apply all the patches pending on ML today
+<a name="l-48"></a><span class="tm">13:18:05</span><span class="nk"> &lt;alinefm&gt;</span> so if needed, the code freeze will be postponed to Friday to the people can apply reviews if needed
+<a name="l-49"></a><span class="tm">13:18:45</span><span class="nk"> &lt;pvital&gt;</span> alinefm, lcorreia has already reviewed, so, you can trust him
+<a name="l-50"></a><span class="tm">13:18:50</span><span class="nk"> &lt;pvital&gt;</span> :-)
+<a name="l-51"></a><span class="tm">13:19:10</span><span class="nk"> &lt;lcorreia&gt;</span> :)
+<a name="l-52"></a><span class="tm">13:19:11</span><span class="nk"> &lt;alinefm&gt;</span> pvital, lcorreia has interests in it so...
+<a name="l-53"></a><span class="tm">13:19:12</span><span class="nk"> &lt;alinefm&gt;</span> heheheh
+<a name="l-54"></a><span class="tm">13:19:18</span><span class="nk"> &lt;pvital&gt;</span> LOL
+<a name="l-55"></a><span class="tm">13:20:41</span><span class="nk"> &lt;lcorreia&gt;</span> alinefm, not in that one
+<a name="l-56"></a><span class="tm">13:21:01</span><span class="nk"> &lt;alinefm&gt;</span> hehehe
+<a name="l-57"></a><span class="tm">13:21:06</span><span class="nk"> &lt;alinefm&gt;</span> just kidding...
+<a name="l-58"></a><span class="tm">13:21:12</span><span class="nk"> &lt;alinefm&gt;</span> any other topic for today?
+<a name="l-59"></a><span class="tm">13:22:26</span><span class="nk"> &lt;lcorreia&gt;</span> I would like to ask all the team to help me on Ginger* reviews during Daniel absence
+<a name="l-60"></a><span class="tm">13:23:22</span><span class="nk"> &lt;pvital&gt;</span> lcorreia, what will I win with that?
+<a name="l-61"></a><span class="tm">13:23:24</span><span class="nk"> &lt;alinefm&gt;</span> bianca, pvital ramonn socorro ^
+<a name="l-62"></a><span class="tm">13:23:28</span><span class="nk"> &lt;pvital&gt;</span> :-P
+<a name="l-63"></a><span class="tm">13:23:34</span><span class="nk"> &lt;alinefm&gt;</span> lcorreia, I will try my best there
+<a name="l-64"></a><span class="tm">13:23:48</span><span class="nk"> &lt;lcorreia&gt;</span> pvital, hmmm experience of course
+<a name="l-65"></a><span class="tm">13:24:26</span><span class="nk"> &lt;bianca&gt;</span> chocolates
+<a name="l-66"></a><span class="tm">13:24:29</span><span class="nk"> &lt;bianca&gt;</span> :D
+<a name="l-67"></a><span class="tm">13:24:48</span><span class="nk"> &lt;lcorreia&gt;</span> chocolate is fair
+<a name="l-68"></a><span class="tm">13:25:44</span><span class="nk"> &lt;socorro&gt;</span> lcorreia, sure
+<a name="l-69"></a><span class="tm">13:25:59</span><span class="nk"> &lt;lcorreia&gt;</span> tks team!
+<a name="l-70"></a><span class="tm">13:26:11</span><span class="nk"> &lt;alinefm&gt;</span> =)
+<a name="l-71"></a><span class="tm">13:26:23</span><span class="nk"> &lt;alinefm&gt;</span> if no one else has any topic we can end the meeting by now
+<a name="l-72"></a><span class="tm">13:26:51</span><span class="nk"> &lt;lcorreia&gt;</span> ok
+<a name="l-73"></a><span class="tm">13:28:17</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining!
+<a name="l-74"></a><span class="tm">13:28:20</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
