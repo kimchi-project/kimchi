@@ -166,6 +166,7 @@ server.
         * passwdValidTo *(optional)*: lifetime for the console password. When
                                       omitted the password will be valid just
                                       for 30 seconds.
+        * type *(optional)*: graphics type. VNC or Spice.
     * cpu_info *(optional)*: CPU-specific information.
         * maxvcpus *(optional)*: The maximum number of vCPUs that can be
               assigned to the VM. If topology is specified, maxvcpus must be a

@@ -291,6 +291,12 @@ class VMModel(object):
 
             # GRAPHICS can be updated offline or online
             if 'graphics' in params:
+
+                # some parameters cannot change while vm is running
+                if DOM_STATE_MAP[dom.info()[0]] != 'shutoff':
+                    if 'type' in params['graphics']:
+                        raise InvalidParameter('KCHVM0074E',
+                                               {'params': 'graphics type'})
                 dom = self._update_graphics(dom, params)
 
             # Live updates
@@ -701,6 +707,10 @@ class VMModel(object):
             expire_time = time.gmtime(time.time() + float(expire))
             valid_to = time.strftime('%Y-%m-%dT%H:%M:%S', expire_time)
             graphics.attrib['passwdValidTo'] = valid_to
+
+        gtype = params['graphics'].get('type')
+        if gtype is not None:
+            graphics.attrib['type'] = gtype
 
         conn = self.conn.get()
         if not dom.isActive():
