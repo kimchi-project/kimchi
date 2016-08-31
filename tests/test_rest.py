@@ -301,6 +301,16 @@ class RestTests(unittest.TestCase):
         resp = self.request('/plugins/kimchi/vms/∨м-црdαtеd', req, 'PUT')
         self.assertEquals(400, resp.status)
 
+        # change vm graphics type
+        req = json.dumps({"graphics": {"type": "spice"}})
+        resp = self.request('/plugins/kimchi/vms/∨м-црdαtеd', req, 'PUT')
+        self.assertEquals(json.loads(resp.read())["graphics"]["type"], "spice")
+
+        # try to add a invalid type
+        req = json.dumps({"graphics": {"type": "test"}})
+        resp = self.request('/plugins/kimchi/vms/∨м-црdαtеd', req, 'PUT')
+        self.assertEquals(400, resp.status)
+
     def test_vm_lifecycle(self):
         # Create a Template
         req = json.dumps({'name': 'test',

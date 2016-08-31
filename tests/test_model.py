@@ -325,25 +325,21 @@ class ModelTests(unittest.TestCase):
                   'source_media': {'type': 'disk', 'path': UBUNTU_ISO}}
         inst.templates_create(params)
         with RollbackContext() as rollback:
-            params = {'name': 'kimchi-vnc',
+            params = {'name': 'kimchi-graphics',
                       'template': '/plugins/kimchi/templates/test'}
             task1 = inst.vms_create(params)
             inst.task_wait(task1['id'])
-            rollback.prependDefer(inst.vm_delete, 'kimchi-vnc')
+            rollback.prependDefer(inst.vm_delete, 'kimchi-graphics')
 
-            info = inst.vm_lookup('kimchi-vnc')
+            info = inst.vm_lookup('kimchi-graphics')
             self.assertEquals('vnc', info['graphics']['type'])
             self.assertEquals('127.0.0.1', info['graphics']['listen'])
 
-            graphics = {'type': 'spice', 'listen': '127.0.0.1'}
-            params = {'name': 'kimchi-spice',
-                      'template': '/plugins/kimchi/templates/test',
-                      'graphics': graphics}
-            task2 = inst.vms_create(params)
-            inst.task_wait(task2['id'])
-            rollback.prependDefer(inst.vm_delete, 'kimchi-spice')
+            graphics = {'type': 'spice'}
+            params = {'graphics': graphics}
+            inst.vm_update('kimchi-graphics', params)
 
-            info = inst.vm_lookup('kimchi-spice')
+            info = inst.vm_lookup('kimchi-graphics')
             self.assertEquals('spice', info['graphics']['type'])
             self.assertEquals('127.0.0.1', info['graphics']['listen'])
 
