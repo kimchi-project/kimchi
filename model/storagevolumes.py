@@ -40,7 +40,6 @@ from wok.plugins.kimchi.config import READONLY_POOL_TYPE
 from wok.plugins.kimchi.isoinfo import IsoImage
 from wok.plugins.kimchi.kvmusertests import UserTests
 from wok.plugins.kimchi.model.diskutils import get_disk_used_by
-from wok.plugins.kimchi.model.diskutils import set_disk_used_by
 from wok.plugins.kimchi.model.storagepools import StoragePoolModel
 from wok.plugins.kimchi.utils import get_next_clone_name
 
@@ -163,9 +162,7 @@ class StorageVolumesModel(object):
         vol_info = StorageVolumeModel(conn=self.conn,
                                       objstore=self.objstore).lookup(pool_name,
                                                                      name)
-
         vol_path = vol_info['path']
-        set_disk_used_by(self.objstore, vol_info['path'], [])
 
         if params.get('upload', False):
             upload_volumes[vol_path] = {'lock': threading.Lock(),
@@ -251,11 +248,6 @@ class StorageVolumesModel(object):
             finally:
                 os.remove(file_path)
 
-        vol_info = StorageVolumeModel(conn=self.conn,
-                                      objstore=self.objstore).lookup(pool_name,
-                                                                     name)
-        set_disk_used_by(self.objstore, vol_info['path'], [])
-
         cb('OK', True)
 
     def get_list(self, pool_name):
@@ -335,7 +327,7 @@ class StorageVolumeModel(object):
             except UnicodeDecodeError:
                 isvalid = False
 
-        used_by = get_disk_used_by(self.objstore, self.conn, path)
+        used_by = get_disk_used_by(self.conn, path)
         if (self.libvirt_user is None):
             self.libvirt_user = UserTests().probe_user()
         ret, _ = probe_file_permission_as_user(path, self.libvirt_user)
@@ -493,9 +485,7 @@ class StorageVolumeModel(object):
                                    'pool': orig_pool_name,
                                    'err': e.get_error_message()})
 
-        new_vol = self.lookup(new_pool_name, new_vol_name)
-        cb('adding volume to the object store')
-        set_disk_used_by(self.objstore, new_vol['path'], [])
+        self.lookup(new_pool_name, new_vol_name)
 
         cb('OK', True)
 

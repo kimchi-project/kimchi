@@ -26,7 +26,6 @@ from wok.utils import wok_log
 
 from wok.plugins.kimchi.model.config import CapabilitiesModel
 from wok.plugins.kimchi.model.diskutils import get_disk_used_by
-from wok.plugins.kimchi.model.diskutils import set_disk_used_by
 from wok.plugins.kimchi.model.storagevolumes import StorageVolumeModel
 from wok.plugins.kimchi.model.utils import get_vm_config_flag
 from wok.plugins.kimchi.model.vms import DOM_STATE_MAP, VMModel
@@ -151,7 +150,6 @@ class VMStoragesModel(object):
         if params.get('vol'):
             used_by = vol_info['used_by']
             used_by.append(vm_name)
-            set_disk_used_by(self.objstore, params['path'], used_by)
 
         return dev
 
@@ -191,7 +189,7 @@ class VMStorageModel(object):
             #   in the obj store, its ref count would have been updated
             #   by get_disk_used_by()
             if path is not None:
-                used_by = get_disk_used_by(self.objstore, self.conn, path)
+                used_by = get_disk_used_by(self.conn, path)
             else:
                 wok_log.error("Unable to decrement volume used_by on"
                               " delete because no path could be found.")
@@ -202,7 +200,6 @@ class VMStorageModel(object):
 
         if used_by is not None and vm_name in used_by:
             used_by.remove(vm_name)
-            set_disk_used_by(self.objstore, path, used_by)
         else:
             wok_log.error("Unable to update %s:%s used_by on delete."
                           % (vm_name, dev_name))
@@ -223,11 +220,9 @@ class VMStorageModel(object):
         if new_disk_path != old_disk_path:
             # An empty path means a CD-ROM was empty or ejected:
             if old_disk_path is not '':
-                old_disk_used_by = get_disk_used_by(
-                    self.objstore, self.conn, old_disk_path)
+                old_disk_used_by = get_disk_used_by(self.conn, old_disk_path)
             if new_disk_path is not '':
-                new_disk_used_by = get_disk_used_by(
-                    self.objstore, self.conn, new_disk_path)
+                new_disk_used_by = get_disk_used_by(self.conn, new_disk_path)
 
         dev_info.update(params)
         dev, xml = get_disk_xml(dev_info)
@@ -241,12 +236,8 @@ class VMStorageModel(object):
             if old_disk_used_by is not None and \
                vm_name in old_disk_used_by:
                 old_disk_used_by.remove(vm_name)
-                set_disk_used_by(self.objstore, old_disk_path,
-                                 old_disk_used_by)
             if new_disk_used_by is not None:
                 new_disk_used_by.append(vm_name)
-                set_disk_used_by(self.objstore, new_disk_path,
-                                 new_disk_used_by)
         except Exception as e:
             wok_log.error("Unable to update dev used_by on update due to"
                           " %s:" % e.message)
