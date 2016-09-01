@@ -46,6 +46,10 @@
     }
 }
 
+#wok-confirm-modal .modal-body strong {
+    border-bottom: 1px dotted;
+}
+
 #guest-add-window {
     .modal-body {
         margin: 0;

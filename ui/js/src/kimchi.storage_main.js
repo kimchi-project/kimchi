@@ -310,14 +310,15 @@ kimchi.storageBindClick = function() {
         $('.pool-delete').on('click', function(event) {
             event.preventDefault();
             var $pool = $(this);
+            var poolName = $pool.data('name');
+            var confirmMessage = i18n['KCHPOOL6001M'].replace('%1', '<strong>'+poolName+'</strong>');
             var settings = {
                 title : i18n['KCHAPI6001M'],
-                content : i18n['KCHPOOL6001M'],
+                content : confirmMessage,
                 confirm : i18n['KCHAPI6002M'],
                 cancel : i18n['KCHAPI6003M']
             };
             wok.confirm(settings, function() {
-                var poolName = $pool.data('name');
                 kimchi.deleteStoragePool(poolName, function() {
                     kimchi.doListStoragePools();
                 }, function(err) {
@@ -339,9 +340,10 @@ kimchi.storageBindClick = function() {
         $('.pool-deactivate').on('click', function(event) {
             event.preventDefault();
             var poolName = $(this).data('name');
+            var confirmMessage = i18n['KCHPOOL6012M'].replace('%1', '<strong>'+poolName+'</strong>');
             var settings = {
                 title : i18n['KCHAPI6001M'],
-                content : i18n['KCHPOOL6012M'],
+                content : confirmMessage,
                 confirm : i18n['KCHAPI6002M'],
                 cancel : i18n['KCHAPI6003M']
             };

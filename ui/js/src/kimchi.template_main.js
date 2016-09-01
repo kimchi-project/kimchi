@@ -124,14 +124,15 @@ kimchi.templateBindClick = function() {
     $('.template-delete a').on('click', function(event) {
         event.preventDefault();
         var $template = $(this);
+        var templateName = $template.data('template');
+        var confirmMessage = i18n['KCHTMPL6003M'].replace('%1', '<strong>'+templateName+'</strong>');
         var settings = {
             title: i18n['KCHAPI6001M'],
-            content: i18n['KCHTMPL6003M'],
+            content: confirmMessage,
             confirm: i18n['KCHAPI6002M'],
             cancel: i18n['KCHAPI6003M']
         };
         wok.confirm(settings, function() {
-            var templateName = $template.data('template');
             kimchi.deleteTemplate(templateName, function() {
                 kimchi.doListTemplates();
             }, function(err) {

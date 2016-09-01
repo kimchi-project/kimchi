@@ -127,8 +127,9 @@ kimchi.vmpoweroff = function(event) {
         var vm_id = vm.attr("id");
         var vmObject = vm.data();
         var vm_persistent = vmObject.persistent == true;
-        var content_msg = vm_persistent ? i18n['KCHVM6003M'] :
-            i18n['KCHVM6009M'];
+        var content_msg_1 = i18n['KCHVM6003M'].replace('%1', '<strong>'+vm_id+'</strong>');
+        var content_msg_2 = i18n['KCHVM6009M'].replace('%1', '<strong>'+vm_id+'</strong>');
+        var content_msg = vm_persistent ? content_msg_1 : content_msg_2;
         var settings = {
             title: i18n['KCHVM6002M'],
             content: content_msg,
@@ -153,9 +154,10 @@ kimchi.vmshutdown = function(event) {
     var button = event.target;
     var vm = $(button).closest('li[name=guest]');
     var vm_id = vm.attr("id");
+    var confirmMessage = i18n['KCHVM6007M'].replace('%1', '<strong>'+vm_id+'</strong>');
     var settings = {
         title: i18n['KCHVM6006M'],
-        content: i18n['KCHVM6007M'],
+        content: confirmMessage,
         confirm: i18n['KCHAPI6002M'],
         cancel: i18n['KCHAPI6003M']
     };
@@ -174,9 +176,10 @@ kimchi.vmreset = function(event) {
         $(button).addClass('loading');
         var vm = $(button).closest('li[name=guest]');
         var vm_id = $(vm).attr("id");
+        var confirmMessage = i18n['KCHVM6005M'].replace('%1', '<strong>'+vm_id+'</strong>');
         var settings = {
             title: i18n['KCHVM6004M'],
-            content: i18n['KCHVM6005M'],
+            content: confirmMessage,
             confirm: i18n['KCHAPI6002M'],
             cancel: i18n['KCHAPI6003M']
         };
@@ -204,9 +207,10 @@ kimchi.vmdelete = function(event) {
     var button = event.target;
     var vm = $(button).closest('li[name=guest]');
     var vm_id = $(vm).attr("id");
+    var confirmMessage = i18n['KCHVM6001M'].replace('%1', '<strong>'+vm_id+'</strong>');
     var settings = {
         title: i18n['KCHVM6008M'],
-        content: i18n['KCHVM6001M'],
+        content: confirmMessage,
         confirm: i18n['KCHAPI6002M'],
         cancel: i18n['KCHAPI6003M']
     };
