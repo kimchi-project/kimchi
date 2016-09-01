@@ -368,8 +368,12 @@ Represents all network interfaces attached to a Virtual Machine.
             When model is missing, libvirt will set 'rtl8139' as default value.
     * network *(optional)*: the name of resource network, it is required when the
               interface type is network.
+    * source: *Only valid for s390x architecture & only applicable for type macvtap or ovs*. The host network interface. It should be the host network interface name (Ethernet, Bond, VLAN) for type 'macvtap' or host openvswitch bridge interface name for type 'ovs'.
     * type: The type of VM network interface that libvirt supports.
-            Now kimchi just supports 'network' type.
+            Kimchi supports 'network' type for architecture other than s390x/s390. For s390x/s390 ’macvtap’ or ‘ovs’ are additionally supported. Type should be 'macvtap' for host network interface (Ethernet, Bond, VLAN) to be connected as direct MacVTap; or 'ovs' for openvswitch host network interface to be connected as virtual switch to a VM.
+    * mode *(optional)*: *Only valid for s390x architecture & only applicable for type macvtap*. Supported values ’bridge’ or ‘vepa’. This indicates whether packets will be delivered directly to target device(bridge) or to the external bridge(vepa-capable bridge).
+              * bridge: If packets have a destination on the host from which they originated, they are delivered directly to the target. For direct delivery, both origin and destination devices need to be in bridge mode. If either the origin or destination is in vepa mode, VEPA-capable bridge is required.
+              * vepa: All packets are sent to the external bridge. If packets have a destination on the host from which they originated, the VEPA-capable bridge will return the packets to the host.
 
 ### Sub-Resource: Virtual Machine Network Interface
 
@@ -388,9 +392,14 @@ A interface represents available network interface on VM.
              ne2k_pci, i82551, i82557b, i82559er, rtl8139, e1000, pcnet and virtio.
     * network *(optional)*: the name of resource network, only be available when the
               interface type is network.
+    * source *(optional)*: *Only valid for s390x architecture & only applicable for type macvtap or ovs*. The host network interface. It should be the host network interface name (Ethernet, Bond, VLAN) for type 'macvtap' or host openvswitch bridge interface name for type 'ovs'.
     * type: The type of VM network interface that libvirt supports.
             It will be one of these types: 'network', 'bridge', 'user','ethernet',
-            'direct', 'hostdev', 'mcast', 'server' and 'client'.
+            'direct', 'hostdev', 'mcast', 'server' and 'client' for architecture other than s390x/s390.
+            For s390x/s390 additional type supported are 'macvtap', 'ovs'. Type should be 'macvtap' for host network interface (Ethernet, Bond, VLAN) to be connected as direct MacVTap; or 'ovs' for openvswitch host network interface to be connected as virtual switch to a VM.
+    * mode *(optional)*: *Only valid for s390x architecture & only applicable for type macvtap*. Supported values ’bridge’ or ‘vepa’. This indicates whether packets will be delivered directly to target device(bridge) or to the external bridge(vepa-capable bridge).
+              * bridge: If packets have a destination on the host from which they originated, they are delivered directly to the target. For direct delivery, both origin and destination devices need to be in bridge mode. If either the origin or destination is in vepa mode, VEPA-capable bridge is required.
+              * vepa: All packets are sent to the external bridge. If packets have a destination on the host from which they originated, the VEPA-capable bridge will return the packets to the host.
 
 * **DELETE**: detach the network interface from VM
 
@@ -401,6 +410,7 @@ A interface represents available network interface on VM.
     * network *(optional)*: the name of resource network, only be available when the
               interface type is network.
               This change is on the active VM instance and persisted VM configuration.
+
 
 **Actions (POST):**
 
