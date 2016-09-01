@@ -161,9 +161,10 @@ kimchi.addNetworkActions = function(network) {
                 return false;
             }
             if (!network.persistent) {
+                var confirmMessage = i18n['KCHNET6004M'].replace('%1', '<strong>'+network.name+'</strong>');
                 var settings = {
                     title : i18n['KCHAPI6001M'],
-                    content : i18n['KCHNET6004M'],
+                    content : confirmMessage,
                     confirm : i18n['KCHAPI6002M'],
                     cancel : i18n['KCHAPI6003M']
                 };
@@ -180,9 +181,10 @@ kimchi.addNetworkActions = function(network) {
             if (network.state === "up" || network.in_use) {
                 return false;
             }
+            var confirmMessage = i18n['KCHNET6002M'].replace('%1', '<strong>'+network.name+'</strong>');
             wok.confirm({
                 title : i18n['KCHAPI6006M'],
-                content : i18n['KCHNET6002M'],
+                content : confirmMessage,
                 confirm : i18n['KCHAPI6002M'],
                 cancel : i18n['KCHAPI6003M']
             }, function() {
