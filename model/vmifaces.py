@@ -18,6 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import libvirt
+import os
 import random
 from lxml import etree, objectify
 
@@ -42,8 +43,6 @@ class VMIfacesModel(object):
 
     def create(self, vm, params):
         conn = self.conn.get()
-        networks = conn.listNetworks() + conn.listDefinedNetworks()
-        networks = map(lambda x: x.decode('utf-8'), networks)
 
         if params['type'] == 'network':
             network = params.get("network")
@@ -51,9 +50,41 @@ class VMIfacesModel(object):
             if network is None:
                 raise MissingParameter('KCHVMIF0007E')
 
+            networks = conn.listNetworks() + conn.listDefinedNetworks()
+            networks = map(lambda x: x.decode('utf-8'), networks)
+
             if network not in networks:
                 raise InvalidParameter('KCHVMIF0002E',
                                        {'name': vm, 'network': network})
+
+        # For architecture other than s390x/s390 type ovs/macvtap
+        # and source interface are not supported.
+        if os.uname()[4] not in ['s390x', 's390']:
+            if params['type'] in ['ovs', 'macvtap']:
+                raise InvalidParameter('KCHVMIF0012E')
+            if params.get('source'):
+                raise InvalidParameter('KCHVMIF0013E')
+
+        # For s390x/s390 architecture
+        if os.uname()[4] in ['s390x', 's390']:
+            params['name'] = params.get("source", None)
+
+            # For type ovs and mavtap, source interface has to be provided.
+            if params['name'] is None and params['type'] in ['ovs', 'macvtap']:
+                raise InvalidParameter('KCHVMIF0015E')
+            # If source interface provided, only type supported are ovs
+            # and mavtap.
+            if params['name'] is not None and \
+               params['type'] not in ['ovs', 'macvtap']:
+                raise InvalidParameter('KCHVMIF0014E')
+
+            # FIXME: Validation if source interface exists.
+            if params['type'] == 'macvtap':
+                params['type'] = 'direct'
+                params['mode'] = params.get('mode', None)
+            elif params['type'] == 'ovs':
+                params['type'] = 'bridge'
+                params['virtualport_type'] = 'openvswitch'
 
         macs = (iface.mac.get('address')
                 for iface in self.get_vmifaces(vm, self.conn))
@@ -83,7 +114,6 @@ class VMIfacesModel(object):
             flags |= libvirt.VIR_DOMAIN_AFFECT_CONFIG
         if DOM_STATE_MAP[dom.info()[0]] != "shutoff":
             flags |= libvirt.VIR_DOMAIN_AFFECT_LIVE
-
         dom.attachDeviceFlags(xml, flags)
 
         return params['mac']
@@ -126,13 +156,29 @@ class VMIfaceModel(object):
 
         info['type'] = iface.attrib['type']
         info['mac'] = iface.mac.get('address')
-        info['network'] = iface.source.get('network')
+
+        if iface.find('virtualport') is not None:
+            info['virtualport'] = iface.virtualport.get('type')
+
+        if info['type'] == 'direct':
+            info['source'] = iface.source.get('dev')
+            info['mode'] = iface.source.get('mode')
+            info['type'] = 'macvtap'
+        elif (info['type'] == 'bridge' and
+              info.get('virtualport') == 'openvswitch'):
+            info['source'] = iface.source.get('bridge')
+            info['type'] = 'ovs'
+        else:
+            info['network'] = iface.source.get('network')
+
         if iface.find("model") is not None:
             info['model'] = iface.model.get('type')
-        if info['type'] == 'bridge':
+        if info['type'] == 'bridge' and \
+           info.get('virtualport') != 'openvswitch':
             info['bridge'] = iface.source.get('bridge')
-        info['ips'] = self._get_ips(vm, info['mac'], info['network'])
-
+        if info.get('network'):
+            info['ips'] = self._get_ips(vm, info['mac'], info['network'])
+        info.pop('virtualport', None)
         return info
 
     def _get_ips(self, vm, mac, network):

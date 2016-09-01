@@ -511,17 +511,27 @@
             "error": "KCHVMIF0007E",
             "properties": {
                 "type": {
-                    "description": "The type of VM network interface that libvirt supports",
+                    "description": "The type of VM network interface that libvirt supports. Type 'macvtap' for host network interface (Ethernet, Bond, VLAN) to be connected as direct MacVTap or 'ovs' for openvswitch host network interface to be connected as virtual switch to a VM or 'network' for libvirt virtual network to be connected to VM. ",
                     "type": "string",
-                    "pattern": "^network$",
+                    "pattern": "^network|macvtap|ovs$",
                     "required": true,
                     "error": "KCHVMIF0004E"
                 },
                 "network": {
                     "description": "the name of one available network",
-                    "minLength": 1,
                     "type": "string",
                     "error": "KCHVMIF0005E"
+                },
+                "source": {
+                    "description": "The host network interface name. It should be name of host network interface(Ethernet, Bond, VLAN) for type 'macvtap' and name of host openvswitch bridge interface for type ovs",
+                    "type": "string",
+                    "error": "KCHVMIF0016E"
+                },
+                "mode": {
+                    "description": "Only applicable for macvtap ifaces type. That indicates whether packets will be delivered directly to target device (bridge) or to the external bridge (vepa-capable bridge)",
+                    "type": "string",
+                    "pattern": "^bridge|vepa$",
+                    "error": "KCHVMIF0017E"
                 },
                 "model": {
                     "description": "model of emulated network interface card",

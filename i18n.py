@@ -151,7 +151,7 @@ messages = {
 
     "KCHVMIF0001E": _("Interface %(iface)s does not exist in virtual machine %(name)s"),
     "KCHVMIF0002E": _("Network %(network)s specified for virtual machine %(name)s does not exist"),
-    "KCHVMIF0004E": _("Supported virtual machine interfaces type is only network"),
+    "KCHVMIF0004E": _("Supported virtual machine interfaces type are network, ovs and macvtap.Type ovs and macvtap are only supported for s390x/s390 architecture."),
     "KCHVMIF0005E": _("Network name for virtual machine interface must be a string"),
     "KCHVMIF0006E": _("Invalid network model card specified for virtual machine interface"),
     "KCHVMIF0007E": _("Specify type and network to add a new virtual machine interface"),
@@ -159,6 +159,13 @@ messages = {
     "KCHVMIF0009E": _("MAC Address %(mac)s already exists in virtual machine %(name)s"),
     "KCHVMIF0010E": _("Invalid MAC Address"),
     "KCHVMIF0011E": _("Cannot change MAC address of a running virtual machine"),
+    "KCHVMIF0012E": _("Type macvtap and ovs are only supported on s390x/s390 architecture."),
+    "KCHVMIF0013E": _("Source attribute is only supported on s390x/s390 architecture."),
+    "KCHVMIF0014E": _("If source is provided, only type supported are macvtap and ovs."),
+    "KCHVMIF0015E": _("For type macvtap and ovs, source has to be provided"),
+    "KCHVMIF0016E": _("Source name for virtual machine interface must be string"),
+    "KCHVMIF0017E": _("Invalid source mode. Valid options are: bridge or vepa."),
+
 
     "KCHTMPL0001E": _("Template %(name)s already exists"),
     "KCHTMPL0002E": _("Source media %(path)s not found"),
