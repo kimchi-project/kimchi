@@ -89,7 +89,34 @@
             },
             "additionalProperties": false,
             "error": "KCHTMPL0030E"
-        }
+        },
+        "interface": {
+             "description": "Host network interface. This indicates how to configure the host network interface (Ethernet, Bond, VLAN) as direct macvtap or as OVS interface to a VM.",
+             "type": "object",
+             "properties": {
+                   "type": {
+                       "description": "Host network interface type. Valid types are: 'macvtap' for host network interface (Ethernet, Bond, VLAN) to be connected as direct MacVTap or 'ovs' for openvswitch host network interface to be connected as virtual switch to a VM.",
+                       "type": "string",
+                       "pattern":  "^(macvtap|ovs)$",
+                       "required": "True",
+                       "error": "KCHTMPL0034E"
+                    },
+                   "name": {
+                       "description": "The host network interface name. It should be name of host network interface(Ethernet, Bond, VLAN) for type 'macvtap' and name of host openvswitch bridge interface for type ovs",
+                       "type": "string",
+                       "required": "True",
+                       "error": "KCHTMPL0035E"
+                    },
+                   "mode": {
+                       "description": "Only applicable for macvtap interface type. That indicates whether packets will be delivered directly to target device (bridge) or to the external bridge (vepa-capable bridge).",
+                       "type": "string",
+                       "pattern":  "^(bridge|vepa)$",
+                       "error": "KCHTMPL0036E"
+                    }
+             },
+            "additionalProperties": false,
+            "error": "KCHTMPL0038E"
+       }
     },
     "properties": {
         "storagepools_create": {
@@ -616,6 +643,12 @@
                     "items": { "type": "string" },
                     "error": "KCHTMPL0017E"
                 },
+                "interfaces": {
+                    "description": "list of host interfaces to be assigned to new VM",
+                    "type": "array",
+                    "items": { "ref": "#/kimchitype/interface"},
+                    "error": "KCHTMPL0037E"
+                },
                 "folder": {
                     "description": "Folder",
                     "type": "array",
@@ -782,6 +815,12 @@
                     "type": "array",
                     "items": { "type": "string" },
                     "error": "KCHTMPL0017E"
+                },
+                "interfaces": {
+                    "description": "list of host interfaces to be assigned to new VM",
+                    "type": "array",
+                    "items": { "ref": "#/kimchitype/interface"},
+                    "error": "KCHTMPL0037E"
                 },
                 "folder": {
                     "description": "Folder",

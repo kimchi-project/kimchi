@@ -61,6 +61,9 @@ class TemplatesModel(object):
             except Exception:
                 raise InvalidParameter("KCHTMPL0003E", {'network': net_name,
                                                         'template': name})
+        # Valid interfaces
+        interfaces = params.get('interfaces', [])
+        validate_interfaces(interfaces)
 
         # get source_media
         source_media = params.pop("source_media")
@@ -222,6 +225,10 @@ class TemplateModel(object):
     def update(self, name, params):
         edit_template = self.lookup(name)
 
+        # Valid interfaces
+        interfaces = params.get('interfaces', [])
+        validate_interfaces(interfaces)
+
         # Merge graphics settings
         graph_args = params.get('graphics')
         if graph_args:
@@ -271,6 +278,16 @@ class TemplateModel(object):
             raise OperationFailed('KCHTMPL0032E', {'err': e.message})
 
         return params['name']
+
+
+def validate_interfaces(interfaces):
+    #
+    # Interfaces only supported on s390x or s390 architecture.
+    # Otherwise FIXME to valid interfaces exist on system.
+    #
+    if os.uname()[4] not in ['s390x', 's390'] and interfaces:
+        raise InvalidParameter("KCHTMPL0039E")
+    # FIXME to valid interfaces on system.
 
 
 def validate_memory(memory):

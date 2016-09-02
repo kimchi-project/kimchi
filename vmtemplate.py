@@ -298,6 +298,24 @@ class VMTemplate(object):
                                       self.info['os_version'])
         return unicode(networks, 'utf-8')
 
+    def _get_interfaces_xml(self):
+        interfaces = ""
+        params = {'model': self.info['nic_model']}
+        for interface in self.info.get('interfaces', []):
+            typ = interface['type']
+            if typ == 'macvtap':
+                params['type'] = 'direct'
+                params['mode'] = interface.get('mode', None)
+            elif typ == 'ovs':
+                params['type'] = 'bridge'
+                params['virtualport_type'] = 'openvswitch'
+
+            params['name'] = interface['name']
+            interfaces += get_iface_xml(params, self.info['arch'],
+                                        self.info['os_distro'],
+                                        self.info['os_version'])
+        return unicode(interfaces, 'utf-8')
+
     def _get_input_output_xml(self):
         sound = """
             <sound model='%(sound_model)s' />
@@ -344,6 +362,7 @@ class VMTemplate(object):
         params['name'] = vm_name
         params['uuid'] = vm_uuid
         params['networks'] = self._get_networks_xml()
+        params['interfaces'] = self._get_interfaces_xml()
         params['input_output'] = self._get_input_output_xml()
         params['qemu-namespace'] = ''
         params['cdroms'] = ''
@@ -435,6 +454,7 @@ class VMTemplate(object):
             %(disks)s
             %(cdroms)s
             %(networks)s
+            %(interfaces)s
             %(graphics)s
             %(input_output)s
             %(serial)s

@@ -151,8 +151,9 @@ def _get_tmpl_defaults():
     tmpl_defaults = defaultdict(dict)
 
     host_arch = _get_arch()
-    if host_arch != 's390x':
-        tmpl_defaults['main']['networks'] = ['default']
+    tmpl_defaults['main']['networks'] = ['default']
+    if host_arch in ['s390x', 's390']:
+        tmpl_defaults['main']['networks'] = []
 
     tmpl_defaults['memory'] = {'current': _get_default_template_mem(),
                                'maxmemory': _get_default_template_mem()}
