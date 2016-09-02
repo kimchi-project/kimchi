@@ -428,6 +428,12 @@ A interface represents available network interface on VM.
     * cdrom: A volume name or URI to an ISO image
     * storagepool: URI of the storagepool where template allocates vm storage.
     * networks *(optional)*: list of networks will be assigned to the new VM.
+    * interfaces *(optional)*: list of host network interfaces will be assigned to the new VM. Only applicable for s390x or s390 architecture.
+        * type: Type of host network interface. Type should be 'macvtap' for host network interface (Ethernet, Bond, VLAN) to be connected as direct MacVTap; or 'ovs' for openvswitch host network interface to be connected as virtual switch to a VM.
+        * name: The host network interface. It should be the host network interface (Ethernet, Bond, VLAN) for type 'macvtap' or host openvswitch bridge interface for type 'ovs'.
+        * mode *(optional)*: Only applicable for interface type macvtap, to indicates whether packets will be delivered directly to target device(bridge) or to the external bridge(vepa-capable bridge).
+              * bridge: If packets have a destination on the host from which they originated, they are delivered directly to the target. For direct delivery, both origin and destination devices need to be in bridge mode. If either the origin or destination is in vepa mode, VEPA-capable bridge is required.
+              * vepa: All packets are sent to the external bridge. If packets have a destination on the host from which they originated, the VEPA-capable bridge will return the packets to the host.
     * disks: An array of requested disks with the following optional fields
       (either *size* or *volume* must be specified):
         * index: The device index
@@ -473,6 +479,12 @@ A interface represents available network interface on VM.
           over current will be used exclusively for memory hotplug
     * cdrom: A volume name or URI to an ISO image
     * networks *(optional)*: list of networks will be assigned to the new VM.
+    * interfaces *(optional)*: list of host network interfaces will be assigned to the new VM. Only applicable for s390x or s390 architecture.
+        * type: Type of host network interface. Type should be 'macvtap' for host network interface (Ethernet, Bond, VLAN) to be connected as direct MacVTap; or 'ovs' for openvswitch host network interface to be connected as virtual switch to a VM.
+        * name: The host network interface. It should be the host network interface (Ethernet, Bond, VLAN) for type 'macvtap' or host openvswitch bridge interface for type 'ovs'.
+        * mode *(optional)*: Only applicable for interface type macvtap, to indicates whether packets will be delivered directly to target device(bridge) or to the external bridge(vepa-capable bridge).
+              * bridge: If packets have a destination on the host from which they originated, they are delivered directly to the target. For direct delivery, both origin and destination devices need to be in bridge mode. If either the origin or destination is in vepa mode, VEPA-capable bridge is required.
+              * vepa: All packets are sent to the external bridge. If packets have a destination on the host from which they originated, the VEPA-capable bridge will return the packets to the host.
     * disks: An array of requested disks with the following optional fields
       (either *size* or *volume* must be specified):
         * index: The device index
