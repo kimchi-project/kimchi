@@ -1031,3 +1031,11 @@ List of available groups.
 
 * **GET**: Return the list of Kimchi peers in the same network
            (It uses openSLP for discovering)
+
+### Simple Collection: OVSBridges
+
+**URI:** /plugins/kimchi/ovsbridges
+
+**Methods:**
+
+* **GET**: Return list of OVS bridges of the host.
