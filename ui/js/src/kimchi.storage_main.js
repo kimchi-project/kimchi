@@ -312,6 +312,13 @@ kimchi.storageBindClick = function() {
             var $pool = $(this);
             var poolName = $pool.data('name');
             var confirmMessage = i18n['KCHPOOL6001M'].replace('%1', '<strong>'+poolName+'</strong>');
+            var in_use = $pool.data('inuse');
+            if ('active' === $pool.data('stat') || in_use) {
+                $pool.parent().addClass('disabled');
+                return false;
+            } else {
+                $pool.parent().removeClass('disabled');
+            }
             var settings = {
                 title : i18n['KCHAPI6001M'],
                 content : confirmMessage,
@@ -341,6 +348,14 @@ kimchi.storageBindClick = function() {
             event.preventDefault();
             var poolName = $(this).data('name');
             var confirmMessage = i18n['KCHPOOL6012M'].replace('%1', '<strong>'+poolName+'</strong>');
+            var $poolDeactivate = $(this);
+            var in_use = $poolDeactivate.data('inuse');
+            if (in_use) {
+                $poolDeactivate.parent().addClass('disabled');
+                return false;
+            } else {
+                $poolDeactivate.parent().removeClass('disabled');
+            }
             var settings = {
                 title : i18n['KCHAPI6001M'],
                 content : confirmMessage,
