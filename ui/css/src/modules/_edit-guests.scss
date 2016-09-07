@@ -48,7 +48,7 @@
     }
     #form-guest-edit-interface {
         .column-actions {
-            width: 23%;
+            width: 20%;
         }
     }
     #form-guest-edit-storage {
@@ -94,13 +94,16 @@
                 }
             }
             .cell.column-type {
-                width: 11.35%;
+                width: 18%;
+            }
+            .cell.column-mode {
+                width: 16%;
             }
             .cell.column-mac {
-                width: 14.5%;
+                width: 14%;
             }
             .cell.column-ip {
-                width: 31%;
+                width: 12%;
             }
             .cell.column-sel {
                 width: 1.77%;
@@ -201,6 +204,18 @@
 #guest-edit-window form .header .cell.column-network .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn),
 #guest-edit-window form .task .cell.column-network .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn),
 #guest-edit-window form .body .cell.column-network .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+  width: 180px;
+}
+
+#guest-edit-window form .header .cell.column-mode .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn),
+#guest-edit-window form .task .cell.column-mode .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn),
+#guest-edit-window form .body .cell.column-mode .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+  width: 160px;
+}
+
+#guest-edit-window form .header .cell.column-type .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn),
+#guest-edit-window form .task .cell.column-type .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn),
+#guest-edit-window form .body .cell.column-type .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
   width: 180px;
 }
 
