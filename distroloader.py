@@ -31,7 +31,8 @@ from wok.plugins.kimchi import config
 ARCHS = {'x86_64': ['x86_64', 'amd64', 'i686', 'x86', 'i386'],
          'amd64': ['x86_64', 'amd64', 'i686', 'x86', 'i386'],
          'ppc64': ['ppc', 'ppc64'],
-         'ppc64le': ['ppc64', 'ppc64le']}
+         'ppc64le': ['ppc64', 'ppc64le'],
+         's390x': ['s390', 's390x']}
 
 
 class DistroLoader(object):
