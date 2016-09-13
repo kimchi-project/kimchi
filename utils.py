@@ -24,6 +24,7 @@ import platform
 import re
 import sqlite3
 import time
+import os
 import urllib2
 from httplib import HTTPConnection, HTTPException
 from urlparse import urlparse
@@ -31,6 +32,7 @@ from urlparse import urlparse
 from wok.exception import InvalidParameter, OperationFailed
 from wok.plugins.kimchi import config
 from wok.plugins.kimchi.osinfo import get_template_default
+from wok.stringutils import encode_value
 from wok.utils import run_command, wok_log
 from wok.xmlutils.utils import xpath_get_text
 
@@ -272,3 +274,35 @@ def is_libvirtd_up():
 
     output, error, rc = run_command(cmd, silent=True)
     return True if output == 'active\n' else False
+
+
+def is_s390x():
+    """
+    Check if current arch is 's390x'
+    Returns:
+    """
+    if os.uname()[4] == 's390x':
+        return True
+
+    return False
+
+
+def create_disk_image(format_type, path, capacity):
+    """
+    Create a disk image for the Guest
+    Args:
+        format: Format of the storage. e.g. qcow2
+        path: Path where the virtual disk will be created
+        capacity: Capacity of the virtual disk in GBs
+
+    Returns:
+
+    """
+    out, err, rc = run_command(
+        ["/usr/bin/qemu-img", "create", "-f", format_type, "-o",
+         "preallocation=metadata", path, encode_value(capacity) + "G"])
+
+    if rc != 0:
+        raise OperationFailed("KCHTMPL0041E", {'err': err})
+
+    return

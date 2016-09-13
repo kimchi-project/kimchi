@@ -61,7 +61,7 @@ from wok.plugins.kimchi.model.utils import remove_metadata_node
 from wok.plugins.kimchi.model.utils import set_metadata_node
 from wok.plugins.kimchi.osinfo import defaults, MEM_DEV_SLOTS
 from wok.plugins.kimchi.screenshot import VMScreenshot
-from wok.plugins.kimchi.utils import get_next_clone_name
+from wok.plugins.kimchi.utils import get_next_clone_name, is_s390x
 from wok.plugins.kimchi.utils import template_name_from_uri
 from wok.plugins.kimchi.xmlutils.bootorder import get_bootorder_node
 from wok.plugins.kimchi.xmlutils.bootorder import get_bootmenu_node
@@ -1405,6 +1405,13 @@ class VMModel(object):
             except libvirt.libvirtError as e:
                 wok_log.error('Unable to get storage volume by path: %s' %
                               e.message)
+                try:
+                    if is_s390x() and os.path.exists(path):
+                        os.remove(path)
+                except Exception as e:
+                    wok_log.error('Unable to delete storage path: %s' %
+                                  e.message)
+
             except Exception as e:
                 raise OperationFailed('KCHVOL0017E', {'err': e.message})
 
