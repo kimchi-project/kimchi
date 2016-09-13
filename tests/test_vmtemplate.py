@@ -56,6 +56,8 @@ class VMTemplateTests(unittest.TestCase):
         args = {'name': 'test', 'cdrom': self.iso}
         t = VMTemplate(args)
         for name, val in fields:
+            if os.uname()[4] == "s390x" and name == 'networks':
+                continue
             self.assertEquals(val, t.info.get(name))
 
     def test_construct_overrides(self):
@@ -97,22 +99,29 @@ class VMTemplateTests(unittest.TestCase):
         self.assertEquals(slots, xpath_get_text(xml, expr)[0])
 
     def test_to_xml(self):
-        graphics = {'type': 'spice', 'listen': '127.0.0.1'}
+        if not os.uname()[4] == "s390x":
+            graphics = {'type': 'spice', 'listen': '127.0.0.1'}
+        else:
+            graphics = {'type': 'vnc', 'listen': '127.0.0.1'}
         vm_uuid = str(uuid.uuid4()).replace('-', '')
         t = VMTemplate({'name': 'test-template', 'cdrom': self.iso})
         xml = t.to_vm_xml('test-vm', vm_uuid, graphics=graphics)
         self.assertEquals(vm_uuid, xpath_get_text(xml, "/domain/uuid")[0])
         self.assertEquals('test-vm', xpath_get_text(xml, "/domain/name")[0])
-        expr = "/domain/devices/graphics/@type"
-        self.assertEquals(graphics['type'], xpath_get_text(xml, expr)[0])
-        expr = "/domain/devices/graphics/@listen"
-        self.assertEquals(graphics['listen'], xpath_get_text(xml, expr)[0])
+        if not os.uname()[4] == "s390x":
+            expr = "/domain/devices/graphics/@type"
+            self.assertEquals(graphics['type'], xpath_get_text(xml, expr)[0])
+            expr = "/domain/devices/graphics/@listen"
+            self.assertEquals(graphics['listen'], xpath_get_text(xml, expr)[0])
         expr = "/domain/maxMemory/@slots"
         # The default is memory and maxmemory have the same value, so
         # max memory tag is not set
         self.assertEquals(0, len(xpath_get_text(xml, expr)))
         expr = "/domain/memory"
-        self.assertEquals(str(1024), xpath_get_text(xml, expr)[0])
+        if os.uname()[4] == "s390x":
+            self.assertEquals(str(2048), xpath_get_text(xml, expr)[0])
+        else:
+            self.assertEquals(str(1024), xpath_get_text(xml, expr)[0])
 
         if hasattr(psutil, 'virtual_memory'):
             host_memory = psutil.virtual_memory().total >> 10
@@ -158,6 +167,8 @@ class VMTemplateTests(unittest.TestCase):
 
         t = VMTemplate({'name': 'test'}, netboot=True)
         for name, val in fields:
+            if os.uname()[4] == "s390x" and name == 'networks':
+                continue
             self.assertEquals(val, t.info.get(name))
 
         self.assertNotIn('cdrom', t.info.keys())

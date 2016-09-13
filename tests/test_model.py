@@ -148,7 +148,8 @@ class ModelTests(unittest.TestCase):
         self.assertEquals([], info['groups'])
         self.assertTrue(info['persistent'])
 
-    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
+    @unittest.skipUnless(utils.running_as_root() and
+                         os.uname()[4] != "s390x", 'Must be run as root')
     def test_vm_lifecycle(self):
         inst = model.Model(objstore_loc=self.tmp_store)
 
@@ -271,7 +272,8 @@ class ModelTests(unittest.TestCase):
         vms = inst.vms_get_list()
         self.assertFalse('kimchi-vm-new' in vms)
 
-    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
+    @unittest.skipUnless(utils.running_as_root() and
+                         os.uname()[4] != "s390x", 'Must be run as root')
     def test_image_based_template(self):
         inst = model.Model(objstore_loc=self.tmp_store)
 
@@ -318,7 +320,8 @@ class ModelTests(unittest.TestCase):
             info = inst.vm_lookup('kimchi-vm')
             self.assertEquals('running', info['state'])
 
-    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
+    @unittest.skipUnless(utils.running_as_root() and
+                         os.uname()[4] != "s390x", 'Must be run as root')
     def test_vm_graphics(self):
         inst = model.Model(objstore_loc=self.tmp_store)
         params = {'name': 'test',
@@ -511,7 +514,8 @@ class ModelTests(unittest.TestCase):
              call(['ufw', 'status']),
              call(iptables_add), call(iptables_del)])
 
-    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
+    @unittest.skipUnless(utils.running_as_root() and
+                         os.uname()[4] != "s390x", 'Must be run as root')
     @mock.patch('wok.plugins.kimchi.model.virtviewerfile.'
                 'FirewallManager.remove_vm_graphics_port')
     @mock.patch('wok.plugins.kimchi.model.virtviewerfile.'
@@ -553,7 +557,8 @@ class ModelTests(unittest.TestCase):
 
         inst.template_delete('test')
 
-    @unittest.skipUnless(utils.running_as_root(), "Must be run as root")
+    @unittest.skipUnless(utils.running_as_root() and
+                         os.uname()[4] != "s390x", "Must be run as root")
     def test_vm_serial(self):
         inst = model.Model(objstore_loc=self.tmp_store)
         params = {'name': 'test',
@@ -601,12 +606,13 @@ class ModelTests(unittest.TestCase):
                 rollback.prependDefer(inst.vm_delete, vm_name)
 
                 ifaces = inst.vmifaces_get_list(vm_name)
-                self.assertEquals(1, len(ifaces))
+                if not os.uname()[4] == "s390x":
+                    self.assertEquals(1, len(ifaces))
 
-                iface = inst.vmiface_lookup(vm_name, ifaces[0])
-                self.assertEquals(17, len(iface['mac']))
-                self.assertEquals("default", iface['network'])
-                self.assertIn("model", iface)
+                    iface = inst.vmiface_lookup(vm_name, ifaces[0])
+                    self.assertEquals(17, len(iface['mac']))
+                    self.assertEquals("default", iface['network'])
+                    self.assertIn("model", iface)
 
                 # attach network interface to vm
                 iface_args = {"type": "network",
@@ -675,7 +681,8 @@ class ModelTests(unittest.TestCase):
         vms = inst.vms_get_list()
         self.assertFalse('kimchi-netboot-vm' in vms)
 
-    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
+    @unittest.skipUnless(utils.running_as_root() and
+                         os.uname()[4] != "s390x", 'Must be run as root')
     def test_vm_disk(self):
         disk_path = os.path.join(TMP_DIR, 'existent2.iso')
         open(disk_path, 'w').close()
@@ -1020,7 +1027,9 @@ class ModelTests(unittest.TestCase):
         config.set("authentication", "method", "pam")
         inst = model.Model(None, objstore_loc=self.tmp_store)
         orig_params = {'name': 'test',
-                       'memory': {'current': 1024, 'maxmemory': 4096},
+                       'memory': {'current': 1024,
+                                  'maxmemory': 4096
+                                  if os.uname()[4] != "s390x" else 2048},
                        'source_media': {'type': 'disk', 'path': UBUNTU_ISO}}
         inst.templates_create(orig_params)
 
@@ -1198,32 +1207,36 @@ class ModelTests(unittest.TestCase):
             # make sure "vm_update" works when the domain has a snapshot
             inst.vmsnapshots_create(u'kimchi-vm1')
 
-            # update vm graphics when vm is not running
-            inst.vm_update(u'kimchi-vm1',
-                           {"graphics": {"passwd": "123456"}})
+            if os.uname()[4] != "s390x":
+                # update vm graphics when vm is not running
+                inst.vm_update(u'kimchi-vm1',
+                               {"graphics": {"passwd": "123456"}})
 
-            inst.vm_start('kimchi-vm1')
-            rollback.prependDefer(utils.rollback_wrapper, inst.vm_poweroff,
-                                  'kimchi-vm1')
+                inst.vm_start('kimchi-vm1')
+                rollback.prependDefer(utils.rollback_wrapper, inst.vm_poweroff,
+                                      'kimchi-vm1')
 
-            vm_info = inst.vm_lookup(u'kimchi-vm1')
-            self.assertEquals('123456', vm_info['graphics']["passwd"])
-            self.assertEquals(None, vm_info['graphics']["passwdValidTo"])
+                vm_info = inst.vm_lookup(u'kimchi-vm1')
+                self.assertEquals('123456', vm_info['graphics']["passwd"])
+                self.assertEquals(None, vm_info['graphics']["passwdValidTo"])
 
-            # update vm graphics when vm is running
-            inst.vm_update(u'kimchi-vm1',
-                           {"graphics": {"passwd": "abcdef",
-                                         "passwdValidTo": 20}})
-            vm_info = inst.vm_lookup(u'kimchi-vm1')
-            self.assertEquals('abcdef', vm_info['graphics']["passwd"])
-            self.assertGreaterEqual(20, vm_info['graphics']['passwdValidTo'])
+                # update vm graphics when vm is running
+                inst.vm_update(u'kimchi-vm1',
+                               {"graphics": {"passwd": "abcdef",
+                                             "passwdValidTo": 20}})
+                vm_info = inst.vm_lookup(u'kimchi-vm1')
+                self.assertEquals('abcdef', vm_info['graphics']["passwd"])
+                self.assertGreaterEqual(20,
+                                        vm_info['graphics']['passwdValidTo'])
 
-            info = inst.vm_lookup('kimchi-vm1')
-            self.assertEquals('running', info['state'])
+                info = inst.vm_lookup('kimchi-vm1')
+                self.assertEquals('running', info['state'])
 
-            params = {'name': 'new-vm'}
-            self.assertRaises(InvalidParameter, inst.vm_update,
-                              'kimchi-vm1', params)
+                params = {'name': 'new-vm'}
+                self.assertRaises(InvalidParameter, inst.vm_update,
+                                  'kimchi-vm1', params)
+            else:
+                inst.vm_start('kimchi-vm1')
 
             # change VM users and groups, when wm is running.
             inst.vm_update(u'kimchi-vm1',
@@ -1294,7 +1307,8 @@ class ModelTests(unittest.TestCase):
             inst.vm_update('kimchi-vm1', params)
             rollback.prependDefer(utils.rollback_wrapper, inst.vm_delete,
                                   u'пeω-∨м')
-            self.assertEquals(info['uuid'], inst.vm_lookup(u'пeω-∨м')['uuid'])
+            self.assertEquals(vm_info['uuid'],
+                              inst.vm_lookup(u'пeω-∨м')['uuid'])
             info = inst.vm_lookup(u'пeω-∨м')
             # Max memory is returned, add to test
             params['memory']['maxmemory'] = 2048

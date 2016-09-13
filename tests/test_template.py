@@ -110,6 +110,8 @@ class TemplateTests(unittest.TestCase):
         tmpl = json.loads(
             self.request('/plugins/kimchi/templates/test').read()
         )
+        if os.uname()[4] == "s390x":
+            keys.append("interfaces")
         self.assertEquals(sorted(tmpl.keys()), sorted(keys))
         self.assertEquals(t['source_media']['path'], tmpl["cdrom"])
         disk_keys = ['index', 'pool', 'size', 'format']
@@ -248,8 +250,12 @@ class TemplateTests(unittest.TestCase):
         self.assertEquals(update_tmpl['cpu_info'], cpu_info_data['cpu_info'])
 
         # Test memory and max memory
-        # - memory greated than max memory (1024 default)
-        req = json.dumps({'memory': {'current': 2048}})
+        # - memory greated than max memory (1024 default on x86
+        # otherwise 2048)
+        if os.uname()[4] == "s390x":
+            req = json.dumps({'memory': {'current': 4096}})
+        else:
+            req = json.dumps({'memory': {'current': 2048}})
         resp = self.request(new_tmpl_uri, req, 'PUT')
         self.assertEquals(400, resp.status)
         # - max memory greater than limit: 16TiB to PPC and 4TiB to x86
