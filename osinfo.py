@@ -187,7 +187,6 @@ def _get_tmpl_defaults():
     # expected by VMTemplate
     defaults = {'domain': 'kvm', 'arch': os.uname()[4],
                 'cdrom_bus': 'ide', 'cdrom_index': 2, 'mouse_bus': 'ps2'}
-
     # Parse main section to get networks and memory values
     defaults.update(default_config.pop('main'))
     defaults['memory'] = default_config.pop('memory')
@@ -266,8 +265,10 @@ def lookup(distro, version):
     if params["arch"] == "ppc64le":
         params["arch"] = "ppc64"
     # On s390x, template spec does not change based on version.
-    if params["arch"] == "s390x":
+    if params["arch"] == "s390x" or arch == "s390x":
         params.update(template_specs[arch]['old'])
+        if not distro:
+            params['os_distro'] = params['os_version'] = "unknown"
     elif distro in modern_version_bases[arch]:
         if LooseVersion(version) >= LooseVersion(
                 modern_version_bases[arch][distro]):
