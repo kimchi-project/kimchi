@@ -203,6 +203,9 @@ messages = {
     "KCHTMPL0037E": _("Interfaces should be list of interfaces. Each interface should have name, type and mode(optional, only applicable for interfcae type 'macvtap'."),
     "KCHTMPL0038E": _("Interface expects an object with parameters: 'name', 'type' and 'mode'. Name should be name of host network interface (Ethernet, Bond, VLAN) for type 'macvtap' or the name of host openvswitch bridge interface for type 'ovs'. Mode (optional) is only applicable for interface type 'macvtap' to indicates whether packets will be delivered directly to target device (bridge) or to the external bridge (vepa-capable bridge)."),
     "KCHTMPL0039E": _("Interfaces parameter only supported on s390x or s390 architecture."),
+    "KCHTMPL0040E": _("Storage without libvirt pool is not supported on this architecture"),
+    "KCHTMPL0041E": _("Error while creating the virtual disk for the guest. Details: %(err)s"),
+    "KCHTMPL0042E": _("When setting template disks without libvirt, following parameters are required: 'index', 'format', 'path', 'size'"),
 
     "KCHPOOL0001E": _("Storage pool %(name)s already exists"),
     "KCHPOOL0002E": _("Storage pool %(name)s does not exist"),

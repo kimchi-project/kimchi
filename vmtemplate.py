@@ -31,7 +31,8 @@ from wok.exception import MissingParameter, OperationFailed
 from wok.plugins.kimchi import imageinfo
 from wok.plugins.kimchi import osinfo
 from wok.plugins.kimchi.isoinfo import IsoImage
-from wok.plugins.kimchi.utils import check_url_path, pool_name_from_uri
+from wok.plugins.kimchi.utils import check_url_path, is_s390x
+from wok.plugins.kimchi.utils import pool_name_from_uri
 from wok.plugins.kimchi.xmlutils.bootorder import get_bootorder_xml
 from wok.plugins.kimchi.xmlutils.cpu import get_cpu_xml
 from wok.plugins.kimchi.xmlutils.disk import get_disk_xml
@@ -42,6 +43,7 @@ from wok.plugins.kimchi.xmlutils.serial import get_serial_xml
 
 
 class VMTemplate(object):
+
     def __init__(self, args, scan=False, netboot=False):
         """
         Construct a VM Template from a widely variable amount of information.
@@ -95,35 +97,66 @@ class VMTemplate(object):
         disks = self.info.get('disks')
 
         basic_disk = ['index', 'format', 'pool', 'size']
+        basic_path_disk = ['index', 'format', 'path', 'size']
         ro_disk = ['index', 'format', 'pool', 'volume']
         base_disk = ['index', 'base', 'pool', 'size', 'format']
+        base_path_disk = ['index', 'base', 'path', 'size', 'format']
 
         for index, disk in enumerate(disks):
             disk_info = dict(default_disk)
+            # on s390x/s390 either pool or path should be present in
+            # default disk.
+            if is_s390x() and 'pool' not in default_disk and \
+               'path' not in default_disk:
+                raise InvalidParameter('KCHTMPL0040E')
 
-            pool = disk.get('pool', default_disk['pool'])
-            pool_type = self._get_storage_type(pool['name'])
+            # On s390x/s390 pool is optional attribute for disk.
+            pool = disk.get('pool', default_disk.get('pool'))
 
-            if pool_type in ['iscsi', 'scsi']:
-                disk_info = {'index': 0, 'format': 'raw', 'volume': None}
+            if pool:
+                pool_type = self._get_storage_type(pool['name'])
+                if pool_type in ['iscsi', 'scsi']:
+                    disk_info = {'index': 0, 'format': 'raw', 'volume': None}
 
-            disk_info.update(disk)
-            pool_name = disk_info.get('pool', {}).get('name')
-            if pool_name is None:
-                raise MissingParameter('KCHTMPL0028E')
+                # This check is required where 'pool' disk
+                # has to be added and hence default path
+                # has to be removed during template update.
+                if 'path' in disk_info:
+                    del disk_info['path']
 
-            keys = sorted(disk_info.keys())
-            if ((keys != sorted(basic_disk)) and (keys != sorted(ro_disk)) and
-                    (keys != sorted(base_disk))):
-                raise MissingParameter('KCHTMPL0028E')
+                disk_info.update(disk)
+                pool_name = disk_info.get('pool', {}).get('name')
+                if pool_name is None:
+                    raise MissingParameter('KCHTMPL0028E')
 
-            if pool_type in ['logical', 'iscsi', 'scsi']:
-                if disk_info['format'] != 'raw':
-                    raise InvalidParameter('KCHTMPL0029E')
+                keys = sorted(disk_info.keys())
 
-            disk_info['pool']['type'] = pool_type
-            disk_info['index'] = disk_info.get('index', index)
-            self.info['disks'][index] = disk_info
+                if ((keys != sorted(basic_disk)) and
+                        (keys != sorted(ro_disk)) and
+                        (keys != sorted(base_disk))):
+                    # Addition check required only on s390x
+                    if not is_s390x() or (keys != sorted(basic_path_disk)):
+                        raise MissingParameter('KCHTMPL0028E')
+
+                if pool_type in ['logical', 'iscsi', 'scsi']:
+                    if disk_info['format'] != 'raw':
+                        raise InvalidParameter('KCHTMPL0029E')
+
+                disk_info['pool']['type'] = pool_type
+                disk_info['index'] = disk_info.get('index', index)
+                self.info['disks'][index] = disk_info
+            elif is_s390x():
+                # For now support 'path' only on s390x
+                path = disk.get('path', default_disk.get('path'))
+                disk_info.update(disk)
+                keys = sorted(disk_info.keys())
+                if ((keys != sorted(basic_path_disk)) and
+                   (keys != sorted(base_path_disk))):
+                    raise MissingParameter('KCHTMPL0042E')
+
+                disk_info['path'] = path
+                disk_info['index'] = disk_info.get('index', index)
+                self.info['disks'][index] = disk_info
 
     def _get_os_info(self, args, scan):
         distro = version = 'unknown'
@@ -217,8 +250,9 @@ class VMTemplate(object):
             params = dict(base_disk_params)
             params['format'] = disk['format']
             params['index'] = index
-            params.update(locals().get('%s_disk_params' %
-                                       disk['pool']['type'], {}))
+            if disk.get('pool'):
+                params.update(locals().get('%s_disk_params' %
+                                           disk['pool']['type'], {}))
 
             volume = disk.get('volume')
             if volume is not None:
@@ -226,9 +260,13 @@ class VMTemplate(object):
                                                        volume)
             else:
                 img = "%s-%s.img" % (vm_uuid, params['index'])
-                storage_path = self._get_storage_path(disk['pool']['name'])
+                if disk.get('pool'):
+                    storage_path = self._get_storage_path(disk['pool']['name'])
+                    params['pool_type'] = disk['pool']['type']
+                elif disk.get('path'):
+                    storage_path = disk.get('path')
+                    params['pool_type'] = None
                 params['path'] = os.path.join(storage_path, img)
-                params['pool_type'] = disk['pool']['type']
             disks_xml += get_disk_xml(params)[1]
 
         return unicode(disks_xml, 'utf-8')
@@ -237,20 +275,24 @@ class VMTemplate(object):
         ret = []
         for i, d in enumerate(self.info['disks']):
             # Create only .img. If storagepool is (i)SCSI, volumes will be LUNs
-            if d['pool']['type'] in ["iscsi", "scsi"]:
+            if 'pool' in d and d['pool']['type'] in ["iscsi", "scsi"]:
                 continue
 
             index = d.get('index', i)
             volume = "%s-%s.img" % (vm_uuid, index)
 
-            storage_path = self._get_storage_path(d['pool']['name'])
+            if 'path' in d:
+                storage_path = d['path']
+            else:
+                storage_path = self._get_storage_path(d['pool']['name'])
+
             info = {'name': volume,
                     'capacity': d['size'],
                     'format': d['format'],
                     'path': '%s/%s' % (storage_path, volume),
-                    'pool': d['pool']['name']}
+                    'pool': d['pool']['name'] if 'pool' in d else None}
 
-            if 'logical' == d['pool']['type'] or \
+            if ('pool' in d and 'logical' == d['pool']['type']) or \
                info['format'] not in ['qcow2', 'raw']:
                 info['allocation'] = info['capacity']
             else:
@@ -467,8 +509,9 @@ class VMTemplate(object):
 
     def validate(self):
         for disk in self.info.get('disks'):
-            pool_uri = disk.get('pool', {}).get('name')
-            self._get_storage_pool(pool_uri)
+            if 'pool' in disk:
+                pool_uri = disk.get('pool', {}).get('name')
+                self._get_storage_pool(pool_uri)
         self._network_validate()
         self._iso_validate()
         self.cpuinfo_validate()
@@ -519,10 +562,11 @@ class VMTemplate(object):
 
         # validate storagepools and image-based templates integrity
         for disk in self.info['disks']:
-            pool_uri = disk['pool']['name']
-            pool_name = pool_name_from_uri(pool_uri)
-            if pool_name not in self._get_active_storagepools_name():
-                invalid['storagepools'] = [pool_name]
+            if 'pool' in disk:
+                pool_uri = disk['pool']['name']
+                pool_name = pool_name_from_uri(pool_uri)
+                if pool_name not in self._get_active_storagepools_name():
+                    invalid['storagepools'] = [pool_name]
 
             if disk.get("base") is None:
                 continue

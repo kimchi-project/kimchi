@@ -28,13 +28,15 @@ import urlparse
 
 from wok.exception import InvalidOperation, InvalidParameter
 from wok.exception import NotFoundError, OperationFailed
-from wok.utils import probe_file_permission_as_user, run_setfacl_set_attr
+from wok.utils import probe_file_permission_as_user
+from wok.utils import run_setfacl_set_attr
 from wok.xmlutils.utils import xpath_get_text
 
 from wok.plugins.kimchi.config import get_kimchi_version
 from wok.plugins.kimchi.kvmusertests import UserTests
 from wok.plugins.kimchi.model.cpuinfo import CPUInfoModel
 from wok.plugins.kimchi.utils import is_libvirtd_up, pool_name_from_uri
+from wok.plugins.kimchi.utils import create_disk_image
 from wok.plugins.kimchi.vmtemplate import VMTemplate
 
 ISO_TYPE = "ISO 9660 CD-ROM"
@@ -417,15 +419,26 @@ class LibvirtVMTemplate(VMTemplate):
 
     def fork_vm_storage(self, vm_uuid):
         # Provision storages:
-        vol_list = self.to_volume_list(vm_uuid)
+        disk_and_vol_list = self.to_volume_list(vm_uuid)
         try:
-            for v in vol_list:
-                pool = self._get_storage_pool(v['pool'])
-                # outgoing text to libvirt, encode('utf-8')
-                pool.createXML(v['xml'].encode('utf-8'), 0)
+            for v in disk_and_vol_list:
+                if v['pool'] is not None:
+                    pool = self._get_storage_pool(v['pool'])
+                    # outgoing text to libvirt, encode('utf-8')
+                    pool.createXML(v['xml'].encode('utf-8'), 0)
+                else:
+                    capacity = v['capacity']
+                    format_type = v['format']
+                    path = v['path']
+                    create_disk_image(
+                        format_type=format_type,
+                        path=path,
+                        capacity=capacity)
+
         except libvirt.libvirtError as e:
             raise OperationFailed("KCHVMSTOR0008E", {'error': e.message})
-        return vol_list
+
+        return disk_and_vol_list
 
     def set_cpu_info(self):
         # undefined topology: consider these values to calculate maxvcpus
