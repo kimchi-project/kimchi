@@ -158,7 +158,13 @@ $kimchi-icon-path: '../images';
         height: selectpicker height - 2px;
     }
     .template-storage-cell.storage-pool {
-        width: 220px !important;
+        width: 180px !important;
+    }
+    .template-storage-cell.storage-path {
+        width: 180px !important;
+    }
+    .template-storage-cell.source {
+        width: 180px !important;
     }
     .template-storage-cell.type {
         width: 100px;
@@ -167,7 +173,7 @@ $kimchi-icon-path: '../images';
         width: 100px;
     }
     .template-storage-cell.format {
-        width: 320px;
+        width: 250px;
     }
     .template-interface-cell.network {
         width: 220px;

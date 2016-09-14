@@ -1615,7 +1615,15 @@ body.wok-gallery {
 }
 
 #template-edit-window .template-storage-cell.storage-pool {
-  width: 220px !important;
+  width: 180px !important;
+}
+
+#template-edit-window .template-storage-cell.storage-path {
+  width: 180px !important;
+}
+
+#template-edit-window .template-storage-cell.source {
+  width: 180px !important;
 }
 
 #template-edit-window .template-storage-cell.type {
@@ -1627,7 +1635,7 @@ body.wok-gallery {
 }
 
 #template-edit-window .template-storage-cell.format {
-  width: 320px;
+  width: 250px;
 }
 
 #template-edit-window .template-interface-cell.network {

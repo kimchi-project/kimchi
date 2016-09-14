@@ -110,6 +110,7 @@
                 <div role="tabpanel" class="tab-pane" id="storage">
                     <form id="form-template-storage">
                         <div class="template-tab-header">
+                            <span class="template-storage-cell source" style="display:none">$_("Source")</span>
                             <span class="template-storage-cell storage-pool">$_("Storage Pool")</span>
                             <span class="template-storage-cell type">$_("Type")</span>
                             <span class="template-storage-cell disk">$_("Disk(GB)")</span>
@@ -182,9 +183,19 @@
 </script>
 <script id="template-storage-pool-tmpl" type="text/html">
     <div id="storageRow{storageIndex}" class='item'>
+        <span class="template-storage-cell source" style="display:none">
+            <input class="template-storage-source" value={storageSource} type="text" style="display:none" />
+            <select id="source">
+                <option value="pool">pool</option>
+                <option value="path">path</option>
+            </select>
+        </span>
         <span class="template-storage-cell storage-pool">
             <input class="template-storage-name" value="{storageName}" type="text" style="display:none" />
             <select id="selectStorageName-{storageIndex}" class="selectStorageName"></select>
+        </span>
+        <span class="template-storage-cell storage-path" style="display:none">
+            <input class="template-storage-path storage-path form-control" value="{storagePath}" type="text" />
         </span>
         <span class="template-storage-cell type">
             <input class="template-storage-type form-control" value={storageType} readonly=true type="text" />
