@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:03:50</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:03:50</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Sep 14 13:03:50 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:03:50</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:03:50</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:03:50</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:03:58</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda</span>
+<a name="l-7"></a><span class="tm">13:03:59</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">1) Status</span>
+<a name="l-8"></a><span class="tm">13:03:59</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">2) Open discussion</span>
+<a name="l-9"></a><span class="tm">13:03:59</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-10"></a><span class="tm">13:05:37</span><span class="nk"> &lt;bianca&gt;</span> no
+<a name="l-11"></a><span class="tm">13:07:17</span><span class="nk"> &lt;alinefm&gt;</span> so let's get started
+<a name="l-12"></a><span class="tm">13:07:29</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-13"></a><span class="tm">13:07:29</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info [&lt;project] &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-14"></a><span class="tm">13:07:37</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] socorro Sent patch to ML for review for github issue# 979 -</span>
+<a name="l-15"></a><span class="tm">13:07:37</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] socorro Change boot order UI.  However, found a backend bug while</span>
+<a name="l-16"></a><span class="tm">13:07:37</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] socorro testing.  Per Ramon, went ahead and wrote github issue:</span>
+<a name="l-17"></a><span class="tm">13:07:37</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] socorro to address backend problem:</span>
+<a name="l-18"></a><span class="tm">13:07:37</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] socorro https://github.com/kimchi-project/kimchi/issues/1012</span>
+<a name="l-19"></a><span class="tm">13:07:38</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] socorro Ran sanity tests for Kimchi on Ubuntu 16.04</span>
+<a name="l-20"></a><span class="tm">13:07:39</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] socorro Sent Aline list of issues as possible candidates to be closed out</span>
+<a name="l-21"></a><span class="tm">13:07:47</span><span class="nk"> &lt;bianca&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] bianca submitted a patch corrections to issue #860 - Support Guest Autostart, waiting review.</span>
+<a name="l-22"></a><span class="tm">13:07:47</span><span class="nk"> &lt;bianca&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] bianca is working with Fedora 24 release tests.</span>
+<a name="l-23"></a><span class="tm">13:08:02</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] alinefm is testing 2.3 release on CentOS 7</span>
+<a name="l-24"></a><span class="tm">13:08:14</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] lcorreia sent V3, V4 patches and got upstream fix for Wok issue #141</span>
+<a name="l-25"></a><span class="tm">13:08:14</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] lcorreia got upstream: fix plugin uri lookup for user log</span>
+<a name="l-26"></a><span class="tm">13:08:14</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] lcorreia running release tests in RHEL 7.2</span>
+<a name="l-27"></a><span class="tm">13:08:14</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] lcorreia working on PCI passthrough coldplug fixes</span>
+<a name="l-28"></a><span class="tm">13:08:14</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger*] lcorreia reviewed/applied patches upstream</span>
+<a name="l-29"></a><span class="tm">13:08:15</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] lcorreia maintaining/pushed branches to HostOS kimchi-ginger upstream trees</span>
+<a name="l-30"></a><span class="tm">13:08:20</span><span class="nk"> &lt;pvital_&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] pvital is testing 2.3 release on Ubuntu 16.04</span>
+<a name="l-31"></a><span class="tm">13:12:23</span><span class="nk"> &lt;alinefm&gt;</span> lcorreia, bianca pvital_ will you complete all the tests by EDT?
+<a name="l-32"></a><span class="tm">13:12:32</span><span class="nk"> &lt;pvital_&gt;</span> alinefm, I hope
+<a name="l-33"></a><span class="tm">13:12:36</span><span class="nk"> &lt;bianca&gt;</span> I hope so
+<a name="l-34"></a><span class="tm">13:12:37</span><span class="nk"> &lt;bianca&gt;</span> hehe
+<a name="l-35"></a><span class="tm">13:12:41</span><span class="nk"> &lt;lcorreia&gt;</span> alinefm, hope so eheheh
+<a name="l-36"></a><span class="tm">13:12:53</span><span class="nk"> &lt;bianca&gt;</span> alinefm today 11:59 right? lol
+<a name="l-37"></a><span class="tm">13:13:37</span><span class="nk"> &lt;alinefm&gt;</span> heheheh
+<a name="l-38"></a><span class="tm">13:13:38</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-39"></a><span class="tm">13:13:41</span><span class="nk"> &lt;alinefm&gt;</span> me too
+<a name="l-40"></a><span class="tm">13:14:05</span><span class="nk"> &lt;alinefm&gt;</span> can we move on?
+<a name="l-41"></a><span class="tm">13:14:16</span><span class="nk"> &lt;bianca&gt;</span> yes
+<a name="l-42"></a><span class="tm">13:14:29</span><span class="nk"> &lt;lcorreia&gt;</span> alinefm, ramon sent status by email
+<a name="l-43"></a><span class="tm">13:15:05</span><span class="nk"> &lt;alinefm&gt;</span> lcorreia, yeap - thanks for reminder me
+<a name="l-44"></a><span class="tm">13:15:09</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ramonn Sent "Should not be allowed to remove "default" storagepool and network" to RFC</span>
+<a name="l-45"></a><span class="tm">13:15:10</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ramonn Sent "[Kimchi] integrety: storage pool deactivate/undefine needs to consider vm usage"</span>
+<a name="l-46"></a><span class="tm">13:15:10</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] ramonn worked on "js rpms as default libs". Will sent to review this week</span>
+<a name="l-47"></a><span class="tm">13:15:10</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[all] ramonn run OpenSuSE tests. Most important issue found is #1010</span>
+<a name="l-48"></a><span class="tm">13:15:52</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-49"></a><span class="tm">13:15:58</span><span class="nk"> &lt;alinefm&gt;</span> any topic to discuss today?
+<a name="l-50"></a><span class="tm">13:20:38</span><span class="nk"> &lt;alinefm&gt;</span> pvital_, lcorreia bianca ^
+<a name="l-51"></a><span class="tm">13:20:49</span><span class="nk"> &lt;pvital_&gt;</span> no
+<a name="l-52"></a><span class="tm">13:20:55</span><span class="nk"> &lt;lcorreia&gt;</span> no
+<a name="l-53"></a><span class="tm">13:22:35</span><span class="nk"> &lt;alinefm&gt;</span> ok
+<a name="l-54"></a><span class="tm">13:22:41</span><span class="nk"> &lt;alinefm&gt;</span> so thanks everyone for joining!
+<a name="l-55"></a><span class="tm">13:22:43</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
