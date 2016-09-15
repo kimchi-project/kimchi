@@ -62,6 +62,12 @@ kimchi.template_edit_main = function() {
             }
             $('input[name="' + prop + '"]', templateEditMain).val(value);
         }
+        if(kimchi.hostarch == s390xArch){
+            $('.console', templateEditMain).show();
+            var consoleData = template.console ? template.console : '';
+            $('#template-edit-console', templateEditMain).val(consoleData);
+            $('#template-edit-console').selectpicker();
+        }
 
         $('#template-edit-memory-textbox').val(template.memory.current);
         $('#template-edit-max-memory-textbox').val(template.memory.maxmemory);
@@ -543,7 +549,12 @@ kimchi.template_edit_main = function() {
         $('.modal input[type="checkbox"]').prop('disabled', true);
         $('.modal select').prop('disabled', true);
         $('.modal .selectpicker').addClass('disabled');
-        var editableFields = ['name', 'memory', 'graphics', 'max-memory'];
+        if(kimchi.hostarch === s390xArch){
+            var editableFields = ['name', 'memory', 'graphics', 'max-memory', 'console'];
+        }else {
+            var editableFields = ['name', 'memory', 'graphics', 'max-memory'];
+        }
+
         var data = {};
         var disks = $('.template-tab-body .item', '#form-template-storage');
         var disksForUpdate = new Array();
