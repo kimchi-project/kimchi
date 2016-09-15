@@ -169,6 +169,10 @@ def _get_tmpl_defaults():
     tmpl_defaults['processor']['maxvcpus'] = 1
     tmpl_defaults['graphics'] = {'type': 'vnc', 'listen': '127.0.0.1'}
 
+    # for s390x architecture, set default console as sclp
+    if host_arch in ['s390x', 's390']:
+        tmpl_defaults['console'] = 'virtio'
+
     default_config = ConfigObj(tmpl_defaults)
 
     # Load template configuration file

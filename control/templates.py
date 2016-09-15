@@ -76,5 +76,6 @@ class Template(Resource):
         }
         if os.uname()[4] in ['s390x', 's390']:
             info['interfaces'] = self.info.get('interfaces', [])
+            info['console'] = self.info.get('console', '')
 
         return info

@@ -206,6 +206,8 @@ messages = {
     "KCHTMPL0040E": _("Storage without libvirt pool is not supported on this architecture"),
     "KCHTMPL0041E": _("Error while creating the virtual disk for the guest. Details: %(err)s"),
     "KCHTMPL0042E": _("When setting template disks without libvirt, following parameters are required: 'index', 'format', 'path', 'size'"),
+    "KCHTMPL0043E": _("console parameter is only supported for s390x/s390 architecture."),
+    "KCHTMPL0044E": _("invalid console type, supported types are sclp/virtio."),
 
     "KCHPOOL0001E": _("Storage pool %(name)s already exists"),
     "KCHPOOL0002E": _("Storage pool %(name)s does not exist"),
