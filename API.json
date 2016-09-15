@@ -414,7 +414,13 @@
                     }
                 },
                 "cpu_info": { "$ref": "#/kimchitype/cpu_info" },
-                "memory": { "$ref": "#/kimchitype/memory" }
+                "memory": { "$ref": "#/kimchitype/memory" },
+                "console": {
+                    "description": "type of the console attached to the guest in s390x architecture",
+                    "type": "string",
+                    "pattern": "^sclp|virtio$",
+                    "error": "KCHVM0088E"
+                }
             },
             "additionalProperties": false
         },
