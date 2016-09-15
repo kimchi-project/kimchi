@@ -67,6 +67,9 @@ class TemplatesModel(object):
         interfaces = params.get('interfaces', [])
         validate_interfaces(interfaces)
 
+        if os.uname()[4] not in ['s390x', 's390'] and 'console' in params:
+            raise InvalidParameter("KCHTMPL0043E")
+
         # get source_media
         source_media = params.pop("source_media")
 
@@ -230,6 +233,9 @@ class TemplateModel(object):
         # Valid interfaces
         interfaces = params.get('interfaces', [])
         validate_interfaces(interfaces)
+
+        if os.uname()[4] not in ['s390x', 's390'] and 'console' in params:
+            raise InvalidParameter("KCHTMPL0043E")
 
         # Merge graphics settings
         graph_args = params.get('graphics')

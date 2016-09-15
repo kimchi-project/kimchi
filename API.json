@@ -671,7 +671,13 @@
                     "items": { "type": "string" }
                 },
                 "graphics": { "$ref": "#/kimchitype/graphics" },
-                "cpu_info": { "$ref": "#/kimchitype/cpu_info" }
+                "cpu_info": { "$ref": "#/kimchitype/cpu_info" },
+                "console": {
+                    "description": "type of the console attached to the guest in s390x architecture",
+                    "type": "string",
+                    "pattern": "^sclp|virtio$",
+                    "error": "KCHTMPL0044E"
+                }
             },
             "additionalProperties": false,
             "error": "KCHAPI0001E"
@@ -844,7 +850,13 @@
                     "items": { "type": "string" }
                 },
                 "graphics": { "$ref": "#/kimchitype/graphics" },
-                "cpu_info": { "$ref": "#/kimchitype/cpu_info" }
+                "cpu_info": { "$ref": "#/kimchitype/cpu_info" },
+                "console": {
+                    "description": "type of the console attached to the guest in s390x architecture",
+                    "type": "string",
+                    "pattern": "^sclp|virtio$",
+                    "error": "KCHTMPL0044E"
+                }
             },
             "additionalProperties": false,
             "error": "KCHAPI0001E"
