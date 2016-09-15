@@ -71,6 +71,14 @@
                     <label for="guest-edit-icon-textbox">$_("Icon")</label>
                     <input id="guest-edit-icon-textbox" class="form-control" name="icon" type="text" disabled="disabled"  />
                 </div>
+                <div class="form-group" id="guest-console-panel" style="display:none;">
+                    <label for="guest-edit-console">$_("Console")</label>
+                    <select id="guest-edit-console" name="console" class="form-control">
+                        <option value=""></option>
+                        <option value="sclp">$_("sclp")</option>
+                        <option value="virtio">$_("virtio")</option>
+                    </select>
+                </div>
             </form>
             <form role="tabpanel" class="tab-pane" id="form-guest-edit-storage">
                 <div class="btn-group action-area">

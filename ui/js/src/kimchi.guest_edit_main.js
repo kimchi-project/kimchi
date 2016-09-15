@@ -1014,6 +1014,19 @@ kimchi.guest_edit_main = function() {
             });
         }
 
+        if(kimchi.hostarch === s390xArch){
+            var consoleData = guest.console ? guest.console : '';
+            $('#guest-edit-console').val(consoleData);
+
+            if (kimchi.thisVMState === "shutoff") {
+                $('#guest-edit-console').prop('disabled', false);
+            }else{
+                $('#guest-edit-console').prop('disabled', true);
+            }
+            $('#guest-console-panel').show();
+            $('#guest-edit-console').selectpicker();
+        }
+
         var onAttached = function(params) {
             refreshCDROMs();
         };
