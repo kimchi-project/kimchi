@@ -73,6 +73,9 @@
                             <div class="template-edit-wrapper-label">
                                 <label>$_("Graphics")</label>
                             </div>
+                            <div class="template-edit-wrapper-label console" style="display:none">
+                                <label>$_("Console")</label>
+                            </div>
                         </div>
                         <div class="form-template-inline-wrapper">
                             <div class="template-edit-wrapper-controls">
@@ -103,6 +106,13 @@
                             </div>
                             <div class="template-edit-wrapper-controls">
                                     <select id="template-edit-graphics" name="graphics" class="form-control"  />
+                            </div>
+                            <div class="template-edit-wrapper-controls console" style="display:none">
+                                <select id="template-edit-console" name="console" class="form-control">
+                                    <option value=""></option>
+                                    <option value="sclp">$_("sclp")</option>
+                                    <option value="virtio">$_("virtio")</option>
+                                </select>
                             </div>
                         </div>
                     </form>
