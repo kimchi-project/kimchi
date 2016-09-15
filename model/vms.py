@@ -85,7 +85,7 @@ VM_ONLINE_UPDATE_PARAMS = ['graphics', 'groups', 'memory', 'users']
 # update parameters which are updatable when the VM is offline
 VM_OFFLINE_UPDATE_PARAMS = ['cpu_info', 'graphics', 'groups', 'memory',
                             'name', 'users', 'bootorder', 'bootmenu',
-                            'description', 'title']
+                            'description', 'title', 'console']
 
 XPATH_DOMAIN_DISK = "/domain/devices/disk[@device='disk']/source/@file"
 XPATH_DOMAIN_DISK_BY_FILE = "./devices/disk[@device='disk']/source[@file='%s']"
@@ -96,6 +96,7 @@ XPATH_DOMAIN_MEMORY = '/domain/memory'
 XPATH_DOMAIN_MEMORY_UNIT = '/domain/memory/@unit'
 XPATH_DOMAIN_UUID = '/domain/uuid'
 XPATH_DOMAIN_DEV_CPU_ID = '/domain/devices/spapr-cpu-socket/@id'
+XPATH_DOMAIN_CONSOLE_TARGET = "/domain/devices/console/target/@type"
 
 XPATH_BOOT = 'os/boot/@dev'
 XPATH_BOOTMENU = 'os/bootmenu/@enable'
@@ -109,6 +110,7 @@ XPATH_TITLE = './title'
 XPATH_TOPOLOGY = './cpu/topology'
 XPATH_VCPU = './vcpu'
 XPATH_MAX_MEMORY = './maxMemory'
+XPATH_CONSOLE_TARGET = "./devices/console/target"
 
 # key: VM name; value: lock object
 vm_locks = {}
@@ -263,6 +265,9 @@ class VMModel(object):
         return sockets and cores and threads
 
     def update(self, name, params):
+        if platform.machine() not in ['s390x', 's390'] and\
+           'console' in params:
+            raise InvalidParameter('KCHVM0087E')
         lock = vm_locks.get(name)
         if lock is None:
             lock = threading.Lock()
@@ -793,6 +798,19 @@ class VMModel(object):
         # update <os>
         return ET.tostring(et)
 
+    def _update_s390x_console(self, xml, params):
+        if xpath_get_text(xml, XPATH_DOMAIN_CONSOLE_TARGET):
+            # if console is defined, update console
+            return xml_item_update(xml, XPATH_CONSOLE_TARGET,
+                                   params.get('console'), 'type')
+        # if console is not defined earlier, add console
+        console = E.console(type="pty")
+        console.append(E.target(type=params.get('console'), port='0'))
+        et = ET.fromstring(xml)
+        devices = et.find('devices')
+        devices.append(console)
+        return ET.tostring(et)
+
     def _static_vm_update(self, vm_name, dom, params):
         old_xml = new_xml = dom.XMLDesc(libvirt.VIR_DOMAIN_XML_SECURE)
         params = copy.deepcopy(params)
@@ -860,6 +878,9 @@ class VMModel(object):
         # update bootorder or bootmenu
         if "bootorder" or "bootmenu" in params:
             new_xml = self._update_bootorder(new_xml, params)
+
+        if platform.machine() in ['s390', 's390x'] and params.get('console'):
+            new_xml = self._update_s390x_console(new_xml, params)
 
         snapshots_info = []
         conn = self.conn.get()
@@ -1303,29 +1324,35 @@ class VMModel(object):
         bootmenu = "yes" if "yes" in xpath_get_text(xml, XPATH_BOOTMENU) \
             else "no"
 
-        return {'name': name,
-                'title': "".join(xpath_get_text(xml, XPATH_TITLE)),
-                'description': "".join(xpath_get_text(xml, XPATH_DESCRIPTION)),
-                'state': state,
-                'stats': res,
-                'uuid': dom.UUIDString(),
-                'memory': {'current': memory, 'maxmemory': maxmemory},
-                'cpu_info': cpu_info,
-                'screenshot': screenshot,
-                'icon': icon,
-                # (type, listen, port, passwd, passwdValidTo)
-                'graphics': {"type": graphics[0],
-                             "listen": graphics[1],
-                             "port": graphics_port,
-                             "passwd": graphics[3],
-                             "passwdValidTo": graphics[4]},
-                'users': users,
-                'groups': groups,
-                'access': 'full',
-                'persistent': True if dom.isPersistent() else False,
-                'bootorder': boot,
-                'bootmenu': bootmenu
-                }
+        vm_info = {'name': name,
+                   'title': "".join(xpath_get_text(xml, XPATH_TITLE)),
+                   'description':
+                       "".join(xpath_get_text(xml, XPATH_DESCRIPTION)),
+                   'state': state,
+                   'stats': res,
+                   'uuid': dom.UUIDString(),
+                   'memory': {'current': memory, 'maxmemory': maxmemory},
+                   'cpu_info': cpu_info,
+                   'screenshot': screenshot,
+                   'icon': icon,
+                   # (type, listen, port, passwd, passwdValidTo)
+                   'graphics': {"type": graphics[0],
+                                "listen": graphics[1],
+                                "port": graphics_port,
+                                "passwd": graphics[3],
+                                "passwdValidTo": graphics[4]},
+                   'users': users,
+                   'groups': groups,
+                   'access': 'full',
+                   'persistent': True if dom.isPersistent() else False,
+                   'bootorder': boot,
+                   'bootmenu': bootmenu
+                   }
+        if platform.machine() in ['s390', 's390x']:
+            vm_console = xpath_get_text(xml, XPATH_DOMAIN_CONSOLE_TARGET)
+            vm_info['console'] = vm_console[0] if vm_console else ''
+
+        return vm_info
 
     def _vm_get_disk_paths(self, dom):
         xml = dom.XMLDesc(0)
