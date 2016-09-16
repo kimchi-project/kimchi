@@ -140,6 +140,15 @@
                         </div>
                         <div class="template-tab-body"></div>
                     </form>
+                    <form id="form-template-interface-s390x" style="display:none">
+                        <div class="template-tab-header">
+                            <span class="template-interface-cell type">$_("Type")</span>
+                            <span class="template-interface-cell network">$_("Network/Interface")</span>
+                            <span class="template-interface-cell mode">$_("Mode")</span>
+                            <button type="button" id="template-edit-interface-add-button-s390x" class="pull-right btn btn-primary"><i class="fa fa-plus-circle"></i> $_("Add Interface")</button>
+                        </div>
+                        <div class="template-tab-body"></div>
+                    </form>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="processor">
                     <form id="form-template-processor">
@@ -236,6 +245,26 @@
         </span>
         <span class="template-interface-cell type">
             <input value={type} readonly=true class="form-control" type="text" />
+        </span>
+        <span class="pull-right">
+            <button class="delete btn-primary btn"><i class="fa fa-minus-circle"></i> $_("Delete")</button>
+        </span>
+    </div>
+</script>
+<script id="template-interface-s390x-tmpl" type="text/html">
+    <div class="item" id={networkID}>
+        <span class="template-interface-cell type">
+            <select></select>
+        </span>
+        <span class="template-interface-cell network">
+            <select></select>
+        </span>
+        <span class="template-interface-cell mode">
+            <span class="label-mode hide">None</span>
+            <select>
+                <option value="bridge">bridge</option>
+                <option value="vepa">vepa</option>
+            </select>
         </span>
         <span class="pull-right">
             <button class="delete btn-primary btn"><i class="fa fa-minus-circle"></i> $_("Delete")</button>
