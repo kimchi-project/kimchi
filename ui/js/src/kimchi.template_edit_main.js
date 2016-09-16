@@ -19,8 +19,13 @@ kimchi.template_edit_main = function() {
     var templateEditMain = $('#edit-template-tabs');
     var origDisks;
     var origNetworks;
+    var origInterfaces;
+    var origmacvtapNetworks;
+    var origovsNetworks;
     var templateDiskSize;
     var baseImageTemplate;
+    var s390xArch = 's390x';
+
     $('#template-name', templateEditMain).val(kimchi.selectedTemplate);
     $('#edit-template-tabs a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
         $('.tab-content').css('overflow', 'hidden');
@@ -47,6 +52,7 @@ kimchi.template_edit_main = function() {
     var initTemplate = function(template) {
         origDisks = template.disks;
         origNetworks = template.networks;
+        origInterfaces = template.interfaces;
         for (var i = 0; i < template.disks.length; i++) {
             if (template.disks[i].base) {
                 template["vm-image"] = template.disks[i].base;
@@ -449,10 +455,170 @@ kimchi.template_edit_main = function() {
             });
         };
 
-        var initProcessor = function() {
-            var setCPUValue = function() {
-                if (!$('#cores').hasClass("invalid-field") && $('#cores').val() != "") {
-                    var computedCpu = parseInt($("#cores").val()) * parseInt($("#threads").val());
+        var initInterface_s390x = function(result) {
+            $('#form-template-interface-s390x').show();
+            $('#form-template-interface').hide();
+            var networkItemNum = 0;
+            var addInterfaceItem = function(networkData) {
+                var networkName = networkData.networkV;
+                var nodeInterface = $.parseHTML(wok.substitute($('#template-interface-s390x-tmpl').html(), networkData));
+                $('.template-tab-body', '#form-template-interface-s390x').append(nodeInterface);
+                $('.delete', '#form-template-interface-s390x').on("click", function(event) {
+                    event.preventDefault();
+                    $(this).parent().parent().remove();
+                });
+
+                //initialize type option
+                var typeOptionsdata = {};
+                var typeOptions = '';
+                typeOptionsdata.macvtap = 'macvtap';
+                typeOptionsdata.ovs = 'ovs';
+                typeOptionsdata.network = 'network';
+
+                $.each(typeOptionsdata, function(key, value) {
+                    if (value === networkData.type) {
+                        typeOptions += '<option  value="' + key + '" selected="selected">' + networkData.type + '</option>';
+                    } else {
+                        typeOptions += '<option value="' + key + '">' + value + '</option>';
+                    }
+                });
+
+                $('select', '#form-template-interface-s390x #networkID' + networkItemNum + ' span.type').append(typeOptions);
+                $('select', '#form-template-interface-s390x #networkID' + networkItemNum + ' span.type').on('change', function() {
+                    var itemNode = $(this).closest('div.item');
+
+                    switch ($(this).val()) {
+                        case 'macvtap':
+                            $('span.mode .label-mode', itemNode).addClass('hide');
+                            $('span.mode .bootstrap-select', itemNode).toggleClass("hide", false);
+
+                            var networkOptions = '';
+                            for (var i = 0; i < origmacvtapNetworks.length; i++) {
+                                networkOptions += '<option>' + origmacvtapNetworks[i].name + '</option>';
+                            }
+
+                            $('span.network select', itemNode).empty().append(networkOptions);
+                            $('span.network select', itemNode).selectpicker('refresh');
+
+                            break;
+                        case 'ovs':
+                            $('span.mode .label-mode', itemNode).removeClass('hide');
+                            $('span.mode .bootstrap-select', itemNode).toggleClass("hide", true);
+                            var networkOptions = '';
+                            for (var i = 0; i < origovsNetworks.length; i++) {
+                                networkOptions += '<option>' + origovsNetworks[i] + '</option>';
+                            }
+
+                            $('span.network select', itemNode).empty().append(networkOptions);
+                            $('span.network select', itemNode).selectpicker('refresh');
+
+                            break;
+                        case 'network':
+                            $('span.mode .label-mode', itemNode).removeClass('hide');
+                            $('span.mode .bootstrap-select', itemNode).toggleClass("hide", true);
+
+                            var networkOptions = '';
+                            for (var i = 0; i < result.length; i++) {
+                                if (result[i].state === "active") {
+                                    networkOptions += '<option>' + result[i].name + '</option>';
+                                }
+                            }
+                            $('span.network select', itemNode).empty().append(networkOptions);
+                            $('span.network select', itemNode).selectpicker('refresh');
+                            break;
+                    }
+                });
+
+                switch (networkData.type) {
+                    case 'macvtap':
+                        //initialize network option
+                        var networkOptions = '';
+                        for (var i = 0; i < origmacvtapNetworks.length; i++) {
+                            if (networkName === origmacvtapNetworks[i].name) {
+                                networkOptions += '<option selected="selected">' + origmacvtapNetworks[i].name + '</option>';
+                            }
+                            networkOptions += '<option>' + origmacvtapNetworks[i].name + '</option>';
+                        }
+                        $('select', '#form-template-interface-s390x #networkID' + networkItemNum + ' span.network').append(networkOptions);
+
+                        //initialize Mode option for Macvtap
+                        $('select', '#form-template-interface-s390x #networkID' + networkItemNum + ' span.mode').val(networkData.mode);
+                        $('select', '#form-template-interface-s390x #networkID' + networkItemNum + ' span.mode').selectpicker('refresh');
+
+                        $('span.mode .label-mode', nodeInterface).addClass('hide');
+                        $('span.mode .bootstrap-select', nodeInterface).removeClass("hide");
+
+                        break;
+                    case 'ovs':
+                        var networkOptions = '';
+                        for (var i = 0; i < origovsNetworks.length; i++) {
+                            if (networkName === origovsNetworks[i]) {
+                                networkOptions += '<option selected="selected">' + origovsNetworks[i] + '</option>';
+                            }
+                            networkOptions += '<option>' + origovsNetworks[i] + '</option>';
+                        }
+                        $('select', '#form-template-interface-s390x #networkID' + networkItemNum + ' span.network').append(networkOptions);
+
+                        //initialize Mode option for ovs
+                        $('select', '#form-template-interface-s390x #networkID' + networkItemNum + ' span.mode').selectpicker('refresh');
+                        $('span.mode .label-mode', nodeInterface).removeClass('hide');
+                        $('span.mode .bootstrap-select', nodeInterface).addClass("hide");
+                        break;
+                    case 'network':
+                        var networkOptions = '';
+                        for (var i = 0; i < result.length; i++) {
+                            if (networkName === result[i].name) {
+                                networkOptions += '<option selected="selected">' + result[i].name + '</option>';
+                            }
+                            if (result[i].state === "active" && networkName !== result[i].name) {
+                                networkOptions += '<option>' + result[i].name + '</option>';
+                            }
+                        }
+                        $('select', '#form-template-interface-s390x #networkID' + networkItemNum + ' span.network').append(networkOptions);
+
+                        //initialize Mode option for Network
+                        $('select', '#form-template-interface-s390x #networkID' + networkItemNum + ' span.mode').selectpicker('refresh');
+                        $('span.mode .label-mode', nodeInterface).removeClass('hide');
+                        $('span.mode .bootstrap-select', nodeInterface).addClass("hide");
+                        break;
+                }
+                $('select', '#form-template-interface-s390x #networkID' + networkItemNum).selectpicker();
+                networkItemNum += 1;
+            };
+            if (origInterfaces && origInterfaces.length > 0) {
+                for (var i = 0; i < origInterfaces.length; i++) {
+                    addInterfaceItem({
+                        networkID: 'networkID' + networkItemNum,
+                        networkV: origInterfaces[i].name,
+                        type: origInterfaces[i].type,
+                        mode: origInterfaces[i].mode
+                    });
+                }
+            }
+            if (result && result.length > 0) {
+                for (var i = 0; i < origNetworks.length; i++) {
+                    addInterfaceItem({
+                        networkID: 'networkID' + networkItemNum,
+                        networkV: origNetworks[i],
+                        type: 'network'
+                    });
+                }
+            }
+            $('#template-edit-interface-add-button-s390x').on("click", function(event) {
+                event.preventDefault();
+                addInterfaceItem({
+                    networkID: 'networkID' + networkItemNum,
+                    networkV: 'default',
+                    type: 'network',
+                    mode: 'None'
+                });
+            });
+        };
+
+        var initProcessor = function(){
+            var setCPUValue = function(){
+                if(!$('#cores').hasClass("invalid-field")&&$('#cores').val()!=""){
+                    var computedCpu = parseInt($("#cores").val())*parseInt($("#threads").val());
                     $("#vcpus").val(computedCpu);
                     if ($("#cpus-check").prop("checked")) {
                         //If topology is checked, set maxcpu to be the same as # of cpu otherwise, backend gives error
@@ -641,18 +807,65 @@ kimchi.template_edit_main = function() {
                 topology: {}
             };
         }
-        var networks = $('.template-tab-body .item', '#form-template-interface');
-        var networkForUpdate = new Array();
-        $.each(networks, function(index, networkEntities) {
-            var thisValue = $('select', networkEntities).val();
-            networkForUpdate.push(thisValue);
+
+        if(kimchi.hostarch === s390xArch){
+            var interfaces = $('.template-tab-body .item', '#form-template-interface-s390x');
+            var networkForUpdate = new Array();
+            var interfacceForUpdate = new Array();
+
+            $.each(interfaces, function(index, interfaceEntities) {
+                var fields =  $('span.type select', interfaceEntities);
+                switch(fields.val()){
+                    case 'network':
+                        var thisValue = $('span.network select', interfaceEntities).val();
+                        networkForUpdate.push(thisValue);
+                    break;
+                    case 'macvtap':
+                        var thisdata = {};
+                        thisdata.type = $('span.type select', interfaceEntities).val();
+                        thisdata.name = $('span.network select', interfaceEntities).val();
+                        thisdata.mode = $('span.mode select', interfaceEntities).val();
+                        interfacceForUpdate.push(thisdata);
+                    break;
+                    case 'ovs':
+                        var thisdata = {};
+                        thisdata.type = $('span.type select', interfaceEntities).val();
+                        thisdata.name = $('span.network select', interfaceEntities).val();
+                        interfacceForUpdate.push(thisdata);
+                    break;
+                }
+
+                if (networkForUpdate instanceof Array) {
+                    data.networks = networkForUpdate;
+                } else if (networkForUpdate != null) {
+                    data.networks = [networkForUpdate];
+                } else {
+                    data.networks = [];
+                }
+
+                if (networkForUpdate instanceof Array) {
+                    data.interfaces = interfacceForUpdate;
+                } else if (interfacceForUpdate != null) {
+                    data.interfaces = [interfacceForUpdate];
+                } else {
+                    data.interfaces = [];
+                }
         });
-        if (networkForUpdate instanceof Array) {
-            data.networks = networkForUpdate;
-        } else if (networkForUpdate != null) {
-            data.networks = [networkForUpdate];
-        } else {
-            data.networks = [];
+        }else {
+            var networks = $('.template-tab-body .item', '#form-template-interface');
+            var networkForUpdate = new Array();
+            $.each(networks, function(index, networkEntities) {
+                var thisValue = $('select', networkEntities).val();
+                networkForUpdate.push(thisValue);
+            });
+
+            if (networkForUpdate instanceof Array) {
+                data.networks = networkForUpdate;
+            } else if (networkForUpdate != null) {
+                data.networks = [networkForUpdate];
+            } else {
+                data.networks = [];
+            }
         }
 
         if ($('.has-error', '#form-template-storage').length) {

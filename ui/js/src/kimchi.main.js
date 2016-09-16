@@ -33,6 +33,11 @@ kimchi.getCapabilities(function(result) {
     kimchi.capabilities = {};
 });
 
+kimchi.hostarch = undefined;
+kimchi.getHostDetails(function(result) {
+    kimchi.hostarch = result["architecture"];
+});
+
 $(function(){
     $('body').removeClass('wok-list wok-gallery');
 });
