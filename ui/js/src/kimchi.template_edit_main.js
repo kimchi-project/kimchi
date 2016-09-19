@@ -69,6 +69,7 @@ kimchi.template_edit_main = function() {
             $('input[name="' + prop + '"]', templateEditMain).val(value);
         }
         if(kimchi.hostarch == s390xArch){
+            $('.graphics', templateEditMain).hide();
             $('.console', templateEditMain).show();
             var consoleData = template.console ? template.console : '';
             $('#template-edit-console', templateEditMain).val(consoleData);

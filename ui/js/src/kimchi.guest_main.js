@@ -20,6 +20,9 @@
 var guestFilterList;
 var listFiltered;
 
+//init s390x Architecture
+var s390xArch = 's390x';
+
 kimchi.sampleGuestObject = {
     "name": "",
     "uuid": "",
@@ -897,6 +900,11 @@ kimchi.listVmsAuto = function() {
                         }
                         $('#guests-root-container > .wok-mask').fadeOut(300, function() {
                         });
+                        //check if Architecture is s390x and hide VNC column
+                        if(kimchi.hostarch === s390xArch){
+                            $('#guests-root-container span.column-vnc').addClass('hidden');
+                            $('#guestList a[name="vm-clone"]').hide();
+                        }
                     } else {
                         $('.grid-control').addClass('hidden');
                         $('#guestListField').hide();

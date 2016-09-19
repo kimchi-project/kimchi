@@ -1207,4 +1207,8 @@ kimchi.guest_edit_main = function() {
             }
         }
     };
+
+    if(kimchi.hostarch === s390xArch){
+        $('#guest-edit-window ul li a[data-id="form-guest-edit-pci"],a[data-id="form-guest-edit-snapshot"]').parent().hide();
+    }
 };
