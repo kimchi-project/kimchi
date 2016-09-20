@@ -967,6 +967,19 @@ class RestTests(unittest.TestCase):
                                 'POST')
             self.assertEquals(400, resp.status)
 
+            # try to attach an interface of type "macvtap" without source
+            if os.uname()[4] == "s390x":
+                req = json.dumps({'type': 'macvtap'})
+                resp = self.request('/plugins/kimchi/vms/test-vm/ifaces', req,
+                                    'POST')
+                self.assertEqual(400, resp.status)
+
+                # try to attach an interface of type "ovs" without source
+                req = json.dumps({'type': 'ovs'})
+                resp = self.request('/plugins/kimchi/vms/test-vm/ifaces', req,
+                                    'POST')
+                self.assertEqual(400, resp.status)
+
             # attach network interface to vm
             req = json.dumps({"type": "network",
                               "network": "test-network",
@@ -1017,6 +1030,67 @@ class RestTests(unittest.TestCase):
             resp = self.request('/plugins/kimchi/vms/test-vm/ifaces/%s' %
                                 iface['mac'], '{}', 'DELETE')
             self.assertEquals(204, resp.status)
+
+            if os.uname()[4] == "s390x":
+                # attach macvtap interface to vm
+                req = json.dumps({"type": "macvtap",
+                                  "source": "test-network"})
+                resp = self.request('/plugins/kimchi/vms/test-vm/ifaces', req,
+                                    'POST')
+                self.assertEquals(201, resp.status)
+                iface = json.loads(resp.read())
+
+                self.assertEquals('test-network', iface['source'])
+                self.assertEquals('macvtap', iface['type'])
+
+                # Start the VM
+                resp = self.request('/plugins/kimchi/vms/test-vm/start', '{}',
+                                    'POST')
+                vm = json.loads(
+                    self.request('/plugins/kimchi/vms/test-vm').read())
+                self.assertEquals('running', vm['state'])
+
+                # Force poweroff the VM
+                resp = self.request('/plugins/kimchi/vms/test-vm/poweroff',
+                                    '{}', 'POST')
+                vm = json.loads(
+                    self.request('/plugins/kimchi/vms/test-vm').read())
+                self.assertEquals('shutoff', vm['state'])
+
+                # detach network interface from vm
+                resp = self.request('/plugins/kimchi/vms/test-vm/ifaces/%s' %
+                                    iface['mac'], '{}', 'DELETE')
+                self.assertEquals(204, resp.status)
+
+                # attach ovs interface to vm
+                req = json.dumps({"type": "ovs",
+                                  "source": "test-network"})
+                resp = self.request('/plugins/kimchi/vms/test-vm/ifaces', req,
+                                    'POST')
+                self.assertEquals(201, resp.status)
+                iface = json.loads(resp.read())
+
+                self.assertEquals('test-network', iface['source'])
+                self.assertEquals('ovs', iface['type'])
+
+                # Start the VM
+                resp = self.request('/plugins/kimchi/vms/test-vm/start', '{}',
+                                    'POST')
+                vm = json.loads(
+                    self.request('/plugins/kimchi/vms/test-vm').read())
+                self.assertEquals('running', vm['state'])
+
+                # Force poweroff the VM
+                resp = self.request('/plugins/kimchi/vms/test-vm/poweroff',
+                                    '{}', 'POST')
+                vm = json.loads(
+                    self.request('/plugins/kimchi/vms/test-vm').read())
+                self.assertEquals('shutoff', vm['state'])
+
+                # detach ovs interface from vm
+                resp = self.request('/plugins/kimchi/vms/test-vm/ifaces/%s' %
+                                    iface['mac'], '{}', 'DELETE')
+                self.assertEquals(204, resp.status)
 
     def test_vm_customise_storage(self):
         # Create a Template
@@ -1433,6 +1507,10 @@ class RestTests(unittest.TestCase):
             # Distro not found error
             if distro.get('reason'):
                 self.assertIn('KCHDISTRO0001E', distro.get('reason'))
+
+    def test_ovsbridges(self):
+        resp = self.request('/plugins/kimchi/ovsbridges')
+        self.assertEquals(200, resp.status)
 
 
 class HttpsRestTests(RestTests):
