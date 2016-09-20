@@ -651,6 +651,30 @@ class ModelTests(unittest.TestCase):
                 iface = inst.vmiface_lookup(vm_name, mac)
                 self.assertEquals(mac, iface['mac'])
 
+                if os.uname()[4] == "s390x":
+
+                    # attach macvtap interface to vm
+                    iface_args = {"type": "macvtap",
+                                  "source": "test-network",
+                                  "mode": "vepa"}
+                    mac = inst.vmifaces_create(vm_name, iface_args)
+                    rollback.prependDefer(inst.vmiface_delete, vm_name, mac)
+
+                    iface = inst.vmiface_lookup(vm_name, mac)
+                    self.assertEquals("macvtap", iface["type"])
+                    self.assertEquals("test-network", iface['source'])
+                    self.assertEquals("vepa", iface['mode'])
+
+                    # attach ovs interface to vm
+                    iface_args = {"type": "ovs",
+                                  "source": "test-network"}
+                    mac = inst.vmifaces_create(vm_name, iface_args)
+                    rollback.prependDefer(inst.vmiface_delete, vm_name, mac)
+
+                    iface = inst.vmiface_lookup(vm_name, mac)
+                    self.assertEquals("ovs", iface["type"])
+                    self.assertEquals("test-network", iface['source'])
+
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_vm_netboot(self):
         inst = model.Model(objstore_loc=self.tmp_store)
