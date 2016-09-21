@@ -377,8 +377,8 @@ kimchi.guest_storage_add_main = function() {
                     vol:  settings['vol'],
                     pool: settings['pool']
                 };
-                var sizeInMB = parseInt(settings['capacity']) * 1024;
-                settings['capacity'] = sizeInMB;
+                var sizeInBytes = parseInt(settings['capacity']) * 1024 * 1024 * 1024;
+                settings['capacity'] = sizeInBytes;
                 //These need to be deleted so they don't get passed to backend
                 delete settings['path'];
                 delete settings['newpool'];
