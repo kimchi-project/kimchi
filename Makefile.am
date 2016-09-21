@@ -141,11 +141,11 @@ rpm: kimchi.spec
 	cp $(DIST_ARCHIVES) rpm/SOURCES
 	rpmbuild -ba --define "_topdir `pwd`/rpm" rpm/SPECS/kimchi.spec
 
-fedora-rpm: check_files contrib/kimchi.spec.fedora
+fedora-rpm: contrib/kimchi.spec.fedora
 	ln -sf contrib/kimchi.spec.fedora kimchi.spec
 	$(MAKE) rpm
 
-suse-rpm: check_files contrib/kimchi.spec.suse
+suse-rpm: contrib/kimchi.spec.suse
 	ln -sf contrib/kimchi.spec.suse kimchi.spec
 	$(MAKE) rpm
 
