@@ -1,0 +1,60 @@
+13:02:31 <alinefm> #startmeeting
+13:02:31 <kimchi-bot> Meeting started Wed Sep 21 13:02:31 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:02:31 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:02:31 <alinefm> #meetingname scrum
+13:02:31 <kimchi-bot> The meeting name has been set to 'scrum'
+13:02:38 <lcorreia> hi
+13:03:06 <alinefm> #info Agenda
+13:03:06 <alinefm> #info 1) Status
+13:03:06 <alinefm> #info 2) Open discussion
+13:03:06 <alinefm> anything else?
+13:03:44 <ramonn> np
+13:04:11 <alinefm> #topic Status
+13:04:11 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+13:04:18 <alinefm> #info [*] lcorreia ran release tests in RHEL 7.2 and reported several issues
+13:04:19 <alinefm> #info [kimchi] lcorreia working on PCI passthrough coldplug fixes
+13:04:19 <alinefm> #info [ginger*] lcorreia reviewed/applied patches upstream
+13:04:19 <alinefm> #info [ginger*] lcorreia sent PEP8 fixes to ML
+13:04:20 <alinefm> #info [*] lcorreia maintaining/pushed branches to HostOS kimchi-ginger upstream trees
+13:04:28 <pvital_> #info [*] pvital performed tests on 2.3 release on Ubuntu 16.04
+13:04:28 <pvital_> #info [*] pvital reviewed patches
+13:04:28 <pvital_> #info [Kimchi] pvital is working on issue #733 - Kimchi doesn't allow for proxying to URL like ip:port/arbitrary/path/
+13:04:36 <alinefm> #info [*] alinefm completed the teste on CentOS 7 for 2.3 release
+13:04:47 <ramonn> #info [*] ramonn did opensuse validation
+13:04:52 <bianca> #info [Kimchi] bianca submitted a patch corrections to issue #860 - Support Guest Autostart, waiting review.
+13:04:53 <bianca> #info [Kimchi] bianca is working in "make clean' does not revert its changes from 'make rpm'" issue.
+13:04:54 <alinefm> #info [Kimchi] alinefm sent patch to fix issue while attaching disk to guest (#1010)
+13:05:01 <ramonn> #info [wok] ramonn will try to finish js to rpms patch
+13:05:22 <alinefm> #info [gingerbase] alinefm sent patch to add python-mock as test deps
+13:05:34 <ramonn> #info [wok] ramonn opened bug against nginx patch. Will discuss if it's valid with pvital_
+13:05:38 <alinefm> #info [wok] alinefm sent patch to fix advanced search on user log
+13:06:06 <alinefm> #info [kimchi] alinefm is working on making Fedora 24 ISO recognized by Kimchi (today the version is being set to 1 instead of 24)
+13:06:55 <alinefm> #info [*] alinefm is creating kan-ban boards to track issues and features on github for all the projects
+13:07:11 <alinefm> danielhb, anything from your side?
+13:07:41 <danielhb> alinefm, not much :)
+13:07:49 <pvital_> danielhb, yeah! give us you vacation status
+13:07:51 <danielhb> #info [ginger*] danielhb reviewed and applied patches
+13:07:53 <pvital_> :-)
+13:08:14 <danielhb> #info [vacations] danielhb played World of Warcraft extensively
+13:08:26 <bianca> lol
+13:08:47 <pvital_> lol
+13:11:13 <alinefm> hehehehe
+13:11:26 <alinefm> danielhb, what about the plans for this week?
+13:11:55 <danielhb> #info [ginger] danielhb will work in improvements in the System Platform UI
+13:14:02 <alinefm> #topic Open Discussion
+13:14:10 <alinefm> any other topic to discuss today?
+13:14:53 <bianca> yes
+13:15:02 <bianca> I'm going on vacation next week \o/
+13:16:00 <bianca> just to let you guys know lol
+13:17:10 <danielhb> bianca, good for you! so GTA5 or WoW or diablo 3 or .... ?
+13:17:21 <alinefm> heheheh
+13:17:22 <alinefm> bianca, thanks
+13:17:34 <bianca> danielhb hope all of them haha
+13:17:38 <alinefm> and enjoy your vacation
+13:17:42 <bianca> thanks!
+13:17:52 <danielhb> bianca, I like the way you think, sestra
+13:18:06 <alinefm> just a reminder that 2.3 releases will be announced next week. So please, focus on bug fixes
+13:19:02 <alinefm> any question?
+13:19:11 <lcorreia> no
+13:21:23 <alinefm> so thanks everyone for joining!
+13:21:27 <alinefm> #endmeeting

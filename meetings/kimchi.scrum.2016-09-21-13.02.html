@@ -1,0 +1,212 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi Meeting</title>
+<style type="text/css">
+/* This is for the .html in the HTML2 writer */
+body {
+    font-family: Helvetica, sans-serif;
+    font-size:14px;
+}
+h1 {
+    text-align: center;
+}
+a {
+    color:navy;
+    text-decoration: none;
+    border-bottom:1px dotted navy;
+}
+a:hover {
+    text-decoration:none;
+    border-bottom: 0;
+    color:#0000B9;
+}
+hr {
+    border: 1px solid #ccc;
+}
+/* The (nick, time) item pairs, and other body text things. */
+.details {
+    font-size: 12px;
+    font-weight:bold;
+}
+/* The 'AGREED:', 'IDEA', etc, prefix to lines. */
+.itemtype {
+    font-style: normal;    /* un-italics it */
+    font-weight: bold;
+}
+/* Example: change single item types.  Capitalized command name.
+/* .TOPIC  {  color:navy;  } */
+/* .AGREED {  color:lime;  } */
+
+</style>
+</head>
+
+<body>
+<h1>#kimchi Meeting</h1>
+<span class="details">
+Meeting started by alinefm at 13:02:31 UTC
+(<a href="kimchi.scrum.2016-09-21-13.02.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Meeting summary</h3>
+<ol>
+<li>
+<ol type="a">
+  <li><span class="INFO">Agenda</span> <span class="details">(<a
+    href='kimchi.scrum.2016-09-21-13.02.log.html#l-7'>alinefm</a>,
+    13:03:06)</span></li>
+  <li><span class="INFO">1) Status</span> <span class="details">(<a
+    href='kimchi.scrum.2016-09-21-13.02.log.html#l-8'>alinefm</a>,
+    13:03:06)</span></li>
+  <li><span class="INFO">2) Open discussion</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-09-21-13.02.log.html#l-9'>alinefm</a>,
+    13:03:06)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Status</b> <span class="details">(<a href='kimchi.scrum.2016-09-21-13.02.log.html#l-12'>alinefm</a>, 13:04:11)</span>
+<ol type="a">
+  <li><span class="INFO">Please provide your status using the #info
+    command: #info [&lt;project] &lt;nickname&gt; &lt;status&gt;</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2016-09-21-13.02.log.html#l-13'>alinefm</a>,
+    13:04:11)</span></li>
+  <li><span class="INFO">[*] lcorreia ran release tests in RHEL 7.2 and
+    reported several issues</span> <span class="details">(<a
+    href='kimchi.scrum.2016-09-21-13.02.log.html#l-14'>alinefm</a>,
+    13:04:18)</span></li>
+  <li><span class="INFO">[kimchi] lcorreia working on PCI passthrough
+    coldplug fixes</span> <span class="details">(<a
+    href='kimchi.scrum.2016-09-21-13.02.log.html#l-15'>alinefm</a>,
+    13:04:19)</span></li>
+  <li><span class="INFO">[ginger*] lcorreia reviewed/applied patches
+    upstream</span> <span class="details">(<a
+    href='kimchi.scrum.2016-09-21-13.02.log.html#l-16'>alinefm</a>,
+    13:04:19)</span></li>
+  <li><span class="INFO">[ginger*] lcorreia sent PEP8 fixes to ML</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2016-09-21-13.02.log.html#l-17'>alinefm</a>,
+    13:04:19)</span></li>
+  <li><span class="INFO">[*] lcorreia maintaining/pushed branches to
+    HostOS kimchi-ginger upstream trees</span> <span class="details">(<a
+    href='kimchi.scrum.2016-09-21-13.02.log.html#l-18'>alinefm</a>,
+    13:04:20)</span></li>
+  <li><span class="INFO">[*] pvital performed tests on 2.3 release on
+    Ubuntu 16.04</span> <span class="details">(<a
+    href='kimchi.scrum.2016-09-21-13.02.log.html#l-19'>pvital_</a>,
+    13:04:28)</span></li>
+  <li><span class="INFO">[*] pvital reviewed patches</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-09-21-13.02.log.html#l-20'>pvital_</a>,
+    13:04:28)</span></li>
+  <li><span class="INFO">[Kimchi] pvital is working on issue #733 -
+    Kimchi doesn't allow for proxying to URL like
+    ip:port/arbitrary/path/</span> <span class="details">(<a
+    href='kimchi.scrum.2016-09-21-13.02.log.html#l-21'>pvital_</a>,
+    13:04:28)</span></li>
+  <li><span class="INFO">[*] alinefm completed the teste on CentOS 7 for
+    2.3 release</span> <span class="details">(<a
+    href='kimchi.scrum.2016-09-21-13.02.log.html#l-22'>alinefm</a>,
+    13:04:36)</span></li>
+  <li><span class="INFO">[*] ramonn did opensuse validation</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-09-21-13.02.log.html#l-23'>ramonn</a>,
+    13:04:47)</span></li>
+  <li><span class="INFO">[Kimchi] bianca submitted a patch corrections
+    to issue #860 - Support Guest Autostart, waiting review.</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2016-09-21-13.02.log.html#l-24'>bianca</a>,
+    13:04:52)</span></li>
+  <li><span class="INFO">[Kimchi] bianca is working in "make clean' does
+    not revert its changes from 'make rpm'" issue.</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-09-21-13.02.log.html#l-25'>bianca</a>,
+    13:04:53)</span></li>
+  <li><span class="INFO">[Kimchi] alinefm sent patch to fix issue while
+    attaching disk to guest (#1010)</span> <span class="details">(<a
+    href='kimchi.scrum.2016-09-21-13.02.log.html#l-26'>alinefm</a>,
+    13:04:54)</span></li>
+  <li><span class="INFO">[wok] ramonn will try to finish js to rpms
+    patch</span> <span class="details">(<a
+    href='kimchi.scrum.2016-09-21-13.02.log.html#l-27'>ramonn</a>,
+    13:05:01)</span></li>
+  <li><span class="INFO">[gingerbase] alinefm sent patch to add
+    python-mock as test deps</span> <span class="details">(<a
+    href='kimchi.scrum.2016-09-21-13.02.log.html#l-28'>alinefm</a>,
+    13:05:22)</span></li>
+  <li><span class="INFO">[wok] ramonn opened bug against nginx patch.
+    Will discuss if it's valid with pvital_</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-09-21-13.02.log.html#l-29'>ramonn</a>,
+    13:05:34)</span></li>
+  <li><span class="INFO">[wok] alinefm sent patch to fix advanced search
+    on user log</span> <span class="details">(<a
+    href='kimchi.scrum.2016-09-21-13.02.log.html#l-30'>alinefm</a>,
+    13:05:38)</span></li>
+  <li><span class="INFO">[kimchi] alinefm is working on making Fedora 24
+    ISO recognized by Kimchi (today the version is being set to 1
+    instead of 24)</span> <span class="details">(<a
+    href='kimchi.scrum.2016-09-21-13.02.log.html#l-31'>alinefm</a>,
+    13:06:06)</span></li>
+  <li><span class="INFO">[*] alinefm is creating kan-ban boards to track
+    issues and features on github for all the projects</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2016-09-21-13.02.log.html#l-32'>alinefm</a>,
+    13:06:55)</span></li>
+  <li><span class="INFO">[ginger*] danielhb reviewed and applied
+    patches</span> <span class="details">(<a
+    href='kimchi.scrum.2016-09-21-13.02.log.html#l-36'>danielhb</a>,
+    13:07:51)</span></li>
+  <li><span class="INFO">[vacations] danielhb played World of Warcraft
+    extensively</span> <span class="details">(<a
+    href='kimchi.scrum.2016-09-21-13.02.log.html#l-38'>danielhb</a>,
+    13:08:14)</span></li>
+  <li><span class="INFO">[ginger] danielhb will work in improvements in
+    the System Platform UI</span> <span class="details">(<a
+    href='kimchi.scrum.2016-09-21-13.02.log.html#l-43'>danielhb</a>,
+    13:11:55)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Open Discussion</b> <span class="details">(<a href='kimchi.scrum.2016-09-21-13.02.log.html#l-44'>alinefm</a>, 13:14:02)</span>
+</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">
+Meeting ended at 13:21:27 UTC
+(<a href="kimchi.scrum.2016-09-21-13.02.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Action items</h3>
+<ol>
+  <li>(none)</li>
+</ol>
+<br><br>
+
+
+
+<h3>People present (lines said)</h3>
+<ol>
+  <li>alinefm (31)</li>
+  <li>bianca (8)</li>
+  <li>pvital_ (6)</li>
+  <li>danielhb (6)</li>
+  <li>ramonn (4)</li>
+  <li>kimchi-bot (3)</li>
+  <li>lcorreia (2)</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">Generated by <a href="http://wiki.debian.org/MeetBot">MeetBot</a> 0.1.4.</span>
+</body></html>
