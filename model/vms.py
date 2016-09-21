@@ -775,12 +775,12 @@ class VMModel(object):
         # get machine type
         os = et.find("os")
 
-        # remove old order
-        for device in os.findall("boot"):
-            os.remove(device)
-
         # add new bootorder
         if "bootorder" in params:
+
+            # remove old order
+            [os.remove(device) for device in os.findall("boot")]
+
             for device in get_bootorder_node(params["bootorder"]):
                 os.append(device)
 
@@ -858,7 +858,7 @@ class VMModel(object):
             new_xml = self._update_memory_config(new_xml, params, dom)
 
         # update bootorder or bootmenu
-        if "bootorder" or "bootmenu" in params:
+        if "bootorder" in params or "bootmenu" in params:
             new_xml = self._update_bootorder(new_xml, params)
 
         snapshots_info = []
