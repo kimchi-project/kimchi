@@ -99,7 +99,7 @@ do_substitution = \
 	-e 's,[@]sysconfdir[@],$(sysconfdir),g'         \
 	-e 's,[@]localstatedir[@],$(localstatedir),g'   \
 	-e 's,[@]pkgdatadir[@],$(pkgdatadir),g'         \
-	-e 's,[@]wokdir[@],$(wokdir),g'           \
+	-e 's,[@]wokdir[@],$(wokdir),g'           			\
 	-e 's,[@]kimchidir[@],$(kimchidir),g'           \
 	-e 's,[@]kimchiversion[@],$(PACKAGE_VERSION),g' \
 	-e 's,[@]kimchirelease[@],$(PACKAGE_RELEASE),g' \
@@ -127,32 +127,19 @@ deb: contrib/make-deb.sh
 
 kimchi.spec: contrib/kimchi.spec.fedora contrib/kimchi.spec.suse
 	@if test -e /etc/redhat-release; then                   \
-		ln -sf contrib/kimchi.spec.fedora $@ ;              \
+		ln -sf contrib/kimchi.spec.fedora $@ ;              	\
 	elif test -e /etc/SuSE-release; then                    \
-		ln -sf contrib/kimchi.spec.suse $@ ;                \
+		ln -sf contrib/kimchi.spec.suse $@ ;                	\
 	else                                                    \
-		echo "Unable to select a spec file for RPM build" ; \
-		/bin/false ;                                        \
+		echo "Unable to select a spec file for RPM build" ; 	\
+		/bin/false ;                                        	\
 	fi
 
-check_files:
-	@if [ -d '.git' ]; then                                           \
-               if [ `git status --porcelain --untracked-files=no | wc -l` -gt 0 ]; then        \
-                       echo "***** Aborting 'make rpm' command *****";    \
-                       echo "There are some changes not commited in your working \
-directory. To avoid losing them, please commit or stage before run 'make rpm' command.";       \
-                       exit 1;                                            \
-               fi                                                         \
-       fi
-
-rpm: check_files dist kimchi.spec
+rpm: kimchi.spec
 	$(MKDIR_P) rpm/BUILD rpm/RPMS rpm/SOURCES rpm/SPECS rpm/SRPMS
 	cp $(top_srcdir)/kimchi.spec rpm/SPECS/kimchi.spec
 	cp $(DIST_ARCHIVES) rpm/SOURCES
 	rpmbuild -ba --define "_topdir `pwd`/rpm" rpm/SPECS/kimchi.spec
-	@if [ -d '.git' ]; then                         \
-		git reset --hard;                       \
-	fi
 
 fedora-rpm: check_files contrib/kimchi.spec.fedora
 	ln -sf contrib/kimchi.spec.fedora kimchi.spec
