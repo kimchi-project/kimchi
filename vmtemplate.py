@@ -434,7 +434,11 @@ class VMTemplate(object):
 
         # Set the boot order of VM
         # TODO: need modify this when boot order edition feature came upstream.
-        params['boot_order'] = get_bootorder_xml()
+        if cdrom_xml and params.get('arch') == 's390x':
+            params['boot_order'] = get_bootorder_xml(['cdrom', 'hd',
+                                                      'network'])
+        else:
+            params['boot_order'] = get_bootorder_xml()
 
         # Setting maximum number of memory slots
         slots = str(self.info['mem_dev_slots'])
