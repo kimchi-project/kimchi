@@ -213,6 +213,7 @@ kimchi.template_add_main = function() {
         wok.confirm(settings, function() {
             $('#iso-more').hide();
             $('#iso-more-loading').show();
+            $('#iso-more-loading').attr('disabled', 'disabled');
             deepScan('#iso-more');
         });
     });
