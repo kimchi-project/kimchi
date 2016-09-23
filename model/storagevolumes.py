@@ -330,7 +330,8 @@ class StorageVolumeModel(object):
         used_by = get_disk_used_by(self.conn, path)
         if (self.libvirt_user is None):
             self.libvirt_user = UserTests().probe_user()
-        ret, _ = probe_file_permission_as_user(path, self.libvirt_user)
+        ret, _ = probe_file_permission_as_user(os.path.realpath(path),
+                                               self.libvirt_user)
         res = dict(type=VOLUME_TYPE_MAP[info[0]],
                    capacity=info[1],
                    allocation=info[2],
