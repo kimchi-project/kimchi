@@ -382,9 +382,12 @@
                     span.running {
                         display: block;
                     }
-                    span.paused,
                     span.shutoff,
                     span.starting,
+                    span.crashed,
+                    span.nostate,
+                    span.paused,
+                    span.pmsuspended,
                     span.resetting {
                         display: none;
                     }
@@ -393,9 +396,12 @@
                     span.shutoff {
                         display: block;
                     }
-                    span.paused,
                     span.running,
                     span.starting,
+                    span.crashed,
+                    span.nostate,
+                    span.paused,
+                    span.pmsuspended,
                     span.resetting {
                         display: none;
                     }
@@ -404,9 +410,68 @@
                     span.starting {
                         display: block;
                     }
-                    span.paused,
                     span.running,
                     span.shutoff,
+                    span.crashed,
+                    span.nostate,
+                    span.paused,
+                    span.pmsuspended,
+                    span.resetting {
+                        display: none;
+                    }
+                }
+                > span.guest-state.crashed {
+                    span.crashed {
+                        display: block;
+                    }
+                    span.running,
+                    span.shutoff,
+                    span.starting,
+                    span.nostate,
+                    span.paused,
+                    span.pmsuspended,
+                    span.resetting {
+                        display: none;
+                    }
+                }
+                > span.guest-state.nostate {
+                    span.nostate {
+                        display: block;
+                    }
+                    span.running,
+                    span.shutoff,
+                    span.starting,
+                    span.crashed,
+                    span.paused,
+                    span.pmsuspended,
+                    span.resetting {
+                        display: none;
+                    }
+                }
+                > span.guest-state.paused {
+                    span.paused {
+                        display: block;
+                    }
+                    span.running,
+                    span.shutoff,
+                    span.starting,
+                    span.crashed,
+                    span.nostate,
+                    span.pmsuspended,
+                    span.resetting {
+                        display: none;
+                    }
+                }
+                > span.guest-state.pmsuspended {
+                    span.pmsuspended {
+                        display: block;
+                    }
+                    span.running,
+                    span.shutoff,
+                    span.starting,
+                    span.crashed,
+                    span.nostate,
+                    span.paused,
                     span.resetting {
                         display: none;
                     }
@@ -415,10 +480,13 @@
                     span.resetting {
                         display: block;
                     }
-                    span.paused,
                     span.running,
                     span.shutoff,
-                    span.starting {
+                    span.starting,
+                    span.crashed,
+                    span.nostate,
+                    span.paused,
+                    span.pmsuspended {
                         display: none;
                     }
                 }

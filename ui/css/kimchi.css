@@ -689,9 +689,12 @@
   display: block;
 }
 
-#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.running span.paused,
 #guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.running span.shutoff,
 #guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.running span.starting,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.running span.crashed,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.running span.nostate,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.running span.paused,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.running span.pmsuspended,
 #guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.running span.resetting {
   display: none;
 }
@@ -700,9 +703,12 @@
   display: block;
 }
 
-#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.shutoff span.paused,
 #guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.shutoff span.running,
 #guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.shutoff span.starting,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.shutoff span.crashed,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.shutoff span.nostate,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.shutoff span.paused,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.shutoff span.pmsuspended,
 #guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.shutoff span.resetting {
   display: none;
 }
@@ -711,10 +717,69 @@
   display: block;
 }
 
-#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.starting span.paused,
 #guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.starting span.running,
 #guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.starting span.shutoff,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.starting span.crashed,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.starting span.nostate,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.starting span.paused,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.starting span.pmsuspended,
 #guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.starting span.resetting {
+  display: none;
+}
+
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.crashed span.crashed {
+  display: block;
+}
+
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.crashed span.running,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.crashed span.shutoff,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.crashed span.starting,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.crashed span.nostate,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.crashed span.paused,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.crashed span.pmsuspended,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.crashed span.resetting {
+  display: none;
+}
+
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.nostate span.nostate {
+  display: block;
+}
+
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.nostate span.running,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.nostate span.shutoff,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.nostate span.starting,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.nostate span.crashed,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.nostate span.paused,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.nostate span.pmsuspended,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.nostate span.resetting {
+  display: none;
+}
+
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.paused span.paused {
+  display: block;
+}
+
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.paused span.running,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.paused span.shutoff,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.paused span.starting,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.paused span.crashed,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.paused span.nostate,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.paused span.pmsuspended,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.paused span.resetting {
+  display: none;
+}
+
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.pmsuspended span.pmsuspended {
+  display: block;
+}
+
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.pmsuspended span.running,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.pmsuspended span.shutoff,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.pmsuspended span.starting,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.pmsuspended span.crashed,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.pmsuspended span.nostate,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.pmsuspended span.paused,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.pmsuspended span.resetting {
   display: none;
 }
 
@@ -722,10 +787,13 @@
   display: block;
 }
 
-#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.resetting span.paused,
 #guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.resetting span.running,
 #guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.resetting span.shutoff,
-#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.resetting span.starting {
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.resetting span.starting,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.resetting span.crashed,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.resetting span.nostate,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.resetting span.paused,
+#guest-content-container .wok-guest-gallery .wok-guest-list-item .btn > span.guest-state.resetting span.pmsuspended {
   display: none;
 }
 
