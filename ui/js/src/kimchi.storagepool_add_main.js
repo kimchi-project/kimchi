@@ -127,7 +127,7 @@ kimchi.initStorageAddPage = function() {
     kimchi.listHostPartitions(function(data) {
         if (data.length > 0) {
             var deviceHtml = $('#partitionTmpl').html();
-            var listHtml = '<table class="table table-hover"><thead><tr><th></th><th>device</th><th>path</th><th>size (GiB)</th></tr></thead><tbody>';
+            var listHtml = '<table class="table table-hover"><thead><tr><th></th><th>Device</th><th>Path</th><th>Size (GiB)</th></tr></thead><tbody>';
             valid_types = ['part', 'disk', 'mpath'];
             $.each(data, function(index, value) {
                 if (valid_types.indexOf(value.type) !== -1) {

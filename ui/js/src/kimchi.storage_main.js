@@ -410,10 +410,8 @@ kimchi.storageBindClick = function() {
 
         $('.pool-extend').on('click', function(event) {
             event.preventDefault();
-            //$("#logicalPoolExtend").dialog("option", "poolName", $(this).data('name'));
-            //$("#logicalPoolExtend").dialog("open");
-            partitions = $(this).data('name');
-            //$("#logicalPoolExtend").dialog("option", "poolName", $(this).data('name'));
+            var poolName = $(this).data('name');
+            kimchi.selectedSP = poolName;
         });
     }
 
@@ -478,17 +476,23 @@ kimchi._generateVolumeHTML = function(volume) {
     return volumeHtml[0].outerHTML;
 };
 
+
+kimchi.getPoolUsageIcon = function(usage) {
+    if (usage <= 100 && usage >= 85)
+        return 'icon-high';
+
+    if (usage <= 85 && usage >= 75)
+        return 'icon-med';
+
+    return 'icon-low';
+};
+
+
 kimchi.doUpdateStoragePool = function(poolObj){
     var poolName = poolObj.data('name');
     kimchi.getStoragePool(poolName, function(result) {
         result.usage = Math.round(result.allocated / result.capacity * 100) || 0;
-        if (result.usage <= 100 && result.usage >= 85) {
-            result.icon = 'icon-high';
-        }else if (result.usage <= 85 && result.usage >= 75 ) {
-            result.icon = 'icon-med';
-        } else {
-            result.icon = 'icon-low';
-        }
+        result.icon = kimchi.getPoolUsageIcon(result.usage);
         result.allocated = wok.changetoProperUnit(result.allocated,1);
         $('> .column-usage > .usage-icon',poolObj).attr('class', 'usage-icon').addClass(result.icon).text(result.usage);
         $('> .column-allocated',poolObj).attr('val',result.allocated).text(result.allocated);
@@ -649,30 +653,45 @@ kimchi.doListVolumes = function(poolObj) {
     }, false);
 };
 
-    kimchi.initLogicalPoolExtend = function() {
-
+kimchi.initLogicalPoolExtend = function() {
     $('#logicalPoolExtend').on('hidden.bs.modal', function () {
         $('.host-partition', '#logicalPoolExtend').empty();
     });
 
     $('#logicalPoolExtend').on('show.bs.modal', function() {
-        //$('#logicalPoolExtend2').find('.modal-content').html();
-        kimchi.listHostPartitions(function(partitions) {
-            $('#loading-info', '#logicalPoolExtend').removeClass('hidden');
-            if (partitions.length > 0) {
-                for (var i = 0; i < partitions.length; i++) {
-                    if (partitions[i].type === 'part' || partitions[i].type === 'disk') {
-                        $('.host-partition', '#logicalPoolExtend').append(wok.substitute($('#logicalPoolExtendTmpl').html(), partitions[i]));
-                        $('#savePartitions', '#logicalPoolExtend').prop('disabled', false);
+        // Make any change in the form fields enables the
+        // 'savePartitions' button if all the visible form
+        // fields are filled, disables it otherwise.
+        $('#logicalPoolExtend').on('input change propertychange', function() {
+            if ($("input[name=devices]:checked").length === 0) {
+                $("#savePartitions").attr("disabled", true);
+            }
+            else {
+                $("#savePartitions").attr("disabled", false);
+            }
+        });
+
+        kimchi.listHostPartitions(function(data) {
+            if (data.length > 0) {
+                var deviceHtml = $('#partitionTmpl').html();
+                var listHtml = '<table class="table table-hover"><thead><tr><th></th><th>Device</th><th>Path</th><th>Size (GiB)</th></tr></thead><tbody>';
+                valid_types = ['part', 'disk', 'mpath'];
+                $.each(data, function(index, value) {
+                    if (valid_types.indexOf(value.type) !== -1) {
+                        value.size = (value.size / 1000000000).toFixed(2);
+                        listHtml += wok.substitute(deviceHtml, value);
                     }
-                }
+                });
+                listHtml += '</tbody></table>';
+                var infoHtml = '<h3>' + i18n['KCHPOOL6019M'].replace('%1', '<strong>' + kimchi.selectedSP + '</strong>') + '</h3>';
+                $('.host-partition', '#logicalPoolExtend').html(infoHtml + listHtml);
             } else {
-                $('#loading-info', '#logicalPoolExtend').addClass('hidden');
                 $('.host-partition').html(i18n['KCHPOOL6011M']);
+                $('.host-partition').addClass('text-help');
             }
         }, function(err) {
-            $('#loading-info', '#logicalPoolExtend').addClass('hidden');
             $('.host-partition').html(i18n['KCHPOOL6013M'] + '<br/>(' + err.responseJSON.reason + ')');
+            $('.host-partition').addClass('text-help');
         });
 
         $('#savePartitions', '#logicalPoolExtend').on('click', function(event) {
@@ -681,14 +700,16 @@ kimchi.doListVolumes = function(poolObj) {
             $("input[type='checkbox']:checked", "#logicalPoolExtend").each(function() {
                 devicePaths.push($(this).prop('value'));
             });
-            kimchi.updateStoragePool($("#logicalPoolExtend"), {
+            kimchi.updateStoragePool(kimchi.selectedSP, {
                 disks: devicePaths
-            }, function(partitions) {
-                var item = $("#" + $("#logicalPoolExtend").dialog("option", "poolName"));
+            }, function(pool) {
                 $('#logicalPoolExtend').modal('hide');
-                $(".usage", $(".storage-name", item)).text((Math.round(partitions.allocated / partitions.capacity * 100) || 0) + "%");
-                $(".storage-text", $(".storage-capacity", item)).text(wok.changetoProperUnit(partitions.capacity, 1));
-                $(".storage-text", $(".storage-allocate", item)).text(wok.changetoProperUnit(partitions.allocated, 1));
+                var item = '#' + pool.name;
+                var usage = Math.round(pool.allocated / pool.capacity * 100) || 0;
+                var usageIcon = kimchi.getPoolUsageIcon(usage);
+                $(".usage-icon", $(".column-usage", item)).attr('class', 'usage-icon').addClass(usageIcon).text(usage);
+                $(".column-capacity", item).text(wok.changetoProperUnit(pool.capacity, 1));
+                $(".column-allocated", item).text(wok.changetoProperUnit(pool.allocated, 1));
             }, function(err) {
                 $('#savePartitions', '#logicalPoolExtend').prop('disabled', true);
                 $('#logicalPoolExtend').modal('hide');

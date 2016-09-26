@@ -294,7 +294,8 @@
   font-size: 32px;
 }
 
-#wok-confirm-modal .modal-body strong {
+#wok-confirm-modal .modal-body strong,
+.modal-dialog .modal-body strong {
   border-bottom: 1px dotted;
 }
 
