@@ -74,21 +74,21 @@
             <div id="logicalPoolExtend" class="modal fade logicalpool-modal" tabindex="-2" role="dialog" aria-labelledby="logicalPoolExtendLabel" aria-hidden="true">
                 <div class="modal-dialog modal-sm">
                     <div class="modal-content">
-                      <div class="modal-header">
+                        <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="logicalPoolExtendLabel">$_("Device path")</h4>
-                          </div>
-                          <div class="modal-body">
-                                <p  id="loading-info" class="hidden"><span class="wok-loading-icon"></span><span>$_("Looking for available partitions ...")</span></p>
-                                <div class="host-partition">
-                                </div>
-                          </div>
-                          <div class="modal-footer">
-                              <button type="button" id="savePartitions" class="btn btn-default" disabled="disabled">$_("Save")</button>
-                              <button type="button" class="btn btn-default" data-dismiss="modal">$_("Cancel")</button>
-                          </div>
+                            <h4 class="modal-title" id="logicalPoolExtendLabel">$_("Extending logical pool")</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="host-partition">
+                                <span class="wok-loading-icon"></span><span>$_("Looking for available partitions ...")</span>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="savePartitions" class="btn btn-default" disabled="disabled">$_("Save")</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">$_("Cancel")</button>
+                        </div>
                     </div>
-                  </div>
+                </div>
             </div>
         </div>
         <div class="wok-mask">
@@ -200,17 +200,16 @@
     </div>
 </li>
 </script>
-<script id="logicalPoolExtendTmpl" type="html/text">
-    <div>
-        <input type="checkbox" class="wok-checkbox" id="{name}" value="{path}" name="devices">
-        <label for="{name}">
-            <div>
-                <span class="device-name">{name}</span>
-                <span class="device-path">{path}</span>
-            </div>
-        </label>
-    </div>
+
+<script id="partitionTmpl" type="html/text">
+    <tr>
+        <td><input type="checkbox" class="wok-checkbox" id="{name}" value="{path}" name="devices"><label for="{name}"></label></td>
+        <td>{name}</td>
+        <td>{path}</td>
+        <td>{size}</td>
+    </tr>
 </script>
+
 <script>
     kimchi.storage_main();
 </script>
