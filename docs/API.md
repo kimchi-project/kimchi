@@ -239,6 +239,9 @@ Represents a snapshot of the Virtual Machine's primary monitor.
     * path: Path of cdrom iso.
     * pool: Storage pool which disk image file locate in.
     * vol: Storage volume name of disk image.
+    * dir_path: s390x specific attribute to attach direct storage without libvirt
+    * format: s390x specific attribute specify the format of direct storage
+    * size: s390x specific attribute to specify the size of direct storage
 
 ### Sub-resource: storage
 **URI:** /plugins/kimchi/vms/*:name*/storages/*:dev*
