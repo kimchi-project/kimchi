@@ -336,6 +336,9 @@ messages = {
     "KCHVMSTOR0016E": _("Volume already in use by other virtual machine."),
     "KCHVMSTOR0017E": _("Only one of path or pool/volume can be specified to add a new virtual machine disk"),
     "KCHVMSTOR0018E": _("Volume chosen with format %(format)s does not fit in the storage type %(type)s"),
+    "KCHVMSTOR0019E": _("On s390x arch one of pool, path of dir_path must be specified"),
+    "KCHVMSTOR0020E": _("On s390x arch 'format' must be specified while attaching disk to virtual machine"),
+    "KCHVMSTOR0021E": _("Virtual disk already exists on the system: %(disk_path)s"),
 
     "KCHSNAP0001E": _("Virtual machine '%(vm)s' must be stopped before creating a snapshot of it."),
     "KCHSNAP0002E": _("Unable to create snapshot '%(name)s' on virtual machine '%(vm)s'. Details: %(err)s"),
