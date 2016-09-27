@@ -25,12 +25,11 @@ from wok.plugins.kimchi import osinfo
 
 def get_iface_xml(params, arch=None, os_distro=None, os_version=None):
     typ = params.get('type', 'network')
-    if typ == 'network':
-        return get_iface_network_xml(params, arch, os_distro, os_version)
-    elif typ == 'bridge':
+    if typ == 'bridge':
         return get_iface_ovs_xml(params, arch)
     elif typ == 'direct':
         return get_iface_macvtap_xml(params, arch)
+    return get_iface_network_xml(params, arch, os_distro, os_version)
 
 
 def get_iface_network_xml(params, arch=None, os_distro=None, os_version=None):
