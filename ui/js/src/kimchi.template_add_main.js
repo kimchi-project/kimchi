@@ -23,6 +23,7 @@ kimchi.template_add_main = function() {
     var isos = [];
     var local_isos = [];
     var remote_isos = [];
+    var s390xArch = 's390x';
 
     var deepScan = function(button) {
         kimchi.deepScanHandler = kimchi.stepListDeepScanIsos(function(isos, isFinished) {
@@ -471,6 +472,10 @@ kimchi.template_add_main = function() {
             }
         }
     };
+
+    if(kimchi.hostarch === s390xArch){
+        $('#template-add-window .netboot-template').hide();
+    }
 };
 
 kimchi.template_check_url = function(url) {
