@@ -234,24 +234,37 @@ kimchi.storageBindClick = function() {
             var checkbox = $(this);
             var volumeBlock = $(this).closest('.wok-datagrid-row');
             var volumesBlock = $(this).closest('.volumeslist');
+            var poolType = volumesBlock.data('type')
+            var selectedVolumes = $('[name="selected-volume[]"]:checked',volumesBlock)
             var disabled = [];
-            if($('[name="selected-volume[]"]:checked',volumesBlock).length > 1) {
-                disabled = ['volume-clone','volume-wipe','volume-delete'];
-                $('.volume-resize',volumesBlock).parent().addClass('disabled');
-                for (i = 0; i < disabled.length; i++) {
-                    $('.'+disabled[i],volumesBlock).parent().removeClass('disabled');
-                }
-            }else if($('[name="selected-volume[]"]:checked',volumesBlock).length === 1){
+            var enabled = [];
+
+            // No volume selected
+            if (selectedVolumes.length === 0) {
                 disabled = ['volume-resize','volume-clone','volume-wipe','volume-delete'];
-                for (i = 0; i < disabled.length; i++) {
-                    $('.'+disabled[i],volumesBlock).parent().removeClass('disabled');
-                }
-            }else {
-                disabled = ['volume-resize','volume-clone','volume-wipe','volume-delete'];
-                for (i = 0; i < disabled.length; i++) {
-                    $('.'+disabled[i],volumesBlock).parent().addClass('disabled');
+                enabled = [];
+            // One or more volumes selected
+            } else {
+                // Read-write pools
+                if (poolType !== 'scsi' && poolType !== 'iscsi') {
+                    if (selectedVolumes.length > 1) {
+                        disabled = ['volume-resize'];
+                        enabled = ['volume-clone','volume-wipe','volume-delete'];
+                    } else {
+                        disabled = [];
+                        enabled = ['volume-resize','volume-clone','volume-wipe', 'volume-delete'];
+                    }
                 }
             }
+
+            for (i = 0; i < disabled.length; i++) {
+                $('.'+disabled[i],volumesBlock).parent().addClass('disabled');
+            }
+
+            for (i = 0; i < enabled.length; i++) {
+                $('.'+enabled[i],volumesBlock).parent().removeClass('disabled');
+            }
+
             if(checkbox.is(":checked")){
                 volumeBlock.addClass('selected');
             }else {
@@ -293,17 +306,25 @@ kimchi.storageBindClick = function() {
         }
     });
 
-    $('.pool-add-volume').each(function(index) {
+    $('.volume-add').each(function(index) {
         var canAddVolume =
             $(this).data('stat') === 'active' &&
             $(this).data('type') !== 'iscsi' &&
             $(this).data('type') !== 'scsi';
         if(canAddVolume) {
-            $(this).parent().show();
+            $(this).parent().removeClass('disabled');
         }
         else {
-            $(this).parent().hide();
+            $(this).parent().addClass('disabled');
         }
+    });
+
+    $('.volumeslist').each(function(index) {
+        var rwpool = $(this).data('type') !== 'iscsi' &&
+                      $(this).data('type') !== 'scsi'
+
+        if (!rwpool)
+            $('.pool-action', $(this)).addClass('hidden');
     });
 
     if(wok.tabMode['storage'] === 'admin') {
@@ -382,7 +403,7 @@ kimchi.storageBindClick = function() {
             }
         });
 
-        $('.pool-add-volume').on('click', function(event) {
+        $('.volume-add').on('click', function(event) {
             event.preventDefault();
             var poolName = $(this).data('name');
             kimchi.selectedSP = poolName;
