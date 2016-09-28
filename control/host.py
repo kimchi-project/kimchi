@@ -23,6 +23,7 @@ from wok.control.utils import UrlSubNode
 from wok.exception import NotFoundError
 
 from wok.plugins.kimchi.control.cpuinfo import CPUInfo
+from wok.plugins.kimchi.utils import is_s390x
 
 
 @UrlSubNode('host', True)
@@ -97,6 +98,14 @@ class Partitions(Collection):
     def _get_resources(self, flag_filter):
         res_list = super(Partitions, self)._get_resources(flag_filter)
         res_list = filter(lambda x: x.info['available'], res_list)
+        if is_s390x():
+            # On s390x arch filter out the DASD block devices which
+            # don't have any partition(s). This is necessary because
+            # DASD devices without any partitions are not valid
+            # block device(s) for operations like pvcreate on s390x
+            res_list = filter(lambda x: (x.info['name'].startswith(
+                'dasd') and x.info['type'] == 'part') or (
+                not x.info['name'].startswith('dasd')), res_list)
         res_list.sort(key=lambda x: x.info['path'])
         return res_list
 
