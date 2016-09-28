@@ -306,7 +306,6 @@ maintainer-clean: distclean
 
 distdir = $(top_builddir)/$(PACKAGE)-$(VERSION)/$(subdir)
 dist distdir:
-	$(MAKE) update-po
 	@$(MAKE) dist2
 # This is a separate target because 'update-po' must be executed before.
 dist2: stamp-po $(DISTFILES)
@@ -317,14 +316,6 @@ dist2: stamp-po $(DISTFILES)
 	if test -f $(srcdir)/$(DOMAIN).pot; then \
 	  dists="$$dists $(DOMAIN).pot stamp-po"; \
 	fi; \
-	if test -f $(srcdir)/ChangeLog; then \
-	  dists="$$dists ChangeLog"; \
-	fi; \
-	for i in 0 1 2 3 4 5 6 7 8 9; do \
-	  if test -f $(srcdir)/ChangeLog.$$i; then \
-	    dists="$$dists ChangeLog.$$i"; \
-	  fi; \
-	done; \
 	if test -f $(srcdir)/LINGUAS; then dists="$$dists LINGUAS"; fi; \
 	for file in $$dists; do \
 	  if test -f $$file; then \
