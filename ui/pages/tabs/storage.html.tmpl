@@ -125,13 +125,13 @@
             </span>
          </span>
          <div class="volumes">
-            <div id="volume-{name}" class="volumeslist" data-name="{name}">
+            <div id="volume-{name}" class="volumeslist" data-name="{name}" data-type="{type}">
                 <div class="row">
                     <div class="pull-left">
                         <div class="dropdown menu-flat pool-action">
                             <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true"><span class="edit-alt"></span>$_("Actions")<span class="caret"></span></button>
                             <ul class="dropdown-menu actionsheet">
-                                <li><a href="#" class="pool-add-volume" data-stat="{state}" data-name="{name}" data-type="{type}"><i class="fa fa-plus-circle"></i> $_("Add Volume")</a></li>
+                                <li class="disabled"><a href="#" class="volume-add" data-stat="{state}" data-name="{name}" data-type="{type}"><i class="fa fa-plus-circle"></i> $_("Add Volume")</a></li>
                                 <li class="disabled"><a href="#" class="volume-resize" data-name="{name}"><i class="fa fa-external-link-square"></i> $_("Resize")</a></li>
                                 <li class="disabled"><a href="#" class="volume-clone" data-name="{name}"><i class="fa fa-copy"></i> $_("Clone")</a></li>
                                 <li class="disabled"><a href="#" class="volume-wipe" data-name="{name}"><i class="fa fa-eraser"></i> $_("Wipe")</a></li>
