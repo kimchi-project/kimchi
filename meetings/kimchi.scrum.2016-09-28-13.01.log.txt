@@ -1,0 +1,42 @@
+13:01:44 <alinefm> #startmeeting
+13:01:44 <kimchi-bot> Meeting started Wed Sep 28 13:01:44 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:44 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:44 <alinefm> #meetingname scrum
+13:01:44 <kimchi-bot> The meeting name has been set to 'scrum'
+13:01:52 <alinefm> #info Agenda
+13:01:52 <alinefm> #info 1) Status
+13:01:52 <alinefm> #info 2) Open discussion
+13:01:52 <alinefm> anything else?
+13:02:37 <lcorreia> no
+13:02:47 <alinefm> so let's get started
+13:02:51 <ramonn> no
+13:02:55 <alinefm> #topic Status
+13:02:55 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+13:03:41 <alinefm> #info [kimchi] alinefm sent patches to fix issues: #521, #1020, #1005, #1022, #1032
+13:03:52 <pvital> #info [*] pvital reviewed patches
+13:03:52 <pvital> #info [Kimchi] pvital worked on issue #1039 Fedora 24: Unable to Add a Storage Device to a running VM
+13:03:52 <pvital> #info [Kimchi] pvital is working on issue #1017 - Unable to upload file to logical pool
+13:03:57 <alinefm> #info [kimchi] alinefm is current working on fix issue #1019
+13:04:37 <ramonn> #info [wok] ramonn sent patche to issue #166
+13:05:37 <danielhb> #info [Ginger]  danielhb fixed several issues related to Ubuntu
+13:05:41 <ramonn> #info [ginger] ramonn sent patches to issues #433, #412 and #413
+13:05:54 <danielhb> #info [Ginger*] danielhb is now working in the 2.3 release candidate
+13:06:09 <ramonn> #info [kimchi] merged patch about issue #1012
+13:06:47 <lcorreia> #info [kimchi] lcorreia worked on PCI passthrough hotplug/coldplug fix
+13:06:47 <lcorreia> #info [ginger*] lcorreia got PEP8 fixes upstream
+13:06:47 <lcorreia> #info [ginger] fixed issue 403
+13:06:47 <lcorreia> #info [kimchi] working on issue 974
+13:06:47 <lcorreia> #info [wok] worked on issues 105, 126, 150
+13:06:48 <lcorreia> #info [*] lcorreia maintaining/pushed branches to HostOS kimchi-ginger upstream trees
+13:07:19 <alinefm> anything else, guys?
+13:09:22 <alinefm> apparently not... =)
+13:09:29 <alinefm> #topic Open Discussion
+13:10:00 <alinefm> #info 2.3 release will be closed by end of the day today
+13:10:18 <alinefm> #info 2.3 releases will be announced this Friday (Setp 30)
+13:10:22 <alinefm> any question?
+13:10:40 <pvital> no
+13:10:55 <lcorreia> no
+13:12:03 <alinefm> any other topic for today?
+13:14:45 <alinefm> ok ok...
+13:14:50 <alinefm> thanks everyone for joining!
+13:14:53 <alinefm> #endmeeting
