@@ -20,6 +20,7 @@
 import copy
 import glob
 import os
+import platform
 import psutil
 from collections import defaultdict
 from configobj import ConfigObj
@@ -34,14 +35,16 @@ SUPPORTED_ARCHS = {'x86': ('i386', 'i686', 'x86_64'),
                    'ppc64le': ('ppc64le'),
                    's390x': ('s390x')}
 
-
 # Memory devices slot limits by architecture
-MEM_DEV_SLOTS = {'ppc64': 256,
-                 'ppc64le': 256,
-                 'x86_64': 256,
-                 'i686': 256,
-                 'i386': 256,
-                 's390x': 256}
+HOST_DISTRO = platform.linux_distribution()
+MEM_DEV_SLOTS = {
+    'ppc64': 32 if HOST_DISTRO and HOST_DISTRO[0] == 'Ubuntu' else 256,
+    'ppc64le': 32 if HOST_DISTRO and HOST_DISTRO[0] == 'Ubuntu' else 256,
+    'x86_64': 256,
+    'i686': 256,
+    'i386': 256,
+    's390x': 256,
+}
 
 
 template_specs = {'x86': {'old': dict(disk_bus='ide',
