@@ -135,17 +135,17 @@ kimchi.spec: contrib/kimchi.spec.fedora contrib/kimchi.spec.suse
 		/bin/false ;                                        	\
 	fi
 
-rpm: kimchi.spec
+rpm: dist kimchi.spec
 	$(MKDIR_P) rpm/BUILD rpm/RPMS rpm/SOURCES rpm/SPECS rpm/SRPMS
 	cp $(top_srcdir)/kimchi.spec rpm/SPECS/kimchi.spec
 	cp $(DIST_ARCHIVES) rpm/SOURCES
 	rpmbuild -ba --define "_topdir `pwd`/rpm" rpm/SPECS/kimchi.spec
 
-fedora-rpm: contrib/kimchi.spec.fedora
+fedora-rpm: dist contrib/kimchi.spec.fedora
 	ln -sf contrib/kimchi.spec.fedora kimchi.spec
 	$(MAKE) rpm
 
-suse-rpm: contrib/kimchi.spec.suse
+suse-rpm: dist contrib/kimchi.spec.suse
 	ln -sf contrib/kimchi.spec.suse kimchi.spec
 	$(MAKE) rpm
 
@@ -183,7 +183,7 @@ VERSION:
 		git describe --abbrev=0 --always > $@;            \
 	fi
 
-.PHONY: deb install-deb rpm fedora-rpm suse-rpm ChangeLog VERSION
+.PHONY: deb install-deb rpm fedora-rpm suse-rpm VERSION
 
 
 clean-local:
