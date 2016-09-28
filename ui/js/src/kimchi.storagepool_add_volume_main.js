@@ -80,7 +80,7 @@ kimchi.sp_add_volume_main = function() {
     };
 
     var uploadFile = function() {
-        var chunkSize = 8 * 1024 * 1024; // 8MB
+        var chunkSize = 2 * 1024 * 1024; // 2MB
         var uploaded = 0;
 
         var blobFile = $(localFileBox)[0].files[0];
@@ -106,7 +106,7 @@ kimchi.sp_add_volume_main = function() {
                 formData: fd
             }, function(result) {
                 if (uploaded < blobFile.size){
-                                    setTimeout(doUpload, 500);
+                    setTimeout(doUpload, 500);
                 }
             }, onError);
 
