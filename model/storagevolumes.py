@@ -141,7 +141,7 @@ class StorageVolumesModel(object):
           </target>
         </volume>
         """
-        params.setdefault('allocation', 0)
+        params.setdefault('allocation', params['capacity'])
         params.setdefault('format', 'qcow2')
 
         name = params['name']
@@ -166,7 +166,9 @@ class StorageVolumesModel(object):
 
         if params.get('upload', False):
             upload_volumes[vol_path] = {'lock': threading.Lock(),
-                                        'offset': 0, 'cb': cb}
+                                        'offset': 0, 'cb': cb,
+                                        'expected_vol_size': params['capacity']
+                                        }
             cb('ready for upload')
         else:
             cb('OK', True)
@@ -534,7 +536,8 @@ class StorageVolumeModel(object):
             cb('%s/%s' % (offset + chunk_size, vol_capacity))
 
             vol_data['offset'] += chunk_size
-            if vol_data['offset'] == vol_capacity:
+            if (vol_data['offset'] == vol_capacity) or \
+               (vol_data['offset'] == vol_data['expected_vol_size']):
                 del upload_volumes[vol_path]
                 cb('OK', True)
 
