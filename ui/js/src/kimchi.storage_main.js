@@ -247,7 +247,9 @@ kimchi.storageBindClick = function() {
             } else {
                 // Read-write pools
                 if (poolType !== 'scsi' && poolType !== 'iscsi') {
-                    if (selectedVolumes.length > 1) {
+                    // Not able to resize more than one volume
+                    // Logical pools don't enable resize of their volumes
+                    if (selectedVolumes.length > 1 || poolType === 'logical') {
                         disabled = ['volume-resize'];
                         enabled = ['volume-clone','volume-wipe','volume-delete'];
                     } else {
