@@ -54,7 +54,8 @@ def setUpModule():
 def tearDownModule():
     global TMP_DIR, TMP_EVENT
 
-    os.unlink(TMP_EVENT)
+    if os.path.exists(TMP_EVENT):
+        os.unlink(TMP_EVENT)
     shutil.rmtree(TMP_DIR)
 
 
@@ -120,7 +121,8 @@ class LibvirtEventsTests(unittest.TestCase):
         data = {'domain': dom.name(), 'event': 'Rebooted'}
         _store_event('%s|%s' % (_get_next_event_id(), json.dumps(data)))
 
-    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
+    @unittest.skipUnless(utils.running_as_root() and
+                         os.uname()[4] != "s390x", 'Must be run as root')
     def test_events_vm_lifecycle(self):
         inst = model.Model(objstore_loc=self.tmp_store)
         self.objstore = inst.objstore

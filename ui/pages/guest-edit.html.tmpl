@@ -71,6 +71,14 @@
                     <label for="guest-edit-icon-textbox">$_("Icon")</label>
                     <input id="guest-edit-icon-textbox" class="form-control" name="icon" type="text" disabled="disabled"  />
                 </div>
+                <div class="form-group" id="guest-console-panel" style="display:none;">
+                    <label for="guest-edit-console">$_("Console")</label>
+                    <select id="guest-edit-console" name="console" class="form-control">
+                        <option value=""></option>
+                        <option value="sclp">$_("sclp")</option>
+                        <option value="virtio">$_("virtio")</option>
+                    </select>
+                </div>
             </form>
             <form role="tabpanel" class="tab-pane" id="form-guest-edit-storage">
                 <div class="btn-group action-area">
@@ -88,6 +96,14 @@
                 <div class="header">
                     <span class="cell column-network">$_("Network")</span>
                     <span class="cell column-type">$_("Type")</span>
+                    <span class="cell column-mac">$_("MAC Address")</span>
+                    <span class="cell column-ip">$_("IP Address")</span>
+                    <span class="cell column-actions"><span class="sr-only">$_("Actions")</span></span>
+                </div>
+                <div class="header s390x" style="display:none">
+                    <span class="cell column-type">$_("Type")</span>
+                    <span class="cell column-network">$_("Network/Interface")</span>
+                    <span class="cell column-mode">$_("Mode")</span>
                     <span class="cell column-mac">$_("MAC Address")</span>
                     <span class="cell column-ip">$_("IP Address")</span>
                     <span class="cell column-actions"><span class="sr-only">$_("Actions")</span></span>
@@ -227,6 +243,38 @@
         </span>
         <span class="cell column-type">
             {type}
+        </span>
+        <span class="cell column-mac">
+            <span id="label-mac-{id}" class="{viewMode}">{mac}</span>
+            <input class="form-control {editMode}" type="text"
+               id="edit-mac-{id}" class="form-control" name="{mac}" value="{mac}" />
+        </span>
+        <span class="cell column-ip">
+            <span class=ipText>{ips}</span>
+        </span>
+        <span class="cell {editMode} column-actions action-area">
+                <button class="btn btn-primary save">$_("Save")</button>
+                <button class="btn btn-primary cancel">$_("Remove")</button>
+        </span>
+        <span class="cell {viewMode} column-actions action-area">
+            <button class="btn btn-link edit"><i class="fa fa-pencil"></i> $_("Edit")</button>
+            <button class="btn btn-link delete"><i class="fa fa-minus-circle"></i> $_("Remove")</button>
+        </span>
+    <div>
+</script>
+<script id="interface-s390x-tmpl" type="text/html">
+    <div class="item" id="{mac}">
+        <span class="cell column-type">
+          <span id="label-type-{id}" class="{viewMode}">{type}</span>
+          <select id="interface-s390x-type-{id}" class="{editMode}"></select>
+        </span>
+        <span class="cell column-network">
+            <span id="label-network-{id}" class="{viewMode}">{network}{source}</span>
+            <select id="interface-s390x-network-{id}" class="{editMode}"></select>
+        </span>
+        <span class="cell column-mode">
+            <span id="label-mode-{id}" class="{viewMode}">{mode}</span>
+            <select id="interface-s390x-mode-{id}" class="{editMode}"></select>
         </span>
         <span class="cell column-mac">
             <span id="label-mac-{id}" class="{viewMode}">{mac}</span>

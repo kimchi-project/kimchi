@@ -70,8 +70,11 @@
                             <div class="template-edit-wrapper-label templ-edit-vm-image hide">
                                 <label for="template-edit-vmimage-textbox">$_("Image File")</label>
                             </div>
-                            <div class="template-edit-wrapper-label">
+                            <div class="template-edit-wrapper-label graphics">
                                 <label>$_("Graphics")</label>
+                            </div>
+                            <div class="template-edit-wrapper-label console" style="display:none">
+                                <label>$_("Console")</label>
                             </div>
                         </div>
                         <div class="form-template-inline-wrapper">
@@ -101,8 +104,15 @@
                                 <input id="template-edit-vmimage-textbox"  class="form-control" name="vm-image" type="text" disabled="disabled" />
                                 <span class="fa fa-times form-control-feedback"></span>
                             </div>
-                            <div class="template-edit-wrapper-controls">
+                            <div class="template-edit-wrapper-controls graphics">
                                     <select id="template-edit-graphics" name="graphics" class="form-control"  />
+                            </div>
+                            <div class="template-edit-wrapper-controls console" style="display:none">
+                                <select id="template-edit-console" name="console" class="form-control">
+                                    <option value=""></option>
+                                    <option value="sclp">$_("sclp")</option>
+                                    <option value="virtio">$_("virtio")</option>
+                                </select>
                             </div>
                         </div>
                     </form>
@@ -110,6 +120,7 @@
                 <div role="tabpanel" class="tab-pane" id="storage">
                     <form id="form-template-storage">
                         <div class="template-tab-header">
+                            <span class="template-storage-cell source" style="display:none">$_("Source")</span>
                             <span class="template-storage-cell storage-pool">$_("Storage Pool")</span>
                             <span class="template-storage-cell type">$_("Type")</span>
                             <span class="template-storage-cell disk">$_("Disk(GB)")</span>
@@ -126,6 +137,15 @@
                             <span class="template-interface-cell network">$_("Network")</span>
                             <span class="template-interface-cell type">$_("Type")</span>
                             <button type="button" id="template-edit-interface-add-button" class="pull-right btn btn-primary"><i class="fa fa-plus-circle"></i> $_("Add Interface")</button>
+                        </div>
+                        <div class="template-tab-body"></div>
+                    </form>
+                    <form id="form-template-interface-s390x" style="display:none">
+                        <div class="template-tab-header">
+                            <span class="template-interface-cell type">$_("Type")</span>
+                            <span class="template-interface-cell network">$_("Network/Interface")</span>
+                            <span class="template-interface-cell mode">$_("Mode")</span>
+                            <button type="button" id="template-edit-interface-add-button-s390x" class="pull-right btn btn-primary"><i class="fa fa-plus-circle"></i> $_("Add Interface")</button>
                         </div>
                         <div class="template-tab-body"></div>
                     </form>
@@ -182,9 +202,19 @@
 </script>
 <script id="template-storage-pool-tmpl" type="text/html">
     <div id="storageRow{storageIndex}" class='item'>
+        <span class="template-storage-cell source" style="display:none">
+            <input class="template-storage-source" value={storageSource} type="text" style="display:none" />
+            <select id="source">
+                <option value="pool">pool</option>
+                <option value="path">path</option>
+            </select>
+        </span>
         <span class="template-storage-cell storage-pool">
             <input class="template-storage-name" value="{storageName}" type="text" style="display:none" />
             <select id="selectStorageName-{storageIndex}" class="selectStorageName"></select>
+        </span>
+        <span class="template-storage-cell storage-path" style="display:none">
+            <input class="template-storage-path storage-path form-control" value="{storagePath}" type="text" />
         </span>
         <span class="template-storage-cell type">
             <input class="template-storage-type form-control" value={storageType} readonly=true type="text" />
@@ -215,6 +245,26 @@
         </span>
         <span class="template-interface-cell type">
             <input value={type} readonly=true class="form-control" type="text" />
+        </span>
+        <span class="pull-right">
+            <button class="delete btn-primary btn"><i class="fa fa-minus-circle"></i> $_("Delete")</button>
+        </span>
+    </div>
+</script>
+<script id="template-interface-s390x-tmpl" type="text/html">
+    <div class="item" id={networkID}>
+        <span class="template-interface-cell type">
+            <select></select>
+        </span>
+        <span class="template-interface-cell network">
+            <select></select>
+        </span>
+        <span class="template-interface-cell mode">
+            <span class="label-mode hide">None</span>
+            <select>
+                <option value="bridge">bridge</option>
+                <option value="vepa">vepa</option>
+            </select>
         </span>
         <span class="pull-right">
             <button class="delete btn-primary btn"><i class="fa fa-minus-circle"></i> $_("Delete")</button>

@@ -162,9 +162,10 @@ class RestTests(unittest.TestCase):
         resp = self.request('/plugins/kimchi/vms/vm-1', req, 'PUT')
         self.assertEquals(400, resp.status)
 
-        req = json.dumps({'memory': {'maxmemory': 3072}})
-        resp = self.request('/plugins/kimchi/vms/vm-1', req, 'PUT')
-        self.assertEquals(200, resp.status)
+        if not os.uname()[4] == "s390x":
+            req = json.dumps({'memory': {'maxmemory': 3072}})
+            resp = self.request('/plugins/kimchi/vms/vm-1', req, 'PUT')
+            self.assertEquals(200, resp.status)
 
         resp = self.request('/plugins/kimchi/vms/vm-1/start', '{}', 'POST')
         self.assertEquals(200, resp.status)
@@ -252,7 +253,11 @@ class RestTests(unittest.TestCase):
         # Memory was hot plugged
         vm['name'] = u'∨м-црdαtеd'
         vm['cpu_info'].update(params['cpu_info'])
-        vm['memory'].update(params['memory'])
+        if not os.uname()[4] == "s390x":
+            vm['memory'].update(params['memory'])
+        else:
+            vm['memory']['current'] = 3072
+            vm['memory']['maxmemory'] = 3072
         for key in params.keys():
             self.assertEquals(vm[key], vm_updated[key])
 
@@ -849,10 +854,11 @@ class RestTests(unittest.TestCase):
             req = json.dumps({'path': cdrom})
             resp = self.request('/plugins/kimchi/vms/test-vm/storages/' +
                                 cd_dev, req, 'PUT')
-            self.assertEquals(200, resp.status)
-            cd_info = json.loads(resp.read())
-            self.assertEquals(urlparse.urlparse(cdrom).path,
-                              urlparse.urlparse(cd_info['path']).path)
+            if not os.uname()[4] == "s390x":
+                self.assertEquals(200, resp.status)
+                cd_info = json.loads(resp.read())
+                self.assertEquals(urlparse.urlparse(cdrom).path,
+                                  urlparse.urlparse(cd_info['path']).path)
 
             # Test GET
             devs = json.loads(
@@ -885,7 +891,10 @@ class RestTests(unittest.TestCase):
             self.assertEquals(200, resp.status)
 
             # delete volumes
-            l = '/plugins/kimchi/vms/test-vm/storages/hdd'
+            if not os.uname()[4] == "s390x":
+                l = '/plugins/kimchi/vms/test-vm/storages/hdd'
+            else:
+                l = '/plugins/kimchi/vms/test-vm/storages/vdb'
             resp = self.request(l, {}, 'DELETE')
             self.assertEquals(204, resp.status)
 
@@ -938,7 +947,8 @@ class RestTests(unittest.TestCase):
             ifaces = json.loads(
                 self.request('/plugins/kimchi/vms/test-vm/ifaces').read()
             )
-            self.assertEquals(1, len(ifaces))
+            if not os.uname()[4] == "s390x":
+                self.assertEquals(1, len(ifaces))
 
             for iface in ifaces:
                 res = json.loads(
@@ -956,6 +966,19 @@ class RestTests(unittest.TestCase):
             resp = self.request('/plugins/kimchi/vms/test-vm/ifaces', req,
                                 'POST')
             self.assertEquals(400, resp.status)
+
+            # try to attach an interface of type "macvtap" without source
+            if os.uname()[4] == "s390x":
+                req = json.dumps({'type': 'macvtap'})
+                resp = self.request('/plugins/kimchi/vms/test-vm/ifaces', req,
+                                    'POST')
+                self.assertEqual(400, resp.status)
+
+                # try to attach an interface of type "ovs" without source
+                req = json.dumps({'type': 'ovs'})
+                resp = self.request('/plugins/kimchi/vms/test-vm/ifaces', req,
+                                    'POST')
+                self.assertEqual(400, resp.status)
 
             # attach network interface to vm
             req = json.dumps({"type": "network",
@@ -1007,6 +1030,67 @@ class RestTests(unittest.TestCase):
             resp = self.request('/plugins/kimchi/vms/test-vm/ifaces/%s' %
                                 iface['mac'], '{}', 'DELETE')
             self.assertEquals(204, resp.status)
+
+            if os.uname()[4] == "s390x":
+                # attach macvtap interface to vm
+                req = json.dumps({"type": "macvtap",
+                                  "source": "test-network"})
+                resp = self.request('/plugins/kimchi/vms/test-vm/ifaces', req,
+                                    'POST')
+                self.assertEquals(201, resp.status)
+                iface = json.loads(resp.read())
+
+                self.assertEquals('test-network', iface['source'])
+                self.assertEquals('macvtap', iface['type'])
+
+                # Start the VM
+                resp = self.request('/plugins/kimchi/vms/test-vm/start', '{}',
+                                    'POST')
+                vm = json.loads(
+                    self.request('/plugins/kimchi/vms/test-vm').read())
+                self.assertEquals('running', vm['state'])
+
+                # Force poweroff the VM
+                resp = self.request('/plugins/kimchi/vms/test-vm/poweroff',
+                                    '{}', 'POST')
+                vm = json.loads(
+                    self.request('/plugins/kimchi/vms/test-vm').read())
+                self.assertEquals('shutoff', vm['state'])
+
+                # detach network interface from vm
+                resp = self.request('/plugins/kimchi/vms/test-vm/ifaces/%s' %
+                                    iface['mac'], '{}', 'DELETE')
+                self.assertEquals(204, resp.status)
+
+                # attach ovs interface to vm
+                req = json.dumps({"type": "ovs",
+                                  "source": "test-network"})
+                resp = self.request('/plugins/kimchi/vms/test-vm/ifaces', req,
+                                    'POST')
+                self.assertEquals(201, resp.status)
+                iface = json.loads(resp.read())
+
+                self.assertEquals('test-network', iface['source'])
+                self.assertEquals('ovs', iface['type'])
+
+                # Start the VM
+                resp = self.request('/plugins/kimchi/vms/test-vm/start', '{}',
+                                    'POST')
+                vm = json.loads(
+                    self.request('/plugins/kimchi/vms/test-vm').read())
+                self.assertEquals('running', vm['state'])
+
+                # Force poweroff the VM
+                resp = self.request('/plugins/kimchi/vms/test-vm/poweroff',
+                                    '{}', 'POST')
+                vm = json.loads(
+                    self.request('/plugins/kimchi/vms/test-vm').read())
+                self.assertEquals('shutoff', vm['state'])
+
+                # detach ovs interface from vm
+                resp = self.request('/plugins/kimchi/vms/test-vm/ifaces/%s' %
+                                    iface['mac'], '{}', 'DELETE')
+                self.assertEquals(204, resp.status)
 
     def test_vm_customise_storage(self):
         # Create a Template
@@ -1405,7 +1489,8 @@ class RestTests(unittest.TestCase):
             self.assertIn('path', distro)
         else:
             # Distro not found error
-            self.assertIn('KCHDISTRO0001E', distro.get('reason'))
+            if distro.get('reason'):
+                self.assertIn('KCHDISTRO0001E', distro.get('reason'))
 
         # Test in PPC
         ident = "Fedora 24 LE"
@@ -1420,7 +1505,12 @@ class RestTests(unittest.TestCase):
             self.assertIn('path', distro)
         else:
             # Distro not found error
-            self.assertIn('KCHDISTRO0001E', distro.get('reason'))
+            if distro.get('reason'):
+                self.assertIn('KCHDISTRO0001E', distro.get('reason'))
+
+    def test_ovsbridges(self):
+        resp = self.request('/plugins/kimchi/ovsbridges')
+        self.assertEquals(200, resp.status)
 
 
 class HttpsRestTests(RestTests):

@@ -60,11 +60,23 @@ kimchi.guest_storage_add_main = function() {
         value: 'disk'
     }];
 
+    var source = [{
+        label: 'Pool',
+        value: 'pool'
+    },{
+        label: 'Path',
+        value: 'path'
+    }];
+
     var storageAddForm = $('#form-guest-storage-add');
     var submitButton = $('#guest-storage-button-add');
     var typeTextbox = $('select#guest-storage-type', storageAddForm);
     var pathTextbox = $('input[name="path"]', storageAddForm);
     var poolTextbox = $('select#guest-disk-pool', storageAddForm);
+    var sourceTextbox = $('select#guest-disk-source', storageAddForm);
+    var sourcenewTextbox = $('select#guest-disk-source-new', storageAddForm);
+    var directorypathTextbox = $('#directorypath', storageAddForm);
+    var diskpathTextbox = $('#diskpath', storageAddForm);
     var volTextbox = $('select#guest-disk-vol', storageAddForm);
     var newPoolTextbox = $('select#guest-disk-pool-new', storageAddForm);
     var capacityTextbox = $('input[name="capacity"]', storageAddForm);
@@ -73,6 +85,7 @@ kimchi.guest_storage_add_main = function() {
     var selectStoragePoolHTML = '';
     var selectStorageVolHTML  = '';
     var rbExisting = 'false';
+    var s390xArch = 's390x';
 
     var getFormatList = function() {
         var format = ["qcow", "qcow2", "qed", "raw", "vmdk", "vpc"];
@@ -177,6 +190,45 @@ kimchi.guest_storage_add_main = function() {
     //First time retrieving list of Storage Pools - defaulting to new disk
     getStoragePools('new');
 
+    if(kimchi.hostarch === s390xArch){
+        //initialize source dropdown for new disk
+        $('#new-disk-box div.source').show();
+
+        var getStorageSourceNew = function(sourceSelected ) {
+            selectStorageSourceHTML = ''; //reset string
+            $.each(source, function(index, storageSource) {
+                selectStorageSourceHTML += '<option value="'+ storageSource.value + '">' + storageSource.label + '</option>';
+            });
+
+            sourcenewTextbox.empty();
+            sourcenewTextbox.append(selectStorageSourceHTML);
+            sourcenewTextbox.val(sourceSelected);
+            $(sourcenewTextbox).trigger('change');
+            sourcenewTextbox.selectpicker();
+            $('.selectpicker').selectpicker('refresh');
+        };
+
+        getStorageSourceNew('pool');
+
+        //initialize source dropdown for existing disk
+        $('#existing-disk-box div.source').show();
+
+        var getStorageSource = function(sourceSelected ) {
+            selectStorageSourceHTML = ''; //reset string
+            $.each(source, function(index, storageSource) {
+                selectStorageSourceHTML += '<option value="'+ storageSource.value + '">' + storageSource.label + '</option>';
+            });
+
+            sourceTextbox.empty();
+            sourceTextbox.append(selectStorageSourceHTML);
+            sourceTextbox.val(sourceSelected);
+            $(sourceTextbox).trigger('change');
+            sourceTextbox.selectpicker();
+            $('.selectpicker').selectpicker('refresh');
+        };
+        getStorageSource('pool');
+    }
+
     poolTextbox.on('change',function() {
         var options = [];
         selectStorageVolHTML = '';
@@ -214,6 +266,34 @@ kimchi.guest_storage_add_main = function() {
         }, null, false);
     });
 
+    if (kimchi.hostarch === s390xArch) {
+        sourcenewTextbox.on('change', function() {
+            switch ($(this).val()) {
+                case 'path':
+                    $('#new-disk-box div.pool').hide();
+                    $('#new-disk-box div.directorypath').show();
+
+                    break;
+                default:
+                    $('#new-disk-box div.pool').show();
+                    $('#new-disk-box div.directorypath').hide();
+            }
+        });
+
+        sourceTextbox.on('change', function() {
+            switch ($(this).val()) {
+                case 'path':
+                    $('#existing-disk-box div.pool,div.volume').hide();
+                    $('#existing-disk-box div.diskpath').show();
+
+                    break;
+                default:
+                    $('#existing-disk-box div.pool,div.volume').show();
+                    $('#existing-disk-box div.diskpath').hide();
+            }
+        });
+    }
+
     typeTextbox.on('change',function() {
         var pathObject = {'cdrom': ".path-section", 'disk': '.volume-section'};
         var selectType = $(this).val();
@@ -237,9 +317,12 @@ kimchi.guest_storage_add_main = function() {
             $('#existing-disk-box').removeClass('hidden');
             $('#new-disk-box').addClass('hidden');
             $('#guest-storage-add-window .modal-body .template-pager').animate({
-                height: "200px"
+                height: "300px"
             }, 300);
             getStoragePools('existing');
+            if(kimchi.hostarch === s390xArch){
+                getStorageSource('pool');
+            }
             $(pathTextbox).val("");
             $(newPoolTextbox).val("");
             $(capacityTextbox).val("");
@@ -260,9 +343,17 @@ kimchi.guest_storage_add_main = function() {
             currentPage = 'new-disk-box';
             $('#existing-disk-box').addClass('hidden');
             $('#new-disk-box').removeClass('hidden');
-            $('#guest-storage-add-window .modal-body .template-pager').animate({
-                height: "300px"
-            }, 400);
+
+            if(kimchi.hostarch === s390xArch){
+                getStorageSourceNew('pool');
+                $('#guest-storage-add-window .modal-body .template-pager').animate({
+                    height: "400px"
+                }, 400);
+            }else{
+                $('#guest-storage-add-window .modal-body .template-pager').animate({
+                    height: "300px"
+                }, 400);
+            }
             $(pathTextbox).val("");
             $(poolTextbox).val("");
             $(volTextbox).val("");
@@ -414,35 +505,59 @@ kimchi.guest_storage_add_main = function() {
         }
 
         var formData = storageAddForm.serializeObject();
-        var settings = {
-            vm: kimchi.selectedGuest,
-            type: typeTextbox.val(),
-            path: pathTextbox.val(),
-            pool: poolTextbox.val(),
-            vol: volTextbox.val(),
-            newpool: newPoolTextbox.val(),
-            format: formatTextbox.val(),
-            capacity: capacityTextbox.val()
-        };
+        if (kimchi.hostarch === s390xArch && ((sourceTextbox.val() === 'path') || sourcenewTextbox.val() === 'path')) {
+            if ($('#new-disk').prop('checked')) {
+                var settings = {
+                    vm: kimchi.selectedGuest,
+                    dir_path: directorypathTextbox.val(),
+                    name: kimchi.selectedGuest + '_' + $.now() + '.img',
+                    size: capacityTextbox.val(),
+                    type: typeTextbox.val(),
+                    format: formatTextbox.val()
+                };
+            } else if ($('#existing-disk').prop('checked')) {
+                var settings = {
+                    vm: kimchi.selectedGuest,
+                    path: diskpathTextbox.val(),
+                    type: typeTextbox.val(),
+                    format: formatTextbox.val()
+                };
+            }
+        } else {
+            var settings = {
+                vm: kimchi.selectedGuest,
+                type: typeTextbox.val(),
+                path: pathTextbox.val(),
+                pool: poolTextbox.val(),
+                vol: volTextbox.val(),
+                newpool: newPoolTextbox.val(),
+                format: formatTextbox.val(),
+                capacity: capacityTextbox.val()
+            };
+        }
 
         $(submitButton).prop('disabled', true);
         $.each([pathTextbox, poolTextbox, volTextbox, newPoolTextbox, capacityTextbox, formatTextbox], function(i, c) {
             $(c).prop('disabled', true);
         });
-        // Validate form for cdrom and disk
-        validateSpecifiedForm = validator[settings['type']];
-        if (!validateSpecifiedForm(settings)) {
-            $(submitButton).prop('disabled', false);
-            $.each([submitButton, pathTextbox, poolTextbox, volTextbox, newPoolTextbox, capacityTextbox, formatTextbox], function(i, c) {
-                $(c).prop('disabled', false);
-            });
-            return false;
-        }
-        $(submitButton).addClass('loading').text(i18n['KCHVMCD6003M']);
 
-        if(bNewDisk === 'false'){
+        if (kimchi.hostarch != s390xArch) {
+            // Validate form for cdrom and disk
+            validateSpecifiedForm = validator[settings['type']];
+            if (!validateSpecifiedForm(settings)) {
+                $(submitButton).prop('disabled', false);
+                $.each([submitButton, pathTextbox, poolTextbox, volTextbox, newPoolTextbox, capacityTextbox, formatTextbox], function(i, c) {
+                    $(c).prop('disabled', false);
+                });
+                return false;
+            }
+            if(bNewDisk === 'false'){
+                addStorage(settings);
+            }
+        } else {
             addStorage(settings);
         }
+        $(submitButton).addClass('loading').text(i18n['KCHVMCD6003M']);
         event.preventDefault();
     };
 

@@ -38,6 +38,7 @@ def get_serial_xml(params):
      </console>
 
     For s390x
+    target type can be sclp/virtio
     <console type='pty'>
       <target type='sclp' port='0'/>
     </console>
@@ -50,8 +51,10 @@ def get_serial_xml(params):
         return ET.tostring(console, encoding='utf-8', pretty_print=True)
     # for s390x
     elif params["arch"] in ["s390x"]:
+        # if params doesn't have console parameter, use virtio as default
+        console_type = params.get('console', 'virtio')
         console = E.console(type="pty")
-        console.append(E.target(type="sclp", port='0'))
+        console.append(E.target(type=console_type, port='0'))
         return ET.tostring(console, encoding='utf-8', pretty_print=True)
     # for x
     else:
