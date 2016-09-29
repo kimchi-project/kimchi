@@ -122,6 +122,7 @@ class StorageVolumesModel(object):
             raise InvalidParameter('KCHVOL0001E', {'name': name})
 
         params['pool'] = pool_name
+        params['pool_type'] = pool_info['type']
         targeturi = '/plugins/kimchi/storagepools/%s/storagevolumes/%s' \
                     % (pool_name, name)
         taskid = AsyncTask(targeturi, create_func, params).id
@@ -141,7 +142,10 @@ class StorageVolumesModel(object):
           </target>
         </volume>
         """
-        params.setdefault('allocation', params['capacity'])
+        allocation = 0
+        if params['pool_type'] == "logical":
+            allocation = params['capacity']
+        params.setdefault('allocation', allocation)
         params.setdefault('format', 'qcow2')
 
         name = params['name']
