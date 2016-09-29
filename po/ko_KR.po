@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-24 09:43-0300\n"
+"POT-Creation-Date: 2016-09-29 13:46-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -304,6 +304,15 @@ msgid "Cannot reset %(name)s. Virtual machine is already shut off."
 msgstr ""
 "%(name)s을(를) 다시 설정할 수 없습니다. 가상 머신이 이미 꺼진 상태입니다."
 
+msgid "Boot order must be a list. Devices accepted: hd, cdrom, fd or network."
+msgstr ""
+
+msgid "Bootmenu must be boolean. Values accepted: true of false."
+msgstr ""
+
+msgid "Graphic type not valid. Values accepted: vnc or spice."
+msgstr ""
+
 #, python-format
 msgid "Migrate to localhost %(host)s is not allowed."
 msgstr ""
@@ -427,6 +436,23 @@ msgstr ""
 
 #, python-format
 msgid ""
+"Unable to retrieve Virt Viewer file for stopped virtual machine %(name)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Error occured while retrieving the Virt Viewer file for virtual machine "
+"%(name)s : %(err)s"
+msgstr ""
+
+msgid "Virtual machine title must be a string"
+msgstr ""
+
+msgid "Virtual machine description must be a string"
+msgstr ""
+
+#, python-format
+msgid ""
 "VM %(vmid)s does not contain directly assigned host device %(dev_name)s."
 msgstr ""
 "VM %(vmid)s이(가) 직접 지정된 호스트 장치 %(dev_name)s을(를) 포함하고 있지 않"
@@ -459,6 +485,10 @@ msgid "Hot-(un)plug of device %(name)s is not supported."
 msgstr ""
 
 #, python-format
+msgid "Failed to attach %(device)s to %(vm)s"
+msgstr ""
+
+#, python-format
 msgid "Interface %(iface)s does not exist in virtual machine %(name)s"
 msgstr "가상 머신 %(name)s에 %(iface)s 인터페이스가 없습니다."
 
@@ -467,8 +497,10 @@ msgid ""
 "Network %(network)s specified for virtual machine %(name)s does not exist"
 msgstr "가상 머신 %(name)s에 대해 지정된 %(network)s 네트워크가 없습니다."
 
-msgid "Supported virtual machine interfaces type is only network"
-msgstr "지원되는 가상 머신 인터페이스 유형은 네트워크뿐입니다."
+msgid ""
+"Supported virtual machine interfaces type are network, ovs and macvtap.Type "
+"ovs and macvtap are only supported for s390x/s390 architecture."
+msgstr ""
 
 msgid "Network name for virtual machine interface must be a string"
 msgstr "가상 머신 인터페이스의 네트워크 이름은 문자열이어야 합니다."
@@ -493,6 +525,24 @@ msgstr "올바르지 않은 MAC 주소입니다."
 
 msgid "Cannot change MAC address of a running virtual machine"
 msgstr "실행 중인 가상 머신의 MAC 주소를 변경할 수 없습니다."
+
+msgid "Type macvtap and ovs are only supported on s390x/s390 architecture."
+msgstr ""
+
+msgid "Source attribute is only supported on s390x/s390 architecture."
+msgstr ""
+
+msgid "If source is provided, only type supported are macvtap and ovs."
+msgstr ""
+
+msgid "For type macvtap and ovs, source has to be provided"
+msgstr ""
+
+msgid "Source name for virtual machine interface must be string"
+msgstr ""
+
+msgid "Invalid source mode. Valid options are: bridge or vepa."
+msgstr ""
 
 #, python-format
 msgid "Template %(name)s already exists"
@@ -610,6 +660,35 @@ msgid "Unable to update template due error: %(err)s"
 msgstr ""
 
 msgid "Parameter 'disks' requires at least one disk object"
+msgstr ""
+
+msgid ""
+"Invalid interface type. Type should be 'macvtap' for host network interface "
+"(Ethernet, Bond, VLAN) to be connected as direct MacVTap or 'ovs' for "
+"openvswitch host network interface to be connected as virtual switch to a VM."
+msgstr ""
+
+msgid "Interface name should be string."
+msgstr ""
+
+msgid "Invalid interface mode. Valid options are: bridge or vepa."
+msgstr ""
+
+msgid ""
+"Interfaces should be list of interfaces. Each interface should have name, "
+"type and mode(optional, only applicable for interfcae type 'macvtap'."
+msgstr ""
+
+msgid ""
+"Interface expects an object with parameters: 'name', 'type' and 'mode'. Name "
+"should be name of host network interface (Ethernet, Bond, VLAN) for type "
+"'macvtap' or the name of host openvswitch bridge interface for type 'ovs'. "
+"Mode (optional) is only applicable for interface type 'macvtap' to indicates "
+"whether packets will be delivered directly to target device (bridge) or to "
+"the external bridge (vepa-capable bridge)."
+msgstr ""
+
+msgid "Interfaces parameter only supported on s390x or s390 architecture."
 msgstr ""
 
 #, python-format
@@ -770,6 +849,10 @@ msgid ""
 msgstr ""
 
 #, python-format
+msgid "Unable to delete pool %(name)s as it is associated with guests: %(vms)s"
+msgstr ""
+
+#, python-format
 msgid "Storage volume %(name)s already exists"
 msgstr "스토리지 볼륨 %(name)s이(가) 이미 존재합니다."
 
@@ -891,6 +974,12 @@ msgstr "스토리지 볼륨에 청크 데이터를 업로드할 수 없습니다
 #, python-format
 msgid "Interface %(name)s does not exist"
 msgstr "%(name)s 인터페이스가 없습니다."
+
+#, python-format
+msgid ""
+"Failed to list interfaces. Invalid _inuse parameter. Supported options for "
+"_inuse are: %(supported_inuse)s"
+msgstr ""
 
 #, python-format
 msgid "Network %(name)s already exists"
@@ -1232,91 +1321,91 @@ msgid ""
 msgstr ""
 
 #, python-format
-msgid "Created %(connection)s virtual network '%(name)s'"
+msgid "Create virtual network '%(name)s' type '%(connection)s'"
 msgstr ""
 
 #, python-format
-msgid "Removed virtual network '%(ident)s'"
+msgid "Remove virtual network '%(ident)s'"
 msgstr ""
 
 #, python-format
-msgid "Updated virtual network '%(ident)s'"
+msgid "Update virtual network '%(ident)s'"
 msgstr ""
 
 #, python-format
-msgid "Activated virtual network '%(ident)s'"
+msgid "Activate virtual network '%(ident)s'"
 msgstr ""
 
 #, python-format
-msgid "Deactivated virtual network '%(ident)s'"
+msgid "Deactivate virtual network '%(ident)s'"
 msgstr ""
 
 #, python-format
-msgid "Created %(type)s storage pool '%(name)s'"
+msgid "Create storage pool '%(name)s' type '%(type)s'"
 msgstr ""
 
 #, python-format
-msgid "Removed storage pool '%(ident)s'"
+msgid "Remove storage pool '%(ident)s'"
 msgstr ""
 
 #, python-format
-msgid "Updated storage pool '%(ident)s'"
+msgid "Update storage pool '%(ident)s'"
 msgstr ""
 
 #, python-format
-msgid "Activated storage pool '%(ident)s'"
+msgid "Activate storage pool '%(ident)s'"
 msgstr ""
 
 #, python-format
-msgid "Deactivated storage pool '%(ident)s'"
+msgid "Deactivate storage pool '%(ident)s'"
 msgstr ""
 
 #, python-format
-msgid "Created snapshot '%(name)s' at guest '%(vm)s'"
+msgid "Create snapshot '%(name)s' at guest '%(vm)s'"
 msgstr ""
 
 #, python-format
-msgid "Removed snapshot '%(ident)s' from guest '%(vm)s'"
+msgid "Remove snapshot '%(ident)s' from guest '%(vm)s'"
 msgstr ""
 
 #, python-format
-msgid "Reverted guest '%(vm)s' to snapshot '%(ident)s'"
+msgid "Revert guest '%(vm)s' to snapshot '%(ident)s'"
 msgstr ""
 
 #, python-format
-msgid "Created template '%(name)s'"
+msgid "Create template '%(name)s'"
 msgstr ""
 
 #, python-format
-msgid "Removed template '%(ident)s'"
+msgid "Remove template '%(ident)s'"
 msgstr ""
 
 #, python-format
-msgid "Updated template '%(ident)s'"
+msgid "Update template '%(ident)s'"
 msgstr ""
 
 #, python-format
-msgid "Cloned template '%(ident)s'"
+msgid "Clone template '%(ident)s'"
 msgstr ""
 
 #, python-format
-msgid "Created guest '%(name)s' from template '%(template)s'"
+msgid "Create guest '%(name)s' from template '%(template)s'"
 msgstr ""
 
 #, python-format
-msgid "Removed guest '%(ident)s'"
+msgid "Remove guest '%(ident)s'"
 msgstr ""
 
 #, python-format
-msgid "Edited guest '%(ident)s'"
+msgid "Edit guest '%(ident)s'"
 msgstr ""
 
 #, python-format
-msgid "Started guest '%(ident)s'"
+msgid "Start guest '%(ident)s'"
 msgstr ""
 
 #, python-format
-msgid "Powered off guest '%(ident)s'"
+msgid "Power off guest '%(ident)s'"
 msgstr ""
 
 #, python-format
@@ -1324,88 +1413,87 @@ msgid "Shutdown guest '%(ident)s'"
 msgstr ""
 
 #, python-format
-msgid "Restarted guest '%(ident)s'"
+msgid "Restart guest '%(ident)s'"
 msgstr ""
 
 #, python-format
-msgid "Connected to guest '%(ident)s' through novnc/spice"
+msgid "Connect to guest '%(ident)s' through novnc/spice"
 msgstr ""
 
 #, python-format
-msgid "Cloned guest '%(ident)s'"
+msgid "Clone guest '%(ident)s'"
 msgstr ""
 
 #, python-format
-msgid "Migrated guest '%(ident)s' to '%(remote_host)s'"
+msgid "Migrate guest '%(ident)s' to '%(remote_host)s'"
 msgstr ""
 
 #, python-format
-msgid "Suspended guest '%(ident)s'"
+msgid "Suspend guest '%(ident)s'"
 msgstr ""
 
 #, python-format
-msgid "Resumed guest '%(ident)s'"
+msgid "Resume guest '%(ident)s'"
 msgstr ""
 
 #, python-format
-msgid "Connected to guest '%(ident)s' through serial"
+msgid "Connect to guest '%(ident)s' through serial"
 msgstr ""
 
 #, python-format
-msgid "Attached host device '%(name)s' to guest '%(vmid)s'"
+msgid "Attach host device '%(name)s' to guest '%(vmid)s'"
 msgstr ""
 
 #, python-format
-msgid "Detached host device '%(ident)s' from guest '%(vmid)s'"
+msgid "Detach host device '%(ident)s' from guest '%(vmid)s'"
 msgstr ""
 
 #, python-format
-msgid "Attached network interface '%(network)s' to guest '%(vm)s'"
+msgid "Attach network interface '%(network)s' to guest '%(vm)s'"
 msgstr ""
 
 #, python-format
-msgid "Detached network interface '%(ident)s' from guest '%(vm)s'"
+msgid "Detach network interface '%(ident)s' from guest '%(vm)s'"
 msgstr ""
 
 #, python-format
-msgid "Updated network interface '%(ident)s' at guest '%(vm)s'"
+msgid "Update network interface '%(ident)s' at guest '%(vm)s'"
 msgstr ""
 
 #, python-format
-msgid "Attached %(type)s storage '%(path)s' to guest '%(vm)s'"
+msgid "Attach %(type)s storage '%(path)s' to guest '%(vm)s'"
 msgstr ""
 
 #, python-format
-msgid "Removed storage '%(ident)s' from guest '%(vm)s'"
+msgid "Remove storage '%(ident)s' from guest '%(vm)s'"
 msgstr ""
 
 #, python-format
-msgid "Updated storage '%(ident)s' at guest '%(vm)s'"
+msgid "Update storage '%(ident)s' at guest '%(vm)s'"
 msgstr ""
 
 #, python-format
-msgid "Created storage volume '%(name)s' at pool '%(pool)s'"
+msgid "Create storage volume '%(name)s' at pool '%(pool)s'"
 msgstr ""
 
 #, python-format
-msgid "Removed storage volume '%(ident)s' from pool '%(pool)s'"
+msgid "Remove storage volume '%(ident)s' from pool '%(pool)s'"
 msgstr ""
 
 #, python-format
-msgid "Updated storage volume '%(ident)s' at pool '%(pool)s'"
+msgid "Update storage volume '%(ident)s' at pool '%(pool)s'"
 msgstr ""
 
 #, python-format
-msgid "Wiped storage volume '%(ident)s' off pool '%(pool)s'"
+msgid "Wipe storage volume '%(ident)s' off pool '%(pool)s'"
 msgstr ""
 
 #, python-format
-msgid ""
-"Resized storage volume '%(ident)s' at pool '%(pool)s' with size %(size)s"
+msgid "Resize storage volume '%(ident)s' at pool '%(pool)s' with size %(size)s"
 msgstr ""
 
 #, python-format
-msgid "Cloned storage volume '%(ident)s' at pool '%(pool)s'"
+msgid "Clone storage volume '%(ident)s' at pool '%(pool)s'"
 msgstr ""
 
 msgid "Create a New Virtual Machine"
@@ -1556,6 +1644,9 @@ msgstr "제품"
 msgid "Vendor"
 msgstr "공급업체"
 
+msgid "Loading"
+msgstr ""
+
 msgid "Created"
 msgstr "작성됨"
 
@@ -1589,6 +1680,18 @@ msgstr ""
 msgid "Starting"
 msgstr ""
 
+msgid "Crashed"
+msgstr ""
+
+msgid "Unknown"
+msgstr ""
+
+msgid "Paused"
+msgstr ""
+
+msgid "Suspended"
+msgstr ""
+
 msgid "Resetting"
 msgstr ""
 
@@ -1596,9 +1699,6 @@ msgid "View Console"
 msgstr ""
 
 msgid "View Serial"
-msgstr ""
-
-msgid "View VNC Console"
 msgstr ""
 
 msgid "Clone"
@@ -1778,8 +1878,9 @@ msgstr "ISO가 없습니다."
 msgid "This may take a long time. Do you want to continue?"
 msgstr "시간이 오래 걸릴 수 있습니다. 계속하시겠습니까?"
 
-msgid "This will permanently delete the template. Would you like to continue?"
-msgstr "템플리트가 영구적으로 삭제됩니다. 계속하시겠습니까?"
+msgid ""
+"This will permanently delete the %1 template. Would you like to continue?"
+msgstr ""
 
 msgid "View Table"
 msgstr ""
@@ -1794,46 +1895,39 @@ msgid "Please check the invalid Storage Pools"
 msgstr ""
 
 msgid ""
-"This will delete the virtual machine and its virtual disks. This operation "
-"cannot be undone. Would you like to continue?"
+"This will delete the %1 virtual machine and its virtual disks. This "
+"operation cannot be undone. Would you like to continue?"
 msgstr ""
-"가상 머신 및 해당 가상 디스크가 삭제됩니다. 이 조작은 실행 취소할 수 없습니"
-"다. 계속하시겠습니까?"
 
 msgid "Power off Confirmation"
 msgstr "전원 끄기 확인"
 
 msgid ""
 "This action may produce undesirable results, for example unflushed disk "
-"cache in the guest. Would you like to continue?"
+"cache in the %1 guest. Would you like to continue?"
 msgstr ""
-"이 조치는 원하지 않은 결과를 생성할 수 있습니다(예: 게스트에 비워지지 않은 디"
-"스크 캐시가 있음). 계속하시겠습니까?"
 
 msgid "Reset Confirmation"
 msgstr "다시 설정 확인"
 
 msgid ""
-"There is a risk of data loss caused by reset without the guest OS shutdown. "
-"Would you like to continue?"
+"There is a risk of data loss caused by reset without the %1 guest OS "
+"shutdown. Would you like to continue?"
 msgstr ""
-"게스트 OS를 종료하지 않고 다시 설정함으로 인한 데이터 손실 위험이 있습니다. "
-"계속하시겠습니까?"
 
 msgid "Shut Down Confirmation"
 msgstr "종료 확인"
 
-msgid "Note the guest OS may ignore this request. Would you like to continue?"
-msgstr "게스트 OS가 이 요청을 무시할 수 있음을 참고하십시오. 계속하시겠습니까?"
+msgid ""
+"Note the %1 guest OS may ignore this request. Would you like to continue?"
+msgstr ""
 
 msgid "Virtual Machine delete Confirmation"
 msgstr "가상 머신 삭제 확인"
 
 msgid ""
-"This virtual machine is not persistent. Power Off will delete it. Continue?"
+"The %1 virtual machine is not persistent. Power Off will delete it. Continue?"
 msgstr ""
-"이 가상 머신은  지속적이지 않습니다. 전원을 끄면 삭제됩니다. 계속하시겠습니"
-"까?"
 
 msgid "Input is not a number"
 msgstr ""
@@ -1885,21 +1979,27 @@ msgstr "관련 장치:"
 msgid "Less"
 msgstr ""
 
+msgid "Successfully attached device to VM"
+msgstr ""
+
+msgid "Successfully detached device from VM"
+msgstr ""
+
+msgid "Following devices will be affected, confirm?"
+msgstr ""
+
 msgid "unavailable"
 msgstr "사용 불가능"
 
 msgid ""
 "This action will interrupt network connectivity for any virtual machine that "
-"depend on this network."
+"depend on the %1 network."
 msgstr ""
-"이 조치는 이 네트워크에 의존하는 가상 머신의 네트워크 연결을 인터럽트합니다."
 
 msgid ""
-"This network is not persistent. Instead of stop, this action will "
+"The %1 network is not persistent. Instead of stop, this action will "
 "permanently delete it. Would you like to continue?"
 msgstr ""
-"이 네트워크는 지속적이지 않습니다. 이 조치는 중지하는 대신 영구적으로 삭제합"
-"니다. 계속하시겠습니까?"
 
 msgid ""
 "The bridged VLAN tag may not work well with NetworkManager enabled. You "
@@ -1909,8 +2009,8 @@ msgstr ""
 "있습니다. 사용 안함으로설정하는 것이 좋습니다."
 
 msgid ""
-"This will permanently delete the storage pool. Would you like to continue?"
-msgstr "스토리지 풀이 영구적으로 삭제됩니다. 계속하시겠습니까?"
+"This will permanently delete the %1 storage pool. Would you like to continue?"
+msgstr ""
 
 msgid "This storage pool is empty."
 msgstr "이 스토리지 풀은 비어 있습니다."
@@ -1941,24 +2041,13 @@ msgstr ""
 msgid "This will permanently delete the following storage volumes: %1"
 msgstr ""
 
-msgid "Invalid NFS mount path."
-msgstr "올바르지 않은 NFS 마운트 경로입니다."
-
-msgid "No logical device selected."
-msgstr "논리 장치가 선택되지 않았습니다."
-
-msgid "This is not a valid Server Name or IP. Please, modify it."
-msgstr "유효한 서버 이름 또는 IP가 아닙니다.  수정하십시오."
-
 msgid "No available partitions found."
 msgstr "사용 가능한 파티션이 없습니다."
 
 msgid ""
-"This storage pool is not persistent. Instead of deactivate, this action will "
-"permanently delete it. Would you like to continue?"
+"The %1 storage pool is not persistent. Instead of deactivate, this action "
+"will permanently delete it. Would you like to continue?"
 msgstr ""
-"이 스토리지 풀은 지속적이지 않습니다. 이 조치는 풀을 비활성화하지 않고 영구적"
-"으로 삭제합니다. 계속하시겠습니까?"
 
 msgid "Unable to retrieve partitions information."
 msgstr "파티션 정보를 검색할 수 없습니다. "
@@ -1978,11 +2067,26 @@ msgstr ""
 msgid "Wipe Confirmation"
 msgstr ""
 
+msgid "Select one or more partitions to be added to the logical pool %1:"
+msgstr ""
+
+msgid "Invalid NFS mount path."
+msgstr "올바르지 않은 NFS 마운트 경로입니다."
+
+msgid "No logical device selected."
+msgstr "논리 장치가 선택되지 않았습니다."
+
+msgid "This is not a valid Server Name or IP. Please, modify it."
+msgstr "유효한 서버 이름 또는 IP가 아닙니다.  수정하십시오."
+
 msgid "CDROM path needs to be a valid local/remote path and cannot be blank."
 msgstr "CDROM 경로는 올바른 로컬/원격 경로여야 하며 비워둘 수 없습니다."
 
 msgid "Disk pool or volume cannot be blank."
 msgstr "디스크 풀 또는 볼륨은 비워둘 수 없습니다."
+
+msgid "Peers"
+msgstr ""
 
 msgid "Create a network"
 msgstr "네트워크 작성"
@@ -2151,7 +2255,13 @@ msgstr ""
 msgid "Add Template"
 msgstr "템플리트 추가"
 
-msgid "Loading..."
+msgid "Where is the source media for this template? "
+msgstr ""
+
+msgid "Image Template"
+msgstr ""
+
+msgid "Netboot Template"
 msgstr ""
 
 msgid "File Path:"
@@ -2163,8 +2273,14 @@ msgstr "ISO 검색"
 msgid "The following ISOs are available:"
 msgstr "다음 ISO가 사용 가능합니다."
 
+msgid "QEMU does not have enough permission to work with this file"
+msgstr ""
+
 msgid "Search more ISOs"
 msgstr "추가 ISO 검색"
+
+msgid "Loading..."
+msgstr ""
 
 msgid "Edit Template"
 msgstr "템플리트 편집"
