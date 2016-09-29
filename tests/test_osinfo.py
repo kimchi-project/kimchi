@@ -17,6 +17,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import os
 import unittest
 
 from wok.plugins.kimchi.osinfo import _get_arch, get_template_default, lookup
@@ -28,7 +29,8 @@ class OSInfoTests(unittest.TestCase):
         entry = lookup(None, None)
         self.assertEquals('unknown', entry['os_distro'])
         self.assertEquals('unknown', entry['os_version'])
-        self.assertEquals(['default'], entry['networks'])
+        if not os.uname()[4] == "s390x":
+            self.assertEquals(['default'], entry['networks'])
 
     def test_old_distros(self):
         old_versions = {'debian': '5.0', 'ubuntu': '7.04', 'opensuse': '10.1',
@@ -41,12 +43,14 @@ class OSInfoTests(unittest.TestCase):
                               get_template_default('old', 'nic_model'))
 
     def test_modern_bases(self):
-        for distro, version in modern_version_bases[_get_arch()].iteritems():
-            entry = lookup(distro, version)
-            self.assertEquals(entry['disk_bus'],
-                              get_template_default('modern', 'disk_bus'))
-            self.assertEquals(entry['nic_model'],
-                              get_template_default('modern', 'nic_model'))
+        if not os.uname()[4] == "s390x":
+            for distro, version in\
+                    modern_version_bases[_get_arch()].iteritems():
+                entry = lookup(distro, version)
+                self.assertEquals(entry['disk_bus'],
+                                  get_template_default('modern', 'disk_bus'))
+                self.assertEquals(entry['nic_model'],
+                                  get_template_default('modern', 'nic_model'))
 
     def test_modern_distros(self):
         # versions based on ppc64 modern distros

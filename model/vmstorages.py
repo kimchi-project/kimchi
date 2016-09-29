@@ -17,6 +17,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import os
 import string
 from lxml import etree
 
@@ -30,6 +31,7 @@ from wok.plugins.kimchi.model.storagevolumes import StorageVolumeModel
 from wok.plugins.kimchi.model.utils import get_vm_config_flag
 from wok.plugins.kimchi.model.vms import DOM_STATE_MAP, VMModel
 from wok.plugins.kimchi.osinfo import lookup
+from wok.plugins.kimchi.utils import create_disk_image, is_s390x
 from wok.plugins.kimchi.xmlutils.disk import get_device_node, get_disk_xml
 from wok.plugins.kimchi.xmlutils.disk import get_vm_disk_info, get_vm_disks
 
@@ -82,11 +84,30 @@ class VMStoragesModel(object):
         # Path will never be blank due to API.json verification.
         # There is no need to cover this case here.
         if not ('vol' in params) ^ ('path' in params):
-            raise InvalidParameter("KCHVMSTOR0017E")
+
+            if not is_s390x():
+                raise InvalidParameter("KCHVMSTOR0017E")
+
+            if 'dir_path' not in params:
+                raise InvalidParameter("KCHVMSTOR0019E")
 
         dom = VMModel.get_vm(vm_name, self.conn)
         params['bus'] = _get_device_bus(params['type'], dom)
-        params['format'] = 'raw'
+
+        if is_s390x() and params['type'] == 'disk' and 'dir_path' in params:
+            if 'format' not in params:
+                raise InvalidParameter("KCHVMSTOR0020E")
+            size = params['size']
+            name = params['name']
+            dir_path = params.get('dir_path')
+            params['path'] = dir_path + "/" + name
+            if os.path.exists(params['path']):
+                raise InvalidParameter("KCHVMSTOR0021E",
+                                       {'disk_path': params['path']})
+            create_disk_image(format_type=params['format'],
+                              path=params['path'], capacity=size)
+        else:
+            params['format'] = 'raw'
 
         dev_list = [dev for dev, bus in get_vm_disks(dom).iteritems()
                     if bus == params['bus']]

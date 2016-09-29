@@ -137,6 +137,8 @@ messages = {
     "KCHVM0084E": _("Error occured while retrieving the Virt Viewer file for virtual machine %(name)s : %(err)s"),
     "KCHVM0085E": _("Virtual machine title must be a string"),
     "KCHVM0086E": _("Virtual machine description must be a string"),
+    "KCHVM0087E": _("console parameter is only supported for s390x/s390 architecture."),
+    "KCHVM0088E": _("invalid console type, supported types are sclp/virtio."),
 
     "KCHVMHDEV0001E": _("VM %(vmid)s does not contain directly assigned host device %(dev_name)s."),
     "KCHVMHDEV0002E": _("The host device %(dev_name)s is not allowed to directly assign to VM."),
@@ -203,6 +205,11 @@ messages = {
     "KCHTMPL0037E": _("Interfaces should be list of interfaces. Each interface should have name, type and mode(optional, only applicable for interfcae type 'macvtap'."),
     "KCHTMPL0038E": _("Interface expects an object with parameters: 'name', 'type' and 'mode'. Name should be name of host network interface (Ethernet, Bond, VLAN) for type 'macvtap' or the name of host openvswitch bridge interface for type 'ovs'. Mode (optional) is only applicable for interface type 'macvtap' to indicates whether packets will be delivered directly to target device (bridge) or to the external bridge (vepa-capable bridge)."),
     "KCHTMPL0039E": _("Interfaces parameter only supported on s390x or s390 architecture."),
+    "KCHTMPL0040E": _("Storage without libvirt pool is not supported on this architecture"),
+    "KCHTMPL0041E": _("Error while creating the virtual disk for the guest. Details: %(err)s"),
+    "KCHTMPL0042E": _("When setting template disks without libvirt, following parameters are required: 'index', 'format', 'path', 'size'"),
+    "KCHTMPL0043E": _("console parameter is only supported for s390x/s390 architecture."),
+    "KCHTMPL0044E": _("invalid console type, supported types are sclp/virtio."),
 
     "KCHPOOL0001E": _("Storage pool %(name)s already exists"),
     "KCHPOOL0002E": _("Storage pool %(name)s does not exist"),
@@ -329,6 +336,9 @@ messages = {
     "KCHVMSTOR0016E": _("Volume already in use by other virtual machine."),
     "KCHVMSTOR0017E": _("Only one of path or pool/volume can be specified to add a new virtual machine disk"),
     "KCHVMSTOR0018E": _("Volume chosen with format %(format)s does not fit in the storage type %(type)s"),
+    "KCHVMSTOR0019E": _("On s390x arch one of pool, path of dir_path must be specified"),
+    "KCHVMSTOR0020E": _("On s390x arch 'format' must be specified while attaching disk to virtual machine"),
+    "KCHVMSTOR0021E": _("Virtual disk already exists on the system: %(disk_path)s"),
 
     "KCHSNAP0001E": _("Virtual machine '%(vm)s' must be stopped before creating a snapshot of it."),
     "KCHSNAP0002E": _("Unable to create snapshot '%(name)s' on virtual machine '%(vm)s'. Details: %(err)s"),

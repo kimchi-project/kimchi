@@ -162,14 +162,29 @@ def _get_tmpl_defaults():
                                'maxmemory': _get_default_template_mem()}
     tmpl_defaults['storage']['disk.0'] = {'size': 10, 'format': 'qcow2',
                                           'pool': 'default'}
+    is_on_s390x = True if _get_arch() == 's390x' else False
+
+    if is_on_s390x:
+        tmpl_defaults['storage']['disk.0']['path'] = '/var/lib/libvirt/images/'
+        del tmpl_defaults['storage']['disk.0']['pool']
+
     tmpl_defaults['processor']['vcpus'] = 1
     tmpl_defaults['processor']['maxvcpus'] = 1
     tmpl_defaults['graphics'] = {'type': 'vnc', 'listen': '127.0.0.1'}
 
+    # for s390x architecture, set default console as sclp
+    if host_arch in ['s390x', 's390']:
+        tmpl_defaults['console'] = 'virtio'
+
     default_config = ConfigObj(tmpl_defaults)
 
     # Load template configuration file
-    config_file = os.path.join(kimchiPaths.sysconf_dir, 'template.conf')
+    if is_on_s390x:
+        config_file = os.path.join(
+            kimchiPaths.sysconf_dir,
+            'template_s390x.conf')
+    else:
+        config_file = os.path.join(kimchiPaths.sysconf_dir, 'template.conf')
     config = ConfigObj(config_file)
 
     # Merge default configuration with file configuration
@@ -179,7 +194,6 @@ def _get_tmpl_defaults():
     # expected by VMTemplate
     defaults = {'domain': 'kvm', 'arch': os.uname()[4],
                 'cdrom_bus': 'ide', 'cdrom_index': 2, 'mouse_bus': 'ps2'}
-
     # Parse main section to get networks and memory values
     defaults.update(default_config.pop('main'))
     defaults['memory'] = default_config.pop('memory')
@@ -190,11 +204,26 @@ def _get_tmpl_defaults():
     # Parse storage section to get disks values
     storage_section = default_config.pop('storage')
     defaults['disks'] = []
-    for disk in storage_section.keys():
+
+    for index, disk in enumerate(storage_section.keys()):
         data = storage_section[disk]
         data['index'] = int(disk.split('.')[1])
-        data['pool'] = {"name": '/plugins/kimchi/storagepools/' +
-                        storage_section[disk].pop('pool')}
+        # Right now 'Path' is only supported on s390x
+        if storage_section[disk].get('path') and is_on_s390x:
+            data['path'] = storage_section[disk].pop('path')
+            if 'size' not in storage_section[disk]:
+                data['size'] = tmpl_defaults['storage']['disk.0']['size']
+            else:
+                data['size'] = storage_section[disk].pop('size')
+
+            if 'format' not in storage_section[disk]:
+                data['format'] = tmpl_defaults['storage']['disk.0']['format']
+            else:
+                data['format'] = storage_section[disk].pop('format')
+        else:
+            data['pool'] = {"name": '/plugins/kimchi/storagepools/' +
+                                    storage_section[disk].pop('pool')}
+
         defaults['disks'].append(data)
 
     # Parse processor section to get vcpus and cpu_topology values
@@ -243,8 +272,10 @@ def lookup(distro, version):
     if params["arch"] == "ppc64le":
         params["arch"] = "ppc64"
     # On s390x, template spec does not change based on version.
-    if params["arch"] == "s390x":
+    if params["arch"] == "s390x" or arch == "s390x":
         params.update(template_specs[arch]['old'])
+        if not distro:
+            params['os_distro'] = params['os_version'] = "unknown"
     elif distro in modern_version_bases[arch]:
         if LooseVersion(version) >= LooseVersion(
                 modern_version_bases[arch][distro]):

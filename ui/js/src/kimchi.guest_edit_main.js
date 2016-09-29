@@ -20,6 +20,11 @@ kimchi.guest_edit_main = function() {
     var formTargetId;
     var guestEditForm = $('#form-guest-edit-general');
     var saveButton = $('#guest-edit-button-save');
+    var s390xArch = 's390x';
+    var macvtapNetworks = "";
+    var ovsNetworks = "";
+    var networkOptions = "";
+
     clearTimeout(kimchi.vmTimeout);
 
     $('#modalWindow').on('hidden.bs.modal', function() {
@@ -176,14 +181,28 @@ kimchi.guest_edit_main = function() {
             });
         });
         var toggleEdit = function(item, on, itemId) {
+          if(kimchi.hostarch === s390xArch){
+              $("#label-mac-" + itemId, item).toggleClass("hide", on);
+              $("#edit-mac-" + itemId, item).toggleClass("hide", !on);
+              $("#label-network-" + itemId, item).toggleClass("hide", false);
+              $("#label-type-" + itemId, item).toggleClass("hide", false);
+              $("#label-mode-" + itemId, item).toggleClass("hide", false);
+              $("select", item).toggleClass("hide", true);
+              $(".bootstrap-select", item).toggleClass("hide", true);
+              $(".action-area", item).toggleClass("hide");
+
+          }else {
+
             $("#label-mac-" + itemId, item).toggleClass("hide", on);
             $("#edit-mac-" + itemId, item).toggleClass("hide", !on);
             $("#label-network-" + itemId, item).toggleClass("hide", false);
             $("select", item).toggleClass("hide", true);
             $(".bootstrap-select", item).toggleClass("hide", true);
             $(".action-area", item).toggleClass("hide");
+          }
         };
         var addItem = function(data) {
+            var oriID = data.id;
             if (data.id === -1) {
                 data.id = $('#form-guest-edit-interface > .body').children().size();
             }
@@ -192,13 +211,28 @@ kimchi.guest_edit_main = function() {
             } else {
                 data.ips = data.ips;
             }
-            var itemNode = $.parseHTML(wok.substitute($('#interface-tmpl').html(), data));
-            $(".body", "#form-guest-edit-interface").append(itemNode);
-            $("select", itemNode).append(networkOptions);
-            $("select", itemNode).selectpicker();
-            if (data.network !== "") {
-                $("select", itemNode).val(data.network);
+            if (kimchi.hostarch === s390xArch) {
+                data.mode = (data.mode) ? data.mode : 'None';
+                var itemNode = $.parseHTML(wok.substitute($('#interface-s390x-tmpl').html(), data));
+                $(".body", "#form-guest-edit-interface").append(itemNode);
+
+                $("select", "span.column-type", itemNode).empty().append(typeOptions);
+                $("select", "span.column-mode", itemNode).empty().append(modeOptions);
+                $("select", "span.column-network", itemNode).empty().append(macvtapNetworks);
+
+                $("select", "span.column-type", itemNode).val(data.type);
+                $("select", "span.column-network", itemNode).val(data.source);
+                $("select", "span.column-mode", itemNode).val(data.mode);
+
+            } else {
+                var itemNode = $.parseHTML(wok.substitute($('#interface-tmpl').html(), data));
+                $(".body", "#form-guest-edit-interface").append(itemNode);
+                $("select", "span.column-network", itemNode).append(networkOptions);
             }
+
+            $("select", itemNode).selectpicker();
+
+
             $('.edit', itemNode).attr('disabled', kimchi.thisVMState === "running");
             $(".edit", itemNode).on('click', function(evt) {
                 evt.preventDefault();
@@ -214,22 +248,122 @@ kimchi.guest_edit_main = function() {
             $(".save", itemNode).on('click', function(evt) {
                 evt.preventDefault();
                 var item = $(this).parent().parent();
-                var interface = {
-                    network: $("select", item).val(),
-                        type: "network",
-                        mac: $(":text", item).val(),
-                        ips: $(".ipText", item).val()
-                };
+
+                if (kimchi.hostarch === s390xArch) {
+                    if (item.prop("id") === "") { //adding new interface
+                        switch ($("span.column-type select", item).val()) {
+                            case 'macvtap':
+                                var interface = {
+                                    source: $("span.column-network select", item).val(),
+                                        type: $("span.column-type select", item).val(),
+                                        mac: $(":text", item).val(),
+                                        ips: $(".ipText", item).val(),
+                                        mode: $("span.column-mode select", item).val()
+                                };
+                                break;
+
+                            case 'ovs':
+                                var interface = {
+                                    source: $("span.column-network select", item).val(),
+                                        type: $("span.column-type select", item).val(),
+                                        mac: $(":text", item).val(),
+                                        ips: $(".ipText", item).val()
+                                };
+                                break;
+
+                            case 'network':
+                                var interface = {
+                                    network: $("span.column-network select", item).val(),
+                                        type: "network",
+                                        mac: $(":text", item).val(),
+                                        ips: $(".ipText", item).val()
+                                };
+                                break;
+                        }
+                    } else { //updating existing interface
+
+                        switch ($("#label-type-" + data.id, item).text()) {
+                            case 'macvtap':
+
+                                var interface = {
+                                    source: $("#label-network-" + data.id, item).text(),
+                                        type: $("#label-type-" + data.id, item).text(),
+                                        mac: $(":text", item).val(),
+                                        ips: $(".ipText", item).val(),
+                                        mode: $("#label-mode-" + data.id, item).text()
+                                };
+                                break;
+
+                            case 'ovs':
+                                var interface = {
+                                    source: $("#label-network-" + data.id, item).text(),
+                                        type: $("#label-type-" + data.id, item).text(),
+                                        mac: $(":text", item).val(),
+                                        ips: $(".ipText", item).val()
+                                };
+                                break;
+
+                            case 'network':
+                                var interface = {
+                                    network: $("#label-network-" + data.id, item).text(),
+                                        type: "network",
+                                        mac: $(":text", item).val(),
+                                        ips: $(".ipText", item).val()
+                                };
+                                break;
+                        }
+
+                    }
+                } else { //in s86 arch
+                    var interface = {
+                        network: $("select", item).val(),
+                            type: "network",
+                            mac: $(":text", item).val(),
+                            ips: $(".ipText", item).val()
+                    };
+                }
+
                 var postUpdate = function(mac) {
                     $("#label-network-" + data.id, item).text(interface.network);
                     $("#label-mac-" + data.id, item).text(mac);
                     $("#edit-mac-" + data.id, item).val(mac);
                     toggleEdit(item, false, data.id);
                 };
+
+                var posts390xUpdate = function(result) {
+                    switch(result.type){
+                      case 'macvtap' :
+                                      $("#label-type-" + data.id, item).text(result.type);
+                                      $("#label-network-" + data.id, item).text(result.source);
+                                      $("#label-mode-" + data.id, item).text(result.mode);
+                           break;
+
+                      case 'ovs' :
+                                      $("#label-type-" + data.id, item).text(result.type);
+                                      $("#label-network-" + data.id, item).text(result.source);
+                                      $("#label-mode-" + data.id, item).text('None');
+                          break;
+
+                      case 'network' :
+                                      $("#label-type-" + data.id, item).text(result.type);
+                                      $("#label-network-" + data.id, item).text(result.network);
+                                      $("#label-mode-" + data.id, item).text('None');
+                            break;
+                    }
+
+                    $("#label-mac-" + data.id, item).text(result.mac);
+                    $("#edit-mac-" + data.id, item).val(result.mac);
+                    toggleEdit(item, false, data.id);
+                };
+
                 if (item.prop("id") === "") {
                     kimchi.createGuestInterface(kimchi.selectedGuest, interface, function(data) {
                         item.prop("id", data.mac);
-                        postUpdate(data.mac);
+                        if(kimchi.hostarch == s390xArch){
+                          posts390xUpdate(data);
+                        }else{
+                          postUpdate(data.mac);
+                        }
                     });
                 } else {
                     if (item.prop('id') === interface.mac) {
@@ -249,22 +383,126 @@ kimchi.guest_edit_main = function() {
                 var item = $(this).parent().parent();
                 $("label", item).text() === "" ? item.remove() : toggleEdit(item, false, data.id);
             });
+
+            if (kimchi.hostarch === s390xArch) {
+                $("#interface-s390x-type-" + data.id).on('change', function() {
+                    var itemNode = $(this).closest('div.item');
+                    switch ($(this).val()) {
+                        case 'macvtap':
+                            $('#label-mode-' + data.id).addClass('hide');
+                            $('span.column-mode .bootstrap-select', itemNode).toggleClass("hide", false);
+
+                            $("span.column-network select", itemNode).empty().append(macvtapNetworks);
+                            $("span.column-network select", itemNode).selectpicker('refresh');
+
+                            break;
+                        case 'ovs':
+                            $('#label-mode-' + data.id).html('None');
+                            $('#label-mode-' + data.id).removeClass('hide');
+                            $('span.column-mode .bootstrap-select', itemNode).toggleClass("hide", true);
+
+                            $("span.column-network select", itemNode).empty().append(ovsNetworks);
+                            $("span.column-network select", itemNode).selectpicker('refresh');
+                            break;
+                        case 'network':
+                            $('#label-mode-' + data.id).html('None');
+                            $('#label-mode-' + data.id).removeClass('hide');
+                            $('span.column-mode .bootstrap-select', itemNode).toggleClass("hide", true);
+
+                            $("span.column-network select", itemNode).empty().append(networkOptions);
+                            $("span.column-network select", itemNode).selectpicker('refresh');
+                            break;
+                    }
+                });
+                if (oriID === -1) {
+                    $("#interface-s390x-type-" + data.id).trigger('change');
+                }
+            }
+
         };
-        var networkOptions = "";
+
+
         kimchi.listNetworks(function(data) {
             for (var i = 0; i < data.length; i++) {
                 var isSlected = i === 0 ? " selected" : "";
                 networkOptions += "<option" + isSlected + ">" + data[i].name + "</option>";
             }
-            kimchi.getGuestInterfaces(kimchi.selectedGuest, function(data) {
-                for (var i = 0; i < data.length; i++) {
-                    data[i].viewMode = "";
-                    data[i].editMode = "hide";
-                    data[i].id = i;
-                    addItem(data[i]);
-                }
-            });
+
+            if (kimchi.hostarch === s390xArch) {
+
+                kimchi.listmacvtapNetworks(function(data) {
+                    for (var i = 0; i < data.length; i++) {
+                        var isSlected = i === 0 ? ' selected="selected"' : "";
+                        macvtapNetworks += "<option" + isSlected + ">" + data[i].name + "</option>";
+                    }
+
+                    kimchi.listovsNetworks(function(data) {
+                        for (var i = 0; i < data.length; i++) {
+                            var isSlected = i === 0 ? " selected" : "";
+                            ovsNetworks += "<option" + isSlected + ">" + data[i] + "</option>";
+                        }
+
+                        kimchi.getGuestInterfaces(kimchi.selectedGuest, function(data) {
+                            for (var i = 0; i < data.length; i++) {
+                                data[i].viewMode = "";
+                                data[i].editMode = "hide";
+                                data[i].id = i;
+                                addItem(data[i]);
+                            }
+                        });
+                    });
+                });
+            } else {
+                kimchi.getGuestInterfaces(kimchi.selectedGuest, function(data) {
+                    for (var i = 0; i < data.length; i++) {
+                        data[i].viewMode = "";
+                        data[i].editMode = "hide";
+                        data[i].id = i;
+                        if (data[i].type == 'network')
+                            addItem(data[i]);
+                    }
+                });
+            }
         });
+
+        if (kimchi.hostarch === s390xArch) {
+            $('#form-guest-edit-interface > div.header').hide();
+            $('#form-guest-edit-interface > div.s390x').show();
+
+            var typeOptionsdata = [{
+                label: "macvtap",
+                value: "macvtap"
+            }, {
+                label: "ovs",
+                value: "ovs"
+            }, {
+                label: "network",
+                value: "network"
+            }];
+            var typeOptions = '';
+
+            for (var i = 0; i < typeOptionsdata.length; i++) {
+                var isSlected = i === 0 ? ' selected="selected"' : "";
+                typeOptions += '<option' + isSlected + ' value="' + typeOptionsdata[i].value + '">' + typeOptionsdata[i].label + '</option>';
+            }
+
+            var modeOptionsdata = [{
+                label: "Bridge",
+                value: "bridge"
+            }, {
+                label: "Vepa",
+                value: "vepa"
+            }];
+            var modeOptions = '';
+
+            for (var i = 0; i < modeOptionsdata.length; i++) {
+                var isSlected = i === 0 ? " selected" : "";
+                modeOptions += '<option' + isSlected + ' value="' + modeOptionsdata[i].value + '">' + modeOptionsdata[i].label + '</option>';
+            }
+        } else {
+            $('#form-guest-edit-interface > div.header').show();
+            $('#form-guest-edit-interface > div.s390x').hide();
+        }
     };
 
     var setupPermission = function() {
@@ -776,6 +1014,19 @@ kimchi.guest_edit_main = function() {
             });
         }
 
+        if(kimchi.hostarch === s390xArch){
+            var consoleData = guest.console ? guest.console : '';
+            $('#guest-edit-console').val(consoleData);
+
+            if (kimchi.thisVMState === "shutoff") {
+                $('#guest-edit-console').prop('disabled', false);
+            }else{
+                $('#guest-edit-console').prop('disabled', true);
+            }
+            $('#guest-console-panel').show();
+            $('#guest-edit-console').selectpicker();
+        }
+
         var onAttached = function(params) {
             refreshCDROMs();
         };
@@ -956,4 +1207,8 @@ kimchi.guest_edit_main = function() {
             }
         }
     };
+
+    if(kimchi.hostarch === s390xArch){
+        $('#guest-edit-window ul li a[data-id="form-guest-edit-pci"],a[data-id="form-guest-edit-snapshot"]').parent().hide();
+    }
 };

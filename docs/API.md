@@ -239,6 +239,9 @@ Represents a snapshot of the Virtual Machine's primary monitor.
     * path: Path of cdrom iso.
     * pool: Storage pool which disk image file locate in.
     * vol: Storage volume name of disk image.
+    * dir_path: s390x specific attribute to attach direct storage without libvirt
+    * format: s390x specific attribute specify the format of direct storage
+    * size: s390x specific attribute to specify the size of direct storage
 
 ### Sub-resource: storage
 **URI:** /plugins/kimchi/vms/*:name*/storages/*:dev*
@@ -438,6 +441,7 @@ A interface represents available network interface on VM.
           over current will be used exclusively for memory hotplug
     * cdrom: A volume name or URI to an ISO image
     * storagepool: URI of the storagepool where template allocates vm storage.
+    * path *(optional and only valid for s390x architecture)*: Storage path to store virtual disks without libvirt.
     * networks *(optional)*: list of networks will be assigned to the new VM.
     * interfaces *(optional)*: list of host network interfaces will be assigned to the new VM. Only applicable for s390x or s390 architecture.
         * type: Type of host network interface. Type should be 'macvtap' for host network interface (Ethernet, Bond, VLAN) to be connected as direct MacVTap; or 'ovs' for openvswitch host network interface to be connected as virtual switch to a VM.
@@ -504,6 +508,7 @@ A interface represents available network interface on VM.
         * format: Format of the image. Valid formats: qcow, qcow2, qed, raw, vmdk, vpc.
         * pool: Storage pool information
             * name: URI of the storagepool where template allocates vm disk.
+        * path *(optional and only valid for s390x architecture)*: Either pool or path to store the virtual disks should be specified.
     * graphics *(optional)*: A dict of graphics paramenters of this template
         * type: The type of graphics. It can be VNC or spice or None.
             * vnc: Graphical display using the Virtual Network
