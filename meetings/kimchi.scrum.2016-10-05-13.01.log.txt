@@ -1,0 +1,43 @@
+13:01:17 <alinefm> #startmeeting
+13:01:17 <alinefm> #meetingname scrum
+13:01:17 <alinefm> #info Agenda
+13:01:17 <kimchi-bot> Meeting started Wed Oct  5 13:01:17 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:01:17 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:01:17 <kimchi-bot> The meeting name has been set to 'scrum'
+13:01:36 <alinefm> #info 1) Plans for next release
+13:01:40 <alinefm> #info 2) Status
+13:01:45 <alinefm> #info 3) Open Discussion
+13:01:49 <alinefm> anything else?
+13:01:52 <ramonn> nop
+13:03:51 <danielhb> no
+13:04:08 <alinefm> so let's get started
+13:04:15 <alinefm> #topic Plans for next release
+13:04:20 <alinefm> #info http://lists.ovirt.org/pipermail/kimchi-devel/2016-September/016736.html
+13:05:08 <alinefm> #info The focus will be on 2.3.1 release (stable-2.3.x branch) to be announced on Dec 16th
+13:05:32 <alinefm> #info In addition to it, any new content available on master branch will be part of 2.4-Beta release at the same date
+13:06:18 <alinefm> #action alinefm creates next release plan wiki with all the important dates
+13:06:59 <alinefm> #info I also want to thank you all for the great job on 2.3 releases!
+13:07:07 <alinefm> any question/comment/concern?
+13:08:13 <lcorreia> no
+13:09:05 <alinefm> #topic Status
+13:09:06 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+13:10:23 <alinefm> #info [kimchi] alinefm sent patches to fix issues #521 and #1019
+13:10:47 <lcorreia> #info [kimchi] lcorreia working on PCI device detach issue
+13:10:48 <lcorreia> #info [kimchi] lcorreia fixed issue 974
+13:10:48 <lcorreia> #info [wok/kimchi/ginger*] lcorreia maintaining Open Power HostOS branches
+13:11:16 <alinefm> #info [kimchi][wok] alinefm worked on 2.3 releases; updated github.io pages and announced the release
+13:11:18 <danielhb> #info [ginger] danielhb fixed an issue with Ginger RPM and tuned
+13:11:34 <danielhb> #info [kimchi] danielhb will take a look into some live migration issues
+13:12:22 <ramonn> #info [ginger] sent RFC about listing kernel modules
+13:14:08 <alinefm> pvital, anything else to share?
+13:14:40 <pvital> ops
+13:14:56 <pvital> #info [*] pvital reviewed patches
+13:15:44 <pvital> #info [*] pvital has been working on Kimchi Issue #733 to support the usage of relative paths/URLs
+13:15:48 <pvital> done
+13:17:14 <alinefm> thanks =)
+13:17:21 <alinefm> #topic Open Discussion
+13:17:27 <alinefm> any topic for today?
+13:19:20 <lcorreia> no
+13:20:51 <danielhb> no
+13:21:07 <alinefm> ok... so thanks everyone for joining!
+13:21:10 <alinefm> #endmeeting
