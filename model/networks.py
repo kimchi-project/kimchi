@@ -146,7 +146,7 @@ class NetworksModel(object):
         try:
             ip = ipaddr.IPNetwork(netaddr)
         except ValueError:
-            raise InvalidParameter("KCHNET0003E", {'subent': netaddr,
+            raise InvalidParameter("KCHNET0003E", {'subnet': netaddr,
                                                    'network': params['name']})
 
         if ip.ip == ip.network:
