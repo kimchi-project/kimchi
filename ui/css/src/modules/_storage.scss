@@ -46,13 +46,13 @@
                 display: none;
             }
             .usage-icon.icon-high {
-                background-image: url('#{$wok-icon-path}/high_disabled.png') !important;
+                background-image: url('../../#{$wok-icon-path}/high_disabled.png') !important;
             }
             .usage-icon.icon-med {
-                background-image: url('#{$wok-icon-path}/med_disabled.png') !important;
+                background-image: url('../../#{$wok-icon-path}/med_disabled.png') !important;
             }
             .usage-icon.icon-low {
-                background-image: url('#{$wok-icon-path}/low_disabled.png') !important;
+                background-image: url('../../#{$wok-icon-path}/low_disabled.png') !important;
             }
         }
     }
@@ -118,13 +118,13 @@
         }
 
         .volume-icon.icon-high {
-            background-image: url('#{$wok-icon-path}/high.png');
+            background-image: url('../../#{$wok-icon-path}/high.png');
         }
         .volume-icon.icon-med {
-            background-image: url('#{$wok-icon-path}/med.png');
+            background-image: url('../../#{$wok-icon-path}/med.png');
         }
         .volume-icon.icon-low {
-            background-image: url('#{$wok-icon-path}/low.png');
+            background-image: url('../../#{$wok-icon-path}/low.png');
         }
 
         .volume-progress {
@@ -507,13 +507,13 @@
                 background-position: 0 50%;
                 background-color: transparent;
                 &.icon-high {
-                    background-image: url('#{$wok-icon-path}/high.png');
+                    background-image: url('../../#{$wok-icon-path}/high.png');
                 }
                 &.icon-med {
-                    background-image: url('#{$wok-icon-path}/med.png');
+                    background-image: url('../../#{$wok-icon-path}/med.png');
                 }
                 &.icon-low {
-                    background-image: url('#{$wok-icon-path}/low.png');
+                    background-image: url('../../#{$wok-icon-path}/low.png');
                 }
             }
         }

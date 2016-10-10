@@ -315,15 +315,18 @@ var kimchi = {
         }).done(function(data, textStatus, xhr) {
             proxy_port = data['websockets_port'];
             ssl_port = data['ssl_port'];
+            server_root = data['server_root'];
             wok.requestJSON({
                 url : "plugins/kimchi/vms/" + encodeURIComponent(vm) + "/serial",
                 type : "POST",
                 dataType : "json"
             }).done(function() {
                 url = 'https://' + location.hostname + ':' + ssl_port;
+                url += server_root;
                 url += "/plugins/kimchi/serial/html/serial.html";
                 url += "?port=" + ssl_port;
-                url += "&path=websockify?token=" + wok.urlSafeB64Encode(vm+'-console').replace(/=*$/g, "");
+                url += "&path=" + server_root + "/websockify";
+                url += "?token=" + wok.urlSafeB64Encode(vm+'-console').replace(/=*$/g, "");
                 url += '&encrypt=1';
                 window.open(url);
             }).error(function(data) {
@@ -337,14 +340,17 @@ var kimchi = {
     vncToVM : function(vm) {
         proxy_port = wok.config['websockets_port'];
         ssl_port = wok.config['ssl_port'];
+        server_root = wok.config['server_root'];
         wok.requestJSON({
             url : "plugins/kimchi/vms/" + encodeURIComponent(vm) + "/connect",
             type : "POST",
             dataType : "json"
         }).done(function() {
             url = 'https://' + location.hostname + ':' + ssl_port;
+            url += server_root;
             url += "/plugins/kimchi/novnc/vnc_auto.html";
             url += "?port=" + ssl_port;
+            url += "&path=" + server_root + "/websockify";
             /*
              * From python documentation base64.urlsafe_b64encode(s)
              * substitutes - instead of + and _ instead of / in the
@@ -352,7 +358,7 @@ var kimchi = {
              * contain = which is not safe in a URL query component.
              * So remove it when needed as base64 can work well without it.
              * */
-            url += "&path=websockify?token=" + wok.urlSafeB64Encode(vm).replace(/=*$/g, "");
+            url += "?token=" + wok.urlSafeB64Encode(vm).replace(/=*$/g, "");
             url += '&encrypt=1';
             window.open(url);
         });
@@ -361,14 +367,21 @@ var kimchi = {
     spiceToVM : function(vm) {
         proxy_port = wok.config['websockets_port'];
         ssl_port = wok.config['ssl_port'];
+        server_root = wok.config['server_root'];
         wok.requestJSON({
             url : "plugins/kimchi/vms/" + encodeURIComponent(vm) + "/connect",
             type : "POST",
             dataType : "json"
         }).done(function(data, textStatus, xhr) {
             url = 'https://' + location.hostname + ':' + ssl_port;
+            url += server_root;
             url += "/plugins/kimchi/spice_auto.html";
-            url += "?port=" + ssl_port + "&listen=" + location.hostname;
+            /*
+             * When using server_root we need pass the value with port
+             * argument to be used correctly by spice_auto.html scripts
+             */
+            url += "?port=" + ssl_port + server_root;
+            url += "&listen=" + location.hostname;
             /*
              * From python documentation base64.urlsafe_b64encode(s)
              * substitutes - instead of + and _ instead of / in the
