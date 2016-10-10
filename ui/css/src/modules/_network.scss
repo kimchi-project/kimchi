@@ -41,7 +41,7 @@
 #network-root-container {
 
     .wok-nw-loading-icon {
-        background: transparent url('#{$wok-icon-path}/spin5.svg') no-repeat 50% 50%;
+        background: transparent url('../../#{$wok-icon-path}/spin5.svg') no-repeat 50% 50%;
         @include animation(spin 3s infinite linear);
         height: 16px;
         width: 16px;
