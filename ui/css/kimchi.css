@@ -96,7 +96,7 @@
 #guest-add-window.modal-content label.box-iso-outer span.box-iso-border {
   display: block;
   border: 3px solid transparent;
-  transition: all .1s ease-in-out;
+  transition: all 0.1s ease-in-out;
 }
 
 #template-add-window.modal-content label.box-iso-outer .iso-radio-hidden:checked + span.box-iso-border,
@@ -118,7 +118,7 @@
   display: block;
   border: 1px solid transparent;
   background: #fff;
-  transition: all .1s ease-in-out;
+  transition: all 0.1s ease-in-out;
 }
 
 #template-add-window.modal-content label.box-iso-outer span.box-iso-inner .tooltip-inner,
@@ -231,37 +231,37 @@
 
 #template-add-window.modal-content h3.iso-title.centos,
 #guest-add-window.modal-content h3.iso-title.centos {
-  background-image: url("/images/theme-default/icon-centos.png");
+  background-image: url("../../../images/theme-default/icon-centos.png");
 }
 
 #template-add-window.modal-content h3.iso-title.debian,
 #guest-add-window.modal-content h3.iso-title.debian {
-  background-image: url("/images/theme-default/icon-debian.png");
+  background-image: url("../../../images/theme-default/icon-debian.png");
 }
 
 #template-add-window.modal-content h3.iso-title.fedora,
 #guest-add-window.modal-content h3.iso-title.fedora {
-  background-image: url("/images/theme-default/icon-fedora.png");
+  background-image: url("../../../images/theme-default/icon-fedora.png");
 }
 
 #template-add-window.modal-content h3.iso-title.opensuse,
 #guest-add-window.modal-content h3.iso-title.opensuse {
-  background-image: url("/images/theme-default/icon-opensuse.png");
+  background-image: url("../../../images/theme-default/icon-opensuse.png");
 }
 
 #template-add-window.modal-content h3.iso-title.ubuntu,
 #guest-add-window.modal-content h3.iso-title.ubuntu {
-  background-image: url("/images/theme-default/icon-ubuntu.png");
+  background-image: url("../../../images/theme-default/icon-ubuntu.png");
 }
 
 #template-add-window.modal-content h3.iso-title.gentoo,
 #guest-add-window.modal-content h3.iso-title.gentoo {
-  background-image: url("/images/theme-default/icon-gentoo.png");
+  background-image: url("../../../images/theme-default/icon-gentoo.png");
 }
 
 #template-add-window.modal-content h3.iso-title.unknown,
 #guest-add-window.modal-content h3.iso-title.unknown {
-  background-image: url("/images/theme-default/icon-unknown.png");
+  background-image: url("../../../images/theme-default/icon-unknown.png");
 }
 
 /* Create Guest Modal */
@@ -1037,31 +1037,31 @@
 }
 
 #guest-content-container .distro-icon.icon-centos {
-  background-image: url("/images/theme-default/icon-centos.png");
+  background-image: url("../../../images/theme-default/icon-centos.png");
 }
 
 #guest-content-container .distro-icon.icon-debian {
-  background-image: url("/images/theme-default/icon-debian.png");
+  background-image: url("../../../images/theme-default/icon-debian.png");
 }
 
 #guest-content-container .distro-icon.icon-fedora {
-  background-image: url("/images/theme-default/icon-fedora.png");
+  background-image: url("../../../images/theme-default/icon-fedora.png");
 }
 
 #guest-content-container .distro-icon.icon-opensuse {
-  background-image: url("/images/theme-default/icon-opensuse.png");
+  background-image: url("../../../images/theme-default/icon-opensuse.png");
 }
 
 #guest-content-container .distro-icon.icon-ubuntu {
-  background-image: url("/images/theme-default/icon-ubuntu.png");
+  background-image: url("../../../images/theme-default/icon-ubuntu.png");
 }
 
 #guest-content-container .distro-icon.icon-gentoo {
-  background-image: url("/images/theme-default/icon-gentoo.png");
+  background-image: url("../../../images/theme-default/icon-gentoo.png");
 }
 
 #guest-content-container .distro-icon.icon-unknown {
-  background-image: url("/images/theme-default/icon-unknown.png");
+  background-image: url("../../../images/theme-default/icon-unknown.png");
 }
 
 body.wok-gallery {
@@ -1456,7 +1456,7 @@ body.wok-gallery {
   border: 1px solid #eee !important;
   margin-bottom: 3px;
   display: block;
-  padding: .2em .6em .3em;
+  padding: 0.2em 0.6em 0.3em;
   font-weight: 700;
   line-height: 1;
   text-align: left;
@@ -1750,7 +1750,7 @@ body.wok-gallery {
   height: 664px;
   width: 2164px;
   left: 0;
-  transition: left .2s ease-in-out;
+  transition: left 0.2s ease-in-out;
 }
 
 #template-add-window.modal-content p {
@@ -2047,31 +2047,31 @@ body.wok-gallery {
 }
 
 #templates-root-container .wok-vm-list .distro-icon.icon-centos {
-  background-image: url("/images/theme-default/icon-centos.png");
+  background-image: url("../../../images/theme-default/icon-centos.png");
 }
 
 #templates-root-container .wok-vm-list .distro-icon.icon-debian {
-  background-image: url("/images/theme-default/icon-debian.png");
+  background-image: url("../../../images/theme-default/icon-debian.png");
 }
 
 #templates-root-container .wok-vm-list .distro-icon.icon-fedora {
-  background-image: url("/images/theme-default/icon-fedora.png");
+  background-image: url("../../../images/theme-default/icon-fedora.png");
 }
 
 #templates-root-container .wok-vm-list .distro-icon.icon-opensuse {
-  background-image: url("/images/theme-default/icon-opensuse.png");
+  background-image: url("../../../images/theme-default/icon-opensuse.png");
 }
 
 #templates-root-container .wok-vm-list .distro-icon.icon-ubuntu {
-  background-image: url("/images/theme-default/icon-ubuntu.png");
+  background-image: url("../../../images/theme-default/icon-ubuntu.png");
 }
 
 #templates-root-container .wok-vm-list .distro-icon.icon-gentoo {
-  background-image: url("/images/theme-default/icon-gentoo.png");
+  background-image: url("../../../images/theme-default/icon-gentoo.png");
 }
 
 #templates-root-container .wok-vm-list .distro-icon.icon-unknown {
-  background-image: url("/images/theme-default/icon-unknown.png");
+  background-image: url("../../../images/theme-default/icon-unknown.png");
 }
 
 #templates-root-container .wok-vm-gallery {
@@ -2137,7 +2137,9 @@ body.wok-gallery {
   font-size: 32px;
 }
 
-#templates-root-container .wok-vm-gallery .item-hidden.column-type, #templates-root-container .wok-vm-gallery .item-hidden.column-version, #templates-root-container .wok-vm-gallery .item-hidden.column-processors {
+#templates-root-container .wok-vm-gallery .item-hidden.column-type,
+#templates-root-container .wok-vm-gallery .item-hidden.column-version,
+#templates-root-container .wok-vm-gallery .item-hidden.column-processors {
   padding-bottom: 11px;
 }
 
@@ -2178,31 +2180,31 @@ body.wok-gallery {
 }
 
 #templates-root-container .wok-vm-gallery .name-distro-icon.icon-centos {
-  background-image: url("/images/theme-default/icon-centos.png");
+  background-image: url("../../../images/theme-default/icon-centos.png");
 }
 
 #templates-root-container .wok-vm-gallery .name-distro-icon.icon-debian {
-  background-image: url("/images/theme-default/icon-debian.png");
+  background-image: url("../../../images/theme-default/icon-debian.png");
 }
 
 #templates-root-container .wok-vm-gallery .name-distro-icon.icon-fedora {
-  background-image: url("/images/theme-default/icon-fedora.png");
+  background-image: url("../../../images/theme-default/icon-fedora.png");
 }
 
 #templates-root-container .wok-vm-gallery .name-distro-icon.icon-opensuse {
-  background-image: url("/images/theme-default/icon-opensuse.png");
+  background-image: url("../../../images/theme-default/icon-opensuse.png");
 }
 
 #templates-root-container .wok-vm-gallery .name-distro-icon.icon-ubuntu {
-  background-image: url("/images/theme-default/icon-ubuntu.png");
+  background-image: url("../../../images/theme-default/icon-ubuntu.png");
 }
 
 #templates-root-container .wok-vm-gallery .name-distro-icon.icon-gentoo {
-  background-image: url("/images/theme-default/icon-gentoo.png");
+  background-image: url("../../../images/theme-default/icon-gentoo.png");
 }
 
 #templates-root-container .wok-vm-gallery .name-distro-icon.icon-unknown {
-  background-image: url("/images/theme-default/icon-unknown.png");
+  background-image: url("../../../images/theme-default/icon-unknown.png");
 }
 
 #templates-root-container span.template-status {
@@ -2256,7 +2258,7 @@ body.wok-gallery {
 }
 
 #network-root-container .wok-nw-loading-icon {
-  background: transparent url("/images/theme-default/spin5.svg") no-repeat 50% 50%;
+  background: transparent url("../../../images/theme-default/spin5.svg") no-repeat 50% 50%;
   -webkit-animation: spin 3s infinite linear;
   -o-animation: spin 3s infinite linear;
   animation: spin 3s infinite linear;
@@ -2363,15 +2365,15 @@ body.wok-gallery {
 }
 
 #storage-root-container .wok-datagrid-body .inactive .usage-icon.icon-high {
-  background-image: url("/images/theme-default/high_disabled.png") !important;
+  background-image: url("../../../images/theme-default/high_disabled.png") !important;
 }
 
 #storage-root-container .wok-datagrid-body .inactive .usage-icon.icon-med {
-  background-image: url("/images/theme-default/med_disabled.png") !important;
+  background-image: url("../../../images/theme-default/med_disabled.png") !important;
 }
 
 #storage-root-container .wok-datagrid-body .inactive .usage-icon.icon-low {
-  background-image: url("/images/theme-default/low_disabled.png") !important;
+  background-image: url("../../../images/theme-default/low_disabled.png") !important;
 }
 
 #storage-root-container .volumes {
@@ -2443,15 +2445,15 @@ body.wok-gallery {
 }
 
 #storage-root-container .volumes .volume-icon.icon-high {
-  background-image: url("/images/theme-default/high.png");
+  background-image: url("../../../images/theme-default/high.png");
 }
 
 #storage-root-container .volumes .volume-icon.icon-med {
-  background-image: url("/images/theme-default/med.png");
+  background-image: url("../../../images/theme-default/med.png");
 }
 
 #storage-root-container .volumes .volume-icon.icon-low {
-  background-image: url("/images/theme-default/low.png");
+  background-image: url("../../../images/theme-default/low.png");
 }
 
 #storage-root-container .volumes .volume-progress {
@@ -2563,7 +2565,7 @@ body.wok-gallery {
   border-style: solid;
   border-color: transparent;
   border-color: rgba(255, 255, 255, 0);
-  transition: border-color .1s ease-in-out;
+  transition: border-color 0.1s ease-in-out;
 }
 
 #storage-root-container .volumes .wok-gallery .volume-box-inner {
@@ -2577,7 +2579,7 @@ body.wok-gallery {
   border-style: solid;
   border-color: #fff;
   background: #fff;
-  transition: border-color .1s ease-in-out;
+  transition: border-color 0.1s ease-in-out;
 }
 
 #storage-root-container .volumes .wok-gallery span.column-name,
@@ -2892,17 +2894,17 @@ body.wok-gallery {
 
 #storage-root-container .wok-datagrid > .wok-datagrid-header > span.column-usage .usage-icon.icon-high,
 #storage-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-usage .usage-icon.icon-high {
-  background-image: url("/images/theme-default/high.png");
+  background-image: url("../../../images/theme-default/high.png");
 }
 
 #storage-root-container .wok-datagrid > .wok-datagrid-header > span.column-usage .usage-icon.icon-med,
 #storage-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-usage .usage-icon.icon-med {
-  background-image: url("/images/theme-default/med.png");
+  background-image: url("../../../images/theme-default/med.png");
 }
 
 #storage-root-container .wok-datagrid > .wok-datagrid-header > span.column-usage .usage-icon.icon-low,
 #storage-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-usage .usage-icon.icon-low {
-  background-image: url("/images/theme-default/low.png");
+  background-image: url("../../../images/theme-default/low.png");
 }
 
 #storage-root-container .wok-datagrid > .wok-datagrid-header > span.column-capacity,
@@ -3058,7 +3060,8 @@ body.wok-gallery {
   white-space: nowrap;
 }
 
-.storage-modal .filter-select.popable .popover ul li:hover, .storage-modal .filter-select.popable .popover ul li:focus,
+.storage-modal .filter-select.popable .popover ul li:hover,
+.storage-modal .filter-select.popable .popover ul li:focus,
 .storage-modal .storage-target-input .popover ul li:hover,
 .storage-modal .storage-target-input .popover ul li:focus,
 .storage-modal .storage-add-input .popover ul li:hover,
