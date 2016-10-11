@@ -137,6 +137,7 @@ messages = {
     "KCHVM0084E": _("Error occured while retrieving the Virt Viewer file for virtual machine %(name)s : %(err)s"),
     "KCHVM0085E": _("Virtual machine title must be a string"),
     "KCHVM0086E": _("Virtual machine description must be a string"),
+    "KCHVM0089E": _("Unable to setup password-less login at remote host %(host)s using user %(user)s: remote directory %(sshdir)s does not exist."),
 
     "KCHVMHDEV0001E": _("VM %(vmid)s does not contain directly assigned host device %(dev_name)s."),
     "KCHVMHDEV0002E": _("The host device %(dev_name)s is not allowed to directly assign to VM."),
