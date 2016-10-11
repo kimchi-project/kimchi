@@ -25,6 +25,7 @@ import paramiko
 import platform
 import pwd
 import random
+import signal
 import socket
 import subprocess
 import string
@@ -1840,6 +1841,22 @@ class VMModel(object):
             if ssh_client:
                 ssh_client.close()
 
+    def _check_remote_libvirt_conn(self, remote_host,
+                                   user='root', transport='ssh'):
+
+        dest_uri = 'qemu+%s://%s@%s/system' % (transport, user, remote_host)
+        cmd = ['virsh', '-c', dest_uri, 'list']
+        proc = subprocess.Popen(cmd, stdout=subprocess.PIPE,
+                                shell=True, preexec_fn=os.setsid)
+        timeout = 0
+        while proc.poll() is None:
+            time.sleep(1)
+            timeout += 1
+            if timeout == 5:
+                os.killpg(os.getpgid(proc.pid), signal.SIGTERM)
+                raise OperationFailed("KCHVM0090E",
+                                      {'host': remote_host, 'user': user})
+
     def _get_remote_libvirt_conn(self, remote_host,
                                  user='root', transport='ssh'):
         dest_uri = 'qemu+%s://%s@%s/system' % (transport, user, remote_host)
@@ -1853,6 +1870,7 @@ class VMModel(object):
             user,
             password
         )
+        self._check_remote_libvirt_conn(remote_host, user)
         self._check_if_migrating_same_arch_hypervisor(remote_host, user)
 
         if platform.machine() in ['ppc64', 'ppc64le']:
