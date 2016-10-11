@@ -1065,8 +1065,7 @@ class VMModel(object):
         memory = new_mem - old_mem
         flags = libvirt.VIR_DOMAIN_MEM_CONFIG | libvirt.VIR_DOMAIN_MEM_LIVE
 
-        distro, _, _ = platform.linux_distribution()
-        if distro == "IBM_PowerKVM":
+        if platform.machine().startswith('ppc'):
             # make sure memory is alingned in 256MiB in PowerPC
             if (new_mem % PPC_MEM_ALIGN != 0):
                 raise InvalidParameter('KCHVM0071E',
