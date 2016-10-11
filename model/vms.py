@@ -23,6 +23,7 @@ import lxml.etree as ET
 import os
 import paramiko
 import platform
+import pwd
 import random
 import socket
 import subprocess
@@ -1722,25 +1723,40 @@ class VMModel(object):
         ssh_port = 22
         ssh_client = None
 
-        def create_root_ssh_key_if_required():
-            if not os.path.isfile(id_rsa_pub_file):
-
-                with open("/dev/zero") as zero_input:
-                    cmd = ['ssh-keygen', '-q', '-N', '', '-f', id_rsa_file]
-                    proc = subprocess.Popen(
-                        cmd,
-                        stdin=zero_input,
-                        stdout=open(os.devnull, 'wb')
-                    )
-                    out, err = proc.communicate()
-                    if not os.path.isfile(id_rsa_pub_file):
-                        raise OperationFailed("KCHVM0070E")
-
         def read_id_rsa_pub_file():
             data = None
             with open(id_rsa_pub_file, "r") as id_file:
                 data = id_file.read()
             return data
+
+        def create_root_ssh_key_if_required():
+            if os.path.isfile(id_rsa_pub_file):
+                return
+
+            with open("/dev/zero") as zero_input:
+                cmd = ['ssh-keygen', '-q', '-N', '', '-f', id_rsa_file]
+                proc = subprocess.Popen(
+                    cmd,
+                    stdin=zero_input,
+                    stdout=open(os.devnull, 'wb')
+                )
+                out, err = proc.communicate()
+
+                if not os.path.isfile(id_rsa_pub_file):
+                    raise OperationFailed("KCHVM0070E")
+
+                if user is not 'root':
+                    id_rsa_content = read_id_rsa_pub_file()
+                    updated_content = id_rsa_content.replace(
+                        ' root@', ' %s@' % user
+                    )
+                    with open(id_rsa_pub_file, 'w+') as f:
+                        f.write(updated_content)
+
+                    user_uid = pwd.getpwnam(user).pw_uid
+                    user_gid = pwd.getpwnam(user).pw_gid
+                    os.chown(id_rsa_pub_file, user_uid, user_gid)
+                    os.chown(id_rsa_file, user_uid, user_gid)
 
         def get_ssh_client(remote_host, user, passwd):
             ssh_client = paramiko.SSHClient()
