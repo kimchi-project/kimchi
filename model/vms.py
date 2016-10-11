@@ -1715,7 +1715,7 @@ class VMModel(object):
             return local_sub_per_core
 
         def _get_remote_ppc64_subpercore(remote_host, user):
-            username_host = "%s@%s" % ('root', remote_host)
+            username_host = "%s@%s" % (user, remote_host)
             ssh_cmd = ['ssh', '-oNumberOfPasswordPrompts=0',
                        '-oStrictHostKeyChecking=no', username_host,
                        'ppc64_cpu', '--subcores-per-core']
@@ -1736,7 +1736,7 @@ class VMModel(object):
 
     def _check_if_password_less_login_enabled(self, remote_host,
                                               user, password):
-        username_host = "%s@%s" % ('root', remote_host)
+        username_host = "%s@%s" % (user, remote_host)
         ssh_cmd = ['ssh', '-oNumberOfPasswordPrompts=0',
                    '-oStrictHostKeyChecking=no', username_host,
                    'echo', 'hello']
@@ -1744,32 +1744,35 @@ class VMModel(object):
         if returncode != 0:
             if password is None:
                 raise OperationFailed("KCHVM0056E",
-                                      {'host': remote_host, 'user': 'root'})
+                                      {'host': remote_host, 'user': user})
             else:
                 self._set_password_less_login(remote_host, user, password)
 
     def _set_password_less_login(self, remote_host, user, passwd):
-        id_rsa_file = "/root/.ssh/id_rsa.pub"
+        home_dir = '/root' if user is 'root' else '/home/%s' % user
+
+        id_rsa_file = "%s/.ssh/id_rsa" % home_dir
+        id_rsa_pub_file = id_rsa_file + '.pub'
         ssh_port = 22
         ssh_client = None
 
         def create_root_ssh_key_if_required():
-            if not os.path.isfile(id_rsa_file):
+            if not os.path.isfile(id_rsa_pub_file):
 
                 with open("/dev/zero") as zero_input:
-                    cmd = ['ssh-keygen', '-q', '-N', '']
+                    cmd = ['ssh-keygen', '-q', '-N', '', '-f', id_rsa_file]
                     proc = subprocess.Popen(
                         cmd,
                         stdin=zero_input,
                         stdout=open(os.devnull, 'wb')
                     )
                     out, err = proc.communicate()
-                    if not os.path.isfile(id_rsa_file):
+                    if not os.path.isfile(id_rsa_pub_file):
                         raise OperationFailed("KCHVM0070E")
 
         def read_id_rsa_pub_file():
             data = None
-            with open(id_rsa_file, "r") as id_file:
+            with open(id_rsa_pub_file, "r") as id_file:
                 data = id_file.read()
             return data
 
@@ -1782,9 +1785,18 @@ class VMModel(object):
 
         def append_id_rsa_to_remote_authorized_keys(ssh_client, id_rsa_data):
             sftp_client = ssh_client.open_sftp()
+            ssh_dir = '%s/.ssh' % home_dir
+
+            try:
+                sftp_client.chdir(ssh_dir)
+            except IOError:
+                raise OperationFailed(
+                    "KCHVM0089E",
+                    {'host': remote_host, 'user': user, 'sshdir': ssh_dir}
+                )
 
             file_handler = sftp_client.file(
-                '/root/.ssh/authorized_keys',
+                '%s/.ssh/authorized_keys' % home_dir,
                 mode='a',
                 bufsize=1
             )
@@ -1831,7 +1843,7 @@ class VMModel(object):
             self._check_ppc64_subcores_per_core(remote_host, user)
 
     def _check_if_path_exists_in_remote_host(self, path, remote_host, user):
-        username_host = "%s@%s" % ('root', remote_host)
+        username_host = "%s@%s" % (user, remote_host)
         cmd = ['ssh', '-oStrictHostKeyChecking=no', username_host,
                'test', '-e', path]
         _, _, returncode = run_command(cmd, 5, silent=True)
@@ -1852,7 +1864,7 @@ class VMModel(object):
         return False
 
     def _create_remote_path(self, path, remote_host, user):
-        username_host = "%s@%s" % ('root', remote_host)
+        username_host = "%s@%s" % (user, remote_host)
         cmd = ['ssh', '-oStrictHostKeyChecking=no', username_host,
                'touch', path]
         _, _, returncode = run_command(cmd, 5, silent=True)
@@ -1874,7 +1886,7 @@ class VMModel(object):
             )
 
     def _create_remote_disk(self, disk_info, remote_host, user):
-        username_host = "%s@%s" % ('root', remote_host)
+        username_host = "%s@%s" % (user, remote_host)
         disk_fmt = disk_info.get('format')
         disk_path = disk_info.get('path')
         disk_size = self._get_img_size(disk_path)
@@ -1919,7 +1931,7 @@ class VMModel(object):
             user = 'root'
 
         self.migration_pre_check(remote_host, user, password)
-        dest_conn = self._get_remote_libvirt_conn(remote_host)
+        dest_conn = self._get_remote_libvirt_conn(remote_host, user)
 
         non_shared = self._check_if_nonshared_migration(
             name,
