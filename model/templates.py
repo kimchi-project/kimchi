@@ -327,8 +327,7 @@ def validate_memory(memory):
                                 'maxmem': str(maxmem)})
 
     # make sure memory and Maxmemory are alingned in 256MiB in PowerPC
-    distro, _, _ = platform.linux_distribution()
-    if distro == "IBM_PowerKVM":
+    if platform.machine().startswith('ppc'):
         if current % PPC_MEM_ALIGN != 0:
             raise InvalidParameter('KCHVM0071E',
                                    {'param': "Memory",
