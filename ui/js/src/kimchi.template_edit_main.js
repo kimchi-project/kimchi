@@ -307,6 +307,8 @@ kimchi.template_edit_main = function() {
                     $(storageRow + ' #diskFormat').val('raw');
                     $(storageRow + ' #diskFormat').prop('disabled', true).change();
                 }
+                $('#form-template-storage .template-tab-header span.storage-pool').hide();
+                $('#form-template-storage .template-tab-header span.storage').show();
 
                 //set source
                 $('#form-template-storage span.source').show();
