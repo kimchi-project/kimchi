@@ -272,12 +272,14 @@ kimchi.guest_storage_add_main = function() {
                 case 'path':
                     $('#new-disk-box div.pool').hide();
                     $('#new-disk-box div.directorypath').show();
+                    $(directorypathTextbox).val("");
 
                     break;
                 default:
                     $('#new-disk-box div.pool').show();
                     $('#new-disk-box div.directorypath').hide();
             }
+            $(capacityTextbox).val("").trigger('change');
         });
 
         sourceTextbox.on('change', function() {
@@ -285,11 +287,14 @@ kimchi.guest_storage_add_main = function() {
                 case 'path':
                     $('#existing-disk-box div.pool,div.volume').hide();
                     $('#existing-disk-box div.diskpath').show();
+                    $(diskpathTextbox).val("").trigger('change');
+                    $(submitButton).prop('disabled', true);
 
                     break;
                 default:
                     $('#existing-disk-box div.pool,div.volume').show();
                     $('#existing-disk-box div.diskpath').hide();
+                    $(submitButton).prop('disabled', false);
             }
         });
     }
@@ -322,6 +327,7 @@ kimchi.guest_storage_add_main = function() {
             getStoragePools('existing');
             if(kimchi.hostarch === s390xArch){
                 getStorageSource('pool');
+                $(diskpathTextbox).val("").trigger('change');
             }
             $(pathTextbox).val("");
             $(newPoolTextbox).val("");
@@ -349,6 +355,7 @@ kimchi.guest_storage_add_main = function() {
                 $('#guest-storage-add-window .modal-body .template-pager').animate({
                     height: "400px"
                 }, 400);
+                $(capacityTextbox).val("").trigger('change');
             }else{
                 $('#guest-storage-add-window .modal-body .template-pager').animate({
                     height: "300px"
@@ -449,48 +456,66 @@ kimchi.guest_storage_add_main = function() {
     var bNewDisk = 'false';
 
     var validateDisk = function(settings) {
+        bNewDisk = 'false';
         // Determine whether it's existing disk or new disk
         if($(capacityTextbox).is(":visible") === true ) {
             bNewDisk = 'true';
         }
-        if (bNewDisk === 'true') {
-            if (settings['newpool'] && settings['capacity'] && settings['format']){
-                //Change settings['newpool'] to settings['pool']
-                settings['pool']=settings['newpool'];
-                var vmname = settings['vm'];
-                vmname = vmname + new Date().getTime();
-                //Unique vol name to be created
-                settings['vol']=vmname + ".img";
-                //This is all that is needed for attaching newly created volume to VM
-                var addVolSettings = {
-                    vm: settings['vm'],
-                    type: settings['type'],
-                    vol:  settings['vol'],
-                    pool: settings['pool']
-                };
-                var sizeInBytes = parseInt(settings['capacity']) * 1024 * 1024 * 1024;
-                settings['capacity'] = sizeInBytes;
-                //These need to be deleted so they don't get passed to backend
-                delete settings['path'];
-                delete settings['newpool'];
-                //Create an empty storage volume and attach to VM if successful
-                createVol(settings, addVolSettings);
-                return true;
+        if (kimchi.hostarch === s390xArch && ((sourceTextbox.val() === 'path' || sourcenewTextbox.val() === 'path'))) {
+            if (bNewDisk === 'true') {
+                if ((/^((https|http|ftp|ftps|tftp|\/).*)+$/.test(settings['dir_path'])) && settings['size'] && settings['format']){
+                    return true;
+                }else{
+                    wok.message.error(i18n['KCHVMSTOR0003E'],'#alert-modal-container2');
+                    return false;
+                }
+            }else{
+                if (/^((https|http|ftp|ftps|tftp|\/).*)+$/.test(settings['path'])){
+                    return true;
+                }else{
+                    wok.message.error(i18n['KCHVMSTOR0004E'],'#alert-modal-container2');
+                    return false;
+                }
+            }
+        }else{
+            if (bNewDisk === 'true') {
+                if (settings['newpool'] && settings['capacity'] && settings['format']){
+                    //Change settings['newpool'] to settings['pool']
+                    settings['pool']=settings['newpool'];
+                    var vmname = settings['vm'];
+                    vmname = vmname + new Date().getTime();
+                    //Unique vol name to be created
+                    settings['vol']=vmname + ".img";
+                    //This is all that is needed for attaching newly created volume to VM
+                    var addVolSettings = {
+                        vm: settings['vm'],
+                        type: settings['type'],
+                        vol:  settings['vol'],
+                        pool: settings['pool']
+                    };
+                    var sizeInMB = parseInt(settings['capacity']) * 1024;
+                    settings['capacity'] = sizeInMB;
+                    //These need to be deleted so they don't get passed to backend
+                    delete settings['path'];
+                    delete settings['newpool'];
+                    //Create an empty storage volume and attach to VM if successful
+                    createVol(settings, addVolSettings);
+                    return true;
+                } else {
+                    wok.message.error(i18n['KCHVMSTOR0005E'],'#alert-modal-container2');
+                    return false;
+                }
             } else {
-                wok.message.error(i18n['KCHVMSTOR0002E'],'#alert-modal-container2');
-                return false;
-            }
-        } else {
-            if (settings['pool'] && settings['vol']){
-                // Delete path property since it's not needed for disk
-                delete settings['path'];
-                return true;
-            }
-            else {
-                wok.message.error(i18n['KCHVMSTOR0002E'],'#alert-modal-container2');
-                return false;
-            }
-        }
+                if (settings['pool'] && settings['vol']){
+                    // Delete path property since it's not needed for disk
+                    delete settings['path'];
+                    return true;
+                } else {
+                    wok.message.error(i18n['KCHVMSTOR0002E'],'#alert-modal-container2');
+                    return false;
+                }
+           }
+       }
     };
 
     validator = {cdrom: validateCDROM, disk: validateDisk};
@@ -505,7 +530,7 @@ kimchi.guest_storage_add_main = function() {
         }
 
         var formData = storageAddForm.serializeObject();
-        if (kimchi.hostarch === s390xArch && ((sourceTextbox.val() === 'path') || sourcenewTextbox.val() === 'path')) {
+        if (kimchi.hostarch === s390xArch && ((sourceTextbox.val() === 'path' || sourcenewTextbox.val() === 'path'))) {
             if ($('#new-disk').prop('checked')) {
                 var settings = {
                     vm: kimchi.selectedGuest,
@@ -541,7 +566,6 @@ kimchi.guest_storage_add_main = function() {
             $(c).prop('disabled', true);
         });
 
-        if (kimchi.hostarch != s390xArch) {
             // Validate form for cdrom and disk
             validateSpecifiedForm = validator[settings['type']];
             if (!validateSpecifiedForm(settings)) {
@@ -551,12 +575,11 @@ kimchi.guest_storage_add_main = function() {
                 });
                 return false;
             }
-            if(bNewDisk === 'false'){
+
+            if((bNewDisk === 'false' || ((kimchi.hostarch === s390xArch && ((sourceTextbox.val() === 'path' || sourcenewTextbox.val() === 'path')))))){
                 addStorage(settings);
             }
-        } else {
-            addStorage(settings);
-        }
+
         $(submitButton).addClass('loading').text(i18n['KCHVMCD6003M']);
         event.preventDefault();
     };
@@ -569,8 +592,23 @@ kimchi.guest_storage_add_main = function() {
     volTextbox.on('change propertychange', function (event) {
         $(submitButton).prop('disabled', $(this).val() === '');
     });
-    capacityTextbox.on('change input propertychange', function(event) {
-        $(submitButton).prop('disabled', $(this).val() === '');
-    });
 
+
+    if(kimchi.hostarch === s390xArch){
+        $(capacityTextbox).add(directorypathTextbox).on('change input propertychange', function(event){
+            if(sourcenewTextbox.val() === 'path'){
+                $(submitButton).prop('disabled', $(capacityTextbox).val() === '' || $(directorypathTextbox).val() === '');
+            }else{
+                $(submitButton).prop('disabled', $(capacityTextbox).val() === '');
+            }
+        });
+
+        diskpathTextbox.on('change input propertychange', function(event) {
+            $(submitButton).prop('disabled', $(this).val() === '');
+        });
+    }else{
+        capacityTextbox.on('change input propertychange', function(event) {
+            $(submitButton).prop('disabled', $(this).val() === '');
+        });
+    }
 };
