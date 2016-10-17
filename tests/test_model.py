@@ -24,6 +24,7 @@ import base64
 import grp
 import lxml.etree as ET
 import os
+import platform
 import pwd
 import mock
 import re
@@ -1587,6 +1588,30 @@ class ModelTests(unittest.TestCase):
             time.sleep(1)
             volumes = inst.storagevolumes_get_list(args['name'])
             self.assertEquals(len(volumes), 2)
+
+    def _host_is_power():
+        return platform.machine().startswith('ppc')
+
+    @unittest.skipUnless(_host_is_power(), 'Only required for Power hosts')
+    def test_pci_hotplug_requires_usb_controller(self):
+        config.set("authentication", "method", "pam")
+        inst = model.Model(None, objstore_loc=self.tmp_store)
+        tpl_params = {'name': 'test', 'memory': 1024, 'cdrom': UBUNTU_ISO}
+        inst.templates_create(tpl_params)
+
+        with RollbackContext() as rollback:
+            vm_params = {'name': 'kimchi-vm1', 'template': '/templates/test'}
+            task1 = inst.vms_create(vm_params)
+            inst.task_wait(task1['id'])
+            rollback.prependDefer(utils.rollback_wrapper, inst.vm_delete,
+                                  'kimchi-vm1')
+            # Start vm
+            inst.vm_start('kimchi-vm1')
+            rollback.prependDefer(utils.rollback_wrapper, inst.vm_poweroff,
+                                  'kimchi-vm1')
+            # check if create VM has USB controller
+            self.assertTrue(
+                inst.vmhostdevs_have_usb_controller('kimchi-vm1'))
 
 
 class BaseModelTests(unittest.TestCase):

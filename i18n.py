@@ -150,6 +150,7 @@ messages = {
     "KCHVMHDEV0005E": _('The device %(name)s is probably in use by the host. Unable to attach it to the guest.'),
     "KCHVMHDEV0006E": _('Hot-(un)plug of device %(name)s is not supported.'),
     "KCHVMHDEV0007E": _('Failed to attach %(device)s to %(vm)s'),
+    "KCHVMHDEV0008E": _('VM %(vmid)s does not have a USB controller to accept PCI hotplug.'),
 
     "KCHVMIF0001E": _("Interface %(iface)s does not exist in virtual machine %(name)s"),
     "KCHVMIF0002E": _("Network %(network)s specified for virtual machine %(name)s does not exist"),
