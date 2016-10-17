@@ -85,7 +85,8 @@ template_specs = {'x86': {'old': dict(disk_bus='ide',
 
 
 custom_specs = {'fedora': {'22': {'x86': dict(video_model='qxl')}},
-                'windows': {'xp': {'x86': dict(nic_model='pcnet')}}}
+                'windows': {'xp': {'x86': dict(nic_model='pcnet',
+                                               tablet_bus="usb")}}}
 
 
 modern_version_bases = {'x86': {'debian': '6.0', 'ubuntu': '7.10',
