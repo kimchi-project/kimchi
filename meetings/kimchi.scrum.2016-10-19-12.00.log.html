@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">12:00:11</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">12:00:11</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Oct 19 12:00:11 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">12:00:11</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">12:00:12</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">12:00:12</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">12:00:19</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda</span>
+<a name="l-7"></a><span class="tm">12:00:20</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">1) Status</span>
+<a name="l-8"></a><span class="tm">12:00:20</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">2) Open discussion</span>
+<a name="l-9"></a><span class="tm">12:00:20</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-10"></a><span class="tm">12:02:09</span><span class="nk"> &lt;danielhb&gt;</span> nop
+<a name="l-11"></a><span class="tm">12:03:28</span><span class="nk"> &lt;alinefm&gt;</span> so let's get started
+<a name="l-12"></a><span class="tm">12:03:36</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-13"></a><span class="tm">12:03:37</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info [&lt;project] &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-14"></a><span class="tm">12:04:50</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] alinefm fixed issues #146 (do not display wok tab for non-admin users) and #169 (display user log date in numeric format)</span>
+<a name="l-15"></a><span class="tm">12:05:17</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[gingerbase] alinefm fixed issue #122 (allow user enable/edit repositories when updates section is loaded)</span>
+<a name="l-16"></a><span class="tm">12:05:35</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] [danielhb] fixed a password issue in WoK login page</span>
+<a name="l-17"></a><span class="tm">12:05:47</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] [danielhb] fixed live migration issues</span>
+<a name="l-18"></a><span class="tm">12:06:03</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[gingerbase] alinefm sent patch to improve the way the dashboard is loaded avoiding unnecessary requests to server</span>
+<a name="l-19"></a><span class="tm">12:06:11</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#nfo </span><span class="cmdline">[kimchi] [danielhb] is now looking into CPU Hot plug enhancements</span>
+<a name="l-20"></a><span class="tm">12:06:27</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] lcorreia added USB controller support for PCI hotplug</span>
+<a name="l-21"></a><span class="tm">12:06:28</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] lcorreia removed all checkings for PowerKVM</span>
+<a name="l-22"></a><span class="tm">12:06:28</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] lcorreia fixed Fedora ISO identification issue</span>
+<a name="l-23"></a><span class="tm">12:06:28</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok/kimchi/ginger*] lcorreia maintaining Open Power HostOS branches</span>
+<a name="l-24"></a><span class="tm">12:06:30</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] bianca is back from vacation and started to work in an issue related to Volume Group sizes in Storage tab (#226). Investigating if the problem is still happening.</span>
+<a name="l-25"></a><span class="tm">12:11:05</span><span class="nk"> &lt;alinefm&gt;</span> ramonn, anything else from your side?
+<a name="l-26"></a><span class="tm">12:16:38</span><span class="nk"> &lt;alinefm&gt;</span> apparently not...
+<a name="l-27"></a><span class="tm">12:16:47</span><span class="nk"> &lt;alinefm&gt;</span> moving on to open discussion
+<a name="l-28"></a><span class="tm">12:16:55</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-29"></a><span class="tm">12:17:01</span><span class="nk"> &lt;alinefm&gt;</span> any topic for today?
+<a name="l-30"></a><span class="tm">12:18:56</span><span class="nk"> &lt;lcorreia&gt;</span> no
+<a name="l-31"></a><span class="tm">12:19:35</span><span class="nk"> &lt;danielhb&gt;</span> no
+<a name="l-32"></a><span class="tm">12:21:06</span><span class="nk"> &lt;alinefm&gt;</span> ok... thanks everyone for joining!
+<a name="l-33"></a><span class="tm">12:21:09</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

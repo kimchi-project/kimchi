@@ -1,0 +1,33 @@
+12:00:11 <alinefm> #startmeeting
+12:00:11 <kimchi-bot> Meeting started Wed Oct 19 12:00:11 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+12:00:11 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+12:00:12 <alinefm> #meetingname scrum
+12:00:12 <kimchi-bot> The meeting name has been set to 'scrum'
+12:00:19 <alinefm> #info Agenda
+12:00:20 <alinefm> #info 1) Status
+12:00:20 <alinefm> #info 2) Open discussion
+12:00:20 <alinefm> anything else?
+12:02:09 <danielhb> nop
+12:03:28 <alinefm> so let's get started
+12:03:36 <alinefm> #topic Status
+12:03:37 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+12:04:50 <alinefm> #info [wok] alinefm fixed issues #146 (do not display wok tab for non-admin users) and #169 (display user log date in numeric format)
+12:05:17 <alinefm> #info [gingerbase] alinefm fixed issue #122 (allow user enable/edit repositories when updates section is loaded)
+12:05:35 <danielhb> #info [wok] [danielhb] fixed a password issue in WoK login page
+12:05:47 <danielhb> #info [kimchi] [danielhb] fixed live migration issues
+12:06:03 <alinefm> #info [gingerbase] alinefm sent patch to improve the way the dashboard is loaded avoiding unnecessary requests to server
+12:06:11 <danielhb> #nfo [kimchi] [danielhb] is now looking into CPU Hot plug enhancements
+12:06:27 <lcorreia> #info [kimchi] lcorreia added USB controller support for PCI hotplug
+12:06:28 <lcorreia> #info [kimchi] lcorreia removed all checkings for PowerKVM
+12:06:28 <lcorreia> #info [kimchi] lcorreia fixed Fedora ISO identification issue
+12:06:28 <lcorreia> #info [wok/kimchi/ginger*] lcorreia maintaining Open Power HostOS branches
+12:06:30 <danielhb> #info [Ginger] bianca is back from vacation and started to work in an issue related to Volume Group sizes in Storage tab (#226). Investigating if the problem is still happening.
+12:11:05 <alinefm> ramonn, anything else from your side?
+12:16:38 <alinefm> apparently not...
+12:16:47 <alinefm> moving on to open discussion
+12:16:55 <alinefm> #topic Open Discussion
+12:17:01 <alinefm> any topic for today?
+12:18:56 <lcorreia> no
+12:19:35 <danielhb> no
+12:21:06 <alinefm> ok... thanks everyone for joining!
+12:21:09 <alinefm> #endmeeting
