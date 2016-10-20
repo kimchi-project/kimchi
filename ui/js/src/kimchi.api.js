@@ -652,7 +652,7 @@ var kimchi = {
 
     getVEPAInterfaces : function(suc, err) {
         wok.requestJSON({
-            url : 'plugins/kimchi/interfaces?module=^(?!mlx5_core|mlx5-core).*$',
+            url : 'plugins/kimchi/interfaces?_inuse=false&module=^(?!mlx5_core|mlx5-core).*$',
             type : 'GET',
             contentType : 'application/json',
             dataType : 'json',
