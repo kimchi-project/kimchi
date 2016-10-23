@@ -809,10 +809,6 @@ kimchi.template_edit_main = function() {
             data['cdrom'] = $('.tab-content input[name="cdrom"]').val();
         }
 
-        if ($('.tab-content .has-changes > input[name="vm-image"]').length) {
-            data['vm-image'] = $('.tab-content input[name="vm-image"]').val();
-        }
-
         if ($("input:checkbox", "#form-template-processor").prop("checked")) {
             //Check if maxCpu field has a value
             data['cpu_info'] = {
