@@ -37,7 +37,7 @@
     }
     label.box-iso-outer .iso-radio-hidden:checked + span.box-iso-border,
     label.box-iso-outer .iso-checkbox-hidden:checked + span.box-iso-border {
-        border-color: $guests-color;
+        border-color: $virtColor;
     }
     label.box-iso-outer .iso-radio-hidden:checked + span.box-iso-border > .box-iso-inner,
     label.box-iso-outer .iso-checkbox-hidden:checked + span.box-iso-border > .box-iso-inner {

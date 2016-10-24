@@ -211,8 +211,8 @@
         }
 
         &.wok-datagrid .wok-datagrid-body > .wok-datagrid-row.selected .volume-box-border {
-            border-color: $guests-color;
-            border-color: rgba($guests-color,1);
+            border-color: $virtColor;
+            border-color: rgba($virtColor,1);
         }
 
         &.wok-datagrid .wok-datagrid-body > .wok-datagrid-row.selected .volume-box-inner {

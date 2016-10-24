@@ -16,28 +16,39 @@
  * limitations under the License.
  */
 
-// Core variables
+//
+// Wok Variables
+// ----------------------------------------------------------------------------
 @import "../../../../../../../ui/css/src/modules/wok-variables";
-// Core functions
+
+//
+// Imported functions
+// ----------------------------------------------------------------------------
 @import "../../../../../../../ui/css/src/modules/compact";
-// Compass Mixins
 @import "../../../../../../../ui/css/src/vendor/compass-mixins/lib/compass";
-// Bootstrap Mixins
 @import "../../../../../../../ui/css/src/vendor/bootstrap-sass/bootstrap/mixins";
 
+//
 // Extended classes
+// ----------------------------------------------------------------------------
 @import "../../../../../../../ui/css/src/modules/utils";
 @import "../../../../../../../ui/css/src/modules/animation";
 
-// Images List - Guests and Templates
+//
+// Kimchi variables and classes
+// ----------------------------------------------------------------------------
+$virtColor:     #8cc63f;
+$storages-low:  #8BC53E !default;
+
+$guestCharts: (
+    lightGray:  #e6e7e8,
+    mediumGray: #bbbdbf,
+    darkGray:   #929497
+);
+
 @import "modules/iso-list";
-// Guests
 @import "modules/guests";
-// Edit Guests
 @import "modules/edit-guests";
-// Templates
 @import "modules/templates";
-// Network
 @import "modules/network";
-// Storage
 @import "modules/storage";

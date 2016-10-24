@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <tabs-ext>
-    <functionality>Virtualization</functionality>
+    <functionality colorTab1="#59930c" colorTab2="#8cc63f">Virtualization</functionality>
     <tab>
         <access role="admin" mode="admin"/>
         <access role="user" mode="byInstance"/>
