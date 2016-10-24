@@ -24,8 +24,12 @@ kimchi.NETWORK_TYPE_VEPA = "vepa";
 
 kimchi.initNetwork = function() {
     $('body').removeClass('wok-list wok-gallery');
+
+    var toolsHtml = '<li><a id="networkAdd" class="btn-tool" href="javascript:void(0);">'
+    toolsHtml += '<i class="fa fa-plus-circle"></i><span>' + i18n['KCHNET6003M'] + '</span></a></li>'
+
     if(wok.tabMode['network'] === 'admin') {
-        $('.tools').attr('style','display');
+        $('#toolbar ul.tools').html(toolsHtml);
         $('#networkGrid .wok-nw-grid-header span:last-child').attr('style','display');
         kimchi.initNetworkCreation();
     }

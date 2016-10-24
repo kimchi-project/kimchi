@@ -745,8 +745,12 @@ kimchi.initLogicalPoolExtend = function() {
 
 kimchi.storage_main = function() {
     $('body').removeClass('wok-list wok-gallery');
+
+    var toolsHtml = '<li><a id="storage-pool-add" class="btn-tool" href="javascript:void(0);">'
+    toolsHtml += '<i class="fa fa-plus-circle"></i><span>' + i18n['KCHPOOL6020M'] + '</span></a></li>'
+
     if(wok.tabMode['storage'] === 'admin') {
-        $('.tools').attr('style','display');
+        $('#toolbar ul.tools').html(toolsHtml);
         $('#storage-pool-add').on('click', function() {
             wok.window.open('plugins/kimchi/storagepool-add.html');
         });
