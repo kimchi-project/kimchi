@@ -504,12 +504,12 @@
     .wok-guest-gallery .wok-guest-list-body .wok-guest-list-item {
         > span.column-processors {
             > div > div.progress-bar.cpu-progress-bar {
-                background-color: map-get($colors, wok);
+                background-color: #d9182d;
             }
         }
         > span.column-memory {
             > div > div.progress-bar.memory-progress-bar {
-                background-color: map-get($colors, host);
+                background-color: #008abf;
             }
         }
         > span.column-storage {
@@ -519,7 +519,7 @@
         }
         > span.column-network {
             > div > div.progress-bar.network-progress-bar {
-                background-color: map-get($colors, network);
+                background-color: #7f1c7d;
             }
         }
     }
