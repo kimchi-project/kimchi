@@ -157,6 +157,10 @@ kimchi.hideTitle = function() {
 
 kimchi.template_main = function() {
     $('body').addClass('wok-list');
+
+    var toolsHtml = '<li><a id="template-add" class="btn-tool" href="javascript:void(0);">'
+    toolsHtml += '<i class="fa fa-plus-circle"></i><span>' + i18n['KCHTMPL6001M'] + '</span></a></li>'
+
     var viewFound = kimchi.readTemplateView("templateView");
     if (viewFound) {
         if(viewFound === "gallery") {
@@ -172,7 +176,7 @@ kimchi.template_main = function() {
     }
 
     if (wok.tabMode['templates'] === 'admin') {
-        $('.tools').attr('style', 'display');
+        $('#toolbar ul.tools').html(toolsHtml);
         $("#template-add").on("click", function(event) {
             wok.window.open({
                 url: 'plugins/kimchi/template-add.html',

@@ -380,8 +380,12 @@ kimchi.guest_main = function() {
         // Default to showing list
         kimchi.showGuestList();
     }
+
+    var toolsHtml = '<li><a id="vm-add" class="btn-tool" href="javascript:void(0);">'
+    toolsHtml += '<i class="fa fa-plus-circle"></i><span>' + i18n['KCHVM6010M'] + '</span></a></li>'
+
     if (wok.tabMode['guests'] === 'admin') {
-        $('.tools').attr('style', 'display');
+        $('#toolbar ul.tools').html(toolsHtml);
         $("#vm-add").on("click", function(event) {
             wok.window.open('plugins/kimchi/guest-add.html');
         });
