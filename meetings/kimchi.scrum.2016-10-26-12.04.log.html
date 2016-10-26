@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">12:04:24</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">12:04:24</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Oct 26 12:04:24 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">12:04:24</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">12:04:25</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">12:04:25</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">12:04:33</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda</span>
+<a name="l-7"></a><span class="tm">12:04:33</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">1) Status</span>
+<a name="l-8"></a><span class="tm">12:04:33</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">2) Open discussion</span>
+<a name="l-9"></a><span class="tm">12:04:33</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-10"></a><span class="tm">12:05:34</span><span class="nk"> &lt;bianca&gt;</span> no
+<a name="l-11"></a><span class="tm">12:06:26</span><span class="nk"> &lt;ramonn&gt;</span> nop
+<a name="l-12"></a><span class="tm">12:07:24</span><span class="nk"> &lt;alinefm&gt;</span> s let'c get started
+<a name="l-13"></a><span class="tm">12:07:37</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-14"></a><span class="tm">12:07:38</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info [&lt;project] &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-15"></a><span class="tm">12:07:46</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok/kimchi/ginger*] lcorreia working on packaging for Debian/Ubuntu</span>
+<a name="l-16"></a><span class="tm">12:07:46</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok/kimchi/ginger*] lcorreia maintaining Open Power HostOS branches</span>
+<a name="l-17"></a><span class="tm">12:07:52</span><span class="nk"> &lt;bianca&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] bianca sent a patch related to issue #226 - Show GiB instead of g for Volume Group sizes. Patch was applied.</span>
+<a name="l-18"></a><span class="tm">12:07:52</span><span class="nk"> &lt;bianca&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] bianca sent a patch related to issue #397 - Fedora 24: Network Configuration - Bring VLAN interface up. The problem is related to IPv4 DHCP, when user try to bring vlan interface up and there is no dhcp working in that interface, an default message is display in the UI and the interface is not started. Patch is under review.</span>
+<a name="l-19"></a><span class="tm">12:07:52</span><span class="nk"> &lt;bianca&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] bianca is working on a bug related to network. When user try to bring some interface on and there is no script for that interface on '/etc/sysconfig/network-scripts/' directory, an generic error message is displayed in the UI and the interface is not started.</span>
+<a name="l-20"></a><span class="tm">12:07:52</span><span class="nk"> &lt;bianca&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Gingerbase] bianca sent a patch related to issue #140 - Fedora 24: Bug when try to rename multiple debug reports. Patch is under review.</span>
+<a name="l-21"></a><span class="tm">12:07:52</span><span class="nk"> &lt;bianca&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Gingerbase] bianca is working on issue #137 - "Update All" button should be disabled when the update successfully finished. Still investigating this issue.</span>
+<a name="l-22"></a><span class="tm">12:08:07</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] alinefm is working on issues #173 and #174 related to how wok interact with plugins</span>
+<a name="l-23"></a><span class="tm">12:09:13</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] danielhb investigated the differences of css that were happening between branches and OSses. He concluded that upgrading all pip installed packages solves the issue</span>
+<a name="l-24"></a><span class="tm">12:09:51</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ramonn close issue 970 about permissions on ISO templates</span>
+<a name="l-25"></a><span class="tm">12:09:51</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] danielhb is investigating and working in the CPU hotplug feature</span>
+<a name="l-26"></a><span class="tm">12:10:03</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] ramonn sent RFC about listing kernel module</span>
+<a name="l-27"></a><span class="tm">12:10:07</span><span class="nk"> &lt;ramonn&gt;</span> *modules
+<a name="l-28"></a><span class="tm">12:10:25</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, have you included the instructions to update the pip packages somewhere?
+<a name="l-29"></a><span class="tm">12:10:44</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, not yet, I'll send an email to both ML reporting these css findings
+<a name="l-30"></a><span class="tm">12:10:56</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, great! thanks
+<a name="l-31"></a><span class="tm">12:10:58</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, I forgot to send it yesterday
+<a name="l-32"></a><span class="tm">12:11:24</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-33"></a><span class="tm">12:11:40</span><span class="nk"> &lt;ramonn&gt;</span> nop
+<a name="l-34"></a><span class="tm">12:11:47</span><span class="nk"> &lt;alinefm&gt;</span> moving to Open Discussion
+<a name="l-35"></a><span class="tm">12:11:51</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-36"></a><span class="tm">12:12:01</span><span class="nk"> &lt;alinefm&gt;</span> do you have any other topic for today?
+<a name="l-37"></a><span class="tm">12:13:55</span><span class="nk"> &lt;lcorreia&gt;</span> no
+<a name="l-38"></a><span class="tm">12:15:11</span><span class="nk"> &lt;ramonn&gt;</span> nop
+<a name="l-39"></a><span class="tm">12:15:53</span><span class="nk"> &lt;alinefm&gt;</span> I have one =)
+<a name="l-40"></a><span class="tm">12:16:07</span><span class="nk"> &lt;alinefm&gt;</span> ramonn, danielhb I have replied to the ML already but I want to talk more here too
+<a name="l-41"></a><span class="tm">12:16:13</span><span class="nk"> &lt;alinefm&gt;</span> about the filter on modules
+<a name="l-42"></a><span class="tm">12:16:44</span><span class="nk"> &lt;alinefm&gt;</span> there are 2 ways to do that, one using loaded (a resource parameter) and other one using _loaded (a get_list parameter)
+<a name="l-43"></a><span class="tm">12:16:58</span><span class="nk"> &lt;alinefm&gt;</span> maybe I was clear in the ML and you can understand the differences
+<a name="l-44"></a><span class="tm">12:19:14</span><span class="nk"> &lt;ramonn&gt;</span> alinefm, i got it
+<a name="l-45"></a><span class="tm">12:21:18</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, ramonn my concern is that in the current code (calling modinfo() for each module), if we consider all existing kernel modules, the API will take too long to retrieve the results. But I believe aline's suggestion to make the backend behave differently according to the filter parameter is a fine solution.
+<a name="l-46"></a><span class="tm">12:22:44</span><span class="nk"> &lt;alinefm&gt;</span> seems everyone on the same page! good =)
+<a name="l-47"></a><span class="tm">12:22:56</span><span class="nk"> &lt;alinefm&gt;</span> I don't have anything else, so we can end it by now
+<a name="l-48"></a><span class="tm">12:23:04</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining!
+<a name="l-49"></a><span class="tm">12:23:06</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
