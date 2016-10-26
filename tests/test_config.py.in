@@ -77,8 +77,7 @@ class ConfigTests(unittest.TestCase):
         pluginPrefix = paths.add_prefix(paths.plugin_dir)
         configObj = {
             'wok': {
-                'enable': True,
-                'uri': '/plugins/kimchi'
+                'enable': True
             },
             'kimchi': {
                 'federation': False,
