@@ -46,7 +46,7 @@ Requires:	spice-html5
 %if 0%{?rhel} == 6
 Requires:	python-ordereddict
 Requires:	python-imaging
-BuildRequires:    python-unittest2
+BuildRequires:	python-unittest2
 %endif
 
 %description
@@ -54,7 +54,7 @@ Web application to manage KVM/Qemu virtual machines
 
 
 %prep
-%setup
+%setup -q
 
 
 %build

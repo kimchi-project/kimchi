@@ -36,7 +36,7 @@ BuildRequires:	libxslt-tools
 BuildRequires:	python-lxml
 
 %if 0%{?suse_version} == 1100
-Requires:       python-ordereddict
+Requires:	python-ordereddict
 %endif
 
 %if 0%{?suse_version} > 1140
@@ -47,7 +47,7 @@ Requires:       python-ordereddict
 Web application to manage KVM/Qemu virtual machines
 
 %prep
-%setup
+%setup -q
 
 %build
 %configure --with-spice-html5
