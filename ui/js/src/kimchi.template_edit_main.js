@@ -339,7 +339,8 @@ kimchi.template_edit_main = function() {
                 });
 
                 $(storageRow + ' input.storage-path').on('change input keyup',function(){
-                    if($(storageRow + ' input.storage-path').val()){
+                    var storagepath = $(storageRow + ' input.storage-path').val();
+                    if( storagepath && storagepath.charAt(0) == '/'){
                         $(storageRow + ' span.storage-path').removeClass('has-error');
                     }else{
                         $(storageRow + ' span.storage-path').addClass('has-error');
