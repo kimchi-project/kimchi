@@ -127,7 +127,7 @@ kimchi.initStorageAddPage = function() {
     kimchi.listHostPartitions(function(data) {
         if (data.length > 0) {
             var deviceHtml = $('#partitionTmpl').html();
-            var listHtml = '<table class="table table-hover"><thead><tr><th></th><th>Device</th><th>Path</th><th>Size (GiB)</th></tr></thead><tbody>';
+            var listHtml = '<table class="table table-hover"><thead><tr><th></th><th>'+i18n['KCHPOOL6025M']+'</th><th>'+i18n['KCHPOOL6026M']+'</th><th>'+i18n['KCHPOOL6027M']+'</th></tr></thead><tbody>';
             valid_types = ['part', 'disk', 'mpath'];
             $.each(data, function(index, value) {
                 if (valid_types.indexOf(value.type) !== -1) {
@@ -149,7 +149,7 @@ kimchi.initStorageAddPage = function() {
     kimchi.getHostVgs(function(data){
         if (data.length > 0) {
             var deviceHtml = $('#existingLvmTmpl').html();
-            var listHtml = '<table class="table table-hover"><thead><tr><th></th><th>device</th><th>size (GiB)</th><th>free size (GiB)</th></tr></thead><tbody>';
+            var listHtml = '<table class="table table-hover"><thead><tr><th></th><th>'+i18n['KCHPOOL6025M']+'</th><th>'+i18n['KCHPOOL6027M']+'</th><th>'+i18n['KCHPOOL6028M']+'</th></tr></thead><tbody>';
             $.each(data, function(index, value) {
                 value.size = (value.size / 1000000000).toFixed(2);
                 value.free = (value.free / 1000000000).toFixed(2);
@@ -190,16 +190,16 @@ kimchi.initStorageAddPage = function() {
     $('#serverComboboxId').combobox();
     $('#targetFilterSelectId').filterselect();
     var options = [ {
-        label : "DIR",
+        label : i18n.KCHPOOL6021M,
         value : "dir"
     }, {
-        label : "NFS",
+        label : i18n.KCHPOOL6022M,
         value : "netfs"
     }, {
-        label : "iSCSI",
+        label : i18n.KCHPOOL6023M,
         value : "iscsi"
     }, {
-        label : "LOGICAL",
+        label : i18n.KCHPOOL6024M,
         value : "logical"
     }, {
         label : i18n.KCHPOOL6004M,

@@ -1,3 +1,4 @@
 # List of source files which contain translatable strings.
 i18n.py
 ui/pages/*.tmpl
+ui/pages/tabs/*.tmpl
