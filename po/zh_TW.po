@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-29 13:46-0300\n"
+"POT-Creation-Date: 2016-11-03 11:51+0530\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -440,6 +440,26 @@ msgstr ""
 msgid "Virtual machine description must be a string"
 msgstr ""
 
+msgid "console parameter is only supported for s390x/s390 architecture."
+msgstr ""
+
+msgid "invalid console type, supported types are sclp/virtio."
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to setup password-less login at remote host %(host)s using user "
+"%(user)s: remote directory %(sshdir)s does not exist."
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to create a password-less libvirt connection to the remote libvirt "
+"daemon at host %(host)s with the user %(user)s. Please verify the remote "
+"server libvirt configuration. More information: http://libvirt.org/auth."
+"html ."
+msgstr ""
+
 #, python-format
 msgid ""
 "VM %(vmid)s does not contain directly assigned host device %(dev_name)s."
@@ -472,6 +492,10 @@ msgstr ""
 
 #, python-format
 msgid "Failed to attach %(device)s to %(vm)s"
+msgstr ""
+
+#, python-format
+msgid "VM %(vmid)s does not have a USB controller to accept PCI hotplug."
 msgstr ""
 
 #, python-format
@@ -671,6 +695,18 @@ msgid ""
 msgstr ""
 
 msgid "Interfaces parameter only supported on s390x or s390 architecture."
+msgstr ""
+
+msgid "Storage without libvirt pool is not supported on this architecture"
+msgstr ""
+
+#, python-format
+msgid "Error while creating the virtual disk for the guest. Details: %(err)s"
+msgstr ""
+
+msgid ""
+"When setting template disks without libvirt, following parameters are "
+"required: 'index', 'format', 'path', 'size'"
 msgstr ""
 
 #, python-format
@@ -1141,6 +1177,18 @@ msgid ""
 "%(type)s"
 msgstr "所選格式為 %(format)s 的磁區不適合儲存體類型%(type)s"
 
+msgid "On s390x arch one of pool, path of dir_path must be specified"
+msgstr ""
+
+msgid ""
+"On s390x arch 'format' must be specified while attaching disk to virtual "
+"machine"
+msgstr ""
+
+#, python-format
+msgid "Virtual disk already exists on the system: %(disk_path)s"
+msgstr ""
+
 #, python-format
 msgid ""
 "Virtual machine '%(vm)s' must be stopped before creating a snapshot of it."
@@ -1501,6 +1549,24 @@ msgstr ""
 msgid "Edit Guest"
 msgstr "編輯客體"
 
+msgid "General"
+msgstr "一般"
+
+msgid "Storage"
+msgstr "儲存體"
+
+msgid "Interface"
+msgstr "介面"
+
+msgid "Permission"
+msgstr ""
+
+msgid "Pci"
+msgstr ""
+
+msgid "Snapshot"
+msgstr ""
+
 msgid "Name"
 msgstr "名稱"
 
@@ -1521,6 +1587,15 @@ msgstr ""
 
 msgid "Icon"
 msgstr "圖示"
+
+msgid "Console"
+msgstr ""
+
+msgid "sclp"
+msgstr ""
+
+msgid "virtio"
+msgstr ""
 
 msgid "Add"
 msgstr "新增"
@@ -1544,6 +1619,12 @@ msgid "MAC Address"
 msgstr "MAC 位址"
 
 msgid "IP Address"
+msgstr ""
+
+msgid "Network/Interface"
+msgstr ""
+
+msgid "Mode"
 msgstr ""
 
 msgid "Available system users and groups"
@@ -1732,6 +1813,12 @@ msgstr ""
 msgid "Select an existing disk"
 msgstr ""
 
+msgid "Source"
+msgstr ""
+
+msgid "Storage based on Libvirt pool or direct block device"
+msgstr ""
+
 msgid "Storage Pool"
 msgstr "儲存區"
 
@@ -1750,6 +1837,12 @@ msgstr ""
 msgid "Format of the new disk to be created"
 msgstr ""
 
+msgid "Directory Path"
+msgstr ""
+
+msgid "Provide a directory path"
+msgstr ""
+
 msgid "Storage pool in which the volume is located in"
 msgstr ""
 
@@ -1758,6 +1851,12 @@ msgstr "儲存磁區"
 
 msgid "Storage volume to be attached"
 msgstr "要連接的儲存磁區"
+
+msgid "Disk Path"
+msgstr ""
+
+msgid "Provide a block device"
+msgstr ""
 
 msgid "File Path"
 msgstr "檔案路徑"
@@ -1776,9 +1875,6 @@ msgstr "客體"
 
 msgid "Templates"
 msgstr "範本"
-
-msgid "Storage"
-msgstr "儲存體"
 
 msgid "This is not a valid Linux path"
 msgstr "這是無效的 Linux 路徑"
@@ -1813,6 +1909,9 @@ msgstr ""
 msgid "No ISO found"
 msgstr "找不到 ISO"
 
+msgid "Add Template"
+msgstr "新增範本"
+
 msgid "This may take a long time. Do you want to continue?"
 msgstr "這可能花費較長時間。您要繼續嗎？"
 
@@ -1830,6 +1929,9 @@ msgid "Not Available"
 msgstr ""
 
 msgid "Please check the invalid Storage Pools"
+msgstr ""
+
+msgid "Please check the invalid Storage Pools or Paths"
 msgstr ""
 
 msgid ""
@@ -1865,6 +1967,9 @@ msgstr "虛擬機器刪除確認"
 
 msgid ""
 "The %1 virtual machine is not persistent. Power Off will delete it. Continue?"
+msgstr ""
+
+msgid "Add Guest"
 msgstr ""
 
 msgid "Input is not a number"
@@ -1929,6 +2034,9 @@ msgstr "無法使用"
 msgid ""
 "This action will interrupt network connectivity for any virtual machine that "
 "depend on the %1 network."
+msgstr ""
+
+msgid "Add Network"
 msgstr ""
 
 msgid ""
@@ -2004,6 +2112,33 @@ msgstr ""
 msgid "Select one or more partitions to be added to the logical pool %1:"
 msgstr ""
 
+msgid "Add Storage"
+msgstr ""
+
+msgid "DIR"
+msgstr ""
+
+msgid "NFS"
+msgstr ""
+
+msgid "iSCSI"
+msgstr ""
+
+msgid "LOGICAL"
+msgstr ""
+
+msgid "device"
+msgstr ""
+
+msgid "path"
+msgstr ""
+
+msgid "size (GiB)"
+msgstr ""
+
+msgid "free size (GiB)"
+msgstr ""
+
 msgid "Invalid NFS mount path."
 msgstr "NFS 裝載路徑無效。"
 
@@ -2018,6 +2153,44 @@ msgstr "CDROM 路徑需要是有效的本端/遠端路徑，並且不能空白�
 
 msgid "Disk pool or volume cannot be blank."
 msgstr "磁碟儲存區或磁區不能空白。"
+
+msgid ""
+"Disk size or Format or Directory path cannot be blank and Directory path "
+"needs to be a valid local/remote path."
+msgstr ""
+
+msgid "Disk path needs to be a valid local/remote path and cannot be blank."
+msgstr ""
+
+msgid "Storage pool or Disk size or Format cannot be blank."
+msgstr ""
+
+msgid "cdrom"
+msgstr ""
+
+msgid "disk"
+msgstr ""
+
+msgid "Pool"
+msgstr ""
+
+msgid "qcow"
+msgstr ""
+
+msgid "qcow2"
+msgstr ""
+
+msgid "qed"
+msgstr ""
+
+msgid "raw"
+msgstr ""
+
+msgid "vmdk"
+msgstr ""
+
+msgid "vpc"
+msgstr ""
 
 msgid "Peers"
 msgstr ""
@@ -2183,9 +2356,6 @@ msgstr ""
 msgid "Ok"
 msgstr ""
 
-msgid "Add Template"
-msgstr "新增範本"
-
 msgid "Where is the source media for this template? "
 msgstr ""
 
@@ -2216,12 +2386,6 @@ msgstr ""
 msgid "Edit Template"
 msgstr "編輯範本"
 
-msgid "General"
-msgstr "一般"
-
-msgid "Interface"
-msgstr "介面"
-
 msgid "Processor"
 msgstr "處理器"
 
@@ -2240,9 +2404,6 @@ msgstr "磁碟 (GB)"
 msgid "Disk Format"
 msgstr "磁碟格式"
 
-msgid "Add Storage"
-msgstr ""
-
 msgid "Add Interface"
 msgstr ""
 
@@ -2257,3 +2418,87 @@ msgstr "核心"
 
 msgid "Threads"
 msgstr "執行緒"
+
+msgid "State"
+msgstr ""
+
+msgid "Guest Name ID"
+msgstr ""
+
+msgid "OS Type"
+msgstr ""
+
+msgid "VNC"
+msgstr ""
+
+msgid "No guests found."
+msgstr ""
+
+msgid "Stop"
+msgstr ""
+
+msgid "Location"
+msgstr ""
+
+msgid "%Used"
+msgstr ""
+
+msgid "Allocated"
+msgstr ""
+
+msgid "Capacity"
+msgstr ""
+
+msgid "Disks"
+msgstr ""
+
+msgid "Extending logical pool"
+msgstr ""
+
+msgid "Deactivate"
+msgstr ""
+
+msgid "Activate"
+msgstr ""
+
+msgid "Extend"
+msgstr ""
+
+msgid "Undefine"
+msgstr ""
+
+msgid "Add Volume"
+msgstr ""
+
+msgid "Resize"
+msgstr ""
+
+msgid "Wipe"
+msgstr ""
+
+msgid "Filter:"
+msgstr ""
+
+msgid "Used By"
+msgstr ""
+
+msgid "Used"
+msgstr ""
+
+msgid "Progress"
+msgstr ""
+
+msgid "Used by the following VMs:"
+msgstr ""
+
+msgid "Allocation"
+msgstr ""
+
+msgid "Template Name (ID)"
+msgstr ""
+
+msgid "No templates found."
+msgstr ""
+
+msgid "M"
+msgstr ""
