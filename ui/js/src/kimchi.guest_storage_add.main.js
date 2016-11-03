@@ -48,23 +48,23 @@ kimchi.switchPage = function(fromPageId, toPageId, direction) {
 
 kimchi.guest_storage_add_main = function() {
     var types = [{
-        label: 'cdrom',
+        label: i18n.KCHVMSTOR0001M,
         value: 'cdrom',
     },
     {
-        label: 'disk',
+        label: i18n.KCHVMSTOR0002M,
         value: 'disk',
     }];
     var typesRunning = [{
-        label: 'disk',
+        label: i18n.KCHVMSTOR0002M,
         value: 'disk'
     }];
 
     var source = [{
-        label: 'Pool',
+        label: i18n.KCHVMSTOR0003M,
         value: 'pool'
     },{
-        label: 'Path',
+        label: i18n.KCHVMSTOR0004M,
         value: 'path'
     }];
 
@@ -88,7 +88,7 @@ kimchi.guest_storage_add_main = function() {
     var s390xArch = 's390x';
 
     var getFormatList = function() {
-        var format = ["qcow", "qcow2", "qed", "raw", "vmdk", "vpc"];
+        var format = [i18n['KCHVMSTOR0005M'], i18n['KCHVMSTOR0006M'], i18n['KCHVMSTOR0007M'], i18n['KCHVMSTOR0008M'], i18n['KCHVMSTOR0009M'], i18n['KCHVMSTOR0010M']];
         var selectFormatHTML = '';
         var i;
         for (i = 0; i < format.length; i++) {
