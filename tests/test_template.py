@@ -190,6 +190,22 @@ class TemplateTests(unittest.TestCase):
             self.request('/plugins/kimchi/templates/test').read()
         )
 
+        # Create another template to test update template name with one of
+        # existing template name
+        req = json.dumps({'name': 'test_new',
+                          'source_media': {'type': 'disk', 'path': MOCK_ISO}})
+        resp = self.request('/plugins/kimchi/templates', req, 'POST')
+        self.assertEquals(201, resp.status)
+        # Update name with one of existing name should fail with 400
+        req = json.dumps({'name': 'test_new'})
+        resp = self.request('/plugins/kimchi/templates/test', req, 'PUT')
+        self.assertEquals(400, resp.status)
+
+        # Delete the test1 template
+        resp = self.request('/plugins/kimchi/templates/test_new', '{}',
+                            'DELETE')
+        self.assertEquals(204, resp.status)
+
         # Update name
         new_name = u'kīмсhīTmpl'
         new_tmpl_uri = '/plugins/kimchi/templates/%s' \

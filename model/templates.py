@@ -226,6 +226,14 @@ class TemplateModel(object):
     def update(self, name, params):
         edit_template = self.lookup(name)
 
+        # If new name is not same as existing name
+        # and new name already exists: raise exception
+        with self.objstore as session:
+            if 'name' in params and name != params['name'] \
+               and params['name'] in session.get_list('template'):
+                raise InvalidOperation("KCHTMPL0001E",
+                                       {'name': params['name']})
+
         # Valid interfaces
         interfaces = params.get('interfaces', [])
         validate_interfaces(interfaces)
