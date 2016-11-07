@@ -73,7 +73,9 @@ class StoragePoolsModel(object):
     def _check_default_pools(self):
         pools = {}
 
-        if is_s390x():
+        # Don't create default pool if it's not
+        # explicitly specified in template.conf
+        if is_s390x() and 'pool' not in tmpl_defaults['disks'][0]:
             return
 
         default_pool = tmpl_defaults['disks'][0]['pool']['name']
@@ -91,7 +93,7 @@ class StoragePoolsModel(object):
             error_msg = ("Storage pool %s does not exist or is not "
                          "active. Please, check the configuration in "
                          "%s/template.conf to ensure it lists only valid "
-                         "networks." % (pool_name, kimchiPaths.sysconf_dir))
+                         "storage." % (pool_name, kimchiPaths.sysconf_dir))
             try:
                 pool = conn.storagePoolLookupByName(pool_name)
             except libvirt.libvirtError, e:

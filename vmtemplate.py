@@ -106,14 +106,25 @@ class VMTemplate(object):
 
         for index, disk in enumerate(disks):
             disk_info = dict(default_disk)
-            # on s390x/s390 either pool or path should be present in
-            # default disk.
-            if is_s390x() and 'pool' not in default_disk and \
-               'path' not in default_disk:
-                raise InvalidParameter('KCHTMPL0040E')
 
-            # On s390x/s390 pool is optional attribute for disk.
-            pool = disk.get('pool', default_disk.get('pool'))
+            if is_s390x():
+                # Default disk should have either pool or path.
+                if 'pool' not in default_disk and 'path' not in default_disk:
+                    raise InvalidParameter('KCHTMPL0040E')
+
+                # Each disk should have either pool or path.
+                # if not then use "default_disk" configuration.
+                pool = disk.get('pool')
+                path = disk.get('path')
+                if not path and not pool:
+                    # If default disk is path then set disk with default path
+                    if default_disk.get('path'):
+                        path = default_disk.get('path')
+                    # If default disk is pool then set disk with default pool
+                    elif default_disk.get('pool'):
+                        pool = default_disk.get('pool')
+            else:
+                pool = disk.get('pool', default_disk.get('pool'))
 
             if pool:
                 pool_type = self._get_storage_type(pool['name'])
@@ -148,8 +159,12 @@ class VMTemplate(object):
                 disk_info['index'] = disk_info.get('index', index)
                 self.info['disks'][index] = disk_info
             elif is_s390x():
-                # For now support 'path' only on s390x
-                path = disk.get('path', default_disk.get('path'))
+                # This check is required where 'path' disk
+                # has to be added and hence default pool
+                # has to be removed during template update.
+                if 'pool' in disk_info:
+                    del disk_info['pool']
+
                 disk_info.update(disk)
                 keys = sorted(disk_info.keys())
                 if ((keys != sorted(basic_path_disk)) and
