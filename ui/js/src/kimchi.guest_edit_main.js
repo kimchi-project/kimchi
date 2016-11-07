@@ -187,7 +187,7 @@ kimchi.guest_edit_main = function() {
             if (data.id === -1) {
                 data.id = $('#form-guest-edit-interface > .body').children().size();
             }
-            if (data.ips === "" || data.ips === null) {
+            if (data.ips === "" || data.ips === null || data.ips === undefined || data.ips.length === 0) {
                 data.ips = i18n["KCHNET6001M"];
             } else {
                 data.ips = data.ips;
