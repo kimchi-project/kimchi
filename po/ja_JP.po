@@ -2175,7 +2175,7 @@ msgid ""
 msgstr ""
 
 msgid "Add Network"
-msgstr "" 
+msgstr ""
 
 msgid ""
 "The %1 network is not persistent. Instead of stop, this action will "
