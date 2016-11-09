@@ -1,0 +1,44 @@
+12:01:06 <alinefm> #startmeeting
+12:01:06 <kimchi-bot> Meeting started Wed Nov  9 12:01:06 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+12:01:06 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+12:01:06 <alinefm> #meetingname scrum
+12:01:06 <kimchi-bot> The meeting name has been set to 'scrum'
+12:01:14 <alinefm> #info Agenda
+12:01:14 <alinefm> #info 1) Status
+12:01:14 <alinefm> #info 2) Open discussion
+12:01:14 <alinefm> anything else?
+12:01:19 <danielhb> no
+12:02:34 <alinefm> so let's get started
+12:02:53 <alinefm> #topic Status
+12:02:53 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+12:03:28 <danielhb> #info [Kimchi] danielhb sent patches to implement CPU hot plug/unplug
+12:03:51 <lcorreia> #info [wok/kimchi/ginger*] lcorreia working on packaging for Debian/Ubuntu
+12:03:52 <lcorreia> #info [wok/kimchi/ginger*] lcorreia maintaining Open Power HostOS branches
+12:03:53 <alinefm> #info [wok] alinefm is working on issue #175 to do not generate nginx conf file on the fly and make adjustments on plugins accordingly
+12:03:58 <bianca> #info [Ginger] bianca is working on issue #410: UI is not updated after brigging an interface down/up.
+12:03:58 <bianca> #info [Ginger] bianca is working on issue #396: Network Configuration - Add/Delete BOND interface errors.
+12:03:58 <bianca> #info [Ginger] bianca sent a patch for issue #452: Cannot enable/disable network interfaces.
+12:03:58 <bianca> #info [Ginger] bianca sent a patch for issue #397: Network Configuration - Bring VLAN interface up.
+12:03:58 <bianca> #info [Gingerbase] bianca sent a patch for issue #137: "Update All" button should be disabled when the update successfully finished.
+12:03:58 <danielhb> #info [Kimchi] danielhb is now working in UI improvements in the CPU configuration of guests and templates
+12:03:59 <bianca> #info [Gingerbase] bianca sent a patch for issue #148: Page is not refreshing after update all packages in the list.
+12:04:49 <alinefm> #info [kimchi] alinefm started investigation about reattaching PCI devices to host when detaching them from guest
+12:06:55 <alinefm> ramonn, anything else from your side?
+12:06:57 <ramonn> #info [ginger] ramonn sent patch to fix kernel modules listing
+12:07:17 <ramonn> #info [wok] ramonn sent patch to fix locale and language default set
+12:07:55 <ramonn> #info [kimchi] ramonn investigating problems when creating network interfaces with DHCP at networks without dynamic ip
+12:08:00 <ramonn> alinefm, thanks
+12:09:42 <alinefm> yw =)
+12:09:47 <alinefm> #topic Open Discussion
+12:09:54 <alinefm> any other topic for today?
+12:10:04 <danielhb> alinefm, I have a quick one
+12:10:27 <danielhb> alinefm, I want to draw attention to the RFC I sent yesterday at the ML, [RFC] Guest/Template CPU setup with topology
+12:11:16 <alinefm> danielhb, sure - I will take a look on that as soon as I send the patch about nginx to ML
+12:11:33 <alinefm> sorry about the delay, but due debian deadlines all my attention was on that
+12:13:00 <alinefm> lcorreia, bianca ramonn anything else from you?
+12:13:08 <ramonn> nop
+12:13:09 <bianca> no
+12:13:10 <lcorreia> no
+12:13:13 <danielhb> alinefm, thank you! I have nothing else
+12:13:28 <alinefm> thanks you all for joining!
+12:13:30 <alinefm> #endmeeting
