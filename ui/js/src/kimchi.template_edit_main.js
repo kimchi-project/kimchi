@@ -278,19 +278,17 @@ kimchi.template_edit_main = function() {
                 $('.template-tab-body', '#form-template-storage').append(nodeStorage);
                 var storageRow = '#storageRow' + storageData.storageIndex;
 
-                var storageOptions = '';
+                var storageOptions = '<option disabled="disabled" selected="selected" value=""></option>';
                 $.each(storagePoolsInfo, function(poolName, value) {
                     storageOptions += '<option value="' + poolName + '">' + poolName + '</option>';
                 });
 
                 $(storageRow + ' .selectStorageName').append(storageOptions);
                 if (storageData.storageSource == 'pool') {
-                    if (!$(storageRow + ' .selectStorageName option[value="' + storageData.storageName + '"]').length) {
-                        var invalidOption = '<option disabled="disabled" selected="selected" value="' + storageData.storageName + '">' + storageData.storageName + '</option>';
-                        $(storageRow + ' .selectStorageName').prepend(invalidOption);
-                        $(storageRow + ' .selectStorageName').parent().addClass('has-error')
-                    }
                     $(storageRow + ' .selectStorageName').val(storageData.storageName);
+                    if(!storageData.storageName){
+                        $(storageRow + ' .selectStorageName').parent().addClass('has-error');
+                    }
                     $(storageRow + ' span.storage-pool').show();
                     $(storageRow + ' span.storage-path').hide();
                 } else {
@@ -428,7 +426,7 @@ kimchi.template_edit_main = function() {
                 storageID = storageID + 1;
                 var storageNodeData = {
                     storageSource: 'pool',
-                    storageName: 'default',
+                    storageName: '',
                     storageType: 'dir',
                     storageDisk: '10',
                     storageDiskFormat: 'qcow2',
