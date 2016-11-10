@@ -25,7 +25,7 @@ import os
 from multiprocessing import Process
 from websockify import WebSocketProxy
 
-from wok.config import config, paths, PluginPaths
+from wok.config import config, PluginPaths
 
 
 try:
@@ -71,12 +71,6 @@ def new_ws_proxy():
     except OSError as e:
         if e.errno == errno.EEXIST:
             pass
-
-    cert = config.get('server', 'ssl_cert')
-    key = config.get('server', 'ssl_key')
-    if not (cert and key):
-        cert = '%s/wok-cert.pem' % paths.conf_dir
-        key = '%s/wok-key.pem' % paths.conf_dir
 
     params = {'listen_host': '127.0.0.1',
               'listen_port': config.get('server', 'websockets_port'),

@@ -35,7 +35,7 @@ class PeersModel(object):
 
         # register server on openslp
         hostname = socket.getfqdn(wok_config.get("server", "host"))
-        port = wok_config.get("server", "ssl_port")
+        port = wok_config.get("server", "proxy_port")
         self.url = hostname + ":" + port
 
         cmd = ["slptool", "register",

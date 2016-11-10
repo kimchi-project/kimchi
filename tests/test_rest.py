@@ -27,8 +27,7 @@ import urllib2
 import urlparse
 from functools import partial
 
-from tests.utils import get_free_port, patch_auth, request
-from tests.utils import run_server, wait_task
+from tests.utils import patch_auth, request, run_server, wait_task
 
 from wok.asynctask import AsyncTask
 from wok.rollbackcontext import RollbackContext
@@ -41,10 +40,6 @@ import iso_gen
 
 test_server = None
 model = None
-host = None
-port = None
-ssl_port = None
-cherrypy_port = None
 fake_iso = '/tmp/fake.iso'
 
 DISKS = [{'size': 10, 'format': 'qcow2', 'index': 0, 'pool': {
@@ -52,16 +47,11 @@ DISKS = [{'size': 10, 'format': 'qcow2', 'index': 0, 'pool': {
 
 
 def setUpModule():
-    global test_server, model, host, port, ssl_port, cherrypy_port
+    global test_server, model
 
     patch_auth()
     model = mockmodel.MockModel('/tmp/obj-store-test')
-    host = '127.0.0.1'
-    port = get_free_port('http')
-    ssl_port = get_free_port('https')
-    cherrypy_port = get_free_port('cherrypy_port')
-    test_server = run_server(host, port, ssl_port, test_mode=True,
-                             cherrypy_port=cherrypy_port, model=model)
+    test_server = run_server(test_mode=True, model=model)
 
     # Create fake ISO to do the tests
     iso_gen.construct_fake_iso(fake_iso, True, '12.04', 'ubuntu')
@@ -92,7 +82,7 @@ class RestTests(unittest.TestCase):
         cb('in progress')
 
     def setUp(self):
-        self.request = partial(request, host, ssl_port)
+        self.request = partial(request)
         model.reset()
 
     def assertHTTPStatus(self, code, *args):
@@ -1518,5 +1508,5 @@ class HttpsRestTests(RestTests):
     Run all of the same tests as above, but use https instead
     """
     def setUp(self):
-        self.request = partial(request, host, ssl_port)
+        self.request = partial(request)
         model.reset()

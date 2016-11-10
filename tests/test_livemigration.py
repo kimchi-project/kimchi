@@ -25,7 +25,7 @@ import socket
 import unittest
 from functools import partial
 
-from tests.utils import get_free_port, patch_auth, request, rollback_wrapper
+from tests.utils import patch_auth, request, rollback_wrapper
 from tests.utils import run_server, running_as_root, wait_task
 
 from wok.basemodel import Singleton
@@ -411,17 +411,11 @@ class LiveMigrationTests(unittest.TestCase):
         inst = model.Model(libvirt_uri='qemu:///system',
                            objstore_loc=self.tmp_store)
 
-        host = '127.0.0.1'
-        port = get_free_port('http')
-        ssl_port = get_free_port('https')
-        cherrypy_port = get_free_port('cherrypy_port')
-
         with RollbackContext() as rollback:
-            test_server = run_server(host, port, ssl_port, test_mode=True,
-                                     cherrypy_port=cherrypy_port, model=inst)
+            test_server = run_server(test_mode=True, model=inst)
             rollback.prependDefer(test_server.stop)
 
-            self.request = partial(request, host, ssl_port)
+            self.request = partial(request)
 
             self.create_vm_test()
             rollback.prependDefer(rollback_wrapper, self.inst.vm_delete,

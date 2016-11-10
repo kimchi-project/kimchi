@@ -23,7 +23,7 @@ import os
 import time
 import unittest
 
-from tests.utils import get_free_port, patch_auth, request, run_server
+from tests.utils import patch_auth, request, run_server
 from tests.utils import wait_task
 
 from wok.exception import InvalidOperation
@@ -34,22 +34,15 @@ import iso_gen
 
 test_server = None
 model = None
-host = None
-port = None
-ssl_port = None
 fake_iso = None
 
 
 def setUpModule():
-    global host, port, ssl_port, model, test_server, fake_iso
+    global model, test_server, fake_iso
     cherrypy.request.headers = {'Accept': 'application/json'}
     model = mockmodel.MockModel('/tmp/obj-store-test')
     patch_auth()
-    port = get_free_port('http')
-    ssl_port = get_free_port('https')
-    host = '127.0.0.1'
-    test_server = run_server(host, port, ssl_port, test_mode=True,
-                             model=model)
+    test_server = run_server(test_mode=True, model=model)
     fake_iso = '/tmp/fake.iso'
     iso_gen.construct_fake_iso(fake_iso, True, '12.04', 'ubuntu')
 
@@ -68,26 +61,25 @@ class MockModelTests(unittest.TestCase):
         # Create a VM
         req = json.dumps({'name': 'test',
                           'source_media': {'type': 'disk', 'path': fake_iso}})
-        request(host, ssl_port, '/plugins/kimchi/templates', req, 'POST')
+        request('/plugins/kimchi/templates', req, 'POST')
         req = json.dumps({'name': 'test-vm',
                           'template': '/plugins/kimchi/templates/test'})
-        resp = request(host, ssl_port, '/plugins/kimchi/vms', req, 'POST')
+        resp = request('/plugins/kimchi/vms', req, 'POST')
         task = json.loads(resp.read())
         wait_task(model.task_lookup, task['id'])
 
         # Test screenshot refresh for running vm
-        request(host, ssl_port, '/plugins/kimchi/vms/test-vm/start', '{}',
+        request('/plugins/kimchi/vms/test-vm/start', '{}',
                 'POST')
-        resp = request(host, ssl_port,
-                       '/plugins/kimchi/vms/test-vm/screenshot')
+        resp = request('/plugins/kimchi/vms/test-vm/screenshot')
         self.assertEquals(200, resp.status)
         self.assertEquals('image/png', resp.getheader('content-type'))
-        resp1 = request(host, ssl_port, '/plugins/kimchi/vms/test-vm')
+        resp1 = request('/plugins/kimchi/vms/test-vm')
         rspBody = resp1.read()
         testvm_Data = json.loads(rspBody)
         screenshotURL = '/' + testvm_Data['screenshot']
         time.sleep(5)
-        resp2 = request(host, ssl_port, screenshotURL)
+        resp2 = request(screenshotURL)
         self.assertEquals(200, resp2.status)
         self.assertEquals(resp2.getheader('content-type'),
                           resp.getheader('content-type'))
@@ -99,13 +91,13 @@ class MockModelTests(unittest.TestCase):
     def test_vm_list_sorted(self):
         req = json.dumps({'name': 'test',
                           'source_media': {'type': 'disk', 'path': fake_iso}})
-        request(host, ssl_port, '/plugins/kimchi/templates', req, 'POST')
+        request('/plugins/kimchi/templates', req, 'POST')
 
         def add_vm(name):
             # Create a VM
             req = json.dumps({'name': name,
                               'template': '/plugins/kimchi/templates/test'})
-            task = json.loads(request(host, ssl_port, '/plugins/kimchi/vms',
+            task = json.loads(request('/plugins/kimchi/vms',
                               req, 'POST').read())
             wait_task(model.task_lookup, task['id'])
 

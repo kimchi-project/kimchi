@@ -23,7 +23,7 @@ import os
 import unittest
 from functools import partial
 
-from tests.utils import get_free_port, patch_auth, request, run_server
+from tests.utils import patch_auth, request, run_server
 
 from wok.plugins.kimchi.mockmodel import MockModel
 
@@ -32,23 +32,14 @@ from test_model_storagevolume import _do_volume_test
 
 model = None
 test_server = None
-host = None
-port = None
-ssl_port = None
-cherrypy_port = None
 
 
 def setUpModule():
-    global test_server, model, host, port, ssl_port, cherrypy_port
+    global test_server, model
 
     patch_auth()
     model = MockModel('/tmp/obj-store-test')
-    host = '127.0.0.1'
-    port = get_free_port('http')
-    ssl_port = get_free_port('https')
-    cherrypy_port = get_free_port('cherrypy_port')
-    test_server = run_server(host, port, ssl_port, test_mode=True,
-                             cherrypy_port=cherrypy_port, model=model)
+    test_server = run_server(test_mode=True, model=model)
 
 
 def tearDownModule():
@@ -58,7 +49,7 @@ def tearDownModule():
 
 class MockStorageVolumeTests(unittest.TestCase):
     def setUp(self):
-        self.request = partial(request, host, ssl_port)
+        self.request = partial(request)
 
     def test_storagevolume(self):
         # MockModel always returns 2 partitions (vdx, vdz)
@@ -96,4 +87,4 @@ class MockStorageVolumeTests(unittest.TestCase):
             # activate the storage pool
             resp = self.request(uri + '/activate', '{}', 'POST')
             self.assertEquals(200, resp.status)
-            _do_volume_test(self, model, host, ssl_port, pool_name)
+            _do_volume_test(self, model, pool_name)
