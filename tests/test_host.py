@@ -24,30 +24,23 @@ import tempfile
 import unittest
 from functools import partial
 
-from tests.utils import get_free_port, patch_auth, request, run_server
+from tests.utils import patch_auth, request, run_server
 
 from wok.plugins.kimchi.mockmodel import MockModel
 
 
 test_server = None
 model = None
-host = None
-ssl_port = None
 tmpfile = None
 
 
 def setUpModule():
-    global test_server, model, host, ssl_port, tmpfile
+    global test_server, model, tmpfile
 
     patch_auth()
     tmpfile = tempfile.mktemp()
     model = MockModel(tmpfile)
-    host = '127.0.0.1'
-    port = get_free_port('http')
-    ssl_port = get_free_port('https')
-    cherrypy_port = get_free_port('cherrypy_port')
-    test_server = run_server(host, port, ssl_port, test_mode=True,
-                             cherrypy_port=cherrypy_port, model=model)
+    test_server = run_server(test_mode=True, model=model)
 
 
 def tearDownModule():
@@ -57,7 +50,7 @@ def tearDownModule():
 
 class HostTests(unittest.TestCase):
     def setUp(self):
-        self.request = partial(request, host, ssl_port)
+        self.request = partial(request)
 
     def test_host_devices(self):
         def asset_devices_type(devices, dev_type):

@@ -22,11 +22,14 @@ import lxml.etree as ET
 import unittest
 
 
-from tests.utils import normalize_xml
-
 from wok.xmlutils.utils import xpath_get_text
 
 from wok.plugins.kimchi.xmlutils import network as nxml
+
+
+def normalize_xml(xml_str):
+    return ET.tostring(ET.fromstring(xml_str,
+                       ET.XMLParser(remove_blank_text=True)))
 
 
 class NetworkXmlTests(unittest.TestCase):

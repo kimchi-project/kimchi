@@ -29,29 +29,20 @@ from wok.rollbackcontext import RollbackContext
 
 from wok.plugins.kimchi.model.model import Model
 
-from tests.utils import get_free_port, patch_auth, request
+from tests.utils import patch_auth, request
 from tests.utils import run_server
 
 
 model = None
 test_server = None
-host = None
-port = None
-ssl_port = None
-cherrypy_port = None
 
 
 def setUpModule():
-    global test_server, model, host, port, ssl_port, cherrypy_port
+    global test_server, model
 
     patch_auth()
     model = Model(None, '/tmp/obj-store-test')
-    host = '127.0.0.1'
-    port = get_free_port('http')
-    ssl_port = get_free_port('https')
-    cherrypy_port = get_free_port('cherrypy_port')
-    test_server = run_server(host, port, ssl_port, test_mode=True,
-                             cherrypy_port=cherrypy_port, model=model)
+    test_server = run_server(test_mode=True, model=model)
 
 
 def tearDownModule():
@@ -61,7 +52,7 @@ def tearDownModule():
 
 class StoragepoolTests(unittest.TestCase):
     def setUp(self):
-        self.request = partial(request, host, ssl_port)
+        self.request = partial(request)
 
     def test_get_storagepools(self):
         storagepools = json.loads(
@@ -120,6 +111,5 @@ class StoragepoolTests(unittest.TestCase):
             # Reserved pool return 400
             req = json.dumps({'name': 'kimchi_isos', 'type': 'dir',
                               'path': '/var/lib/libvirt/images/%i' % i})
-            resp = request(host, ssl_port, '/plugins/kimchi/storagepools', req,
-                           'POST')
+            resp = request('/plugins/kimchi/storagepools', req, 'POST')
             self.assertEquals(400, resp.status)

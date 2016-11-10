@@ -24,8 +24,8 @@ import requests
 import unittest
 from functools import partial
 
-
-from tests.utils import fake_auth_header, get_free_port, patch_auth, request
+from tests.utils import fake_auth_header, HOST
+from tests.utils import patch_auth, PROXY_PORT, request
 from tests.utils import rollback_wrapper, run_server, wait_task
 
 from wok.config import paths
@@ -37,23 +37,14 @@ from wok.plugins.kimchi.model.model import Model
 
 model = None
 test_server = None
-host = None
-port = None
-ssl_port = None
-cherrypy_port = None
 
 
 def setUpModule():
-    global test_server, model, host, port, ssl_port, cherrypy_port
+    global test_server, model
 
     patch_auth()
     model = Model(None, '/tmp/obj-store-test')
-    host = '127.0.0.1'
-    port = get_free_port('http')
-    ssl_port = get_free_port('https')
-    cherrypy_port = get_free_port('cherrypy_port')
-    test_server = run_server(host, port, ssl_port, test_mode=True,
-                             cherrypy_port=cherrypy_port, model=model)
+    test_server = run_server(test_mode=True, model=model)
 
 
 def tearDownModule():
@@ -61,7 +52,7 @@ def tearDownModule():
     os.unlink('/tmp/obj-store-test')
 
 
-def _do_volume_test(self, model, host, ssl_port, pool_name):
+def _do_volume_test(self, model, pool_name):
     def _task_lookup(taskid):
         return json.loads(
             self.request('/plugins/kimchi/tasks/%s' % taskid).read()
@@ -176,7 +167,7 @@ def _do_volume_test(self, model, host, ssl_port, pool_name):
             self.assertEquals('ready for upload', status['message'])
 
             # Upload volume content
-            url = 'https://%s:%s' % (host, ssl_port) + uri + '/' + filename
+            url = 'https://%s:%s' % (HOST, PROXY_PORT) + uri + '/' + filename
 
             # Create a file with 5M to upload
             # Max body size is set to 4M so the upload will fail with 413
@@ -250,7 +241,7 @@ def _do_volume_test(self, model, host, ssl_port, pool_name):
 
 class StorageVolumeTests(unittest.TestCase):
     def setUp(self):
-        self.request = partial(request, host, ssl_port)
+        self.request = partial(request)
 
     def test_get_storagevolume(self):
         uri = '/plugins/kimchi/storagepools/default/storagevolumes'
@@ -271,4 +262,4 @@ class StorageVolumeTests(unittest.TestCase):
             self.assertEquals(sorted(all_keys), sorted(vol_info.keys()))
 
     def test_storagevolume_action(self):
-        _do_volume_test(self, model, host, ssl_port, 'default')
+        _do_volume_test(self, model, 'default')
