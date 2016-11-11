@@ -595,7 +595,15 @@ kimchi.guest_storage_add_main = function() {
 
 
     if(kimchi.hostarch === s390xArch){
-        $(capacityTextbox).add(directorypathTextbox).on('change input propertychange', function(event){
+        $(capacityTextbox).on('change input propertychange', function(event){
+            if(sourcenewTextbox.val() === 'path'){
+                $(submitButton).prop('disabled', $(capacityTextbox).val() === '' || $(directorypathTextbox).val() === '');
+            }else{
+                $(submitButton).prop('disabled', $(capacityTextbox).val() === '');
+            }
+        });
+
+        $(directorypathTextbox).on('change input propertychange', function(event){
             if(sourcenewTextbox.val() === 'path'){
                 $(submitButton).prop('disabled', $(capacityTextbox).val() === '' || $(directorypathTextbox).val() === '');
             }else{
