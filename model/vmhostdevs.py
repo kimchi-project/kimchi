@@ -636,6 +636,13 @@ class VMHostDevModel(object):
             return
 
         wok_log.info("Device %s removed successfuly" % alias)
+        # Re-attach device to host
+        try:
+            dev = conn.get().nodeDeviceLookupByName(alias)
+            dev.reAttach()
+        except libvirt.libvirtError, e:
+            wok_log.error("Unable to attach device %s back to host. Error: %s",
+                          alias, e.message)
         opaque._cb('OK', True)
 
     def _detach_device(self, cb, params):
