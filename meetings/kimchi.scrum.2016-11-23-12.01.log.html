@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">12:01:20</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">12:01:20</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Nov 23 12:01:20 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">12:01:20</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">12:01:21</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">12:01:21</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">12:01:31</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda</span>
+<a name="l-7"></a><span class="tm">12:01:31</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">1) Status</span>
+<a name="l-8"></a><span class="tm">12:01:31</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">2) Open discussion</span>
+<a name="l-9"></a><span class="tm">12:01:31</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-10"></a><span class="tm">12:01:54</span><span class="nk"> &lt;ramonn&gt;</span> nop
+<a name="l-11"></a><span class="tm">12:02:55</span><span class="nk"> &lt;alinefm&gt;</span> so let's get started
+<a name="l-12"></a><span class="tm">12:03:03</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-13"></a><span class="tm">12:03:04</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info [&lt;project] &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-14"></a><span class="tm">12:03:48</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] ramonn investigating issues when creating a bridge</span>
+<a name="l-15"></a><span class="tm">12:03:49</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok/kimchi/ginger*] lcorreia working on packaging for Debian/Ubuntu</span>
+<a name="l-16"></a><span class="tm">12:03:49</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok/kimchi/ginger*] lcorreia maintaining Open Power HostOS branches</span>
+<a name="l-17"></a><span class="tm">12:04:03</span><span class="nk"> &lt;bianca&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] bianca is working on issue #1064:  In Migrate guest window, text boxes are not taking input properly from keyboard.</span>
+<a name="l-18"></a><span class="tm">12:04:03</span><span class="nk"> &lt;bianca&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] bianca sent a patch related to issue #396: Network Configuration - Add/Delete BOND interface errors. Patch applied.</span>
+<a name="l-19"></a><span class="tm">12:04:03</span><span class="nk"> &lt;bianca&gt;</span> <span class="cmd">#info[*] </span><span class="cmdline">bianca is working on Fedora 25 release tests.</span>
+<a name="l-20"></a><span class="tm">12:04:21</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[gingerbase] alinefm fixed issue #123 (already merged)</span>
+<a name="l-21"></a><span class="tm">12:04:24</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] ramonn waiting bianca reply to close issue about BOND interfaces on CentOS</span>
+<a name="l-22"></a><span class="tm">12:04:31</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[gingerbase] alinefm sent patch to fix #111 to review</span>
+<a name="l-23"></a><span class="tm">12:04:38</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] danielhb is about to send patches to enhance/fix CPU topology handling in Kimchi</span>
+<a name="l-24"></a><span class="tm">12:04:47</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok/kimchi/ginger*] ramonn will start centOS tests</span>
+<a name="l-25"></a><span class="tm">12:05:04</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] danielhb will rebase and send a v2 of the CPU hotplug patch set this week</span>
+<a name="l-26"></a><span class="tm">12:06:08</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-27"></a><span class="tm">12:07:06</span><span class="nk"> &lt;danielhb&gt;</span> no
+<a name="l-28"></a><span class="tm">12:07:32</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-29"></a><span class="tm">12:08:14</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">The next release 2.3.1 will be announced on Dec 16th so we need to start the tests to certificate the releases is stable enough</span>
+<a name="l-30"></a><span class="tm">12:08:25</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">The tests must be done on stable branch</span>
+<a name="l-31"></a><span class="tm">12:09:22</span><span class="nk"> &lt;alinefm&gt;</span> any question?
+<a name="l-32"></a><span class="tm">12:09:57</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, ramonn lcorreia bianca ^
+<a name="l-33"></a><span class="tm">12:10:13</span><span class="nk"> &lt;lcorreia&gt;</span> no
+<a name="l-34"></a><span class="tm">12:10:15</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, no
+<a name="l-35"></a><span class="tm">12:10:33</span><span class="nk"> &lt;bianca&gt;</span> no
+<a name="l-36"></a><span class="tm">12:11:09</span><span class="nk"> &lt;alinefm&gt;</span> any other topic for today?
+<a name="l-37"></a><span class="tm">12:13:21</span><span class="nk"> &lt;lcorreia&gt;</span> no
+<a name="l-38"></a><span class="tm">12:16:27</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining!
+<a name="l-39"></a><span class="tm">12:16:29</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
