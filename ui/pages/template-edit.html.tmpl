@@ -156,10 +156,18 @@
                             <div id="guest-processor">
                                 <label for="vcpus">$_("Current CPU Number")</label>
                                 <input id="vcpus" class="form-control" name="processor" type="number" min="1" />
+                                <p class="help-block">
+                                    <i class="fa fa-info-circle"></i>
+                                    $_("Current CPU must be equal or lower than the Maximum CPU value. If a topology is set, it must be also be a multiple of the 'threads' value.")
+                                </p>
                             </div>
                             <div id="guest-max-processor-panel" class="form-group">
                                 <label for="guest-edit-max-processor-textbox">$_("Max CPU")</label>
                                 <input id="guest-edit-max-processor-textbox" class="form-control" name="max-processor" type="number" min="1" />
+                                <p class="help-block">
+                                    <i class="fa fa-info-circle"></i>
+                                    $_("If a topology is set, this value will be the product of sockets * times * cores.")
+                                </p>
                             </div>
                         </div>
                         <div class="manual form-group">
