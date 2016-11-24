@@ -175,6 +175,9 @@
             </form>
             <form role="tabpanel" class="tab-pane" id="form-edit-processor">
                 <div class="form-group">
+                    <div id="settings-readonly-help" class="hidden">
+                        <b>$_("Unable to edit CPU settings of a running or paused virtual machine.")</b>
+                    </div>
                     <div id="guest-processor">
                         <label for="vcpus">$_("Current CPU Number")</label>
                         <input id="vcpus" class="form-control" name="processor" type="number" min="1" />
@@ -192,7 +195,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="manual form-group">
+                <div class="manual form-group" id="topology-checkbox">
                     <input type="checkbox" class="wok-checkbox" id="cpus-check" />
                     <label for="cpus-check">$_("Manually set CPU topology")</label>
                 </div>

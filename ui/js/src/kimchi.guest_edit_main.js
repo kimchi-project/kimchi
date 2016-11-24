@@ -781,7 +781,18 @@ kimchi.guest_edit_main = function() {
         setupPermission();
         setupPCIDevice();
         setupSnapshot();
+
         kimchi.init_processor_tab(guest.cpu_info, $(saveButton));
+        if ((kimchi.thisVMState === "running") || (kimchi.thisVMState === "paused")) {
+            $('#vcpus').attr("disabled", true);
+            $('#guest-edit-max-processor-textbox').attr("disabled", true);
+            $('#sockets').attr("disabled", true);
+            $('#cores').attr("disabled", true);
+            $('#threads').attr("disabled", true);
+
+            $("#topology-checkbox").hide();
+            $("#settings-readonly-help").removeClass('hidden');
+        }
 
         wok.topic('kimchi/vmCDROMAttached').subscribe(onAttached);
         wok.topic('kimchi/vmCDROMReplaced').subscribe(onReplaced);
@@ -925,22 +936,26 @@ kimchi.guest_edit_main = function() {
             if (maxCpu >= cpu) {
                 maxCpuFinal = maxCpu;
             }
-            if ($("input:checkbox", "#form-edit-processor").prop("checked")) {
-                data['cpu_info'] = {
-                    vcpus: cpu,
-                    maxvcpus: maxCpuFinal,
-                    topology: {
-                        sockets: parseInt($("#sockets").val()),
-                        cores: parseInt($("#cores").val()),
-                        threads: parseInt($("#threads").val())
-                    }
-                };
+            if (kimchi.thisVMState === 'running' || kimchi.thisVMState === 'paused') {
+                data['cpu_info'] = {vcpus: cpu};
             } else {
-                data['cpu_info'] = {
-                    vcpus: cpu,
-                    maxvcpus: maxCpuFinal,
-                    topology: {}
-                };
+                if ($("input:checkbox", "#form-edit-processor").prop("checked")) {
+                    data['cpu_info'] = {
+                        vcpus: cpu,
+                        maxvcpus: maxCpuFinal,
+                        topology: {
+                            sockets: parseInt($("#sockets").val()),
+                            cores: parseInt($("#cores").val()),
+                            threads: parseInt($("#threads").val())
+                        }
+                    };
+                } else {
+                    data['cpu_info'] = {
+                        vcpus: cpu,
+                        maxvcpus: maxCpuFinal,
+                        topology: {}
+                    };
+                }
             }
 
             kimchi.updateVM(kimchi.selectedGuest, data, function() {
