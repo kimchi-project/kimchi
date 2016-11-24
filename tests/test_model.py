@@ -1316,23 +1316,23 @@ class ModelTests(unittest.TestCase):
 
             # define CPU topology
             inst.vm_update(u'kimchi-vm1', {'cpu_info': {'topology': {
-                           'sockets': 4, 'cores': 2, 'threads': 1}}})
+                           'sockets': 2, 'cores': 2, 'threads': 2}}})
             vm_info = inst.vm_lookup(u'kimchi-vm1')
-            self.assertEquals({'sockets': 4, 'cores': 2, 'threads': 1},
+            self.assertEquals({'sockets': 2, 'cores': 2, 'threads': 2},
                               vm_info['cpu_info']['topology'])
 
-            # vcpus not a multiple of (cores * threads)
+            # vcpus not a multiple of threads
             self.assertRaises(InvalidParameter, inst.vm_update, u'kimchi-vm1',
-                              {'cpu_info': {'vcpus': 1}})
+                              {'cpu_info': {'vcpus': 5}})
 
             # maxvcpus different of (sockets * cores * threads)
             self.assertRaises(InvalidParameter, inst.vm_update, u'kimchi-vm1',
                               {'cpu_info': {'maxvcpus': 4}})
 
-            # topology does not match maxvcpus (8 != 2 * 2 * 1)
+            # topology does not match maxvcpus (8 != 3 * 2 * 2)
             self.assertRaises(InvalidParameter, inst.vm_update, u'kimchi-vm1',
                               {'cpu_info': {'topology': {
-                               'sockets': 2, 'cores': 2, 'threads': 1}}})
+                               'sockets': 3, 'cores': 2, 'threads': 2}}})
 
             # undefine CPU topology
             inst.vm_update(u'kimchi-vm1', {'cpu_info': {'topology': {}}})
