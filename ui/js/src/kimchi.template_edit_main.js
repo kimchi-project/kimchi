@@ -77,6 +77,15 @@ kimchi.init_processor_tab = function(cpu_info, save_form_button) {
         setCPUValue();
     });
 
+    $("#guest-edit-max-processor-textbox").change(function() {
+        save_form_button.prop('disabled', false);
+        var vcpus = parseInt($('#vcpus').val());
+        var maxCpu = parseInt($("#guest-edit-max-processor-textbox").val());
+        if (vcpus > maxCpu) {
+            $("#vcpus").val(maxCpu);
+        }
+    });
+
     $('#vcpus').change(function() {
         var computedCpu = getMaxVCpus();
         var vcpus = parseInt($('#vcpus').val());
@@ -87,6 +96,7 @@ kimchi.init_processor_tab = function(cpu_info, save_form_button) {
             $(this).toggleClass("invalid-field", invalid_vcpu);
             save_form_button.prop('disabled', invalid_vcpu);
         } else {
+            save_form_button.prop('disabled', false);
             var maxCpu = parseInt($("#guest-edit-max-processor-textbox").val());
             if (vcpus > maxCpu) {
                 $("#vcpus").val(maxCpu);
