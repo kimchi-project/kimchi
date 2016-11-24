@@ -197,8 +197,10 @@
                             $_("Current CPU must be equal or lower than the Maximum CPU value. If a topology is set, it must be also be a multiple of the 'threads' value.")
                         </p>
                     </div>
+
                     <div id="guest-max-processor-panel" class="form-group">
                         <label for="guest-edit-max-processor-textbox">$_("Max CPU")</label>
+                        <p id="settings-readonly-help" class="hidden">$_("Unable to edit maximum CPU or CPU topology when editing a running or paused virtual machine.")</p>
                         <input id="guest-edit-max-processor-textbox" class="form-control" name="max-processor" type="number" min="1" />
                         <p class="help-block">
                             <i class="fa fa-info-circle"></i>
@@ -206,7 +208,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="manual form-group">
+                <div class="manual form-group" id="topology-checkbox">
                     <input type="checkbox" class="wok-checkbox" id="cpus-check" />
                     <label for="cpus-check">$_("Manually set CPU topology")</label>
                 </div>
