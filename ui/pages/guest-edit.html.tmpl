@@ -37,23 +37,13 @@
     <li role="presentation"><a href="#form-guest-edit-permission" aria-controls="form-guest-edit-permission" role="tab" data-id="form-guest-edit-permission" data-toggle="tab">$_("Permission")</a></li>
     <li role="presentation"><a href="#form-guest-edit-pci" aria-controls="form-guest-edit-pci" role="form-guest-edit-pci" data-id="form-guest-edit-pci" data-toggle="tab">$_("Pci")</a></li>
     <li role="presentation"><a href="#form-guest-edit-snapshot" aria-controls="form-guest-edit-snapshot" role="tab" data-id="form-guest-edit-snapshot" data-toggle="tab">$_("Snapshot")</a></li>
+    <li role="presentation"><a href="#form-edit-processor" aria-controls="form-edit-processor" role="tab" data-id="form-edit-processor" data-toggle="tab">$_("Processor")</a></li>
   </ul>
         <div class="tab-content" id="guest-edit-tabs">
             <form role="tabpanel" class="tab-pane active" id="form-guest-edit-general">
                 <div class="form-group">
                     <label for="guest-edit-id-textbox">$_("Name")</label>
                     <input id="guest-edit-id-textbox" class="form-control" name="name" type="text" />
-                </div>
-                <div class="form-group">
-                    <label for="guest-edit-cores-textbox">$_("Current CPUs")</label>
-                    <div id="guest-processor">
-                        <input id="guest-edit-cores-textbox" class="form-control" name="vcpus" type="number" min="1" />
-                        <button id="guest-show-max-processor" class="btn btn-primary" type="button"><i class="fa fa-plus-circle"></i> <span class="cputext">$_("More")</span></button>
-                    </div>
-                </div>
-                <div id="guest-max-processor-panel" class="form-group">
-                    <label for="guest-edit-max-processor-textbox">$_("Max CPU")</label>
-                    <input id="guest-edit-max-processor-textbox" class="form-control" name="max-processor" type="number" min="1" />
                 </div>
                 <div class="form-group">
                     <label for="guest-edit-memory-textbox">$_("Memory (MB)")</label>
@@ -196,6 +186,36 @@
                 </div>
                 <div class="task"></div>
                 <div class="body"></div>
+            </form>
+            <form role="tabpanel" class="tab-pane" id="form-edit-processor">
+                <div class="form-group">
+                    <div id="guest-processor">
+                        <label for="vcpus">$_("Current CPU Number")</label>
+                        <input id="vcpus" class="form-control" name="processor" type="number" min="1" />
+                    </div>
+                    <div id="guest-max-processor-panel" class="form-group">
+                        <label for="guest-edit-max-processor-textbox">$_("Max CPU")</label>
+                        <input id="guest-edit-max-processor-textbox" class="form-control" name="max-processor" type="number" min="1" />
+                    </div>
+                </div>
+                <div class="manual form-group">
+                    <input type="checkbox" class="wok-checkbox" id="cpus-check" />
+                    <label for="cpus-check">$_("Manually set CPU topology")</label>
+                </div>
+                <div class="topology">
+                    <div class="form-group">
+                        <label for="sockets">$_("Sockets")</label>
+                        <input type="text" class="form-control" value="1" id="sockets" />
+                    </div>
+                    <div class="form-group">
+                        <label for="cores">$_("Cores")</label>
+                        <input type="text" class="form-control" value="1" id="cores" />
+                    </div>
+                    <div class="form-group">
+                        <label for="threads">$_("Threads")</label>
+                        <select id="threads" class="selectpicker col-md-12 col-lg-12"></select>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
