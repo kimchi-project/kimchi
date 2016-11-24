@@ -123,6 +123,34 @@ class RestTests(unittest.TestCase):
         self.assertEquals([], vm['users'])
         self.assertEquals([], vm['groups'])
 
+    def test_edit_vm_cpuhotplug(self):
+        req = json.dumps({'name': 'template_cpuhotplug',
+                          'source_media': {'type': 'disk', 'path': fake_iso}})
+        resp = self.request('/plugins/kimchi/templates', req, 'POST')
+        self.assertEquals(201, resp.status)
+
+        req = json.dumps(
+            {'name': 'vm-cpuhotplug',
+             'template': '/plugins/kimchi/templates/template_cpuhotplug'}
+        )
+        resp = self.request('/plugins/kimchi/vms', req, 'POST')
+        self.assertEquals(202, resp.status)
+        task = json.loads(resp.read())
+        wait_task(self._task_lookup, task['id'])
+
+        req = json.dumps({'cpu_info': {'maxvcpus': 5, 'vcpus': 1}})
+        resp = self.request('/plugins/kimchi/vms/vm-cpuhotplug',
+                            req, 'PUT')
+        self.assertEquals(200, resp.status)
+
+        resp = self.request('/plugins/kimchi/vms/vm-cpuhotplug/start',
+                            '{}', 'POST')
+        self.assertEquals(200, resp.status)
+
+        req = json.dumps({'cpu_info': {'vcpus': 5}})
+        resp = self.request('/plugins/kimchi/vms/vm-cpuhotplug', req, 'PUT')
+        self.assertEquals(200, resp.status)
+
     def test_edit_vm(self):
         req = json.dumps({'name': 'test',
                           'source_media': {'type': 'disk', 'path': fake_iso}})
@@ -165,11 +193,6 @@ class RestTests(unittest.TestCase):
         self.assertEquals(400, resp.status)
 
         req = json.dumps({'name': 'new-vm'})
-        resp = self.request('/plugins/kimchi/vms/vm-1', req, 'PUT')
-        self.assertEquals(400, resp.status)
-
-        # Unable to do CPU hotplug
-        req = json.dumps({'cpu_info': {'vcpus': 5}})
         resp = self.request('/plugins/kimchi/vms/vm-1', req, 'PUT')
         self.assertEquals(400, resp.status)
 
