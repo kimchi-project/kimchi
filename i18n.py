@@ -348,7 +348,6 @@ messages = {
     "KCHCPUINF0003E": _("This host (or current configuration) does not allow CPU topology."),
     "KCHCPUINF0004E": _("The maximum number of vCPUs is too large for this system."),
     "KCHCPUINF0005E": _("When CPU topology is defined, CPUs must be a multiple of the 'threads' number defined."),
-    "KCHCPUINF0006E": _("The number of threads is too large for this system."),
     "KCHCPUINF0007E": _("When CPU topology is specified, sockets, cores and threads are required paramaters."),
     "KCHCPUINF0008E": _("Parameter 'cpu_info' expects an object with fields among: 'vcpus', 'maxvcpus', 'topology'."),
     "KCHCPUINF0009E": _("Parameter 'topology' expects an object with fields among: 'sockets', 'cores', 'threads'."),
