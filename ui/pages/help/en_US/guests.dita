@@ -77,6 +77,14 @@ create a template.</li>
 can be edited only while guest is stopped. Others will take effect
 in next boot.</shortdesc>
 <csbody>
+<ol><li><uicontrol>If guest is off: </uicontrol>CPU and Memory new values
+takes effect after next boot.</li>
+<li><uicontrol>If guest is running: </uicontrol>Guest must support
+hotplug/hotunplug of CPU and Memory devices, otherwise changes in these fields will not take effect. For Power systems, the guest must have:<ul>
+<li>Latest versions of packages <uicontrol>powerpc-utils, ppc64-diag</uicontrol> and <uicontrol>librtas</uicontrol>
+must be installed.</li>
+<li>Service <uicontrol>rtas_err</uicontrol> must be running.</li></ul>
+</li></ol>
 <dl><dlentry>
 <dt>General</dt>
 <dd>Displays information about your guest, including name, CPUs, memory,
