@@ -781,7 +781,7 @@ kimchi.guest_edit_main = function() {
         setupPermission();
         setupPCIDevice();
         setupSnapshot();
-        kimchi.init_processor_tab(guest.cpu_info);
+        kimchi.init_processor_tab(guest.cpu_info, $(saveButton));
 
         wok.topic('kimchi/vmCDROMAttached').subscribe(onAttached);
         wok.topic('kimchi/vmCDROMReplaced').subscribe(onReplaced);
