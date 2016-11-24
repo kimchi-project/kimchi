@@ -1669,10 +1669,6 @@ body.wok-gallery {
   display: inline;
 }
 
-#template-edit-window #guest-max-processor-panel {
-  display: none;
-}
-
 #template-edit-window #guest-show-max-processor {
   display: inline-block;
 }
