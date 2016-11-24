@@ -362,6 +362,9 @@ messages = {
     "KCHCPUINF0008E": _("Parameter 'cpu_info' expects an object with fields among: 'vcpus', 'maxvcpus', 'topology'."),
     "KCHCPUINF0009E": _("Parameter 'topology' expects an object with fields among: 'sockets', 'cores', 'threads'."),
 
+    "KCHCPUHOTP0001E": _("Unable to update Max CPU or CPU topology when guest is running."),
+    "KCHCPUHOTP0002E": _("Unable to hot plug/unplug CPUs. Details: %(err)s"),
+
     "KCHLVMS0001E": _("Invalid volume group name parameter: %(name)s."),
 
     "KCHCONN0001E": _("Unable to establish connection with libvirt. Please check your libvirt URI which is often defined in /etc/libvirt/libvirt.conf"),
