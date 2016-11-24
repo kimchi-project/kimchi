@@ -641,8 +641,15 @@ kimchi.template_edit_main = function() {
 
         var initProcessor = function(){
             var setCPUValue = function(){
-                if(!$('#cores').hasClass("invalid-field")&&$('#cores').val()!=""){
-                    var computedCpu = parseInt($("#cores").val())*parseInt($("#threads").val());
+                if(!$('#sockets').hasClass("invalid-field") &&
+                   !$('#cores').hasClass("invalid-field") &&
+                   $('#sockets').val()!="" && $('#cores').val()!=""){
+
+                    var sockets = parseInt($("#sockets").val());
+                    var cores = parseInt($("#cores").val());
+                    var threads = parseInt($("#threads").val());
+
+                    var computedCpu = sockets * cores * threads;
                     $("#vcpus").val(computedCpu);
                     if ($("#cpus-check").prop("checked")) {
                         //If topology is checked, set maxcpu to be the same as # of cpu otherwise, backend gives error
@@ -654,7 +661,10 @@ kimchi.template_edit_main = function() {
             };
             $("input:text", "#form-template-processor").on('keyup', function() {
                 $(this).toggleClass("invalid-field", !$(this).val().match('^[0-9]*$'));
-                if ($(this).prop('id') == 'cores') setCPUValue();
+                if ($(this).prop('id') == 'sockets' ||
+                    $(this).prop('id') == 'cores') {
+                        setCPUValue();
+                }
             });
             $("input:checkbox", "#form-template-processor").click(function() {
                 $('#threads').selectpicker();
@@ -679,6 +689,9 @@ kimchi.template_edit_main = function() {
                 }
                 if (template.cpu_info.maxvcpus) {
                     $("#guest-edit-max-processor-textbox").val(template.cpu_info.maxvcpus);
+                }
+                if (topo && topo.sockets) {
+                    $("#sockets").val(topo.sockets);
                 }
                 if (topo && topo.cores) {
                     $("#cores").val(topo.cores);
@@ -815,7 +828,7 @@ kimchi.template_edit_main = function() {
                 vcpus: cpu,
                 maxvcpus: maxCpuFinal,
                 topology: {
-                    sockets: 1,
+                    sockets: parseInt($("#sockets").val()),
                     cores: parseInt($("#cores").val()),
                     threads: parseInt($("#threads").val())
                 }
