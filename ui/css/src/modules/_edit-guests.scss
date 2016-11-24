@@ -39,9 +39,7 @@
         }
 
         #guest-edit-memory-textbox,
-        #guest-show-max-memory,
-        #guest-edit-cores-textbox,
-        #guest-show-max-processor {
+        #guest-show-max-memory {
             display: inline-block;
         }
 
@@ -68,6 +66,30 @@
         }
         .column-actions {
             width: 4.47%;
+        }
+    }
+    #form-edit-processor {
+        #guest-processor label {
+            display: block;
+        }
+        #guest-max-processor-panel label {
+            display: block;
+        }
+        #guest-max-processor-panel .form-control,
+        #guest-processor .form-control {
+            display: inline-block;
+            width: 184px;
+        }
+        .manual {
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+        .topology {
+            display: none;
+            margin: 0 24px;
+        }
+        .topology label {
+            display: block;
         }
     }
     form {

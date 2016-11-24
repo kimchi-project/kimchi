@@ -1090,9 +1090,7 @@ body.wok-gallery {
 }
 
 #guest-edit-window #form-guest-edit-general #guest-edit-memory-textbox,
-#guest-edit-window #form-guest-edit-general #guest-show-max-memory,
-#guest-edit-window #form-guest-edit-general #guest-edit-cores-textbox,
-#guest-edit-window #form-guest-edit-general #guest-show-max-processor {
+#guest-edit-window #form-guest-edit-general #guest-show-max-memory {
   display: inline-block;
 }
 
@@ -1115,6 +1113,34 @@ body.wok-gallery {
 
 #guest-edit-window #form-guest-edit-pci .column-actions {
   width: 4.47%;
+}
+
+#guest-edit-window #form-edit-processor #guest-processor label {
+  display: block;
+}
+
+#guest-edit-window #form-edit-processor #guest-max-processor-panel label {
+  display: block;
+}
+
+#guest-edit-window #form-edit-processor #guest-max-processor-panel .form-control,
+#guest-edit-window #form-edit-processor #guest-processor .form-control {
+  display: inline-block;
+  width: 184px;
+}
+
+#guest-edit-window #form-edit-processor .manual {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+#guest-edit-window #form-edit-processor .topology {
+  display: none;
+  margin: 0 24px;
+}
+
+#guest-edit-window #form-edit-processor .topology label {
+  display: block;
 }
 
 #guest-edit-window form {
