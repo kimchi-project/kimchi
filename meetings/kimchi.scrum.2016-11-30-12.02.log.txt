@@ -1,0 +1,38 @@
+12:02:16 <alinefm> #startmeeting
+12:02:16 <kimchi-bot> Meeting started Wed Nov 30 12:02:16 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+12:02:16 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+12:02:20 <alinefm> #meetingname scrum
+12:02:20 <kimchi-bot> The meeting name has been set to 'scrum'
+12:02:38 <alinefm> #info Agenda
+12:02:42 <alinefm> #info 1) Status
+12:02:42 <alinefm> #info 2) Open discussion
+12:02:42 <alinefm> anything else?
+12:02:48 <ramonn> nop
+12:03:57 <alinefm> so let's get started
+12:04:05 <alinefm> #topic Status
+12:04:09 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+12:04:51 <bianca_> #info [Kimchi] bianca is working on issue #1064:  In Migrate guest window, text boxes are not taking input properly from keyboard.
+12:04:51 <bianca_> #info[*] bianca is working on Fedora 25 release tests.
+12:04:59 <alinefm> #info [kimchi] alinefm is working on a issue to reattach the device back to the host when detaching from guest (in a discussion if it should be the default libvirt behavior or not)
+12:05:10 <lcorreia> #info [wok/kimchi/ginger*] lcorreia working on packaging for Debian/Ubuntu
+12:05:10 <lcorreia> #info [wok/kimchi/ginger*] lcorreia maintaining Open Power HostOS branches
+12:06:01 <ramonn> #info [wok] ramonn finish tests
+12:06:15 <ramonn> #info [gingerbase] ramonn starting tests today
+12:06:47 <ramonn> #info [ginger] ramonn stopped investigation about BOND issues on fedora. Will resume after tests
+12:08:09 <alinefm> danielhb, anything else from your side?
+12:08:28 <danielhb> alinefm, nah I watched Netflix the whole week!
+12:08:42 <danielhb> #info [Ginger] danielhb fixed a couple of Github issues
+12:09:00 <alinefm> danielhb, eheheh while coding I expect =)
+12:09:08 <danielhb> #info [*] danielhb is testing the plug-ins in OpenLeap 42
+12:09:18 <danielhb> alinefm, ;)
+12:10:03 <alinefm> danielhb, bianca_ lcorreia ramonn team, we should finish the tests on next week to we have some days to fix any critical issue we found
+12:10:18 <alinefm> let me know if it will be not possible for any reason
+12:10:27 <bianca_> ok
+12:10:29 <alinefm> i can help on that too
+12:11:29 <alinefm> #topic Open Discussion
+12:11:41 <alinefm> danielhb, bianca_ ramonn lcorreia do you have any other topic for today?
+12:11:52 <bianca_> I don't
+12:11:54 <ramonn> nop
+12:11:59 <lcorreia> no
+12:12:58 <alinefm> so thanks everyone for joining! =)
+12:12:58 <alinefm> #endmeeting

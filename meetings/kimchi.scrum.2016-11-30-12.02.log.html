@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">12:02:16</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">12:02:16</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Nov 30 12:02:16 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">12:02:16</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">12:02:20</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">12:02:20</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">12:02:38</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda</span>
+<a name="l-7"></a><span class="tm">12:02:42</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">1) Status</span>
+<a name="l-8"></a><span class="tm">12:02:42</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">2) Open discussion</span>
+<a name="l-9"></a><span class="tm">12:02:42</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-10"></a><span class="tm">12:02:48</span><span class="nk"> &lt;ramonn&gt;</span> nop
+<a name="l-11"></a><span class="tm">12:03:57</span><span class="nk"> &lt;alinefm&gt;</span> so let's get started
+<a name="l-12"></a><span class="tm">12:04:05</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-13"></a><span class="tm">12:04:09</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info [&lt;project] &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-14"></a><span class="tm">12:04:51</span><span class="nk"> &lt;bianca_&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] bianca is working on issue #1064:  In Migrate guest window, text boxes are not taking input properly from keyboard.</span>
+<a name="l-15"></a><span class="tm">12:04:51</span><span class="nk"> &lt;bianca_&gt;</span> <span class="cmd">#info[*] </span><span class="cmdline">bianca is working on Fedora 25 release tests.</span>
+<a name="l-16"></a><span class="tm">12:04:59</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] alinefm is working on a issue to reattach the device back to the host when detaching from guest (in a discussion if it should be the default libvirt behavior or not)</span>
+<a name="l-17"></a><span class="tm">12:05:10</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok/kimchi/ginger*] lcorreia working on packaging for Debian/Ubuntu</span>
+<a name="l-18"></a><span class="tm">12:05:10</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok/kimchi/ginger*] lcorreia maintaining Open Power HostOS branches</span>
+<a name="l-19"></a><span class="tm">12:06:01</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] ramonn finish tests</span>
+<a name="l-20"></a><span class="tm">12:06:15</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[gingerbase] ramonn starting tests today</span>
+<a name="l-21"></a><span class="tm">12:06:47</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] ramonn stopped investigation about BOND issues on fedora. Will resume after tests</span>
+<a name="l-22"></a><span class="tm">12:08:09</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, anything else from your side?
+<a name="l-23"></a><span class="tm">12:08:28</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, nah I watched Netflix the whole week!
+<a name="l-24"></a><span class="tm">12:08:42</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] danielhb fixed a couple of Github issues</span>
+<a name="l-25"></a><span class="tm">12:09:00</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, eheheh while coding I expect =)
+<a name="l-26"></a><span class="tm">12:09:08</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] danielhb is testing the plug-ins in OpenLeap 42</span>
+<a name="l-27"></a><span class="tm">12:09:18</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, ;)
+<a name="l-28"></a><span class="tm">12:10:03</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, bianca_ lcorreia ramonn team, we should finish the tests on next week to we have some days to fix any critical issue we found
+<a name="l-29"></a><span class="tm">12:10:18</span><span class="nk"> &lt;alinefm&gt;</span> let me know if it will be not possible for any reason
+<a name="l-30"></a><span class="tm">12:10:27</span><span class="nk"> &lt;bianca_&gt;</span> ok
+<a name="l-31"></a><span class="tm">12:10:29</span><span class="nk"> &lt;alinefm&gt;</span> i can help on that too
+<a name="l-32"></a><span class="tm">12:11:29</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-33"></a><span class="tm">12:11:41</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, bianca_ ramonn lcorreia do you have any other topic for today?
+<a name="l-34"></a><span class="tm">12:11:52</span><span class="nk"> &lt;bianca_&gt;</span> I don't
+<a name="l-35"></a><span class="tm">12:11:54</span><span class="nk"> &lt;ramonn&gt;</span> nop
+<a name="l-36"></a><span class="tm">12:11:59</span><span class="nk"> &lt;lcorreia&gt;</span> no
+<a name="l-37"></a><span class="tm">12:12:58</span><span class="nk"> &lt;alinefm&gt;</span> so thanks everyone for joining! =)
+<a name="l-38"></a><span class="tm">12:12:58</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
