@@ -23,8 +23,8 @@ kimchi.sp_resize_volume_main = function() {
     var form = $('form#form-sp-resize-volume');
 
     $(addButton).prop('disabled',true);
-    $(size).on('keyup', function(){
-        if($(this).val().length !==0) {
+    $(size).on('keyup change', function(){
+        if($(this).val() > 0) {
             addButton.prop('disabled', false);
         } else{
             addButton.prop('disabled',true);
