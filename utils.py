@@ -20,7 +20,6 @@
 
 import contextlib
 import json
-import platform
 import re
 import sqlite3
 import time
@@ -266,12 +265,7 @@ def is_libvirtd_up():
     """
     Checks if libvirtd.service is up.
     """
-    distro, _, _ = platform.linux_distribution()
-    if distro.lower() == 'ubuntu':
-        cmd = ['systemctl', 'is-active', 'libvirt-bin.service']
-    else:
-        cmd = ['systemctl', 'is-active', 'libvirtd.service']
-
+    cmd = ['systemctl', 'is-active', 'libvirtd.service']
     output, error, rc = run_command(cmd, silent=True)
     return True if output == 'active\n' else False
 
