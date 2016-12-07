@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">12:00:33</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">12:00:33</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Dec  7 12:00:33 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">12:00:33</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">12:00:33</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">12:00:34</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">12:00:41</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda</span>
+<a name="l-7"></a><span class="tm">12:00:41</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">1) Status</span>
+<a name="l-8"></a><span class="tm">12:00:41</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">2) Open discussion</span>
+<a name="l-9"></a><span class="tm">12:00:41</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-10"></a><span class="tm">12:02:30</span><span class="nk"> &lt;ramonn&gt;</span> nop
+<a name="l-11"></a><span class="tm">12:02:45</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-12"></a><span class="tm">12:02:45</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info [&lt;project] &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-13"></a><span class="tm">12:02:56</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] danielhb fixed a couple of issues found during the tests</span>
+<a name="l-14"></a><span class="tm">12:03:04</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] alinefm sent patch to recognize openSUSE isos</span>
+<a name="l-15"></a><span class="tm">12:03:20</span><span class="nk"> &lt;bianca&gt;</span> <span class="cmd">#info[*] </span><span class="cmdline">bianca is working on Fedora 25 release tests (already tested Ginger, Gingerbase and Wok).</span>
+<a name="l-16"></a><span class="tm">12:03:56</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok/kimchi/ginger*] lcorreia running 2.3.1/2.2.2 tests on Ubuntu 16.10</span>
+<a name="l-17"></a><span class="tm">12:03:56</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok/kimchi/ginger*] lcorreia submitted packages to Debian/Ubuntu and created ITP and RFS for each one</span>
+<a name="l-18"></a><span class="tm">12:03:56</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok/kimchi/ginger*] lcorreia maintaining Open Power HostOS branches</span>
+<a name="l-19"></a><span class="tm">12:05:01</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi/ginger] lcorreia got some small bugfixes upstream</span>
+<a name="l-20"></a><span class="tm">12:05:12</span><span class="nk"> &lt;alinefm&gt;</span> lcorreia, could you share the links to the ITP and RFS?
+<a name="l-21"></a><span class="tm">12:05:26</span><span class="nk"> &lt;lcorreia&gt;</span> alinefm, sure, I need some time
+<a name="l-22"></a><span class="tm">12:06:29</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] ramonn finished tests</span>
+<a name="l-23"></a><span class="tm">12:06:44</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] ramon sent bond patch for review</span>
+<a name="l-24"></a><span class="tm">12:07:01</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, have you finished all the tests on opensuse 42.2?
+<a name="l-25"></a><span class="tm">12:07:03</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] got issue about check_ui_code_errors</span>
+<a name="l-26"></a><span class="tm">12:07:27</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, not yet, I am finishing Ginger tests. Kimchi and gingerbase are mostly done
+<a name="l-27"></a><span class="tm">12:07:40</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, ok
+<a name="l-28"></a><span class="tm">12:08:00</span><span class="nk"> &lt;alinefm&gt;</span> lcorreia, how is the testes on ubuntu 16.10? almost done? could you give more details?
+<a name="l-29"></a><span class="tm">12:08:57</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="hi">ITP:</span> wok -&gt; https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=846595   ginger-base -&gt; https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=846598   ginger -&gt; https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=775747    kimchi -&gt; https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=772823
+<a name="l-30"></a><span class="tm">12:10:03</span><span class="nk"> &lt;lcorreia&gt;</span> alinefm, I've almost completed ginger and ginger-base testing (a few tests missing) and will run kimchi and wok today (had to fix that issue on kimchi in order to run it)
+<a name="l-31"></a><span class="tm">12:11:44</span><span class="nk"> &lt;alinefm&gt;</span> oh ok
+<a name="l-32"></a><span class="tm">12:11:51</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-33"></a><span class="tm">12:12:00</span><span class="nk"> &lt;alinefm&gt;</span> bianca, danielhb lcorreia ramonn any other topic for today?
+<a name="l-34"></a><span class="tm">12:12:06</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="hi">RFS:</span> wok-&gt; https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=847105      ginger-base -&gt; https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=847108    ginger-&gt;https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=847102     kimchi -&gt; https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=847101
+<a name="l-35"></a><span class="tm">12:12:14</span><span class="nk"> &lt;bianca&gt;</span> alinefm no
+<a name="l-36"></a><span class="tm">12:15:27</span><span class="nk"> &lt;alinefm&gt;</span> apparently not
+<a name="l-37"></a><span class="tm">12:15:32</span><span class="nk"> &lt;alinefm&gt;</span> so thanks everyone for joining!
+<a name="l-38"></a><span class="tm">12:15:35</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
