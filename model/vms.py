@@ -475,11 +475,6 @@ class VMModel(object):
         all_paths = xpath_get_text(xml, XPATH_DOMAIN_DISK)
 
         vir_conn = self.conn.get()
-
-        def _delete_disk_from_objstore(path):
-            with self.objstore as session:
-                session.delete('storagevolume', path)
-
         domain_name = xpath_get_text(xml, XPATH_DOMAIN_NAME)[0]
 
         for i, path in enumerate(all_paths):
@@ -549,13 +544,6 @@ class VMModel(object):
             new_vol = self.storagevolume.lookup(new_pool_name, new_vol_name)
             xml = xml_item_update(xml, XPATH_DOMAIN_DISK_BY_FILE % path,
                                   new_vol['path'], 'file')
-
-            # set the new disk's used_by
-            with self.objstore as session:
-                session.store('storagevolume', new_vol['path'],
-                              {'used_by': [domain_name]},
-                              get_kimchi_version())
-            rollback.prependDefer(_delete_disk_from_objstore, new_vol['path'])
 
             # remove the new volume should an error occur later
             rollback.prependDefer(self.storagevolume.delete, new_pool_name,
@@ -1399,10 +1387,6 @@ class VMModel(object):
                 pool_type = xpath_get_text(xml, "/pool/@type")[0]
                 if pool_type not in READONLY_POOL_TYPE:
                     vol.delete(0)
-                    # Update objstore to remove the volume
-                    with self.objstore as session:
-                        session.delete('storagevolume', path,
-                                       ignore_missing=True)
             except libvirt.libvirtError as e:
                 wok_log.error('Unable to get storage volume by path: %s' %
                               e.message)
