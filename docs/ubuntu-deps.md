@@ -20,7 +20,7 @@ Runtime Dependencies
                             python-ethtool sosreport python-ipaddr \
                             python-lxml open-iscsi python-guestfs \
                             libguestfs-tools spice-html5 python-magic \
-                            python-paramiko
+                            python-paramiko python-imaging
 
 Packages required for UI development
 ------------------------------------
