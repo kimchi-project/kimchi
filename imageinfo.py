@@ -55,8 +55,8 @@ def probe_image(image_path):
         roots = g.inspect_os()
     except ImportError:
         return ("unknown", "unknown")
-    except:
-        raise ImageFormatError("KCHIMG0001E")
+    except Exception, e:
+        raise ImageFormatError("KCHIMG0001E", {'err': str(e)})
 
     if len(roots) == 0:
         # If we are unable to detect the OS, still add the image

@@ -54,7 +54,7 @@ messages = {
                      "Details: %(err)s" ),
     "KCHISO0009E": _("Unable to access remote ISO. Details: %(err)s"),
 
-    "KCHIMG0001E": _("An error occurred when probing image OS information."),
+    "KCHIMG0001E": _("Error probing image OS information: %(err)s"),
     "KCHIMG0003E": _("Unable to read image file %(filename)s"),
     "KCHIMG0004E": _("Image file must be an existing file on system. %(filename)s is not a valid input."),
 
