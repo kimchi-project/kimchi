@@ -1096,7 +1096,7 @@ class VMModel(object):
 
     def update_cpu_live(self, dom, vcpus):
         flags = libvirt.VIR_DOMAIN_AFFECT_LIVE | \
-                libvirt.VIR_DOMAIN_AFFECT_CONFIG
+            libvirt.VIR_DOMAIN_AFFECT_CONFIG
         try:
             dom.setVcpusFlags(vcpus, flags)
         except libvirt.libvirtError as e:
