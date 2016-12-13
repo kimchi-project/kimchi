@@ -103,6 +103,7 @@ XPATH_BOOT = 'os/boot/@dev'
 XPATH_BOOTMENU = 'os/bootmenu/@enable'
 XPATH_CPU = './cpu'
 XPATH_DESCRIPTION = './description'
+XPATH_MEMORY = './memory'
 XPATH_NAME = './name'
 XPATH_NUMA_CELL = './cpu/numa/cell'
 XPATH_SNAP_VM_NAME = './domain/name'
@@ -1271,6 +1272,12 @@ class VMModel(object):
         # Case VM changed currentMemory outside Kimchi, sum mem devs
         memory = dom.maxMemory() >> 10
         curr_mem = (info[2] >> 10)
+
+        # On CentOS, dom.info does not retrieve memory. So, if machine does
+        # not have memory hotplug, parse memory from xml
+        if curr_mem == 0:
+            curr_mem = int(xpath_get_text(xml, XPATH_MEMORY)[0]) >> 10
+
         if memory != curr_mem:
             memory = curr_mem + (self._get_mem_dev_total_size(xml) >> 10)
 
