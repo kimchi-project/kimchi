@@ -101,7 +101,7 @@ class LibvirtEvents(object):
                 cb,
                 arg)
 
-        except libvirt.libvirtError as e:
+        except (AttributeError, libvirt.libvirtError), e:
             wok_log.error("register attach event failed: %s" % e.message)
 
     def registerDetachDevicesEvent(self, conn, cb, arg):
