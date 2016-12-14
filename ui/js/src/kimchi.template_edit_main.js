@@ -616,9 +616,9 @@ kimchi.template_edit_main = function() {
                 //initialize type option
                 var typeOptionsdata = {};
                 var typeOptions = '';
-                typeOptionsdata.macvtap = 'macvtap';
-                typeOptionsdata.ovs = 'ovs';
-                typeOptionsdata.network = 'network';
+                typeOptionsdata.macvtap = i18n['KCHTMPL6009M'];
+                typeOptionsdata.ovs = i18n['KCHTMPL6010M'];
+                typeOptionsdata.network = i18n['KCHTMPL6011M'];
 
                 $.each(typeOptionsdata, function(key, value) {
                     if (value === networkData.type) {

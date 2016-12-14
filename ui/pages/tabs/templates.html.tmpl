@@ -37,15 +37,15 @@
                 </div>
 
                 <div class="form-group pull-right">
-                    <div class="btn-group bootstrap-select control">
-                        <button type="button" class="btn dropdown-toggle form-control selectpicker btn-default sort-button" data-toggle="dropdown" title="Status" aria-expanded="false"><span class="filter-option pull-left">$_("Status")</span>&nbsp;<span class="caret"></span></button>
+                    <div class="btn-group bootstrap-select control" id="templatestatusselect">
+                        <button type="button" class="btn dropdown-toggle form-control selectpicker btn-default sort-button" data-toggle="dropdown" aria-expanded="false"><span class="filter-option pull-left" data-placement="auto bottom" data-toggle="tooltip" title="$_('Status')">$_("Status")</span>&nbsp;<span class="caret"></span></button>
                         <div class="dropdown-menu open" style="max-height: 668px; overflow: hidden; min-height: 0px;padding: 0px;">
                             <ul class="dropdown-menu inner selectpicker" role="menu" style="max-height: 656px; overflow-y: auto; min-height: 0px;">
-                                <li nwAct="sort"><a href="#" class="sort" data-sort="name-filter">$_("Name")</a></li>
-                                <li nwAct="clone"><a href="#" class="sort" data-sort="os-type-filter">$_("OS")</a></li>
-                                <li nwAct="clone"><a href="#" class="sort" data-sort="os-version-filter">$_("Version")</a></li>
-                                <li nwAct="clone"><a href="#" class="sort" data-sort="cpus-filter">$_("Current CPUs")</a></li>
-                                <li nwAct="clone"><a href="#" class="sort" data-sort="memory-filter">$_("Memory")</a></li>
+                                <li nwAct="sort"><a href="#" class="sort" data-sort="name-filter" title="$_('Name')">$_("Name")</a></li>
+                                <li nwAct="clone"><a href="#" class="sort" data-sort="os-type-filter" title="$_('OS')">$_("OS")</a></li>
+                                <li nwAct="clone"><a href="#" class="sort" data-sort="os-version-filter" title="$_('Version')">$_("Version")</a></li>
+                                <li nwAct="clone"><a href="#" class="sort" data-sort="cpus-filter" title="$_('Current CPUs')">$_("Current CPUs")</a></li>
+                                <li nwAct="clone"><a href="#" class="sort" data-sort="memory-filter" title="$_('Memory')">$_("Memory")</a></li>
                             </ul>
                         </div>
                     </div>
@@ -57,11 +57,11 @@
             <div id="alert-container"></div>
             <ul id="templates-grid" class="wok-vm-list hidden empty-when-logged-off">
                 <li class="wok-vm-header">
-                        <span class="column-name">$_("Template Name (ID)")</span><!--
-                  --><span class="column-type">$_("OS")</span><!--
-                  --><span class="column-version">$_("Version")</span><!--
-                  --><span class="column-processors">$_("Current CPUs")</span><!--
-                  --><span class="column-memory">$_("Memory")</span><!--
+                        <span class="column-name"  title="$_('Template Name (ID)')">$_("Template Name (ID)")</span><!--
+                  --><span class="column-type" title="$_('OS')">$_("OS")</span><!--
+                  --><span class="column-version" title="$_('Version')">$_("Version")</span><!--
+                  --><span class="column-processors" title="$_('Current CPUs')">$_("Current CPUs")</span><!--
+                  --><span class="column-memory" title="$_('Memory')">$_("Memory")</span><!--
                   --><span class="column-action" style="display:none"><span class="sr-only">$_("Actions")</span></span>
                     </li>
                     <li>

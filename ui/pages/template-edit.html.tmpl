@@ -218,13 +218,13 @@
         <span class="template-storage-cell source" style="display:none">
             <input class="template-storage-source" value={storageSource} type="text" style="display:none" />
             <select id="source">
-                <option value="pool">pool</option>
-                <option value="path">path</option>
+                <option value="pool">$_("pool")</option>
+                <option value="path">$_("path")</option>
             </select>
         </span>
         <span class="template-storage-cell storage-pool">
             <input class="template-storage-name" value="{storageName}" type="text" style="display:none" />
-            <select id="selectStorageName-{storageIndex}" class="selectStorageName"></select>
+            <select id="selectStorageName-{storageIndex}" data-none-selected-text="$_('Nothing selected')" class="selectStorageName"></select>
         </span>
         <span class="template-storage-cell storage-path" style="display:none">
             <input class="template-storage-path storage-path form-control" value="{storagePath}" type="text" />
@@ -238,12 +238,12 @@
         <span class="template-storage-cell format">
             <input class="template-storage-disk-format" value={storageDiskFormat} type="text" style="display:none" />
             <select id="diskFormat">
-               <option value="qcow2">qcow2</option>
-               <option value="raw">raw</option>
-               <option value="qcow">qcow</option>
-               <option value="qed">qed</option>
-               <option value="vmdk">vmdk</option>
-               <option value="vpc">vpc</option>
+               <option value="qcow2">$_("qcow2")</option>
+               <option value="raw">$_("raw")</option>
+               <option value="qcow">$_("qcow")</option>
+               <option value="qed">$_("qed")</option>
+               <option value="vmdk">$_("vmdk")</option>
+               <option value="vpc">$_("vpc")</option>
             </select>
         </span>
         <span class="pull-right">
@@ -254,7 +254,7 @@
 <script id="template-interface-tmpl" type="text/html">
     <div class="item" id={networkID}>
         <span class="template-interface-cell network">
-            <select></select>
+            <select data-none-selected-text="$_('Nothing selected')"></select>
         </span>
         <span class="template-interface-cell type">
             <input value={type} readonly=true class="form-control" type="text" />
@@ -270,13 +270,13 @@
             <select></select>
         </span>
         <span class="template-interface-cell network">
-            <select></select>
+            <select data-none-selected-text="$_('Nothing selected')"></select>
         </span>
         <span class="template-interface-cell mode">
-            <span class="label-mode hide">None</span>
+            <span class="label-mode hide">$_("None")</span>
             <select>
-                <option value="bridge">bridge</option>
-                <option value="vepa">vepa</option>
+                <option value="bridge">$_("bridge")</option>
+                <option value="vepa">$_("vepa")</option>
             </select>
         </span>
         <span class="pull-right">

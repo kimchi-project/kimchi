@@ -1612,7 +1612,7 @@ body.wok-gallery {
 
 #template-edit-window .template-edit-wrapper-controls {
   vertical-align: top;
-  width: 400px;
+  width: 480px;
   height: 35px;
   line-height: 35px;
   margin: 7px 0 8px;
@@ -1722,15 +1722,15 @@ body.wok-gallery {
 }
 
 #template-edit-window .template-storage-cell.type {
-  width: 100px;
+  width: 110px;
 }
 
 #template-edit-window .template-storage-cell.disk {
-  width: 100px;
+  width: 133px;
 }
 
 #template-edit-window .template-storage-cell.format {
-  width: 250px;
+  width: 162px;
 }
 
 #template-edit-window .template-interface-cell.network {
@@ -1899,6 +1899,10 @@ body.wok-gallery {
 }
 
 /* VM List View classes*/
+#templatestatusselect {
+  width: 240px !important;
+}
+
 #templates-root-container .grid-control input[type="text"] {
   height: 38px;
   display: inline-block;
@@ -1985,6 +1989,10 @@ body.wok-gallery {
   border-bottom: none;
   border-top: 0;
   background-color: #fff;
+  width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 #templates-root-container .wok-vm-list .wok-vm-body {
@@ -2004,6 +2012,7 @@ body.wok-gallery {
   font-size: 12.5pt;
   line-height: 2.42857;
   font-weight: 400;
+  width: 200px;
 }
 
 #templates-root-container .wok-vm-list .wok-vm-body .column-type {
@@ -2058,7 +2067,7 @@ body.wok-gallery {
 }
 
 #templates-root-container .wok-vm-list .column-action {
-  width: 33.8000%;
+  width: 232px;
 }
 
 #templates-root-container .wok-vm-list .item-hidden {
