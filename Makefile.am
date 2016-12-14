@@ -161,7 +161,7 @@ install-data-local:
 	@if test -d "$(systemdsystemunitdir)" ; then \
 		mkdir -p $(DESTDIR)/etc/systemd/system/wokd.service.d; \
 		if test -f /etc/debian_version; then \
-			$(INSTALL_DATA) contrib/kimchid.service.ubuntu $(DESTDIR)/etc/systemd/system/wokd.service.d/kimchi.conf; \
+			$(INSTALL_DATA) contrib/kimchid.service.debian $(DESTDIR)/etc/systemd/system/wokd.service.d/kimchi.conf; \
 		else \
 			$(INSTALL_DATA) contrib/kimchid.service.fedora $(DESTDIR)/etc/systemd/system/wokd.service.d/kimchi.conf; \
 		fi; \

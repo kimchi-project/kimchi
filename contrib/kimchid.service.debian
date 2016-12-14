@@ -1,0 +1,8 @@
+[Unit]
+Requires=wokd.service
+Wants=libvirtd.service
+After=libvirtd.service wokd.service
+
+[Service]
+Nice=0
+PrivateTmp=no
