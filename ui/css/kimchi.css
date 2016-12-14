@@ -2290,6 +2290,10 @@ body.wok-gallery {
   display: block;
 }
 
+#networkConfig .alert-dismissable .close, .alert-dismissible .close {
+  right: -2px !important;
+}
+
 #network-root-container .wok-nw-loading-icon {
   background: transparent url("../../../images/theme-default/spin5.svg") no-repeat 50% 50%;
   -webkit-animation: spin 3s infinite linear;

@@ -38,6 +38,10 @@
 
 }
 
+#networkConfig .alert-dismissable .close, .alert-dismissible .close{
+  right: -2px !important;
+}
+
 #network-root-container {
 
     .wok-nw-loading-icon {
