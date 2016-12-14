@@ -41,13 +41,13 @@
             <div id='storageGrid' class="hidden">
                 <div>
                     <span class="column-state"><span class="sr-only">$_("State")</span></span><!--
-                    --><span class="column-name">$_("Name")</span><!--
-                    --><span class="column-type">$_("Type")</span><!--
-                    --><span class="column-location">$_("Location")</span><!--
-                    --><span class="column-usage">$_("%Used")</span><!--
-                    --><span class="column-allocated">$_("Allocated")</span><!--
-                    --><span class="column-capacity">$_("Capacity")</span><!--
-                    --><span class="column-disks">$_("Disks")</span><!--
+                    --><span class="column-name" title="$_('Name')">$_("Name")</span><!--
+                    --><span class="column-type" title="$_('Type')">$_("Type")</span><!--
+                    --><span class="column-location" title="$_('Location')">$_("Location")</span><!--
+                    --><span class="column-usage" title="$_('%Used')">$_("%Used")</span><!--
+                    --><span class="column-allocated" title="$_('Allocated')">$_("Allocated")</span><!--
+                    --><span class="column-capacity" title="$_('Capacity')">$_("Capacity")</span><!--
+                    --><span class="column-disks" title="$_('Disks')">$_("Disks")</span><!--
                     --><span class="column-action" display="none"><span class="sr-only">$_("Actions")</span></span>
                 </div>
                 <div id="storagepoolsList" class="list-storage empty-when-logged-off"></div>
@@ -87,8 +87,8 @@
          <span class='column-state' val="{state}"><span class='storage-state {state}'><i class="fa fa-power-off"></i></span></span><!--
     --><span class='column-name' title="{name}" val="{name}">{name}</span><!--
     --><span class='column-type' val="{type}">{type}</span><!--
-    --><span class='column-location' val="{path}">{path}</span><!--
-    --><span class='column-usage {state}' val="{usage}" ><span class='usage-icon {icon}'>{usage}</span>%</span><!--
+    --><span class='column-location' title="{path}" val="{path}">{path}</span><!--
+    --><span class='column-usage {state}' val="{usage}" ><span class='usage-icon {icon}'>{usage}</span>$_("%")</span><!--
     --><span class='column-allocated' val="{allocated}">{allocated}</span><!--
     --><span class='column-capacity' val="{capacity}">{capacity}</span><!--
     --><span class="column-disks {state}"><div class="handle arrow-down"></div></span><!--
@@ -108,7 +108,8 @@
          <div class="volumes">
             <div id="volume-{name}" class="volumeslist" data-name="{name}" data-type="{type}">
                 <div class="row">
-                    <div class="pull-left">
+                    <div class="col-sm-7">
+                        <div class="btn-group">
                         <div class="dropdown menu-flat pool-action">
                             <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true"><span class="edit-alt"></span>$_("Actions")<span class="caret"></span></button>
                             <ul class="dropdown-menu actionsheet">
@@ -119,14 +120,17 @@
                                 <li class="disabled critical"><a href="#" class="volume-delete" data-name="{name}"><i class="fa fa-minus-circle"></i> $_("Delete")</a></li>
                             </ul>
                         </div>
-                        <button type="button" class="btn btn-default toggle-gallery"><span class="text">$_('View Gallery')</span> <i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></button>
+                      </div>
+                      <button type="button" class="btn btn-default toggle-gallery"><span class="text">$_('View Gallery')</span> <i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></button>
                     </div>
+                    <div class="col-sm-5">
                     <div class="pull-right">
                         <label><span class="sr-only">$_('Filter:')</span>
                             <input type="text" class="filter form-control search" placeholder="$_('Filter')">
                         </label>
                     </div>
                 </div>
+              </div>
                 <div class="wok-datagrid wok-list">
                     <div class="wok-datagrid-header">
                         <span class="column-name">$_('Name')</span><!--
@@ -168,12 +172,12 @@
                     <input type="checkbox" class="wok-checkbox" name="selected-volume[]" id="{checkbox}" value="{name}">
                     <label class="volume-name volume-name-filter" for="{checkbox}"><span class="volume-inline-progress hidden"><span class="wok-loading-icon"></span></span> {name}</label><!--
                    --></span><!--
-                   --><span class="column-format volume-format-filter"><span class="gallery-header">$_('Format')</span><span class="format-text">{format}</span></span><!--
-                   --><span class="column-type volume-type-filter"><span class="gallery-header">$_('Type')</span>{type}</span><!--
+                   --><span class="column-format volume-format-filter"><span class="gallery-header" title="$_('Format')">$_('Format')</span><span class="format-text">{format}</span></span><!--
+                   --><span class="column-type volume-type-filter"><span class="gallery-header" title="$_('Type')">$_('Type')</span>{type}</span><!--
                    --><span class="column-used-by volume-used-by-filter"><i class="fa fa-exclamation-circle" data-toggle="tooltip" title="$_('Used by the following VMs:') {used_by_formatted}" data-placement="bottom" data-original-title="$_('Used by the following VMs:') {used_by_formatted}"></i><span class="format-text" data-toggle="tooltip" title="$_('Used by the following VMs:') {used_by_formatted}" data-placement="bottom" data-original-title="$_('Used by the following VMs:') {used_by_formatted}">{used_by_text}</span></span><!--
                    --><span class="column-used"><span role="presentation" class="volume-icon {capacityIcon}"></span> {capacityLevel}%</span><!--
-                   --><span class="column-allocated"><span class="gallery-header">$_('Allocation')</span>{allocation}</span><!--
-                   --><span class="column-capacity"><span class="gallery-header">$_('Capacity')</span>{capacity}</span><!--
+                   --><span class="column-allocated"><span class="gallery-header" title="$_('Allocation')">$_('Allocation')</span>{allocation}</span><!--
+                   --><span class="column-capacity"><span class="gallery-header" title="$_('Capacity')">$_('Capacity')</span>{capacity}</span><!--
                    --><span class="column-progress hidden"><span class="progress-status"></span> <span class="progress-transferred"></span>
                         </span>
             </div>
