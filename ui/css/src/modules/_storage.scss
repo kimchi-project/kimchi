@@ -236,7 +236,7 @@
         .volume-box-inner {
             padding: 0 16px;
             width: 409px;
-            height: 110px;
+            height: 150px;
             display: flex;
             flex-flow: row wrap;
             justify-content: space-around;
@@ -299,13 +299,17 @@
         span.column-format,
         span.column-type {
             order: 3;
-            width: 72px;
+            width: 142px;
             margin-top: -5px;
         }
 
         span.gallery-header {
             font-weight: 600;
             display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 90px;
         }
 
         span.column-progress {
@@ -406,7 +410,7 @@
             > span.column-format {
                 width: 57px;
                 @media (min-width: $screen-md) {
-                    width: 95px;
+                    width: 127px;
                 }
                 @media (min-width: $screen-lg) {
                     left: 173px;
@@ -421,7 +425,7 @@
                 width: 79px;
                 text-transform: capitalize;
                 @media (min-width: $screen-md) {
-                    width: 95px;
+                    width: 142px;
                 }
                 @media (min-width: $screen-lg) {
                     left: 165px;
@@ -449,10 +453,10 @@
             > span.column-name {
                 width: 202px;
                 @media (min-width: $screen-md) {
-                    width: 333px;
+                    width: 250px;
                 }
                 @media (min-width: $screen-lg) {
-                    width: 444px;
+                    width: 300px;
                 }
 
                 label {
@@ -485,21 +489,36 @@
     .wok-datagrid > .wok-datagrid-header,
     .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row {
         > span.column-state {
-            width: 3.0519%;
+            width: 2.0519%;
             text-align: center;
         }
         > span.column-name {
-            width: 12.7272%;
+            width: 126px;
             text-overflow: ellipsis;
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden !important;
         }
         > span.column-type {
-            width: 11.6883%;
+            width: 101px;
+            text-overflow: ellipsis;
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden !important;
         }
         > span.column-location {
-            width: 21.4285%;
+            width: 171px;
+            text-overflow: ellipsis;
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden !important;
         }
         > span.column-usage {
-            width: 9.41558%;
+            width: 152px;
+            text-overflow: ellipsis;
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden !important;
             .usage-icon {
                 padding-left: 35px;
                 display: inline-block;
@@ -518,17 +537,29 @@
             }
         }
         > span.column-capacity {
-            width: 8.701298%;
+            width: 129px;
+            text-overflow: ellipsis;
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden !important;
         }
         > span.column-allocated {
-            width: 9.35064%;
+            width: 134px;
+            text-overflow: ellipsis;
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden !important;
         }
         > span.column-disks {
             text-align: center;
-            width: 2.9870%;
+            width: 105px;
+            text-overflow: ellipsis;
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden !important;
         }
         > span.column-action {
-            width: 20.64%;
+            width: 254px;
             text-align: right;
         }
     }

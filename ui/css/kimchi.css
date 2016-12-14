@@ -2608,7 +2608,7 @@ body.wok-gallery {
 #storage-root-container .volumes .wok-gallery .volume-box-inner {
   padding: 0 16px;
   width: 409px;
-  height: 110px;
+  height: 150px;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
@@ -2670,13 +2670,17 @@ body.wok-gallery {
 #storage-root-container .volumes .wok-gallery span.column-format,
 #storage-root-container .volumes .wok-gallery span.column-type {
   order: 3;
-  width: 72px;
+  width: 142px;
   margin-top: -5px;
 }
 
 #storage-root-container .volumes .wok-gallery span.gallery-header {
   font-weight: 600;
   display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 90px;
 }
 
 #storage-root-container .volumes .wok-gallery span.column-progress {
@@ -2767,7 +2771,7 @@ body.wok-gallery {
 @media (min-width: 992px) {
   #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-header > span.column-format,
   #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span.column-format {
-    width: 95px;
+    width: 127px;
   }
 }
 
@@ -2803,7 +2807,7 @@ body.wok-gallery {
   #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span.column-capacity,
   #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span.column-allocated,
   #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span.column-progress {
-    width: 95px;
+    width: 142px;
   }
 }
 
@@ -2858,14 +2862,14 @@ body.wok-gallery {
 @media (min-width: 992px) {
   #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-header > span.column-name,
   #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span.column-name {
-    width: 333px;
+    width: 250px;
   }
 }
 
 @media (min-width: 1200px) {
   #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-header > span.column-name,
   #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span.column-name {
-    width: 444px;
+    width: 300px;
   }
 }
 
@@ -2895,29 +2899,44 @@ body.wok-gallery {
 
 #storage-root-container .wok-datagrid > .wok-datagrid-header > span.column-state,
 #storage-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-state {
-  width: 3.0519%;
+  width: 2.0519%;
   text-align: center;
 }
 
 #storage-root-container .wok-datagrid > .wok-datagrid-header > span.column-name,
 #storage-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-name {
-  width: 12.7272%;
+  width: 126px;
   text-overflow: ellipsis;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden !important;
 }
 
 #storage-root-container .wok-datagrid > .wok-datagrid-header > span.column-type,
 #storage-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-type {
-  width: 11.6883%;
+  width: 101px;
+  text-overflow: ellipsis;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden !important;
 }
 
 #storage-root-container .wok-datagrid > .wok-datagrid-header > span.column-location,
 #storage-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-location {
-  width: 21.4285%;
+  width: 171px;
+  text-overflow: ellipsis;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden !important;
 }
 
 #storage-root-container .wok-datagrid > .wok-datagrid-header > span.column-usage,
 #storage-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-usage {
-  width: 9.41558%;
+  width: 152px;
+  text-overflow: ellipsis;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden !important;
 }
 
 #storage-root-container .wok-datagrid > .wok-datagrid-header > span.column-usage .usage-icon,
@@ -2946,23 +2965,35 @@ body.wok-gallery {
 
 #storage-root-container .wok-datagrid > .wok-datagrid-header > span.column-capacity,
 #storage-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-capacity {
-  width: 8.701298%;
+  width: 129px;
+  text-overflow: ellipsis;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden !important;
 }
 
 #storage-root-container .wok-datagrid > .wok-datagrid-header > span.column-allocated,
 #storage-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-allocated {
-  width: 9.35064%;
+  width: 134px;
+  text-overflow: ellipsis;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden !important;
 }
 
 #storage-root-container .wok-datagrid > .wok-datagrid-header > span.column-disks,
 #storage-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-disks {
   text-align: center;
-  width: 2.9870%;
+  width: 105px;
+  text-overflow: ellipsis;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden !important;
 }
 
 #storage-root-container .wok-datagrid > .wok-datagrid-header > span.column-action,
 #storage-root-container .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-action {
-  width: 20.64%;
+  width: 254px;
   text-align: right;
 }
 
