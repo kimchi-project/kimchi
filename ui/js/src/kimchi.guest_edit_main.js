@@ -341,13 +341,13 @@ kimchi.guest_edit_main = function() {
                       case 'ovs' :
                                       $("#label-type-" + data.id, item).text(result.type);
                                       $("#label-network-" + data.id, item).text(result.source);
-                                      $("#label-mode-" + data.id, item).text('None');
+                                      $("#label-mode-" + data.id, item).text(i18n['KCHVMED6018M']);
                           break;
 
                       case 'network' :
                                       $("#label-type-" + data.id, item).text(result.type);
                                       $("#label-network-" + data.id, item).text(result.network);
-                                      $("#label-mode-" + data.id, item).text('None');
+                                      $("#label-mode-" + data.id, item).text(i18n['KCHVMED6018M']);
                             break;
                     }
 
@@ -397,7 +397,7 @@ kimchi.guest_edit_main = function() {
 
                             break;
                         case 'ovs':
-                            $('#label-mode-' + data.id).html('None');
+                            $('#label-mode-' + data.id).html(i18n['KCHVMED6018M']);
                             $('#label-mode-' + data.id).removeClass('hide');
                             $('span.column-mode .bootstrap-select', itemNode).toggleClass("hide", true);
 
@@ -405,7 +405,7 @@ kimchi.guest_edit_main = function() {
                             $("span.column-network select", itemNode).selectpicker('refresh');
                             break;
                         case 'network':
-                            $('#label-mode-' + data.id).html('None');
+                            $('#label-mode-' + data.id).html(i18n['KCHVMED6018M']);
                             $('#label-mode-' + data.id).removeClass('hide');
                             $('span.column-mode .bootstrap-select', itemNode).toggleClass("hide", true);
 
@@ -470,14 +470,14 @@ kimchi.guest_edit_main = function() {
             $('#form-guest-edit-interface > div.s390x').show();
 
             var typeOptionsdata = [{
-                label: "macvtap",
-                value: "macvtap"
+                label: i18n['KCHVMED6013M'],
+                value: 'macvtap'
             }, {
-                label: "ovs",
-                value: "ovs"
+                label: i18n['KCHVMED6014M'],
+                value: 'ovs'
             }, {
-                label: "network",
-                value: "network"
+                label: i18n['KCHVMED6015M'],
+                value: 'network'
             }];
             var typeOptions = '';
 
@@ -487,11 +487,11 @@ kimchi.guest_edit_main = function() {
             }
 
             var modeOptionsdata = [{
-                label: "Bridge",
-                value: "bridge"
+                label: i18n['KCHVMED6016M'],
+                value: 'bridge'
             }, {
-                label: "Vepa",
-                value: "vepa"
+                label: i18n['KCHVMED6017M'],
+                value: 'vepa'
             }];
             var modeOptions = '';
 

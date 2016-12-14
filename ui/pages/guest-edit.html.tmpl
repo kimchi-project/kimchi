@@ -23,7 +23,7 @@
 <!DOCTYPE html>
 <html>
 <body>
-<div id="guest-edit-window" class="window modal-content">
+<div id="guest-edit-window" class="window modal-content" style="width:1280px; right:80px;">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">$_("Edit Guest")</h4>
@@ -63,7 +63,7 @@
                 </div>
                 <div class="form-group" id="guest-console-panel" style="display:none;">
                     <label for="guest-edit-console">$_("Console")</label>
-                    <select id="guest-edit-console" name="console" class="form-control">
+                    <select id="guest-edit-console" data-none-selected-text="$_("Nothing selected")" name="console" class="form-control">
                         <option value="sclp">$_("sclp")</option>
                         <option value="virtio">$_("virtio")</option>
                     </select>
@@ -83,18 +83,18 @@
             <form role="tabpanel" class="guest-edit-interface tab-pane" id="form-guest-edit-interface">
                 <button class="add btn btn-primary"><i class="fa fa-plus-circle"></i>$_("Add")</button>
                 <div class="header">
-                    <span class="cell column-network">$_("Network")</span>
-                    <span class="cell column-type">$_("Type")</span>
-                    <span class="cell column-mac">$_("MAC Address")</span>
-                    <span class="cell column-ip">$_("IP Address")</span>
+                    <span class="cell column-network" title="$_('Network')">$_("Network")</span>
+                    <span class="cell column-type" title="$_('Type')">$_("Type")</span>
+                    <span class="cell column-mac" title="$_('MAC Address')">$_("MAC Address")</span>
+                    <span class="cell column-ip" title="$_('IP Address')">$_("IP Address")</span>
                     <span class="cell column-actions"><span class="sr-only">$_("Actions")</span></span>
                 </div>
                 <div class="header s390x" style="display:none">
-                    <span class="cell column-type">$_("Type")</span>
-                    <span class="cell column-network">$_("Network/Interface")</span>
-                    <span class="cell column-mode">$_("Mode")</span>
-                    <span class="cell column-mac">$_("MAC Address")</span>
-                    <span class="cell column-ip">$_("IP Address")</span>
+                    <span class="cell column-type" title="$_('Type')">$_("Type")</span>
+                    <span class="cell column-network" title="$_('Network/Interface')">$_("Network/Interface")</span>
+                    <span class="cell column-mode" title="$_('Mode')">$_("Mode")</span>
+                    <span class="cell column-mac" title="$_('MAC Address')">$_("MAC Address")</span>
+                    <span class="cell column-ip" title="$_('IP Address')">$_("IP Address")</span>
                     <span class="cell column-actions"><span class="sr-only">$_("Actions")</span></span>
                 </div>
                 <div class="body"></div>
@@ -272,7 +272,7 @@
     <div class="item" id="{mac}">
         <span class="cell column-network">
             <span id="label-network-{id}" class="{viewMode}">{network}</span>
-            <select class="{editMode}"></select>
+            <select class="{editMode}" data-none-selected-text="$_("Nothing selected")"></select>
         </span>
         <span class="cell column-type">
             {type}
@@ -299,15 +299,15 @@
     <div class="item" id="{mac}">
         <span class="cell column-type">
           <span id="label-type-{id}" class="{viewMode}">{type}</span>
-          <select id="interface-s390x-type-{id}" class="{editMode}"></select>
+          <select id="interface-s390x-type-{id}" data-none-selected-text="$_("Nothing selected")" class="{editMode}"></select>
         </span>
         <span class="cell column-network">
             <span id="label-network-{id}" class="{viewMode}">{network}{source}</span>
-            <select id="interface-s390x-network-{id}" class="{editMode}"></select>
+            <select id="interface-s390x-network-{id}" data-none-selected-text="$_("Nothing selected")" class="{editMode}"></select>
         </span>
         <span class="cell column-mode">
             <span id="label-mode-{id}" class="{viewMode}">{mode}</span>
-            <select id="interface-s390x-mode-{id}" class="{editMode}"></select>
+            <select id="interface-s390x-mode-{id}" data-none-selected-text="$_("Nothing selected")" class="{editMode}"></select>
         </span>
         <span class="cell column-mac">
             <span id="label-mac-{id}" class="{viewMode}">{mac}</span>

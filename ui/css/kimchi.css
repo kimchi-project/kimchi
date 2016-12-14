@@ -506,7 +506,7 @@
 
 #guest-content-container .wok-guest-gallery .wok-guest-list-item {
   padding: 0;
-  width: 240px;
+  width: 290px;
   height: 435px;
   display: inline-block;
   border: 0;
@@ -620,7 +620,7 @@
   padding-left: 20px;
   margin-right: 20px;
   display: block;
-  width: 220px;
+  width: 290px;
   white-space: nowrap;
   cursor: default;
 }
@@ -671,7 +671,7 @@
 }
 
 #guest-content-container .wok-guest-gallery .wok-guest-list-item .menu-flat {
-  width: 240px;
+  width: 290px;
 }
 
 #guest-content-container .wok-guest-gallery .wok-guest-list-item .btn {
@@ -1094,10 +1094,6 @@ body.wok-gallery {
   display: inline-block;
 }
 
-#guest-edit-window #form-guest-edit-interface .column-actions {
-  width: 20%;
-}
-
 #guest-edit-window #form-guest-edit-storage .column-actions {
   width: 26%;
 }
@@ -1147,31 +1143,40 @@ body.wok-gallery {
   margin: 15px 0 0;
 }
 
-#guest-edit-window form .header .column-actions,
+#guest-edit-window form .header .cell.column-network,
+#guest-edit-window form .header .cell.column-mac {
+  display: inline-block;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#guest-edit-window form .column-actions,
 #guest-edit-window form .task .column-actions,
 #guest-edit-window form .body .column-actions {
   text-align: right;
 }
 
-#guest-edit-window form .header .column-device,
+#guest-edit-window form .column-device,
 #guest-edit-window form .task .column-device,
 #guest-edit-window form .body .column-device {
   width: 12.7%;
 }
 
-#guest-edit-window form .header .column-path,
+#guest-edit-window form .column-path,
 #guest-edit-window form .task .column-path,
 #guest-edit-window form .body .column-path {
   width: 60.25%;
 }
 
-#guest-edit-window form .header .cell.column-network,
+#guest-edit-window form .cell.column-network,
 #guest-edit-window form .task .cell.column-network,
 #guest-edit-window form .body .cell.column-network {
-  width: 18%;
+  width: 184px;
 }
 
-#guest-edit-window form .header .cell.column-network > span,
+#guest-edit-window form .cell.column-network > span,
 #guest-edit-window form .task .cell.column-network > span,
 #guest-edit-window form .body .cell.column-network > span {
   width: 100%;
@@ -1180,74 +1185,77 @@ body.wok-gallery {
   overflow: hidden;
 }
 
-#guest-edit-window form .header .cell.column-type,
+#guest-edit-window form .cell.column-type,
 #guest-edit-window form .task .cell.column-type,
 #guest-edit-window form .body .cell.column-type {
-  width: 18%;
+  width: 184px;
 }
 
-#guest-edit-window form .header .cell.column-mode,
+#guest-edit-window form .cell.column-mode,
 #guest-edit-window form .task .cell.column-mode,
 #guest-edit-window form .body .cell.column-mode {
-  width: 16%;
+  width: 164px;
 }
 
-#guest-edit-window form .header .cell.column-mac,
+#guest-edit-window form .cell.column-mac,
 #guest-edit-window form .task .cell.column-mac,
 #guest-edit-window form .body .cell.column-mac {
-  width: 14%;
+  width: 174px;
 }
 
-#guest-edit-window form .header .cell.column-ip,
+#guest-edit-window form .cell.column-ip,
 #guest-edit-window form .task .cell.column-ip,
 #guest-edit-window form .body .cell.column-ip {
-  width: 12%;
+  width: 150px;
+  display: inline-block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-#guest-edit-window form .header .cell.column-sel,
+#guest-edit-window form .cell.column-sel,
 #guest-edit-window form .task .cell.column-sel,
 #guest-edit-window form .body .cell.column-sel {
   width: 1.77%;
 }
 
-#guest-edit-window form .header .cell.column-snapshot-name,
+#guest-edit-window form .cell.column-snapshot-name,
 #guest-edit-window form .task .cell.column-snapshot-name,
 #guest-edit-window form .body .cell.column-snapshot-name {
   width: 58%;
 }
 
-#guest-edit-window form .header .cell.column-snapshot-created,
+#guest-edit-window form .cell.column-snapshot-created,
 #guest-edit-window form .task .cell.column-snapshot-created,
 #guest-edit-window form .body .cell.column-snapshot-created {
   width: 16.5%;
 }
 
-#guest-edit-window form .header .cell.column-pci-status,
+#guest-edit-window form .cell.column-pci-status,
 #guest-edit-window form .task .cell.column-pci-status,
 #guest-edit-window form .body .cell.column-pci-status {
   width: 3.7%;
 }
 
-#guest-edit-window form .header .cell.column-pci-status .fa,
+#guest-edit-window form .cell.column-pci-status .fa,
 #guest-edit-window form .task .cell.column-pci-status .fa,
 #guest-edit-window form .body .cell.column-pci-status .fa {
   color: #8cc63f;
   font-size: 24px;
 }
 
-#guest-edit-window form .header .cell.column-pci-name,
+#guest-edit-window form .cell.column-pci-name,
 #guest-edit-window form .task .cell.column-pci-name,
 #guest-edit-window form .body .cell.column-pci-name {
   width: 21%;
 }
 
-#guest-edit-window form .header .cell.column-product,
+#guest-edit-window form .cell.column-product,
 #guest-edit-window form .task .cell.column-product,
 #guest-edit-window form .body .cell.column-product {
   width: 45%;
 }
 
-#guest-edit-window form .header .cell.column-vendor,
+#guest-edit-window form .cell.column-vendor,
 #guest-edit-window form .task .cell.column-vendor,
 #guest-edit-window form .body .cell.column-vendor {
   width: 24.1%;

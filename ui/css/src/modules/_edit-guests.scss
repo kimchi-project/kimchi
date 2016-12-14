@@ -44,11 +44,6 @@
         }
 
     }
-    #form-guest-edit-interface {
-        .column-actions {
-            width: 20%;
-        }
-    }
     #form-guest-edit-storage {
         .column-actions {
             width: 26%;
@@ -94,7 +89,16 @@
     }
     form {
         margin: 15px 0 0;
-        .header,
+        .header{
+          .cell.column-network,
+          .cell.column-mac {
+            display: inline-block;
+            overflow-x: hidden;
+            overflow-y: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+        },
         .task,
         .body {
             .column-actions {
@@ -107,7 +111,7 @@
                 width: 60.25%;
             }
             .cell.column-network {
-                width: 18%;
+              width: 184px;
                 > span {
                     width: 100%;
                     display: inline-block;
@@ -116,16 +120,19 @@
                 }
             }
             .cell.column-type {
-                width: 18%;
+              width: 184px;
             }
             .cell.column-mode {
-                width: 16%;
+              width: 164px;
             }
             .cell.column-mac {
-                width: 14%;
+              width: 174px;
             }
             .cell.column-ip {
-                width: 12%;
+              width: 150px;
+              display: inline-block;
+              text-overflow: ellipsis;
+              white-space: nowrap;
             }
             .cell.column-sel {
                 width: 1.77%;
