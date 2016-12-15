@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-29 13:46-0300\n"
+"POT-Creation-Date: 2016-12-15 10:24-0200\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -110,9 +110,9 @@ msgstr ""
 msgid "Unable to access remote ISO. Details: %(err)s"
 msgstr ""
 
-msgid "An error occurred when probing image OS information."
+#, python-format
+msgid "Error probing image OS information: %(err)s"
 msgstr ""
-"Si è verificato un errore durante l'analisi delle informazioni SO immagine."
 
 #, python-format
 msgid "Unable to read image file %(filename)s"
@@ -470,6 +470,20 @@ msgstr ""
 
 #, python-format
 msgid ""
+"Unable to setup password-less login at remote host %(host)s using user "
+"%(user)s: remote directory %(sshdir)s does not exist."
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to create a password-less libvirt connection to the remote libvirt "
+"daemon at host %(host)s with the user %(user)s. Please verify the remote "
+"server libvirt configuration. More information: http://libvirt.org/auth."
+"html ."
+msgstr ""
+
+#, python-format
+msgid ""
 "VM %(vmid)s does not contain directly assigned host device %(dev_name)s."
 msgstr ""
 "La VM %(vmid)s non contiene un dispositivo host assegnato direttamente "
@@ -506,6 +520,10 @@ msgstr ""
 
 #, python-format
 msgid "Failed to attach %(device)s to %(vm)s"
+msgstr ""
+
+#, python-format
+msgid "VM %(vmid)s does not have a USB controller to accept PCI hotplug."
 msgstr ""
 
 #, python-format
@@ -1340,11 +1358,8 @@ msgid "The maximum number of vCPUs is too large for this system."
 msgstr ""
 
 msgid ""
-"When CPU topology is defined, vCPUs must be a multiple of a product of cores "
-"and threads."
-msgstr ""
-
-msgid "The number of threads is too large for this system."
+"When CPU topology is defined, CPUs must be a multiple of the 'threads' "
+"number defined."
 msgstr ""
 
 msgid ""
@@ -1634,17 +1649,17 @@ msgstr ""
 msgid "Edit Guest"
 msgstr "Modifica macchina guest"
 
+msgid "Processor"
+msgstr "Processore"
+
 msgid "Name"
 msgstr "Nome"
 
-msgid "More"
-msgstr ""
-
-msgid "Max CPU"
-msgstr ""
-
 msgid "Memory (MB)"
 msgstr "Memoria (MB)"
+
+msgid "More"
+msgstr ""
 
 msgid "Max Memory (MB)"
 msgstr ""
@@ -1720,6 +1735,37 @@ msgstr ""
 
 msgid "Created"
 msgstr "Creato"
+
+msgid "Unable to edit CPU settings of a running or paused virtual machine."
+msgstr ""
+
+msgid "Current CPU Number"
+msgstr ""
+
+msgid ""
+"Current CPU must be equal or lower than the Maximum CPU value. If a topology "
+"is set, it must be also be a multiple of the 'threads' value."
+msgstr ""
+
+msgid "Max CPU"
+msgstr ""
+
+msgid ""
+"If a topology is set, this value will be the product of sockets * times * "
+"cores."
+msgstr ""
+
+msgid "Manually set CPU topology"
+msgstr "Imposta manualmente la topologia CPU"
+
+msgid "Sockets"
+msgstr ""
+
+msgid "Cores"
+msgstr "Core"
+
+msgid "Threads"
+msgstr "Thread"
 
 msgid "Save"
 msgstr "Salva"
@@ -1946,6 +1992,9 @@ msgstr ""
 msgid "No ISO found"
 msgstr "Nessun file ISO trovato"
 
+msgid "Add Template"
+msgstr "Aggiungi modello"
+
 msgid "This may take a long time. Do you want to continue?"
 msgstr "Questa operazione può richiedere del tempo. Si desidera continuare?"
 
@@ -2000,13 +2049,18 @@ msgid ""
 "The %1 virtual machine is not persistent. Power Off will delete it. Continue?"
 msgstr ""
 
+msgid "Add Guest"
+msgstr ""
+
 msgid "Input is not a number"
 msgstr ""
 
 msgid "Memory value cannot be higher than Max Memory value"
 msgstr ""
 
-msgid "Current CPUs value cannot be higher than Max CPU value"
+msgid ""
+"For better performance it is recommended a threads per core value not "
+"greater than %1."
 msgstr ""
 
 msgid ""
@@ -2065,6 +2119,9 @@ msgstr "non disponibile"
 msgid ""
 "This action will interrupt network connectivity for any virtual machine that "
 "depend on the %1 network."
+msgstr ""
+
+msgid "Add Network"
 msgstr ""
 
 msgid ""
@@ -2141,6 +2198,9 @@ msgid "Wipe Confirmation"
 msgstr ""
 
 msgid "Select one or more partitions to be added to the logical pool %1:"
+msgstr ""
+
+msgid "Add Storage"
 msgstr ""
 
 msgid "Invalid NFS mount path."
@@ -2333,9 +2393,6 @@ msgstr ""
 msgid "Ok"
 msgstr ""
 
-msgid "Add Template"
-msgstr "Aggiungi modello"
-
 msgid "Where is the source media for this template? "
 msgstr ""
 
@@ -2372,9 +2429,6 @@ msgstr "Generale"
 msgid "Interface"
 msgstr "Interfaccia"
 
-msgid "Processor"
-msgstr "Processore"
-
 msgid "CDROM"
 msgstr "CDROM"
 
@@ -2390,20 +2444,5 @@ msgstr "Disco (GB)"
 msgid "Disk Format"
 msgstr "Formato disco"
 
-msgid "Add Storage"
-msgstr ""
-
 msgid "Add Interface"
 msgstr ""
-
-msgid "Current CPU Number"
-msgstr ""
-
-msgid "Manually set CPU topology"
-msgstr "Imposta manualmente la topologia CPU"
-
-msgid "Cores"
-msgstr "Core"
-
-msgid "Threads"
-msgstr "Thread"
