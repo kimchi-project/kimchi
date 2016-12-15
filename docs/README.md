@@ -26,6 +26,10 @@ over the web using a browser that supports HTML5.
 Getting Started
 ===============
 
+The latest packages available can be found at http://kimchi-project.github.io/kimchi/downloads/
+
+If you prefer to install Kimchi from source code, follow the steps below!
+
 Install Dependencies
 --------------------
 First of all, make sure to [Wok](https://github.com/kimchi-project/wok/#getting-started)
