@@ -789,7 +789,8 @@ kimchi.listVmsAuto = function() {
     //Check if the actions button is opened or not,
     //if opended stop the reload of the itens until closed
     var $isDropdownOpened = $('[name="guest-actions"] ul.dropdown-menu').is(":visible");
-    if (!$isDropdownOpened) {
+    var $isModalOpened = $('#migrate-guest-window').is(":visible");
+    if (!$isDropdownOpened && !$isModalOpened) {
         if (kimchi.vmTimeout) {
             clearTimeout(kimchi.vmTimeout);
         }
