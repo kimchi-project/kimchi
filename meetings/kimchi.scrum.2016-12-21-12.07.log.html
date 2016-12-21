@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">12:07:52</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">12:07:52</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Dec 21 12:07:52 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">12:07:52</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">12:07:52</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">12:07:52</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">12:08:03</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda</span>
+<a name="l-7"></a><span class="tm">12:08:03</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">1) Status</span>
+<a name="l-8"></a><span class="tm">12:08:03</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">2) Open discussion</span>
+<a name="l-9"></a><span class="tm">12:08:03</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-10"></a><span class="tm">12:08:44</span><span class="nk"> &lt;lcorreia&gt;</span> no
+<a name="l-11"></a><span class="tm">12:10:28</span><span class="nk"> &lt;bianca&gt;</span> no
+<a name="l-12"></a><span class="tm">12:10:38</span><span class="nk"> &lt;danielhb&gt;</span> no
+<a name="l-13"></a><span class="tm">12:10:41</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-14"></a><span class="tm">12:10:41</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info [&lt;project] &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-15"></a><span class="tm">12:12:12</span><span class="nk"> &lt;bianca&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Gingerbase] bianca is working on issue #138: Update selected packages only prevent user to switch tabs.</span>
+<a name="l-16"></a><span class="tm">12:12:15</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">ramonn ginger will answer patch about bond interface</span>
+<a name="l-17"></a><span class="tm">12:12:31</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok/kimchi/ginger*] lcorreia working on kimchi issue 1094 - Pass-through of SR-IOV PF fails</span>
+<a name="l-18"></a><span class="tm">12:12:31</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok/kimchi/ginger*] lcorreia maintaining Open Power HostOS branches</span>
+<a name="l-19"></a><span class="tm">12:12:33</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">ramonn wok will write rfc about security feature to avoid brute force attack</span>
+<a name="l-20"></a><span class="tm">12:12:43</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger*] danielhb launched the 2.3.1 and 2.2.2 releases do Ginger / Gingerbase</span>
+<a name="l-21"></a><span class="tm">12:12:49</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger] ramonn  will answer patch about bond interface</span>
+<a name="l-22"></a><span class="tm">12:12:57</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] ramonn will write rfc about security feature to avoid brute force attack</span>
+<a name="l-23"></a><span class="tm">12:13:02</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[WoK] danielhb is looking into an issue where the unit test fails</span>
+<a name="l-24"></a><span class="tm">12:13:21</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok/gingerbase] ramonn will install fedora 25 to reproduce issues</span>
+<a name="l-25"></a><span class="tm">12:14:57</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[gingerbase] alinefm sent patch to allow user enable/disable multiple repositories at once</span>
+<a name="l-26"></a><span class="tm">12:15:19</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] alinefm sent patch to reattach PCI device to host when detaching from guest</span>
+<a name="l-27"></a><span class="tm">12:15:41</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-28"></a><span class="tm">12:16:08</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok/kimchi] alinefm worked to announce 2.3.1 release last Thursday</span>
+<a name="l-29"></a><span class="tm">12:16:20</span><span class="nk"> &lt;alinefm&gt;</span> bianca, ramonn danielhb lcorreia I want to thank you all
+<a name="l-30"></a><span class="tm">12:16:40</span><span class="nk"> &lt;bianca&gt;</span> \o/
+<a name="l-31"></a><span class="tm">12:16:41</span><span class="nk"> &lt;alinefm&gt;</span> it was a great year with 4 big milestones!
+<a name="l-32"></a><span class="tm">12:16:48</span><span class="nk"> &lt;alinefm&gt;</span> keep it up for 2017
+<a name="l-33"></a><span class="tm">12:16:50</span><span class="nk"> &lt;alinefm&gt;</span> \o/
+<a name="l-34"></a><span class="tm">12:17:14</span><span class="nk"> &lt;lcorreia&gt;</span> thank you all for the support
+<a name="l-35"></a><span class="tm">12:17:43</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-36"></a><span class="tm">12:17:52</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, bianca ramonn lcorreia any other topic for today?
+<a name="l-37"></a><span class="tm">12:18:03</span><span class="nk"> &lt;bianca&gt;</span> no
+<a name="l-38"></a><span class="tm">12:18:06</span><span class="nk"> &lt;ramonn&gt;</span> nop
+<a name="l-39"></a><span class="tm">12:18:32</span><span class="nk"> &lt;danielhb&gt;</span> nop
+<a name="l-40"></a><span class="tm">12:19:29</span><span class="nk"> &lt;lcorreia&gt;</span> no
+<a name="l-41"></a><span class="tm">12:22:23</span><span class="nk"> &lt;mike-kfed&gt;</span> hi guys. I am trying to get kimchi running, after getting all dependencies sorted I can see the login screen
+<a name="l-42"></a><span class="tm">12:22:36</span><span class="nk"> &lt;mike-kfed&gt;</span> but login does not work
+<a name="l-43"></a><span class="tm">12:23:37</span><span class="nk"> &lt;mike-kfed&gt;</span> so I added debug output, turns out that the cherrypy.session.id changes. I assume that's why the username info is lost and I end up back at the login.html again?
+<a name="l-44"></a><span class="tm">12:24:47</span><span class="nk"> &lt;mike-kfed&gt;</span> I also installed it a second time using docker then, thinking I might have a weird environment. same behaviour (staying at login screen, haven't added debug output in docker image)
+<a name="l-45"></a><span class="tm">12:25:45</span><span class="nk"> &lt;mike-kfed&gt;</span> now I am here asking what to do to get it working. I am now on git tag wok-2.3.1 gingerbase-2.2.2 kimchi-2.3.1
+<a name="l-46"></a><span class="tm">12:25:59</span><span class="nk"> &lt;alinefm&gt;</span> hi mike-kfed
+<a name="l-47"></a><span class="tm">12:26:14</span><span class="nk"> &lt;alinefm&gt;</span> which OS are you trying to get it running?
+<a name="l-48"></a><span class="tm">12:26:31</span><span class="nk"> &lt;mike-kfed&gt;</span> I am on gentoo linux
+<a name="l-49"></a><span class="tm">12:26:34</span><span class="nk"> &lt;alinefm&gt;</span> and how are you trying to login?
+<a name="l-50"></a><span class="tm">12:26:40</span><span class="nk"> &lt;mike-kfed&gt;</span> docker image is based on debian
+<a name="l-51"></a><span class="tm">12:26:54</span><span class="nk"> &lt;mike-kfed&gt;</span> using my username (is in sudoers list) or using root
+<a name="l-52"></a><span class="tm">12:27:12</span><span class="nk"> &lt;alinefm&gt;</span> any error when you try to login?
+<a name="l-53"></a><span class="tm">12:27:28</span><span class="nk"> &lt;mike-kfed&gt;</span> no error
+<a name="l-54"></a><span class="tm">12:27:51</span><span class="nk"> &lt;alinefm&gt;</span> are you access it on firefox? could you check firebug logs to see any JS error is there
+<a name="l-55"></a><span class="tm">12:28:40</span><span class="nk"> &lt;mike-kfed&gt;</span> checked for JS errors on chrome, none came up. I'll retry with the fox, just a sec
+<a name="l-56"></a><span class="tm">12:32:28</span><span class="nk"> &lt;mike-kfed&gt;</span> <span class="hi">alinefm:</span> both browsers have the warning about synchronous XMLHttpRequests shouldn't be used
+<a name="l-57"></a><span class="tm">12:32:45</span><span class="nk"> &lt;mike-kfed&gt;</span> firefox complains that opensans has a too large subtable
+<a name="l-58"></a><span class="tm">12:33:00</span><span class="nk"> &lt;mike-kfed&gt;</span> else no errors in console
+<a name="l-59"></a><span class="tm">12:33:52</span><span class="nk"> &lt;mike-kfed&gt;</span> I am using it over http port 8010 on localhost, is not using https the issue?
+<a name="l-60"></a><span class="tm">12:35:31</span><span class="nk"> &lt;alinefm&gt;</span> I am not sure
+<a name="l-61"></a><span class="tm">12:35:46</span><span class="nk"> &lt;alinefm&gt;</span> try to use "http://localhost:8000"
+<a name="l-62"></a><span class="tm">12:36:02</span><span class="nk"> &lt;alinefm&gt;</span> you can also run wokd manually to get more output
+<a name="l-63"></a><span class="tm">12:36:04</span><span class="nk"> &lt;alinefm&gt;</span> service wokd stop
+<a name="l-64"></a><span class="tm">12:36:19</span><span class="nk"> &lt;mike-kfed&gt;</span> I only run wokd manually
+<a name="l-65"></a><span class="tm">12:36:21</span><span class="nk"> &lt;alinefm&gt;</span> wokd --environment=dev (this option is to get more output)
+<a name="l-66"></a><span class="tm">12:36:26</span><span class="nk"> &lt;alinefm&gt;</span> paste me the output, please
+<a name="l-67"></a><span class="tm">12:36:34</span><span class="nk"> &lt;mike-kfed&gt;</span> ah, okay I'll do that
+<a name="l-68"></a><span class="tm">12:40:22</span><span class="nk"> &lt;mike-kfed&gt;</span> it complains that spice-html5 is missing, I'll install that first, then I'll paste you the output
+<a name="l-69"></a><span class="tm">12:52:16</span><span class="nk"> &lt;mike-kfed&gt;</span> okay no clue how to get spice-html5 for gentoo (spice server is installed)
+<a name="l-70"></a><span class="tm">12:52:20</span><span class="nk"> &lt;mike-kfed&gt;</span> here is the output: https://paste.fedoraproject.org/510483/82324713/
+<a name="l-71"></a><span class="tm">12:54:53</span><span class="nk"> &lt;alinefm&gt;</span> mike-kfed, try to login and check the output
+<a name="l-72"></a><span class="tm">12:55:04</span><span class="nk"> &lt;alinefm&gt;</span> there should be an error somewhere =)
+<a name="l-73"></a><span class="tm">12:55:12</span><span class="nk"> &lt;alinefm&gt;</span> any reason to do not try https?
+<a name="l-74"></a><span class="tm">12:59:28</span><span class="nk"> &lt;mike-kfed&gt;</span> well for a quicktest I don't need it
+<a name="l-75"></a><span class="tm">12:59:38</span><span class="nk"> &lt;mike-kfed&gt;</span> I will use nginx to proxy it
+<a name="l-76"></a><span class="tm">13:00:51</span><span class="nk"> &lt;mike-kfed&gt;</span> this is the only non http log line when logging in
+<a name="l-77"></a><span class="tm">13:00:53</span><span class="nk"> &lt;mike-kfed&gt;</span> <span class="hi">INFO:wok_request_logger:{"info":</span> {"status": 200, "zone": "CET", "ip": "127.0.0.1", "app": "", "req": "POST", "user": "htd", "time": "14:00:23", "date": "2016-12-21"}, "message": {"code": "WOKROOT0001L", "params": {"username": "htd"}}, "id": "cb9188b8-f943-433f-8061-86eefb9a9388", "error": null}
+<a name="l-78"></a><span class="tm">13:02:36</span><span class="nk"> &lt;alinefm&gt;</span> well, seems you have logged in
+<a name="l-79"></a><span class="tm">13:03:00</span><span class="nk"> &lt;mike-kfed&gt;</span> I know, that's why I started to hack around in woks auth.py to see what happens
+<a name="l-80"></a><span class="tm">13:03:15</span><span class="nk"> &lt;mike-kfed&gt;</span> it must be something with cherrypy session
+<a name="l-81"></a><span class="tm">13:04:10</span><span class="nk"> &lt;mike-kfed&gt;</span> (all my hacks are gone, right now git-tag 2.3.1 is in use)
+<a name="l-82"></a><span class="tm">13:05:41</span><span class="nk"> &lt;mike-kfed&gt;</span> i have cherrypy 3.8.0 installed, too new?
+<a name="l-83"></a><span class="tm">13:05:56</span><span class="nk"> &lt;alinefm&gt;</span> no
+<a name="l-84"></a><span class="tm">13:06:10</span><span class="nk"> &lt;alinefm&gt;</span> try to access that uri directly https://localhost:8001/#plugins/gingerbase/tabs/host-dashboard
+<a name="l-85"></a><span class="tm">13:07:21</span><span class="nk"> &lt;mike-kfed&gt;</span> this redirects me to login.html#plugins/...
+<a name="l-86"></a><span class="tm">13:08:51</span><span class="nk"> &lt;mike-kfed&gt;</span> the docker image has cherrypy 3.5.0, but login does not work there either
+<a name="l-87"></a><span class="tm">13:17:12</span><span class="nk"> &lt;mike-kfed&gt;</span> I'll try ssl next, but i guess that's not the problem
+<a name="l-88"></a><span class="tm">13:18:43</span><span class="nk"> &lt;alinefm&gt;</span> the docker image is debian, right?
+<a name="l-89"></a><span class="tm">13:18:56</span><span class="nk"> &lt;alinefm&gt;</span> we have tested 2.3.1 releases on debian without problems
+<a name="l-90"></a><span class="tm">13:19:11</span><span class="nk"> &lt;alinefm&gt;</span> gentoo has not been tested by us =/
+<a name="l-91"></a><span class="tm">13:26:15</span><span class="nk"> &lt;mike-kfed&gt;</span> I know gentoo is not on your list, that's why i tried the docker thing
+<a name="l-92"></a><span class="tm">13:27:24</span><span class="nk"> &lt;mike-kfed&gt;</span> I have an existing centos7 vm. but to setup libvirt and stuff in the vm just to see if it works there is a little much work
+<a name="l-93"></a><span class="tm">13:28:32</span><span class="nk"> &lt;mike-kfed&gt;</span> yes debian, based on phusion/baseimage
+<a name="l-94"></a><span class="tm">13:28:48</span><span class="nk"> &lt;mike-kfed&gt;</span> ah ubuntu even
+<a name="l-95"></a><span class="tm">14:00:04</span><span class="nk"> &lt;mike-kfed&gt;</span> aha, so ssl works. I assume because of the websocket alias
+<a name="l-96"></a><span class="tm">14:00:41</span><span class="nk"> &lt;mike-kfed&gt;</span> I would add that to the docs, that connecting directly to wokd on port 8010 is useless and a proxy is needed
+<a name="l-97"></a><span class="tm">14:07:05</span><span class="nk"> &lt;alinefm&gt;</span> mike-kfed, \o/
+<a name="l-98"></a><span class="tm">14:07:25</span><span class="nk"> &lt;alinefm&gt;</span> that is great you identified the problem
+<a name="l-99"></a><span class="tm">14:07:36</span><span class="nk"> &lt;mike-kfed&gt;</span> yes, thanks for your help
+<a name="l-100"></a><span class="tm">14:07:50</span><span class="nk"> &lt;mike-kfed&gt;</span> clicking around in the UI now, looks great
+<a name="l-101"></a><span class="tm">14:08:26</span><span class="nk"> &lt;mike-kfed&gt;</span> the only thing weird is the call to /notifications every 2 secs even though you have websockets ;)
+<a name="l-102"></a><span class="tm">14:09:35</span><span class="nk"> &lt;alinefm&gt;</span> mike-kfed, yeap! =/
+<a name="l-103"></a><span class="tm">14:09:49</span><span class="nk"> &lt;alinefm&gt;</span> we have plan to change that and use websockets for notification as well
+<a name="l-104"></a><span class="tm">14:09:59</span><span class="nk"> &lt;alinefm&gt;</span> but a lot of ideas to a small community
+<a name="l-105"></a><span class="tm">14:10:08</span><span class="nk"> &lt;alinefm&gt;</span> but with time, we can do all we want
+<a name="l-106"></a><span class="tm">14:10:14</span><span class="nk"> &lt;mike-kfed&gt;</span> small but active
+<a name="l-107"></a><span class="tm">14:10:34</span><span class="nk"> &lt;mike-kfed&gt;</span> most kvm management tools are abandoned or beasts like apache cloudstack
+<a name="l-108"></a><span class="tm">14:10:50</span><span class="nk"> &lt;mike-kfed&gt;</span> so I appreciate your work!
+<a name="l-109"></a><span class="tm">14:10:56</span><span class="nk"> &lt;alinefm&gt;</span> yeap! we will 3 releases next year
+<a name="l-110"></a><span class="tm">14:11:07</span><span class="nk"> &lt;alinefm&gt;</span> (seems I forgot to end the scrum meeting)
+<a name="l-111"></a><span class="tm">14:11:10</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

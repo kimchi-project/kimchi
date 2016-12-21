@@ -1,0 +1,111 @@
+12:07:52 <alinefm> #startmeeting
+12:07:52 <kimchi-bot> Meeting started Wed Dec 21 12:07:52 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+12:07:52 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+12:07:52 <alinefm> #meetingname scrum
+12:07:52 <kimchi-bot> The meeting name has been set to 'scrum'
+12:08:03 <alinefm> #info Agenda
+12:08:03 <alinefm> #info 1) Status
+12:08:03 <alinefm> #info 2) Open discussion
+12:08:03 <alinefm> anything else?
+12:08:44 <lcorreia> no
+12:10:28 <bianca> no
+12:10:38 <danielhb> no
+12:10:41 <alinefm> #topic Status
+12:10:41 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+12:12:12 <bianca> #info [Gingerbase] bianca is working on issue #138: Update selected packages only prevent user to switch tabs.
+12:12:15 <ramonn> #info ramonn ginger will answer patch about bond interface
+12:12:31 <lcorreia> #info [wok/kimchi/ginger*] lcorreia working on kimchi issue 1094 - Pass-through of SR-IOV PF fails
+12:12:31 <lcorreia> #info [wok/kimchi/ginger*] lcorreia maintaining Open Power HostOS branches
+12:12:33 <ramonn> #info ramonn wok will write rfc about security feature to avoid brute force attack
+12:12:43 <danielhb> #info [ginger*] danielhb launched the 2.3.1 and 2.2.2 releases do Ginger / Gingerbase
+12:12:49 <ramonn> #info [ginger] ramonn  will answer patch about bond interface
+12:12:57 <ramonn> #info [wok] ramonn will write rfc about security feature to avoid brute force attack
+12:13:02 <danielhb> #info [WoK] danielhb is looking into an issue where the unit test fails
+12:13:21 <ramonn> #info [wok/gingerbase] ramonn will install fedora 25 to reproduce issues
+12:14:57 <alinefm> #info [gingerbase] alinefm sent patch to allow user enable/disable multiple repositories at once
+12:15:19 <alinefm> #info [kimchi] alinefm sent patch to reattach PCI device to host when detaching from guest
+12:15:41 <alinefm> anything else?
+12:16:08 <alinefm> #info [wok/kimchi] alinefm worked to announce 2.3.1 release last Thursday
+12:16:20 <alinefm> bianca, ramonn danielhb lcorreia I want to thank you all
+12:16:40 <bianca> \o/
+12:16:41 <alinefm> it was a great year with 4 big milestones!
+12:16:48 <alinefm> keep it up for 2017
+12:16:50 <alinefm> \o/
+12:17:14 <lcorreia> thank you all for the support
+12:17:43 <alinefm> #topic Open Discussion
+12:17:52 <alinefm> danielhb, bianca ramonn lcorreia any other topic for today?
+12:18:03 <bianca> no
+12:18:06 <ramonn> nop
+12:18:32 <danielhb> nop
+12:19:29 <lcorreia> no
+12:22:23 <mike-kfed> hi guys. I am trying to get kimchi running, after getting all dependencies sorted I can see the login screen
+12:22:36 <mike-kfed> but login does not work
+12:23:37 <mike-kfed> so I added debug output, turns out that the cherrypy.session.id changes. I assume that's why the username info is lost and I end up back at the login.html again?
+12:24:47 <mike-kfed> I also installed it a second time using docker then, thinking I might have a weird environment. same behaviour (staying at login screen, haven't added debug output in docker image)
+12:25:45 <mike-kfed> now I am here asking what to do to get it working. I am now on git tag wok-2.3.1 gingerbase-2.2.2 kimchi-2.3.1
+12:25:59 <alinefm> hi mike-kfed
+12:26:14 <alinefm> which OS are you trying to get it running?
+12:26:31 <mike-kfed> I am on gentoo linux
+12:26:34 <alinefm> and how are you trying to login?
+12:26:40 <mike-kfed> docker image is based on debian
+12:26:54 <mike-kfed> using my username (is in sudoers list) or using root
+12:27:12 <alinefm> any error when you try to login?
+12:27:28 <mike-kfed> no error
+12:27:51 <alinefm> are you access it on firefox? could you check firebug logs to see any JS error is there
+12:28:40 <mike-kfed> checked for JS errors on chrome, none came up. I'll retry with the fox, just a sec
+12:32:28 <mike-kfed> alinefm: both browsers have the warning about synchronous XMLHttpRequests shouldn't be used
+12:32:45 <mike-kfed> firefox complains that opensans has a too large subtable
+12:33:00 <mike-kfed> else no errors in console
+12:33:52 <mike-kfed> I am using it over http port 8010 on localhost, is not using https the issue?
+12:35:31 <alinefm> I am not sure
+12:35:46 <alinefm> try to use "http://localhost:8000"
+12:36:02 <alinefm> you can also run wokd manually to get more output
+12:36:04 <alinefm> service wokd stop
+12:36:19 <mike-kfed> I only run wokd manually
+12:36:21 <alinefm> wokd --environment=dev (this option is to get more output)
+12:36:26 <alinefm> paste me the output, please
+12:36:34 <mike-kfed> ah, okay I'll do that
+12:40:22 <mike-kfed> it complains that spice-html5 is missing, I'll install that first, then I'll paste you the output
+12:52:16 <mike-kfed> okay no clue how to get spice-html5 for gentoo (spice server is installed)
+12:52:20 <mike-kfed> here is the output: https://paste.fedoraproject.org/510483/82324713/
+12:54:53 <alinefm> mike-kfed, try to login and check the output
+12:55:04 <alinefm> there should be an error somewhere =)
+12:55:12 <alinefm> any reason to do not try https?
+12:59:28 <mike-kfed> well for a quicktest I don't need it
+12:59:38 <mike-kfed> I will use nginx to proxy it
+13:00:51 <mike-kfed> this is the only non http log line when logging in
+13:00:53 <mike-kfed> INFO:wok_request_logger:{"info": {"status": 200, "zone": "CET", "ip": "127.0.0.1", "app": "", "req": "POST", "user": "htd", "time": "14:00:23", "date": "2016-12-21"}, "message": {"code": "WOKROOT0001L", "params": {"username": "htd"}}, "id": "cb9188b8-f943-433f-8061-86eefb9a9388", "error": null}
+13:02:36 <alinefm> well, seems you have logged in
+13:03:00 <mike-kfed> I know, that's why I started to hack around in woks auth.py to see what happens
+13:03:15 <mike-kfed> it must be something with cherrypy session
+13:04:10 <mike-kfed> (all my hacks are gone, right now git-tag 2.3.1 is in use)
+13:05:41 <mike-kfed> i have cherrypy 3.8.0 installed, too new?
+13:05:56 <alinefm> no
+13:06:10 <alinefm> try to access that uri directly https://localhost:8001/#plugins/gingerbase/tabs/host-dashboard
+13:07:21 <mike-kfed> this redirects me to login.html#plugins/...
+13:08:51 <mike-kfed> the docker image has cherrypy 3.5.0, but login does not work there either
+13:17:12 <mike-kfed> I'll try ssl next, but i guess that's not the problem
+13:18:43 <alinefm> the docker image is debian, right?
+13:18:56 <alinefm> we have tested 2.3.1 releases on debian without problems
+13:19:11 <alinefm> gentoo has not been tested by us =/
+13:26:15 <mike-kfed> I know gentoo is not on your list, that's why i tried the docker thing
+13:27:24 <mike-kfed> I have an existing centos7 vm. but to setup libvirt and stuff in the vm just to see if it works there is a little much work
+13:28:32 <mike-kfed> yes debian, based on phusion/baseimage
+13:28:48 <mike-kfed> ah ubuntu even
+14:00:04 <mike-kfed> aha, so ssl works. I assume because of the websocket alias
+14:00:41 <mike-kfed> I would add that to the docs, that connecting directly to wokd on port 8010 is useless and a proxy is needed
+14:07:05 <alinefm> mike-kfed, \o/
+14:07:25 <alinefm> that is great you identified the problem
+14:07:36 <mike-kfed> yes, thanks for your help
+14:07:50 <mike-kfed> clicking around in the UI now, looks great
+14:08:26 <mike-kfed> the only thing weird is the call to /notifications every 2 secs even though you have websockets ;)
+14:09:35 <alinefm> mike-kfed, yeap! =/
+14:09:49 <alinefm> we have plan to change that and use websockets for notification as well
+14:09:59 <alinefm> but a lot of ideas to a small community
+14:10:08 <alinefm> but with time, we can do all we want
+14:10:14 <mike-kfed> small but active
+14:10:34 <mike-kfed> most kvm management tools are abandoned or beasts like apache cloudstack
+14:10:50 <mike-kfed> so I appreciate your work!
+14:10:56 <alinefm> yeap! we will 3 releases next year
+14:11:07 <alinefm> (seems I forgot to end the scrum meeting)
+14:11:10 <alinefm> #endmeeting
