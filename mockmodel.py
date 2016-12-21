@@ -157,6 +157,7 @@ class MockModel(Model):
 
     def virtviewertmpfile_cleanup(self):
         os.unlink(self.virtviewerfile_tmp.name)
+        cherrypy.engine.unsubscribe('exit', self.virtviewertmpfile_cleanup)
 
     def reset(self):
         MockModel._mock_vms = defaultdict(list)
