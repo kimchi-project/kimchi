@@ -1,0 +1,37 @@
+12:01:28 <alinefm> #startmeeting
+12:01:28 <kimchi-bot> Meeting started Wed Dec 28 12:01:28 2016 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+12:01:28 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+12:01:28 <alinefm> #meetingname scrum
+12:01:28 <kimchi-bot> The meeting name has been set to 'scrum'
+12:02:11 <lcorreia> hi
+12:04:13 <bianca_> hi
+12:06:09 <alinefm> #info Agenda
+12:06:09 <alinefm> #info 1) Status
+12:06:09 <alinefm> #info 2) Open discussion
+12:06:09 <alinefm> anything else?
+12:06:30 <danielhb> no
+12:06:35 <alinefm> so let's get started
+12:06:43 <alinefm> #topic Status
+12:06:44 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+12:07:32 <danielhb> #info [Kimchi] danielhb fixed an issue with the mock model of virt viewer
+12:07:39 <bianca> #info [Gingerbase] bianca is working on issue #138: Update selected packages only prevent user to switch tabs.
+12:07:39 <bianca> #info [Ginger] bianca is working on feature request #517: Restore system backup.
+12:07:39 <bianca> #info [Kimchi] bianca sent a patch to issue #979: Create UI to change boot order. Waiting for review.
+12:07:43 <danielhb> #info [Ginger] danielhb fixed an issue with the SR-IOV UI
+12:07:47 <lcorreia> #info [wok/kimchi/ginger*] lcorreia will start working on packaging javascript dependencies separated for debian
+12:07:48 <lcorreia> #info [wok/kimchi/ginger*] lcorreia fixing review comments for debian packaging
+12:07:48 <lcorreia> #info [wok/kimchi/ginger*] lcorreia updated debian packaging to v2.3.1 and v2.2.2
+12:07:48 <lcorreia> #info [wok/kimchi/ginger*] lcorreia working on kimchi issue 1094 - Pass-through of SR-IOV PF fails
+12:07:48 <lcorreia> #info [wok/kimchi/ginger*] lcorreia maintaining Open Power HostOS branches
+12:08:29 <danielhb> #info [*] danielhb is now trying to set an environment to test live unplug of CX-4 VFs
+12:11:16 <alinefm> anything else, team?
+12:11:18 <alinefm> ramonn, ?
+12:11:34 <ramonn> #info [ginger] ramonn closed issue about deleting NIC interfaces
+12:12:08 <ramonn> #info [ginger] ramonn investigating about network config files on ubuntu (how to generate it)
+12:12:15 <ramonn> alinefm, sorry aline, you can go on
+12:12:43 <alinefm> thanks!
+12:12:51 <alinefm> #topic Open Discussion
+12:12:55 <alinefm> any other topic for today?
+12:13:03 <danielhb> no
+12:14:19 <alinefm> so thanks everyone for joining! And Happy New Year for you all!
+12:14:22 <alinefm> #endmeeting
