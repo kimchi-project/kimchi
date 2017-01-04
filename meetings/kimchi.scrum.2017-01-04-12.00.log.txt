@@ -1,0 +1,40 @@
+12:00:34 <alinefm> #startmeeting
+12:00:34 <kimchi-bot> Meeting started Wed Jan  4 12:00:34 2017 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+12:00:34 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+12:00:34 <alinefm> #meetingname scrum
+12:00:34 <kimchi-bot> The meeting name has been set to 'scrum'
+12:00:47 <alinefm> our first meeting of 2017! \o/
+12:00:50 <alinefm> #info Agenda
+12:00:50 <alinefm> #info 1) Status
+12:00:50 <alinefm> #info 2) Open discussion
+12:00:50 <alinefm> anything else?
+12:01:16 <danielhb> no
+12:01:36 <ramonn> nop
+12:02:28 <bianca> no
+12:03:51 <alinefm> #topic Status
+12:03:51 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+12:04:07 <danielhb> #info [Kimchi] danielhb implemented RDMA support for Live Migration. danielhb will send patches to ML after testing them
+12:04:17 <bianca> #info [Gingerbase] bianca is working on issue #138: Update selected packages only prevent user to switch tabs. Done, just testing css/js.
+12:04:17 <bianca> #info [Ginger] bianca is working on feature request #517: Restore system backup.
+12:04:46 <ramonn> #info [ginger] ramonn need to resent issue #469 and #390
+12:05:05 <ramonn> #info [wok] ramonn debugging issue #160
+12:06:37 <lcorreia> #info [wok] lcorreia sent patch to not build-depend on firewalld
+12:06:37 <lcorreia> #info [wok/kimchi/ginger*] lcorreia working on new review comments for debian packaging
+12:06:37 <lcorreia> #info [wok/kimchi/ginger*] lcorreia assessed what is needed to package javascript dependencies separated for debian
+12:06:37 <lcorreia> #info [wok/kimchi/ginger*] lcorreia fixed Dec25th' review comments for debian packaging
+12:06:37 <lcorreia> #info [wok/kimchi/ginger*] lcorreia maintaining Open Power HostOS branches
+12:07:33 <alinefm> lcorreia, we also need to add 'sudo' as dep for debian
+12:07:44 <alinefm> seems it is not default on debian
+12:07:58 <lcorreia> alinefm, sure, I did it on debian side already, will be in next drop to them
+12:09:05 <alinefm> great
+12:09:10 <alinefm> #topic Open Discussion
+12:09:17 <alinefm> any other topic for today?
+12:09:23 <alinefm> bianca, danielhb lcorreia ramonn ^
+12:09:34 <danielhb> alinefm, I need vacations
+12:09:45 <ramonn> nop
+12:10:29 <alinefm> danielhb, hehehe
+12:10:37 <alinefm> danielhb, not more than me =P
+12:10:54 <bianca> no
+12:12:35 <alinefm> ok.. if no one has anything else we can finish now...
+12:12:40 <alinefm> thanks everyone for joining!
+12:12:42 <alinefm> #endmeeting
