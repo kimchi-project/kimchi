@@ -1,7 +1,7 @@
 #*
  * Project Kimchi
  *
- * Copyright IBM Corp, 2013-2016
+ * Copyright IBM Corp, 2013-2017
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +30,14 @@
             <div class="modal-body">
                 <div class="template-modal-container">
                     <div id="alert-modal-container"></div>
+                    <div class="form-group">
+                        <label for="tmpl-name">$_("Template Name")</label>
+                        <input type="text" class="form-control" name="name" id="tmpl-name" />
+                        <p class="help-block"><i class="fa fa-info-circle"></i> $_("The name used to identify the template. If omitted, a name will be automatically chosen.")
+                        </p>
+                        <p class="help-block"><i class="fa fa-info-circle"></i> $_("When selecting more than one Image Template, a name will be automatically chosen for each Image Template selected.")
+                        </p>
+                    </div>
                     <div>
                         <h5>$_("Where is the source media for this template? ")</h5>
                         <input type="radio" checked="checked" name="iso-source" id="image-src" value="image-src" class="wok-radio">

@@ -1,7 +1,7 @@
 /*
  * Project Kimchi
  *
- * Copyright IBM Corp, 2013-2016
+ * Copyright IBM Corp, 2013-2017
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -255,6 +255,13 @@ kimchi.template_add_main = function() {
         $('#iso-file').val('');
         $('#iso-url').val('');
 
+        if (checkedLength && checkedLength != 1) {
+            $('#tmpl-name').val('');
+            $('#tmpl-name').attr('disabled', 'disabled');
+        } else {
+            $('#tmpl-name').removeAttr('disabled');
+        }
+
         $('#btn-template-file-create').attr('disabled', 'disabled').css('display', 'none'); // 1 - Folder path
         $('#btn-template-local-iso-create').attr('disabled', 'disabled').css('display', 'inline-block'); // 2 - Selected ISOs
         $('#btn-template-netboot-create').attr('disabled', 'disabled').css('display', 'none'); // 3 - Netboot
@@ -271,9 +278,15 @@ kimchi.template_add_main = function() {
     });
 
     $('#btn-template-netboot-create').click(function() {
+        var tmpl_name = $('#tmpl-name').val();
         var data = {
             "source_media": {"type": "netboot"}
         };
+
+        if (tmpl_name && tmpl_name != "") {
+            data['name'] = tmpl_name
+        }
+
         addTemplate(data, function() {
             $('#btn-template-netboot-create').text(i18n['KCHAPI6005M']);
             $('#btn-template-netboot-create').prop('disabled', false);
@@ -281,6 +294,7 @@ kimchi.template_add_main = function() {
     });
 
     $('#btn-template-local-iso-create').click(function() {
+        var tmpl_name = $('#tmpl-name').val();
         $('input', '#iso-file-box').prop('disabled', true);
         $('#btn-template-local-iso-create').text(i18n['KCHAPI6008M']);
         $('#btn-template-local-iso-create').prop('disabled', true);
@@ -288,6 +302,7 @@ kimchi.template_add_main = function() {
     });
 
     $('#btn-template-file-create').click(function() {
+        var tmpl_name = $('#tmpl-name').val();
         var isoFile = $('#iso-file').val();
         $('input', '#iso-file-box').prop('disabled', true);
         $('#btn-template-file-create').text(i18n['KCHAPI6008M']);
@@ -299,6 +314,9 @@ kimchi.template_add_main = function() {
         var data = {
             "source_media": {"type": "disk", "path": isoFile}
         };
+        if (tmpl_name && tmpl_name != "") {
+            data['name'] = tmpl_name
+        }
         addTemplate(data, function() {
             $('input', '#iso-file-box').prop('disabled', false);
             $('#btn-template-file-create').text(i18n['KCHAPI6005M']);
@@ -440,11 +458,15 @@ kimchi.template_add_main = function() {
             var length = 0;
             var successNum = 0;
             var addTemplate = function(isoInfo) {
+                var tmpl_name = $('#tmpl-name').val();
                 var data = {
                     "os_distro": isoInfo.os_distro,
                     "os_version": isoInfo.os_version,
                     "source_media": {"type": "disk", "path": isoInfo.path}
                 };
+                if (length == 1 && tmpl_name && tmpl_name != "") {
+                    data['name'] = tmpl_name
+                }
                 kimchi.createTemplate(data, function() {
                     successNum++;
                     $('input[value="' + isoInfo.isoId + '"]').prop('checked', false);
