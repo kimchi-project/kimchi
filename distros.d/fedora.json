@@ -21,6 +21,12 @@
         "path": "http://mirrors.kernel.org/fedora/releases/24/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-24-1.2.iso"
     },
     {
+        "name": "Fedora 25",
+        "os_distro": "fedora",
+        "os_arch": "25",
+        "path": "https://mirrors.kernel.org/fedora/releases/25/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-25-1.3.iso"
+    },
+    {
         "name": "Fedora 22",
         "os_distro": "fedora",
         "os_arch": "ppc64",
@@ -61,5 +67,19 @@
         "os_arch": "ppc64le",
         "os_version": "24",
         "path": "http://mirrors.kernel.org/fedora-secondary/releases/24/Server/ppc64le/iso/Fedora-Server-netinst-ppc64le-24-1.2.iso"
+    },
+    {
+        "name": "Fedora 25",
+        "os_distro": "fedora",
+        "os_arch": "ppc64",
+        "os_version": "25",
+        "path": "https://mirrors.kernel.org/fedora-secondary/releases/25/Server/ppc64/iso/Fedora-Server-netinst-ppc64-25-1.2.iso"
+    },
+    {
+        "name": "Fedora 25 LE",
+        "os_distro": "fedora",
+        "os_arch": "ppc64le",
+        "os_version": "25",
+        "path": "https://mirrors.kernel.org/fedora-secondary/releases/25/Server/ppc64le/iso/Fedora-Server-netinst-ppc64le-25-1.2.iso"
     }
 ]
