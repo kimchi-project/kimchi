@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM Corp, 2015-2016
+# Copyright IBM Corp, 2015-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -1998,12 +1998,16 @@ class VMModel(object):
                         user
                     )
 
-    def migrate(self, name, remote_host, user=None, password=None):
+    def migrate(self, name, remote_host, user=None, password=None,
+                enable_rdma=None):
         name = name.decode('utf-8')
         remote_host = remote_host.decode('utf-8')
 
         if user is None:
             user = 'root'
+
+        if enable_rdma is None:
+            enable_rdma = False
 
         self.migration_pre_check(remote_host, user, password)
         dest_conn = self._get_remote_libvirt_conn(remote_host, user)
@@ -2018,7 +2022,8 @@ class VMModel(object):
                   'dest_conn': dest_conn,
                   'non_shared': non_shared,
                   'remote_host': remote_host,
-                  'user': user}
+                  'user': user,
+                  'enable_rdma': enable_rdma}
         task_id = AsyncTask('/plugins/kimchi/vms/%s/migrate' % name,
                             self._migrate_task, params).id
 
@@ -2030,6 +2035,7 @@ class VMModel(object):
         non_shared = params['non_shared']
         remote_host = params['remote_host']
         user = params['user']
+        enable_rdma = params['enable_rdma']
 
         cb('starting a migration')
 
@@ -2057,7 +2063,11 @@ class VMModel(object):
             )
 
         try:
-            dom.migrate(dest_conn, flags)
+            if enable_rdma:
+                param_uri = 'rdma://' + remote_host
+                dom.migrate(dest_conn, flags, uri=param_uri)
+            else:
+                dom.migrate(dest_conn, flags)
         except libvirt.libvirtError as e:
             cb('Migrate failed', False)
             raise OperationFailed('KCHVM0058E', {'err': e.message,
