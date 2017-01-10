@@ -1,7 +1,7 @@
 #*
  * Project Kimchi
  *
- * Copyright IBM Corp, 2016
+ * Copyright IBM Corp, 2016-2017
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,6 +49,14 @@
                 <input type="password" class="form-control" id="password" />
                 <p class="help-block">
                     <i class="fa fa-info-circle"></i> $_("Password of the user in the remote host")</p>
+            </div>
+            <div class="form-group">
+                <input id="enableRDMA" class="wok-checkbox" type="checkbox" value="" />
+                <label for="enableRDMA" id="labelEnableRDMA">$_("Use RDMA transport")</label>
+                <p class="help-block"><i class="fa fa-info-circle"></i> $_("Check this option only if RDMA is properly configured in both source and destination hosts, otherwise migration will fail.") 
+                </p>
+
+
             </div>
             <div class="form-group">
                 <input id="deleteVM" class="wok-checkbox" type="checkbox" value="" />

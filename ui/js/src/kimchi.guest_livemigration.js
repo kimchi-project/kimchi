@@ -1,7 +1,7 @@
 /*
  * Project Kimchi
  *
- * Copyright IBM Corp, 2016
+ * Copyright IBM Corp, 2016-2017
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -80,13 +80,14 @@ kimchi.getLiveMigrationInputValues = function() {
     var username = $("#user").val();
     var password = $("#password").val();
     var toDelete = $("#deleteVM").prop('checked');
+    var enable_rdma = $("#enableRDMA").prop('checked');
     var data = {};
     data[kimchi.selectedGuest] = {
         values: {
-            remote_host: host
+            remote_host: host,
+            enable_rdma: enable_rdma
         },
         toDelete: toDelete
-
     };
     if (username && password) {
         data[kimchi.selectedGuest].values.user = username;
