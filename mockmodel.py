@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM Corp, 2015-2016
+# Copyright IBM Corp, 2015-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -410,6 +410,21 @@ class MockModel(Model):
         snapshots = MockModel._mock_snapshots.get(name, [])
         MockModel._mock_snapshots[new_name] = snapshots
         return self._model_vm_clone(name)
+
+    def _mock_vm_migrate(self, name, remote_host, user=None, password=None,
+                         enable_rdma=None):
+
+        if enable_rdma is None:
+            enable_rdma = False
+
+        params = {'remote_host': remote_host, 'enable_rdma': enable_rdma}
+        taskid = AsyncTask(u'/plugins/kimchi/vms/%s/migrate' % name,
+                           self._vmmigrate_create_task,
+                           params).id
+        return self.task_lookup(taskid)
+
+    def _vmmigrate_create_task(self, cb, params):
+        cb('OK', True)
 
     def _mock_vmvirtviewerfile_lookup(self, vm_name):
         file_name = 'plugins/kimchi/data/virtviewerfiles/%s' %\

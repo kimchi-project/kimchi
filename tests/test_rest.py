@@ -2,7 +2,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM Corp, 2013-2016
+# Copyright IBM Corp, 2013-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -1247,6 +1247,52 @@ class RestTests(unittest.TestCase):
         self.assertEquals(400, resp.status)
         resp = json.loads(resp.read())
         self.assertIn(u"KCHVM0012E", resp['reason'])
+
+    def test_vm_migrate(self):
+        with RollbackContext() as rollback:
+            req = json.dumps({'name': 'test-migrate',
+                             'source_media': {'type': 'disk',
+                                              'path': fake_iso}})
+            resp = self.request('/plugins/kimchi/templates', req, 'POST')
+            self.assertEquals(201, resp.status)
+            rollback.prependDefer(self.request,
+                                  '/plugins/kimchi/templates/test-migrate',
+                                  '{}', 'DELETE')
+
+            req = json.dumps(
+                {'name': 'test-vm-migrate',
+                 'template': '/plugins/kimchi/templates/test-migrate'}
+             )
+            resp = self.request('/plugins/kimchi/vms', req, 'POST')
+            self.assertEquals(202, resp.status)
+            task = json.loads(resp.read())
+            wait_task(self._task_lookup, task['id'])
+            rollback.prependDefer(self.request, '/plugins/kimchi/vms/test-vm',
+                                  '{}', 'DELETE')
+
+            params = {'remote_host': 'destination_host'}
+            resp = self.request(
+                '/plugins/kimchi/vms/test-vm-migrate/migrate',
+                json.dumps(params), 'POST')
+            self.assertEquals(202, resp.status)
+            task = json.loads(resp.read())
+            wait_task(self._task_lookup, task['id'])
+            task = json.loads(
+                self.request('/plugins/kimchi/tasks/%s' % task['id']).read()
+            )
+            self.assertEquals('finished', task['status'])
+
+            params = {'remote_host': 'rdma_host', 'enable_rdma': True}
+            resp = self.request(
+                '/plugins/kimchi/vms/test-vm-migrate/migrate',
+                json.dumps(params), 'POST')
+            self.assertEquals(202, resp.status)
+            task = json.loads(resp.read())
+            wait_task(self._task_lookup, task['id'])
+            task = json.loads(
+                self.request('/plugins/kimchi/tasks/%s' % task['id']).read()
+            )
+            self.assertEquals('finished', task['status'])
 
     def test_create_vm_with_img_based_template(self):
         resp = json.loads(
