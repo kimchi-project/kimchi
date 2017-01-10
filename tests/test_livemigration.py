@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM Corp, 2015-2016
+# Copyright IBM Corp, 2015-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -476,3 +476,54 @@ class LiveMigrationTests(unittest.TestCase):
             'test_vm_migrate_fake_user',
             'fake_password'
         )
+
+    @mock.patch('wok.plugins.kimchi.model.vms.VMModel.'
+                'migration_pre_check')
+    @mock.patch('wok.plugins.kimchi.model.vms.VMModel.'
+                '_get_remote_libvirt_conn')
+    @mock.patch('libvirt.virDomain.migrate')
+    def test_vm_livemigrate_RDMA(self, mock_migrate, mock_remote_conn,
+                                 mock_precheck):
+
+        mock_remote_conn.return_value = 'remote_conn'
+        self.create_vm_test()
+
+        try:
+            # removing cdrom because it is not shared storage and will make
+            # the migration fail
+            dev_list = self.inst.vmstorages_get_list('test_vm_migrate')
+            self.inst.vmstorage_delete('test_vm_migrate',  dev_list[0])
+
+            self.inst.vm_start('test_vm_migrate')
+
+            # to make the VM transient, undefine it while it's running
+            vm = VMModel.get_vm(
+                'test_vm_migrate',
+                LibvirtConnection('qemu:///system')
+            )
+            vm.undefine()
+
+            self.inst.vm_migrate('test_vm_migrate',
+                                 KIMCHI_LIVE_MIGRATION_TEST,
+                                 enable_rdma=True)
+
+            flags = (libvirt.VIR_MIGRATE_PEER2PEER |
+                     libvirt.VIR_MIGRATE_LIVE |
+                     libvirt.VIR_MIGRATE_TUNNELLED)
+
+            param_uri = 'rdma://' + KIMCHI_LIVE_MIGRATION_TEST
+            mock_migrate.assert_called_once_with(vm, flags, param_uri)
+
+        except Exception, e:
+            # Clean up here instead of rollback because if the
+            # VM was turned transient and shut down it might
+            # not exist already - rollback in this case  will cause
+            # a QEMU error
+            vm = VMModel.get_vm(
+                'test_vm_migrate',
+                LibvirtConnection('qemu:///system')
+            )
+            if vm.isPersistent():
+                vm.undefine()
+            vm.shutdown()
+            self.fail('Migration test failed: %s' % e.message)
