@@ -444,6 +444,11 @@
                     "description": "Password of the user in the remote server",
                     "type": "string",
                     "error": "KCHVM0069E"
+                },
+                "enable_rdma": {
+                    "description": "Enables RDMA transport",
+                    "type": "boolean",
+                    "error": "KCHVM0091E"
                 }
             },
             "additionalProperties": false
