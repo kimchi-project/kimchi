@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM Corp, 2015-2016
+# Copyright IBM Corp, 2015-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -81,7 +81,8 @@ class VM(Resource):
         self.migrate = self.generate_action_handler_task('migrate',
                                                          ['remote_host',
                                                           'user',
-                                                          'password'])
+                                                          'password',
+                                                          'enable_rdma'])
         self.suspend = self.generate_action_handler('suspend')
         self.resume = self.generate_action_handler('resume')
         self.serial = self.generate_action_handler('serial')
