@@ -1,0 +1,42 @@
+12:01:07 <alinefm> #startmeeting
+12:01:07 <kimchi-bot> Meeting started Wed Jan 11 12:01:07 2017 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+12:01:07 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+12:01:08 <alinefm> #meetingname scrum
+12:01:08 <kimchi-bot> The meeting name has been set to 'scrum'
+12:01:16 <alinefm> #info Agenda
+12:01:17 <alinefm> #info 1) Status
+12:01:17 <alinefm> #info 2) Open discussion
+12:01:17 <alinefm> anything else?
+12:01:27 <bianca> no
+12:02:39 <danielhb> no
+12:02:43 <ramonn> no
+12:02:52 <alinefm> so let's get started
+12:03:04 <alinefm> #topic Status
+12:03:04 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+12:03:31 <bianca> #info [Gingerbase] bianca is working on issue #138: Update selected packages only prevent user to switch tabs. Still testing and fixing some issues.
+12:03:31 <bianca> #info [Ginger] bianca is working on feature request #517: Restore system backup. Sent a patch to backend code, working on front end now.
+12:03:47 <ramonn> #info [wok] ramonn working on issue to prevent brute force attack
+12:04:00 <alinefm> #info [kimchi] alinefm closed issues #1069 (reattach PCI device back to host when detaching from guest), #1073 (allow user specify template name when creating it)
+12:04:02 <danielhb> #info [kimchi] danielhb sent a patch set to implement RDMA live migration support, currently on v3
+12:04:17 <ramonn> #info [kimchi] ramonn will send patch to fix vepa interfaces that are not showed
+12:04:25 <alinefm> #info [wok] alinefm sent patch to fix issue #40 and she is now working on removing Kimchi references from Wok
+12:04:28 <danielhb> #info [wok] danielhb investigated the use of chroot in WoK mock environment
+12:04:41 <lcorreia> #info [wok/kimchi/ginger*] lcorreia working on debian packaging improvements
+12:04:41 <lcorreia> #info [wok/kimchi/ginger*] lcorreia maintaining Open Power HostOS branches
+12:04:49 <danielhb> #info [wok] danielhb is now working in plugin management
+12:05:26 <alinefm> anything else, team?
+12:05:53 <ramonn> no
+12:06:51 <lcorreia> no
+12:07:22 <alinefm> #topic Open Discussion
+12:07:26 <alinefm> any other topic for today?
+12:08:44 <danielhb> can I get more ice cream next Tuesday?
+12:09:41 <alinefm> hrmm... depends on how many patches you deliver =P
+12:10:23 <danielhb> alinefm, one ice cream per patch?
+12:10:29 <alinefm> danielhb, =o
+12:10:33 <alinefm> I am not that rich
+12:10:36 <alinefm> ehhehe
+12:10:39 * danielhb aiming for ice cream overdose
+12:11:30 <alinefm> I am hungry for patches so
+12:11:46 <alinefm> I think it is time to end the meeting
+12:11:53 <alinefm> thanks everyone for joining!
+12:11:56 <alinefm> #endmeeting

@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi Meeting</title>
+<style type="text/css">
+/* This is for the .html in the HTML2 writer */
+body {
+    font-family: Helvetica, sans-serif;
+    font-size:14px;
+}
+h1 {
+    text-align: center;
+}
+a {
+    color:navy;
+    text-decoration: none;
+    border-bottom:1px dotted navy;
+}
+a:hover {
+    text-decoration:none;
+    border-bottom: 0;
+    color:#0000B9;
+}
+hr {
+    border: 1px solid #ccc;
+}
+/* The (nick, time) item pairs, and other body text things. */
+.details {
+    font-size: 12px;
+    font-weight:bold;
+}
+/* The 'AGREED:', 'IDEA', etc, prefix to lines. */
+.itemtype {
+    font-style: normal;    /* un-italics it */
+    font-weight: bold;
+}
+/* Example: change single item types.  Capitalized command name.
+/* .TOPIC  {  color:navy;  } */
+/* .AGREED {  color:lime;  } */
+
+</style>
+</head>
+
+<body>
+<h1>#kimchi Meeting</h1>
+<span class="details">
+Meeting started by alinefm at 12:01:07 UTC
+(<a href="kimchi.scrum.2017-01-11-12.01.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Meeting summary</h3>
+<ol>
+<li>
+<ol type="a">
+  <li><span class="INFO">Agenda</span> <span class="details">(<a
+    href='kimchi.scrum.2017-01-11-12.01.log.html#l-6'>alinefm</a>,
+    12:01:16)</span></li>
+  <li><span class="INFO">1) Status</span> <span class="details">(<a
+    href='kimchi.scrum.2017-01-11-12.01.log.html#l-7'>alinefm</a>,
+    12:01:17)</span></li>
+  <li><span class="INFO">2) Open discussion</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2017-01-11-12.01.log.html#l-8'>alinefm</a>,
+    12:01:17)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Status</b> <span class="details">(<a href='kimchi.scrum.2017-01-11-12.01.log.html#l-14'>alinefm</a>, 12:03:04)</span>
+<ol type="a">
+  <li><span class="INFO">Please provide your status using the #info
+    command: #info [&lt;project] &lt;nickname&gt; &lt;status&gt;</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2017-01-11-12.01.log.html#l-15'>alinefm</a>,
+    12:03:04)</span></li>
+  <li><span class="INFO">[Gingerbase] bianca is working on issue #138:
+    Update selected packages only prevent user to switch tabs. Still
+    testing and fixing some issues.</span> <span class="details">(<a
+    href='kimchi.scrum.2017-01-11-12.01.log.html#l-16'>bianca</a>,
+    12:03:31)</span></li>
+  <li><span class="INFO">[Ginger] bianca is working on feature request
+    #517: Restore system backup. Sent a patch to backend code, working
+    on front end now.</span> <span class="details">(<a
+    href='kimchi.scrum.2017-01-11-12.01.log.html#l-17'>bianca</a>,
+    12:03:31)</span></li>
+  <li><span class="INFO">[wok] ramonn working on issue to prevent brute
+    force attack</span> <span class="details">(<a
+    href='kimchi.scrum.2017-01-11-12.01.log.html#l-18'>ramonn</a>,
+    12:03:47)</span></li>
+  <li><span class="INFO">[kimchi] alinefm closed issues #1069 (reattach
+    PCI device back to host when detaching from guest), #1073 (allow
+    user specify template name when creating it)</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2017-01-11-12.01.log.html#l-19'>alinefm</a>,
+    12:04:00)</span></li>
+  <li><span class="INFO">[kimchi] danielhb sent a patch set to implement
+    RDMA live migration support, currently on v3</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2017-01-11-12.01.log.html#l-20'>danielhb</a>,
+    12:04:02)</span></li>
+  <li><span class="INFO">[kimchi] ramonn will send patch to fix vepa
+    interfaces that are not showed</span> <span class="details">(<a
+    href='kimchi.scrum.2017-01-11-12.01.log.html#l-21'>ramonn</a>,
+    12:04:17)</span></li>
+  <li><span class="INFO">[wok] alinefm sent patch to fix issue #40 and
+    she is now working on removing Kimchi references from Wok</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2017-01-11-12.01.log.html#l-22'>alinefm</a>,
+    12:04:25)</span></li>
+  <li><span class="INFO">[wok] danielhb investigated the use of chroot
+    in WoK mock environment</span> <span class="details">(<a
+    href='kimchi.scrum.2017-01-11-12.01.log.html#l-23'>danielhb</a>,
+    12:04:28)</span></li>
+  <li><span class="INFO">[wok/kimchi/ginger*] lcorreia working on debian
+    packaging improvements</span> <span class="details">(<a
+    href='kimchi.scrum.2017-01-11-12.01.log.html#l-24'>lcorreia</a>,
+    12:04:41)</span></li>
+  <li><span class="INFO">[wok/kimchi/ginger*] lcorreia maintaining Open
+    Power HostOS branches</span> <span class="details">(<a
+    href='kimchi.scrum.2017-01-11-12.01.log.html#l-25'>lcorreia</a>,
+    12:04:41)</span></li>
+  <li><span class="INFO">[wok] danielhb is now working in plugin
+    management</span> <span class="details">(<a
+    href='kimchi.scrum.2017-01-11-12.01.log.html#l-26'>danielhb</a>,
+    12:04:49)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Open Discussion</b> <span class="details">(<a href='kimchi.scrum.2017-01-11-12.01.log.html#l-30'>alinefm</a>, 12:07:22)</span>
+</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">
+Meeting ended at 12:11:56 UTC
+(<a href="kimchi.scrum.2017-01-11-12.01.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Action items</h3>
+<ol>
+  <li>(none)</li>
+</ol>
+<br><br>
+
+
+
+<h3>People present (lines said)</h3>
+<ol>
+  <li>alinefm (22)</li>
+  <li>danielhb (7)</li>
+  <li>ramonn (4)</li>
+  <li>lcorreia (3)</li>
+  <li>bianca (3)</li>
+  <li>kimchi-bot (3)</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">Generated by <a href="http://wiki.debian.org/MeetBot">MeetBot</a> 0.1.4.</span>
+</body></html>
