@@ -1,0 +1,38 @@
+12:01:15 <alinefm> #startmeeting
+12:01:15 <kimchi-bot> Meeting started Wed Jan 18 12:01:15 2017 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+12:01:15 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+12:01:15 <alinefm> #meetingname scrum
+12:01:15 <kimchi-bot> The meeting name has been set to 'scrum'
+12:01:23 <alinefm> #info Agenda
+12:01:23 <alinefm> #info 1) Status
+12:01:23 <alinefm> #info 2) Open discussion
+12:01:23 <alinefm> anything else?
+12:02:05 <bianca> no
+12:02:44 <alinefm> #topic Status
+12:02:45 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+12:03:26 <bianca> #info [Ginger] bianca is working on issue #13: Config backup needs progress indicator.
+12:03:27 <bianca> #info [Ginger] bianca is working on feature request #517: Restore system backup. Sent a patch to front end code, applied.
+12:03:27 <bianca> #info [Kimchi] bianca is working on issue #979: Create UI to change boot order, sent a patch to ML.
+12:03:27 <bianca> #info [Gingerbase] bianca is working on issue #138: Update selected packages only prevent user to switch tabs. Working on some fixes.
+12:03:27 <bianca> #info [wok] ramonn worked on login/timeout patch. Just sent to review.
+12:03:27 <bianca> #info [kimchi] ramonn waiting review for patch to allow live snapshot.
+12:03:27 <bianca> #info [*] ramonn will start new task today.
+12:05:10 <lcorreia> #info [wok/kimchi/ginger*] lcorreia working on making tests run during debian build
+12:05:11 <lcorreia> #info [wok/kimchi/ginger*] lcorreia maintaining Open Power HostOS branches
+12:05:16 <danielhb> #info [WoK] danielhb sent 2 new versions of the 'reload' API in the mailing list
+12:05:16 <danielhb> #info [WoK] danielhb is currently working in how to implement an API that enables and disables WoK plug-ins
+12:05:16 <danielhb> #info [WoK] danielhb did an investigation about running WoK with chroot/mock in an attempt of running it in a sandbox to avoid changing the host configuration. danielhb will investigate how to use Docker to do that when he is able.
+12:07:32 <alinefm> lcorreia, could you share the branch you are using to do the patches needed for debian packaging?
+12:07:46 <alinefm> lagarcia, I can help you in sending the patches to the community
+12:07:53 <alinefm> lagarcia, sorry =)
+12:07:55 <alinefm> lcorreia, ^
+12:08:05 <alinefm> lcorreia, so we can get them applied upstream faster
+12:08:30 <lcorreia> alinefm, ok, the version on my personal github is out of date, I need to update them
+12:09:02 <lcorreia> alinefm, I will probably create new branches for it
+12:10:20 <alinefm> lcorreia, np. when you do that, let me know and I can start working on sending the patches to review
+12:11:44 <alinefm> moving on...
+12:11:50 <alinefm> #topic Open Discussion
+12:11:54 <alinefm> any other topic for today?
+12:12:45 <lcorreia> no
+12:15:20 <alinefm> so thanks everyone for joining!
+12:15:23 <alinefm> #endmeeting
