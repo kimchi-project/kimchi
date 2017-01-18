@@ -1,7 +1,7 @@
 /*
  * Project Kimchi
  *
- * Copyright IBM Corp, 2016
+ * Copyright IBM Corp, 2016-2017
  *
  * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,11 @@ kimchi.sp_resize_volume_main = function() {
     var addButton = $('#sp-resize-volume-button');
     var size = $('#volume-size');
     var form = $('form#form-sp-resize-volume');
+
+    // set storage volume size
+    kimchi.getStoragePoolVolume(kimchi.selectedSP, kimchi.selectedVolumes[0], function(volume) {
+        size.val(volume["capacity"] / (1024 * 1024));
+    });
 
     $(addButton).prop('disabled',true);
     $(size).on('keyup change', function(){
