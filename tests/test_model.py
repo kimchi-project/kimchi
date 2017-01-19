@@ -2,7 +2,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM Corp, 2013-2016
+# Copyright IBM Corp, 2013-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -204,8 +204,10 @@ class ModelTests(unittest.TestCase):
             info = inst.vm_lookup('kimchi-vm')
             self.assertEquals('running', info['state'])
 
-            self.assertRaises(InvalidOperation, inst.vmsnapshots_create,
-                              u'kimchi-vm')
+            task = inst.vmsnapshots_create(u'kimchi-vm')
+            inst.task_wait(task['id'])
+            task = inst.task_lookup(task['id'])
+            self.assertEquals('finished', task['status'])
 
             inst.vm_poweroff(u'kimchi-vm')
             vm = inst.vm_lookup(u'kimchi-vm')

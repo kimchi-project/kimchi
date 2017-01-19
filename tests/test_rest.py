@@ -403,6 +403,24 @@ class RestTests(unittest.TestCase):
         resp = self.request('/plugins/kimchi/vms/test-vm/clone', '{}', 'POST')
         self.assertEquals(400, resp.status)
 
+        # Create a snapshot on running vm VM
+        params = {'name': 'test-snap2'}
+        resp = self.request('/plugins/kimchi/vms/test-vm/snapshots',
+                            json.dumps(params),
+                            'POST')
+        self.assertEquals(202, resp.status)
+        task = json.loads(resp.read())
+        wait_task(self._task_lookup, task['id'])
+        task = json.loads(
+            self.request('/plugins/kimchi/tasks/%s' % task['id']).read()
+        )
+        self.assertEquals('finished', task['status'])
+
+        # Delete a snapshot
+        resp = self.request('/plugins/kimchi/vms/test-vm/snapshots/%s' %
+                            params['name'], '{}', 'DELETE')
+        self.assertEquals(204, resp.status)
+
         # Force poweroff the VM
         resp = self.request('/plugins/kimchi/vms/test-vm/poweroff', '{}',
                             'POST')
