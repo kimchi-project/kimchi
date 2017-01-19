@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM Corp, 2015-2016
+# Copyright IBM Corp, 2015-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -25,7 +25,6 @@ from wok.control.utils import UrlSubNode
 class Interfaces(Collection):
     def __init__(self, model):
         super(Interfaces, self).__init__(model)
-        self.role_key = 'network'
         self.admin_methods = ['GET']
         self.resource = Interface
 
@@ -33,7 +32,6 @@ class Interfaces(Collection):
 class Interface(Resource):
     def __init__(self, model, ident):
         super(Interface, self).__init__(model, ident)
-        self.role_key = 'network'
         self.admin_methods = ['GET']
         self.uri_fmt = "/interfaces/%s"
 

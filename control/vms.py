@@ -52,7 +52,6 @@ class VMs(AsyncCollection):
     def __init__(self, model):
         super(VMs, self).__init__(model)
         self.resource = VM
-        self.role_key = 'guests'
         self.admin_methods = ['POST']
 
         # set user log messages and make sure all parameters are present
@@ -63,7 +62,6 @@ class VMs(AsyncCollection):
 class VM(Resource):
     def __init__(self, model, ident):
         super(VM, self).__init__(model, ident)
-        self.role_key = 'guests'
         self.screenshot = VMScreenShot(model, ident)
         self.virtviewerfile = VMVirtViewerFile(model, ident)
         self.uri_fmt = '/vms/%s'
@@ -99,7 +97,6 @@ class VM(Resource):
 class VMScreenShot(Resource):
     def __init__(self, model, ident):
         super(VMScreenShot, self).__init__(model, ident)
-        self.role_key = 'guests'
 
     def get(self):
         self.lookup()
@@ -110,7 +107,6 @@ class VMScreenShot(Resource):
 class VMVirtViewerFile(Resource):
     def __init__(self, model, ident):
         super(VMVirtViewerFile, self).__init__(model, ident)
-        self.role_key = 'guests'
 
     @property
     def data(self):

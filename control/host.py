@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM Corp, 2015-2016
+# Copyright IBM Corp, 2015-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -30,7 +30,6 @@ from wok.plugins.kimchi.utils import is_s390x
 class Host(Resource):
     def __init__(self, model, id=None):
         super(Host, self).__init__(model, id)
-        self.role_key = 'host'
         self.admin_methods = ['GET', 'POST']
         self.uri_fmt = '/host/%s'
         self.devices = Devices(self.model)
@@ -46,7 +45,6 @@ class Host(Resource):
 class VolumeGroups(Collection):
     def __init__(self, model):
         super(VolumeGroups, self).__init__(model)
-        self.role_key = 'host'
         self.uri_fmt = "/host/vgs"
         self.admin_methods = ['GET']
         self.resource = VolumeGroup
@@ -55,7 +53,6 @@ class VolumeGroups(Collection):
 class VolumeGroup(Resource):
     def __init__(self, model, id=None):
         super(VolumeGroup, self).__init__(model, id)
-        self.role_key = 'host'
         self.uri_fmt = "/host/vgs/%s"
         self.admin_methods = ['GET']
 
@@ -89,7 +86,6 @@ class Device(Resource):
 class Partitions(Collection):
     def __init__(self, model):
         super(Partitions, self).__init__(model)
-        self.role_key = 'storage'
         self.admin_methods = ['GET']
         self.resource = Partition
 
@@ -112,7 +108,6 @@ class Partitions(Collection):
 
 class Partition(Resource):
     def __init__(self, model, id):
-        self.role_key = 'storage'
         self.admin_methods = ['GET']
         super(Partition, self).__init__(model, id)
 
