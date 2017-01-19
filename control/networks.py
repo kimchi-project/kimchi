@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM Corp, 2015-2016
+# Copyright IBM Corp, 2015-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -39,7 +39,6 @@ NETWORK_REQUESTS = {
 class Networks(Collection):
     def __init__(self, model):
         super(Networks, self).__init__(model)
-        self.role_key = 'network'
         self.admin_methods = ['POST']
         self.resource = Network
 
@@ -51,7 +50,6 @@ class Networks(Collection):
 class Network(Resource):
     def __init__(self, model, ident):
         super(Network, self).__init__(model, ident)
-        self.role_key = 'network'
         self.admin_methods = ['PUT', 'POST', 'DELETE']
         self.uri_fmt = "/networks/%s"
         self.activate = self.generate_action_handler('activate')

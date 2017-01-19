@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM Corp, 2015-2016
+# Copyright IBM Corp, 2015-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -25,4 +25,3 @@ from wok.control.utils import UrlSubNode
 class Groups(SimpleCollection):
     def __init__(self, model):
         super(Groups, self).__init__(model)
-        self.role_key = 'guests'

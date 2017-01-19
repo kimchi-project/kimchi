@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM Corp, 2015-2016
+# Copyright IBM Corp, 2015-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -47,7 +47,6 @@ STORAGEPOOL_REQUESTS = {
 class StoragePools(Collection):
     def __init__(self, model):
         super(StoragePools, self).__init__(model)
-        self.role_key = 'storage'
         self.admin_methods = ['POST']
         self.resource = StoragePool
         isos = IsoPool(model)
@@ -95,7 +94,6 @@ class StoragePools(Collection):
 class StoragePool(Resource):
     def __init__(self, model, ident):
         super(StoragePool, self).__init__(model, ident)
-        self.role_key = 'storage'
         self.admin_methods = ['PUT', 'POST', 'DELETE']
         self.uri_fmt = "/storagepools/%s"
         self.activate = self.generate_action_handler('activate')

@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM Corp, 2015-2016
+# Copyright IBM Corp, 2015-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -26,7 +26,6 @@ from wok.template import render
 class Users(SimpleCollection):
     def __init__(self, model):
         super(Users, self).__init__(model)
-        self.role_key = 'guests'
 
     def get(self, filter_params):
         res_list = []
