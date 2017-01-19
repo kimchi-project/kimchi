@@ -961,9 +961,6 @@ kimchi.guest_edit_main = function() {
                 addOngoingItem(task);
             });
         });
-        if (kimchi.thisVMState === "running") {
-            $("button", "#form-guest-edit-snapshot").remove();
-        }
     };
 
     var initContent = function(guest) {

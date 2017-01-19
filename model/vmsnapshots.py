@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM Corp, 2015-2016
+# Copyright IBM Corp, 2015-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -28,7 +28,7 @@ from wok.exception import InvalidOperation, NotFoundError, OperationFailed
 from wok.xmlutils.utils import xpath_get_text
 from wok.model.tasks import TaskModel
 
-from wok.plugins.kimchi.model.vms import DOM_STATE_MAP, VMModel
+from wok.plugins.kimchi.model.vms import VMModel
 from wok.plugins.kimchi.model.vmstorages import VMStorageModel, VMStoragesModel
 
 
@@ -57,9 +57,6 @@ class VMSnapshotsModel(object):
         """
         if params is None:
             params = {}
-        vir_dom = VMModel.get_vm(vm_name, self.conn)
-        if DOM_STATE_MAP[vir_dom.info()[0]] != u'shutoff':
-            raise InvalidOperation('KCHSNAP0001E', {'vm': vm_name})
 
         # if the VM has a non-CDROM disk with type 'raw', abort.
         for storage_name in self.vmstorages.get_list(vm_name):
