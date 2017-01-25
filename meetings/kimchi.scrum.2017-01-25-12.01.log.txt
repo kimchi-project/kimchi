@@ -1,0 +1,36 @@
+12:01:05 <alinefm> #startmeeting
+12:01:05 <alinefm> #meetingname scrum
+12:01:05 <kimchi-bot> Meeting started Wed Jan 25 12:01:05 2017 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+12:01:05 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+12:01:05 <kimchi-bot> The meeting name has been set to 'scrum'
+12:01:16 <alinefm> #info Agenda
+12:01:17 <alinefm> #info 1) Status
+12:01:17 <alinefm> #info 2) Open discussion
+12:01:17 <alinefm> anything else?
+12:01:43 <ramonn> nop
+12:04:43 <alinefm> so let's get started
+12:04:53 <alinefm> #topic Status
+12:04:54 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+12:05:14 <alinefm> #info [wok] alinefm sent patch to remove link between authorization settings and UI tabs
+12:05:23 <ramonn> #info [wok] ramonn sent v3 patch for blocking too many login trials
+12:05:39 <alinefm> #info [kimchi/ginger*] alinefm sent patch to update authorization settings according to wok changes
+12:05:40 <ramonn> #info [gingerbase] ramonn working on add filter to repositories list
+12:05:58 <lcorreia> #info [wok] lcorreia sent patch to move dhparams.pem creation from build to post-install
+12:05:58 <lcorreia> #info [wok] lcorreia sent patch to fix reloading of nginx config on development mode
+12:05:58 <lcorreia> #info [wok] lcorreia made tests run during debian build
+12:05:58 <lcorreia> #info [wok/kimchi/ginger*] lcorreia maintaining Open Power HostOS branches
+12:06:01 <bianca> #info [Ginger] bianca is working on issue #13: Config backup needs progress indicator.
+12:09:22 <danielhb> #info [Kimchi] danielhb sent versions of the /config/plugins and /config/reload APIs
+12:09:22 <danielhb> ops sorry
+12:09:22 <danielhb> #info [WoK] danielhb sent versions of the /config/plugins and /config/reload APIs
+12:09:22 <danielhb> #info [Kimchi] danielhb is looking into an issue with PCI devices detachment in SR-IOV cases
+12:10:46 <alinefm> anything else, team?
+12:11:02 <danielhb> no
+12:14:44 <alinefm> #topic Open Discussion
+12:14:54 <alinefm> danielhb, bianca lcorreia ramonn any other topic for today?
+12:15:02 <lcorreia> no
+12:15:12 <ramonn> nope
+12:15:23 <danielhb> no
+12:16:29 <bianca> no
+12:25:06 <alinefm> thanks everyone for joining!
+12:25:10 <alinefm> #endmeeting

@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">12:01:05</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">12:01:05</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-3"></a><span class="tm">12:01:05</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Jan 25 12:01:05 2017 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-4"></a><span class="tm">12:01:05</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-5"></a><span class="tm">12:01:05</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">12:01:16</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda</span>
+<a name="l-7"></a><span class="tm">12:01:17</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">1) Status</span>
+<a name="l-8"></a><span class="tm">12:01:17</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">2) Open discussion</span>
+<a name="l-9"></a><span class="tm">12:01:17</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-10"></a><span class="tm">12:01:43</span><span class="nk"> &lt;ramonn&gt;</span> nop
+<a name="l-11"></a><span class="tm">12:04:43</span><span class="nk"> &lt;alinefm&gt;</span> so let's get started
+<a name="l-12"></a><span class="tm">12:04:53</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-13"></a><span class="tm">12:04:54</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info [&lt;project] &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-14"></a><span class="tm">12:05:14</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] alinefm sent patch to remove link between authorization settings and UI tabs</span>
+<a name="l-15"></a><span class="tm">12:05:23</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] ramonn sent v3 patch for blocking too many login trials</span>
+<a name="l-16"></a><span class="tm">12:05:39</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi/ginger*] alinefm sent patch to update authorization settings according to wok changes</span>
+<a name="l-17"></a><span class="tm">12:05:40</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[gingerbase] ramonn working on add filter to repositories list</span>
+<a name="l-18"></a><span class="tm">12:05:58</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] lcorreia sent patch to move dhparams.pem creation from build to post-install</span>
+<a name="l-19"></a><span class="tm">12:05:58</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] lcorreia sent patch to fix reloading of nginx config on development mode</span>
+<a name="l-20"></a><span class="tm">12:05:58</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] lcorreia made tests run during debian build</span>
+<a name="l-21"></a><span class="tm">12:05:58</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok/kimchi/ginger*] lcorreia maintaining Open Power HostOS branches</span>
+<a name="l-22"></a><span class="tm">12:06:01</span><span class="nk"> &lt;bianca&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] bianca is working on issue #13: Config backup needs progress indicator.</span>
+<a name="l-23"></a><span class="tm">12:09:22</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] danielhb sent versions of the /config/plugins and /config/reload APIs</span>
+<a name="l-24"></a><span class="tm">12:09:22</span><span class="nk"> &lt;danielhb&gt;</span> ops sorry
+<a name="l-25"></a><span class="tm">12:09:22</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[WoK] danielhb sent versions of the /config/plugins and /config/reload APIs</span>
+<a name="l-26"></a><span class="tm">12:09:22</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] danielhb is looking into an issue with PCI devices detachment in SR-IOV cases</span>
+<a name="l-27"></a><span class="tm">12:10:46</span><span class="nk"> &lt;alinefm&gt;</span> anything else, team?
+<a name="l-28"></a><span class="tm">12:11:02</span><span class="nk"> &lt;danielhb&gt;</span> no
+<a name="l-29"></a><span class="tm">12:14:44</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-30"></a><span class="tm">12:14:54</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, bianca lcorreia ramonn any other topic for today?
+<a name="l-31"></a><span class="tm">12:15:02</span><span class="nk"> &lt;lcorreia&gt;</span> no
+<a name="l-32"></a><span class="tm">12:15:12</span><span class="nk"> &lt;ramonn&gt;</span> nope
+<a name="l-33"></a><span class="tm">12:15:23</span><span class="nk"> &lt;danielhb&gt;</span> no
+<a name="l-34"></a><span class="tm">12:16:29</span><span class="nk"> &lt;bianca&gt;</span> no
+<a name="l-35"></a><span class="tm">12:25:06</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining!
+<a name="l-36"></a><span class="tm">12:25:10</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
