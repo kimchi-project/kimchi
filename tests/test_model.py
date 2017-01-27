@@ -34,6 +34,8 @@ import shutil
 import time
 import unittest
 
+from lxml import objectify
+
 import tests.utils as utils
 
 import wok.objectstore
@@ -1782,6 +1784,168 @@ class ModelTests(unittest.TestCase):
             # check if create VM has USB controller
             self.assertTrue(
                 inst.vmhostdevs_have_usb_controller('kimchi-vm1'))
+
+    def get_hostdevs_xml(self):
+        return """\
+<domain type='kvm' id='N'>
+  <name>vm_name</name>
+  <devices>
+    <emulator>/usr/bin/qemu-kvm</emulator>
+    <hostdev mode='subsystem' type='pci' managed='yes'>
+      <driver name='vfio'/>
+      <source>
+        <address domain='0x0001' bus='0x0d' slot='0x00' function='0x1'/>
+      </source>
+      <alias name='hostdev0'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x05' \
+function='0x1'/>
+    </hostdev>
+    <hostdev mode='subsystem' type='pci' managed='yes'>
+      <driver name='vfio'/>
+      <source>
+        <address domain='0x0001' bus='0x0d' slot='0x00' function='0x0'/>
+      </source>
+      <alias name='hostdev1'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x05' \
+function='0x0' multifunction='on'/>
+    </hostdev>
+    <hostdev mode='subsystem' type='pci' managed='yes'>
+      <driver name='vfio'/>
+      <source>
+        <address domain='0x0001' bus='0x0d' slot='0x00' function='0x2'/>
+      </source>
+      <alias name='hostdev2'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x06' \
+function='0x0'/>
+    </hostdev>
+    <hostdev mode='subsystem' type='pci' managed='yes'>
+      <driver name='vfio'/>
+      <source>
+        <address domain='0x0001' bus='0x0d' slot='0x00' function='0x4'/>
+      </source>
+      <alias name='hostdev3'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x07' \
+function='0x0'/>
+    </hostdev>
+    <hostdev mode='subsystem' type='pci' managed='yes'>
+      <driver name='vfio'/>
+      <source>
+        <address domain='0x0001' bus='0x0d' slot='0x00' function='0x5'/>
+      </source>
+      <alias name='hostdev4'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x08' \
+function='0x0'/>
+    </hostdev>
+  </devices>
+ </domain>
+"""
+
+    def get_hostdev_multifunction_xml(self):
+        return """\
+<hostdev mode='subsystem' type='pci' managed='yes'>
+  <driver name='vfio'/>
+  <source>
+    <address domain='0x0001' bus='0x0d' slot='0x00' function='0x0'/>
+  </source>
+  <alias name='hostdev1'/>
+  <address type='pci' domain='0x0000' bus='0x00' slot='0x05' function='0x0' \
+multifunction='on'/>
+</hostdev>
+"""
+
+    def get_hostdev_nomultifunction_xml(self):
+        return """\
+<hostdev mode='subsystem' type='pci' managed='yes'>
+  <driver name='vfio'/>
+  <source>
+    <address domain='0x0001' bus='0x0d' slot='0x00' function='0x5'/>
+  </source>
+  <alias name='hostdev4'/>
+  <address type='pci' domain='0x0000' bus='0x00' slot='0x08' function='0x0'/>
+</hostdev>
+"""
+
+    def test_vmhostdev_is_hostdev_multifunction(self):
+        inst = model.Model(None, objstore_loc=self.tmp_store)
+
+        hostdev_multi_elem = objectify.fromstring(
+            self.get_hostdev_multifunction_xml()
+        )
+        self.assertTrue(
+            inst.vmhostdev_is_hostdev_multifunction(hostdev_multi_elem)
+        )
+
+        hostdev_nomulti_elem = objectify.fromstring(
+            self.get_hostdev_nomultifunction_xml()
+        )
+        self.assertFalse(
+            inst.vmhostdev_is_hostdev_multifunction(hostdev_nomulti_elem)
+        )
+
+    def test_vmhostdev_get_devices_same_addr(self):
+        inst = model.Model(None, objstore_loc=self.tmp_store)
+
+        root = objectify.fromstring(self.get_hostdevs_xml())
+        hostdevs = root.devices.hostdev
+
+        hostdev_multi_elem = objectify.fromstring(
+            self.get_hostdev_multifunction_xml()
+        )
+
+        hostdev_same_addr_str = """\
+<hostdev mode="subsystem" type="pci" managed="yes"><driver name="vfio"/>\
+<source><address domain="0x0001" bus="0x0d" slot="0x00" function="0x1"/>\
+</source><alias name="hostdev0"/>\
+<address type="pci" domain="0x0000" bus="0x00" slot="0x05" function="0x1"/>\
+</hostdev>"""
+        same_addr_devices = [
+            ET.tostring(hostdev_multi_elem), hostdev_same_addr_str
+        ]
+
+        self.assertItemsEqual(
+            same_addr_devices,
+            inst.vmhostdev_get_devices_same_addr(hostdevs, hostdev_multi_elem)
+        )
+
+        nomatch_elem = objectify.fromstring(
+            self.get_hostdev_nomultifunction_xml()
+        )
+
+        self.assertEqual(
+            inst.vmhostdev_get_devices_same_addr(hostdevs, nomatch_elem),
+            [ET.tostring(nomatch_elem)]
+        )
+
+    @mock.patch('wok.plugins.kimchi.model.vmhostdevs.get_vm_config_flag')
+    def test_vmhostdev_unplug_multifunction_pci(self, mock_conf_flag):
+        class FakeDom():
+            def detachDeviceFlags(self, xml, config_flag):
+                pass
+
+        mock_conf_flag.return_value = ''
+
+        inst = model.Model(None, objstore_loc=self.tmp_store)
+
+        root = objectify.fromstring(self.get_hostdevs_xml())
+        hostdevs = root.devices.hostdev
+
+        hostdev_multi_elem = objectify.fromstring(
+            self.get_hostdev_multifunction_xml()
+        )
+
+        self.assertTrue(
+            inst.vmhostdev_unplug_multifunction_pci(FakeDom(), hostdevs,
+                                                    hostdev_multi_elem)
+        )
+
+        nomatch_elem = objectify.fromstring(
+            self.get_hostdev_nomultifunction_xml()
+        )
+
+        self.assertFalse(
+            inst.vmhostdev_unplug_multifunction_pci(FakeDom(), hostdevs,
+                                                    nomatch_elem)
+        )
 
 
 class BaseModelTests(unittest.TestCase):

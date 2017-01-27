@@ -635,14 +635,24 @@ class VMHostDevModel(object):
             wok_log.error('opaque must be valid')
             return
 
-        wok_log.info("Device %s removed successfuly" % alias)
-        # Re-attach device to host
-        try:
-            dev = conn.get().nodeDeviceLookupByName(alias)
-            dev.reAttach()
-        except libvirt.libvirtError, e:
-            wok_log.error("Unable to attach device %s back to host. Error: %s",
-                          alias, e.message)
+        wok_log.info("Device %s removed successfully" % alias)
+
+        # Re-attach device to host if it's not managed mode
+        if not opaque._managed:
+            try:
+                dev = conn.get().nodeDeviceLookupByName(alias)
+                dev.reAttach()
+            except libvirt.libvirtError, e:
+                wok_log.error(
+                    "Unable to attach device %s back to host. Error: %s",
+                    alias, e.message
+                )
+        else:
+            wok_log.info(
+                "Device %s was attached in 'managed' mode. "
+                "Skipping re-attach()." % alias
+            )
+
         opaque._cb('OK', True)
 
     def _detach_device(self, cb, params):
@@ -655,8 +665,8 @@ class VMHostDevModel(object):
         lock = params['lock']
 
         with lock:
-            pci_devs = [(DeviceModel.deduce_dev_name(e, self.conn), e)
-                        for e in hostdev if e.attrib['type'] == 'pci']
+            pci_devs = {DeviceModel.deduce_dev_name(e, self.conn): e
+                        for e in hostdev if e.attrib['type'] == 'pci'}
 
             dev_info = self.dev_model.lookup(dev_name)
             is_3D_device = self.dev_model.is_device_3D_controller(dev_info)
@@ -664,9 +674,18 @@ class VMHostDevModel(object):
                 raise InvalidOperation('KCHVMHDEV0006E',
                                        {'name': dev_info['name']})
 
+            if not pci_devs.get(dev_name):
+                raise NotFoundError('KCHVMHDEV0001E',
+                                    {'vmid': vmid, 'dev_name': dev_name})
+
+            dev_name_elem = pci_devs[dev_name]
+            self._managed = dev_name_elem.get('managed', 'no') == 'yes'
+
             # check for multifunction and detach all functions together
             try:
-                multi = self._unplug_multifunction_pci(dom, hostdev, dev_name)
+                multi = self.unplug_multifunction_pci(
+                    dom, hostdev, dev_name_elem
+                )
             except libvirt.libvirtError:
                 multi = False
 
@@ -680,54 +699,71 @@ class VMHostDevModel(object):
                     cb('OK', True)
                 return
 
-            # detach each function individually
-            for e in hostdev:
-                if DeviceModel.deduce_dev_name(e, self.conn) == dev_name:
-                    xmlstr = etree.tostring(e)
-                    dom.detachDeviceFlags(
-                        xmlstr, get_vm_config_flag(dom, mode='all'))
-                    if e.attrib['type'] == 'pci':
-                        self._delete_affected_pci_devices(dom, dev_name,
-                                                          pci_devs)
-                    if is_3D_device:
-                        devsmodel = VMHostDevsModel(conn=self.conn)
-                        devsmodel.update_mmio_guest(vmid, False)
-                    break
-            else:
-                msg = WokMessage('KCHVMHDEV0001E',
-                                 {'vmid': vmid, 'dev_name': dev_name})
-                cb(msg.get_text(), False)
-                raise NotFoundError('KCHVMHDEV0001E',
-                                    {'vmid': vmid, 'dev_name': dev_name})
+            # detach individually
+            xmlstr = etree.tostring(dev_name_elem)
+            dom.detachDeviceFlags(
+                xmlstr, get_vm_config_flag(dom, mode='all'))
+            if dev_name_elem.attrib['type'] == 'pci':
+                self._delete_affected_pci_devices(dom, dev_name,
+                                                  pci_devs)
+            if is_3D_device:
+                devsmodel = VMHostDevsModel(conn=self.conn)
+                devsmodel.update_mmio_guest(vmid, False)
 
         if DOM_STATE_MAP[dom.info()[0]] == "shutoff":
             cb('OK', True)
 
-    def _get_devices_same_addr(self, hostdev, domain, bus, slot):
+    def get_devices_same_addr(self, hostdevs, device_elem):
+        def elem_has_valid_address(elem):
+            if elem.get('type') != 'pci' or \
+                    elem.address is None or \
+                    elem.address.get('domain') is None or \
+                    elem.address.get('bus') is None or \
+                    elem.address.get('slot') is None:
+                return False
+            return True
+
+        if not elem_has_valid_address(device_elem):
+            return []
+
         devices = []
-        for device in hostdev:
-            if device.attrib['type'] != 'pci':
+        device_domain = device_elem.address.get('domain')
+        device_bus = device_elem.address.get('bus')
+        device_slot = device_elem.address.get('slot')
+
+        for dev in hostdevs:
+
+            if not elem_has_valid_address(dev):
                 continue
 
-            address = device.source.address
-            if int(address.attrib['domain'], 16) != domain or \
-               int(address.attrib['bus'], 16) != bus or \
-               int(address.attrib['slot'], 16) != slot:
-                continue
+            dev_domain = dev.address.get('domain')
+            dev_bus = dev.address.get('bus')
+            dev_slot = dev.address.get('slot')
 
-            devices.append(etree.tostring(device))
+            if dev_domain == device_domain and dev_bus == device_bus and \
+                    dev_slot == device_slot:
+                devices.append(etree.tostring(dev))
 
         return devices
 
-    def _unplug_multifunction_pci(self, dom, hostdev, dev_name):
-        # get all devices attached to the guest in the same domain+bus+slot
-        # that the one we are going to detach because they must be detached
-        # together
-        domain, bus, slot, _ = dev_name.split('_')[1:]
-        devices = self._get_devices_same_addr(hostdev,
-                                              int(domain, 16),
-                                              int(bus, 16),
-                                              int(slot, 16))
+    def is_hostdev_multifunction(self, dev_elem):
+        if dev_elem.address is None or \
+                dev_elem.address.get('multifunction') is None or \
+                dev_elem.address.get('function') is None:
+
+            return False
+
+        is_multi = dev_elem.address.get('multifunction') == 'on' and \
+            dev_elem.address.get('function') == '0x0'
+
+        return is_multi
+
+    def unplug_multifunction_pci(self, dom, hostdevs, dev_elem):
+        if not self.is_hostdev_multifunction(dev_elem):
+            return False
+
+        devices = self.get_devices_same_addr(hostdevs, dev_elem)
+
         if len(devices) <= 1:
             return False
 
@@ -747,7 +783,7 @@ class VMHostDevModel(object):
             DevicesModel(
                 conn=self.conn).get_list(_passthrough_affected_by=dev_name))
 
-        for pci_name, e in pci_devs:
+        for pci_name, e in pci_devs.iteritems():
             if pci_name in affected_names:
                 xmlstr = etree.tostring(e)
                 dom.detachDeviceFlags(
