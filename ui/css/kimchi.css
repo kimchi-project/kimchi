@@ -2379,6 +2379,10 @@ body.wok-gallery {
   vertical-align: middle;
 }
 
+#add-network-window #networkConfig #alert-modal-container .alert {
+  padding: 8px 34px 8px 16px;
+}
+
 #storage-root-container .wok-datagrid-body span > .fa {
   font-size: 22px;
   width: 20px;
