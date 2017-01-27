@@ -230,7 +230,9 @@ kimchi.guest_edit_main = function() {
                 $("select", "span.column-network", itemNode).append(networkOptions);
             }
 
-            $("select", itemNode).selectpicker();
+            $("select", itemNode).selectpicker({
+                dropupAuto: false
+            });
 
 
             $('.edit', itemNode).attr('disabled', kimchi.thisVMState === "running");
