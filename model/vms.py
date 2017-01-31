@@ -1229,7 +1229,7 @@ class VMModel(object):
 
         with self.objstore as session:
             try:
-                extra_info = session.get('vm', dom.UUIDString())
+                extra_info = session.get('vm', dom.UUIDString(), True)
             except NotFoundError:
                 extra_info = {}
         icon = extra_info.get('icon')
