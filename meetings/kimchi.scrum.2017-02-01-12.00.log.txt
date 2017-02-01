@@ -1,0 +1,35 @@
+12:00:31 <alinefm> #startmeeting
+12:00:31 <kimchi-bot> Meeting started Wed Feb  1 12:00:31 2017 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+12:00:31 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+12:00:31 <alinefm> #meetingname scrum
+12:00:31 <kimchi-bot> The meeting name has been set to 'scrum'
+12:00:38 <alinefm> #info Agenda
+12:00:38 <alinefm> #info 1) Status
+12:00:38 <alinefm> #info 2) Open discussion
+12:00:38 <alinefm> anything else?
+12:03:10 <ramonn> nop
+12:03:20 <bianca> no
+12:03:28 <alinefm> so let's get started
+12:03:33 <alinefm> #topic Status
+12:03:33 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+12:03:39 <lcorreia_> #info [wok] lcorreia got upstream patch to move dhparams.pem creation from build to post-install
+12:03:39 <lcorreia_> #info [wok] lcorreia got upstream patch to fix reloading of nginx config on development mode
+12:03:39 <lcorreia_> #info [wok/kimchi/ginger*] lcorreia analyzing how to run tests without root permission.
+12:03:39 <lcorreia_> #info [wok/kimchi/ginger*] lcorreia maintaining Open Power HostOS branches
+12:03:57 <ramonn> #info [wok] ramonn send login try patch to be reviewed
+12:04:11 <ramonn> #info [wok] ramonn will finish loglevel patch
+12:04:21 <bianca> #info [Ginger] bianca is working on issue #13: Config backup needs progress indicator.
+12:04:22 <bianca> #info [Kimchi] bianca sent a patch related to issue #979: Create UI to change boot order, sent a patch to ML. Waiting review.
+12:04:26 <danielhb> #info [wok] danielhb worked in the v3 of the new plug-ins API. just sent it to the ML
+12:04:51 <danielhb> #info [wok] danielhb will now go back to investigate the asynchronous notification mechanism
+12:06:31 <alinefm> anything else?
+12:06:38 <danielhb> no
+12:07:42 <ramonn> nop
+12:09:11 <alinefm> #topic Open Discussion
+12:09:22 <alinefm> danielhb, ramonn bianca lcorreia_ any other topic for today?
+12:09:28 <bianca> no
+12:09:30 <lcorreia_> no
+12:09:34 <ramonn> nop
+12:09:52 <danielhb> no
+12:10:28 <alinefm> so thanks everyone for joining!
+12:10:31 <alinefm> #endmeeting
