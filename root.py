@@ -73,6 +73,8 @@ class Kimchi(WokRoot):
             }
         }
 
+        self.depends = ['gingerbase']
+
         # Some paths or URI's present in the objectstore have changed after
         # Kimchi 2.0.0 release. Check here if an upgrade in the schema and data
         # are necessary.
