@@ -17,9 +17,10 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import cherrypy
 import json
 import os
-import cherrypy
+import tempfile
 
 from wok.plugins.kimchi import config, mockmodel, websocket
 from wok.plugins.kimchi.i18n import messages
@@ -44,22 +45,28 @@ class Kimchi(WokRoot):
             if not os.path.isdir(directory):
                 os.makedirs(directory)
 
-        if hasattr(wok_options, "model"):
-            self.model = wok_options.model
-        elif wok_options.test:
-            self.model = mockmodel.MockModel()
+        # When running on test mode, specify the objectstore location to
+        # remove the file on server shutting down. That way, the system will
+        # not suffer any change while running on test mode
+        if wok_options.test and (wok_options.test is True or
+                                 wok_options.test.lower() == 'true'):
+            self.objectstore_loc = tempfile.mktemp()
+            self.model = mockmodel.MockModel(self.objectstore_loc)
+
+            def remove_objectstore():
+                if os.path.exists(self.objectstore_loc):
+                    os.unlink(self.objectstore_loc)
+            cherrypy.engine.subscribe('exit', remove_objectstore)
         else:
             self.model = kimchiModel.Model()
+            ws_proxy = websocket.new_ws_proxy()
+            cherrypy.engine.subscribe('exit', ws_proxy.terminate)
 
         dev_env = wok_options.environment != 'production'
         super(Kimchi, self).__init__(self.model, dev_env)
 
         for ident, node in sub_nodes.items():
             setattr(self, ident, node(self.model))
-
-        if isinstance(self.model, kimchiModel.Model):
-            ws_proxy = websocket.new_ws_proxy()
-            cherrypy.engine.subscribe('exit', ws_proxy.terminate)
 
         self.api_schema = json.load(open(os.path.join(os.path.dirname(
                                     os.path.abspath(__file__)), 'API.json')))
