@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM Corp, 2015-2016
+# Copyright IBM Corp, 2015-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -52,7 +52,8 @@ template_specs = {'x86': {'old': dict(disk_bus='ide',
                                       nic_model='e1000', sound_model='ich6'),
                           'modern': dict(disk_bus='virtio',
                                          nic_model='virtio',
-                                         sound_model='ich6')},
+                                         sound_model='ich6',
+                                         tablet_bus='usb')},
                   'power': {'old': dict(disk_bus='scsi',
                                         nic_model='spapr-vlan',
                                         cdrom_bus='scsi',
@@ -86,8 +87,7 @@ template_specs = {'x86': {'old': dict(disk_bus='ide',
 
 
 custom_specs = {'fedora': {'22': {'x86': dict(video_model='qxl')}},
-                'windows': {'xp': {'x86': dict(nic_model='pcnet',
-                                               tablet_bus="usb")}}}
+                'windows': {'xp': {'x86': dict(nic_model='pcnet')}}}
 
 
 modern_version_bases = {'x86': {'debian': '6.0', 'ubuntu': '7.10',
