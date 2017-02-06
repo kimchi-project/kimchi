@@ -1,7 +1,7 @@
 #*
  * Project Kimchi
  *
- * Copyright IBM Corp, 2013-2016
+ * Copyright IBM Corp, 2013-2017
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@
     </div>
     <div class="modal-body">
     <span id="alert-modal-container"></span>
-<ul class="nav nav-tabs" role="tablist">
+  <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#form-guest-edit-general" aria-controls="form-guest-edit-general" role="tab" data-id="form-guest-edit-general" data-toggle="tab">$_("General")</a></li>
     <li role="presentation"><a href="#form-guest-edit-storage" aria-controls="form-guest-edit-storage" role="tab" data-id="form-guest-edit-storage" data-toggle="tab">$_("Storage")</a></li>
     <li role="presentation"><a href="#form-guest-edit-interface" aria-controls="form-guest-edit-interface" role="tab" data-id="form-guest-edit-interface" data-toggle="tab">$_("Interface")</a></li>
@@ -67,6 +67,19 @@
                         <option value="sclp">$_("sclp")</option>
                         <option value="virtio">$_("virtio")</option>
                     </select>
+                </div>
+                <div class="guest-edit-bootorder tab-pane" id="form-guest-edit-bootorder">
+                    <div id="bootOrder">
+                        <label for="guest-edit-boot-order-textbox">Boot Order</label>
+                            <ul id="myList" class="list-group boot-order">
+                                <li class="list-group-item" data-value="CDROM"> CD-ROM <button id="add-cdrom" class="btn btn-link addBootOrderElem"><i class="fa fa-plus-circle"></i> Add </button><button id="remove-cdrom" class="btn btn-link deleteBootOrderElem"><i class="fa fa-minus-circle"></i> Remove</button></li>
+                                <li class="list-group-item" data-value="HD"> HD <button id="add-cdrom" class="btn btn-link addBootOrderElem"><i class="fa fa-plus-circle"></i> Add </button><button id="remove-hd" class="btn btn-link deleteBootOrderElem"><i class="fa fa-minus-circle"></i> Remove</button></li>
+                                <li class="list-group-item" data-value="Network"> Network <button id="add-cdrom" class="btn btn-link addBootOrderElem"><i class="fa fa-plus-circle"></i> Add </button><button id="remove-network" class="btn btn-link deleteBootOrderElem"><i class="fa fa-minus-circle"></i> Remove</button></li>
+                            </ul>
+                            <p class="help-block">
+                                <i class="fa fa-info-circle"></i> $_("Select which items for boot order and grad them when needed to order them. At least one option must be selected.")</p>
+                            </p>
+                    </div>
                 </div>
             </form>
             <form role="tabpanel" class="tab-pane" id="form-guest-edit-storage">
@@ -197,7 +210,6 @@
                             $_("Current CPU must be equal or lower than the Maximum CPU value. If a topology is set, it must be also be a multiple of the 'threads' value.")
                         </p>
                     </div>
-
                     <div id="guest-max-processor-panel" class="form-group">
                         <label for="guest-edit-max-processor-textbox">$_("Max CPU")</label>
                         <p id="settings-readonly-help" class="hidden">$_("Unable to edit maximum CPU or CPU topology when editing a running or paused virtual machine.")</p>

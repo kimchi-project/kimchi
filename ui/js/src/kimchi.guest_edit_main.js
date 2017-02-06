@@ -15,6 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 kimchi.guest_edit_main = function() {
     var authType;
     var formTargetId;
@@ -26,6 +27,7 @@ kimchi.guest_edit_main = function() {
     var networkOptions = "";
 
     clearTimeout(kimchi.vmTimeout);
+    var bootOrderOptions = [];
 
     $('#modalWindow').on('hidden.bs.modal', function() {
         kimchi.setListVMAutoTimeout();
@@ -45,11 +47,10 @@ kimchi.guest_edit_main = function() {
 
     var submitForm = function(event) {
 
-        // tap map, "general": 0, "storage": 1, "interface": 2, "permission": 3, "password": 4
         var submit_map = {
-            0: generalSubmit,
-            3: permissionSubmit,
-            6: processorSubmit
+            1: generalSubmit,
+            4: permissionSubmit,
+            7: processorSubmit
         };
         var currentTab = $('#guest-edit-window li.active a[data-toggle="tab"]').data('id');
         var toSubmit = parseInt($('#'+currentTab).index());
@@ -965,6 +966,100 @@ kimchi.guest_edit_main = function() {
         });
     };
 
+    var setupBootOrder = function(guest) {
+        var guestBootOrder = guest['bootorder'];
+        var dev = ["cdrom", "hd", "network"];
+        var excludedDev = dev.filter(function(e){return this.indexOf(e)<0;},guestBootOrder);
+
+        $('#myList').empty();
+        $.each(guestBootOrder, function(index, value) {
+          item = $.parseHTML("<li class='list-group-item " + value + "' data-value=" + value + "><i class='fa fa-check'></i> " + value + "<span style='float: right; margin-top: -10px; padding: 0;'><button class='btn btn-link addBootOrderElem'><i class='fa fa-plus-circle'></i> Add</button><button class='btn btn-link deleteBootOrderElem'><i class='fa fa-minus-circle'></i> Remove</button></<span></li>");
+          $('#myList').append(item);
+          $('#myList .' + value + ' .addBootOrderElem').prop('disabled', true);
+          $('#myList .' + value + ' .deleteBootOrderElem').prop('disabled', false);
+        });
+        if (excludedDev) {
+          $.each(excludedDev, function(index, value) {
+            item = $.parseHTML("<li class='list-group-item " + value + "' data-value=" + value + ">" + value + "<span style='float: right; margin-top: -10px; padding: 0;'><button class='btn btn-link addBootOrderElem'><i class='fa fa-plus-circle'></i> Add</button><button class='btn btn-link deleteBootOrderElem'><i class='fa fa-minus-circle'></i> Remove</button></<span></li>");
+            $('#myList').append(item);
+            $('#myList .' + value + ' .deleteBootOrderElem').prop('disabled', true);
+          });
+        }
+
+        if (guestBootOrder.length == 1) {
+          $('#myList .deleteBootOrderElem').prop('disabled', true);
+        }
+
+        $('.boot-order').sortable({
+            items: 'li',
+            cursor: 'move',
+            opacity: 0.6,
+            containment: "parent",
+            start: function(event, ui) {
+                $(this).addClass('focus');
+            },
+            stop: function(event, ui) {
+                $(this).removeClass('focus');
+            },
+            change: function(event, ui) {
+                // callback once started changing order
+            },
+            update: function(event, ui) {
+                // callback once finished order
+                $(saveButton).prop('disabled', false);
+                bootOrderOptions = [];
+                $("#myList li").each(function() {
+                    bootOrderOptions.push($(this).attr("data-value").toLowerCase())
+                });
+                bootOrderOptions.forEach(function(entry) {
+                    console.log(entry);
+                });
+                var data = {
+                    bootorder: bootOrderOptions
+                };
+            }
+        });
+
+        $(".deleteBootOrderElem").on('click', function(evt) {
+            evt.preventDefault();
+            var item = $(this).parent().parent().attr("data-value").toLowerCase();
+            var index = guestBootOrder.indexOf(item);
+
+            $('.' + item + ' i.fa.fa-check').replaceWith('');
+            $('#myList .' + item + ' .deleteBootOrderElem').prop('disabled', true);
+            $('#myList .' + item + ' .addBootOrderElem').prop('disabled', false);
+
+            if (index !== -1) {
+              guestBootOrder.splice(index, 1);
+            }
+            if (guestBootOrder.length == 1) {
+              $('#myList .deleteBootOrderElem').prop('disabled', true);
+            }
+            var data = {
+                bootorder: guestBootOrder
+            };
+        });
+
+        $(".addBootOrderElem").on('click', function(evt) {
+            evt.preventDefault();
+            var item = $(this).parent().parent().attr("data-value").toLowerCase();
+            var index = guestBootOrder.indexOf(item);
+
+            $('.' + item).prepend("<i class='fa fa-check'></i> ");
+            $('#myList .' + item + ' .addBootOrderElem').prop('disabled', true);
+            $('#myList .' + item + ' .deleteBootOrderElem').prop('disabled', false);
+
+            guestBootOrder.push(item);
+
+            if (guestBootOrder.length > 1) {
+              $('#myList .deleteBootOrderElem').prop('disabled', false);
+            }
+            var data = {
+                bootorder: guestBootOrder
+            };
+        });
+    };
+
     var initContent = function(guest) {
         guest['icon'] = guest['icon'] || 'plugins/kimchi/images/icon-vm.png';
         $('#form-guest-edit-general').fillWithObject(guest);
@@ -1030,6 +1125,7 @@ kimchi.guest_edit_main = function() {
         setupPermission();
         setupPCIDevice();
         setupSnapshot();
+        setupBootOrder(guest);
 
         kimchi.init_processor_tab(guest.cpu_info, $(saveButton));
         if ((kimchi.thisVMState === "running") || (kimchi.thisVMState === "paused")) {
@@ -1117,6 +1213,12 @@ kimchi.guest_edit_main = function() {
                     delete changedFields.memory.current;
                 }
             }
+
+            checkedValue = [];
+            $("#myList i.fa.fa-check").each(function() {
+              checkedValue.push($(this).parent().attr("data-value").toLowerCase());
+            });
+            changedFields.bootorder = checkedValue;
 
             kimchi.updateVM(kimchi.selectedGuest, changedFields, function() {
                 kimchi.listVmsAuto();
