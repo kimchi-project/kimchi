@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM Corp, 2015-2016
+# Copyright IBM Corp, 2015-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -383,12 +383,14 @@ class NetworkModel(object):
         else:
             interfaces = [interface]
 
+        network_in_use, used_by_vms, _ = self._is_network_in_use(name)
+
         return {'connection': connection,
                 'interfaces': interfaces,
                 'subnet': subnet,
                 'dhcp': dhcp,
-                'vms': self._get_vms_attach_to_a_network(name),
-                'in_use': self._is_network_in_use(name),
+                'vms': used_by_vms,
+                'in_use': network_in_use,
                 'autostart': network.autostart() == 1,
                 'state':  network.isActive() and "active" or "inactive",
                 'persistent': True if network.isPersistent() else False}
@@ -397,20 +399,24 @@ class NetworkModel(object):
         # All the networks listed as default in template.conf file should not
         # be deactivate or deleted. Otherwise, we will allow user create
         # inconsistent templates from scratch
-        if name in tmpl_defaults['networks']:
-            return True
-
         vms = self._get_vms_attach_to_a_network(name)
-        return bool(vms) or self._is_network_used_by_template(name)
+        tmpls = self._is_network_used_by_template(name)
+
+        if name in tmpl_defaults['networks']:
+            return (True, vms, tmpls)
+
+        return (bool(vms) or bool(tmpls), vms, tmpls)
 
     def _is_network_used_by_template(self, network):
+        tmpl_list = []
+
         with self.objstore as session:
             templates = session.get_list('template')
             for tmpl in templates:
                 tmpl_net = session.get('template', tmpl)['networks']
                 if network in tmpl_net:
-                    return True
-            return False
+                    tmpl_list.append(tmpl)
+            return tmpl_list
 
     def _get_vms_attach_to_a_network(self, network, filter="all"):
         DOM_STATE_MAP = {'nostate': 0, 'running': 1, 'blocked': 2,
@@ -440,21 +446,25 @@ class NetworkModel(object):
                                                   'err': e.message})
 
     def deactivate(self, name):
-        if self._is_network_in_use(name):
-            vms = self._get_vms_attach_to_a_network(name)
-            vms.sort()
+        in_use, used_by_vms, used_by_tmpls = self._is_network_in_use(name)
+        vms = 'N/A' if len(used_by_vms) == 0 else ', '.join(used_by_vms)
+        tmpls = 'N/A' if len(used_by_tmpls) == 0 else ', '.join(used_by_tmpls)
+        if in_use:
             raise InvalidOperation("KCHNET0018E", {'name': name,
-                                                   'vms': ', '.join(vms)})
+                                                   'vms': vms,
+                                                   'tmpls': tmpls})
 
         network = self.get_network(self.conn.get(), name)
         network.destroy()
 
     def delete(self, name):
-        if self._is_network_in_use(name):
-            vms = self._get_vms_attach_to_a_network(name)
-            vms.sort()
+        in_use, used_by_vms, used_by_tmpls = self._is_network_in_use(name)
+        vms = 'N/A' if len(used_by_vms) == 0 else ', '.join(used_by_vms)
+        tmpls = 'N/A' if len(used_by_tmpls) == 0 else ', '.join(used_by_tmpls)
+        if in_use:
             raise InvalidOperation("KCHNET0017E", {'name': name,
-                                                   'vms': ', '.join(vms)})
+                                                   'vms': vms,
+                                                   'tmpls': tmpls})
 
         network = self.get_network(self.conn.get(), name)
         if network.isActive():
