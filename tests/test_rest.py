@@ -179,7 +179,10 @@ class RestTests(unittest.TestCase):
         resp = self.request('/plugins/kimchi/vms/vm-1', req, 'PUT')
         self.assertEquals(400, resp.status)
 
-        if not os.uname()[4] == "s390x":
+        # Check if there is support to memory hotplug
+        resp = self.request('/plugins/kimchi/config/capabilities').read()
+        conf = json.loads(resp)
+        if os.uname()[4] != "s390x" and conf['mem_hotplug_support']:
             req = json.dumps({'memory': {'maxmemory': 3072}})
             resp = self.request('/plugins/kimchi/vms/vm-1', req, 'PUT')
             self.assertEquals(200, resp.status)
@@ -195,9 +198,7 @@ class RestTests(unittest.TestCase):
         resp = self.request('/plugins/kimchi/vms/vm-1', req, 'PUT')
         self.assertEquals(400, resp.status)
 
-        # Check if there is support to memory hotplug, once vm is running
-        resp = self.request('/plugins/kimchi/config/capabilities').read()
-        conf = json.loads(resp)
+        # Test memory hotplug
         req = json.dumps({'memory': {'current': 2048}})
         resp = self.request('/plugins/kimchi/vms/vm-1', req, 'PUT')
         if conf['mem_hotplug_support']:
@@ -254,6 +255,9 @@ class RestTests(unittest.TestCase):
         vm = json.loads(
             self.request('/plugins/kimchi/vms/vm-1', req).read()
         )
+
+        # The maxmemory will be automatically increased when the amount of
+        # memory value is greater than the current maxmemory value
         params = {'name': u'∨м-црdαtеd', 'cpu_info': {'vcpus': 5},
                   'memory': {'current': 3072}}
         req = json.dumps(params)
@@ -265,11 +269,9 @@ class RestTests(unittest.TestCase):
         # Memory was hot plugged
         vm['name'] = u'∨м-црdαtеd'
         vm['cpu_info'].update(params['cpu_info'])
-        if not os.uname()[4] == "s390x":
-            vm['memory'].update(params['memory'])
-        else:
-            vm['memory']['current'] = 3072
-            vm['memory']['maxmemory'] = 3072
+        vm['memory']['current'] = 3072
+        vm['memory']['maxmemory'] = 3072
+
         for key in params.keys():
             self.assertEquals(vm[key], vm_updated[key])
 
