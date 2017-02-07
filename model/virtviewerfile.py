@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM Corp, 2016
+# Copyright IBM Corp, 2016-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -22,7 +22,6 @@ import cherrypy
 import libvirt
 import os
 
-from wok.config import config as wok_config
 from wok.exception import InvalidOperation, OperationFailed
 from wok.plugins.kimchi import config as kimchi_config
 from wok.plugins.kimchi.model.vms import VMModel
@@ -49,9 +48,7 @@ port=%(graphics_port)s
 
 
 def _get_request_host():
-    host = cherrypy.request.headers.get('Host')
-    if not host:
-        host = wok_config.get("server", "host")
+    host = cherrypy.request.headers.get('Host', 'localhost')
     host = host.split(':')[0]
     return host
 
@@ -107,7 +104,8 @@ class VMVirtViewerFileModel(object):
             vm_name = dom.name()
             self.firewall_mngr.remove_vm_graphics_port(vm_name)
             cb_id = self.vm_event_callbacks.pop(vm_name, None)
-            self.conn.get().domainEventDeregisterAny(cb_id)
+            if cb_id is not None:
+                self.conn.get().domainEventDeregisterAny(cb_id)
 
     def handleVMShutdownPowerOff(self, vm_name):
         try:
