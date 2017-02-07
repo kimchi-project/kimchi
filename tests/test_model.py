@@ -210,12 +210,14 @@ class ModelTests(unittest.TestCase):
             inst.task_wait(task['id'])
             task = inst.task_lookup(task['id'])
             self.assertEquals('finished', task['status'])
+            snap_name = task['target_uri'].split('/')[-1]
+            created_snaps = [snap_name]
 
             inst.vm_poweroff(u'kimchi-vm')
             vm = inst.vm_lookup(u'kimchi-vm')
 
-            empty_snap = inst.currentvmsnapshot_lookup(u'kimchi-vm')
-            self.assertEquals({}, empty_snap)
+            current_snap = inst.currentvmsnapshot_lookup(u'kimchi-vm')
+            self.assertEquals(created_snaps[0], current_snap['name'])
 
             # this snapshot should be deleted when its VM is deleted
             params = {'name': u'mysnap'}
@@ -223,6 +225,7 @@ class ModelTests(unittest.TestCase):
             inst.task_wait(task['id'])
             task = inst.task_lookup(task['id'])
             self.assertEquals('finished', task['status'])
+            created_snaps.append(params['name'])
 
             self.assertRaises(NotFoundError, inst.vmsnapshot_lookup,
                               u'kimchi-vm', u'foobar')
@@ -231,10 +234,10 @@ class ModelTests(unittest.TestCase):
             self.assertTrue(int(time.time()) >= int(snap['created']))
             self.assertEquals(vm['state'], snap['state'])
             self.assertEquals(params['name'], snap['name'])
-            self.assertEquals(u'', snap['parent'])
+            self.assertEquals(created_snaps[0], snap['parent'])
 
             snaps = inst.vmsnapshots_get_list(u'kimchi-vm')
-            self.assertEquals([params['name']], snaps)
+            self.assertEquals(created_snaps, snaps)
 
             current_snap = inst.currentvmsnapshot_lookup(u'kimchi-vm')
             self.assertEquals(snap, current_snap)
@@ -246,10 +249,10 @@ class ModelTests(unittest.TestCase):
             inst.task_wait(task['id'])
             task = inst.task_lookup(task['id'])
             self.assertEquals('finished', task['status'])
+            created_snaps.append(snap_name)
 
             snaps = inst.vmsnapshots_get_list(u'kimchi-vm')
-            self.assertEquals(sorted([params['name'], snap_name],
-                              key=unicode.lower), snaps)
+            self.assertEquals(sorted(created_snaps, key=unicode.lower), snaps)
 
             snap = inst.vmsnapshot_lookup(u'kimchi-vm', snap_name)
             current_snap = inst.currentvmsnapshot_lookup(u'kimchi-vm')
