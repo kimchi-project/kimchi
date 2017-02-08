@@ -1,0 +1,45 @@
+12:02:07 <alinefm> #startmeeting
+12:02:07 <kimchi-bot> Meeting started Wed Feb  8 12:02:07 2017 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+12:02:07 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+12:02:07 <alinefm> #meetingname scrum
+12:02:07 <kimchi-bot> The meeting name has been set to 'scrum'
+12:02:18 <alinefm> #info Agenda
+12:02:19 <alinefm> #info 1) Status
+12:02:19 <alinefm> #info 2) Open discussion
+12:02:19 <alinefm> anything else?
+12:02:32 <lcorreia> no
+12:03:32 <alinefm> #topic Status
+12:03:32 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+12:03:59 <alinefm> #info [*] alinefm sent patches to fixed test cases broken when server start up changed to support plugins management
+12:04:14 <lcorreia> #info [wok/kimchi/ginger*] lcorreia working on running tests without root permission.
+12:04:14 <lcorreia> #info [wok/kimchi/ginger*] lcorreia maintaining Open Power HostOS branches
+12:04:31 <bianca> #info [Ginger] bianca is working on issue #13: Config backup needs progress indicator.
+12:04:31 <bianca> #info [Kimchi] bianca sent a patch related to issue #979: Create UI to change boot order, sent a patch to ML. Applied.
+12:05:08 <alinefm> lcorreia, any more details to share about the tests? what is the current status? everything working?
+12:06:23 <danielhb> #info [WoK] danielhb sent the final version of the /config/plugins API
+12:06:39 <ramonn> #info [wok] ramonn will work on logging levels and send patch
+12:06:40 <danielhb> #info [WoK] danielhb is investigating asynchronous notifications with websockets
+12:07:03 <ramonn> #info [kimchi] ramonn pretend to start task about disk performance this week
+12:07:05 <lcorreia> alinefm, not yet, wok, gingerbase and ginger are ok (minor fixes needed) but I'm still fixing kimchi
+12:07:36 <alinefm> lcorreia, but on path to get kimchi tests working too?
+12:08:08 <lcorreia> alinefm, yes
+12:09:24 <alinefm> great
+12:09:34 <alinefm> anything else?
+12:11:51 <alinefm> danielhb, ramonn lcorreia bianca ^
+12:11:57 <bianca> no
+12:12:15 <lcorreia> no
+12:12:16 <ramonn> nop
+12:12:27 <danielhb> alinefm, my Iron Man action figure still mad at your patch
+12:12:45 <alinefm> hehehe
+12:12:53 <alinefm> danielhb, have you applied the wok patches?
+12:13:10 <danielhb> alinefm, not yet,  I am scared :(((
+12:13:14 <alinefm> otherwise, the tests will use the real model and the reboot/shutdown test will really work =P
+12:13:19 <alinefm> danielhb, heheh
+12:13:24 <alinefm> I am with you! gg
+12:15:32 <alinefm> #topic Open Discussion
+12:15:44 <alinefm> danielhb, bianca lcorreia ramonn any other topic to discuss today?
+12:15:52 <lcorreia> no
+12:15:53 <bianca> no
+12:18:33 <ramonn> nop
+12:22:36 <alinefm> thanks everyone for joining!
+12:22:38 <alinefm> #endmeeting

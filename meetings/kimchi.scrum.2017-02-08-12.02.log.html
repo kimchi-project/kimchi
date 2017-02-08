@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">12:02:07</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">12:02:07</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Feb  8 12:02:07 2017 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">12:02:07</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">12:02:07</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">12:02:07</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">12:02:18</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda</span>
+<a name="l-7"></a><span class="tm">12:02:19</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">1) Status</span>
+<a name="l-8"></a><span class="tm">12:02:19</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">2) Open discussion</span>
+<a name="l-9"></a><span class="tm">12:02:19</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-10"></a><span class="tm">12:02:32</span><span class="nk"> &lt;lcorreia&gt;</span> no
+<a name="l-11"></a><span class="tm">12:03:32</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-12"></a><span class="tm">12:03:32</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info [&lt;project] &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-13"></a><span class="tm">12:03:59</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] alinefm sent patches to fixed test cases broken when server start up changed to support plugins management</span>
+<a name="l-14"></a><span class="tm">12:04:14</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok/kimchi/ginger*] lcorreia working on running tests without root permission.</span>
+<a name="l-15"></a><span class="tm">12:04:14</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok/kimchi/ginger*] lcorreia maintaining Open Power HostOS branches</span>
+<a name="l-16"></a><span class="tm">12:04:31</span><span class="nk"> &lt;bianca&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Ginger] bianca is working on issue #13: Config backup needs progress indicator.</span>
+<a name="l-17"></a><span class="tm">12:04:31</span><span class="nk"> &lt;bianca&gt;</span> <span class="cmd">#info </span><span class="cmdline">[Kimchi] bianca sent a patch related to issue #979: Create UI to change boot order, sent a patch to ML. Applied.</span>
+<a name="l-18"></a><span class="tm">12:05:08</span><span class="nk"> &lt;alinefm&gt;</span> lcorreia, any more details to share about the tests? what is the current status? everything working?
+<a name="l-19"></a><span class="tm">12:06:23</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[WoK] danielhb sent the final version of the /config/plugins API</span>
+<a name="l-20"></a><span class="tm">12:06:39</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] ramonn will work on logging levels and send patch</span>
+<a name="l-21"></a><span class="tm">12:06:40</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[WoK] danielhb is investigating asynchronous notifications with websockets</span>
+<a name="l-22"></a><span class="tm">12:07:03</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ramonn pretend to start task about disk performance this week</span>
+<a name="l-23"></a><span class="tm">12:07:05</span><span class="nk"> &lt;lcorreia&gt;</span> alinefm, not yet, wok, gingerbase and ginger are ok (minor fixes needed) but I'm still fixing kimchi
+<a name="l-24"></a><span class="tm">12:07:36</span><span class="nk"> &lt;alinefm&gt;</span> lcorreia, but on path to get kimchi tests working too?
+<a name="l-25"></a><span class="tm">12:08:08</span><span class="nk"> &lt;lcorreia&gt;</span> alinefm, yes
+<a name="l-26"></a><span class="tm">12:09:24</span><span class="nk"> &lt;alinefm&gt;</span> great
+<a name="l-27"></a><span class="tm">12:09:34</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-28"></a><span class="tm">12:11:51</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, ramonn lcorreia bianca ^
+<a name="l-29"></a><span class="tm">12:11:57</span><span class="nk"> &lt;bianca&gt;</span> no
+<a name="l-30"></a><span class="tm">12:12:15</span><span class="nk"> &lt;lcorreia&gt;</span> no
+<a name="l-31"></a><span class="tm">12:12:16</span><span class="nk"> &lt;ramonn&gt;</span> nop
+<a name="l-32"></a><span class="tm">12:12:27</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, my Iron Man action figure still mad at your patch
+<a name="l-33"></a><span class="tm">12:12:45</span><span class="nk"> &lt;alinefm&gt;</span> hehehe
+<a name="l-34"></a><span class="tm">12:12:53</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, have you applied the wok patches?
+<a name="l-35"></a><span class="tm">12:13:10</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, not yet,  I am scared :(((
+<a name="l-36"></a><span class="tm">12:13:14</span><span class="nk"> &lt;alinefm&gt;</span> otherwise, the tests will use the real model and the reboot/shutdown test will really work =P
+<a name="l-37"></a><span class="tm">12:13:19</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, heheh
+<a name="l-38"></a><span class="tm">12:13:24</span><span class="nk"> &lt;alinefm&gt;</span> I am with you! gg
+<a name="l-39"></a><span class="tm">12:15:32</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-40"></a><span class="tm">12:15:44</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, bianca lcorreia ramonn any other topic to discuss today?
+<a name="l-41"></a><span class="tm">12:15:52</span><span class="nk"> &lt;lcorreia&gt;</span> no
+<a name="l-42"></a><span class="tm">12:15:53</span><span class="nk"> &lt;bianca&gt;</span> no
+<a name="l-43"></a><span class="tm">12:18:33</span><span class="nk"> &lt;ramonn&gt;</span> nop
+<a name="l-44"></a><span class="tm">12:22:36</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining!
+<a name="l-45"></a><span class="tm">12:22:38</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>
