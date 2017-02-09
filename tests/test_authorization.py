@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM Corp, 2014-2016
+# Copyright IBM Corp, 2014-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -17,6 +17,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import cherrypy
 import json
 import os
 import unittest
@@ -24,8 +25,6 @@ from functools import partial
 
 from tests.utils import get_fake_user, patch_auth
 from tests.utils import request, run_server, wait_task
-
-from wok.plugins.kimchi import mockmodel
 
 from iso_gen import construct_fake_iso
 
@@ -39,8 +38,8 @@ def setUpModule():
     global test_server, model
 
     patch_auth(sudo=False)
-    model = mockmodel.MockModel('/tmp/obj-store-test')
-    test_server = run_server(test_mode=True, model=model)
+    test_server = run_server(test_mode=True)
+    model = cherrypy.tree.apps['/plugins/kimchi'].root.model
 
     # Create fake ISO to do the tests
     construct_fake_iso(fake_iso, True, '12.04', 'ubuntu')
@@ -48,7 +47,6 @@ def setUpModule():
 
 def tearDownModule():
     test_server.stop()
-    os.unlink('/tmp/obj-store-test')
     os.unlink(fake_iso)
 
 

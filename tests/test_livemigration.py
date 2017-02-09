@@ -407,12 +407,8 @@ class LiveMigrationTests(unittest.TestCase):
                          'not possible to test a live migration')
     def test_vm_livemigrate_persistent_API(self):
         patch_auth()
-
-        inst = model.Model(libvirt_uri='qemu:///system',
-                           objstore_loc=self.tmp_store)
-
         with RollbackContext() as rollback:
-            test_server = run_server(test_mode=True, model=inst)
+            test_server = run_server()
             rollback.prependDefer(test_server.stop)
 
             self.request = partial(request)

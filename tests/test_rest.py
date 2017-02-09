@@ -18,6 +18,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import cherrypy
 import json
 import os
 import re
@@ -32,7 +33,6 @@ from tests.utils import patch_auth, request, run_server, wait_task
 from wok.asynctask import AsyncTask
 from wok.rollbackcontext import RollbackContext
 
-from wok.plugins.kimchi import mockmodel
 from wok.plugins.kimchi.osinfo import get_template_default
 
 import iso_gen
@@ -50,8 +50,8 @@ def setUpModule():
     global test_server, model
 
     patch_auth()
-    model = mockmodel.MockModel('/tmp/obj-store-test')
-    test_server = run_server(test_mode=True, model=model)
+    test_server = run_server(test_mode=True)
+    model = cherrypy.tree.apps['/plugins/kimchi'].root.model
 
     # Create fake ISO to do the tests
     iso_gen.construct_fake_iso(fake_iso, True, '12.04', 'ubuntu')
@@ -61,7 +61,6 @@ def setUpModule():
 
 def tearDownModule():
     test_server.stop()
-    os.unlink('/tmp/obj-store-test')
     os.unlink(fake_iso)
     os.unlink("/var/lib/libvirt/images/fedora.iso")
 
