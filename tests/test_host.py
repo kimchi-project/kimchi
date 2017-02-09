@@ -2,7 +2,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM Corp, 2015-2016
+# Copyright IBM Corp, 2015-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -19,33 +19,24 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import json
-import os
-import tempfile
 import unittest
 from functools import partial
 
 from tests.utils import patch_auth, request, run_server
 
-from wok.plugins.kimchi.mockmodel import MockModel
-
 
 test_server = None
-model = None
-tmpfile = None
 
 
 def setUpModule():
-    global test_server, model, tmpfile
+    global test_server
 
     patch_auth()
-    tmpfile = tempfile.mktemp()
-    model = MockModel(tmpfile)
-    test_server = run_server(test_mode=True, model=model)
+    test_server = run_server(test_mode=True)
 
 
 def tearDownModule():
     test_server.stop()
-    os.unlink(tmpfile)
 
 
 class HostTests(unittest.TestCase):

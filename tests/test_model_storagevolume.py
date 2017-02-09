@@ -2,7 +2,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM Corp, 2015-2016
+# Copyright IBM Corp, 2015-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -18,9 +18,12 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import cherrypy
 import json
+import mock
 import os
 import requests
+import tempfile
 import unittest
 from functools import partial
 
@@ -32,24 +35,25 @@ from wok.config import paths
 from wok.rollbackcontext import RollbackContext
 
 from wok.plugins.kimchi.config import READONLY_POOL_TYPE
-from wok.plugins.kimchi.model.model import Model
-
 
 model = None
+objectstore_loc = tempfile.mktemp()
 test_server = None
 
 
-def setUpModule():
+@mock.patch('wok.plugins.kimchi.config.get_object_store')
+def setUpModule(func):
+    func.return_value = objectstore_loc
     global test_server, model
 
     patch_auth()
-    model = Model(None, '/tmp/obj-store-test')
-    test_server = run_server(test_mode=True, model=model)
+    test_server = run_server(test_mode=False)
+    model = cherrypy.tree.apps['/plugins/kimchi'].root.model
 
 
 def tearDownModule():
     test_server.stop()
-    os.unlink('/tmp/obj-store-test')
+    os.unlink(objectstore_loc)
 
 
 def _do_volume_test(self, model, pool_name):

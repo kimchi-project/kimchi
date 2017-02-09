@@ -2,7 +2,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM Corp, 2015-2016
+# Copyright IBM Corp, 2015-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -18,6 +18,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import cherrypy
 import iso_gen
 import json
 import os
@@ -28,7 +29,6 @@ from functools import partial
 from tests.utils import patch_auth, request, run_server
 
 from wok.plugins.kimchi.config import READONLY_POOL_TYPE
-from wok.plugins.kimchi.mockmodel import MockModel
 from wok.plugins.kimchi.model.featuretests import FeatureTests
 from wok.plugins.kimchi.model.templates import MAX_MEM_LIM
 
@@ -43,14 +43,13 @@ def setUpModule():
     global test_server, model
 
     patch_auth()
-    model = MockModel('/tmp/obj-store-test')
-    test_server = run_server(test_mode=True, model=model)
+    test_server = run_server(test_mode=True)
+    model = cherrypy.tree.apps['/plugins/kimchi'].root.model
     iso_gen.construct_fake_iso(MOCK_ISO, True, '14.04', 'ubuntu')
 
 
 def tearDownModule():
     test_server.stop()
-    os.unlink('/tmp/obj-store-test')
 
 
 class TemplateTests(unittest.TestCase):
