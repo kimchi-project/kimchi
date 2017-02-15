@@ -1,0 +1,41 @@
+12:02:05 <alinefm> #startmeeting
+12:02:05 <kimchi-bot> Meeting started Wed Feb 15 12:02:05 2017 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+12:02:05 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+12:02:05 <alinefm> #meetingname scrum
+12:02:05 <kimchi-bot> The meeting name has been set to 'scrum'
+12:02:14 <alinefm> #info Agenda
+12:02:15 <alinefm> #info 1) Status
+12:02:15 <alinefm> #info 2) Open discussion
+12:02:15 <alinefm> anything else?
+12:04:15 <bianca> no
+12:05:07 <ramonn> no
+12:05:31 <alinefm> #topic Status
+12:05:32 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+12:05:53 <bianca> #info [Ginger] bianca is working on issue #13: Config backup needs progress indicator.
+12:05:53 <bianca> #info [Ginger] bianca is working on issue #378: Change confirmation dialog of password mismatch in Add User window.
+12:07:17 <alinefm> #info [wok] alinefm sent patch for Plugins Management UI (waiting review)
+12:07:43 <danielhb> #info [ginger] danielhb fixed an issue with test_interfaces after changes in wok
+12:07:44 <alinefm> #info [*] alinefm sent patches to fix test cases on Wok modifications on plugins initialization
+12:08:18 <danielhb> #info [wok] danielhb is working in the websocket communication backend/frontend
+12:08:28 <alinefm> #info [wok] alinefm is working on a patch to allow protecting POST actions on resources without authentication
+12:09:33 <alinefm> ramonn, lcorreia
+12:09:46 <lcorreia> alinefm, hi
+12:09:53 <lcorreia> just a sec.
+12:10:35 <ramonn> #info [wok] ramonn working to change default loglevel
+12:10:53 <ramonn> #info [kimchi] ramonn working to allow performance options on disk creation
+12:11:02 <ramonn> alinefm, sorry for the delay
+12:11:32 <lcorreia> #info [wok/kimchi/gingerbase] lcorreia sent patches to run Wok tests without root permission.
+12:11:32 <lcorreia> #info [kimchi/ginger*] lcorreia working on running tests without root permission.
+12:11:32 <lcorreia> #info [wok/kimchi/ginger*] lcorreia maintaining Open Power HostOS branches
+12:12:48 <alinefm> can we move on?
+12:12:52 <lcorreia> sure
+12:13:40 <alinefm> #topic Open Discussion
+12:13:45 <alinefm> any other topic for today?
+12:14:22 <lcorreia> no
+12:16:26 <alinefm> danielhb, ramonn bianca what about you?
+12:16:55 <bianca> no, only thing is I'm going on vacation starting on feb 20th
+12:17:04 <danielhb> no
+12:17:15 <alinefm> bianca, enjoy! =)
+12:17:21 <bianca> thanks :)
+12:17:25 <alinefm> so thanks everyone for joining!
+12:17:28 <alinefm> #endmeeting
