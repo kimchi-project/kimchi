@@ -19,15 +19,15 @@
 
 import cherrypy
 import json
+import mock
 import os
 import unittest
 from functools import partial
 
-from tests.utils import get_fake_user, patch_auth
+from tests.utils import patch_auth
 from tests.utils import request, run_server, wait_task
 
 from iso_gen import construct_fake_iso
-
 
 test_server = None
 model = None
@@ -37,7 +37,7 @@ fake_iso = '/tmp/fake.iso'
 def setUpModule():
     global test_server, model
 
-    patch_auth(sudo=False)
+    patch_auth()
     test_server = run_server(test_mode=True)
     model = cherrypy.tree.apps['/plugins/kimchi'].root.model
 
@@ -52,10 +52,13 @@ def tearDownModule():
 
 class AuthorizationTests(unittest.TestCase):
     def setUp(self):
-        self.request = partial(request)
+        self.request = partial(request, user='user')
         model.reset()
 
-    def test_nonroot_access(self):
+    @mock.patch('wok.plugins.kimchi.model.users.PAMUsersModel._validate')
+    def test_nonroot_access(self, validate_users):
+        validate_users.return_value = True
+
         # Non-root users can not create or delete network (only get)
         resp = self.request('/plugins/kimchi/networks', '{}', 'GET')
         self.assertEquals(200, resp.status)
@@ -102,10 +105,8 @@ class AuthorizationTests(unittest.TestCase):
         })
         wait_task(model.task_lookup, task_info['id'])
 
-        fake_user = get_fake_user()
-
         model.vm_update(u'test-me',
-                        {'users': [fake_user.keys()[0]],
+                        {'users': ['user'],
                          'groups': []})
 
         task_info = model.vms_create({
@@ -114,7 +115,7 @@ class AuthorizationTests(unittest.TestCase):
         })
         wait_task(model.task_lookup, task_info['id'])
 
-        non_root = list(set(model.users_get_list()) - set(['root']))[0]
+        non_root = list(set(model.users_get_list()) - set(['admin']))[0]
         model.vm_update(u'test-usera', {'users': [non_root], 'groups': []})
 
         task_info = model.vms_create({
