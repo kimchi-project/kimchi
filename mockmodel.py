@@ -56,8 +56,6 @@ from wok.plugins.kimchi.model.vmhostdevs import VMHostDevsModel
 from wok.plugins.kimchi.utils import get_next_clone_name, pool_name_from_uri
 from wok.plugins.kimchi.vmtemplate import VMTemplate
 
-
-fake_user = {'root': 'letmein!'}
 mockmodel_defaults = {
     'domain': 'test', 'arch': 'i686'
 }
