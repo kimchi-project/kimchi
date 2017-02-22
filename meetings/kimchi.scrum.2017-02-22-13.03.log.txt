@@ -1,0 +1,29 @@
+13:03:22 <alinefm_> #startmeeting
+13:03:22 <kimchi-bot> Meeting started Wed Feb 22 13:03:22 2017 UTC.  The chair is alinefm_. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:03:22 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:03:22 <alinefm_> #meetingname scrum
+13:03:22 <kimchi-bot> The meeting name has been set to 'scrum'
+13:03:29 <alinefm_> #info Agenda
+13:03:29 <alinefm_> #info 1) Status
+13:03:29 <alinefm_> #info 2) Open discussion
+13:03:29 <alinefm_> anything else?
+13:04:09 <danielhb_> no
+13:05:52 <alinefm_> so let's get started
+13:06:02 <alinefm_> #topic Status
+13:06:02 <alinefm_> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+13:07:47 <alinefm_> #info [wok] alinefm sent patch to allow protecting POST actions when resource is not protected
+13:08:14 <lcorreia> #info [wok/kimchi/gingerbase] lcorreia will send V2 patches for running Wok tests without root permission
+13:08:14 <lcorreia> #info [kimchi/ginger*] lcorreia working on running tests without root permission
+13:08:14 <lcorreia> #info [wok/kimchi/ginger*] lcorreia maintaining Open Power HostOS branches
+13:08:20 <alinefm_> #indo [ginger] alinefm will continue working on Bianca's patches related to backup UI
+13:09:34 <danielhb_> #info [wok] danielhb will send the first version of the asynchronous notification system later this week
+13:10:46 <ramonn> #info [kimchi] ramonn working on disks performance flags
+13:10:59 <ramonn> #info [wok] ramonn sent patch about "set loglevel to INFO"
+13:11:20 <ramonn> #info [wok] ramonn opened a issue to understand why cherrypy keep putting log at console
+13:14:09 <alinefm_> great!
+13:14:14 <alinefm_> #topic Open Discussion
+13:14:22 <alinefm_> lcorreia, danielhb_ ramonn any other topic for today?
+13:14:32 <lcorreia> no
+13:14:40 <danielhb_> I have none
+13:16:35 <alinefm_> ok. thanks everyone for joining!
+13:16:37 <alinefm_> #endmeeting
