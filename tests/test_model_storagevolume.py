@@ -28,7 +28,7 @@ import unittest
 from functools import partial
 
 from tests.utils import fake_auth_header, HOST
-from tests.utils import patch_auth, PROXY_PORT, request
+from tests.utils import patch_auth, PORT, request
 from tests.utils import rollback_wrapper, run_server, wait_task
 
 from wok.config import paths
@@ -171,7 +171,7 @@ def _do_volume_test(self, model, pool_name):
             self.assertEquals('ready for upload', status['message'])
 
             # Upload volume content
-            url = 'https://%s:%s' % (HOST, PROXY_PORT) + uri + '/' + filename
+            url = 'http://%s:%s' % (HOST, PORT) + uri + '/' + filename
 
             # Create a file with 5M to upload
             # Max body size is set to 4M so the upload will fail with 413

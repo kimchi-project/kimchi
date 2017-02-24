@@ -909,17 +909,17 @@ class RestTests(unittest.TestCase):
             )
             self.assertEquals(3, len(devs))
             resp = self.request('/plugins/kimchi/storagepools/tmp/deactivate',
-                                {}, 'POST')
+                                '{}', 'POST')
             self.assertEquals(200, resp.status)
 
             # cannot delete storagepool with volumes associate to guests
-            resp = self.request('/plugins/kimchi/storagepools/tmp', {},
+            resp = self.request('/plugins/kimchi/storagepools/tmp', '{}',
                                 'DELETE')
             self.assertEquals(400, resp.status)
 
             # activate pool
             resp = self.request('/plugins/kimchi/storagepools/tmp/activate',
-                                {}, 'POST')
+                                '{}', 'POST')
             self.assertEquals(200, resp.status)
 
             # delete volumes
@@ -927,14 +927,14 @@ class RestTests(unittest.TestCase):
                 l = '/plugins/kimchi/vms/test-vm/storages/hdd'
             else:
                 l = '/plugins/kimchi/vms/test-vm/storages/vdb'
-            resp = self.request(l, {}, 'DELETE')
+            resp = self.request(l, '{}', 'DELETE')
             self.assertEquals(204, resp.status)
 
             # deactive and delete storage pool
             resp = self.request('/plugins/kimchi/storagepools/tmp/deactivate',
-                                {}, 'POST')
+                                '{}', 'POST')
             self.assertEquals(200, resp.status)
-            resp = self.request('/plugins/kimchi/storagepools/tmp', {},
+            resp = self.request('/plugins/kimchi/storagepools/tmp', '{}',
                                 'DELETE')
 
             self.assertEquals(204, resp.status)
@@ -1151,7 +1151,7 @@ class RestTests(unittest.TestCase):
         self.assertEquals(202, resp.status)
         task = json.loads(resp.read())
         wait_task(self._task_lookup, task['id'])
-        resp = self.request('/plugins/kimchi/vms/test-vm', {}, 'GET')
+        resp = self.request('/plugins/kimchi/vms/test-vm', '{}', 'GET')
         vm_info = json.loads(resp.read())
 
         # Test template not changed after vm customise its pool
@@ -1246,7 +1246,7 @@ class RestTests(unittest.TestCase):
             task = json.loads(self.request('/plugins/kimchi/vms',
                               req, 'POST').read())
             wait_task(self._task_lookup, task['id'])
-            resp = self.request('/plugins/kimchi/vms/test-vm-%i' % i, {},
+            resp = self.request('/plugins/kimchi/vms/test-vm-%i' % i, '{}',
                                 'GET')
             self.assertEquals(resp.status, 200)
         count = len(json.loads(self.request('/plugins/kimchi/vms').read()))
