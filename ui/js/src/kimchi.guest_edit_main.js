@@ -48,9 +48,9 @@ kimchi.guest_edit_main = function() {
     var submitForm = function(event) {
 
         var submit_map = {
-            1: generalSubmit,
-            4: permissionSubmit,
-            7: processorSubmit
+            0: generalSubmit,
+            3: permissionSubmit,
+            6: processorSubmit
         };
         var currentTab = $('#guest-edit-window li.active a[data-toggle="tab"]').data('id');
         var toSubmit = parseInt($('#'+currentTab).index());
