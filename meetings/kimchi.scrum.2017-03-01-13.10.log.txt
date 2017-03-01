@@ -1,0 +1,77 @@
+13:10:26 <alinefm> #startmeeting
+13:10:26 <kimchi-bot> Meeting started Wed Mar  1 13:10:26 2017 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:10:26 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:10:26 <alinefm> #meetingname scrum
+13:10:26 <kimchi-bot> The meeting name has been set to 'scrum'
+13:10:55 <alinefm> #info Agenda
+13:10:55 <alinefm> #info 1) Status
+13:10:55 <alinefm> #info 2) Open discussion
+13:10:55 <alinefm> anything else?
+13:11:40 <alinefm> danielhb, lcorreia ramonn ^
+13:12:11 <danielhb> no
+13:16:30 <alinefm> so let's get started
+13:16:31 <alinefm> #info Agenda
+13:16:35 <alinefm> #info 1) Status
+13:16:35 <alinefm> #info 2) Open discussion
+13:16:35 <alinefm> anything else?
+13:16:36 <alinefm> ops....
+13:16:44 <alinefm> #topic Status
+13:16:46 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+13:17:45 <danielhb> #info [wok] danielhb working in the second version of the websocket contribution
+13:17:59 <alinefm> #info [ginger*] alinefm was about to move Updates tab from Ginger Base to Ginger but identified that it may full the second level navigation bar, so now she is working on get the sidebar menu up and running
+13:18:18 <alinefm> #info [ginger] alinefm has rebased Samuel's patch about the sidebar and will work on  fixing issues e etc
+13:18:35 <alinefm> danielhb, do you think we will be able to get it upstream by the end of this week?
+13:19:00 <danielhb> alinefm, I'll try but there are a lot of changes. we'll see
+13:19:12 <alinefm> just wondering if we will need to postpone the code freeze to get it in or not
+13:19:12 <alinefm> danielhb, any idea?
+13:19:37 <danielhb> alinefm, code freeze is last week, right?
+13:19:40 <danielhb> alinefm, sorry, next week
+13:20:02 <alinefm> danielhb, originally it would be this Friday
+13:20:23 <alinefm> but I am OK to postpone it to next week to get the async notification in this release
+13:20:45 <ramonn> #info [kimchi] sent patch about disk performance settings to review
+13:20:49 <danielhb> alinefm, I think it's safer to postpone it. we can't count on that the v2 will be the final version
+13:21:06 <ramonn> #info [kimchi] ramonn will continue task investigating issues when changing disk bus
+13:21:12 <ramonn> #info [kimchi] ramonn sent patch about disk performance settings to review
+13:21:31 <ramonn> #info [wok] ramonn talking with cherrypy community about logs on console
+13:22:42 <lcorreia> #info [wok/kimchi/gingerbase] lcorreia got upstream patches for running Wok tests without root permission
+13:22:42 <lcorreia> #info [ginger] lcorreia sent patches for running tests without root permission
+13:22:42 <lcorreia> #info [kimchi/ginger] lcorreia working on running tests without root permission
+13:22:42 <lcorreia> #info [wok/kimchi/ginger*] lcorreia maintaining Open Power HostOS branches
+13:22:44 <alinefm> danielhb, ok - sounds good
+13:23:33 <alinefm> anything else, team?
+13:23:59 <lcorreia> no
+13:24:34 <alinefm> #topic Open Discussion
+13:24:57 <alinefm> #info Code freeze for next release (2.4) will be on Mar 10
+13:25:28 <alinefm> #info All the new features must be upstream on time otherwise it will be postpone to the Aug release
+13:25:34 <alinefm> danielhb, lcorreia ramonn ^
+13:25:42 <alinefm> and any other topic for today?
+13:25:45 <lcorreia> alinefm, ok
+13:26:28 <ramonn> ok
+13:26:38 <ramonn> no topic
+13:27:01 <danielhb> alinefm, I want to mention that, due to the code freeze, I don't think it'll be feasible to push any gingerbase features upstream
+13:27:33 <danielhb> alinefm, I'll send a RFC to the ginger ML about the host terminal anyways, but the deadline is too short for it now
+13:28:58 <alinefm> danielhb, as we have one more week, I plan to send the sidebar patch till this week and work to move the Updates tab to Ginger
+13:29:24 <danielhb> alinefm, wait, *that* sidebar patch ?
+13:29:34 <alinefm> danielhb, the ginger one
+13:29:49 <danielhb> alinefm, do you think you can manage to do it? It has the potential to break a lot of things in ginger UI lol
+13:29:58 <alinefm> hehehe
+13:30:20 <alinefm> danielhb, yeap! I have some considerations and if you agree I can send the patch till this week
+13:30:35 <danielhb> alinefm, actually , aside from WoK, do we need new releases? Perhaps Kimchi had new features going upstream?
+13:31:14 <alinefm> danielhb, I know, for example, the idea is to have every single tab section as a entry in the sidebar but for now, I was thinking in only have one entry on sidebar for each tab we have today
+13:31:19 <alinefm> danielhb, do you agree on that?
+13:31:33 <alinefm> after that, we can work to separate every section in a sidebar entry
+13:31:47 <alinefm> danielhb, yeap! kimchi has new features upstream
+13:32:30 <alinefm> the first step (one sidebar entry for each tab we have today) I can do for this week based on Samuel's patch
+13:34:58 <danielhb> alinefm, TBH I would rather ask you to go ahead and implement a preview, then we can discuss on top of that
+13:35:21 <danielhb> alinefm, I'll probably agree with it, perhaps propose some tweaks and so on
+13:36:37 <alinefm> danielhb, ok! I will send a patch soon as RFC to get agreement on it
+13:36:47 <alinefm> and maybe get it upstream for this release
+13:36:49 <alinefm> danielhb, thanks
+13:37:07 <danielhb> alinefm, let's call it [RFC patch]
+13:37:25 <danielhb> alinefm, it's common in some communities like qemu
+13:37:45 <alinefm> ok
+13:37:57 <alinefm> any other topic for today?
+13:39:29 <danielhb> alinefm, I have a rant but it's IBM specific :P
+13:40:06 <alinefm> ok - we can talk later about that hehe
+13:40:11 <alinefm> thanks everyone for joining!
+13:40:14 <alinefm> #endmeeting
