@@ -131,7 +131,7 @@ class StoragePoolsModel(object):
                 try:
                     pool.create(0)
                 except libvirt.libvirtError, e:
-                    msg = "Fatal: Unable to craete storage pool %s. "
+                    msg = "Fatal: Unable to create storage pool %s. "
                     wok_log.error(msg % pool_name)
                     wok_log.error("Details: %s", e.message)
                     raise Exception(error_msg)
