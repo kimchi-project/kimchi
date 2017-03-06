@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM Corp, 2015-2016
+# Copyright IBM Corp, 2015-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -17,6 +17,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import errno
 import lxml.etree as ET
 import os
 import socket
@@ -28,7 +29,7 @@ from lxml.builder import E
 
 from wok.exception import InvalidParameter, NotFoundError
 from wok.plugins.kimchi.utils import check_url_path
-
+from wok.utils import wok_log
 
 BUS_TO_DEV_MAP = {'ide': 'hd', 'virtio': 'vd', 'scsi': 'sd'}
 DEV_TYPE_SRC_ATTR_MAP = {'file': 'file', 'block': 'dev'}
@@ -51,11 +52,22 @@ def get_disk_xml(params):
         disk_type = _get_disk_type(path) if len(path) > 0 else 'file'
     disk = E.disk(type=disk_type, device=params['type'])
     driver = E.driver(name='qemu', type=params['format'])
-    if params['type'] != 'cdrom':
-        driver.set('cache', 'none')
+    try:
+        fd = os.open(path, os.O_RDONLY | os.O_DIRECT)
+        os.close(fd)
+        wok_log.debug("Disk '%s' supports direct I/O. Setting cache=none"
+                      "to enable live migration" % path)
+    except OSError, e:
+        if e.errno == errno.EINVAL:
+            wok_log.debug("Disk '%s' does not support direct I/O: "
+                          "'%s'. Let libvirt sets the default cache mode." %
+                          (path, e.message))
+    else:
+        if params['type'] != 'cdrom':
+            driver.set('cache', 'none')
 
-        if params.get('pool_type') == "netfs":
-            driver.set("io", "native")
+    if params.get('pool_type') == "netfs":
+        driver.set("io", "native")
 
     disk.append(driver)
 
