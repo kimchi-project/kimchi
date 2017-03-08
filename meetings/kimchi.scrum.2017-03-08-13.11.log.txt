@@ -1,0 +1,40 @@
+13:11:19 <alinefm> #startmeeting
+13:11:19 <kimchi-bot> Meeting started Wed Mar  8 13:11:19 2017 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+13:11:19 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+13:11:19 <alinefm> #meetingname scrum
+13:11:19 <kimchi-bot> The meeting name has been set to 'scrum'
+13:11:27 <alinefm> #info Agenda
+13:11:28 <alinefm> #info 1) Status
+13:11:28 <alinefm> #info 2) Open discussion
+13:11:28 <alinefm> anything else?
+13:11:41 <bianca> no
+13:11:42 <ramonn> nop
+13:12:13 <alinefm> so  let's get started
+13:12:14 <alinefm> #topic Status
+13:12:15 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+13:12:33 <ramonn> #info [kimchi] ramonn sent last pactches about disk performance options
+13:12:46 <ramonn> #info [kimchi] ramonn will see reviews and apply
+13:13:11 <alinefm> #info [ginger] alinefm got the sibedar patches accepted upstream
+13:13:22 <lcorreia> #info [ginger] lcorreia got upstream patches for running tests without root permission
+13:13:22 <lcorreia> #info [kimchi] lcorreia working on running tests without root permission
+13:13:22 <lcorreia> #info [wok/kimchi/ginger*] lcorreia maintaining Open Power HostOS branches
+13:13:44 <bianca> #info [Gingerbase] bianca is working on issue #138: Update selected packages only prevent user to switch tabs.
+13:14:17 <alinefm> #info [ginger] alinefm was about to move Updates tab to Ginger but a discussion started around move the whole Ginger Base features to Ginger. To be able to do that, Ginger Base needs to stop being a Kimchi dependency and it is what alinefm is working now
+13:18:47 <alinefm> moving on...
+13:18:55 <alinefm> #topic Open Discussion
+13:19:10 <alinefm> #info Code freeze for next release (2.4) will be on this Friday
+13:19:35 <alinefm> #info All the patches need to be upstream on time for this, otherwise it will not be part of this release
+13:19:44 <lcorreia> ok
+13:19:51 <alinefm> ramonn, danielhb lcorreia bianca any other topic for today?
+13:20:19 <ramonn> nop
+13:20:24 <danielhb> alinefm, can I send my status?
+13:20:34 <alinefm> danielhb, yeap
+13:20:38 <alinefm> danielhb, I missed you
+13:20:54 <danielhb> #info [WoK] danielhb sent the v2 of the asynchronous notification feature
+13:21:11 <danielhb> #info [Ginger] danielhb is going to send a RFC about the Host console
+13:21:15 <danielhb> alinefm, thx!
+13:22:55 <alinefm> danielhb, yw =)
+13:23:01 <alinefm> any other topic?
+13:23:43 <alinefm> apparently not =)
+13:23:46 <alinefm> thanks everyone for joining!
+13:23:49 <alinefm> #endmeeting
