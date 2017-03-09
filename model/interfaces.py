@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM Corp, 2015-2016
+# Copyright IBM Corp, 2015-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -17,11 +17,14 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-from wok.exception import InvalidParameter, NotFoundError
+import ethtool
 
-from wok.plugins.gingerbase import netinfo
-from wok.plugins.kimchi.model.networks import NetworksModel
+from wok.exception import InvalidParameter, NotFoundError
+from wok.stringutils import encode_value
 from wok.utils import wok_log
+
+from wok.plugins.kimchi import network as netinfo
+from wok.plugins.kimchi.model.networks import NetworksModel
 
 
 class InterfacesModel(object):
@@ -50,7 +53,29 @@ class InterfaceModel(object):
         pass
 
     def lookup(self, name):
-        try:
-            return netinfo.get_interface_info(name)
-        except ValueError:
+        if encode_value(name) not in map(encode_value, ethtool.get_devices()):
             raise NotFoundError("KCHIFACE0001E", {'name': name})
+
+        ipaddr = ''
+        netmask = ''
+        module = 'unknown'
+        status = 'down'
+        try:
+            ipaddr = ethtool.get_ipaddr(encode_value(name))
+            netmask = ethtool.get_netmask(encode_value(name))
+            module = ethtool.get_module(encode_value(name))
+
+            flags = ethtool.get_flags(encode_value(name))
+            status = 'up' if flags & (ethtool.IFF_RUNNING | ethtool.IFF_UP) \
+                     else 'down'
+        except IOError:
+            pass
+
+        iface_type = netinfo.get_interface_type(name)
+
+        return {'name': name,
+                'type': iface_type,
+                'status': status,
+                'ipaddr': ipaddr,
+                'netmask': netmask,
+                'module': module}
