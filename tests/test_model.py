@@ -48,7 +48,7 @@ from wok.rollbackcontext import RollbackContext
 from wok.utils import convert_data_size
 from wok.xmlutils.utils import xpath_get_text
 
-from wok.plugins.gingerbase import netinfo
+from wok.plugins.kimchi import network as netinfo
 from wok.plugins.kimchi import osinfo
 from wok.plugins.kimchi.config import kimchiPaths as paths
 from wok.plugins.kimchi.model import model

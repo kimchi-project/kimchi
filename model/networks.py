@@ -28,10 +28,7 @@ from wok.exception import MissingParameter, NotFoundError, OperationFailed
 from wok.utils import run_command, wok_log
 from wok.xmlutils.utils import xpath_get_text
 
-from wok.plugins.gingerbase import netinfo
-from wok.plugins.gingerbase.netinfo import get_vlan_device, is_bridge, is_vlan
-from wok.plugins.gingerbase.netinfo import ports
-from wok.plugins.kimchi import network as knetwork
+from wok.plugins.kimchi import network as netinfo
 from wok.plugins.kimchi.config import kimchiPaths
 from wok.plugins.kimchi.model.featuretests import FeatureTests
 from wok.plugins.kimchi.osinfo import defaults as tmpl_defaults
@@ -130,8 +127,8 @@ class NetworksModel(object):
             xml = network.XMLDesc(0)
             subnet = NetworkModel.get_network_from_xml(xml)['subnet']
             subnet and invalid_addrs.append(ipaddr.IPNetwork(subnet))
-            addr_pools = addr_pools if addr_pools else knetwork.PrivateNets
-        return knetwork.get_one_free_network(invalid_addrs, addr_pools)
+            addr_pools = addr_pools if addr_pools else netinfo.PrivateNets
+        return netinfo.get_one_free_network(invalid_addrs, addr_pools)
 
     def _set_network_subnet(self, params):
         netaddr = params.get('subnet', '')
@@ -281,7 +278,7 @@ class NetworksModel(object):
         conn = self.conn.get()
         if iface_xml is None:
             try:
-                mac = knetwork.get_dev_macaddr(str(interface))
+                mac = netinfo.get_dev_macaddr(str(interface))
                 iface_xml = get_iface_xml({'type': 'ethernet',
                                            'name': interface,
                                            'mac': mac,
@@ -364,7 +361,7 @@ class NetworkModel(object):
                 connection = 'macvtap'
 
             # exposing the network on linux bridge or macvtap interface
-            interface_subnet = knetwork.get_dev_netaddr(interface)
+            interface_subnet = netinfo.get_dev_netaddr(interface)
             subnet = subnet if subnet else interface_subnet
 
         # libvirt use format 192.168.0.1/24, standard should be 192.168.0.0/24
@@ -536,10 +533,11 @@ class NetworkModel(object):
         # get target device if bridge was created by Kimchi
         if connection == 'bridge':
             iface = info['interfaces'][0]
-            if is_bridge(iface) and iface.startswith(KIMCHI_BRIDGE_PREFIX):
-                port = ports(iface)[0]
-                if is_vlan(port):
-                    dev = get_vlan_device(port)
+            if (netinfo.is_bridge(iface) and
+               iface.startswith(KIMCHI_BRIDGE_PREFIX)):
+                port = netinfo.ports(iface)[0]
+                if netinfo.is_vlan(port):
+                    dev = netinfo.get_vlan_device(port)
                     info['interfaces'] = original['interfaces'] = [dev]
                 # nic
                 else:
