@@ -15,7 +15,7 @@ Build Dependencies
 Runtime Dependencies
 --------------------
 
-    $ sudo apt-get install python-configobj websockify novnc python-libvirt \
+    $ sudo apt-get install python-configobj novnc python-libvirt \
                             libvirt-bin nfs-common qemu-kvm python-parted \
                             python-ethtool sosreport python-ipaddr \
                             python-lxml open-iscsi python-guestfs \

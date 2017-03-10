@@ -33,8 +33,7 @@ Runtime Dependencies
                             python-ipaddr libvirt-daemon-config-network \
                             nfs-client open-iscsi python-parted \
                             python-libguestfs python-configobj guestfs-tools \
-                            python-websockify novnc python-magic \
-                            python-paramiko python-Pillow
+                            novnc python-magic python-paramiko python-Pillow
 
 Packages required for UI development
 ------------------------------------

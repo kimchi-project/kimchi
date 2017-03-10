@@ -28,7 +28,7 @@ Runtime Dependencies
     $ sudo yum install libvirt-python libvirt libvirt-daemon-config-network \
                         qemu-kvm python-ethtool sos python-ipaddr nfs-utils \
                         iscsi-initiator-utils pyparted python-libguestfs \
-                        libguestfs-tools python-websockify novnc spice-html5 \
+                        libguestfs-tools novnc spice-html5 \
                         python-configobj python-magic python-paramiko \
                         python-pillow
 

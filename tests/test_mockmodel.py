@@ -46,7 +46,7 @@ def setUpModule():
     iso_gen.construct_fake_iso(fake_iso, True, '12.04', 'ubuntu')
 
 
-def tearDown():
+def tearDownModule():
     test_server.stop()
     os.unlink(fake_iso)
 

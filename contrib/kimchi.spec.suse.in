@@ -14,7 +14,6 @@ Requires:	gettext-tools
 Requires:	libvirt
 Requires:	libvirt-python
 Requires:	libvirt-daemon-config-network
-Requires:	python-websockify
 Requires:	python-configobj
 Requires:	novnc
 Requires:	python-Pillow
