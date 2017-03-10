@@ -22,7 +22,7 @@ import json
 import os
 import tempfile
 
-from wok.plugins.kimchi import config, mockmodel, websocket
+from wok.plugins.kimchi import config, mockmodel
 from wok.plugins.kimchi.i18n import messages
 from wok.plugins.kimchi.control import sub_nodes
 from wok.plugins.kimchi.model import model as kimchiModel
@@ -59,8 +59,6 @@ class Kimchi(WokRoot):
             cherrypy.engine.subscribe('exit', remove_objectstore)
         else:
             self.model = kimchiModel.Model()
-            ws_proxy = websocket.new_ws_proxy()
-            cherrypy.engine.subscribe('exit', ws_proxy.terminate)
 
         dev_env = wok_options.environment != 'production'
         super(Kimchi, self).__init__(self.model, dev_env)

@@ -36,6 +36,7 @@ from lxml import etree, objectify
 from lxml.builder import E
 from xml.etree import ElementTree
 
+from wok import websocket
 from wok.asynctask import AsyncTask
 from wok.config import config
 from wok.exception import InvalidOperation, InvalidParameter
@@ -48,7 +49,6 @@ from wok.xmlutils.utils import dictize, xpath_get_text, xml_item_insert
 from wok.xmlutils.utils import xml_item_remove, xml_item_update
 
 from wok.plugins.kimchi import model
-from wok.plugins.kimchi import websocket
 from wok.plugins.kimchi import serialconsole
 from wok.plugins.kimchi.config import READONLY_POOL_TYPE, get_kimchi_version
 from wok.plugins.kimchi.kvmusertests import UserTests
