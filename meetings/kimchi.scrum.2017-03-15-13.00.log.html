@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi log</title>
+<style type="text/css">
+/* For the .log.html */
+pre { /*line-height: 125%;*/
+      white-space: pre-wrap; }
+body { background: #f0f0f0; }
+
+body .tm  { color: #007020 }                      /* time */
+body .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+body .nka { color: #007020; font-weight: bold }  /* action nick */
+body .ac  { color: #00A000 }                      /* action line */
+body .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+body .topic     { color: #007020; font-weight: bold }
+body .topicline { color: #000080; font-weight: bold }
+body .cmd       { color: #007020; font-weight: bold }
+body .cmdline  { font-weight: bold }
+
+</style>
+</head>
+
+<body>
+<pre><a name="l-1"></a><span class="tm">13:00:03</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#startmeeting</span><span class="cmdline"></span>
+<a name="l-2"></a><span class="tm">13:00:03</span><span class="nk"> &lt;kimchi-bot&gt;</span> Meeting started Wed Mar 15 13:00:03 2017 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+<a name="l-3"></a><span class="tm">13:00:03</span><span class="nk"> &lt;kimchi-bot&gt;</span> Useful Commands: #action #agreed #help #info #idea #link #topic.
+<a name="l-4"></a><span class="tm">13:00:03</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#meetingname </span><span class="cmdline">scrum</span>
+<a name="l-5"></a><span class="tm">13:00:03</span><span class="nk"> &lt;kimchi-bot&gt;</span> The meeting name has been set to 'scrum'
+<a name="l-6"></a><span class="tm">13:00:10</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Agenda</span>
+<a name="l-7"></a><span class="tm">13:00:10</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">1) Status</span>
+<a name="l-8"></a><span class="tm">13:00:10</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">2) Open discussion</span>
+<a name="l-9"></a><span class="tm">13:00:10</span><span class="nk"> &lt;alinefm&gt;</span> anything else?
+<a name="l-10"></a><span class="tm">13:00:25</span><span class="nk"> &lt;lcorreia&gt;</span> no
+<a name="l-11"></a><span class="tm">13:01:24</span><span class="nk"> &lt;alinefm&gt;</span> so let's get started
+<a name="l-12"></a><span class="tm">13:01:40</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Status</span>
+<a name="l-13"></a><span class="tm">13:01:40</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">Please provide your status using the #info command: #info [&lt;project] &lt;nickname&gt; &lt;status&gt;</span>
+<a name="l-14"></a><span class="tm">13:02:48</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] alinefm started moving network functions from ginger base to kimchi. It is being simpler than I expected as most of functions are only in use by Kimchi. I will do the same for Ginger soon</span>
+<a name="l-15"></a><span class="tm">13:03:01</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] lcorreia sent patches to run test_model without root permission</span>
+<a name="l-16"></a><span class="tm">13:03:01</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok/kimchi/ginger*] lcorreia running tests on Ubuntu 16.10</span>
+<a name="l-17"></a><span class="tm">13:03:01</span><span class="nk"> &lt;lcorreia&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok/kimchi/ginger*] lcorreia maintaining Open Power HostOS branches</span>
+<a name="l-18"></a><span class="tm">13:03:34</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] alinefm identified that functions in disks.py from Ginger Base are used by Kimchi and Ginger. I could not identify a way to remove it from Ginger Base without duplicating code at this moment. Any idea is more than welcome.</span>
+<a name="l-19"></a><span class="tm">13:03:50</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#info </span><span class="cmdline">[wok] alinefm sent patch to fix issue #207 related to LDAP auth</span>
+<a name="l-20"></a><span class="tm">13:06:42</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[kimchi] ramonn applying reviews for my patch</span>
+<a name="l-21"></a><span class="tm">13:06:50</span><span class="nk"> &lt;ramonn&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] ramonn will start tests on fedora</span>
+<a name="l-22"></a><span class="tm">13:10:16</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, bianca anything else from your side?
+<a name="l-23"></a><span class="tm">13:14:27</span><span class="nk"> &lt;danielhb&gt;</span> alinefm, I have
+<a name="l-24"></a><span class="tm">13:15:04</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[ginger*] danielhb tagged RC-1 release on ginger and gingerbase</span>
+<a name="l-25"></a><span class="tm">13:15:06</span><span class="nk"> &lt;danielhb&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] danielhb started tests on Opensuse</span>
+<a name="l-26"></a><span class="tm">13:17:04</span><span class="nk"> &lt;alinefm&gt;</span> thanks all!
+<a name="l-27"></a><span class="tm">13:17:09</span><span class="nk"> &lt;bianca&gt;</span> alinefm sorry for the delay, hold on please
+<a name="l-28"></a><span class="tm">13:17:49</span><span class="nk"> &lt;bianca&gt;</span> <span class="cmd">#info </span><span class="cmdline">[*] bianca is running tests for all plugins to 2.4 release</span>
+<a name="l-29"></a><span class="tm">13:18:39</span><span class="nk"> &lt;bianca&gt;</span> that's all :)
+<a name="l-30"></a><span class="tm">13:18:40</span><span class="nk"> &lt;alinefm&gt;</span> thanks, bianca !
+<a name="l-31"></a><span class="tm">13:18:43</span><span class="nk"> &lt;alinefm&gt;</span> <span class="topic">#topic </span><span class="topicline">Open Discussion</span>
+<a name="l-32"></a><span class="tm">13:18:52</span><span class="nk"> &lt;alinefm&gt;</span> danielhb, bianca ramonn lcorreia any other topic to discuss today?
+<a name="l-33"></a><span class="tm">13:19:08</span><span class="nk"> &lt;ramonn&gt;</span> someone has a job to offer here?
+<a name="l-34"></a><span class="tm">13:19:10</span><span class="nk"> &lt;ramonn&gt;</span> HUE HUE HUE HU E
+<a name="l-35"></a><span class="tm">13:20:13</span><span class="nk"> &lt;danielhb&gt;</span> HAHAHAHAHAHA
+<a name="l-36"></a><span class="tm">13:20:25</span><span class="nk"> &lt;alinefm&gt;</span> hehehhe
+<a name="l-37"></a><span class="tm">13:21:36</span><span class="nk"> &lt;alinefm&gt;</span> ok...
+<a name="l-38"></a><span class="tm">13:21:41</span><span class="nk"> &lt;alinefm&gt;</span> thanks everyone for joining!
+<a name="l-39"></a><span class="tm">13:21:44</span><span class="nk"> &lt;alinefm&gt;</span> <span class="cmd">#endmeeting</span><span class="cmdline"></span></pre>
+</body></html>

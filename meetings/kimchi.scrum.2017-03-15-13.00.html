@@ -1,0 +1,166 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>#kimchi Meeting</title>
+<style type="text/css">
+/* This is for the .html in the HTML2 writer */
+body {
+    font-family: Helvetica, sans-serif;
+    font-size:14px;
+}
+h1 {
+    text-align: center;
+}
+a {
+    color:navy;
+    text-decoration: none;
+    border-bottom:1px dotted navy;
+}
+a:hover {
+    text-decoration:none;
+    border-bottom: 0;
+    color:#0000B9;
+}
+hr {
+    border: 1px solid #ccc;
+}
+/* The (nick, time) item pairs, and other body text things. */
+.details {
+    font-size: 12px;
+    font-weight:bold;
+}
+/* The 'AGREED:', 'IDEA', etc, prefix to lines. */
+.itemtype {
+    font-style: normal;    /* un-italics it */
+    font-weight: bold;
+}
+/* Example: change single item types.  Capitalized command name.
+/* .TOPIC  {  color:navy;  } */
+/* .AGREED {  color:lime;  } */
+
+</style>
+</head>
+
+<body>
+<h1>#kimchi Meeting</h1>
+<span class="details">
+Meeting started by alinefm at 13:00:03 UTC
+(<a href="kimchi.scrum.2017-03-15-13.00.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Meeting summary</h3>
+<ol>
+<li>
+<ol type="a">
+  <li><span class="INFO">Agenda</span> <span class="details">(<a
+    href='kimchi.scrum.2017-03-15-13.00.log.html#l-6'>alinefm</a>,
+    13:00:10)</span></li>
+  <li><span class="INFO">1) Status</span> <span class="details">(<a
+    href='kimchi.scrum.2017-03-15-13.00.log.html#l-7'>alinefm</a>,
+    13:00:10)</span></li>
+  <li><span class="INFO">2) Open discussion</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2017-03-15-13.00.log.html#l-8'>alinefm</a>,
+    13:00:10)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Status</b> <span class="details">(<a href='kimchi.scrum.2017-03-15-13.00.log.html#l-12'>alinefm</a>, 13:01:40)</span>
+<ol type="a">
+  <li><span class="INFO">Please provide your status using the #info
+    command: #info [&lt;project] &lt;nickname&gt; &lt;status&gt;</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2017-03-15-13.00.log.html#l-13'>alinefm</a>,
+    13:01:40)</span></li>
+  <li><span class="INFO">[kimchi] alinefm started moving network
+    functions from ginger base to kimchi. It is being simpler than I
+    expected as most of functions are only in use by Kimchi. I will do
+    the same for Ginger soon</span> <span class="details">(<a
+    href='kimchi.scrum.2017-03-15-13.00.log.html#l-14'>alinefm</a>,
+    13:02:48)</span></li>
+  <li><span class="INFO">[kimchi] lcorreia sent patches to run
+    test_model without root permission</span> <span class="details">(<a
+    href='kimchi.scrum.2017-03-15-13.00.log.html#l-15'>lcorreia</a>,
+    13:03:01)</span></li>
+  <li><span class="INFO">[wok/kimchi/ginger*] lcorreia running tests on
+    Ubuntu 16.10</span> <span class="details">(<a
+    href='kimchi.scrum.2017-03-15-13.00.log.html#l-16'>lcorreia</a>,
+    13:03:01)</span></li>
+  <li><span class="INFO">[wok/kimchi/ginger*] lcorreia maintaining Open
+    Power HostOS branches</span> <span class="details">(<a
+    href='kimchi.scrum.2017-03-15-13.00.log.html#l-17'>lcorreia</a>,
+    13:03:01)</span></li>
+  <li><span class="INFO">[kimchi] alinefm identified that functions in
+    disks.py from Ginger Base are used by Kimchi and Ginger. I could not
+    identify a way to remove it from Ginger Base without duplicating
+    code at this moment. Any idea is more than welcome.</span> <span
+    class="details">(<a
+    href='kimchi.scrum.2017-03-15-13.00.log.html#l-18'>alinefm</a>,
+    13:03:34)</span></li>
+  <li><span class="INFO">[wok] alinefm sent patch to fix issue #207
+    related to LDAP auth</span> <span class="details">(<a
+    href='kimchi.scrum.2017-03-15-13.00.log.html#l-19'>alinefm</a>,
+    13:03:50)</span></li>
+  <li><span class="INFO">[kimchi] ramonn applying reviews for my
+    patch</span> <span class="details">(<a
+    href='kimchi.scrum.2017-03-15-13.00.log.html#l-20'>ramonn</a>,
+    13:06:42)</span></li>
+  <li><span class="INFO">[*] ramonn will start tests on fedora</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2017-03-15-13.00.log.html#l-21'>ramonn</a>,
+    13:06:50)</span></li>
+  <li><span class="INFO">[ginger*] danielhb tagged RC-1 release on
+    ginger and gingerbase</span> <span class="details">(<a
+    href='kimchi.scrum.2017-03-15-13.00.log.html#l-24'>danielhb</a>,
+    13:15:04)</span></li>
+  <li><span class="INFO">[*] danielhb started tests on Opensuse</span>
+    <span class="details">(<a
+    href='kimchi.scrum.2017-03-15-13.00.log.html#l-25'>danielhb</a>,
+    13:15:06)</span></li>
+  <li><span class="INFO">[*] bianca is running tests for all plugins to
+    2.4 release</span> <span class="details">(<a
+    href='kimchi.scrum.2017-03-15-13.00.log.html#l-28'>bianca</a>,
+    13:17:49)</span></li>
+</ol>
+<br></li>
+<li><b class="TOPIC">Open Discussion</b> <span class="details">(<a href='kimchi.scrum.2017-03-15-13.00.log.html#l-31'>alinefm</a>, 13:18:43)</span>
+</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">
+Meeting ended at 13:21:44 UTC
+(<a href="kimchi.scrum.2017-03-15-13.00.log.html">full logs</a>).</span>
+
+<br><br>
+
+
+
+<h3>Action items</h3>
+<ol>
+  <li>(none)</li>
+</ol>
+<br><br>
+
+
+
+<h3>People present (lines said)</h3>
+<ol>
+  <li>alinefm (21)</li>
+  <li>ramonn (4)</li>
+  <li>lcorreia (4)</li>
+  <li>danielhb (4)</li>
+  <li>bianca (3)</li>
+  <li>kimchi-bot (3)</li>
+</ol>
+<br><br>
+
+
+
+<span class="details">Generated by <a href="http://wiki.debian.org/MeetBot">MeetBot</a> 0.1.4.</span>
+</body></html>
