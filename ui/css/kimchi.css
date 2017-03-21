@@ -2514,9 +2514,13 @@ ul {
 
 #storage-root-container .volumes .volumeslist {
   padding: 22px;
-  min-height: 136px;
+  min-height: 188px;
   max-height: 505px;
   overflow: hidden;
+}
+
+#storage-root-container .volumes .volumeslist .wok-list {
+  min-height: inherit;
 }
 
 #storage-root-container .volumes .volumeslist .row {
