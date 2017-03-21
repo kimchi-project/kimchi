@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM Corp, 2015-2016
+# Copyright IBM Corp, 2015-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -34,7 +34,7 @@ class PeersModel(object):
             return
 
         # register server on openslp
-        hostname = socket.getfqdn(wok_config.get("server", "host"))
+        hostname = socket.getfqdn()
         port = wok_config.get("server", "proxy_port")
         self.url = hostname + ":" + port
 
