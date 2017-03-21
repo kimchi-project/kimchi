@@ -1,7 +1,7 @@
 /*
  * Project Kimchi
  *
- * Copyright IBM Corp, 2013-2016
+ * Copyright IBM Corp, 2013-2017
  *
  * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
@@ -640,11 +640,6 @@ kimchi.doListVolumes = function(poolObj) {
 
         $('.pool-action', volumeDiv).on('show.bs.dropdown', function () {
             $(volumeDiv).scrollTop(0);
-            $(this).css('position','absolute');
-            $('.toggle-gallery',volumeDiv).css({
-                'position':'absolute',
-                'margin-top': '1px'
-            });
             $(volumeDiv).bind('mousewheel DOMMouseScroll', function(e) {
                 e.preventDefault();
             });
