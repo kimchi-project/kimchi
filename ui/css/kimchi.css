@@ -2683,7 +2683,7 @@ ul {
 #storage-root-container .volumes .wok-gallery .volume-box-inner {
   padding: 0 16px;
   width: 409px;
-  height: 150px;
+  height: auto;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
@@ -2745,8 +2745,8 @@ ul {
 #storage-root-container .volumes .wok-gallery span.column-format,
 #storage-root-container .volumes .wok-gallery span.column-type {
   order: 3;
-  width: 142px;
-  margin-top: -5px;
+  width: auto;
+  margin: 5px 0px;
 }
 
 #storage-root-container .volumes .wok-gallery span.gallery-header {
@@ -2937,14 +2937,14 @@ ul {
 @media (min-width: 992px) {
   #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-header > span.column-name,
   #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span.column-name {
-    width: 250px;
+    width: 450px;
   }
 }
 
 @media (min-width: 1200px) {
   #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-header > span.column-name,
   #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span.column-name {
-    width: 300px;
+    width: 500px;
   }
 }
 

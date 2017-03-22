@@ -240,7 +240,7 @@
         .volume-box-inner {
             padding: 0 16px;
             width: 409px;
-            height: 150px;
+            height: auto;
             display: flex;
             flex-flow: row wrap;
             justify-content: space-around;
@@ -303,8 +303,8 @@
         span.column-format,
         span.column-type {
             order: 3;
-            width: 142px;
-            margin-top: -5px;
+            width: auto;
+            margin: 5px 0px;
         }
 
         span.gallery-header {
@@ -457,10 +457,10 @@
             > span.column-name {
                 width: 202px;
                 @media (min-width: $screen-md) {
-                    width: 250px;
+                    width: 450px;
                 }
                 @media (min-width: $screen-lg) {
-                    width: 300px;
+                    width: 500px;
                 }
 
                 label {
