@@ -1,7 +1,7 @@
 #*
  * Project Kimchi
  *
- * Copyright IBM Corp, 2013-2016
+ * Copyright IBM Corp, 2013-2017
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -172,10 +172,10 @@
                     <input type="checkbox" class="wok-checkbox" name="selected-volume[]" id="{checkbox}" value="{name}">
                     <label class="volume-name volume-name-filter" for="{checkbox}"><span class="volume-inline-progress hidden"><span class="wok-loading-icon"></span></span> {name}</label><!--
                    --></span><!--
+                   --><span class="column-used"><span role="presentation" class="volume-icon {capacityIcon}"></span> {capacityLevel}%</span><!--
+                   --><span class="column-used-by volume-used-by-filter"><i class="fa fa-exclamation-circle" data-toggle="tooltip" title="$_('Used by the following VMs:') {used_by_formatted}" data-placement="bottom" data-original-title="$_('Used by the following VMs:') {used_by_formatted}"></i><span class="format-text" data-toggle="tooltip" title="$_('Used by the following VMs:') {used_by_formatted}" data-placement="bottom" data-original-title="$_('Used by the following VMs:') {used_by_formatted}">{used_by_text}</span></span><!--
                    --><span class="column-format volume-format-filter"><span class="gallery-header" title="$_('Format')">$_('Format')</span><span class="format-text">{format}</span></span><!--
                    --><span class="column-type volume-type-filter"><span class="gallery-header" title="$_('Type')">$_('Type')</span>{type}</span><!--
-                   --><span class="column-used-by volume-used-by-filter"><i class="fa fa-exclamation-circle" data-toggle="tooltip" title="$_('Used by the following VMs:') {used_by_formatted}" data-placement="bottom" data-original-title="$_('Used by the following VMs:') {used_by_formatted}"></i><span class="format-text" data-toggle="tooltip" title="$_('Used by the following VMs:') {used_by_formatted}" data-placement="bottom" data-original-title="$_('Used by the following VMs:') {used_by_formatted}">{used_by_text}</span></span><!--
-                   --><span class="column-used"><span role="presentation" class="volume-icon {capacityIcon}"></span> {capacityLevel}%</span><!--
                    --><span class="column-allocated"><span class="gallery-header" title="$_('Allocation')">$_('Allocation')</span>{allocation}</span><!--
                    --><span class="column-capacity"><span class="gallery-header" title="$_('Capacity')">$_('Capacity')</span>{capacity}</span><!--
                    --><span class="column-progress hidden"><span class="progress-status"></span> <span class="progress-transferred"></span>
