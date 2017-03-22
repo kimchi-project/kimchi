@@ -1,0 +1,35 @@
+12:59:29 <alinefm> #startmeeting
+12:59:30 <alinefm> #meetingname scrum
+12:59:30 <kimchi-bot> Meeting started Wed Mar 22 12:59:29 2017 UTC.  The chair is alinefm. Information about MeetBot at http://wiki.debian.org/MeetBot.
+12:59:30 <kimchi-bot> Useful Commands: #action #agreed #help #info #idea #link #topic.
+12:59:30 <kimchi-bot> The meeting name has been set to 'scrum'
+12:59:36 <alinefm> #info Agenda
+12:59:36 <alinefm> #info 1) Status
+12:59:36 <alinefm> #info 2) Open discussion
+12:59:36 <alinefm> anything else?
+13:02:39 <ramonn> nop
+13:03:51 <alinefm> let's get started
+13:03:52 <alinefm> #topic Status
+13:03:52 <alinefm> #info Please provide your status using the #info command: #info [<project] <nickname> <status>
+13:04:17 <alinefm> #info [kimchi] alinefm is fixing the issues open during the tests for 2.4 release
+13:05:09 <alinefm> #info [wok/kimchi/ginger*] lcorreia ran release tests on Ubuntu 16.10
+13:06:35 <ramonn> #info [*] ramonn finished fedora tests
+13:06:53 <ramonn> #info [kimchi] ramonn sent patch about bus, io and cache for review
+13:07:58 <bianca> #info [*] bianca finished centOS tests.
+13:11:25 <alinefm> danielhb, anything else to share?
+13:11:39 <danielhb> alinefm, yes
+13:11:55 <danielhb> #info [wok]~danielhb is fixing a problem with user log download
+13:11:58 <danielhb> ops
+13:12:07 <danielhb> #info [wok] danielhb is fixing a problem with user log download
+13:14:03 <danielhb> alinefm, that's all I have
+13:15:05 <alinefm> thanks!
+13:15:13 <alinefm> #topic Open Discussion
+13:15:24 <alinefm> I only have one topic for today related to this meeting
+13:15:53 <alinefm> I don't think it is useful anymore as most of this discussion is done on ML.
+13:16:31 <alinefm> so it will be our last scrum meeting. Feel free to ping this channel when needed otherwise, the ML is also a good way for communication
+13:16:57 <alinefm> any opposition on that?
+13:18:03 <danielhb> no
+13:20:06 <ramonn> no
+13:20:51 <alinefm> great!
+13:20:55 <alinefm> thanks everyone for joining!
+13:20:57 <alinefm> #endmeeting
