@@ -33,7 +33,7 @@ from wok.plugins.gingerbase.netinfo import get_vlan_device, is_bridge, is_vlan
 from wok.plugins.gingerbase.netinfo import ports
 from wok.plugins.kimchi import network as knetwork
 from wok.plugins.kimchi.config import kimchiPaths
-from wok.plugins.kimchi.model.config import CapabilitiesModel
+from wok.plugins.kimchi.model.featuretests import FeatureTests
 from wok.plugins.kimchi.osinfo import defaults as tmpl_defaults
 from wok.plugins.kimchi.xmlutils.interface import get_iface_xml
 from wok.plugins.kimchi.xmlutils.network import create_linux_bridge_xml
@@ -51,8 +51,6 @@ class NetworksModel(object):
         if self.conn.get() is not None:
             if self.conn.isQemuURI():
                 self._check_default_networks()
-
-        self.caps = CapabilitiesModel(**kargs)
 
     def _check_default_networks(self):
         networks = list(set(tmpl_defaults.get('networks', [])))
@@ -228,7 +226,7 @@ class NetworksModel(object):
         # connection == macvtap and iface is not bridge
         elif netinfo.is_bare_nic(iface) or netinfo.is_bonding(iface):
             # libvirt bridge creation will fail with NetworkManager enabled
-            if self.caps.nm_running:
+            if FeatureTests.is_nm_running():
                 raise InvalidParameter('KCHNET0027E')
 
             if 'vlan_id' in params:
