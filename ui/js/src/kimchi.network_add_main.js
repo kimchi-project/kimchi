@@ -1,7 +1,7 @@
 /*
  * Project Kimchi
  *
- * Copyright IBM Corp, 2015-2016
+ * Copyright IBM Corp, 2015-2017
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -79,9 +79,8 @@ kimchi.setDefaultNetworkType = function(isInterfaceAvail, bEdit) {
         if (!bEdit) {
             kimchi.enableBridgeOptions(false);
         }
-        $("#networkBriDisabledLabel").removeClass('hidden');
-    } else {
-        $("#networkBriDisabledLabel").remove();
+        $("#destinationList button").addClass("disabled");
+        $("#networkDestinationID").attr("title", "No interface available");
     }
 };
 
