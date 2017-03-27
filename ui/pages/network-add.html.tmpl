@@ -1,7 +1,7 @@
 #*
  * Project Kimchi
  *
- * Copyright IBM Corp, 2015-2016
+ * Copyright IBM Corp, 2015-2017
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,11 +46,8 @@
                 <option value="bridge">$_("Bridged: Virtual machines are connected through a network bridge")</option>
             </select>
         </div>
-        <div id="networkBriDisabledLabel" class="form-group hidden">
-            <p>$_("(No interfaces found)")</p>
-        </div>
         <div id="bridgedContent">
-            <div class="form-group">
+            <div id="destinationList" class="form-group">
                 <label for="networkDestinationID">$_("Destination"): </label>
                 <select id="networkDestinationID" data-size="5" class="selectpicker col-md-12 col-lg-12 form-control" data-none-selected-text="$_('Select an Interface')">
                 </select>
