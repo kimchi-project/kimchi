@@ -530,6 +530,9 @@ class NetworkModel(object):
             if params.get('vlan_id') or params.get('interfaces'):
                 raise InvalidParameter("KCHNET0032E")
 
+        # merge parameters
+        info.update(params)
+
         # get target device if bridge was created by Kimchi
         if connection == 'bridge':
             iface = info['interfaces'][0]
@@ -542,18 +545,13 @@ class NetworkModel(object):
                 else:
                     info['interfaces'] = original['interfaces'] = [port]
 
-        # merge parameters
-        info.update(params)
-
         # delete original network
         self.delete(name)
 
         try:
             # create new network
-            network = self.collection.create(info)
+            return self.collection.create(info)
         except:
             # restore original network
             self.collection.create(original)
             raise
-
-        return network
