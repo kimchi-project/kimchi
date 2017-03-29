@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-03 11:51+0530\n"
+"POT-Creation-Date: 2017-03-29 11:17-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -103,8 +103,8 @@ msgstr ""
 msgid "Unable to access remote ISO. Details: %(err)s"
 msgstr ""
 
-msgid "An error occurred when probing image OS information."
-msgstr "探测映像操作系统信息时发生错误。"
+msgid "Error probing image OS information: %(err)s"
+msgstr ""
 
 #, python-format
 msgid "Unable to read image file %(filename)s"
@@ -458,6 +458,9 @@ msgid ""
 "daemon at host %(host)s with the user %(user)s. Please verify the remote "
 "server libvirt configuration. More information: http://libvirt.org/auth."
 "html ."
+msgstr ""
+
+msgid "'enable_rdma' must be of type boolean (true or false)."
 msgstr ""
 
 #, python-format
@@ -1035,18 +1038,15 @@ msgstr "网络 VLAN 标识必须是一个介于 1 到 4094 之间的整数"
 msgid "Specify name and type to create a Network"
 msgstr "指定名称和类型以创建网络"
 
-#, python-format
 msgid ""
-"Unable to delete or update network %(name)s. There are some virtual machines "
-"%(vms)s and/or templates linked to this network."
+"Unable to delete or update network %(name)s as it is linked to some virtual "
+"machines (%(vms)s) and/or templates (%(tmpls)s)."
 msgstr ""
 
-#, python-format
 msgid ""
-"Unable to deactivate network %(name)s. There are some virtual machines "
-"%(vms)s and/or templates linked to this network."
+"Unable to deactivate network %(name)s as it is linked to are some virtual "
+"machines (%(vms)s) and/or templates (%(tmpls)s)."
 msgstr ""
-"无法取消激活网络 %(name)s。一些虚拟机 %(vms)s 和/或模板已链接至此网络。"
 
 #, python-format
 msgid "Bridge device %(name)s can not be the trunk device of a VLAN."
@@ -1192,11 +1192,6 @@ msgstr ""
 
 #, python-format
 msgid ""
-"Virtual machine '%(vm)s' must be stopped before creating a snapshot of it."
-msgstr "在创建虚拟机“%(vm)s”的快照之前，必须将其停止。"
-
-#, python-format
-msgid ""
 "Unable to create snapshot '%(name)s' on virtual machine '%(vm)s'. Details: "
 "%(err)s"
 msgstr "无法在以下虚拟机上创建快照“%(name)s”：“%(vm)s”。详细信息：%(err)s"
@@ -1258,11 +1253,8 @@ msgid "The maximum number of vCPUs is too large for this system."
 msgstr ""
 
 msgid ""
-"When CPU topology is defined, vCPUs must be a multiple of a product of cores "
-"and threads."
-msgstr ""
-
-msgid "The number of threads is too large for this system."
+"When CPU topology is defined, CPUs must be a multiple of the 'threads' "
+"number defined."
 msgstr ""
 
 msgid ""
@@ -1278,6 +1270,12 @@ msgstr ""
 msgid ""
 "Parameter 'topology' expects an object with fields among: 'sockets', "
 "'cores', 'threads'."
+msgstr ""
+
+msgid "Unable to update Max CPU or CPU topology when guest is running."
+msgstr ""
+
+msgid "Unable to hot plug/unplug CPUs. Details: %(err)s"
 msgstr ""
 
 #, python-format
@@ -1568,17 +1566,17 @@ msgstr ""
 msgid "Snapshot"
 msgstr ""
 
+msgid "Processor"
+msgstr "处理器"
+
 msgid "Name"
 msgstr "名称"
 
-msgid "More"
-msgstr ""
-
-msgid "Max CPU"
-msgstr ""
-
 msgid "Memory (MB)"
 msgstr "内存（MB）"
+
+msgid "More"
+msgstr ""
 
 msgid "Max Memory (MB)"
 msgstr ""
@@ -1592,10 +1590,18 @@ msgstr "图标"
 msgid "Console"
 msgstr ""
 
+msgid "Nothing selected"
+msgstr ""
+
 msgid "sclp"
 msgstr ""
 
 msgid "virtio"
+msgstr ""
+
+msgid ""
+"Select which items for boot order and grad them when needed to order them. "
+"At least one option must be selected."
 msgstr ""
 
 msgid "Add"
@@ -1669,6 +1675,39 @@ msgstr ""
 
 msgid "Created"
 msgstr "创建时间"
+
+msgid "Current CPU Number"
+msgstr ""
+
+msgid ""
+"Current CPU must be equal or lower than the Maximum CPU value. If a topology "
+"is set, it must be also be a multiple of the 'threads' value."
+msgstr ""
+
+msgid "Max CPU"
+msgstr ""
+
+msgid ""
+"Unable to edit maximum CPU or CPU topology when editing a running or paused "
+"virtual machine."
+msgstr ""
+
+msgid ""
+"If a topology is set, this value will be the product of sockets * times * "
+"cores."
+msgstr ""
+
+msgid "Manually set CPU topology"
+msgstr "手动设置 CPU 拓扑"
+
+msgid "Sockets"
+msgstr ""
+
+msgid "Cores"
+msgstr "核心"
+
+msgid "Threads"
+msgstr "线程"
 
 msgid "Save"
 msgstr "保存"
@@ -1792,6 +1831,14 @@ msgid "Password"
 msgstr "密码"
 
 msgid "Password of the user in the remote host"
+msgstr ""
+
+msgid "Use RDMA transport"
+msgstr ""
+
+msgid ""
+"Check this option only if RDMA is properly configured in both source and "
+"destination hosts, otherwise migration will fail."
 msgstr ""
 
 msgid "Delete this VM when the migration is completed"
@@ -1935,6 +1982,15 @@ msgstr ""
 msgid "Please check the invalid Storage Pools or Paths"
 msgstr ""
 
+msgid "macvtap"
+msgstr ""
+
+msgid "ovs"
+msgstr ""
+
+msgid "network"
+msgstr ""
+
 msgid ""
 "This will delete the %1 virtual machine and its virtual disks. This "
 "operation cannot be undone. Would you like to continue?"
@@ -1979,7 +2035,9 @@ msgstr ""
 msgid "Memory value cannot be higher than Max Memory value"
 msgstr ""
 
-msgid "Current CPUs value cannot be higher than Max CPU value"
+msgid ""
+"For better performance it is recommended a threads per core value not "
+"greater than %1."
 msgstr ""
 
 msgid ""
@@ -2026,6 +2084,15 @@ msgid "Successfully detached device from VM"
 msgstr ""
 
 msgid "Following devices will be affected, confirm?"
+msgstr ""
+
+msgid "Bridge"
+msgstr ""
+
+msgid "Vepa"
+msgstr ""
+
+msgid "None"
 msgstr ""
 
 msgid "unavailable"
@@ -2230,9 +2297,6 @@ msgstr ""
 msgid "Bridged: Virtual machines are connected through a network bridge"
 msgstr ""
 
-msgid "(No interfaces found)"
-msgstr "（找不到任何接口）"
-
 msgid "Destination"
 msgstr "目的地"
 
@@ -2357,6 +2421,19 @@ msgstr ""
 msgid "Ok"
 msgstr ""
 
+msgid "Template Name"
+msgstr ""
+
+msgid ""
+"The name used to identify the template. If omitted, a name will be "
+"automatically chosen."
+msgstr ""
+
+msgid ""
+"When selecting more than one Image Template, a name will be automatically "
+"chosen for each Image Template selected."
+msgstr ""
+
 msgid "Where is the source media for this template? "
 msgstr ""
 
@@ -2387,9 +2464,6 @@ msgstr ""
 msgid "Edit Template"
 msgstr "编辑模板"
 
-msgid "Processor"
-msgstr "处理器"
-
 msgid "CDROM"
 msgstr "CDROM"
 
@@ -2408,17 +2482,14 @@ msgstr "磁盘格式"
 msgid "Add Interface"
 msgstr ""
 
-msgid "Current CPU Number"
+msgid "pool"
 msgstr ""
 
-msgid "Manually set CPU topology"
-msgstr "手动设置 CPU 拓扑"
+msgid "bridge"
+msgstr ""
 
-msgid "Cores"
-msgstr "核心"
-
-msgid "Threads"
-msgstr "线程"
+msgid "vepa"
+msgstr ""
 
 msgid "State"
 msgstr ""
@@ -2454,6 +2525,9 @@ msgid "Disks"
 msgstr ""
 
 msgid "Extending logical pool"
+msgstr ""
+
+msgid "%"
 msgstr ""
 
 msgid "Deactivate"
