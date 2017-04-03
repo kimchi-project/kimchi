@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-29 11:17-0300\n"
+"POT-Creation-Date: 2017-04-04 14:51-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -108,6 +108,7 @@ msgstr ""
 msgid "Unable to access remote ISO. Details: %(err)s"
 msgstr ""
 
+#, python-format
 msgid "Error probing image OS information: %(err)s"
 msgstr ""
 
@@ -1100,11 +1101,13 @@ msgstr "Сетевой ИД VLAN должен быть целым числом �
 msgid "Specify name and type to create a Network"
 msgstr "Укажите имя и тип для создания сети"
 
+#, python-format
 msgid ""
 "Unable to delete or update network %(name)s as it is linked to some virtual "
 "machines (%(vms)s) and/or templates (%(tmpls)s)."
 msgstr ""
 
+#, python-format
 msgid ""
 "Unable to deactivate network %(name)s as it is linked to are some virtual "
 "machines (%(vms)s) and/or templates (%(tmpls)s)."
@@ -1368,6 +1371,7 @@ msgstr ""
 msgid "Unable to update Max CPU or CPU topology when guest is running."
 msgstr ""
 
+#, python-format
 msgid "Unable to hot plug/unplug CPUs. Details: %(err)s"
 msgstr ""
 
