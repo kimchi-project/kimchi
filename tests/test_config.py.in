@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM Corp, 2014-2016
+# Copyright IBM Corp, 2014-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -144,6 +144,7 @@ class ConfigTests(unittest.TestCase):
                 'tools.wokauth.on': False,
                 'tools.nocache.on': False,
                 'tools.staticdir.dir': '%s/ui/images' % pluginPrefix,
+                'tools.staticdir.content_types': {'svg': 'image/svg+xml'},
                 'tools.staticdir.on': True
             },
             '/data/screenshots': {
