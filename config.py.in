@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM Corp, 2015-2016
+# Copyright IBM Corp, 2015-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -24,7 +24,7 @@ import platform
 import threading
 from cherrypy.lib.reprconf import Parser
 
-from wok.config import CACHEEXPIRES, PluginConfig, PluginPaths
+from wok.config import PluginConfig, PluginPaths
 from wok.xmlutils.utils import xpath_get_text
 
 kimchiLock = threading.Lock()
@@ -171,17 +171,5 @@ class KimchiConfig(PluginConfig):
             elif data['type'] == 'file':
                 custom_config[uri].update({'tools.staticfile.on': True,
                                            'tools.staticfile.filename': path})
-
-        for dirname in ('css', 'js', 'images'):
-            custom_config['/' + dirname] = {
-                'tools.staticdir.on': True,
-                'tools.staticdir.dir': os.path.join(kimchiPaths.ui_dir,
-                                                    dirname),
-                'tools.wokauth.on': False,
-                'tools.nocache.on': False}
-            if dirname != 'images':
-                custom_config['/' + dirname].update({
-                    'tools.expires.on': True,
-                    'tools.expires.secs': CACHEEXPIRES})
 
         self.update(custom_config)
