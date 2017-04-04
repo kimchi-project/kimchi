@@ -1,5 +1,5 @@
 # Chinese (zh_CN) translations for kimchi package.
-# Copyright IBM Corp, 2013-2016
+# Copyright IBM Corp, 2013-2017
 # Adam Litke <agl@us.ibm.com>, 2013.
 #
 msgid ""
