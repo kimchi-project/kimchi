@@ -1,5 +1,5 @@
 # German translations for kimchi package.
-# Copyright IBM Corp, 2014-2016
+# Copyright IBM Corp, 2014-2017
 # Adam Litke <agl@us.ibm.com>, 2013.
 #
 msgid ""
