@@ -82,7 +82,7 @@
 /* Template & Guests Modal Windows */
 #template-add-window.modal-content label.box-iso-outer,
 #guest-add-window.modal-content label.box-iso-outer {
-  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
   font-size: 14px !important;
   font-weight: 400;
   border-radius: 3px;
@@ -345,7 +345,7 @@
 #guest-add-window.modal-content label {
   font-size: 16px;
   font-weight: 400;
-  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
 #guest-add-window form#form-vm-add {
@@ -391,7 +391,7 @@
   padding: 6px 2px;
   display: inline-block;
   vertical-align: middle;
-  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 300;
   font-size: 12.5pt;
   line-height: 1.42857;
@@ -416,7 +416,7 @@
   padding: 6px 2px;
   display: inline-block;
   vertical-align: middle;
-  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
   font-size: 12.5pt;
   line-height: 2.42857;
   font-weight: 400;
@@ -542,7 +542,7 @@
 #guest-content-container .wok-guest-gallery .wok-guest-list-item > span {
   display: inline-block;
   width: 100%;
-  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
   font-size: 12.5pt;
   line-height: 1.42857;
   font-weight: 400;
@@ -1272,7 +1272,7 @@ body.wok-gallery {
 #guest-edit-window form .header > span {
   padding: 6px 2px;
   display: inline-block;
-  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 400;
   font-size: 12.5pt;
   vertical-align: bottom;
@@ -1449,7 +1449,7 @@ body.wok-gallery {
   display: block;
   padding: 6px 2px;
   margin-bottom: 5px;
-  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 400;
   font-size: 12.5pt;
   vertical-align: bottom;
@@ -1694,7 +1694,7 @@ ul {
 #template-edit-window .template-tab-header > span {
   padding: 6px 2px;
   display: inline-block;
-  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 400;
   font-size: 12.5pt;
   vertical-align: baseline;
@@ -1859,7 +1859,7 @@ ul {
 #template-add-window.modal-content label {
   font-size: 16px;
   font-weight: 400;
-  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
 #template-add-window.modal-content label.check-all {
@@ -1990,7 +1990,7 @@ ul {
   border-bottom: 1px solid #eee;
   height: 38px;
   padding: 4px 12px;
-  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
   font-size: 13pt;
 }
 
@@ -2049,7 +2049,7 @@ ul {
   display: inline-block;
   vertical-align: bottom;
   height: 36px;
-  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 300;
   font-size: 12.5pt;
   line-height: 1.42857;
@@ -2075,7 +2075,7 @@ ul {
   padding: 6px 2px;
   display: inline-block;
   vertical-align: top;
-  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
   font-size: 12.5pt;
   line-height: 2.42857;
   font-weight: 400;
@@ -2202,7 +2202,7 @@ ul {
 #templates-root-container .wok-vm-gallery .wok-vm-body > span {
   display: inline-block;
   width: 100%;
-  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
   font-size: 12.5pt;
   line-height: 1.42857;
   font-weight: 400;
@@ -2821,7 +2821,7 @@ ul {
 }
 
 #storage-root-container .volumes .wok-list.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > div > div > div > span {
-  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
   line-height: 2.42857;
   vertical-align: top;
   font-size: 12.5pt;
