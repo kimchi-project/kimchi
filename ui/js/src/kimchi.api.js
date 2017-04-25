@@ -1,7 +1,7 @@
 /*
  * Project Kimchi
  *
- * Copyright IBM Corp, 2013-2016
+ * Copyright IBM Corp, 2013-2017
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1314,9 +1314,9 @@ var kimchi = {
     * Get the host information.
     */
 
-    kimchi.getHostDetails = function(suc, err) {
+    kimchi.serverConfig = function(suc, err) {
         wok.requestJSON({
-          url: 'plugins/gingerbase/host',
+          url: 'plugins/kimchi/host',
           type: 'GET',
           resend: true,
           contentType: 'application/json',

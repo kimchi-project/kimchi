@@ -1,7 +1,7 @@
 /*
  * Project Kimchi
  *
- * Copyright IBM Corp, 2013-2016
+ * Copyright IBM Corp, 2013-2017
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,8 +34,8 @@ kimchi.getCapabilities(function(result) {
 });
 
 kimchi.hostarch = undefined;
-kimchi.getHostDetails(function(result) {
-    kimchi.hostarch = result["architecture"];
+kimchi.serverConfig(function(result) {
+    kimchi.hostarch = result["arch"];
 });
 
 $(function(){

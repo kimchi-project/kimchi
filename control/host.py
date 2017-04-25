@@ -17,6 +17,8 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import platform
+
 from wok.control.base import Collection
 from wok.control.base import Resource, SimpleCollection
 from wok.control.utils import UrlSubNode
@@ -24,6 +26,8 @@ from wok.exception import NotFoundError
 
 from wok.plugins.kimchi.control.cpuinfo import CPUInfo
 from wok.plugins.kimchi.utils import is_s390x
+
+ARCH = platform.machine()
 
 
 @UrlSubNode('host', True)
@@ -39,7 +43,7 @@ class Host(Resource):
 
     @property
     def data(self):
-        return {}
+        return {'arch': ARCH}
 
 
 class VolumeGroups(Collection):
