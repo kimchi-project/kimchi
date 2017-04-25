@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM Corp, 2015-2016
+# Copyright IBM Corp, 2015-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -26,7 +26,7 @@ from wok.exception import InvalidParameter
 from wok.exception import NotFoundError
 from wok.xmlutils.utils import xpath_get_text
 
-from wok.plugins.gingerbase import disks
+from wok.plugins.kimchi import disks
 from wok.plugins.kimchi.model import hostdev
 from wok.plugins.kimchi.model.config import CapabilitiesModel
 from wok.plugins.kimchi.model.vms import VMModel, VMsModel

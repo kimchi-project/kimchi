@@ -29,6 +29,11 @@ messages = {
 
     "KCHPART0001E": _("Partition %(name)s does not exist in the host"),
 
+    "KCHDISK00001E": _("Error while accessing dev mapper device, %(err)s"),
+    "KCHDISK00002E": _("Block device not found."),
+    "KCHDISK00003E": _("Block device %(device)s not found."),
+    "KCHDISK00004E": _("Unable to retrieve LVM information. Details: %(err)s"),
+
     "KCHDEVS0001E": _('Unknown "_cap" specified'),
     "KCHDEVS0002E": _('"_passthrough" should be "true" or "false"'),
     "KCHDEVS0003E": _('"_passthrough_affected_by" should be a device name string'),
