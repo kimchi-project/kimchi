@@ -19,9 +19,6 @@
 kimchi.config = undefined;
 kimchi.getConfig(function(result) {
     kimchi.config = result;
-
-    if(kimchi.config.federation == true)
-        $('#peers').removeClass('hide-content');
 }, function() {
     kimchi.config = {}
 });

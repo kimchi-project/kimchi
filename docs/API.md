@@ -820,7 +820,6 @@ Contains information about Kimchi configuration.
 **Methods:**
 
 * **GET**: Retrieve configuration information
-    * federation: True if federation feature is enabled, False otherwise.
     * version: The version of the kimchi service
 * **POST**: *See Configuration Actions*
 
@@ -1051,15 +1050,6 @@ List of available groups.
     * pvs: The phisical volumes associated to this volume group.
     * free: Amount of free space in the volume group.
     * size: Total size of the volume group.
-
-### Collection: Peers
-
-**URI:** /plugins/kimchi/peers
-
-**Methods:**
-
-* **GET**: Return the list of Kimchi peers in the same network
-           (It uses openSLP for discovering)
 
 ### Simple Collection: OVSBridges
 
