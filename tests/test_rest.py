@@ -1529,7 +1529,7 @@ class RestTests(unittest.TestCase):
     def test_config(self):
         resp = self.request('/plugins/kimchi/config').read()
         conf = json.loads(resp)
-        keys = ["federation", "version"]
+        keys = ["version"]
         self.assertEquals(keys, sorted(conf.keys()))
 
     def test_capabilities(self):
@@ -1540,10 +1540,6 @@ class RestTests(unittest.TestCase):
                 u'screenshot', u'kernel_vfio', u'nm_running',
                 u'mem_hotplug_support', u'libvirtd_running']
         self.assertEquals(sorted(keys), sorted(conf.keys()))
-
-    def test_peers(self):
-        resp = self.request('/plugins/kimchi/peers').read()
-        self.assertEquals([], json.loads(resp))
 
     def test_distros(self):
         resp = self.request('/plugins/kimchi/config/distros').read()

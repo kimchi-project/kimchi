@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM Corp, 2015-2016
+# Copyright IBM Corp, 2015-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -24,7 +24,7 @@ from wok.basemodel import Singleton
 from wok.exception import NotFoundError
 from wok.utils import run_command, wok_log
 
-from wok.plugins.kimchi.config import config, find_qemu_binary
+from wok.plugins.kimchi.config import find_qemu_binary
 from wok.plugins.kimchi.config import get_kimchi_version
 from wok.plugins.kimchi.distroloader import DistroLoader
 from wok.plugins.kimchi.model.featuretests import FeatureTests
@@ -39,9 +39,7 @@ class ConfigModel(object):
         pass
 
     def lookup(self, name):
-        kconfig = config.get('kimchi', {})
-        return {'federation': kconfig.get('federation', False),
-                'version': get_kimchi_version()}
+        return {'version': get_kimchi_version()}
 
 
 class CapabilitiesModel(object):
