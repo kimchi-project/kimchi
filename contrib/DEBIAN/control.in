@@ -4,7 +4,6 @@ Section: base
 Priority: optional
 Architecture: all
 Depends: wok (>= 2.1.0),
-         ginger-base,
          python-imaging,
          python-configobj,
          novnc,
