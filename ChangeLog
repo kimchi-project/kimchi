@@ -1,7 +1,19 @@
 CHANGELOG
 =========
 
+#### [2.5.0] ####
+ * [70eddf9] Remove ginger-base as Kimchi dependency                                        (Aline Manera)
+ * [ad7b813] Remove federation feature from Kimchi as it is now on Wok                      (Aline Manera)
+ * [5be3484] Add server arch from /host API instead of relying on Ginger Base               (Aline Manera)
+ * [2078f7d] Move Kimchi specific functions from gingerbase.disks to Kimchi                 (Aline Manera)
+ * [03feaea] Move Kimchi specific functions from gingerbase.netinfo to Kimchi               (Aline Manera)
+ * [68c906a] Remove Open Sans font requirement                                              (Aline Manera)
+ * [64a6502] Bug fix: Let Wok specify UI configuration on cherrypy settings                 (Aline Manera)
+ * [a6ec73d] Updated PO files                                                               (Rajat Gupta)
+ * [bda50f8] Update Copyright date on po files                                              (Aline Manera)
+
 #### [2.4.0] ####
+ * [dd21bd9] Update VERSION, ChangeLog and po files for 2.4.0 release                       (Aline Manera)
  * [b68a78a] Bug fix: Set original VLAN device to network parameters to be updated          (Aline Manera)
  * [8280b22] Bug fix 1119: Proper check NetworkManager is running when creating new network (Aline Manera)
  * [ca66c7c] Bug fix: Inform user there is no interface available when creating a network   (Aline Manera)
