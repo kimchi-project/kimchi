@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kimchi 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-04 14:51-0300\n"
+"POT-Creation-Date: 2017-06-30 10:27-0300\n"
 "PO-Revision-Date: 2013-07-11 17:32-0400\n"
 "Last-Translator: Crístian Viana <vianac@linux.vnet.ibm.com>\n"
 "Language-Team: English\n"
@@ -29,6 +29,18 @@ msgstr ""
 #, python-format
 msgid "Partition %(name)s does not exist in the host"
 msgstr "La partition %(name)s n'existe pas sur l'hôte"
+
+msgid "Error while accessing dev mapper device, %(err)s"
+msgstr ""
+
+msgid "Block device not found."
+msgstr ""
+
+msgid "Block device %(device)s not found."
+msgstr ""
+
+msgid "Unable to retrieve LVM information. Details: %(err)s"
+msgstr ""
 
 msgid "Unknown \"_cap\" specified"
 msgstr "\"_cap\" inconnu spécifié"
@@ -2444,9 +2456,6 @@ msgid "vmdk"
 msgstr ""
 
 msgid "vpc"
-msgstr ""
-
-msgid "Peers"
 msgstr ""
 
 msgid "Create a network"
