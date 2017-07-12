@@ -337,7 +337,7 @@ var kimchi = {
     },
 
     vncToVM : function(vm) {
-        proxy_port = wok.config['proxy_port'];
+        proxy_port = location.port || (location.protocol === 'https:' ? '443' : '80');
         server_root = wok.config['server_root'];
         wok.requestJSON({
             url : "plugins/kimchi/vms/" + encodeURIComponent(vm) + "/connect",
@@ -363,7 +363,7 @@ var kimchi = {
     },
 
     spiceToVM : function(vm) {
-        proxy_port = wok.config['proxy_port'];
+        proxy_port = location.port || (location.protocol === 'https:' ? '443' : '80');
         server_root = wok.config['server_root'];
         wok.requestJSON({
             url : "plugins/kimchi/vms/" + encodeURIComponent(vm) + "/connect",
