@@ -29,15 +29,18 @@ msgstr "Utente %(user_id)s non trovato con le impostazioni LDAP fornite."
 msgid "Partition %(name)s does not exist in the host"
 msgstr "La partizione %(name)s non esiste nell'host"
 
+#, python-format
 msgid "Error while accessing dev mapper device, %(err)s"
 msgstr ""
 
 msgid "Block device not found."
 msgstr ""
 
+#, python-format
 msgid "Block device %(device)s not found."
 msgstr ""
 
+#, python-format
 msgid "Unable to retrieve LVM information. Details: %(err)s"
 msgstr ""
 
