@@ -753,6 +753,7 @@ kimchi.storage_main = function() {
     }
     kimchi.doListStoragePools();
     kimchi.initLogicalPoolExtend();
+    wok.addNotificationListener('METHOD:/kimchi/storages', kimchi.doListStoragePools);
 
     wok.topic('kimchi/storageVolumeAdded').subscribe(function() {
         pool = kimchi.selectedSP;
