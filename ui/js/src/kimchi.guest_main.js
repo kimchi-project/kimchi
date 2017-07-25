@@ -1,7 +1,7 @@
 /*
  * Project Kimchi
  *
- * Copyright IBM Corp, 2013-2016
+ * Copyright IBM Corp, 2013-2017
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -395,9 +395,6 @@ kimchi.guest_main = function() {
     }
     kimchi.guestTemplate = $('#guest-tmpl').html();
     kimchi.guestElem = $('<div/>').html(kimchi.guestTemplate).find('li[name="guest"]');
-    $('#guests-root-container').on('remove', function() {
-        kimchi.vmTimeout && clearTimeout(kimchi.vmTimeout);
-    });
 
     $('#guest-gallery-table-button').on('click', function(event) {
         kimchi.toggleGuestsGallery();
@@ -406,6 +403,7 @@ kimchi.guest_main = function() {
     kimchi.resetGuestFilter();
     kimchi.initGuestFilter();
     kimchi.listVmsAuto();
+    wok.addNotificationListener('METHOD:/kimchi/vms', kimchi.listVmsAuto);
 };
 
 kimchi.guest_clonevm_main = function() {
@@ -791,9 +789,6 @@ kimchi.listVmsAuto = function() {
     var $isDropdownOpened = $('[name="guest-actions"] ul.dropdown-menu').is(":visible");
     var $isModalOpened = $('#migrate-guest-window').is(":visible");
     if (!$isDropdownOpened && !$isModalOpened) {
-        if (kimchi.vmTimeout) {
-            clearTimeout(kimchi.vmTimeout);
-        }
         var getCreatingGuests = function() {
             var guests = [];
             kimchi.getTasksByFilter('status=running&target_uri=' + encodeURIComponent('^/plugins/kimchi/vms/[^/]+$'), function(tasks) {
@@ -916,7 +911,6 @@ kimchi.listVmsAuto = function() {
                         $('#guests-root-container > .wok-mask').fadeOut(300, function() {});
                     }
                 }
-                kimchi.setListVMAutoTimeout();
             },
             function(errorResponse, textStatus, errorThrown) {
                 if (errorResponse.responseJSON && errorResponse.responseJSON.reason) {
@@ -925,11 +919,7 @@ kimchi.listVmsAuto = function() {
                         $('#guests-root-container > .wok-mask').addClass('hidden');
                     });
                 }
-                kimchi.setListVMAutoTimeout();
             });
-    } else {
-        clearTimeout(kimchi.vmTimeout);
-        kimchi.setListVMAutoTimeout();
     }
 };
 
@@ -939,7 +929,3 @@ kimchi.editTemplate = function(guestTemplate, oldPopStat) {
     }
     return guestTemplate;
 };
-
-kimchi.setListVMAutoTimeout = function() {
-    kimchi.vmTimeout = window.setTimeout("kimchi.listVmsAuto();", 5000);
-}
