@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM Corp, 2016
+# Copyright IBM Corp, 2016-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -117,3 +117,19 @@ class LibvirtEvents(object):
 
         except libvirt.libvirtError as e:
             wok_log.error("register detach event failed: %s" % e.message)
+
+    def registerPoolEvents(self, conn, cb, arg):
+        """
+        Register libvirt events to listen to any pool change
+        """
+        pool_events = [libvirt.VIR_STORAGE_POOL_EVENT_DEFINED,
+                       libvirt.VIR_STORAGE_POOL_EVENT_STARTED,
+                       libvirt.VIR_STORAGE_POOL_EVENT_STOPPED,
+                       libvirt.VIR_STORAGE_POOL_EVENT_UNDEFINED]
+
+        for ev in pool_events:
+            try:
+                conn.get().storagePoolEventRegisterAny(None, ev, cb, arg)
+            except libvirt.libvirtError as e:
+                wok_log.error("Unable to register pool event handler: %s" %
+                              e.message)
