@@ -149,3 +149,22 @@ class LibvirtEvents(object):
             except libvirt.libvirtError as e:
                 wok_log.error("Unable to register network event handler: %s" %
                               e.message)
+
+    def registerDomainEvents(self, conn, cb, arg):
+        """
+        Register libvirt events to listen to any domain change
+        """
+        net_events = [libvirt.VIR_DOMAIN_EVENT_DEFINED,
+                      libvirt.VIR_DOMAIN_EVENT_PMSUSPENDED,
+                      libvirt.VIR_DOMAIN_EVENT_RESUMED,
+                      libvirt.VIR_DOMAIN_EVENT_STARTED,
+                      libvirt.VIR_DOMAIN_EVENT_STOPPED,
+                      libvirt.VIR_DOMAIN_EVENT_SUSPENDED,
+                      libvirt.VIR_DOMAIN_EVENT_UNDEFINED]
+
+        for ev in net_events:
+            try:
+                conn.get().domainEventRegisterAny(None, ev, cb, arg)
+            except libvirt.libvirtError as e:
+                wok_log.error("Unable to register domain event handler: %s" %
+                              e.message)

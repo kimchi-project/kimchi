@@ -40,6 +40,8 @@ class Model(BaseModel):
                                        'storages')
         self.events.registerNetworkEvents(self.conn, self._events_handler,
                                           'networks')
+        self.events.registerDomainEvents(self.conn, self._events_handler,
+                                         'vms')
 
         kargs = {'objstore': self.objstore, 'conn': self.conn,
                  'eventsloop': self.events}
