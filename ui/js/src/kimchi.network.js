@@ -1,7 +1,7 @@
 /*
  * Project Kimchi
  *
- * Copyright IBM Corp, 2013-2016
+ * Copyright IBM Corp, 2013-2017
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,6 @@ kimchi.NETWORK_TYPE_PASSTHROUGH = "passthrough";
 kimchi.NETWORK_TYPE_BRIDGED = "bridge";
 kimchi.NETWORK_TYPE_VEPA = "vepa";
 
-
 kimchi.initNetwork = function() {
     $('body').removeClass('wok-list wok-gallery');
 
@@ -36,10 +35,18 @@ kimchi.initNetwork = function() {
     kimchi.initNetworkListView();
 };
 
+wok.addNotificationListener('METHOD:/kimchi/networks', function() {
+    $("#networkBody").empty();
+    kimchi.initNetworkListView();
+});
+
 kimchi.initNetworkListView = function() {
     $('.wok-mask').removeClass('hidden');
     kimchi.listNetworks(function(data) {
         $('[data-toggle="tooltip"]').tooltip();
+        var listHtml = '';
+        var netList = [];
+
         for (var i = 0; i < data.length; i++) {
             var network = {
                 name : data[i].name,
@@ -55,7 +62,18 @@ kimchi.initNetworkListView = function() {
             network.interface.join();
             network.addrSpace = data[i].subnet ? data[i].subnet : null;
             network.persistent = data[i].persistent;
-            kimchi.addNetworkItem(network);
+            netList.push(network);
+            listHtml += kimchi.getNetworkItemHtml(network);
+        }
+        if($('#networkGrid').hasClass('wok-datagrid')) {
+            $('#networkGrid').dataGrid('destroy');
+        }
+        $("#networkBody").html(listHtml);
+        for (var i = 0; i < netList.length; i++) {
+            kimchi.addNetworkActions(netList[i]);
+        }
+        if(wok.tabMode["network"] === "admin") {
+            $(".column-action").attr("style","display");
         }
         $('#networkGrid').dataGrid({enableSorting: false});
         $('#networkGrid').removeClass('hidden');
@@ -64,16 +82,6 @@ kimchi.initNetworkListView = function() {
             $('#networkGrid').dataGrid('filter', $(this).val());
         });
     });
-};
-
-kimchi.addNetworkItem = function(network) {
-    var itemNode = $.parseHTML(kimchi.getNetworkItemHtml(network));
-    $("#networkBody").append(itemNode);
-    if(wok.tabMode["network"] === "admin") {
-        $(".column-action").attr("style","display");
-    }
-    kimchi.addNetworkActions(network);
-    return itemNode;
 };
 
 kimchi.getNetworkItemHtml = function(network) {
