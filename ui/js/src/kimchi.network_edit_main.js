@@ -197,14 +197,6 @@ kimchi.updateNetworkValues = function() {
         }
 
         kimchi.updateNetwork(kimchi.selectedNetwork, data, function(result) {
-            $('#' + kimchi.selectedNetwork).remove();
-            network = result;
-            network.type = result.connection;
-            network.state = result.state === "active" ? "up" : "down";
-            network.interface = result.interfaces ? result.interfaces[0] : i18n["KCHNET6001M"];
-            network.addrSpace = result.subnet ? result.subnet : i18n["KCHNET6001M"];
-            network.persistent = result.persistent;
-            $('#networkGrid').dataGrid('addRow', kimchi.addNetworkItem(network));
             wok.window.close();
         }, function(settings) {
             wok.message.error(settings.responseJSON.reason,'#alert-modal-container');

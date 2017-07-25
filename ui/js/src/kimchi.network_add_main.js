@@ -43,11 +43,6 @@ kimchi.startNetworkCreation = function() {
     }
 
     kimchi.createNetwork(data, function(result) {
-        network.state = result.state === "active" ? "up" : "down";
-        network.interface = result.interfaces ? result.interfaces : i18n["KCHNET6001M"];
-        network.addrSpace = result.subnet ? result.subnet : i18n["KCHNET6001M"];
-        network.persistent = result.persistent;
-        $('#networkGrid').dataGrid('addRow', kimchi.addNetworkItem(network));
         wok.window.close();
     }, function(data) {
         wok.message.error(data.responseJSON.reason,'#alert-modal-container');
