@@ -1,7 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM Corp, 2015-2016
+# Copyright IBM Corp, 2015-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -20,6 +20,7 @@
 from wok.basemodel import BaseModel
 from wok.objectstore import ObjectStore
 from wok.plugins.kimchi import config
+from wok.pushserver import send_wok_notification
 from wok.utils import get_all_model_instances, get_model_instances
 
 from wok.plugins.kimchi.model.libvirtconnection import LibvirtConnection
@@ -32,9 +33,11 @@ class Model(BaseModel):
         self.objstore = ObjectStore(objstore_loc or config.get_object_store())
         self.conn = LibvirtConnection(libvirt_uri)
 
-        # Register for Libvirt's host ENOSPC event and notify UI if it happens
+        # Register for libvirt events
         self.events = LibvirtEvents()
         self.events.handleEnospc(self.conn)
+        self.events.registerPoolEvents(self.conn, self._events_handler,
+                                       'storages')
 
         kargs = {'objstore': self.objstore, 'conn': self.conn,
                  'eventsloop': self.events}
@@ -46,4 +49,9 @@ class Model(BaseModel):
         for instance in instances:
             models.append(instance(**kargs))
 
-        return super(Model, self).__init__(models)
+        super(Model, self).__init__(models)
+
+    def _events_handler(self, conn, pool, ev, details, opaque):
+        # Do not use any known method (POST, PUT, DELETE) as it is used by Wok
+        # engine and may lead in having 2 notifications for the same action
+        send_wok_notification('/plugins/kimchi', opaque, 'METHOD')
