@@ -133,3 +133,19 @@ class LibvirtEvents(object):
             except libvirt.libvirtError as e:
                 wok_log.error("Unable to register pool event handler: %s" %
                               e.message)
+
+    def registerNetworkEvents(self, conn, cb, arg):
+        """
+        Register libvirt events to listen to any network change
+        """
+        net_events = [libvirt.VIR_NETWORK_EVENT_DEFINED,
+                      libvirt.VIR_NETWORK_EVENT_STARTED,
+                      libvirt.VIR_NETWORK_EVENT_STOPPED,
+                      libvirt.VIR_NETWORK_EVENT_UNDEFINED]
+
+        for ev in net_events:
+            try:
+                conn.get().networkEventRegisterAny(None, ev, cb, arg)
+            except libvirt.libvirtError as e:
+                wok_log.error("Unable to register network event handler: %s" %
+                              e.message)
