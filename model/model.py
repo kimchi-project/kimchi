@@ -38,6 +38,8 @@ class Model(BaseModel):
         self.events.handleEnospc(self.conn)
         self.events.registerPoolEvents(self.conn, self._events_handler,
                                        'storages')
+        self.events.registerNetworkEvents(self.conn, self._events_handler,
+                                          'networks')
 
         kargs = {'objstore': self.objstore, 'conn': self.conn,
                  'eventsloop': self.events}
