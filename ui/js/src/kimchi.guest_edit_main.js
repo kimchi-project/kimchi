@@ -1156,11 +1156,7 @@ kimchi.guest_edit_main = function() {
         kimchi.retrieveVM(kimchi.selectedGuest, function(org) {
             $(saveButton).prop('disabled', true);
             var data = $('#form-guest-edit-general').serializeObject();
-<<<<<<< HEAD
             data['autostart'] = $("#enableGuestAutostart").prop('checked');
-=======
-            data['autostart'] = $("#enableGuestAutostart").prop('checked') ? 1 : 0;
->>>>>>> 9669dd23dc8650e67906fe98a706e1aa4585b982
             data['memory'] = {current: Number(data['memory-ui']), maxmemory: Number(data['max-memory'])};
 
             var changedFields = {};
