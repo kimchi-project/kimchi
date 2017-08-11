@@ -1074,9 +1074,9 @@ kimchi.guest_edit_main = function() {
         });
         if ((kimchi.thisVMState === "running") || (kimchi.thisVMState === "paused")) {
             if (kimchi.capabilities.mem_hotplug_support) {
-                $("#form-guest-edit-general input").not("#guest-edit-memory-textbox").prop("disabled", true);
+                $("#form-guest-edit-general input").not("#guest-edit-memory-textbox").not("#enableGuestAutostart").prop("disabled", true);
             } else {
-                $("#form-guest-edit-general input").prop("disabled", true);
+                $("#form-guest-edit-general input").not("#enableGuestAutostart").prop("disabled", true);
             }
         }
         if (! kimchi.capabilities.mem_hotplug_support) {
