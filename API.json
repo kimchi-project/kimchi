@@ -369,6 +369,10 @@
                     "error": "KCHVM0053E",
                     "type": "boolean"
                 },
+                "autostart": {
+                  "description": "Enable/Disable guest autostart",
+                  "type": "boolean"
+                },
                 "users": {
                     "description": "Array of users who have permission to the VM",
                     "type": "array",

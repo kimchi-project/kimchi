@@ -330,6 +330,28 @@ class RestTests(unittest.TestCase):
         resp = self.request('/plugins/kimchi/vms/∨м-црdαtеd', req, 'PUT')
         self.assertEquals(400, resp.status)
 
+        # set vm autostart tests (powered off)
+        resp = self.request('/plugins/kimchi/vms/∨м-црdαtеd/start',
+                            '{}', 'POST')
+        self.assertEquals(200, resp.status)
+        req = json.dumps({"autostart": True})
+        resp = self.request('/plugins/kimchi/vms/∨м-црdαtеd', req, 'PUT')
+        self.assertEquals(200, resp.status)
+        resp = self.request('/plugins/kimchi/vms/∨м-црdαtеd',
+                            '{}', 'GET').read()
+        self.assertEquals(json.loads(resp)["autostart"], True)
+
+        # set vm autostart tests (running)
+        resp = self.request('/plugins/kimchi/vms/∨м-црdαtеd/poweroff',
+                            '{}', 'POST')
+        self.assertEquals(200, resp.status)
+        req = json.dumps({"autostart": False})
+        resp = self.request('/plugins/kimchi/vms/∨м-црdαtеd', req, 'PUT')
+        self.assertEquals(200, resp.status)
+        resp = self.request('/plugins/kimchi/vms/∨м-црdαtеd',
+                            '{}', 'GET').read()
+        self.assertEquals(json.loads(resp)["autostart"], False)
+
     def test_vm_lifecycle(self):
         # Create a Template
         req = json.dumps({'name': 'test',
