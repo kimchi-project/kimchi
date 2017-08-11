@@ -1065,6 +1065,7 @@ kimchi.guest_edit_main = function() {
         $('#form-guest-edit-general').fillWithObject(guest);
         $('#guest-edit-memory-textbox').val(parseInt(guest.memory.current));
         $('#guest-edit-max-memory-textbox').val(parseInt(guest.memory.maxmemory));
+        $("#enableGuestAutostart").prop('checked', parseInt(guest.autostart));
         kimchi.thisVMState = guest['state'];
         refreshCDROMs();
         $('#guest-edit-attach-cdrom-button').on('click', function(event) {
