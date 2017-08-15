@@ -26,7 +26,7 @@ over the web using a browser that supports HTML5.
 Getting Started
 ===============
 
-The latest packages available can be found at http://kimchi-project.github.io/kimchi/downloads/
+The latest packages available can be found at https://github.com/kimchi-project/kimchi/releases/latest
 
 If you prefer to install Kimchi from source code, follow the steps below!
 
