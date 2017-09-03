@@ -320,13 +320,15 @@ var kimchi = {
                 type : "POST",
                 dataType : "json"
             }).done(function() {
+                var path = server_root + "/websockify";
+                path += "?token=" + wok.urlSafeB64Encode(vm+'-console').replace(/=*$/g, "");
+                path += '&encrypt=1';
+
                 url = 'https://' + location.hostname + ':' + proxy_port;
                 url += server_root;
                 url += "/plugins/kimchi/serial/html/serial.html";
                 url += "?port=" + proxy_port;
-                url += "&path=" + server_root + "/websockify";
-                url += "?token=" + wok.urlSafeB64Encode(vm+'-console').replace(/=*$/g, "");
-                url += '&encrypt=1';
+                url += "&path=" + encodeURIComponent(path);
                 window.open(url);
             }).error(function(data) {
                 wok.message.error(data.responseJSON.reason);
@@ -344,11 +346,7 @@ var kimchi = {
             type : "POST",
             dataType : "json"
         }).done(function() {
-            url = 'https://' + location.hostname + ':' + proxy_port;
-            url += server_root;
-            url += "/plugins/kimchi/novnc/vnc_auto.html";
-            url += "?port=" + proxy_port;
-            url += "&path=" + server_root + "/websockify";
+            var path = server_root + "/websockify";
             /*
              * From python documentation base64.urlsafe_b64encode(s)
              * substitutes - instead of + and _ instead of / in the
@@ -356,8 +354,14 @@ var kimchi = {
              * contain = which is not safe in a URL query component.
              * So remove it when needed as base64 can work well without it.
              * */
-            url += "?token=" + wok.urlSafeB64Encode(vm).replace(/=*$/g, "");
-            url += '&encrypt=1';
+            path += "?token=" + wok.urlSafeB64Encode(vm).replace(/=*$/g, "");
+            path += '&encrypt=1';
+
+            url = 'https://' + location.hostname + ':' + proxy_port;
+            url += server_root;
+            url += "/plugins/kimchi/novnc/vnc_auto.html";
+            url += "?port=" + proxy_port;
+            url += "&path=" + encodeURIComponent(path);
             window.open(url);
         });
     },
