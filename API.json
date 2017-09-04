@@ -618,7 +618,7 @@
                         "path": {
                             "description": "Path for installation media (ISO, disk, remote ISO)",
                             "type": "string",
-                            "pattern" : "^((/)|(http)[s]?:|[t]?(ftp)[s]?:)+.*$"
+                            "pattern" : "^((/)|(http)[s]?:|[t]?(ftp)[s]?:|file:)+.*$"
                         }
                     },
                     "additionalProperties": false,

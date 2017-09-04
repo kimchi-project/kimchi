@@ -61,26 +61,33 @@ def check_url_path(path, redirected=0):
         code = ''
         parse_result = urlparse(path)
         server_name = parse_result.netloc
+        urlscheme = parse_result.scheme
         urlpath = parse_result.path
-        if not urlpath:
-            # Just a server, as with a repo.
-            with contextlib.closing(urllib2.urlopen(path)) as res:
-                code = res.getcode()
-        else:
-            # socket.gaierror could be raised,
-            #   which is a child class of IOError
-            conn = HTTPConnection(server_name, timeout=15)
-            # Don't try to get the whole file:
-            conn.request('HEAD', path)
-            response = conn.getresponse()
-            code = response.status
-            conn.close()
-        if code == 200:
-            return True
-        elif code == 301 or code == 302:
-            for header in response.getheaders():
-                if header[0] == 'location':
-                    return check_url_path(header[1], redirected+1)
+        if urlscheme == 'file':
+            if not os.access(urlpath, os.R_OK):
+                return False
+        elif urlscheme == 'http' or urlscheme == 'https':
+            if not urlpath:
+                # Just a server, as with a repo.
+                with contextlib.closing(urllib2.urlopen(path)) as res:
+                    code = res.getcode()
+            else:
+                # socket.gaierror could be raised,
+                #   which is a child class of IOError
+                conn = HTTPConnection(server_name, timeout=15)
+                # Don't try to get the whole file:
+                conn.request('HEAD', path)
+                response = conn.getresponse()
+                code = response.status
+                conn.close()
+            if code == 200:
+                return True
+            elif code == 301 or code == 302:
+                for header in response.getheaders():
+                    if header[0] == 'location':
+                        return check_url_path(header[1], redirected+1)
+            else:
+                return False
         else:
             return False
     except (urllib2.URLError, HTTPException, IOError, ValueError):
