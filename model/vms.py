@@ -1885,10 +1885,11 @@ class VMModel(object):
     def _check_remote_libvirt_conn(self, remote_host,
                                    user='root', transport='ssh'):
 
+        FNULL = open(os.devnull, 'w')
         dest_uri = 'qemu+%s://%s@%s/system' % (transport, user, remote_host)
         cmd = ['virsh', '-c', dest_uri, 'list']
-        proc = subprocess.Popen(cmd, stdout=subprocess.PIPE,
-                                shell=True, preexec_fn=os.setsid)
+        proc = subprocess.Popen(cmd, stdout=FNULL, stderr=FNULL,
+                                shell=False, preexec_fn=os.setsid)
         timeout = 0
         while proc.poll() is None:
             time.sleep(1)
