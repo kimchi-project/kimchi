@@ -29,10 +29,6 @@ kimchi.guest_edit_main = function() {
     clearTimeout(kimchi.vmTimeout);
     var bootOrderOptions = [];
 
-    $('#modalWindow').on('hidden.bs.modal', function() {
-        kimchi.setListVMAutoTimeout();
-    });
-
     $('#guest-edit-window a[data-toggle="tab"]').on('show.bs.tab', function(tab) {
         tab.target; // newly activated tab
         tab.relatedTarget; // previous active tab
