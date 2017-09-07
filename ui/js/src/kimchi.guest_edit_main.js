@@ -205,7 +205,7 @@ kimchi.guest_edit_main = function() {
         var addItem = function(data) {
             var oriID = data.id;
             if (data.id === -1) {
-                data.id = $('#form-guest-edit-interface > .body').children().size();
+                data.id = $('#form-guest-edit-interface > .body').children().length;
             }
             if (data.ips === "" || data.ips === null || data.ips === undefined || data.ips.length === 0) {
                 data.ips = i18n["KCHNET6001M"];
