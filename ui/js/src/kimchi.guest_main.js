@@ -766,7 +766,7 @@ kimchi.createGuestLi = function(vmObject, prevScreenImage, openMenu) {
             });
         } else {
             guestActions.find('.btn').attr('disabled', true);
-            result.find('.guest-done').addClass('hidden');
+            result.find('.guest-actions').addClass('hidden');
             result.find('.guest-state').addClass('hidden');
             result.find('.guest-pending').removeClass('hidden');
             pendingText = result.find('.guest-pending .text')
