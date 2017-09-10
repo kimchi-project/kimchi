@@ -115,6 +115,8 @@ kimchi.getNetworkItemHtml = function(network) {
 
 kimchi.stopNetwork = function(network,menu) {
     $(".network-state", $("#" + wok.escapeStr(network.name))).switchClass("up", "loading");
+    $(".network-state i", $("#" + wok.escapeStr(network.name))).removeClass();
+    $(".network-state i", $("#" + wok.escapeStr(network.name))).addClass("fa fa-spinner fa-pulse fa-3x fa-fw");
     $("[nwAct='stop']", menu).addClass("disabled");
     kimchi.toggleNetwork(network.name, false, function() {
         $("[nwAct='start']", menu).removeClass("wok-hide-action-item");
@@ -127,8 +129,12 @@ kimchi.stopNetwork = function(network,menu) {
             $(":first-child", $("[nwAct='edit']", menu)).removeAttr("disabled");
         }
         $(".network-state", $("#" + wok.escapeStr(network.name))).switchClass("loading", "down");
+        $(".network-state i", $("#" + wok.escapeStr(network.name))).removeClass("fa-power-off");
+        $(".network-state i", $("#" + wok.escapeStr(network.name))).addClass("fa fa-power-off");
     }, function(err) {
         $(".network-state", $("#" + wok.escapeStr(network.name))).switchClass("loading", "up");
+        $(".network-state i", $("#" + wok.escapeStr(network.name))).removeClass("fa-power-off");
+        $(".network-state i", $("#" + wok.escapeStr(network.name))).addClass("fa fa-power-off");
         if (!network.in_use) {
             $("[nwAct='stop']", menu).removeClass("disabled");
         }
@@ -143,6 +149,8 @@ kimchi.addNetworkActions = function(network) {
         var menu = $(evt.currentTarget).parent();
         if ($(evt.currentTarget).attr("nwAct") === "start") {
             $(".network-state", $("#" + wok.escapeStr(network.name))).switchClass("down", "loading");
+            $(".network-state i", $("#" + wok.escapeStr(network.name))).removeClass("fa-power-off");
+            $(".network-state i", $("#" + wok.escapeStr(network.name))).addClass("fa fa-spinner fa-pulse fa-3x fa-fw");
             $("[nwAct='start']", menu).addClass("disabled");
             $("[nwAct='delete']", menu).addClass("disabled");
             $(":first-child", $("[nwAct='delete']", menu)).attr("disabled", true);
@@ -157,8 +165,12 @@ kimchi.addNetworkActions = function(network) {
                     $("[nwAct='stop']", menu).addClass("disabled");
                 }
                 $(".network-state", $("#" + wok.escapeStr(network.name))).switchClass("loading", "up");
+                $(".network-state i", $("#" + wok.escapeStr(network.name))).removeClass("fa-power-off");
+                $(".network-state i", $("#" + wok.escapeStr(network.name))).addClass("fa fa-power-off");
             }, function(err) {
                 $(".network-state", $("#" + wok.escapeStr(network.name))).switchClass("loading","down");
+                $(".network-state i", $("#" + wok.escapeStr(network.name))).removeClass("fa-power-off");
+                $(".network-state i", $("#" + wok.escapeStr(network.name))).addClass("fa fa-power-off");
                 $("[nwAct='start']", menu).removeClass("disabled");
                 if (!network.in_use) {
                     $("[nwAct='delete']", menu).removeClass("disabled");
