@@ -1,7 +1,7 @@
 /*
  * Project Kimchi
  *
- * Copyright IBM Corp, 2013-2016
+ * Copyright IBM Corp, 2013-2017
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -795,7 +795,7 @@ kimchi.template_edit_main = function() {
 
     $('#tmpl-edit-button-save').on('click', function() {
         $button = $(this);
-        $button.html('<span class="wok-loading-icon" /> ' + i18n['KCHAPI6010M']);
+        $button.html('<i class="wok-loading-icon fa fa-spinner fa-pulse fa-3x fa-fw"></i>' + i18n['KCHAPI6010M']);
         $button.prop('disabled', true);
         $('.modal .wok-mask').removeClass('hidden');
         $('.modal input[type="text"]').prop('disabled', true);

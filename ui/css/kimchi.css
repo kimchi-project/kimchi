@@ -2361,39 +2361,21 @@ ul {
   right: -2px !important;
 }
 
-#network-root-container .wok-nw-loading-icon {
-  background: transparent url("../../../images/theme-default/spin5.svg") no-repeat 50% 50%;
-  -webkit-animation: spin 3s infinite linear;
-  -o-animation: spin 3s infinite linear;
-  animation: spin 3s infinite linear;
-  height: 16px;
-  width: 16px;
-  background-size: 100%;
-  display: block;
-  position: relative;
-  top: 12px;
-  left: 50%;
-  margin-left: -8px;
-}
-
-#network-root-container .up .wok-nw-loading-icon,
-#network-root-container .down .wok-nw-loading-icon {
-  display: none;
-}
-
 #network-root-container .wok-datagrid-body span > .fa {
   font-size: 22px;
-  width: 20px;
-  height: 20px;
+  width: 22px;
   position: relative;
 }
 
-#network-root-container .wok-datagrid-body .up .fa {
+#network-root-container .wok-datagrid-body .loading .fa-spinner {
+  display: inline-block;
+}
+
+#network-root-container .wok-datagrid-body .up .fa-power-off {
   color: #a8d46f;
 }
 
-#network-root-container .wok-datagrid-body .loading > .fa,
-#network-root-container .wok-datagrid-body .down .fa {
+#network-root-container .wok-datagrid-body .down .fa-power-off {
   display: none;
 }
 
@@ -2777,7 +2759,7 @@ ul {
   margin-right: 7px;
 }
 
-#storage-root-container .volumes .wok-list .volume-inline-progress > span.wok-loading-icon {
+#storage-root-container .volumes .wok-list .volume-inline-progress > i.wok-loading-icon {
   margin-right: 0;
 }
 

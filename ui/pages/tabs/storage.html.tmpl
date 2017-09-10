@@ -60,7 +60,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="host-partition">
-                                <span class="wok-loading-icon"></span><span>$_("Looking for available partitions ...")</span>
+                                <i class="wok-loading-icon fa fa-spinner fa-pulse fa-3x fa-fw"></i><span>$_("Looking for available partitions ...")</span>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -74,7 +74,7 @@
         <div class="wok-mask">
             <div class="wok-mask-loader-container">
                 <div class="wok-mask-loading">
-                    <div class="wok-mask-loading-icon"></div>
+                    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
                     <div class="wok-mask-loading-text">$_("Loading...")</div>
                 </div>
             </div>
@@ -151,7 +151,7 @@
                 <div class="wok-mask hidden">
                     <div class="wok-mask-loader-container">
                         <div class="wok-mask-loading">
-                            <div class="wok-mask-loading-icon"></div>
+                            <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
                             <div class="wok-mask-loading-text">$_("Loading...")</div>
                         </div>
                     </div>
@@ -173,7 +173,7 @@
             <div class="volume-box-inner" data-volume-name="{name}">
                 <span class="column-name" title="{name}">
                     <input type="checkbox" class="wok-checkbox" name="selected-volume[]" id="{checkbox}" value="{name}">
-                    <label class="volume-name volume-name-filter" for="{checkbox}"><span class="volume-inline-progress hidden"><span class="wok-loading-icon"></span></span> {name}</label><!--
+                    <label class="volume-name volume-name-filter" for="{checkbox}"><span class="volume-inline-progress hidden"><i class="wok-loading-icon fa fa-spinner fa-pulse fa-3x fa-fw"></i></span> {name}</label><!--
                    --></span><!--
                    --><span class="column-used"><span role="presentation" class="volume-icon {capacityIcon}"></span> {capacityLevel}%</span><!--
                    --><span class="column-used-by volume-used-by-filter"><i class="fa fa-exclamation-circle" data-toggle="tooltip" title="$_('Used by the following VMs:') {used_by_formatted}" data-placement="bottom" data-original-title="$_('Used by the following VMs:') {used_by_formatted}"></i><span class="format-text" data-toggle="tooltip" title="$_('Used by the following VMs:') {used_by_formatted}" data-placement="bottom" data-original-title="$_('Used by the following VMs:') {used_by_formatted}">{used_by_text}</span></span><!--

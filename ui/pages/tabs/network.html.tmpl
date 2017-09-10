@@ -57,7 +57,7 @@
         <div class="wok-mask">
             <div class="wok-mask-loader-container">
                 <div class="wok-mask-loading">
-                    <div class="wok-mask-loading-icon"></div>
+                    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
                     <div class="wok-mask-loading-text">$_("Loading...")</div>
                 </div>
             </div>
@@ -66,7 +66,7 @@
 <div id="modalWindow" class="modal fade network-modal" tabindex="-1" role="dialog" aria-labelledby="networkModalLabel" aria-hidden="true"> </div>
 <script id="networkItem" type="text/html">
     <div id='{name}' class='wok-nw-grid-body remove-when-logged-off'>
-        <span class='column-state' val="{state}"><span class='network-state {state}'><i class="fa fa-power-off"></i><span class="wok-nw-loading-icon"></span></span></span><!--
+        <span class='network-state column-state {state}' val="{state}"><i class="fa fa-power-off"></i></span><!--
                     --><span class='column-name' title="{name}" val="{name}">{name}</span><!--
                     --><span class='column-type' val="{type}">{type}</span><!--
                     --><span class='column-interface' data-placement="top" data-toggle="tooltip" title="{interface}" val="{interface}">{interface}</span><!--
