@@ -231,37 +231,37 @@
 
 #template-add-window.modal-content h3.iso-title.centos,
 #guest-add-window.modal-content h3.iso-title.centos {
-  background-image: url("../../../images/theme-default/icon-centos.png");
+  background-image: url("../images/icon-centos.png");
 }
 
 #template-add-window.modal-content h3.iso-title.debian,
 #guest-add-window.modal-content h3.iso-title.debian {
-  background-image: url("../../../images/theme-default/icon-debian.png");
+  background-image: url("../images/icon-debian.png");
 }
 
 #template-add-window.modal-content h3.iso-title.fedora,
 #guest-add-window.modal-content h3.iso-title.fedora {
-  background-image: url("../../../images/theme-default/icon-fedora.png");
+  background-image: url("../images/icon-fedora.png");
 }
 
 #template-add-window.modal-content h3.iso-title.opensuse,
 #guest-add-window.modal-content h3.iso-title.opensuse {
-  background-image: url("../../../images/theme-default/icon-opensuse.png");
+  background-image: url("../images/icon-opensuse.png");
 }
 
 #template-add-window.modal-content h3.iso-title.ubuntu,
 #guest-add-window.modal-content h3.iso-title.ubuntu {
-  background-image: url("../../../images/theme-default/icon-ubuntu.png");
+  background-image: url("../images/icon-ubuntu.png");
 }
 
 #template-add-window.modal-content h3.iso-title.gentoo,
 #guest-add-window.modal-content h3.iso-title.gentoo {
-  background-image: url("../../../images/theme-default/icon-gentoo.png");
+  background-image: url("../images/icon-gentoo.png");
 }
 
 #template-add-window.modal-content h3.iso-title.unknown,
 #guest-add-window.modal-content h3.iso-title.unknown {
-  background-image: url("../../../images/theme-default/icon-unknown.png");
+  background-image: url("../images/icon-vm.png");
 }
 
 /* Create Guest Modal */
@@ -1037,31 +1037,31 @@
 }
 
 #guest-content-container .distro-icon.icon-centos {
-  background-image: url("../../../images/theme-default/icon-centos.png");
+  background-image: url("../images/icon-centos.png");
 }
 
 #guest-content-container .distro-icon.icon-debian {
-  background-image: url("../../../images/theme-default/icon-debian.png");
+  background-image: url("../images/icon-debian.png");
 }
 
 #guest-content-container .distro-icon.icon-fedora {
-  background-image: url("../../../images/theme-default/icon-fedora.png");
+  background-image: url("../images/icon-fedora.png");
 }
 
 #guest-content-container .distro-icon.icon-opensuse {
-  background-image: url("../../../images/theme-default/icon-opensuse.png");
+  background-image: url("../images/icon-opensuse.png");
 }
 
 #guest-content-container .distro-icon.icon-ubuntu {
-  background-image: url("../../../images/theme-default/icon-ubuntu.png");
+  background-image: url("../images/icon-ubuntu.png");
 }
 
 #guest-content-container .distro-icon.icon-gentoo {
-  background-image: url("../../../images/theme-default/icon-gentoo.png");
+  background-image: url("../images/icon-gentoo.png");
 }
 
 #guest-content-container .distro-icon.icon-unknown {
-  background-image: url("../../../images/theme-default/icon-unknown.png");
+  background-image: url("../images/icon-vm.png");
 }
 
 body.wok-gallery {
@@ -2149,31 +2149,31 @@ ul {
 }
 
 #templates-root-container .wok-vm-list .distro-icon.icon-centos {
-  background-image: url("../../../images/theme-default/icon-centos.png");
+  background-image: url("../images/icon-centos.png");
 }
 
 #templates-root-container .wok-vm-list .distro-icon.icon-debian {
-  background-image: url("../../../images/theme-default/icon-debian.png");
+  background-image: url("../images/icon-debian.png");
 }
 
 #templates-root-container .wok-vm-list .distro-icon.icon-fedora {
-  background-image: url("../../../images/theme-default/icon-fedora.png");
+  background-image: url("../images/icon-fedora.png");
 }
 
 #templates-root-container .wok-vm-list .distro-icon.icon-opensuse {
-  background-image: url("../../../images/theme-default/icon-opensuse.png");
+  background-image: url("../images/icon-opensuse.png");
 }
 
 #templates-root-container .wok-vm-list .distro-icon.icon-ubuntu {
-  background-image: url("../../../images/theme-default/icon-ubuntu.png");
+  background-image: url("../images/icon-ubuntu.png");
 }
 
 #templates-root-container .wok-vm-list .distro-icon.icon-gentoo {
-  background-image: url("../../../images/theme-default/icon-gentoo.png");
+  background-image: url("../images/icon-gentoo.png");
 }
 
 #templates-root-container .wok-vm-list .distro-icon.icon-unknown {
-  background-image: url("../../../images/theme-default/icon-unknown.png");
+  background-image: url("../images/icon-vm.png");
 }
 
 #templates-root-container .wok-vm-gallery {
@@ -2280,31 +2280,31 @@ ul {
 }
 
 #templates-root-container .wok-vm-gallery .name-distro-icon.icon-centos {
-  background-image: url("../../../images/theme-default/icon-centos.png");
+  background-image: url("../images/icon-centos.png");
 }
 
 #templates-root-container .wok-vm-gallery .name-distro-icon.icon-debian {
-  background-image: url("../../../images/theme-default/icon-debian.png");
+  background-image: url("../images/icon-debian.png");
 }
 
 #templates-root-container .wok-vm-gallery .name-distro-icon.icon-fedora {
-  background-image: url("../../../images/theme-default/icon-fedora.png");
+  background-image: url("../images/icon-fedora.png");
 }
 
 #templates-root-container .wok-vm-gallery .name-distro-icon.icon-opensuse {
-  background-image: url("../../../images/theme-default/icon-opensuse.png");
+  background-image: url("../images/icon-opensuse.png");
 }
 
 #templates-root-container .wok-vm-gallery .name-distro-icon.icon-ubuntu {
-  background-image: url("../../../images/theme-default/icon-ubuntu.png");
+  background-image: url("../images/icon-ubuntu.png");
 }
 
 #templates-root-container .wok-vm-gallery .name-distro-icon.icon-gentoo {
-  background-image: url("../../../images/theme-default/icon-gentoo.png");
+  background-image: url("../images/icon-gentoo.png");
 }
 
 #templates-root-container .wok-vm-gallery .name-distro-icon.icon-unknown {
-  background-image: url("../../../images/theme-default/icon-unknown.png");
+  background-image: url("../images/icon-vm.png");
 }
 
 #templates-root-container span.template-status {

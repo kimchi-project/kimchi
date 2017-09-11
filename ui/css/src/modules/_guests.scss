@@ -682,25 +682,25 @@
         background-repeat: no-repeat;
         background-position: 100% 50%;
         &.icon-centos {
-            background-image: url('../../#{$wok-icon-path}/icon-centos.png');
+            background-image: url('../images/icon-centos.png');
         }
         &.icon-debian {
-            background-image: url('../../#{$wok-icon-path}/icon-debian.png');
+            background-image: url('../images/icon-debian.png');
         }
         &.icon-fedora {
-            background-image: url('../../#{$wok-icon-path}/icon-fedora.png');
+            background-image: url('../images/icon-fedora.png');
         }
         &.icon-opensuse {
-            background-image: url('../../#{$wok-icon-path}/icon-opensuse.png');
+            background-image: url('../images/icon-opensuse.png');
         }
         &.icon-ubuntu {
-            background-image: url('../../#{$wok-icon-path}/icon-ubuntu.png');
+            background-image: url('../images/icon-ubuntu.png');
         }
         &.icon-gentoo {
-            background-image: url('../../#{$wok-icon-path}/icon-gentoo.png');
+            background-image: url('../images/icon-gentoo.png');
         }
         &.icon-unknown {
-            background-image: url('../../#{$wok-icon-path}/icon-unknown.png');
+            background-image: url('../images/icon-vm.png');
         }
     }
 }
