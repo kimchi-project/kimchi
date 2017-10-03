@@ -39,7 +39,7 @@ from wok.plugins.kimchi.utils import is_libvirtd_up, pool_name_from_uri
 from wok.plugins.kimchi.utils import create_disk_image
 from wok.plugins.kimchi.vmtemplate import VMTemplate
 
-ISO_TYPE = "ISO 9660 CD-ROM"
+ISO_TYPE = ["DOS/MBR", "ISO 9660 CD-ROM"]
 # In PowerPC, memories must be aligned to 256 MiB
 PPC_MEM_ALIGN = 256
 # Max memory 16TB for PPC and 4TiB for X (according to Red Hat), in KiB
@@ -99,7 +99,8 @@ class TemplatesModel(object):
         ftype = file_type.file(path)
 
         # cdrom
-        if ISO_TYPE in ftype:
+        iscdrom = [t for t in ISO_TYPE if t in ftype]
+        if iscdrom:
             params["cdrom"] = path
 
             # check search permission
