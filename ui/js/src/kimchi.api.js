@@ -328,10 +328,10 @@ var kimchi = {
                 url += "?token=" + wok.urlSafeB64Encode(vm+'-console').replace(/=*$/g, "");
                 url += '&encrypt=1';
                 window.open(url);
-            }).error(function(data) {
+            }).fail(function(data) {
                 wok.message.error(data.responseJSON.reason);
             });
-        }).error(function(data) {
+        }).fail(function(data) {
             wok.message.error(data.responseJSON.reason);
         });
     },
