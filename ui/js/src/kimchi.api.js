@@ -324,7 +324,7 @@ var kimchi = {
                 url += server_root;
                 url += "/plugins/kimchi/serial/html/serial.html";
                 url += "?port=" + proxy_port;
-                url += "&path=" + server_root + "/websockify";
+                url += "&path=" + server_root + "websockify";
                 url += "?token=" + wok.urlSafeB64Encode(vm+'-console').replace(/=*$/g, "");
                 url += '&encrypt=1';
                 window.open(url);
@@ -348,7 +348,7 @@ var kimchi = {
             url += server_root;
             url += "/plugins/kimchi/novnc/vnc_auto.html";
             url += "?port=" + proxy_port;
-            url += "&path=" + server_root + "/websockify";
+            url += "&path=" + server_root + "websockify";
             /*
              * From python documentation base64.urlsafe_b64encode(s)
              * substitutes - instead of + and _ instead of / in the
