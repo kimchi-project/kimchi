@@ -1,7 +1,7 @@
 #
 # Kimchi
 #
-# Copyright IBM Corp, 2013-2016
+# Copyright IBM Corp, 2014-2016
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,6 +15,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-SUBDIRS = config css images js pages spice-web-client serial
+SUBDIRS = generated
 
-uidir = $(datadir)/wok/plugins/kimchi/ui
+spiceobjectsdir = $(datadir)/wok/plugins/kimchi/ui/spice-web-client/spiceobjects
+
+dist_spiceobjects_DATA = $(wildcard *.js) $(NULL)

@@ -1,0 +1,72 @@
+<html>
+<head>
+    <title>Test SWCanvas</title>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="swcanvas.js"></script>
+    <script>
+        $( window ).load(function() {
+            var img = new Image();
+            img.src = 'cat.jpg';
+            img.onload = function() {
+                var canvas = $('#canvas')[0];
+                var ctx = canvas.getContext('2d');
+                ctx.drawImage(this, 0, 0);
+
+                //extract subimage
+                var imgDataOriginal = ctx.getImageData(10, 10, 100, 100);
+
+                //swcanvas!
+                var swcanvas = new SWCanvas(canvas);
+                //the canvas is already filled, so flushback to fill it with the canvas
+                swcanvas.flushBack();
+
+                //check getImageData
+                var imgDataSW = swcanvas.getImageData(10, 10, 100, 100);
+
+                $('#canvasOriginal')[0].getContext('2d').putImageData(imgDataOriginal, 0, 0);
+                $('#canvasSW')[0].getContext('2d').putImageData(imgDataSW, 0, 0);
+
+                $('#canvasOriginalPut')[0].getContext('2d').putImageData(imgDataOriginal, 100, 100);
+
+                //another swcanvas
+                var swcanvasput = new SWCanvas($('#canvasSWPut')[0]);
+                swcanvasput.flushBack();
+
+                swcanvasput.putImageData(imgDataOriginal, 100, 100);
+                swcanvasput.flush();
+
+                //fillrect
+                var ctxFill = $('#canvasOriginalFill')[0].getContext('2d');
+                ctxFill.fillStyle = 'red';
+                ctxFill.fillRect(100, 100, 100, 100);
+
+                //fill sw
+                var swcanvasFill = new SWCanvas($('#canvasSWFill')[0]);
+                swcanvasFill.flushBack();
+
+                swcanvasFill.fillRect(255, 0, 0, 100, 100, 100, 100);
+                swcanvasFill.flush();
+            }
+
+
+        });
+    </script>
+</head>
+<body>
+    cat:
+    <canvas id="canvas" width="300" height="300"></canvas>
+    original:
+    <canvas id="canvasOriginal" width="100" height="100"></canvas>
+    sw:
+    <canvas id="canvasSW" width="100" height="100"></canvas>
+    original putimagedata:
+    <canvas id="canvasOriginalPut" width="300" height="300" style="border:1px solid red"></canvas>
+    sw putimagedata:
+    <canvas id="canvasSWPut" width="300" height="300" style="border:1px solid red"></canvas>
+    <br/><br/><br/><br/>
+    original fillrect:
+    <canvas id="canvasOriginalFill" width="300" height="300" style="border:1px solid blue"></canvas>
+    sw fillrect:
+    <canvas id="canvasSWFill" width="300" height="300" style="border:1px solid blue"></canvas>
+</body>
+</html>

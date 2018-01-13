@@ -372,13 +372,13 @@ var kimchi = {
         }).done(function(data, textStatus, xhr) {
             url = 'https://' + location.hostname + ':' + proxy_port;
             url += server_root;
-            url += "/plugins/kimchi/spice_auto.html";
+            url += "/plugins/kimchi/spice-web-client/index.html";
             /*
              * When using server_root we need pass the value with port
              * argument to be used correctly by spice_auto.html scripts
              */
             url += "?port=" + proxy_port + server_root;
-            url += "&listen=" + location.hostname;
+            url += "&host=" + location.hostname;
             /*
              * From python documentation base64.urlsafe_b64encode(s)
              * substitutes - instead of + and _ instead of / in the
@@ -386,8 +386,8 @@ var kimchi = {
              * contain = which is not safe in a URL query component.
              * So remove it when needed as base64 can work well without it.
              * */
-            url += "&token=" + wok.urlSafeB64Encode(vm).replace(/=*$/g, "");
-            url += '&encrypt=1';
+            url += "&vmInfoToken=" + wok.urlSafeB64Encode(vm).replace(/=*$/g, "");
+            url += '&protocol=wss';
             window.open(url);
         });
     },

@@ -22,7 +22,6 @@ Depends: wok (>= 2.1.0),
          open-iscsi,
          python-guestfs,
          libguestfs-tools,
-         spice-html5,
          python-magic,
          python-paramiko
 Build-Depends: xsltproc,

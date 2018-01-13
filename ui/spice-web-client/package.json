@@ -1,0 +1,16 @@
+{
+  "name": "eyeos-spiceproxy",
+  "version": "0.0.156",
+  "description": "spice client network stack library",
+  "main": "src/spiceproxy.js",
+  "author": "eyeOS",
+  "homepage": "http://www.eyeos.com",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "eyeos-gruntfile": "*",
+    "grunt": "0.4.5",
+    "grunt-init": "0.3.2",
+    "mocha": "2.4.5"
+  }
+}
