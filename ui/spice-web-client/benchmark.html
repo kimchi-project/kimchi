@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<!--
+ eyeOS Spice Web Client
+Copyright (c) 2015 eyeOS S.L.
+
+Contact Jose Carlos Norte (jose@eyeos.com) for more information about this software.
+
+This program is free software; you can redistribute it and/or modify it under
+the terms of the GNU Affero General Public License version 3 as published by the
+Free Software Foundation.
+ 
+This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License for more
+details.
+ 
+You should have received a copy of the GNU Affero General Public License
+version 3 along with this program in the file "LICENSE".  If not, see 
+<http://www.gnu.org/licenses/agpl-3.0.txt>.
+ 
+See www.eyeos.org for more details. All requests should be sent to licensing@eyeos.org
+ 
+The interactive user interfaces in modified source and object code versions
+of this program must display Appropriate Legal Notices, as required under
+Section 5 of the GNU Affero General Public License version 3.
+ 
+In accordance with Section 7(b) of the GNU Affero General Public License version 3,
+these Appropriate Legal Notices must retain the display of the "Powered by
+eyeos" logo and retain the original copyright notice. If the display of the 
+logo is not reasonably feasible for technical reasons, the Appropriate Legal Notices
+must display the words "Powered by eyeos" and retain the original copyright notice. 
+-->
+<html>
+<head>
+    <title></title>
+    <script type="text/javascript" src="application/WorkerProcess.js"></script>
+    <script type="text/javascript" src="lib/jquery-2.0.3.js"></script>
+    <script type="text/javascript" src="lib/base64.js"></script>
+    <script>
+        function start() {
+            //load benchmark data
+            // $.get('recorded/quic_2658778_1366x854', function(data) {
+            $.get('recorded/lz_rgba_3616376_1920x901', function(data) {
+
+                var width = 1920;
+                var height = 901;
+
+                var decoded = Base64.decode(data);
+                var arr = new ArrayBuffer(decoded.length);
+                var u8 = new Uint8Array(arr);
+                u8.set(decoded);
+                var result = dispatch(arr, false);
+                var tmpCanvas = $("<canvas/>")[0];
+                tmpCanvas.width = width;
+                tmpCanvas.height = height;
+
+                var imgData = tmpCanvas.getContext('2d').createImageData(width, height);
+                var arrResult = new Uint8Array(result);
+                imgData.data.set(arrResult);
+
+                var info = document.createTextNode('width: '+width+ ' height: '+height);
+                $('body').append(info);
+                $('body').append($('<br/>'));
+                tmpCanvas.getContext('2d').putImageData(imgData, 0, 0, 0, 0, width, height);
+                $('body').append(tmpCanvas);
+                $('body').append($('<br/>'));
+
+                //create benchmark button!
+                var btn = $("<input/>").attr({
+                    'type': 'button',
+                    'value': 'start'
+                });
+
+                btn.click(function() {
+                    var start = null;
+                    var end = null;
+                    var max = 0;
+                    var min = 9999999999999999;
+                    var used = null;
+                    var sum = 0;
+                    var loops = 250;
+                    for(var i=0;i<loops;i++) {
+                        start = Date.now();
+                        result = dispatch(arr, false);
+                        end = Date.now();
+                        used = end-start;
+                        sum = sum+(used);
+
+                        if(used > max) {
+                            max = used;
+                        }
+
+                        if(used < min) {
+                            min = used;
+                        }
+
+                    }
+
+
+                    console.log('min: ', min);
+                    console.log('max: ', max);
+                    console.log('mean: ', sum/loops);
+                    $('body').append($('<br/>'));
+                    $('body').append(document.createTextNode('min: '+min+ ' max: '+max+ ' mean: '+sum/loops));
+
+                });
+
+                $('body').append(btn);
+            });
+        }
+        $(document).ready(start);
+    </script>
+</head>
+<body>
+
+</body>
+</html>

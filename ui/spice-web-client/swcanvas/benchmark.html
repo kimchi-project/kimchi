@@ -1,0 +1,31 @@
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script>
+        $( window ).load(function() {
+
+            var canvas = $('#cnv')[0];
+            var ctx = canvas.getContext('2d');
+            var loops = 0;
+            var startTime = +Date.now();
+            function drawRect() {
+                setTimeout(function() {
+                    //ctx.fillStyle = '#FF0000';
+                    //ctx.fillRect(100, 100, 100, 100);
+                    loops++;
+                    if(loops < 1000) {
+                        drawRect();
+                    } else {
+                        var endTime = +Date.now();
+                        alert(endTime-startTime);
+                    }
+                }, 0);
+            };
+            drawRect();
+        });
+    </script>
+</head>
+<body>
+<canvas id="cnv" width="300" height="300"></canvas>
+</body>
+</html>
