@@ -98,10 +98,18 @@ AC_CONFIG_FILES([
     ui/css/Makefile
     ui/images/Makefile
     ui/js/Makefile
-    ui/spice-html5/Makefile
-    ui/spice-html5/css/Makefile
-    ui/spice-html5/pages/Makefile
-    ui/spice-html5/thirdparty/Makefile
+    ui/spice-web-client/Makefile
+    ui/spice-web-client/application/Makefile
+    ui/spice-web-client/keymaps/Makefile
+    ui/spice-web-client/lib/Makefile
+    ui/spice-web-client/lib/images/Makefile
+    ui/spice-web-client/network/Makefile
+    ui/spice-web-client/process/Makefile
+    ui/spice-web-client/resources/Makefile
+    ui/spice-web-client/spiceobjects/Makefile
+    ui/spice-web-client/spiceobjects/generated/Makefile
+    ui/spice-web-client/spiceproxy/Makefile
+    ui/spice-web-client/swcanvas/Makefile
     ui/pages/Makefile
     ui/pages/help/Makefile
     ui/pages/tabs/Makefile
