@@ -384,7 +384,7 @@ kimchi.guest_storage_add_main = function() {
     }
 
     var validateCDROM = function(settings) {
-        if (/^((https|http|ftp|ftps|tftp|\/).*)+$/.test(settings['path'])){
+        if (/^((https|http|ftp|ftps|tftp|file|\/).*)+$/.test(settings['path'])){
             // Delete pool and vol properties since they are not needed for cdrom
             delete settings['pool'];
             delete settings['vol'];

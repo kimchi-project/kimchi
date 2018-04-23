@@ -84,10 +84,15 @@ class TemplatesModel(object):
 
         # not local image: set as remote ISO
         path = path.encode('utf-8')
-        if urlparse.urlparse(path).scheme in ["http", "https", "tftp", "ftp",
-                                              "ftps"]:
+        pathscheme = urlparse.urlparse(path).scheme
+        if pathscheme in ["http", "https", "tftp", "ftp", "ftps"]:
             params["cdrom"] = path
             return self.save_template(params)
+        elif pathscheme == 'file':
+            path = urlparse.urlparse(path).path
+        elif pathscheme == '':
+            # means file path
+            pass
 
         # Local file (ISO/Img) does not exist: raise error
         if not os.path.exists(path):
