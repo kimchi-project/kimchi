@@ -151,6 +151,8 @@ server.
     * bootorder: list of devices in boot order
     * description: VM description
     * title: VM title
+    * autostart: show if autostart is enabled.
+
 * **DELETE**: Remove the Virtual Machine
 * **PUT**: update the parameters of existing VM
     * name: New name for this VM (only applied for shutoff VM)
@@ -184,6 +186,7 @@ server.
     * bootmenu: prompts guest bootmenu. Bool type.
     * description: VM description
     * title: VM title
+    * autostart: enable/disable guest autostart (true or false params).
 
 * **POST**: *See Virtual Machine Actions*
 

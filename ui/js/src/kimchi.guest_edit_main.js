@@ -1061,6 +1061,7 @@ kimchi.guest_edit_main = function() {
         $('#form-guest-edit-general').fillWithObject(guest);
         $('#guest-edit-memory-textbox').val(parseInt(guest.memory.current));
         $('#guest-edit-max-memory-textbox').val(parseInt(guest.memory.maxmemory));
+        $("#enableGuestAutostart").prop('checked', parseInt(guest.autostart));
         kimchi.thisVMState = guest['state'];
         refreshCDROMs();
         $('#guest-edit-attach-cdrom-button').on('click', function(event) {
@@ -1069,9 +1070,9 @@ kimchi.guest_edit_main = function() {
         });
         if ((kimchi.thisVMState === "running") || (kimchi.thisVMState === "paused")) {
             if (kimchi.capabilities.mem_hotplug_support) {
-                $("#form-guest-edit-general input").not("#guest-edit-memory-textbox").prop("disabled", true);
+                $("#form-guest-edit-general input").not("#guest-edit-memory-textbox").not("#enableGuestAutostart").prop("disabled", true);
             } else {
-                $("#form-guest-edit-general input").prop("disabled", true);
+                $("#form-guest-edit-general input").not("#enableGuestAutostart").prop("disabled", true);
             }
         }
         if (! kimchi.capabilities.mem_hotplug_support) {
@@ -1151,6 +1152,7 @@ kimchi.guest_edit_main = function() {
         kimchi.retrieveVM(kimchi.selectedGuest, function(org) {
             $(saveButton).prop('disabled', true);
             var data = $('#form-guest-edit-general').serializeObject();
+            data['autostart'] = $("#enableGuestAutostart").prop('checked');
             data['memory'] = {current: Number(data['memory-ui']), maxmemory: Number(data['max-memory'])};
 
             var changedFields = {};

@@ -68,6 +68,11 @@
                         <option value="virtio">$_("virtio")</option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <input id="enableGuestAutostart" class="wok-checkbox" type="checkbox" name="autostart" value="" />
+                    <label for="enableGuestAutostart" id="labelEnableGuestAutostart">$_("Enable Autostart")</label>
+                    <p class="help-block"><i class="fa fa-info-circle"></i> $_("Check this option to automatically start guest when host starts")</p>
+                </div>
                 <div class="guest-edit-bootorder tab-pane" id="form-guest-edit-bootorder">
                     <div id="bootOrder">
                         <label for="guest-edit-boot-order-textbox">Boot Order</label>
