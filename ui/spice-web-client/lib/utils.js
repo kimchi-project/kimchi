@@ -290,7 +290,7 @@ wdi.Utils = {
          * If not, an URL with destInfoToken is generated, host and port are resolved by backend service.
          */
         if ( ! destHost || ! destPort ) {
-            url = protocol + '://' + host + ':' + port + '/websockify/destInfoToken/' + destInfoToken + '/type/' + type;
+            url = protocol + '://' + host + ':' + port + '/websockify?token=' + destInfoToken;
         } else {
             url = protocol + '://' + host + ':' + port + '/websockify/host/' + destHost + '/port/' + destPort + '/type/' + type;
         }
