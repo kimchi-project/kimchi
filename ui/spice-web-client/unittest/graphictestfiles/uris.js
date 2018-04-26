@@ -1,0 +1,11 @@
+var uris = wdi.graphicTestUris = [];
+uris.push("unittest/graphictestfiles/SPICE_MSG_DISPLAY_DRAW_FILL");
+uris.push("unittest/graphictestfiles/SPICE_MSG_DISPLAY_DRAW_COPY_explorer_icon");
+uris.push("unittest/graphictestfiles/SPICE_MSG_DISPLAY_DRAW_COPY_start_button");
+uris.push("unittest/graphictestfiles/SPICE_MSG_DISPLAY_DRAW_COPY_windows_menu");
+uris.push("unittest/graphictestfiles/SPICE_MSG_DISPLAY_DRAW_COPY_user_icon_windows_menu");
+uris.push("unittest/graphictestfiles/SPICE_MSG_DISPLAY_DRAW_ALPHA_BLEND_login_page");
+uris.push("unittest/graphictestfiles/SPICE_MSG_DISPLAY_DRAW_BLACKNESS_login_page");
+uris.push("unittest/graphictestfiles/SPICE_MSG_DISPLAY_DRAW_TEXT_login_page");
+uris.push("unittest/graphictestfiles/SPICE_MSG_DISPLAY_DRAW_STROKE_libreoffice_tooltip");
+uris.push("unittest/graphictestfiles/SPICE_MSG_DISPLAY_DRAW_COPY_-_JPEG_ALPHA");
