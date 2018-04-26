@@ -30,6 +30,7 @@ from wok.xmlutils.utils import xpath_get_text
 kimchiLock = threading.Lock()
 
 __with_spice__ = "@withspice@"
+__with_spice_web_client__ = "@withspicewebclient@"
 __version__ = "@kimchiversion@"
 __release__ = "@kimchirelease@"
 
@@ -102,15 +103,18 @@ class KimchiPaths(PluginPaths):
 
     def __init__(self):
         super(KimchiPaths, self).__init__('kimchi')
-        self.spice_file = os.path.join(self.ui_dir,
-                                       'spice-html5/pages/spice_auto.html')
 
-        if __with_spice__ == 'yes':
-            self.spice_dir = os.path.join(self.ui_dir, 'spice-html5')
-        elif os.path.exists('@datadir@/spice-html5'):
-            self.spice_dir = '@datadir@/spice-html5'
+        if __with_spice_web_client__ == 'yes':
+            self.spice_file = os.path.join(self.ui_dir,
+                                        'spice-web-client/index.html')
+            self.spice_dir = os.path.join(self.ui_dir, 'spice-web-client')
         else:
-            self.spice_dir = '/usr/share/spice-html5'
+            if __with_spice__ == 'yes':
+                self.spice_dir = os.path.join(self.ui_dir, 'spice-html5')
+            elif os.path.exists('@datadir@/spice-html5'):
+                self.spice_dir = '@datadir@/spice-html5'
+            else:
+                self.spice_dir = '/usr/share/spice-html5'
 
         if os.path.exists('@datadir@/novnc'):
             self.novnc_dir = '@datadir@/novnc'
@@ -145,6 +149,10 @@ class KimchiConfig(PluginConfig):
                                  'path': kimchiPaths.spice_file},
             '/spice-html5/spice.css': {'type': 'file',
                                        'path': kimchiPaths.spice_css_file},
+            '/spice-web-client': {'type': 'dir',
+                                  'path': kimchiPaths.spice_dir},
+            '/index.html': {'type': 'file',
+                            'path': kimchiPaths.spice_file},
             '/serial': {'type': 'dir',
                         'path': kimchiPaths.serial_dir}}
 

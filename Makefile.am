@@ -29,6 +29,12 @@ else
 WITH_SPICE=no
 endif
 
+if WITH_SPICE_WEB_CLIENT
+WITH_SPICE_WEB_CLIENT=yes
+else
+WITH_SPICE_WEB_CLIENT=no
+endif
+
 wokdir = $(pythondir)/wok
 kimchidir = $(pythondir)/wok/plugins/kimchi
 
@@ -104,7 +110,8 @@ do_substitution = \
 	-e 's,[@]kimchidir[@],$(kimchidir),g'           \
 	-e 's,[@]kimchiversion[@],$(PACKAGE_VERSION),g' \
 	-e 's,[@]kimchirelease[@],$(PACKAGE_RELEASE),g' \
-	-e 's,[@]withspice[@],$(WITH_SPICE),g'
+	-e 's,[@]withspice[@],$(WITH_SPICE),g'          \
+	-e 's,[@]withspicewebclient[@],$(WITH_SPICE_WEB_CLIENT),g'
 
 config.py: config.py.in Makefile
 	$(do_substitution) < $(srcdir)/config.py.in > config.py

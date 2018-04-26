@@ -84,6 +84,15 @@ AC_ARG_WITH(
 )
 AM_CONDITIONAL([WITH_SPICE], [test "x$with_spice_html5" = xyes])
 
+AC_ARG_WITH(
+    [spice-web-client],
+    [AS_HELP_STRING([--with-spice-web-client],
+                    [Build Kimchi with spice-web-client @<:@default=no@:>@])],
+    ,
+    [with_spice_web_client="no"]
+)
+AM_CONDITIONAL([WITH_SPICE_WEB_CLIENT], [test "x$with_spice_web_client" = xyes])
+
 AC_CONFIG_FILES([
     po/Makefile.in
     po/gen-pot
@@ -102,6 +111,18 @@ AC_CONFIG_FILES([
     ui/spice-html5/css/Makefile
     ui/spice-html5/pages/Makefile
     ui/spice-html5/thirdparty/Makefile
+    ui/spice-web-client/Makefile
+    ui/spice-web-client/application/Makefile
+    ui/spice-web-client/keymaps/Makefile
+    ui/spice-web-client/lib/Makefile
+    ui/spice-web-client/lib/images/Makefile
+    ui/spice-web-client/network/Makefile
+    ui/spice-web-client/process/Makefile
+    ui/spice-web-client/resources/Makefile
+    ui/spice-web-client/spiceobjects/Makefile
+    ui/spice-web-client/spiceobjects/generated/Makefile
+    ui/spice-web-client/spiceproxy/Makefile
+    ui/spice-web-client/swcanvas/Makefile
     ui/pages/Makefile
     ui/pages/help/Makefile
     ui/pages/tabs/Makefile
