@@ -1291,8 +1291,10 @@ class VMModel(object):
         graphics = self.get_graphics(name, self.conn)
         graphics_port = graphics[2]
         graphics_port = graphics_port if state == 'running' else None
+        # only take a screenshot if configured to do so
+        take_screenshot = config.get('kimchi', {}).get('take_screenshot', True)
         try:
-            if state == 'running' and self._has_video(dom):
+            if take_screenshot and state == 'running' and self._has_video(dom):
                 screenshot = self.vmscreenshot.lookup(name)
             elif state == 'shutoff':
                 # reset vm stats when it is powered off to avoid sending
