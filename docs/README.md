@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/ramonmedeiros/kimchi.svg?branch=master)](https://travis-ci.org/ramonmedeiros/kimchi)
+
+
 * [What is Kimchi?](#what-is-kimchi)
 * [Browser Support](https://github.com/kimchi-project/wok/#browser-support)
     * [Desktop Browser Support](https://github.com/kimchi-project/wok/#desktop-browser-support)
