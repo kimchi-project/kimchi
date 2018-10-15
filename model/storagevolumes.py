@@ -323,14 +323,23 @@ class StorageVolumeModel(object):
         # raw files), so it's necessary check the 'content' of them
         isvalid = True
         if fmt == 'raw':
-            try:
-                ms = magic.open(magic.NONE)
-                ms.load()
-                if ms.file(path).lower() not in VALID_RAW_CONTENT:
+            if not os.path.islink(path): # Check if file is a symlink to a real block device, if so, don't check it's contents for validity
+                try:
+                    ms = magic.open(magic.NONE)
+                    ms.load()
+                    if ms.file(path).lower() not in VALID_RAW_CONTENT:
+                        isvalid = False
+                    ms.close()
+                except UnicodeDecodeError:
                     isvalid = False
-                ms.close()
-            except UnicodeDecodeError:
-                isvalid = False
+            else: # We are a symlink
+                 if "/dev/dm-" in os.path.realpath(path):
+                     # This is most likely a real blockdevice
+                     isvalid = True
+                     wok_log.error("symlink detected, validated the disk")
+                 else:
+                     # Doesn't point to a known blockdevice
+                     isvalid = False
 
         used_by = get_disk_used_by(self.conn, path)
         if (self.libvirt_user is None):
