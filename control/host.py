@@ -16,14 +16,13 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
 import platform
 
 from wok.control.base import Collection
-from wok.control.base import Resource, SimpleCollection
+from wok.control.base import Resource
+from wok.control.base import SimpleCollection
 from wok.control.utils import UrlSubNode
 from wok.exception import NotFoundError
-
 from wok.plugins.kimchi.control.cpuinfo import CPUInfo
 from wok.plugins.kimchi.utils import is_s390x
 
@@ -49,7 +48,7 @@ class Host(Resource):
 class VolumeGroups(Collection):
     def __init__(self, model):
         super(VolumeGroups, self).__init__(model)
-        self.uri_fmt = "/host/vgs"
+        self.uri_fmt = '/host/vgs'
         self.admin_methods = ['GET']
         self.resource = VolumeGroup
 
@@ -57,7 +56,7 @@ class VolumeGroups(Collection):
 class VolumeGroup(Resource):
     def __init__(self, model, id=None):
         super(VolumeGroup, self).__init__(model, id)
-        self.uri_fmt = "/host/vgs/%s"
+        self.uri_fmt = '/host/vgs/%s'
         self.admin_methods = ['GET']
 
     @property
@@ -68,7 +67,7 @@ class VolumeGroup(Resource):
 class VMHolders(SimpleCollection):
     def __init__(self, model, device_id):
         super(VMHolders, self).__init__(model)
-        self.model_args = (device_id, )
+        self.model_args = (device_id,)
 
 
 class Devices(Collection):
@@ -97,15 +96,22 @@ class Partitions(Collection):
     # sorted by their path
     def _get_resources(self, flag_filter):
         res_list = super(Partitions, self)._get_resources(flag_filter)
-        res_list = filter(lambda x: x.info['available'], res_list)
+        res_list = list(filter(lambda x: x.info['available'], res_list))
         if is_s390x():
             # On s390x arch filter out the DASD block devices which
             # don't have any partition(s). This is necessary because
             # DASD devices without any partitions are not valid
             # block device(s) for operations like pvcreate on s390x
-            res_list = filter(lambda x: (x.info['name'].startswith(
-                'dasd') and x.info['type'] == 'part') or (
-                not x.info['name'].startswith('dasd')), res_list)
+            res_list = list(
+                filter(
+                    lambda x: (
+                        x.info['name'].startswith(
+                            'dasd') and x.info['type'] == 'part'
+                    ) or
+                    (not x.info['name'].startswith('dasd')),
+                    res_list,
+                )
+            )
         res_list.sort(key=lambda x: x.info['path'])
         return res_list
 
@@ -118,6 +124,6 @@ class Partition(Resource):
     @property
     def data(self):
         if not self.info['available']:
-            raise NotFoundError("KCHPART0001E", {'name': self.info['name']})
+            raise NotFoundError('KCHPART0001E', {'name': self.info['name']})
 
         return self.info

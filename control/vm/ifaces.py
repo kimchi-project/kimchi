@@ -16,42 +16,31 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
-from wok.control.base import Collection, Resource
+from wok.control.base import Collection
+from wok.control.base import Resource
 from wok.control.utils import UrlSubNode
 
 
-VMIFACES_REQUESTS = {
-    'POST': {
-        'default': "KCHVMIF0001L",
-    },
-}
+VMIFACES_REQUESTS = {'POST': {'default': 'KCHVMIF0001L'}}
 
 VMIFACE_REQUESTS = {
-    'DELETE': {
-        'default': "KCHVMIF0002L",
-    },
-    'PUT': {
-        'default': "KCHVMIF0003L",
-    },
+    'DELETE': {'default': 'KCHVMIF0002L'},
+    'PUT': {'default': 'KCHVMIF0003L'},
 }
 
 
-@UrlSubNode("ifaces")
+@UrlSubNode('ifaces')
 class VMIfaces(Collection):
     def __init__(self, model, vm):
         super(VMIfaces, self).__init__(model)
         self.resource = VMIface
         self.vm = vm
-        self.resource_args = [self.vm, ]
-        self.model_args = [self.vm, ]
+        self.resource_args = [self.vm]
+        self.model_args = [self.vm]
 
         # set user log messages and make sure all parameters are present
         self.log_map = VMIFACES_REQUESTS
-        self.log_args.update({
-            'network': '',
-            'vm': self.vm.encode('utf-8') if self.vm else '',
-        })
+        self.log_args.update({'network': '', 'vm': self.vm if self.vm else ''})
 
 
 class VMIface(Resource):
@@ -65,9 +54,7 @@ class VMIface(Resource):
 
         # set user log messages and make sure all parameters are present
         self.log_map = VMIFACE_REQUESTS
-        self.log_args.update({
-            'vm': self.vm.encode('utf-8') if self.vm else '',
-        })
+        self.log_args.update({'vm': self.vm if self.vm else ''})
 
     @property
     def data(self):

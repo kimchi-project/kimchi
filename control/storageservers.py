@@ -16,10 +16,12 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
 from wok import template
-from wok.control.base import Collection, Resource
-from wok.control.utils import get_class_name, model_fn, UrlSubNode
+from wok.control.base import Collection
+from wok.control.base import Resource
+from wok.control.utils import get_class_name
+from wok.control.utils import model_fn
+from wok.control.utils import UrlSubNode
 
 
 @UrlSubNode('storageservers', True)
@@ -34,8 +36,7 @@ class StorageServer(Resource):
     def __init__(self, model, ident):
         super(StorageServer, self).__init__(model, ident)
         self.admin_methods = ['GET']
-        self.storagetargets = StorageTargets(self.model,
-                                             self.ident.decode("utf-8"))
+        self.storagetargets = StorageTargets(self.model, self.ident)
 
     @property
     def data(self):
@@ -47,8 +48,8 @@ class StorageTargets(Collection):
         super(StorageTargets, self).__init__(model)
         self.admin_methods = ['GET']
         self.server = server
-        self.resource_args = [self.server, ]
-        self.model_args = [self.server, ]
+        self.resource_args = [self.server]
+        self.model_args = [self.server]
 
     def get(self, filter_params):
         res_list = []

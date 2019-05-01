@@ -16,16 +16,14 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
 import libvirt
 import lxml.etree as ET
 from lxml import objectify
 from lxml.builder import E
-
-from wok.utils import patch_find_nfs_target, wok_log
-
 from wok.plugins.kimchi.model.config import CapabilitiesModel
 from wok.plugins.kimchi.model.storageservers import STORAGE_SERVERS
+from wok.utils import patch_find_nfs_target
+from wok.utils import wok_log
 
 
 class StorageTargetsModel(object):
@@ -44,15 +42,19 @@ class StorageTargetsModel(object):
             if not self.caps.nfs_target_probe and target_type == 'netfs':
                 targets = patch_find_nfs_target(storage_server)
             else:
-                xml = self._get_storage_server_spec(server=storage_server,
-                                                    target_type=target_type,
-                                                    server_port=_server_port)
+                xml = self._get_storage_server_spec(
+                    server=storage_server,
+                    target_type=target_type,
+                    server_port=_server_port,
+                )
                 conn = self.conn.get()
                 try:
                     ret = conn.findStoragePoolSources(target_type, xml, 0)
                 except libvirt.libvirtError as e:
-                    err = "Query storage pool source fails because of %s"
-                    wok_log.warning(err, e.get_error_message())
+                    wok_log.warning(
+                        f'Query storage pool source fails because of '
+                        f'{e.get_error_message()}'
+                    )
                     continue
 
                 targets = self._parse_target_source_result(target_type, ret)
@@ -66,24 +68,25 @@ class StorageTargetsModel(object):
             # Get all existing ISCSI and NFS pools
             pools = conn.listAllStoragePools(
                 libvirt.VIR_CONNECT_LIST_STORAGE_POOLS_ISCSI |
-                libvirt.VIR_CONNECT_LIST_STORAGE_POOLS_NETFS)
+                libvirt.VIR_CONNECT_LIST_STORAGE_POOLS_NETFS
+            )
             for pool in pools:
                 pool_xml = pool.XMLDesc(0)
                 root = objectify.fromstring(pool_xml)
-                if root.get('type') == 'netfs' and \
-                        root.source.dir is not None:
+                if root.get('type') == 'netfs' and root.source.dir is not None:
                     used_paths.append(root.source.dir.get('path'))
-                elif root.get('type') == 'iscsi' and \
-                        root.source.device is not None:
+                elif root.get('type') == 'iscsi' and root.source.device is not None:
                     used_paths.append(root.source.device.get('path'))
 
         except libvirt.libvirtError as e:
-            err = "Query storage pool source fails because of %s"
-            wok_log.warning(err, e.get_error_message())
+            wok_log.warning(
+                f'Query storage pool source fails because of {e.get_error_message()}'
+            )
 
         # Filter target_list to not not show the used paths
-        target_list = [elem for elem in target_list
-                       if elem.get('target') not in used_paths]
+        target_list = [
+            elem for elem in target_list if elem.get('target') not in used_paths
+        ]
         return [dict(t) for t in set(tuple(t.items()) for t in target_list)]
 
     def _get_storage_server_spec(self, **kwargs):
@@ -97,8 +100,8 @@ class StorageTargetsModel(object):
         else:
             extra_args.append(E.format(type=server_type))
 
-        host_attr = {"name": kwargs['server']}
-        server_port = kwargs.get("server_port")
+        host_attr = {'name': kwargs['server']}
+        server_port = kwargs.get('server_port')
         if server_port is not None:
             host_attr['port'] = server_port
 
@@ -117,6 +120,6 @@ class StorageTargetsModel(object):
                 target_path = source.device.get('path')
                 type = target_type
             host_name = source.host.get('name')
-            ret.append(dict(host=host_name, target_type=type,
-                            target=target_path))
+            ret.append(
+                dict(host=host_name, target_type=type, target=target_path))
         return ret

@@ -16,20 +16,20 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
-import cherrypy
 import json
 import os
 import time
 import unittest
 
-from tests.utils import patch_auth, request, run_server
-from tests.utils import wait_task
-
+import cherrypy
+import iso_gen
 from wok.exception import InvalidOperation
 from wok.plugins.kimchi.osinfo import get_template_default
 
-import iso_gen
+from tests.utils import patch_auth
+from tests.utils import request
+from tests.utils import run_server
+from tests.utils import wait_task
 
 test_server = None
 model = None
@@ -57,46 +57,54 @@ class MockModelTests(unittest.TestCase):
 
     def test_screenshot_refresh(self):
         # Create a VM
-        req = json.dumps({'name': 'test',
-                          'source_media': {'type': 'disk', 'path': fake_iso}})
+        req = json.dumps(
+            {'name': 'test', 'source_media': {'type': 'disk', 'path': fake_iso}}
+        )
         request('/plugins/kimchi/templates', req, 'POST')
-        req = json.dumps({'name': 'test-vm',
-                          'template': '/plugins/kimchi/templates/test'})
+        req = json.dumps(
+            {'name': 'test-vm', 'template': '/plugins/kimchi/templates/test'}
+        )
         resp = request('/plugins/kimchi/vms', req, 'POST')
-        task = json.loads(resp.read())
+        task = json.loads(resp.read().decode('utf-8'))
         wait_task(model.task_lookup, task['id'])
 
         # Test screenshot refresh for running vm
-        request('/plugins/kimchi/vms/test-vm/start', '{}',
-                'POST')
+        request('/plugins/kimchi/vms/test-vm/start', '{}', 'POST')
         resp = request('/plugins/kimchi/vms/test-vm/screenshot')
-        self.assertEquals(200, resp.status)
-        self.assertEquals('image/png', resp.getheader('content-type'))
+        self.assertEqual(200, resp.status)
+        self.assertEqual('image/png', resp.getheader('content-type'))
         resp1 = request('/plugins/kimchi/vms/test-vm')
-        rspBody = resp1.read()
+        rspBody = resp1.read().decode('utf-8')
         testvm_Data = json.loads(rspBody)
         screenshotURL = '/' + testvm_Data['screenshot']
         time.sleep(5)
         resp2 = request(screenshotURL)
-        self.assertEquals(200, resp2.status)
-        self.assertEquals(resp2.getheader('content-type'),
-                          resp.getheader('content-type'))
-        self.assertEquals(resp2.getheader('content-length'),
-                          resp.getheader('content-length'))
-        self.assertEquals(resp2.getheader('last-modified'),
-                          resp.getheader('last-modified'))
+        self.assertEqual(200, resp2.status)
+        self.assertEqual(
+            resp2.getheader('content-type'), resp.getheader('content-type')
+        )
+        self.assertEqual(
+            resp2.getheader('content-length'), resp.getheader('content-length')
+        )
+        self.assertEqual(
+            resp2.getheader('last-modified'), resp.getheader('last-modified')
+        )
 
     def test_vm_list_sorted(self):
-        req = json.dumps({'name': 'test',
-                          'source_media': {'type': 'disk', 'path': fake_iso}})
+        req = json.dumps(
+            {'name': 'test', 'source_media': {'type': 'disk', 'path': fake_iso}}
+        )
         request('/plugins/kimchi/templates', req, 'POST')
 
         def add_vm(name):
             # Create a VM
-            req = json.dumps({'name': name,
-                              'template': '/plugins/kimchi/templates/test'})
-            task = json.loads(request('/plugins/kimchi/vms',
-                              req, 'POST').read())
+            req = json.dumps(
+                {'name': name, 'template': '/plugins/kimchi/templates/test'}
+            )
+            task = json.loads(
+                request('/plugins/kimchi/vms', req,
+                        'POST').read().decode('utf-8')
+            )
             wait_task(model.task_lookup, task['id'])
 
         vms = [u'abc', u'bca', u'cab', u'xba']
@@ -107,24 +115,26 @@ class MockModelTests(unittest.TestCase):
         self.assertEqual(model.vms_get_list(), sorted(vms))
 
     def test_memory_window_changes(self):
-        model.templates_create({'name': u'test',
-                                'source_media': {'type': 'disk',
-                                                 'path': fake_iso}})
-        task = model.vms_create({'name': u'test-vm',
-                                 'template': '/plugins/kimchi/templates/test'})
+        model.templates_create(
+            {'name': u'test', 'source_media': {'type': 'disk', 'path': fake_iso}}
+        )
+        task = model.vms_create(
+            {'name': u'test-vm', 'template': '/plugins/kimchi/templates/test'}
+        )
         wait_task(model.task_lookup, task['id'])
 
         info = model.device_lookup('pci_0000_1a_00_0')
         model.vmhostdevs_update_mmio_guest(u'test-vm', True)
-        model._attach_device(u'test-vm',
-                             model._get_pci_device_xml(info, 0, False))
+        model._attach_device(
+            u'test-vm', model._get_pci_device_xml(info, 0, False))
 
     def test_hotplug_3D_card(self):
-        model.templates_create({'name': u'test',
-                                'source_media': {'type': 'disk',
-                                                 'path': fake_iso}})
-        task = model.vms_create({'name': u'test-vm',
-                                 'template': '/plugins/kimchi/templates/test'})
+        model.templates_create(
+            {'name': u'test', 'source_media': {'type': 'disk', 'path': fake_iso}}
+        )
+        task = model.vms_create(
+            {'name': u'test-vm', 'template': '/plugins/kimchi/templates/test'}
+        )
         wait_task(model.task_lookup, task['id'])
         model.vm_start(u'test-vm')
 
@@ -141,34 +151,59 @@ class MockModelTests(unittest.TestCase):
                     self.assertEqual(e.message[:14], u'KCHVMHDEV0006E')
 
     def test_vm_info(self):
-        model.templates_create({'name': u'test',
-                                'source_media': {'type': 'disk',
-                                                 'path': fake_iso}})
-        task = model.vms_create({'name': u'test-vm',
-                                 'template': '/plugins/kimchi/templates/test'})
+        model.templates_create(
+            {'name': u'test', 'source_media': {'type': 'disk', 'path': fake_iso}}
+        )
+        task = model.vms_create(
+            {'name': u'test-vm', 'template': '/plugins/kimchi/templates/test'}
+        )
         wait_task(model.task_lookup, task['id'])
         vms = model.vms_get_list()
-        self.assertEquals(2, len(vms))
+        self.assertEqual(2, len(vms))
         self.assertIn(u'test-vm', vms)
 
-        keys = set(('name', 'state', 'stats', 'uuid', 'memory', 'cpu_info',
-                    'screenshot', 'icon', 'graphics', 'users', 'groups',
-                    'access', 'persistent', 'bootorder', 'bootmenu', 'title',
-                    'description', 'autostart'))
+        keys = set(
+            (
+                'name',
+                'state',
+                'stats',
+                'uuid',
+                'memory',
+                'cpu_info',
+                'screenshot',
+                'icon',
+                'graphics',
+                'users',
+                'groups',
+                'access',
+                'persistent',
+                'bootorder',
+                'bootmenu',
+                'title',
+                'description',
+                'autostart',
+            )
+        )
 
-        stats_keys = set(('cpu_utilization', 'mem_utilization',
-                          'net_throughput', 'net_throughput_peak',
-                          'io_throughput', 'io_throughput_peak'))
+        stats_keys = set(
+            (
+                'cpu_utilization',
+                'mem_utilization',
+                'net_throughput',
+                'net_throughput_peak',
+                'io_throughput',
+                'io_throughput_peak',
+            )
+        )
 
         info = model.vm_lookup(u'test-vm')
-        self.assertEquals(keys, set(info.keys()))
-        self.assertEquals('shutoff', info['state'])
-        self.assertEquals('test-vm', info['name'])
-        self.assertEquals(get_template_default('old', 'memory'),
-                          info['memory'])
-        self.assertEquals(1, info['cpu_info']['vcpus'])
-        self.assertEquals(1, info['cpu_info']['maxvcpus'])
-        self.assertEquals('plugins/kimchi/images/icon-vm.png', info['icon'])
-        self.assertEquals(stats_keys, set(info['stats'].keys()))
-        self.assertEquals('vnc', info['graphics']['type'])
-        self.assertEquals('127.0.0.1', info['graphics']['listen'])
+        self.assertEqual(keys, set(info.keys()))
+        self.assertEqual('shutoff', info['state'])
+        self.assertEqual('test-vm', info['name'])
+        self.assertEqual(get_template_default('old', 'memory'), info['memory'])
+        self.assertEqual(1, info['cpu_info']['vcpus'])
+        self.assertEqual(1, info['cpu_info']['maxvcpus'])
+        self.assertEqual('plugins/kimchi/images/icon-vm.png', info['icon'])
+        self.assertEqual(stats_keys, set(info['stats'].keys()))
+        self.assertEqual('vnc', info['graphics']['type'])
+        self.assertEqual('127.0.0.1', info['graphics']['listen'])

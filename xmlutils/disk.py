@@ -16,18 +16,18 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
 import errno
-import lxml.etree as ET
 import os
 import socket
 import stat
 import string
-import urlparse
+import urllib
+
+import lxml.etree as ET
 from lxml import objectify
 from lxml.builder import E
-
-from wok.exception import InvalidParameter, NotFoundError
+from wok.exception import InvalidParameter
+from wok.exception import NotFoundError
 from wok.plugins.kimchi.utils import check_url_path
 from wok.utils import wok_log
 
@@ -55,36 +55,53 @@ def get_disk_xml(params):
     try:
         fd = os.open(path, os.O_RDONLY | os.O_DIRECT)
         os.close(fd)
-        wok_log.debug("Disk '%s' supports direct I/O. Setting cache=none"
-                      "to enable live migration" % path)
-    except OSError, e:
+        wok_log.debug(
+            "Disk '%s' supports direct I/O. Setting cache=none"
+            'to enable live migration' % path
+        )
+    except OSError as e:
         if e.errno == errno.EINVAL:
-            wok_log.debug("Disk '%s' does not support direct I/O: "
-                          "'%s'. Let libvirt sets the default cache mode." %
-                          (path, e.message))
+            wok_log.debug(
+                "Disk '%s' does not support direct I/O: "
+                "'%s'. Let libvirt sets the default cache mode." % (path, e)
+            )
     else:
         if params['type'] != 'cdrom':
             driver.set('cache', 'none')
 
-    if params.get('pool_type') == "netfs":
-        driver.set("io", "native")
+    if params.get('pool_type') == 'netfs':
+        driver.set('io', 'native')
 
     disk.append(driver)
 
     # Get device name according to bus and index values
-    dev = params.get('dev', (BUS_TO_DEV_MAP[params['bus']] +
-                             string.lowercase[params.get('index', 0)]))
+    dev = params.get(
+        'dev',
+        (
+            BUS_TO_DEV_MAP[params['bus']] +
+            string.ascii_lowercase[params.get('index', 0)]
+        ),
+    )
     disk.append(E.target(dev=dev, bus=params['bus']))
 
     if params.get('address'):
         # ide disk target id is always '0'
-        disk.append(E.address(
-            type='drive', controller=params['address']['controller'],
-            bus=params['address']['bus'], target='0',
-            unit=params['address']['unit']))
+        disk.append(
+            E.address(
+                type='drive',
+                controller=params['address']['controller'],
+                bus=params['address']['bus'],
+                target='0',
+                unit=params['address']['unit'],
+            )
+        )
 
     if len(params['path']) == 0:
-        return (dev, ET.tostring(disk, encoding='utf-8', pretty_print=True))
+        return (
+            dev,
+            ET.tostring(disk, encoding='utf-8',
+                        pretty_print=True).decode('utf-8'),
+        )
 
     if disk_type == 'network':
         """
@@ -92,7 +109,7 @@ def get_disk_xml(params):
           <host name='%(hostname)s' port='%(port)s'/>
         </source>
         """
-        output = urlparse.urlparse(params['path'])
+        output = urllib.parse.urlparse(params['path'])
         port = str(output.port or socket.getservbyname(output.scheme))
 
         source = E.source(protocol=output.scheme, name=output.path)
@@ -105,7 +122,7 @@ def get_disk_xml(params):
         source.set(DEV_TYPE_SRC_ATTR_MAP[disk_type], params['path'])
 
     disk.append(source)
-    return (dev, ET.tostring(disk, encoding='utf-8', pretty_print=True))
+    return dev, ET.tostring(disk, encoding='utf-8', pretty_print=True).decode('utf-8')
 
 
 def _get_disk_type(path):
@@ -113,7 +130,7 @@ def _get_disk_type(path):
         return 'network'
 
     if not os.path.exists(path):
-        raise InvalidParameter("KCHVMSTOR0003E", {'value': path})
+        raise InvalidParameter('KCHVMSTOR0003E', {'value': path})
 
     # Check if path is a valid local path
     if os.path.isfile(path):
@@ -123,18 +140,19 @@ def _get_disk_type(path):
     if stat.S_ISBLK(os.stat(r_path).st_mode):
         return 'block'
 
-    raise InvalidParameter("KCHVMSTOR0003E", {'value': path})
+    raise InvalidParameter('KCHVMSTOR0003E', {'value': path})
 
 
 def get_device_node(dom, dev_name):
-    xml = dom.XMLDesc(0)
+    import libvirt
+
+    xml = dom.XMLDesc(libvirt.VIR_DOMAIN_XML_INACTIVE)
     devices = objectify.fromstring(xml).devices
     disk = devices.xpath("./disk/target[@dev='%s']/.." % dev_name)
-
     if not disk:
-        raise NotFoundError("KCHVMSTOR0007E",
-                            {'dev_name': dev_name,
-                             'vm_name': dom.name()})
+        raise NotFoundError(
+            'KCHVMSTOR0007E', {'dev_name': dev_name, 'vm_name': dom.name()}
+        )
 
     return disk[0]
 
@@ -151,19 +169,26 @@ def get_vm_disk_info(dom, dev_name):
             src_type = disk.attrib['type']
             if src_type == 'network':
                 host = source.host
-                path = (source.attrib['protocol'] + '://' +
-                        host.attrib['name'] + ':' +
-                        host.attrib['port'] + source.attrib['name'])
+                path = (
+                    source.attrib['protocol'] +
+                    '://' +
+                    host.attrib['name'] +
+                    ':' +
+                    host.attrib['port'] +
+                    source.attrib['name']
+                )
             else:
                 path = source.attrib[DEV_TYPE_SRC_ATTR_MAP[src_type]]
-    except:
-        path = ""
+    except Exception:
+        path = ''
 
-    return {'dev': dev_name,
-            'path': path,
-            'type': disk.attrib['device'],
-            'format': disk.driver.attrib['type'],
-            'bus': disk.target.attrib['bus']}
+    return {
+        'dev': dev_name,
+        'path': path,
+        'type': disk.attrib['device'],
+        'format': disk.driver.attrib['type'],
+        'bus': disk.target.attrib['bus'],
+    }
 
 
 def get_vm_disks(dom):

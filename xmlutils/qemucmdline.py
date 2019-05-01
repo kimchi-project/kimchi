@@ -16,11 +16,10 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
 import lxml.etree as ET
 from lxml.builder import ElementMaker
 
-QEMU_NAMESPACE = "http://libvirt.org/schemas/domain/qemu/1.0"
+QEMU_NAMESPACE = 'http://libvirt.org/schemas/domain/qemu/1.0'
 
 
 def get_qemucmdline_xml(args):
@@ -34,11 +33,10 @@ def get_qemucmdline_xml(args):
                 drive=drive-%(bus)s0-1-0,id=%(bus)s0-1-0'/>
     </qemu:commandline>
     """
-    EM = ElementMaker(namespace=QEMU_NAMESPACE,
-                      nsmap={'qemu': QEMU_NAMESPACE})
+    EM = ElementMaker(namespace=QEMU_NAMESPACE, nsmap={'qemu': QEMU_NAMESPACE})
 
     root = EM.commandline()
-    for opt, value in args.iteritems():
+    for opt, value in args.items():
         root.append(EM.arg(value=opt))
         root.append(EM.arg(value=value))
 

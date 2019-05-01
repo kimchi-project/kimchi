@@ -16,50 +16,51 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
 import base64
-import libvirt
 
+import libvirt
 from lxml import etree
 from lxml.builder import E
-
 from wok.exception import OperationFailed
 
 
-KIMCHI_META_URL = "https://github.com/kimchi-project/kimchi"
-KIMCHI_NAMESPACE = "kimchi"
+KIMCHI_META_URL = 'https://github.com/kimchi-project/kimchi'
+KIMCHI_NAMESPACE = 'kimchi'
 
 
 def get_vm_name(vm_name, t_name, name_list):
     if vm_name:
         return vm_name
-    for i in xrange(1, 1000):
+    for i in range(1, 1000):
         # VM will have templace name, but without slashes
-        vm_name = "%s-vm-%i" % (t_name.replace('/', '-'), i)
+        vm_name = '%s-vm-%i' % (t_name.replace('/', '-'), i)
         if vm_name not in name_list:
             return vm_name
-    raise OperationFailed("KCHUTILS0003E")
+    raise OperationFailed('KCHUTILS0003E')
 
 
 def get_ascii_nonascii_name(name):
     nonascii_name = None
-    if name.encode('ascii', 'ignore') != name:
+    if name.encode('ascii', 'ignore').decode('utf-8') != name:
         nonascii_name = name
-        name = base64.urlsafe_b64encode(name.encode('utf-8')).rstrip('=')
-        name = unicode(name)
+        name = base64.urlsafe_b64encode(
+            nonascii_name.encode('utf-8')).decode('utf-8')
+        name = name.rstrip('=')
 
-    return (name, nonascii_name)
+    return name, nonascii_name
 
 
-def get_vm_config_flag(dom, mode="persistent"):
+def get_vm_config_flag(dom, mode='persistent'):
     # libvirt.VIR_DOMAIN_AFFECT_CURRENT is 0
     # VIR_DOMAIN_AFFECT_LIVE is 1, VIR_DOMAIN_AFFECT_CONFIG is 2
-    flag = {"live": libvirt.VIR_DOMAIN_AFFECT_LIVE,
-            "persistent": libvirt.VIR_DOMAIN_AFFECT_CONFIG,
-            "current": libvirt.VIR_DOMAIN_AFFECT_CURRENT,
-            "all": libvirt.VIR_DOMAIN_AFFECT_CONFIG +
-            libvirt.VIR_DOMAIN_AFFECT_LIVE if dom.isActive() and
-            dom.isPersistent() else libvirt.VIR_DOMAIN_AFFECT_CURRENT}
+    flag = {
+        'live': libvirt.VIR_DOMAIN_AFFECT_LIVE,
+        'persistent': libvirt.VIR_DOMAIN_AFFECT_CONFIG,
+        'current': libvirt.VIR_DOMAIN_AFFECT_CURRENT,
+        'all': libvirt.VIR_DOMAIN_AFFECT_CONFIG + libvirt.VIR_DOMAIN_AFFECT_LIVE
+        if dom.isActive() and dom.isPersistent()
+        else libvirt.VIR_DOMAIN_AFFECT_CURRENT,
+    }
 
     return flag[mode]
 
@@ -67,34 +68,39 @@ def get_vm_config_flag(dom, mode="persistent"):
 # avoid duplicate codes
 def update_node(root, node):
     old_node = root.find(node.tag)
-    (root.replace(old_node, node) if old_node is not None
-     else root.append(node))
+    (root.replace(old_node, node) if old_node is not None else root.append(node))
     return root
 
 
-def get_kimchi_metadata_node(dom, mode="current"):
+def get_kimchi_metadata_node(dom, mode='current'):
     if not metadata_exists(dom):
         return None
     try:
-        xml = dom.metadata(libvirt.VIR_DOMAIN_METADATA_ELEMENT,
-                           KIMCHI_META_URL,
-                           flags=get_vm_config_flag(dom, mode))
+        xml = dom.metadata(
+            libvirt.VIR_DOMAIN_METADATA_ELEMENT,
+            KIMCHI_META_URL,
+            flags=get_vm_config_flag(dom, mode),
+        )
         return etree.fromstring(xml)
     except libvirt.libvirtError:
         return None
 
 
-def set_kimchi_metadata_node(dom, metadata, mode="all"):
-    metadata_xml = etree.tostring(metadata)
+def set_kimchi_metadata_node(dom, metadata, mode='all'):
+    metadata_xml = etree.tostring(metadata).decode('utf-8')
     # From libvirt doc, Passing None for @metadata says to remove that
     # element from the domain XML (passing the empty string leaves the
     # element present).  Do not support remove the old metadata.
-    dom.setMetadata(libvirt.VIR_DOMAIN_METADATA_ELEMENT, metadata_xml,
-                    KIMCHI_NAMESPACE, KIMCHI_META_URL,
-                    flags=get_vm_config_flag(dom, mode))
+    dom.setMetadata(
+        libvirt.VIR_DOMAIN_METADATA_ELEMENT,
+        metadata_xml,
+        KIMCHI_NAMESPACE,
+        KIMCHI_META_URL,
+        flags=get_vm_config_flag(dom, mode),
+    )
 
 
-def set_metadata_node(dom, nodes, mode="all"):
+def set_metadata_node(dom, nodes, mode='all'):
     kimchi = get_kimchi_metadata_node(dom, mode)
     kimchi = E.metadata() if kimchi is None else kimchi
 
@@ -104,7 +110,7 @@ def set_metadata_node(dom, nodes, mode="all"):
     set_kimchi_metadata_node(dom, kimchi, mode)
 
 
-def remove_metadata_node(dom, tag, mode="all"):
+def remove_metadata_node(dom, tag, mode='all'):
     kimchi = get_kimchi_metadata_node(dom, mode)
     if kimchi is not None:
         node = kimchi.find(tag)
@@ -113,20 +119,20 @@ def remove_metadata_node(dom, tag, mode="all"):
             set_kimchi_metadata_node(dom, kimchi, mode)
 
 
-def get_metadata_node(dom, tag, mode="current"):
+def get_metadata_node(dom, tag, mode='current'):
     kimchi = get_kimchi_metadata_node(dom, mode)
     if kimchi is not None:
         node = kimchi.find(tag)
         if node is not None:
             return etree.tostring(node)
-    return ""
+    return ''
 
 
 def metadata_exists(dom):
     xml = dom.XMLDesc(libvirt.VIR_DOMAIN_XML_INACTIVE)
     root = etree.fromstring(xml)
 
-    if root.find("metadata") is None:
+    if root.find('metadata') is None:
         return False
     return True
 
@@ -137,7 +143,7 @@ def has_cpu_numa(dom):
     Returns: True or False
     """
     root = etree.fromstring(dom.XMLDesc(0))
-    return (root.find('./cpu/numa') is not None)
+    return root.find('./cpu/numa') is not None
 
 
 def set_numa_memory(mem, root):

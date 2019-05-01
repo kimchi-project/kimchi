@@ -16,22 +16,22 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
 import os
 
-from wok.control.base import Collection, Resource
+from wok.control.base import Collection
+from wok.control.base import Resource
 from wok.control.utils import UrlSubNode
 
 
 TEMPLATES_REQUESTS = {
-    'POST': {'default': "KCHTMPL0001L"},
+    'POST': {'default': 'KCHTMPL0001L'},
 }
 
 TEMPLATE_REQUESTS = {
-    'DELETE': {'default': "KCHTMPL0002L"},
-    'PUT': {'default': "KCHTMPL0003L"},
+    'DELETE': {'default': 'KCHTMPL0002L'},
+    'PUT': {'default': 'KCHTMPL0003L'},
     'POST': {
-        'clone': "KCHTMPL0004L",
+        'clone': 'KCHTMPL0004L',
     },
 }
 
@@ -52,7 +52,7 @@ class Template(Resource):
     def __init__(self, model, ident):
         super(Template, self).__init__(model, ident)
         self.admin_methods = ['PUT', 'POST', 'DELETE']
-        self.uri_fmt = "/templates/%s"
+        self.uri_fmt = '/templates/%s'
         self.clone = self.generate_action_handler('clone')
         self.log_map = TEMPLATE_REQUESTS
 

@@ -16,24 +16,28 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
 import os
 import string
+
 from lxml import etree
-
-from wok.exception import InvalidOperation, InvalidParameter, NotFoundError
+from wok.exception import InvalidOperation
+from wok.exception import InvalidParameter
+from wok.exception import NotFoundError
 from wok.exception import OperationFailed
-from wok.utils import wok_log
-
 from wok.plugins.kimchi.model.config import CapabilitiesModel
 from wok.plugins.kimchi.model.diskutils import get_disk_used_by
 from wok.plugins.kimchi.model.storagevolumes import StorageVolumeModel
 from wok.plugins.kimchi.model.utils import get_vm_config_flag
-from wok.plugins.kimchi.model.vms import DOM_STATE_MAP, VMModel
+from wok.plugins.kimchi.model.vms import DOM_STATE_MAP
+from wok.plugins.kimchi.model.vms import VMModel
 from wok.plugins.kimchi.osinfo import lookup
-from wok.plugins.kimchi.utils import create_disk_image, is_s390x
-from wok.plugins.kimchi.xmlutils.disk import get_device_node, get_disk_xml
-from wok.plugins.kimchi.xmlutils.disk import get_vm_disk_info, get_vm_disks
+from wok.plugins.kimchi.utils import create_disk_image
+from wok.plugins.kimchi.utils import is_s390x
+from wok.plugins.kimchi.xmlutils.disk import get_device_node
+from wok.plugins.kimchi.xmlutils.disk import get_disk_xml
+from wok.plugins.kimchi.xmlutils.disk import get_vm_disk_info
+from wok.plugins.kimchi.xmlutils.disk import get_vm_disks
+from wok.utils import wok_log
 
 
 HOTPLUG_TYPE = ['scsi', 'virtio']
@@ -42,9 +46,9 @@ HOTPLUG_TYPE = ['scsi', 'virtio']
 def _get_device_bus(dev_type, dom):
     try:
         version, distro = VMModel.vm_get_os_metadata(dom)
-    except:
+    except Exception:
         version, distro = ('unknown', 'unknown')
-    return lookup(distro, version)[dev_type+'_bus']
+    return lookup(distro, version)[dev_type + '_bus']
 
 
 class VMStoragesModel(object):
@@ -72,45 +76,49 @@ class VMStoragesModel(object):
                     valid_id.remove((bus_id, unit_id))
                     continue
         if not valid_id:
-            raise OperationFailed('KCHVMSTOR0014E',
-                                  {'type': 'ide', 'limit': 4})
+            raise OperationFailed(
+                'KCHVMSTOR0014E', {'type': 'ide', 'limit': 4})
         else:
-            address = {'controller': controller_id,
-                       'bus': valid_id[0][0], 'unit': valid_id[0][1]}
+            address = {
+                'controller': controller_id,
+                'bus': valid_id[0][0],
+                'unit': valid_id[0][1],
+            }
             return dict(address=address)
 
     def create(self, vm_name, params):
-        vol_model = None
         # Path will never be blank due to API.json verification.
         # There is no need to cover this case here.
         if not ('vol' in params) ^ ('path' in params):
 
             if not is_s390x():
-                raise InvalidParameter("KCHVMSTOR0017E")
+                raise InvalidParameter('KCHVMSTOR0017E')
 
             if 'dir_path' not in params:
-                raise InvalidParameter("KCHVMSTOR0019E")
+                raise InvalidParameter('KCHVMSTOR0019E')
 
         dom = VMModel.get_vm(vm_name, self.conn)
         params['bus'] = _get_device_bus(params['type'], dom)
 
         if is_s390x() and params['type'] == 'disk' and 'dir_path' in params:
             if 'format' not in params:
-                raise InvalidParameter("KCHVMSTOR0020E")
+                raise InvalidParameter('KCHVMSTOR0020E')
             size = params['size']
             name = params['name']
             dir_path = params.get('dir_path')
-            params['path'] = dir_path + "/" + name
+            params['path'] = dir_path + '/' + name
             if os.path.exists(params['path']):
-                raise InvalidParameter("KCHVMSTOR0021E",
-                                       {'disk_path': params['path']})
-            create_disk_image(format_type=params['format'],
-                              path=params['path'], capacity=size)
+                raise InvalidParameter(
+                    'KCHVMSTOR0021E', {'disk_path': params['path']})
+            create_disk_image(
+                format_type=params['format'], path=params['path'], capacity=size
+            )
         else:
             params['format'] = 'raw'
 
-        dev_list = [dev for dev, bus in get_vm_disks(dom).iteritems()
-                    if bus == params['bus']]
+        dev_list = [
+            dev for dev, bus in get_vm_disks(dom).items() if bus == params['bus']
+        ]
         dev_list.sort()
         if len(dev_list) == 0:
             params['index'] = 0
@@ -118,39 +126,14 @@ class VMStoragesModel(object):
             char = dev_list.pop()[2]
             params['index'] = string.ascii_lowercase.index(char) + 1
 
-        if (params['bus'] not in HOTPLUG_TYPE and
-           DOM_STATE_MAP[dom.info()[0]] != 'shutoff'):
+        if (
+            params['bus'] not in HOTPLUG_TYPE and
+            DOM_STATE_MAP[dom.info()[0]] != 'shutoff'
+        ):
             raise InvalidOperation('KCHVMSTOR0011E')
 
         if params.get('vol'):
-            try:
-                pool = params['pool']
-                vol_model = StorageVolumeModel(conn=self.conn,
-                                               objstore=self.objstore)
-                vol_info = vol_model.lookup(pool, params['vol'])
-            except KeyError:
-                raise InvalidParameter("KCHVMSTOR0012E")
-            except Exception as e:
-                raise InvalidParameter("KCHVMSTOR0015E", {'error': e})
-            if len(vol_info['used_by']) != 0:
-                raise InvalidParameter("KCHVMSTOR0016E")
-
-            valid_format = {
-                "disk": ["raw", "qcow", "qcow2", "qed", "vmdk", "vpc"],
-                "cdrom": "iso"}
-
-            if vol_info['type'] == 'file':
-                if (params['type'] == 'disk' and
-                        vol_info['format'] in valid_format[params['type']]):
-                    params['format'] = vol_info['format']
-                else:
-                    raise InvalidParameter("KCHVMSTOR0018E",
-                                           {"format": vol_info['format'],
-                                            "type": params['type']})
-
-            if (params['format'] == 'raw' and not vol_info['isvalid']):
-                message = 'This is not a valid RAW disk image.'
-                raise OperationFailed('KCHVMSTOR0008E', {'error': message})
+            vol_info = self._get_vol_info(params)
 
             params['path'] = vol_info['path']
             params['disk'] = vol_info['type']
@@ -163,11 +146,11 @@ class VMStoragesModel(object):
             dom = VMModel.get_vm(vm_name, self.conn)
             dom.attachDeviceFlags(xml, get_vm_config_flag(dom, 'all'))
         except Exception as e:
-            raise OperationFailed("KCHVMSTOR0008E", {'error': e.message})
+            raise OperationFailed('KCHVMSTOR0008E', {'error': str(e)})
 
         # Don't put a try-block here. Let the exception be raised. If we
         #   allow disks used_by to be out of sync, data corruption could
-        #   occour if a disk is added to two guests unknowingly.
+        #   occur if a disk is added to two guests unknowingly.
         if params.get('vol'):
             used_by = vol_info['used_by']
             used_by.append(vm_name)
@@ -177,6 +160,42 @@ class VMStoragesModel(object):
     def get_list(self, vm_name):
         dom = VMModel.get_vm(vm_name, self.conn)
         return get_vm_disks(dom).keys()
+
+    def _get_vol_info(self, params):
+        try:
+            pool = params['pool']
+            vol_model = StorageVolumeModel(
+                conn=self.conn, objstore=self.objstore)
+            vol_info = vol_model.lookup(pool, params['vol'])
+        except KeyError:
+            raise InvalidParameter('KCHVMSTOR0012E')
+        except Exception as e:
+            raise InvalidParameter('KCHVMSTOR0015E', {'error': e})
+        if len(vol_info['used_by']) != 0:
+            raise InvalidParameter('KCHVMSTOR0016E')
+
+        valid_format = {
+            'disk': ['raw', 'qcow', 'qcow2', 'qed', 'vmdk', 'vpc'],
+            'cdrom': 'iso',
+        }
+
+        if vol_info['type'] == 'file':
+            if (
+                    params['type'] == 'disk' and
+                    vol_info['format'] in valid_format[params['type']]
+            ):
+                params['format'] = vol_info['format']
+            else:
+                raise InvalidParameter(
+                    'KCHVMSTOR0018E',
+                    {'format': vol_info['format'], 'type': params['type']},
+                )
+
+        if params['format'] == 'raw' and not vol_info['isvalid']:
+            message = 'This is not a valid RAW disk image.'
+            raise OperationFailed('KCHVMSTOR0008E', {'error': message})
+
+        return vol_info
 
 
 class VMStorageModel(object):
@@ -197,8 +216,7 @@ class VMStorageModel(object):
         except NotFoundError:
             raise
 
-        if (bus_type not in HOTPLUG_TYPE and
-                DOM_STATE_MAP[dom.info()[0]] != 'shutoff'):
+        if bus_type not in HOTPLUG_TYPE and DOM_STATE_MAP[dom.info()[0]] != 'shutoff':
             raise InvalidOperation('KCHVMSTOR0011E')
 
         try:
@@ -212,18 +230,24 @@ class VMStorageModel(object):
             if path is not None:
                 used_by = get_disk_used_by(self.conn, path)
             else:
-                wok_log.error("Unable to decrement volume used_by on"
-                              " delete because no path could be found.")
-            dom.detachDeviceFlags(etree.tostring(disk),
-                                  get_vm_config_flag(dom, 'all'))
+                wok_log.error(
+                    'Unable to decrement volume used_by on'
+                    ' delete because no path could be found.'
+                )
+            dom.detachDeviceFlags(
+                etree.tostring(disk).decode(
+                    'utf-8'), get_vm_config_flag(dom, 'all')
+            )
         except Exception as e:
-            raise OperationFailed("KCHVMSTOR0010E", {'error': e.message})
+            raise OperationFailed('KCHVMSTOR0010E', {'error': str(e)})
 
         if used_by is not None and vm_name in used_by:
             used_by.remove(vm_name)
         else:
-            wok_log.error("Unable to update %s:%s used_by on delete."
-                          % (vm_name, dev_name))
+            wok_log.error(
+                'Unable to update %s:%s used_by on delete.' % (
+                    vm_name, dev_name)
+            )
 
     def update(self, vm_name, dev_name, params):
         old_disk_used_by = None
@@ -233,33 +257,36 @@ class VMStorageModel(object):
 
         dev_info = self.lookup(vm_name, dev_name)
         if dev_info['type'] != 'cdrom':
-            raise InvalidOperation("KCHVMSTOR0006E")
+            raise InvalidOperation('KCHVMSTOR0006E')
 
         params['path'] = params.get('path', '')
         old_disk_path = dev_info['path']
         new_disk_path = params['path']
         if new_disk_path != old_disk_path:
             # An empty path means a CD-ROM was empty or ejected:
-            if old_disk_path is not '':
+            if old_disk_path != '':
                 old_disk_used_by = get_disk_used_by(self.conn, old_disk_path)
-            if new_disk_path is not '':
+            if new_disk_path != '':
                 new_disk_used_by = get_disk_used_by(self.conn, new_disk_path)
 
         dev_info.update(params)
         dev, xml = get_disk_xml(dev_info)
 
         try:
+            # FIXME: when updating from local file to remote file (http)
+            # libvirt adds a new device with same name instead of replacing
+            # the existing one
             dom.updateDeviceFlags(xml, get_vm_config_flag(dom, 'all'))
         except Exception as e:
-            raise OperationFailed("KCHVMSTOR0009E", {'error': e.message})
+            raise OperationFailed('KCHVMSTOR0009E', {'error': str(e)})
 
         try:
-            if old_disk_used_by is not None and \
-               vm_name in old_disk_used_by:
+            if old_disk_used_by is not None and vm_name in old_disk_used_by:
                 old_disk_used_by.remove(vm_name)
             if new_disk_used_by is not None:
                 new_disk_used_by.append(vm_name)
         except Exception as e:
-            wok_log.error("Unable to update dev used_by on update due to"
-                          " %s:" % e.message)
+            wok_log.error(
+                'Unable to update dev used_by on update due to' ' %s:' % str(e)
+            )
         return dev

@@ -72,7 +72,7 @@ config = get_config()
 def find_qemu_binary(find_emulator=False):
     try:
         connect = libvirt.open(None)
-    except Exception, e:
+    except Exception as e:
         raise Exception("Unable to get qemu binary location: %s" % e)
     try:
         xml = connect.getCapabilities()
@@ -91,7 +91,7 @@ def find_qemu_binary(find_emulator=False):
                     /domain[@type='kvm']/emulator" % arch
         res = xpath_get_text(xml, expr)
         location = res[0]
-    except Exception, e:
+    except Exception as e:
         raise Exception("Unable to get qemu binary location: %s" % e)
     finally:
         connect.close()
@@ -161,7 +161,7 @@ class KimchiConfig(PluginConfig):
                                       'tools.staticdir.dir':
                                       get_virtviewerfiles_path(),
                                       'tools.staticdir.on': True}}
-        for uri, data in static_config.iteritems():
+        for uri, data in static_config.items():
             custom_config[uri] = {'tools.nocache.on': True,
                                   'tools.wokauth.on': True}
             path = data['path']

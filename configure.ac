@@ -33,7 +33,7 @@ AS_IF([test "x$PACKAGE_RELEASE" = x],
 
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([-Wno-portability])
-AM_PATH_PYTHON([2.6])
+AM_PATH_PYTHON([3.6])
 AC_PATH_PROG([PEP8], [pep8], [/usr/bin/pep8])
 AC_PATH_PROG([GIT], [git], [/usr/bin/git])
 AC_PATH_PROG([RPMLINT], [rpmlint], [/usr/bin/rpmlint])

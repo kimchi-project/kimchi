@@ -16,18 +16,20 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
+import os
+import tempfile
 
 import libvirt
 import lxml.etree as ET
-import os
-import tempfile
 from lxml.builder import E
-
-from wok.exception import InvalidParameter, OperationFailed, TimeoutExpired
-from wok.rollbackcontext import RollbackContext
-from wok.utils import parse_cmd_output, run_command, wok_log
-
+from wok.exception import InvalidParameter
+from wok.exception import OperationFailed
+from wok.exception import TimeoutExpired
 from wok.plugins.kimchi.iscsi import TargetClient
+from wok.rollbackcontext import RollbackContext
+from wok.utils import parse_cmd_output
+from wok.utils import run_command
+from wok.utils import wok_log
 
 
 class StoragePoolDef(object):
@@ -36,25 +38,25 @@ class StoragePoolDef(object):
         for klass in cls.__subclasses__():
             if poolArgs['type'] == klass.poolType:
                 return klass(poolArgs)
-        raise OperationFailed("KCHPOOL0014E", {'type': poolArgs['type']})
+        raise OperationFailed('KCHPOOL0014E', {'type': poolArgs['type']})
 
     def __init__(self, poolArgs):
         self.poolArgs = poolArgs
 
     def prepare(self, conn):
-        ''' Validate pool arguments and perform preparations. Operation which
+        """ Validate pool arguments and perform preparations. Operation which
         would cause side effect should be put here. Subclasses can optionally
-        override this method, or it always succeeds by default. '''
+        override this method, or it always succeeds by default. """
         pass
 
     @property
     def xml(self):
-        ''' Subclasses have to override this method to actually generate the
+        """ Subclasses have to override this method to actually generate the
         storage pool XML definition. Should cause no side effect and be
-        idempotent'''
+        idempotent"""
         # TODO: When add new pool type, should also add the related test in
         # tests/test_storagepool.py
-        raise OperationFailed("KCHPOOL0015E", {'pool': self})
+        raise OperationFailed('KCHPOOL0015E', {'pool': self})
 
 
 class DirPoolDef(StoragePoolDef):
@@ -62,14 +64,10 @@ class DirPoolDef(StoragePoolDef):
 
     @property
     def xml(self):
-        # Required parameters
-        # name:
-        # type:
-        # path:
         pool = E.pool(type='dir')
         pool.append(E.name(self.poolArgs['name']))
         pool.append(E.target(E.path(self.poolArgs['path'])))
-        return ET.tostring(pool, encoding='unicode', pretty_print=True)
+        return ET.tostring(pool, encoding='utf-8', pretty_print=True).decode('utf-8')
 
 
 class NetfsPoolDef(StoragePoolDef):
@@ -81,11 +79,18 @@ class NetfsPoolDef(StoragePoolDef):
 
     def prepare(self, conn):
         mnt_point = tempfile.mkdtemp(dir='/tmp')
-        export_path = "%s:%s" % (
-            self.poolArgs['source']['host'], self.poolArgs['source']['path'])
-        mount_cmd = ["mount", "-o", 'soft,timeo=100,retrans=3,retry=0',
-                     export_path, mnt_point]
-        umount_cmd = ["umount", "-f", export_path]
+        export_path = '%s:%s' % (
+            self.poolArgs['source']['host'],
+            self.poolArgs['source']['path'],
+        )
+        mount_cmd = [
+            'mount',
+            '-o',
+            'soft,timeo=100,retrans=3,retry=0',
+            export_path,
+            mnt_point,
+        ]
+        umount_cmd = ['umount', '-f', export_path]
         mounted = False
         # Due to an NFS bug (See Red Hat BZ 1023059), NFSv4 exports may take
         # 10-15 seconds to mount the first time.
@@ -97,8 +102,8 @@ class NetfsPoolDef(StoragePoolDef):
                 run_command(mount_cmd, cmd_timeout)
                 rollback.prependDefer(run_command, umount_cmd, cmd_timeout)
             except TimeoutExpired:
-                raise InvalidParameter("KCHPOOL0012E", {'path': export_path})
-            with open("/proc/mounts", "rb") as f:
+                raise InvalidParameter('KCHPOOL0012E', {'path': export_path})
+            with open('/proc/mounts', 'rb') as f:
                 rawMounts = f.read()
             output_items = ['dev_path', 'mnt_point', 'type']
             mounts = parse_cmd_output(rawMounts, output_items)
@@ -107,15 +112,10 @@ class NetfsPoolDef(StoragePoolDef):
                     mounted = True
 
             if not mounted:
-                raise InvalidParameter("KCHPOOL0013E", {'path': export_path})
+                raise InvalidParameter('KCHPOOL0013E', {'path': export_path})
 
     @property
     def xml(self):
-        # Required parameters
-        # name:
-        # type:
-        # source[host]:
-        # source[path]:
         pool = E.pool(type='netfs')
         pool.append(E.name(self.poolArgs['name']))
 
@@ -137,10 +137,6 @@ class LogicalPoolDef(StoragePoolDef):
 
     @property
     def xml(self):
-        # Required parameters
-        # name:
-        # type:
-        # source[devices]:
         pool = E.pool(type='logical')
         pool.append(E.name(self.poolArgs['name']))
 
@@ -163,9 +159,11 @@ class ScsiPoolDef(StoragePoolDef):
         # fc_host adapters type are only available in libvirt >= 1.0.5
         if not self.poolArgs['fc_host_support']:
             self.poolArgs['source']['adapter']['type'] = 'scsi_host'
-            msg = "Libvirt version <= 1.0.5. Setting SCSI host name as '%s'; "\
-                  "setting SCSI adapter type as 'scsi_host'; "\
-                  "ignoring wwnn and wwpn." % tmp_name
+            msg = (
+                "Libvirt version <= 1.0.5. Setting SCSI host name as '%s'; "
+                "setting SCSI adapter type as 'scsi_host'; "
+                'ignoring wwnn and wwpn.' % tmp_name
+            )
             wok_log.info(msg)
         # Path for Fibre Channel scsi hosts
         self.poolArgs['path'] = '/dev/disk/by-path'
@@ -174,13 +172,6 @@ class ScsiPoolDef(StoragePoolDef):
 
     @property
     def xml(self):
-        # Required parameters
-        # name:
-        # source[adapter][type]:
-        # source[name]:
-        # source[adapter][wwnn]:
-        # source[adapter][wwpn]:
-        # path:
         pool = E.pool(type='scsi')
         pool.append(E.name(self.poolArgs['name']))
 
@@ -201,7 +192,7 @@ class IscsiPoolDef(StoragePoolDef):
         source = self.poolArgs['source']
         if not TargetClient(**source).validate():
             msg_args = {'host': source['host'], 'target': source['target']}
-            raise OperationFailed("KCHISCSI0002E", msg_args)
+            raise OperationFailed('KCHISCSI0002E', msg_args)
         self._prepare_auth(conn)
 
     def _prepare_auth(self, conn):
@@ -212,12 +203,14 @@ class IscsiPoolDef(StoragePoolDef):
 
         try:
             virSecret = conn.secretLookupByUsage(
-                libvirt.VIR_SECRET_USAGE_TYPE_ISCSI, self.poolArgs['name'])
+                libvirt.VIR_SECRET_USAGE_TYPE_ISCSI, self.poolArgs['name']
+            )
         except libvirt.libvirtError:
             secret = E.secret(ephemeral='no', private='yes')
 
-            description = E.description('Secret for iSCSI storage pool %s' %
-                                        self.poolArgs['name'])
+            description = E.description(
+                'Secret for iSCSI storage pool %s' % self.poolArgs['name']
+            )
             secret.append(description)
             secret.append(E.auth(type='chap', username=auth['username']))
 
@@ -230,14 +223,6 @@ class IscsiPoolDef(StoragePoolDef):
 
     @property
     def xml(self):
-        # Required parameters
-        # name:
-        # type:
-        # source[host]:
-        # source[target]:
-        #
-        # Optional parameters
-        # source[port]:
         pool = E.pool(type='iscsi')
         pool.append(E.name(self.poolArgs['name']))
 

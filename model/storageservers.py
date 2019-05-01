@@ -16,9 +16,7 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
 from wok.exception import NotFoundError
-
 from wok.plugins.kimchi.model.storagepools import StoragePoolModel
 from wok.plugins.kimchi.model.storagepools import StoragePoolsModel
 
@@ -44,8 +42,8 @@ class StorageServersModel(object):
         for pool in pools:
             try:
                 pool_info = self.pool.lookup(pool)
-                if (pool_info['type'] in target_type and
-                        pool_info['source']['addr'] not in server_list):
+                if (pool_info['type'] in target_type
+                        and pool_info['source']['addr'] not in server_list):
                     # Avoid to add same server for multiple times
                     # if it hosts more than one storage type
                     server_list.append(pool_info['source']['addr'])
@@ -67,16 +65,16 @@ class StorageServerModel(object):
         for pool in pools:
             try:
                 pool_info = self.pool.lookup(pool)
-                if (pool_info['type'] in STORAGE_SERVERS and
-                        pool_info['source']['addr'] == server):
+                if (pool_info['type'] in STORAGE_SERVERS
+                        and pool_info['source']['addr'] == server):
                     info = dict(host=server)
-                    if (pool_info['type'] == "iscsi" and
-                       'port' in pool_info['source']):
-                        info["port"] = pool_info['source']['port']
+                    if (pool_info['type'] == 'iscsi'
+                            and 'port' in pool_info['source']):
+                        info['port'] = pool_info['source']['port']
                     return info
             except NotFoundError:
                 # Avoid inconsistent pool result because of lease between list
                 # lookup
                 pass
 
-        raise NotFoundError("KCHSR0001E", {'server': server})
+        raise NotFoundError('KCHSR0001E', {'server': server})

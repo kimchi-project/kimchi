@@ -16,8 +16,6 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
-
 from wok.control.base import Resource
 
 
@@ -25,7 +23,7 @@ class CPUInfo(Resource):
     def __init__(self, model):
         super(CPUInfo, self).__init__(model)
         self.admin_methods = ['GET']
-        self.uri_fmt = "/host/cpuinfo"
+        self.uri_fmt = '/host/cpuinfo'
 
     @property
     def data(self):

@@ -17,25 +17,29 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
-import cherrypy
 import json
-import mock
 import os
-import requests
 import tempfile
 import unittest
+import urllib
 from functools import partial
+
+import cherrypy
+import mock
+import requests
 from requests.exceptions import ConnectionError
-
-from tests.utils import fake_auth_header, HOST
-from tests.utils import patch_auth, PORT, request
-from tests.utils import rollback_wrapper, run_server, wait_task
-
 from wok.config import paths
+from wok.plugins.kimchi.config import READONLY_POOL_TYPE
 from wok.rollbackcontext import RollbackContext
 
-from wok.plugins.kimchi.config import READONLY_POOL_TYPE
+from tests.utils import fake_auth_header
+from tests.utils import HOST
+from tests.utils import patch_auth
+from tests.utils import PORT
+from tests.utils import request
+from tests.utils import rollback_wrapper
+from tests.utils import run_server
+from tests.utils import wait_task
 
 model = None
 objectstore_loc = tempfile.mktemp()
@@ -60,37 +64,41 @@ def tearDownModule():
 def _do_volume_test(self, model, pool_name):
     def _task_lookup(taskid):
         return json.loads(
-            self.request('/plugins/kimchi/tasks/%s' % taskid).read()
+            self.request(
+                f'/plugins/kimchi/tasks/{taskid}').read().decode('utf-8')
         )
 
-    uri = '/plugins/kimchi/storagepools/%s/storagevolumes' \
-          % pool_name.encode('utf-8')
+    uri = urllib.parse.quote(
+        f'/plugins/kimchi/storagepools/{pool_name}/storagevolumes')
     resp = self.request(uri)
-    self.assertEquals(200, resp.status)
+    self.assertEqual(200, resp.status)
 
-    resp = self.request('/plugins/kimchi/storagepools/%s' %
-                        pool_name.encode('utf-8'))
-    pool_info = json.loads(resp.read())
+    resp = self.request(urllib.parse.quote(
+        f'/plugins/kimchi/storagepools/{pool_name}'))
+    pool_info = json.loads(resp.read().decode('utf-8'))
     with RollbackContext() as rollback:
         # Create storage volume with 'capacity'
         vol = 'test-volume'
         vol_uri = uri + '/' + vol
-        req = json.dumps({'name': vol, 'format': 'raw',
-                          'capacity': 1073741824})  # 1 GiB
+        req = json.dumps(
+            {'name': vol, 'format': 'raw', 'capacity': 1073741824}
+        )  # 1 GiB
         resp = self.request(uri, req, 'POST')
         if pool_info['type'] in READONLY_POOL_TYPE:
-            self.assertEquals(400, resp.status)
+            self.assertEqual(400, resp.status)
         else:
-            rollback.prependDefer(rollback_wrapper, model.storagevolume_delete,
-                                  pool_name, vol)
-            self.assertEquals(202, resp.status)
-            task_id = json.loads(resp.read())['id']
+            rollback.prependDefer(
+                rollback_wrapper, model.storagevolume_delete, pool_name, vol
+            )
+            self.assertEqual(202, resp.status)
+            task_id = json.loads(resp.read().decode('utf-8'))['id']
             wait_task(_task_lookup, task_id)
             status = json.loads(
-                self.request('/plugins/kimchi/tasks/%s' % task_id).read()
+                self.request(
+                    f'/plugins/kimchi/tasks/{task_id}').read().decode('utf-8')
             )
-            self.assertEquals('finished', status['status'])
-            vol_info = json.loads(self.request(vol_uri).read())
+            self.assertEqual('finished', status['status'])
+            vol_info = json.loads(self.request(vol_uri).read().decode('utf-8'))
             vol_info['name'] = vol
             vol_info['format'] = 'raw'
             vol_info['capacity'] = 1073741824
@@ -98,42 +106,48 @@ def _do_volume_test(self, model, pool_name):
             # Resize the storage volume: increase its capacity to 2 GiB
             req = json.dumps({'size': 2147483648})  # 2 GiB
             resp = self.request(vol_uri + '/resize', req, 'POST')
-            self.assertEquals(200, resp.status)
-            storagevolume = json.loads(self.request(vol_uri).read())
-            self.assertEquals(2147483648, storagevolume['capacity'])
+            self.assertEqual(200, resp.status)
+            storagevolume = json.loads(
+                self.request(vol_uri).read().decode('utf-8'))
+            self.assertEqual(2147483648, storagevolume['capacity'])
 
             # Resize the storage volume: decrease its capacity to 512 MiB
             # This test case may fail if libvirt does not include the fix for
             # https://bugzilla.redhat.com/show_bug.cgi?id=1021802
             req = json.dumps({'size': 536870912})  # 512 MiB
             resp = self.request(vol_uri + '/resize', req, 'POST')
-            self.assertEquals(200, resp.status)
-            storagevolume = json.loads(self.request(vol_uri).read())
-            self.assertEquals(536870912, storagevolume['capacity'])
+            self.assertEqual(200, resp.status)
+            storagevolume = json.loads(
+                self.request(vol_uri).read().decode('utf-8'))
+            self.assertEqual(536870912, storagevolume['capacity'])
 
             # Wipe the storage volume
             resp = self.request(vol_uri + '/wipe', '{}', 'POST')
-            self.assertEquals(200, resp.status)
-            storagevolume = json.loads(self.request(vol_uri).read())
-            self.assertEquals(0, storagevolume['allocation'])
+            self.assertEqual(200, resp.status)
+            storagevolume = json.loads(
+                self.request(vol_uri).read().decode('utf-8'))
+            self.assertEqual(0, storagevolume['allocation'])
 
             # Clone the storage volume
-            vol_info = json.loads(self.request(vol_uri).read())
+            vol_info = json.loads(self.request(vol_uri).read().decode('utf-8'))
             resp = self.request(vol_uri + '/clone', '{}', 'POST')
-            self.assertEquals(202, resp.status)
+            self.assertEqual(202, resp.status)
             task = json.loads(resp.read())
             cloned_vol_name = task['target_uri'].split('/')[-2]
-            rollback.prependDefer(model.storagevolume_delete, pool_name,
-                                  cloned_vol_name)
+            rollback.prependDefer(
+                model.storagevolume_delete, pool_name, cloned_vol_name
+            )
             wait_task(_task_lookup, task['id'])
             task = json.loads(
-                self.request('/plugins/kimchi/tasks/%s' % task['id']).read()
+                self.request('/plugins/kimchi/tasks/%s' % task['id'])
+                .read()
+                .decode('utf-8')
             )
-            self.assertEquals('finished', task['status'])
-            resp = self.request(uri + '/' + cloned_vol_name.encode('utf-8'))
+            self.assertEqual('finished', task['status'])
+            resp = self.request(uri + '/' + cloned_vol_name)
 
-            self.assertEquals(200, resp.status)
-            cloned_vol = json.loads(resp.read())
+            self.assertEqual(200, resp.status)
+            cloned_vol = json.loads(resp.read().decode('utf-8'))
 
             self.assertNotEquals(vol_info['name'], cloned_vol['name'])
             self.assertNotEquals(vol_info['path'], cloned_vol['path'])
@@ -141,13 +155,13 @@ def _do_volume_test(self, model, pool_name):
                 del vol_info[key]
                 del cloned_vol[key]
 
-            self.assertEquals(vol_info, cloned_vol)
+            self.assertEqual(vol_info, cloned_vol)
 
             # Delete the storage volume
             resp = self.request(vol_uri, '{}', 'DELETE')
-            self.assertEquals(204, resp.status)
+            self.assertEqual(204, resp.status)
             resp = self.request(vol_uri)
-            self.assertEquals(404, resp.status)
+            self.assertEqual(404, resp.status)
 
         # Storage volume upload
         # It is done through a sequence of POST and several PUT requests
@@ -156,20 +170,27 @@ def _do_volume_test(self, model, pool_name):
         filesize = os.stat(filepath).st_size
 
         # Create storage volume for upload
-        req = json.dumps({'name': filename, 'format': 'raw',
-                          'capacity': filesize, 'upload': True})
+        req = json.dumps(
+            {'name': filename, 'format': 'raw',
+                'capacity': filesize, 'upload': True}
+        )
         resp = self.request(uri, req, 'POST')
         if pool_info['type'] in READONLY_POOL_TYPE:
-            self.assertEquals(400, resp.status)
+            self.assertEqual(400, resp.status)
         else:
-            rollback.prependDefer(rollback_wrapper, model.storagevolume_delete,
-                                  pool_name, filename)
-            self.assertEquals(202, resp.status)
-            task_id = json.loads(resp.read())['id']
+            rollback.prependDefer(
+                rollback_wrapper, model.storagevolume_delete, pool_name, filename
+            )
+            self.assertEqual(202, resp.status)
+            task = json.loads(resp.read().decode('utf-8'))
+            task_id = task['id']
             wait_task(_task_lookup, task_id)
-            status = json.loads(self.request('/plugins/kimchi/tasks/%s' %
-                                             task_id).read())
-            self.assertEquals('ready for upload', status['message'])
+            status = json.loads(
+                self.request('/plugins/kimchi/tasks/%s' % task_id)
+                .read()
+                .decode('utf-8')
+            )
+            self.assertEqual('ready for upload', status['message'])
 
             # Upload volume content
             url = 'http://%s:%s' % (HOST, PORT) + uri + '/' + filename
@@ -181,8 +202,8 @@ def _do_volume_test(self, model, pool_name):
             # test case expects for exception raised by cherrypy.
             newfile = '/tmp/5m-file'
             with open(newfile, 'wb') as fd:
-                fd.seek(5*1024*1024-1)
-                fd.write("\0")
+                fd.seek(5 * 1024 * 1024 - 1)
+                fd.write(b'\0')
             rollback.prependDefer(os.remove, newfile)
 
             with open(newfile, 'rb') as fd:
@@ -191,12 +212,15 @@ def _do_volume_test(self, model, pool_name):
                     tmp_fd.write(data)
 
                 with open(newfile + '.tmp', 'rb') as tmp_fd:
-                    error_msg = "Connection aborted"
+                    error_msg = 'Connection aborted'
                     with self.assertRaisesRegexp(ConnectionError, error_msg):
-                        requests.put(url, data={'chunk_size': len(data)},
-                                     files={'chunk': tmp_fd},
-                                     verify=False,
-                                     headers=fake_auth_header())
+                        requests.put(
+                            url,
+                            data={'chunk_size': len(data)},
+                            files={'chunk': tmp_fd},
+                            verify=False,
+                            headers=fake_auth_header(),
+                        )
 
             # Do upload
             index = 0
@@ -206,17 +230,20 @@ def _do_volume_test(self, model, pool_name):
             with open(filepath, 'rb') as fd:
                 while True:
                     with open(filepath + '.tmp', 'wb') as tmp_fd:
-                        fd.seek(index*chunk_size)
+                        fd.seek(index * chunk_size)
                         data = fd.read(chunk_size)
                         tmp_fd.write(data)
 
                     with open(filepath + '.tmp', 'rb') as tmp_fd:
-                        r = requests.put(url, data={'chunk_size': len(data)},
-                                         files={'chunk': tmp_fd},
-                                         verify=False,
-                                         headers=fake_auth_header())
-                        self.assertEquals(r.status_code, 200)
-                        content += data
+                        r = requests.put(
+                            url,
+                            data={'chunk_size': len(data)},
+                            files={'chunk': tmp_fd},
+                            verify=False,
+                            headers=fake_auth_header(),
+                        )
+                        self.assertEqual(r.status_code, 200)
+                        content += data.decode('utf-8')
                         index = index + 1
 
                     if len(data) < chunk_size:
@@ -224,12 +251,12 @@ def _do_volume_test(self, model, pool_name):
 
             rollback.prependDefer(os.remove, filepath + '.tmp')
             resp = self.request(uri + '/' + filename)
-            self.assertEquals(200, resp.status)
-            uploaded_path = json.loads(resp.read())['path']
+            self.assertEqual(200, resp.status)
+            uploaded_path = json.loads(resp.read().decode('utf-8'))['path']
             with open(uploaded_path) as fd:
                 uploaded_content = fd.read()
 
-            self.assertEquals(content, uploaded_content)
+            self.assertEqual(content, uploaded_content)
 
         # Create storage volume with 'url'
         url = 'https://github.com/kimchi-project/kimchi/raw/master/COPYING'
@@ -237,15 +264,15 @@ def _do_volume_test(self, model, pool_name):
         resp = self.request(uri, req, 'POST')
 
         if pool_info['type'] in READONLY_POOL_TYPE:
-            self.assertEquals(400, resp.status)
+            self.assertEqual(400, resp.status)
         else:
-            rollback.prependDefer(model.storagevolume_delete, pool_name,
-                                  'COPYING')
-            self.assertEquals(202, resp.status)
-            task = json.loads(resp.read())
+            rollback.prependDefer(
+                model.storagevolume_delete, pool_name, 'COPYING')
+            self.assertEqual(202, resp.status)
+            task = json.loads(resp.read().decode('utf-8'))
             wait_task(_task_lookup, task['id'])
             resp = self.request(uri + '/COPYING')
-            self.assertEquals(200, resp.status)
+            self.assertEqual(200, resp.status)
 
 
 class StorageVolumeTests(unittest.TestCase):
@@ -255,20 +282,29 @@ class StorageVolumeTests(unittest.TestCase):
     def test_get_storagevolume(self):
         uri = '/plugins/kimchi/storagepools/default/storagevolumes'
         resp = self.request(uri)
-        self.assertEquals(200, resp.status)
+        self.assertEqual(200, resp.status)
 
-        keys = [u'name', u'type', u'capacity', u'allocation', u'path',
-                u'used_by', u'format', u'isvalid', u'has_permission']
-        for vol in json.loads(resp.read()):
+        keys = [
+            'name',
+            'type',
+            'capacity',
+            'allocation',
+            'path',
+            'used_by',
+            'format',
+            'isvalid',
+            'has_permission',
+        ]
+        for vol in json.loads(resp.read().decode('utf-8')):
             resp = self.request(uri + '/' + vol['name'])
-            self.assertEquals(200, resp.status)
+            self.assertEqual(200, resp.status)
 
             all_keys = keys[:]
-            vol_info = json.loads(resp.read())
+            vol_info = json.loads(resp.read().decode('utf-8'))
             if vol_info['format'] == 'iso':
-                all_keys.extend([u'os_distro', u'os_version', u'bootable'])
+                all_keys.extend(['os_distro', 'os_version', 'bootable'])
 
-            self.assertEquals(sorted(all_keys), sorted(vol_info.keys()))
+            self.assertEqual(sorted(all_keys), sorted(vol_info.keys()))
 
     def test_storagevolume_action(self):
         _do_volume_test(self, model, 'default')

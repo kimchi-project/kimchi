@@ -16,22 +16,24 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
 import json
 import os
 import sys
 
-from wok.exception import ImageFormatError, InvalidParameter, TimeoutExpired
-from wok.utils import run_command, wok_log
+from wok.exception import ImageFormatError
+from wok.exception import InvalidParameter
+from wok.exception import TimeoutExpired
+from wok.utils import run_command
+from wok.utils import wok_log
 
 
 def probe_img_info(path):
-    cmd = ["qemu-img", "info", "--output=json", path]
+    cmd = ['qemu-img', 'info', '--output=json', path]
     info = dict()
     try:
         out = run_command(cmd, 10)[0]
     except TimeoutExpired:
-        wok_log.warning("Cannot decide format of base img %s", path)
+        wok_log.warning('Cannot decide format of base img %s', path)
         return None
 
     info = json.loads(out)
@@ -42,34 +44,37 @@ def probe_img_info(path):
 
 def probe_image(image_path):
     if not os.path.isfile(image_path):
-        raise InvalidParameter("KCHIMG0004E", {'filename': image_path})
+        raise InvalidParameter('KCHIMG0004E', {'filename': image_path})
 
     if not os.access(image_path, os.R_OK):
-        raise ImageFormatError("KCHIMG0003E", {'filename': image_path})
+        raise ImageFormatError('KCHIMG0003E', {'filename': image_path})
 
     try:
         import guestfs
+
         g = guestfs.GuestFS(python_return_dict=True)
         g.add_drive_opts(image_path, readonly=1)
         g.launch()
         roots = g.inspect_os()
     except ImportError:
-        return ("unknown", "unknown")
-    except Exception, e:
-        raise ImageFormatError("KCHIMG0001E", {'err': str(e)})
+        return ('unknown', 'unknown')
+    except Exception as e:
+        raise ImageFormatError('KCHIMG0001E', {'err': str(e)})
 
     if len(roots) == 0:
         # If we are unable to detect the OS, still add the image
         # but make distro and vendor 'unknown'
-        return ("unknown", "unknown")
+        return ('unknown', 'unknown')
 
     for root in roots:
-        version = "%d.%d" % (g.inspect_get_major_version(root),
-                             g.inspect_get_minor_version(root))
-        distro = "%s" % (g.inspect_get_distro(root))
+        version = '%d.%d' % (
+            g.inspect_get_major_version(root),
+            g.inspect_get_minor_version(root),
+        )
+        distro = '%s' % (g.inspect_get_distro(root))
 
     return (distro, version)
 
 
 if __name__ == '__main__':
-    print probe_image(sys.argv[1])
+    print(probe_image(sys.argv[1]))

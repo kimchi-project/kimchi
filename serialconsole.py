@@ -17,20 +17,17 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 #
-
-import libvirt
 import os
 import socket
 import sys
 import threading
 import time
-
 from multiprocessing import Process
 
+import libvirt
 from wok.config import config as wok_config
-from wok.utils import wok_log
-
 from wok.plugins.kimchi import model
+from wok.utils import wok_log
 
 
 SOCKET_QUEUE_BACKLOG = 0
@@ -70,18 +67,15 @@ class SocketServer(Process):
         self._uri = URI
         self._server_addr = os.path.join(BASE_DIRECTORY, guest_name)
         if os.path.exists(self._server_addr):
-            raise RuntimeError('There is an existing connection to %s' %
-                               guest_name)
+            raise RuntimeError(
+                'There is an existing connection to %s' % guest_name)
 
-        self._socket = socket.socket(socket.AF_UNIX,
-                                     socket.SOCK_STREAM)
-        self._socket.setsockopt(socket.SOL_SOCKET,
-                                socket.SO_REUSEADDR,
-                                1)
+        self._socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+        self._socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self._socket.bind(self._server_addr)
         self._socket.listen(SOCKET_QUEUE_BACKLOG)
-        wok_log.info('[%s] socket server to guest %s created', self.name,
-                     guest_name)
+        wok_log.info('[%s] socket server to guest %s created',
+                     self.name, guest_name)
 
     def run(self):
         """Implements customized run method from Process.
@@ -101,13 +95,12 @@ class SocketServer(Process):
             while not is_listening:
                 libvirt.virEventRunDefaultImpl()
 
-        console.eventAddCallback(libvirt.VIR_STREAM_EVENT_READABLE,
-                                 _test_output,
-                                 None)
+        console.eventAddCallback(
+            libvirt.VIR_STREAM_EVENT_READABLE, _test_output, None)
         libvirt_loop = threading.Thread(target=_event_loop)
         libvirt_loop.start()
 
-        console.send("\n")
+        console.send(b'\n')
         libvirt_loop.join(1)
 
         if not libvirt_loop.is_alive():
@@ -126,8 +119,8 @@ class SocketServer(Process):
             data = stream.recv(1024)
 
         except Exception as e:
-            wok_log.info('[%s] Error when reading from console: %s',
-                         self.name, e.message)
+            wok_log.info(
+                '[%s] Error when reading from console: %s', self.name, str(e))
             return
 
         # return if no data received or client socket(opaque) is not valid
@@ -157,8 +150,12 @@ class SocketServer(Process):
             guest = LibvirtGuest(self._guest_name, self._uri, self.name)
 
         except Exception as e:
-            wok_log.error('[%s] Cannot open the guest %s due to %s',
-                          self.name, self._guest_name, e.message)
+            wok_log.error(
+                '[%s] Cannot open the guest %s due to %s',
+                self.name,
+                self._guest_name,
+                str(e),
+            )
             self._socket.close()
             sys.exit(1)
 
@@ -170,8 +167,9 @@ class SocketServer(Process):
         try:
             console = guest.get_console()
             if console is None:
-                wok_log.error('[%s] Cannot get the console to %s',
-                              self.name, self._guest_name)
+                wok_log.error(
+                    '[%s] Cannot get the console to %s', self.name, self._guest_name
+                )
                 return
 
             if not self._is_vm_listening_serial(console):
@@ -184,8 +182,11 @@ class SocketServer(Process):
             pass
 
         finally:
-            wok_log.info("[%s] Shutting down the socket server to %s console",
-                         self.name, self._guest_name)
+            wok_log.info(
+                '[%s] Shutting down the socket server to %s console',
+                self.name,
+                self._guest_name,
+            )
             self._socket.close()
             if os.path.exists(self._server_addr):
                 os.unlink(self._server_addr)
@@ -194,8 +195,8 @@ class SocketServer(Process):
                 console.eventRemoveCallback()
 
             except Exception as e:
-                wok_log.info('[%s] Callback is probably removed: %s',
-                             self.name, e.message)
+                wok_log.info(
+                    '[%s] Callback is probably removed: %s', self.name, str(e))
 
             guest.close()
 
@@ -211,17 +212,18 @@ class SocketServer(Process):
 
         session_timeout = wok_config.get('server', 'session_timeout')
         client.settimeout(int(session_timeout) * 60)
-        wok_log.info('[%s] Client connected to %s', self.name,
-                     self._guest_name)
+        wok_log.info('[%s] Client connected to %s',
+                     self.name, self._guest_name)
 
         # register the callback to receive any data from the console
-        console.eventAddCallback(libvirt.VIR_STREAM_EVENT_READABLE,
-                                 self._send_to_client,
-                                 client)
+        console.eventAddCallback(
+            libvirt.VIR_STREAM_EVENT_READABLE, self._send_to_client, client
+        )
 
         # start the libvirt event loop in a python thread
-        libvirt_loop = threading.Thread(target=self.libvirt_event_loop,
-                                        args=(guest, client))
+        libvirt_loop = threading.Thread(
+            target=self.libvirt_event_loop, args=(guest, client)
+        )
         libvirt_loop.start()
 
         while True:
@@ -230,8 +232,12 @@ class SocketServer(Process):
                 data = client.recv(1024)
 
             except Exception as e:
-                wok_log.info('[%s] Client disconnected from %s: %s',
-                             self.name, self._guest_name, e.message)
+                wok_log.info(
+                    '[%s] Client disconnected from %s: %s',
+                    self.name,
+                    self._guest_name,
+                    str(e),
+                )
                 break
 
             if not data or data == CTRL_Q:
@@ -242,23 +248,25 @@ class SocketServer(Process):
             try:
                 console.send(data)
 
-            except:
-                wok_log.info('[%s] Console of %s is not accessible',
-                             self.name, self._guest_name)
+            except Exception:
+                wok_log.info(
+                    '[%s] Console of %s is not accessible', self.name, self._guest_name
+                )
                 break
 
         # clear used resources when the connection is closed and, if possible,
         # tell the client the connection was lost.
         try:
-            client.send('\r\n\r\nClient disconnected\r\n')
+            client.send(b'\\r\\n\\r\\nClient disconnected\\r\\n')
 
-        except:
+        except Exception:
             pass
+
+
 # socket_server
 
 
 class LibvirtGuest(object):
-
     def __init__(self, guest_name, uri, process_name):
         """
         Constructs a guest object that opens a connection to libvirt and
@@ -270,8 +278,10 @@ class LibvirtGuest(object):
             self._guest = model.vms.VMModel.get_vm(guest_name, libvirt)
 
         except Exception as e:
-            wok_log.error('[%s] Cannot open guest %s: %s', self._proc_name,
-                          guest_name, e.message)
+            wok_log.error(
+                '[%s] Cannot open guest %s: %s', self._proc_name, guest_name, str(
+                    e)
+            )
             raise
 
         self._libvirt = libvirt.get()
@@ -282,8 +292,10 @@ class LibvirtGuest(object):
         """
         Checks if this guest is currently in a running state.
         """
-        return self._guest.state(0)[0] == libvirt.VIR_DOMAIN_RUNNING or \
+        return (
+            self._guest.state(0)[0] == libvirt.VIR_DOMAIN_RUNNING or
             self._guest.state(0)[0] == libvirt.VIR_DOMAIN_PAUSED
+        )
 
     def get_console(self):
         """
@@ -294,8 +306,11 @@ class LibvirtGuest(object):
         # guest must be in a running state to get its console
         counter = 10
         while not self.is_running():
-            wok_log.info('[%s] Guest %s is not running, waiting for it',
-                         self._proc_name, self._name)
+            wok_log.info(
+                '[%s] Guest %s is not running, waiting for it',
+                self._proc_name,
+                self._name,
+            )
 
             counter -= 1
             if counter <= 0:
@@ -305,19 +320,23 @@ class LibvirtGuest(object):
 
         # attach a stream in the guest console so we can read from/write to it
         if self._stream is None:
-            wok_log.info('[%s] Opening the console for guest %s',
-                         self._proc_name, self._name)
+            wok_log.info(
+                '[%s] Opening the console for guest %s', self._proc_name, self._name
+            )
             self._stream = self._libvirt.newStream(libvirt.VIR_STREAM_NONBLOCK)
-            self._guest.openConsole(None,
-                                    self._stream,
-                                    libvirt.VIR_DOMAIN_CONSOLE_FORCE |
-                                    libvirt.VIR_DOMAIN_CONSOLE_SAFE)
+            self._guest.openConsole(
+                None,
+                self._stream,
+                libvirt.VIR_DOMAIN_CONSOLE_FORCE | libvirt.VIR_DOMAIN_CONSOLE_SAFE,
+            )
         return self._stream
 
     def close(self):
         """Closes the libvirt connection.
         """
         self._libvirt.close()
+
+
 # guest
 
 
@@ -331,7 +350,7 @@ def main(guest_name, URI='qemu:///system'):
         server = SocketServer(guest_name, URI)
 
     except Exception as e:
-        wok_log.error('Cannot create the socket server: %s', e.message)
+        wok_log.error('Cannot create the socket server: %s', str(e))
         raise
 
     server.start()
@@ -354,7 +373,7 @@ if __name__ == '__main__':
     """
     argc = len(sys.argv)
     if argc != 2:
-        print 'usage: ./%s <guest_name>' % sys.argv[0]
+        print(f'usage: ./{sys.argv[0]} <guest_name>')
         sys.exit(1)
 
     main(sys.argv[1])

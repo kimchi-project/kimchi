@@ -16,25 +16,26 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
 import copy
 import glob
 import os
 import platform
-import psutil
 from collections import defaultdict
-from configobj import ConfigObj
 from distutils.version import LooseVersion
 
+import psutil
+from configobj import ConfigObj
 from wok.config import PluginPaths
-from wok.utils import wok_log
 from wok.exception import InvalidParameter
 from wok.plugins.kimchi.config import kimchiPaths
+from wok.utils import wok_log
 
-SUPPORTED_ARCHS = {'x86': ('i386', 'i686', 'x86_64'),
-                   'power': ('ppc', 'ppc64'),
-                   'ppc64le': ('ppc64le'),
-                   's390x': ('s390x')}
+SUPPORTED_ARCHS = {
+    'x86': ('i386', 'i686', 'x86_64'),
+    'power': ('ppc', 'ppc64'),
+    'ppc64le': ('ppc64le'),
+    's390x': ('s390x'),
+}
 
 # Memory devices slot limits by architecture
 HOST_DISTRO = platform.linux_distribution()
@@ -48,68 +49,103 @@ MEM_DEV_SLOTS = {
 }
 
 
-template_specs = {'x86': {'old': dict(disk_bus='ide',
-                                      nic_model='e1000', sound_model='ich6'),
-                          'modern': dict(disk_bus='virtio',
-                                         nic_model='virtio',
-                                         sound_model='ich6',
-                                         tablet_bus='usb')},
-                  'power': {'old': dict(disk_bus='scsi',
-                                        nic_model='spapr-vlan',
-                                        cdrom_bus='scsi',
-                                        kbd_type="kbd",
-                                        kbd_bus='usb', mouse_bus='usb',
-                                        tablet_bus='usb'),
-                            'modern': dict(disk_bus='virtio',
-                                           nic_model='virtio',
-                                           cdrom_bus='scsi',
-                                           kbd_bus='usb',
-                                           kbd_type="kbd",
-                                           mouse_bus='usb', tablet_bus='usb')},
-                  'ppc64le': {'old': dict(disk_bus='virtio',
-                                          nic_model='virtio',
-                                          cdrom_bus='scsi',
-                                          kbd_bus='usb',
-                                          kbd_type="keyboard",
-                                          mouse_bus='usb', tablet_bus='usb'),
-                              'modern': dict(disk_bus='virtio',
-                                             nic_model='virtio',
-                                             cdrom_bus='scsi',
-                                             kbd_bus='usb',
-                                             kbd_type="keyboard",
-                                             mouse_bus='usb',
-                                             tablet_bus='usb')},
-                  's390x': {'old': dict(disk_bus='virtio',
-                                        nic_model='virtio', cdrom_bus='scsi'),
-                            'modern': dict(disk_bus='virtio',
-                                           nic_model='virtio',
-                                           cdrom_bus='scsi')}}
+template_specs = {
+    'x86': {
+        'old': dict(disk_bus='ide', nic_model='e1000', sound_model='ich6'),
+        'modern': dict(
+            disk_bus='virtio', nic_model='virtio', sound_model='ich6', tablet_bus='usb'
+        ),
+    },
+    'power': {
+        'old': dict(
+            disk_bus='scsi',
+            nic_model='spapr-vlan',
+            cdrom_bus='scsi',
+            kbd_type='kbd',
+            kbd_bus='usb',
+            mouse_bus='usb',
+            tablet_bus='usb',
+        ),
+        'modern': dict(
+            disk_bus='virtio',
+            nic_model='virtio',
+            cdrom_bus='scsi',
+            kbd_bus='usb',
+            kbd_type='kbd',
+            mouse_bus='usb',
+            tablet_bus='usb',
+        ),
+    },
+    'ppc64le': {
+        'old': dict(
+            disk_bus='virtio',
+            nic_model='virtio',
+            cdrom_bus='scsi',
+            kbd_bus='usb',
+            kbd_type='keyboard',
+            mouse_bus='usb',
+            tablet_bus='usb',
+        ),
+        'modern': dict(
+            disk_bus='virtio',
+            nic_model='virtio',
+            cdrom_bus='scsi',
+            kbd_bus='usb',
+            kbd_type='keyboard',
+            mouse_bus='usb',
+            tablet_bus='usb',
+        ),
+    },
+    's390x': {
+        'old': dict(disk_bus='virtio', nic_model='virtio', cdrom_bus='scsi'),
+        'modern': dict(disk_bus='virtio', nic_model='virtio', cdrom_bus='scsi'),
+    },
+}
 
 
-custom_specs = {'fedora': {'22': {'x86': dict(video_model='qxl')}},
-                'windows': {'xp': {'x86': dict(nic_model='pcnet')}}}
+custom_specs = {
+    'fedora': {'22': {'x86': dict(video_model='qxl')}},
+    'windows': {'xp': {'x86': dict(nic_model='pcnet')}},
+}
 
 
-modern_version_bases = {'x86': {'debian': '6.0', 'ubuntu': '7.10',
-                                'opensuse': '10.3', 'centos': '5.3',
-                                'rhel': '6.0', 'fedora': '16', 'gentoo': '0',
-                                'sles': '11', 'arch': '0'},
-                        'power': {'rhel': '6.5', 'fedora': '19',
-                                  'ubuntu': '14.04',
-                                  'opensuse': '13.1',
-                                  'sles': '11sp3'},
-                        'ppc64le': {'rhel': '6.5', 'fedora': '19',
-                                    'ubuntu': '14.04',
-                                    'opensuse': '13.1',
-                                    'sles': '11sp3'}}
+modern_version_bases = {
+    'x86': {
+        'debian': '6.0',
+        'ubuntu': '7.10',
+        'opensuse': '10.3',
+        'centos': '5.3',
+        'rhel': '6.0',
+        'fedora': '16',
+        'gentoo': '0',
+        'sles': '11',
+        'arch': '0',
+    },
+    'power': {
+        'rhel': '6.5',
+        'fedora': '19',
+        'ubuntu': '14.04',
+        'opensuse': '13.1',
+        'sles': '11sp3',
+    },
+    'ppc64le': {
+        'rhel': '6.5',
+        'fedora': '19',
+        'ubuntu': '14.04',
+        'opensuse': '13.1',
+        'sles': '11sp3',
+    },
+}
 
 
-icon_available_distros = [icon[5:-4] for icon in glob.glob1('%s/images/'
-                          % PluginPaths('kimchi').ui_dir, 'icon-*.png')]
+icon_available_distros = [
+    icon[5:-4]
+    for icon in glob.glob1('%s/images/' % PluginPaths('kimchi').ui_dir, 'icon-*.png')
+]
 
 
 def _get_arch():
-    for arch, sub_archs in SUPPORTED_ARCHS.iteritems():
+    for arch, sub_archs in SUPPORTED_ARCHS.items():
         if os.uname()[4] in sub_archs:
             return arch
 
@@ -160,10 +196,15 @@ def _get_tmpl_defaults():
     if host_arch in ['s390x', 's390']:
         tmpl_defaults['main']['networks'] = []
 
-    tmpl_defaults['memory'] = {'current': _get_default_template_mem(),
-                               'maxmemory': _get_default_template_mem()}
-    tmpl_defaults['storage']['disk.0'] = {'size': 10, 'format': 'qcow2',
-                                          'pool': 'default'}
+    tmpl_defaults['memory'] = {
+        'current': _get_default_template_mem(),
+        'maxmemory': _get_default_template_mem(),
+    }
+    tmpl_defaults['storage']['disk.0'] = {
+        'size': 10,
+        'format': 'qcow2',
+        'pool': 'default',
+    }
     is_on_s390x = True if _get_arch() == 's390x' else False
 
     if is_on_s390x:
@@ -209,9 +250,11 @@ def _get_tmpl_defaults():
         # On s390x if config file has both path and pool uncommented
         # then path should take preference.
         if config_pool and config_path:
-            wok_log.warning("Both default pool and path are specified in" +
-                            " template.conf. Hence default pool is being" +
-                            " ignored and only default path will be used")
+            wok_log.warning(
+                'Both default pool and path are specified in'
+                + ' template.conf. Hence default pool is being'
+                + ' ignored and only default path will be used'
+            )
             config.get('storage').get('disk.0').pop('pool')
 
     # Merge default configuration with file configuration
@@ -219,8 +262,13 @@ def _get_tmpl_defaults():
 
     # Create a dict with default values according to data structure
     # expected by VMTemplate
-    defaults = {'domain': 'kvm', 'arch': os.uname()[4],
-                'cdrom_bus': 'ide', 'cdrom_index': 2, 'mouse_bus': 'ps2'}
+    defaults = {
+        'domain': 'kvm',
+        'arch': os.uname()[4],
+        'cdrom_bus': 'ide',
+        'cdrom_index': 2,
+        'mouse_bus': 'ps2',
+    }
     # Parse main section to get networks and memory values
     defaults.update(default_config.pop('main'))
     defaults['memory'] = default_config.pop('memory')
@@ -252,15 +300,19 @@ def _get_tmpl_defaults():
             else:
                 data['format'] = storage_section[disk].pop('format')
         else:
-            data['pool'] = {"name": '/plugins/kimchi/storagepools/' +
-                                    storage_section[disk].pop('pool')}
+            data['pool'] = {
+                'name': '/plugins/kimchi/storagepools/'
+                + storage_section[disk].pop('pool')
+            }
 
         defaults['disks'].append(data)
 
     # Parse processor section to get vcpus and cpu_topology values
     processor_section = default_config.pop('processor')
-    defaults['cpu_info'] = {'vcpus': processor_section.pop('vcpus'),
-                            'maxvcpus': processor_section.pop('maxvcpus')}
+    defaults['cpu_info'] = {
+        'vcpus': processor_section.pop('vcpus'),
+        'maxvcpus': processor_section.pop('maxvcpus'),
+    }
     if len(processor_section.keys()) > 0:
         defaults['cpu_info']['topology'] = processor_section
 
@@ -300,26 +352,25 @@ def lookup(distro, version):
     arch = _get_arch()
 
     # set up arch to ppc64 instead of ppc64le due to libvirt compatibility
-    if params["arch"] == "ppc64le":
-        params["arch"] = "ppc64"
+    if params['arch'] == 'ppc64le':
+        params['arch'] = 'ppc64'
     # On s390x, template spec does not change based on version.
-    if params["arch"] == "s390x" or arch == "s390x":
+    if params['arch'] == 's390x' or arch == 's390x':
         params.update(template_specs[arch]['old'])
         if not distro:
-            params['os_distro'] = params['os_version'] = "unknown"
+            params['os_distro'] = params['os_version'] = 'unknown'
     elif distro in modern_version_bases[arch]:
-        if LooseVersion(version) >= LooseVersion(
-                modern_version_bases[arch][distro]):
+        if LooseVersion(version) >= LooseVersion(modern_version_bases[arch][distro]):
             params.update(template_specs[arch]['modern'])
         else:
             params.update(template_specs[arch]['old'])
     else:
-        params['os_distro'] = params['os_version'] = "unknown"
+        params['os_distro'] = params['os_version'] = 'unknown'
         params.update(template_specs[arch]['old'])
 
     # Get custom specifications
     specs = custom_specs.get(distro, {})
-    for v, config in specs.iteritems():
+    for v, config in specs.items():
         if LooseVersion(version) >= LooseVersion(v):
             params.update(config.get(arch, {}))
 

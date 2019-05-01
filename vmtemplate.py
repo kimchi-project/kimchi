@@ -16,23 +16,25 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
 import os
 import platform
 import stat
 import time
-import urlparse
+import urllib
 import uuid
+
 from lxml import etree
 from lxml.builder import E
-
-from wok.exception import InvalidParameter, ImageFormatError, IsoFormatError
-from wok.exception import MissingParameter, OperationFailed
-
+from wok.exception import ImageFormatError
+from wok.exception import InvalidParameter
+from wok.exception import IsoFormatError
+from wok.exception import MissingParameter
+from wok.exception import OperationFailed
 from wok.plugins.kimchi import imageinfo
 from wok.plugins.kimchi import osinfo
 from wok.plugins.kimchi.isoinfo import IsoImage
-from wok.plugins.kimchi.utils import check_url_path, is_s390x
+from wok.plugins.kimchi.utils import check_url_path
+from wok.plugins.kimchi.utils import is_s390x
 from wok.plugins.kimchi.utils import pool_name_from_uri
 from wok.plugins.kimchi.xmlutils.bootorder import get_bootorder_xml
 from wok.plugins.kimchi.xmlutils.cpu import get_cpu_xml
@@ -45,7 +47,6 @@ from wok.plugins.kimchi.xmlutils.usb import get_usb_controller_xml
 
 
 class VMTemplate(object):
-
     def __init__(self, args, scan=False, netboot=False):
         """
         Construct a VM Template from a widely variable amount of information.
@@ -144,9 +145,11 @@ class VMTemplate(object):
 
                 keys = sorted(disk_info.keys())
 
-                if ((keys != sorted(basic_disk)) and
-                        (keys != sorted(ro_disk)) and
-                        (keys != sorted(base_disk))):
+                if (
+                    (keys != sorted(basic_disk))
+                    and (keys != sorted(ro_disk))
+                    and (keys != sorted(base_disk))
+                ):
                     # Addition check required only on s390x
                     if not is_s390x() or (keys != sorted(basic_path_disk)):
                         raise MissingParameter('KCHTMPL0028E')
@@ -167,8 +170,9 @@ class VMTemplate(object):
 
                 disk_info.update(disk)
                 keys = sorted(disk_info.keys())
-                if ((keys != sorted(basic_path_disk)) and
-                   (keys != sorted(base_path_disk))):
+                if (keys != sorted(basic_path_disk)) and (
+                    keys != sorted(base_path_disk)
+                ):
                     raise MissingParameter('KCHTMPL0042E')
 
                 disk_info['path'] = path
@@ -202,7 +206,7 @@ class VMTemplate(object):
                     d['size'] = d_info['virtual-size']
 
         if len(base_imgs) == 0:
-            raise MissingParameter("KCHTMPL0016E")
+            raise MissingParameter('KCHTMPL0016E')
 
         return distro, version
 
@@ -215,13 +219,13 @@ class VMTemplate(object):
 
     def get_iso_info(self, iso):
         iso_prefixes = ['/', 'http', 'https', 'ftp', 'ftps', 'tftp']
-        if len(filter(iso.startswith, iso_prefixes)) == 0:
-            raise InvalidParameter("KCHTMPL0006E", {'param': iso})
+        if len(list(filter(iso.startswith, iso_prefixes))) == 0:
+            raise InvalidParameter('KCHTMPL0006E', {'param': iso})
         try:
             iso_img = IsoImage(iso)
             return iso_img.probe()
         except IsoFormatError:
-            raise InvalidParameter("KCHISO0001E", {'filename': iso})
+            raise InvalidParameter('KCHISO0001E', {'filename': iso})
 
     def _get_cdrom_xml(self, libvirt_stream_protocols):
         if 'cdrom' not in self.info:
@@ -235,7 +239,7 @@ class VMTemplate(object):
         params['path'] = self.info['cdrom']
 
         if self.info.get('iso_stream', False):
-            protocol = urlparse.urlparse(params['path']).scheme
+            protocol = urllib.parse.urlparse(params['path']).scheme
             if protocol not in libvirt_stream_protocols:
                 driveOpt = 'file=%(path)s,if=none,id=drive-%(bus)s0-1-0,'
                 driveOpt += 'readonly=on,format=%(format)s'
@@ -253,14 +257,21 @@ class VMTemplate(object):
         return xml
 
     def _get_disks_xml(self, vm_uuid):
-        base_disk_params = {'type': 'disk', 'disk': 'file',
-                            'bus': self.info['disk_bus']}
+        base_disk_params = {
+            'type': 'disk',
+            'disk': 'file',
+            'bus': self.info['disk_bus'],
+        }
         logical_disk_params = {'format': 'raw'}
         iscsi_disk_params = {'disk': 'block', 'format': 'raw'}
 
         scsi_disk = 'volume' if self.fc_host_support else 'block'
-        scsi_disk_params = {'disk': scsi_disk, 'type': 'lun',
-                            'format': 'raw', 'bus': 'scsi'}
+        scsi_disk_params = {
+            'disk': scsi_disk,
+            'type': 'lun',
+            'format': 'raw',
+            'bus': 'scsi',
+        }
 
         disks_xml = ''
         for index, disk in enumerate(self.info['disks']):
@@ -273,10 +284,10 @@ class VMTemplate(object):
 
             volume = disk.get('volume')
             if volume is not None:
-                params['path'] = self._get_volume_path(disk['pool']['name'],
-                                                       volume)
+                params['path'] = self._get_volume_path(
+                    disk['pool']['name'], volume)
             else:
-                img = "%s-%s.img" % (vm_uuid, params['index'])
+                img = '%s-%s.img' % (vm_uuid, params['index'])
                 if disk.get('pool'):
                     storage_path = self._get_storage_path(disk['pool']['name'])
                     params['pool_type'] = disk['pool']['type']
@@ -286,31 +297,34 @@ class VMTemplate(object):
                 params['path'] = os.path.join(storage_path, img)
             disks_xml += get_disk_xml(params)[1]
 
-        return unicode(disks_xml, 'utf-8')
+        return disks_xml
 
     def to_volume_list(self, vm_uuid):
         ret = []
         for i, d in enumerate(self.info['disks']):
             # Create only .img. If storagepool is (i)SCSI, volumes will be LUNs
-            if 'pool' in d and d['pool']['type'] in ["iscsi", "scsi"]:
+            if 'pool' in d and d['pool']['type'] in ['iscsi', 'scsi']:
                 continue
 
             index = d.get('index', i)
-            volume = "%s-%s.img" % (vm_uuid, index)
+            volume = '%s-%s.img' % (vm_uuid, index)
 
             if 'path' in d:
                 storage_path = d['path']
             else:
                 storage_path = self._get_storage_path(d['pool']['name'])
 
-            info = {'name': volume,
-                    'capacity': d['size'],
-                    'format': d['format'],
-                    'path': '%s/%s' % (storage_path, volume),
-                    'pool': d['pool']['name'] if 'pool' in d else None}
+            info = {
+                'name': volume,
+                'capacity': d['size'],
+                'format': d['format'],
+                'path': '%s/%s' % (storage_path, volume),
+                'pool': d['pool']['name'] if 'pool' in d else None,
+            }
 
-            if ('pool' in d and 'logical' == d['pool']['type']) or \
-               info['format'] not in ['qcow2', 'raw']:
+            if ('pool' in d and 'logical' == d['pool']['type']) or info[
+                'format'
+            ] not in ['qcow2', 'raw']:
                 info['allocation'] = info['capacity']
             else:
                 info['allocation'] = 0
@@ -319,7 +333,7 @@ class VMTemplate(object):
                 info['base'] = dict()
                 base_fmt = imageinfo.probe_img_info(d['base'])['format']
                 if base_fmt is None:
-                    raise InvalidParameter("KCHTMPL0024E", {'path': d['base']})
+                    raise InvalidParameter('KCHTMPL0024E', {'path': d['base']})
                 info['base']['path'] = d['base']
                 info['base']['format'] = base_fmt
 
@@ -332,33 +346,37 @@ class VMTemplate(object):
                 # target must be qcow2 in order to use a backing file
                 target_fmt = 'qcow2'
 
-                v_tree.append(E.backingStore(
-                    E.path(info['base']['path']),
-                    E.format(type=info['base']['format'])))
+                v_tree.append(
+                    E.backingStore(
+                        E.path(info['base']['path']),
+                        E.format(type=info['base']['format']),
+                    )
+                )
 
-            target = E.target(
-                E.format(type=target_fmt), E.path(info['path']))
+            target = E.target(E.format(type=target_fmt), E.path(info['path']))
             v_tree.append(target)
             info['xml'] = etree.tostring(v_tree)
             ret.append(info)
         return ret
 
     def _get_networks_xml(self):
-        networks = ""
-        params = {'type': 'network',
-                  'model': self.info['nic_model']}
+        networks = ''
+        params = {'type': 'network', 'model': self.info['nic_model']}
 
         info_networks = self.info.get('networks', [])
 
         for nw in info_networks:
             params['network'] = nw
-            networks += get_iface_xml(params, self.info['arch'],
-                                      self.info['os_distro'],
-                                      self.info['os_version'])
-        return unicode(networks, 'utf-8')
+            networks += get_iface_xml(
+                params,
+                self.info['arch'],
+                self.info['os_distro'],
+                self.info['os_version'],
+            )
+        return networks
 
     def _get_interfaces_xml(self):
-        interfaces = ""
+        interfaces = ''
         params = {'model': self.info['nic_model']}
         for interface in self.info.get('interfaces', []):
             typ = interface['type']
@@ -370,10 +388,13 @@ class VMTemplate(object):
                 params['virtualport_type'] = 'openvswitch'
 
             params['name'] = interface['name']
-            interfaces += get_iface_xml(params, self.info['arch'],
-                                        self.info['os_distro'],
-                                        self.info['os_version'])
-        return unicode(interfaces, 'utf-8')
+            interfaces += get_iface_xml(
+                params,
+                self.info['arch'],
+                self.info['os_distro'],
+                self.info['os_version'],
+            )
+        return interfaces
 
     def _get_usb_controller(self):
         # Power systems must include USB controller model
@@ -404,7 +425,7 @@ class VMTemplate(object):
             </video>
         """
 
-        input_output = ""
+        input_output = ''
         if 'mouse_bus' in self.info.keys():
             input_output += mouse % self.info
         if 'kbd_bus' in self.info.keys():
@@ -420,8 +441,7 @@ class VMTemplate(object):
     def _get_cpu_xml(self):
         # Include CPU topology, if provided
         cpu_topo = self.info.get('cpu_info', {}).get('topology', {})
-        return get_cpu_xml(0, (self.info.get('memory').get('current')) << 10,
-                           cpu_topo)
+        return get_cpu_xml(0, (self.info.get('memory').get('current')) << 10, cpu_topo)
 
     def to_vm_xml(self, vm_name, vm_uuid, **kwargs):
         params = dict(self.info)
@@ -449,9 +469,9 @@ class VMTemplate(object):
 
         # Add information of CD-ROM device only if template have info about it.
         if cdrom_xml is not None:
-            if not urlparse.urlparse(self.info.get('cdrom', "")).scheme in \
-                    libvirt_stream_protocols and \
-                    params.get('iso_stream', False):
+            if not urllib.parse.urlparse(
+                self.info.get('cdrom', '')
+            ).scheme in libvirt_stream_protocols and params.get('iso_stream', False):
                 params['qemu-stream-cmdline'] = cdrom_xml
             else:
                 params['cdroms'] = cdrom_xml
@@ -459,8 +479,8 @@ class VMTemplate(object):
         # Set the boot order of VM
         # TODO: need modify this when boot order edition feature came upstream.
         if cdrom_xml and params.get('arch') == 's390x':
-            params['boot_order'] = get_bootorder_xml(['cdrom', 'hd',
-                                                      'network'])
+            params['boot_order'] = get_bootorder_xml(
+                ['cdrom', 'hd', 'network'])
         else:
             params['boot_order'] = get_bootorder_xml()
 
@@ -471,11 +491,10 @@ class VMTemplate(object):
         memory = self.info['memory'].get('current')
         maxmemory = self.info['memory'].get('maxmemory')
         if maxmemory < memory:
-            raise OperationFailed("KCHVM0041E",
-                                  {'maxmem': str(maxmemory)})
+            raise OperationFailed('KCHVM0041E', {'maxmem': str(maxmemory)})
 
         params['memory'] = self.info['memory'].get('current')
-        params['max_memory'] = ""
+        params['max_memory'] = ''
         # if there is not support to memory hotplug in Libvirt or qemu, we
         # cannot add the tag maxMemory
         if memory != maxmemory and kwargs.get('mem_hotplug_support', True):
@@ -496,7 +515,8 @@ class VMTemplate(object):
         # usb controller
         params['usb_controller'] = self._get_usb_controller()
 
-        xml = """
+        xml = (
+            """
         <domain type='%(domain)s'>
           %(qemu-stream-cmdline)s
           <name>%(name)s</name>
@@ -535,7 +555,9 @@ class VMTemplate(object):
             <memballoon model='virtio' />
           </devices>
         </domain>
-        """ % params
+        """
+            % params
+        )
 
         return xml
 
@@ -587,8 +609,8 @@ class VMTemplate(object):
         # validate networks integrity
         networks = self.info.get('networks', [])
 
-        invalid_networks = list(set(networks) -
-                                set(self._get_all_networks_name()))
+        invalid_networks = list(
+            set(networks) - set(self._get_all_networks_name()))
         if invalid_networks:
             invalid['networks'] = invalid_networks
 
@@ -600,11 +622,11 @@ class VMTemplate(object):
                 if pool_name not in self._get_active_storagepools_name():
                     invalid['storagepools'] = [pool_name]
 
-            if disk.get("base") is None:
+            if disk.get('base') is None:
                 continue
 
-            if os.path.exists(disk.get("base")) is False:
-                invalid['vm-image'] = disk["base"]
+            if os.path.exists(disk.get('base')) is False:
+                invalid['vm-image'] = disk['base']
 
         # validate iso integrity
         # FIXME when we support multiples cdrom devices

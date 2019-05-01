@@ -17,15 +17,10 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
-import __builtin__ as builtins
-
 import base64
+import builtins
 import grp
-import libvirt
 import json
-import lxml.etree as ET
-import mock
 import os
 import platform
 import pwd
@@ -34,20 +29,20 @@ import shutil
 import time
 import unittest
 
-from lxml import objectify
-
-import tests.utils as utils
-
+import libvirt
+import lxml.etree as ET
+import mock
 import wok.objectstore
+from iso_gen import construct_fake_iso
+from lxml import objectify
 from wok.asynctask import AsyncTask
 from wok.basemodel import Singleton
-from wok.config import config, PluginPaths
+from wok.config import config
+from wok.config import PluginPaths
 from wok.exception import InvalidOperation
-from wok.exception import InvalidParameter, NotFoundError, OperationFailed
-from wok.rollbackcontext import RollbackContext
-from wok.utils import convert_data_size
-from wok.xmlutils.utils import xpath_get_text
-
+from wok.exception import InvalidParameter
+from wok.exception import NotFoundError
+from wok.exception import OperationFailed
 from wok.plugins.kimchi import network as netinfo
 from wok.plugins.kimchi import osinfo
 from wok.plugins.kimchi.config import kimchiPaths as paths
@@ -56,14 +51,19 @@ from wok.plugins.kimchi.model.libvirtconnection import LibvirtConnection
 from wok.plugins.kimchi.model.virtviewerfile import FirewallManager
 from wok.plugins.kimchi.model.virtviewerfile import VMVirtViewerFileModel
 from wok.plugins.kimchi.model.vms import VMModel
+from wok.rollbackcontext import RollbackContext
+from wok.utils import convert_data_size
+from wok.xmlutils.utils import xpath_get_text
 
-import iso_gen
+import tests.utils as utils
 
 
-invalid_repository_urls = ['www.fedora.org',       # missing protocol
-                           '://www.fedora.org',    # missing protocol
-                           'http://www.fedora',    # invalid domain name
-                           'file:///home/foobar']  # invalid path
+invalid_repository_urls = [
+    'www.fedora.org',  # missing protocol
+    '://www.fedora.org',  # missing protocol
+    'http://www.fedora',  # invalid domain name
+    'file:///home/foobar',
+]  # invalid path
 
 TMP_DIR = '/var/lib/kimchi/tests/'
 UBUNTU_ISO = TMP_DIR + 'ubuntu14.04.iso'
@@ -86,7 +86,7 @@ def setUpModule():
     if not os.path.exists(TMP_DIR):
         os.makedirs(TMP_DIR)
 
-    iso_gen.construct_fake_iso(UBUNTU_ISO, True, '14.04', 'ubuntu')
+    construct_fake_iso(UBUNTU_ISO, True, '14.04', 'ubuntu')
 
     # Some FeatureTests functions depend on server to validate their result.
     # As CapabilitiesModel is a Singleton class it will get the first result
@@ -108,8 +108,10 @@ def get_remote_iso_path():
     """
     host_arch = os.uname()[4]
     remote_path = ''
-    with open(os.path.join(PluginPaths('kimchi').conf_dir, 'distros.d',
-              'fedora.json')) as fedora_isos:
+    with open(
+        os.path.join(PluginPaths('kimchi').conf_dir,
+                     'distros.d', 'fedora.json')
+    ) as fedora_isos:
         # Get a list of dicts
         json_isos_list = json.load(fedora_isos)
         for iso in json_isos_list:
@@ -122,12 +124,14 @@ def get_remote_iso_path():
 
 def _setDiskPoolDefault():
     osinfo.defaults['disks'][0]['pool'] = {
-        'name': '/plugins/kimchi/storagepools/default'}
+        'name': '/plugins/kimchi/storagepools/default'
+    }
 
 
 def _setDiskPoolDefaultTest():
     osinfo.defaults['disks'][0]['pool'] = {
-        'name': '/plugins/kimchi/storagepools/default-pool'}
+        'name': '/plugins/kimchi/storagepools/default-pool'
+    }
 
 
 class ModelTests(unittest.TestCase):
@@ -145,47 +149,77 @@ class ModelTests(unittest.TestCase):
     def test_vm_info(self):
         inst = model.Model('test:///default', self.tmp_store)
         vms = inst.vms_get_list()
-        self.assertEquals(1, len(vms))
-        self.assertEquals('test', vms[0])
+        self.assertEqual(1, len(vms))
+        self.assertEqual('test', vms[0])
 
-        keys = set(('name', 'state', 'stats', 'uuid', 'memory', 'cpu_info',
-                    'screenshot', 'icon', 'graphics', 'users', 'groups',
-                    'access', 'persistent', 'bootorder', 'bootmenu', 'title',
-                    'description', 'autostart'))
+        keys = set(
+            (
+                'name',
+                'state',
+                'stats',
+                'uuid',
+                'memory',
+                'cpu_info',
+                'screenshot',
+                'icon',
+                'graphics',
+                'users',
+                'groups',
+                'access',
+                'persistent',
+                'bootorder',
+                'bootmenu',
+                'title',
+                'description',
+                'autostart',
+            )
+        )
 
-        stats_keys = set(('cpu_utilization', 'mem_utilization',
-                          'net_throughput', 'net_throughput_peak',
-                          'io_throughput', 'io_throughput_peak'))
+        stats_keys = set(
+            (
+                'cpu_utilization',
+                'mem_utilization',
+                'net_throughput',
+                'net_throughput_peak',
+                'io_throughput',
+                'io_throughput_peak',
+            )
+        )
         info = inst.vm_lookup('test')
-        self.assertEquals(keys, set(info.keys()))
-        self.assertEquals('running', info['state'])
-        self.assertEquals('test', info['name'])
-        self.assertEquals(2048, info['memory']['current'])
-        self.assertEquals(2, info['cpu_info']['vcpus'])
-        self.assertEquals(2, info['cpu_info']['maxvcpus'])
-        self.assertEquals(None, info['icon'])
-        self.assertEquals(stats_keys, set(info['stats'].keys()))
+        self.assertEqual(keys, set(info.keys()))
+        self.assertEqual('running', info['state'])
+        self.assertEqual('test', info['name'])
+        self.assertEqual(2048, info['memory']['current'])
+        self.assertEqual(2, info['cpu_info']['vcpus'])
+        self.assertEqual(2, info['cpu_info']['maxvcpus'])
+        self.assertEqual(None, info['icon'])
+        self.assertEqual(stats_keys, set(info['stats'].keys()))
         self.assertRaises(NotFoundError, inst.vm_lookup, 'nosuchvm')
-        self.assertEquals([], info['users'])
-        self.assertEquals([], info['groups'])
+        self.assertEqual([], info['users'])
+        self.assertEqual([], info['groups'])
         self.assertTrue(info['persistent'])
 
-    @unittest.skipUnless(utils.running_as_root() and
-                         os.uname()[4] != "s390x", 'Must be run as root')
+    @unittest.skipUnless(
+        utils.running_as_root() and os.uname()[
+            4] != 's390x', 'Must be run as root'
+    )
     def test_vm_lifecycle(self):
         inst = model.Model(objstore_loc=self.tmp_store)
 
         with RollbackContext() as rollback:
             vol_params = {'name': u'test-vol', 'capacity': 1024}
             task = inst.storagevolumes_create(u'default', vol_params)
-            rollback.prependDefer(inst.storagevolume_delete, u'default',
-                                  vol_params['name'])
+            rollback.prependDefer(
+                inst.storagevolume_delete, u'default', vol_params['name']
+            )
             inst.task_wait(task['id'])
             task = inst.task_lookup(task['id'])
-            self.assertEquals('finished', task['status'])
+            self.assertEqual('finished', task['status'])
 
-            params = {'name': 'test',
-                      'source_media': {'type': 'disk', 'path': UBUNTU_ISO}}
+            params = {
+                'name': 'test',
+                'source_media': {'type': 'disk', 'path': UBUNTU_ISO},
+            }
 
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
@@ -196,7 +230,7 @@ class ModelTests(unittest.TestCase):
             rollback.prependDefer(inst.vm_delete, 'kimchi-vm-new')
             inst.task_wait(task['id'], 10)
             task = inst.task_lookup(task['id'])
-            self.assertEquals('finished', task['status'])
+            self.assertEqual('finished', task['status'])
 
             vms = inst.vms_get_list()
             self.assertTrue('kimchi-vm' in vms)
@@ -204,12 +238,12 @@ class ModelTests(unittest.TestCase):
             inst.vm_start('kimchi-vm')
 
             info = inst.vm_lookup('kimchi-vm')
-            self.assertEquals('running', info['state'])
+            self.assertEqual('running', info['state'])
 
             task = inst.vmsnapshots_create(u'kimchi-vm')
             inst.task_wait(task['id'])
             task = inst.task_lookup(task['id'])
-            self.assertEquals('finished', task['status'])
+            self.assertEqual('finished', task['status'])
             snap_name = task['target_uri'].split('/')[-1]
             created_snaps = [snap_name]
 
@@ -217,30 +251,31 @@ class ModelTests(unittest.TestCase):
             vm = inst.vm_lookup(u'kimchi-vm')
 
             current_snap = inst.currentvmsnapshot_lookup(u'kimchi-vm')
-            self.assertEquals(created_snaps[0], current_snap['name'])
+            self.assertEqual(created_snaps[0], current_snap['name'])
 
             # this snapshot should be deleted when its VM is deleted
             params = {'name': u'mysnap'}
             task = inst.vmsnapshots_create(u'kimchi-vm', params)
             inst.task_wait(task['id'])
             task = inst.task_lookup(task['id'])
-            self.assertEquals('finished', task['status'])
+            self.assertEqual('finished', task['status'])
             created_snaps.append(params['name'])
 
-            self.assertRaises(NotFoundError, inst.vmsnapshot_lookup,
-                              u'kimchi-vm', u'foobar')
+            self.assertRaises(
+                NotFoundError, inst.vmsnapshot_lookup, u'kimchi-vm', u'foobar'
+            )
 
             snap = inst.vmsnapshot_lookup(u'kimchi-vm', params['name'])
             self.assertTrue(int(time.time()) >= int(snap['created']))
-            self.assertEquals(vm['state'], snap['state'])
-            self.assertEquals(params['name'], snap['name'])
-            self.assertEquals(created_snaps[0], snap['parent'])
+            self.assertEqual(vm['state'], snap['state'])
+            self.assertEqual(params['name'], snap['name'])
+            self.assertEqual(created_snaps[0], snap['parent'])
 
             snaps = inst.vmsnapshots_get_list(u'kimchi-vm')
-            self.assertEquals(created_snaps, snaps)
+            self.assertEqual(created_snaps, snaps)
 
             current_snap = inst.currentvmsnapshot_lookup(u'kimchi-vm')
-            self.assertEquals(snap, current_snap)
+            self.assertEqual(snap, current_snap)
 
             task = inst.vmsnapshots_create(u'kimchi-vm')
             snap_name = task['target_uri'].split('/')[-1]
@@ -248,15 +283,15 @@ class ModelTests(unittest.TestCase):
                                   u'kimchi-vm-new', snap_name)
             inst.task_wait(task['id'])
             task = inst.task_lookup(task['id'])
-            self.assertEquals('finished', task['status'])
+            self.assertEqual('finished', task['status'])
             created_snaps.append(snap_name)
 
             snaps = inst.vmsnapshots_get_list(u'kimchi-vm')
-            self.assertEquals(sorted(created_snaps, key=unicode.lower), snaps)
+            self.assertEqual(sorted(created_snaps, key=str.lower), snaps)
 
             snap = inst.vmsnapshot_lookup(u'kimchi-vm', snap_name)
             current_snap = inst.currentvmsnapshot_lookup(u'kimchi-vm')
-            self.assertEquals(snap, current_snap)
+            self.assertEqual(snap, current_snap)
 
             # update vm name
             inst.vm_update('kimchi-vm', {'name': u'kimchi-vm-new'})
@@ -266,32 +301,34 @@ class ModelTests(unittest.TestCase):
 
             # snapshot revert to the first created vm
             result = inst.vmsnapshot_revert(u'kimchi-vm-new', params['name'])
-            self.assertEquals(result, ['kimchi-vm-new', snap['name']])
+            self.assertEqual(result, ['kimchi-vm-new', snap['name']])
 
             vm = inst.vm_lookup(u'kimchi-vm-new')
-            self.assertEquals(vm['state'], snap['state'])
+            self.assertEqual(vm['state'], snap['state'])
 
             current_snap = inst.currentvmsnapshot_lookup(u'kimchi-vm-new')
-            self.assertEquals(params['name'], current_snap['name'])
+            self.assertEqual(params['name'], current_snap['name'])
 
             # suspend and resume the VM
             info = inst.vm_lookup(u'kimchi-vm-new')
-            self.assertEquals(info['state'], 'shutoff')
-            self.assertRaises(InvalidOperation, inst.vm_suspend,
-                              u'kimchi-vm-new')
+            self.assertEqual(info['state'], 'shutoff')
+            self.assertRaises(InvalidOperation,
+                              inst.vm_suspend, u'kimchi-vm-new')
             inst.vm_start(u'kimchi-vm-new')
             info = inst.vm_lookup(u'kimchi-vm-new')
-            self.assertEquals(info['state'], 'running')
+            self.assertEqual(info['state'], 'running')
             inst.vm_suspend(u'kimchi-vm-new')
             info = inst.vm_lookup(u'kimchi-vm-new')
-            self.assertEquals(info['state'], 'paused')
-            self.assertRaises(InvalidParameter, inst.vm_update,
-                              u'kimchi-vm-new', {'name': 'foo'})
+            self.assertEqual(info['state'], 'paused')
+            self.assertRaises(
+                InvalidParameter, inst.vm_update, u'kimchi-vm-new', {
+                    'name': 'foo'}
+            )
             inst.vm_resume(u'kimchi-vm-new')
             info = inst.vm_lookup(u'kimchi-vm-new')
-            self.assertEquals(info['state'], 'running')
-            self.assertRaises(InvalidOperation, inst.vm_resume,
-                              u'kimchi-vm-new')
+            self.assertEqual(info['state'], 'running')
+            self.assertRaises(InvalidOperation,
+                              inst.vm_resume, u'kimchi-vm-new')
             # leave the VM suspended to make sure a paused VM can be
             # deleted correctly
             inst.vm_suspend('kimchi-vm-new')
@@ -299,41 +336,53 @@ class ModelTests(unittest.TestCase):
         vms = inst.vms_get_list()
         self.assertFalse('kimchi-vm-new' in vms)
 
-    @unittest.skipUnless(utils.running_as_root() and
-                         os.uname()[4] != "s390x", 'Must be run as root')
+    @unittest.skipUnless(
+        utils.running_as_root() and os.uname()[
+            4] != 's390x', 'Must be run as root'
+    )
     def test_image_based_template(self):
         inst = model.Model(objstore_loc=self.tmp_store)
 
         with RollbackContext() as rollback:
             vol = 'base-vol.img'
-            params = {'name': vol,
-                      'capacity': 1073741824,  # 1 GiB
-                      'allocation': 1048576,  # 1 MiB
-                      'format': 'qcow2'}
+            params = {
+                'name': vol,
+                'capacity': 1073741824,  # 1 GiB
+                'allocation': 1048576,  # 1 MiB
+                'format': 'qcow2',
+            }
             task_id = inst.storagevolumes_create('default', params)['id']
             rollback.prependDefer(inst.storagevolume_delete, 'default', vol)
             inst.task_wait(task_id)
-            self.assertEquals('finished', inst.task_lookup(task_id)['status'])
+            self.assertEqual('finished', inst.task_lookup(task_id)['status'])
             vol_path = inst.storagevolume_lookup('default', vol)['path']
 
             # Create template based on IMG file
-            tmpl_name = "img-tmpl"
-            tmpl_info = {"cpu_info": {"vcpus": 1}, "name": tmpl_name,
-                         "graphics": {"type": "vnc", "listen": "127.0.0.1"},
-                         "networks": ["default"], "memory": {'current': 1024},
-                         "folder": [], "icon": "images/icon-vm.png",
-                         "os_distro": "unknown", "os_version": "unknown",
-                         "source_media": {'type': 'disk', 'path': vol_path}}
+            tmpl_name = 'img-tmpl'
+            tmpl_info = {
+                'cpu_info': {'vcpus': 1},
+                'name': tmpl_name,
+                'graphics': {'type': 'vnc', 'listen': '127.0.0.1'},
+                'networks': ['default'],
+                'memory': {'current': 1024},
+                'folder': [],
+                'icon': 'images/icon-vm.png',
+                'os_distro': 'unknown',
+                'os_version': 'unknown',
+                'source_media': {'type': 'disk', 'path': vol_path},
+            }
 
             inst.templates_create(tmpl_info)
             rollback.prependDefer(inst.template_delete, tmpl_name)
 
             # verify disk
             tmpl = inst.template_lookup(tmpl_name)
-            self.assertEquals(vol_path, tmpl["disks"][0]["base"])
+            self.assertEqual(vol_path, tmpl['disks'][0]['base'])
 
-            params = {'name': 'kimchi-vm',
-                      'template': '/plugins/kimchi/templates/img-tmpl'}
+            params = {
+                'name': 'kimchi-vm',
+                'template': '/plugins/kimchi/templates/img-tmpl',
+            }
             task = inst.vms_create(params)
             inst.task_wait(task['id'])
             rollback.prependDefer(inst.vm_delete, 'kimchi-vm')
@@ -345,71 +394,85 @@ class ModelTests(unittest.TestCase):
             rollback.prependDefer(inst.vm_poweroff, 'kimchi-vm')
 
             info = inst.vm_lookup('kimchi-vm')
-            self.assertEquals('running', info['state'])
+            self.assertEqual('running', info['state'])
 
-    @unittest.skipUnless(utils.running_as_root() and
-                         os.uname()[4] != "s390x", 'Must be run as root')
+    @unittest.skipUnless(
+        utils.running_as_root() and os.uname()[
+            4] != 's390x', 'Must be run as root'
+    )
     def test_vm_graphics(self):
         inst = model.Model(objstore_loc=self.tmp_store)
-        params = {'name': 'test',
-                  'source_media': {'type': 'disk', 'path': UBUNTU_ISO}}
+        params = {'name': 'test', 'source_media': {
+            'type': 'disk', 'path': UBUNTU_ISO}}
         inst.templates_create(params)
         with RollbackContext() as rollback:
-            params = {'name': 'kimchi-graphics',
-                      'template': '/plugins/kimchi/templates/test'}
+            params = {
+                'name': 'kimchi-graphics',
+                'template': '/plugins/kimchi/templates/test',
+            }
             task1 = inst.vms_create(params)
             inst.task_wait(task1['id'])
             rollback.prependDefer(inst.vm_delete, 'kimchi-graphics')
 
             info = inst.vm_lookup('kimchi-graphics')
-            self.assertEquals('vnc', info['graphics']['type'])
-            self.assertEquals('127.0.0.1', info['graphics']['listen'])
+            self.assertEqual('vnc', info['graphics']['type'])
+            self.assertEqual('127.0.0.1', info['graphics']['listen'])
 
             graphics = {'type': 'spice'}
             params = {'graphics': graphics}
             inst.vm_update('kimchi-graphics', params)
 
             info = inst.vm_lookup('kimchi-graphics')
-            self.assertEquals('spice', info['graphics']['type'])
-            self.assertEquals('127.0.0.1', info['graphics']['listen'])
+            self.assertEqual('spice', info['graphics']['type'])
+            self.assertEqual('127.0.0.1', info['graphics']['listen'])
 
         inst.template_delete('test')
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_vm_virtviewerfile_vmnotrunning(self):
         inst = model.Model(objstore_loc=self.tmp_store)
-        params = {'name': 'test',
-                  'source_media': {'type': 'disk', 'path': UBUNTU_ISO}}
+        params = {'name': 'test', 'source_media': {
+            'type': 'disk', 'path': UBUNTU_ISO}}
         inst.templates_create(params)
 
         vm_name = 'kìmchí-vñç'
 
         with RollbackContext() as rollback:
-            params = {'name': vm_name.decode('utf-8'),
+            params = {'name': vm_name,
                       'template': '/plugins/kimchi/templates/test'}
             task1 = inst.vms_create(params)
             inst.task_wait(task1['id'])
-            rollback.prependDefer(inst.vm_delete, vm_name.decode('utf-8'))
+            rollback.prependDefer(inst.vm_delete, vm_name)
 
-            error_msg = "KCHVM0083E"
+            error_msg = 'KCHVM0083E'
             with self.assertRaisesRegexp(InvalidOperation, error_msg):
                 vvmodel = VMVirtViewerFileModel(conn=inst.conn)
-                vvmodel.lookup(vm_name.decode('utf-8'))
+                vvmodel.lookup(vm_name)
 
         inst.template_delete('test')
 
     @mock.patch('wok.plugins.kimchi.model.virtviewerfile._get_request_host')
-    @mock.patch('wok.plugins.kimchi.model.virtviewerfile.'
-                'VMModel.get_graphics')
-    @mock.patch('wok.plugins.kimchi.model.virtviewerfile.'
-                'FirewallManager.add_vm_graphics_port')
-    @mock.patch('wok.plugins.kimchi.model.virtviewerfile.'
-                'VMVirtViewerFileModel.handleVMShutdownPowerOff')
-    @mock.patch('wok.plugins.kimchi.model.virtviewerfile.'
-                'VMVirtViewerFileModel._check_if_vm_running')
-    def test_vm_virtviewerfile_vnc(self, mock_vm_running, mock_handleVMOff,
-                                   mock_add_port, mock_get_graphics,
-                                   mock_get_host):
+    @mock.patch('wok.plugins.kimchi.model.virtviewerfile.' 'VMModel.get_graphics')
+    @mock.patch(
+        'wok.plugins.kimchi.model.virtviewerfile.'
+        'FirewallManager.add_vm_graphics_port'
+    )
+    @mock.patch(
+        'wok.plugins.kimchi.model.virtviewerfile.'
+        'VMVirtViewerFileModel.handleVMShutdownPowerOff'
+    )
+    @mock.patch(
+        'wok.plugins.kimchi.model.virtviewerfile.'
+        'VMVirtViewerFileModel._check_if_vm_running'
+    )
+    def test_vm_virtviewerfile_vnc(
+        self,
+        mock_vm_running,
+        mock_handleVMOff,
+        mock_add_port,
+        mock_get_graphics,
+        mock_get_host,
+    ):
 
         mock_get_host.return_value = 'kimchi-test-host'
         mock_get_graphics.return_value = ['vnc', 'listen', '5999', None]
@@ -422,15 +485,14 @@ class ModelTests(unittest.TestCase):
             vvfilepath = vvmodel.lookup('kimchi-vm')
 
         self.assertEqual(
-            vvfilepath,
-            'plugins/kimchi/data/virtviewerfiles/kimchi-vm-access.vv'
+            vvfilepath, 'plugins/kimchi/data/virtviewerfiles/kimchi-vm-access.vv'
         )
 
-        expected_write_content = "[virt-viewer]\ntype=vnc\n"\
-            "host=kimchi-test-host\nport=5999\n"
-        self.assertEqual(
-            open_().write.mock_calls, [mock.call(expected_write_content)]
+        expected_write_content = (
+            '[virt-viewer]\ntype=vnc\n' 'host=kimchi-test-host\nport=5999\n'
         )
+        self.assertEqual(open_().write.mock_calls, [
+                         mock.call(expected_write_content)])
 
         mock_get_graphics.assert_called_once_with('kimchi-vm', None)
         mock_vm_running.assert_called_once_with('kimchi-vm')
@@ -438,24 +500,31 @@ class ModelTests(unittest.TestCase):
         mock_add_port.assert_called_once_with('kimchi-vm', '5999')
 
     @mock.patch('wok.plugins.kimchi.model.virtviewerfile._get_request_host')
-    @mock.patch('wok.plugins.kimchi.model.virtviewerfile.'
-                'VMModel.get_graphics')
-    @mock.patch('wok.plugins.kimchi.model.virtviewerfile.'
-                'FirewallManager.add_vm_graphics_port')
-    @mock.patch('wok.plugins.kimchi.model.virtviewerfile.'
-                'VMVirtViewerFileModel.handleVMShutdownPowerOff')
-    @mock.patch('wok.plugins.kimchi.model.virtviewerfile.'
-                'VMVirtViewerFileModel._check_if_vm_running')
-    def test_vm_virtviewerfile_spice_passwd(self, mock_vm_running,
-                                            mock_handleVMOff,
-                                            mock_add_port,
-                                            mock_get_graphics,
-                                            mock_get_host):
+    @mock.patch('wok.plugins.kimchi.model.virtviewerfile.' 'VMModel.get_graphics')
+    @mock.patch(
+        'wok.plugins.kimchi.model.virtviewerfile.'
+        'FirewallManager.add_vm_graphics_port'
+    )
+    @mock.patch(
+        'wok.plugins.kimchi.model.virtviewerfile.'
+        'VMVirtViewerFileModel.handleVMShutdownPowerOff'
+    )
+    @mock.patch(
+        'wok.plugins.kimchi.model.virtviewerfile.'
+        'VMVirtViewerFileModel._check_if_vm_running'
+    )
+    def test_vm_virtviewerfile_spice_passwd(
+        self,
+        mock_vm_running,
+        mock_handleVMOff,
+        mock_add_port,
+        mock_get_graphics,
+        mock_get_host,
+    ):
 
         mock_get_host.return_value = 'kimchi-test-host'
         mock_get_graphics.return_value = [
-            'spice', 'listen', '6660', 'spicepasswd'
-        ]
+            'spice', 'listen', '6660', 'spicepasswd']
         mock_vm_running.return_value = True
 
         vvmodel = VMVirtViewerFileModel(conn=None)
@@ -465,15 +534,15 @@ class ModelTests(unittest.TestCase):
             vvfilepath = vvmodel.lookup('kimchi-vm')
 
         self.assertEqual(
-            vvfilepath,
-            'plugins/kimchi/data/virtviewerfiles/kimchi-vm-access.vv'
+            vvfilepath, 'plugins/kimchi/data/virtviewerfiles/kimchi-vm-access.vv'
         )
 
-        expected_write_content = "[virt-viewer]\ntype=spice\n"\
-            "host=kimchi-test-host\nport=6660\npassword=spicepasswd\n"
-        self.assertEqual(
-            open_().write.mock_calls, [mock.call(expected_write_content)]
+        expected_write_content = (
+            '[virt-viewer]\ntype=spice\n'
+            'host=kimchi-test-host\nport=6660\npassword=spicepasswd\n'
         )
+        self.assertEqual(open_().write.mock_calls, [
+                         mock.call(expected_write_content)])
 
         mock_get_graphics.assert_called_once_with('kimchi-vm', None)
         mock_vm_running.assert_called_once_with('kimchi-vm')
@@ -482,9 +551,7 @@ class ModelTests(unittest.TestCase):
 
     @mock.patch('wok.plugins.kimchi.model.virtviewerfile.run_command')
     def test_firewall_provider_firewallcmd(self, mock_run_cmd):
-        mock_run_cmd.side_effect = [
-            ['', '', 0], ['', '', 0], ['', '', 0]
-        ]
+        mock_run_cmd.side_effect = [['', '', 0], ['', '', 0], ['', '', 0]]
 
         fw_manager = FirewallManager()
         fw_manager.add_vm_graphics_port('vm-name', 5905)
@@ -494,15 +561,17 @@ class ModelTests(unittest.TestCase):
         self.assertEqual(fw_manager.opened_ports, {})
 
         mock_run_cmd.assert_has_calls(
-            [mock.call(['firewall-cmd', '--state', '-q']),
-             mock.call(['firewall-cmd', '--add-port=5905/tcp']),
-             mock.call(['firewall-cmd', '--remove-port=5905/tcp'])])
+            [
+                mock.call(['firewall-cmd', '--state', '-q']),
+                mock.call(['firewall-cmd', '--add-port=5905/tcp']),
+                mock.call(['firewall-cmd', '--remove-port=5905/tcp']),
+            ]
+        )
 
     @mock.patch('wok.plugins.kimchi.model.virtviewerfile.run_command')
     def test_firewall_provider_ufw(self, mock_run_cmd):
-        mock_run_cmd.side_effect = [
-            ['', '', 1], ['', '', 0], ['', '', 0], ['', '', 0]
-        ]
+        mock_run_cmd.side_effect = [['', '', 1], [
+            '', '', 0], ['', '', 0], ['', '', 0]]
 
         fw_manager = FirewallManager()
         fw_manager.add_vm_graphics_port('vm-name', 5905)
@@ -512,16 +581,18 @@ class ModelTests(unittest.TestCase):
         self.assertEqual(fw_manager.opened_ports, {})
 
         mock_run_cmd.assert_has_calls(
-            [mock.call(['firewall-cmd', '--state', '-q']),
-             mock.call(['ufw', 'status']),
-             mock.call(['ufw', 'allow', '5905/tcp']),
-             mock.call(['ufw', 'deny', '5905/tcp'])])
+            [
+                mock.call(['firewall-cmd', '--state', '-q']),
+                mock.call(['ufw', 'status']),
+                mock.call(['ufw', 'allow', '5905/tcp']),
+                mock.call(['ufw', 'deny', '5905/tcp']),
+            ]
+        )
 
     @mock.patch('wok.plugins.kimchi.model.virtviewerfile.run_command')
     def test_firewall_provider_iptables(self, mock_run_cmd):
-        mock_run_cmd.side_effect = [
-            ['', '', 1], ['', '', 1], ['', '', 0], ['', '', 0]
-        ]
+        mock_run_cmd.side_effect = [['', '', 1], [
+            '', '', 1], ['', '', 0], ['', '', 0]]
 
         fw_manager = FirewallManager()
         fw_manager.add_vm_graphics_port('vm-name', 5905)
@@ -530,70 +601,99 @@ class ModelTests(unittest.TestCase):
         fw_manager.remove_vm_graphics_port('vm-name')
         self.assertEqual(fw_manager.opened_ports, {})
 
-        iptables_add = ['iptables', '-I', 'INPUT', '-p', 'tcp', '--dport',
-                        5905, '-j', 'ACCEPT']
+        iptables_add = [
+            'iptables',
+            '-I',
+            'INPUT',
+            '-p',
+            'tcp',
+            '--dport',
+            5905,
+            '-j',
+            'ACCEPT',
+        ]
 
-        iptables_del = ['iptables', '-D', 'INPUT', '-p', 'tcp', '--dport',
-                        5905, '-j', 'ACCEPT']
+        iptables_del = [
+            'iptables',
+            '-D',
+            'INPUT',
+            '-p',
+            'tcp',
+            '--dport',
+            5905,
+            '-j',
+            'ACCEPT',
+        ]
 
         mock_run_cmd.assert_has_calls(
-            [mock.call(['firewall-cmd', '--state', '-q']),
-             mock.call(['ufw', 'status']),
-             mock.call(iptables_add), mock.call(iptables_del)])
+            [
+                mock.call(['firewall-cmd', '--state', '-q']),
+                mock.call(['ufw', 'status']),
+                mock.call(iptables_add),
+                mock.call(iptables_del),
+            ]
+        )
 
-    @unittest.skipUnless(utils.running_as_root() and
-                         os.uname()[4] != "s390x", 'Must be run as root')
-    @mock.patch('wok.plugins.kimchi.model.virtviewerfile.'
-                'FirewallManager.remove_vm_graphics_port')
-    @mock.patch('wok.plugins.kimchi.model.virtviewerfile.'
-                'FirewallManager.add_vm_graphics_port')
-    def test_vm_virtviewerfile_vmlifecycle(self, mock_add_port,
-                                           mock_remove_port):
+    @unittest.skipUnless(
+        utils.running_as_root() and os.uname()[
+            4] != 's390x', 'Must be run as root'
+    )
+    @mock.patch(
+        'wok.plugins.kimchi.model.virtviewerfile.'
+        'FirewallManager.remove_vm_graphics_port'
+    )
+    @mock.patch(
+        'wok.plugins.kimchi.model.virtviewerfile.'
+        'FirewallManager.add_vm_graphics_port'
+    )
+    def test_vm_virtviewerfile_vmlifecycle(self, mock_add_port, mock_remove_port):
 
         inst = model.Model(objstore_loc=self.tmp_store)
-        params = {'name': 'test',
-                  'source_media': {'type': 'disk', 'path': UBUNTU_ISO}}
+        params = {'name': 'test', 'source_media': {
+            'type': 'disk', 'path': UBUNTU_ISO}}
         inst.templates_create(params)
 
         vm_name = 'kìmçhí-vñç'
 
         with RollbackContext() as rollback:
-            params = {'name': u'%s' % vm_name.decode('utf-8'),
+            params = {'name': vm_name,
                       'template': '/plugins/kimchi/templates/test'}
             task1 = inst.vms_create(params)
             inst.task_wait(task1['id'])
-            rollback.prependDefer(inst.vm_delete, vm_name.decode('utf-8'))
+            rollback.prependDefer(inst.vm_delete, vm_name)
 
-            inst.vm_start(vm_name.decode('utf-8'))
+            inst.vm_start(vm_name)
 
-            graphics_info = VMModel.get_graphics(vm_name.decode('utf-8'),
-                                                 inst.conn)
+            graphics_info = VMModel.get_graphics(vm_name, inst.conn)
             graphics_port = graphics_info[2]
 
             vvmodel = VMVirtViewerFileModel(conn=inst.conn)
-            vvmodel.lookup(vm_name.decode('utf-8'))
+            vvmodel.lookup(vm_name)
 
-            inst.vm_poweroff(vm_name.decode('utf-8'))
+            inst.vm_poweroff(vm_name)
             time.sleep(5)
 
-            mock_add_port.assert_called_once_with(vm_name.decode('utf-8'),
-                                                  graphics_port)
+            mock_add_port.assert_called_once_with(vm_name, graphics_port)
             mock_remove_port.assert_called_once_with(
-                base64.b64encode(vm_name)
+                base64.b64encode(vm_name.encode('utf-8')).decode('utf-8')
             )
 
         inst.template_delete('test')
 
-    @unittest.skipUnless(utils.running_as_root() and
-                         os.uname()[4] != "s390x", "Must be run as root")
+    @unittest.skipUnless(
+        utils.running_as_root() and os.uname()[
+            4] != 's390x', 'Must be run as root'
+    )
     def test_vm_serial(self):
         inst = model.Model(objstore_loc=self.tmp_store)
-        params = {'name': 'test',
-                  'source_media': {'type': 'disk', 'path': UBUNTU_ISO}}
+        params = {'name': 'test', 'source_media': {
+            'type': 'disk', 'path': UBUNTU_ISO}}
         inst.templates_create(params)
         with RollbackContext() as rollback:
-            params = {'name': 'kimchi-serial',
-                      'template': '/plugins/kimchi/templates/test'}
+            params = {
+                'name': 'kimchi-serial',
+                'template': '/plugins/kimchi/templates/test',
+            }
             task1 = inst.vms_create(params)
             inst.task_wait(task1['id'])
             rollback.prependDefer(inst.vm_delete, 'kimchi-serial')
@@ -610,16 +710,20 @@ class ModelTests(unittest.TestCase):
     def test_vm_ifaces(self):
         inst = model.Model(objstore_loc=self.tmp_store)
         with RollbackContext() as rollback:
-            params = {'name': 'test',
-                      'source_media': {'type': 'disk', 'path': UBUNTU_ISO}}
+            params = {
+                'name': 'test',
+                'source_media': {'type': 'disk', 'path': UBUNTU_ISO},
+            }
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
 
             # Create a network
             net_name = 'test-network'
-            net_args = {'name': net_name,
-                        'connection': 'nat',
-                        'subnet': '127.0.100.0/24'}
+            net_args = {
+                'name': net_name,
+                'connection': 'nat',
+                'subnet': '127.0.100.0/24',
+            }
             inst.networks_create(net_args)
             rollback.prependDefer(inst.network_delete, net_name)
             inst.network_activate(net_name)
@@ -633,74 +737,76 @@ class ModelTests(unittest.TestCase):
                 rollback.prependDefer(inst.vm_delete, vm_name)
 
                 ifaces = inst.vmifaces_get_list(vm_name)
-                if not os.uname()[4] == "s390x":
-                    self.assertEquals(1, len(ifaces))
+                if not os.uname()[4] == 's390x':
+                    self.assertEqual(1, len(ifaces))
 
                     iface = inst.vmiface_lookup(vm_name, ifaces[0])
-                    self.assertEquals(17, len(iface['mac']))
-                    self.assertEquals("default", iface['network'])
-                    self.assertIn("model", iface)
+                    self.assertEqual(17, len(iface['mac']))
+                    self.assertEqual('default', iface['network'])
+                    self.assertIn('model', iface)
 
                 # attach network interface to vm
-                iface_args = {"type": "network",
-                              "network": "test-network",
-                              "model": "virtio"}
+                iface_args = {
+                    'type': 'network',
+                    'network': 'test-network',
+                    'model': 'virtio',
+                }
                 mac = inst.vmifaces_create(vm_name, iface_args)
                 # detach network interface from vm
                 rollback.prependDefer(inst.vmiface_delete, vm_name, mac)
-                self.assertEquals(17, len(mac))
+                self.assertEqual(17, len(mac))
 
                 iface = inst.vmiface_lookup(vm_name, mac)
-                self.assertEquals("network", iface["type"])
-                self.assertEquals("test-network", iface['network'])
-                self.assertEquals("virtio", iface["model"])
+                self.assertEqual('network', iface['type'])
+                self.assertEqual('test-network', iface['network'])
+                self.assertEqual('virtio', iface['model'])
 
                 # attach network interface to vm without providing model
-                iface_args = {"type": "network",
-                              "network": "test-network"}
+                iface_args = {'type': 'network', 'network': 'test-network'}
                 mac = inst.vmifaces_create(vm_name, iface_args)
                 rollback.prependDefer(inst.vmiface_delete, vm_name, mac)
 
                 iface = inst.vmiface_lookup(vm_name, mac)
-                self.assertEquals("network", iface["type"])
-                self.assertEquals("test-network", iface['network'])
+                self.assertEqual('network', iface['type'])
+                self.assertEqual('test-network', iface['network'])
 
                 # update vm interface
                 newMacAddr = '54:50:e3:44:8a:af'
-                iface_args = {"mac": newMacAddr}
+                iface_args = {'mac': newMacAddr}
                 inst.vmiface_update(vm_name, mac, iface_args)
                 iface = inst.vmiface_lookup(vm_name, newMacAddr)
-                self.assertEquals(newMacAddr, iface['mac'])
+                self.assertEqual(newMacAddr, iface['mac'])
 
                 # undo mac address change
-                iface_args = {"mac": mac}
+                iface_args = {'mac': mac}
                 inst.vmiface_update(vm_name, newMacAddr, iface_args)
                 iface = inst.vmiface_lookup(vm_name, mac)
-                self.assertEquals(mac, iface['mac'])
+                self.assertEqual(mac, iface['mac'])
 
-                if os.uname()[4] == "s390x":
+                if os.uname()[4] == 's390x':
 
                     # attach macvtap interface to vm
-                    iface_args = {"type": "macvtap",
-                                  "source": "test-network",
-                                  "mode": "vepa"}
+                    iface_args = {
+                        'type': 'macvtap',
+                        'source': 'test-network',
+                        'mode': 'vepa',
+                    }
                     mac = inst.vmifaces_create(vm_name, iface_args)
                     rollback.prependDefer(inst.vmiface_delete, vm_name, mac)
 
                     iface = inst.vmiface_lookup(vm_name, mac)
-                    self.assertEquals("macvtap", iface["type"])
-                    self.assertEquals("test-network", iface['source'])
-                    self.assertEquals("vepa", iface['mode'])
+                    self.assertEqual('macvtap', iface['type'])
+                    self.assertEqual('test-network', iface['source'])
+                    self.assertEqual('vepa', iface['mode'])
 
                     # attach ovs interface to vm
-                    iface_args = {"type": "ovs",
-                                  "source": "test-network"}
+                    iface_args = {'type': 'ovs', 'source': 'test-network'}
                     mac = inst.vmifaces_create(vm_name, iface_args)
                     rollback.prependDefer(inst.vmiface_delete, vm_name, mac)
 
                     iface = inst.vmiface_lookup(vm_name, mac)
-                    self.assertEquals("ovs", iface["type"])
-                    self.assertEquals("test-network", iface['source'])
+                    self.assertEqual('ovs', iface['type'])
+                    self.assertEqual('test-network', iface['source'])
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_vm_netboot(self):
@@ -711,13 +817,15 @@ class ModelTests(unittest.TestCase):
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test-netboot')
 
-            params = {'name': 'kimchi-netboot-vm',
-                      'template': '/plugins/kimchi/templates/test-netboot'}
+            params = {
+                'name': 'kimchi-netboot-vm',
+                'template': '/plugins/kimchi/templates/test-netboot',
+            }
             task = inst.vms_create(params)
             rollback.prependDefer(inst.vm_delete, 'kimchi-netboot-vm')
             inst.task_wait(task['id'], 10)
             task = inst.task_lookup(task['id'])
-            self.assertEquals('finished', task['status'])
+            self.assertEqual('finished', task['status'])
 
             vms = inst.vms_get_list()
             self.assertTrue('kimchi-netboot-vm' in vms)
@@ -725,33 +833,33 @@ class ModelTests(unittest.TestCase):
             inst.vm_start('kimchi-netboot-vm')
 
             info = inst.vm_lookup('kimchi-netboot-vm')
-            self.assertEquals('running', info['state'])
+            self.assertEqual('running', info['state'])
 
             inst.vm_poweroff(u'kimchi-netboot-vm')
 
         vms = inst.vms_get_list()
         self.assertFalse('kimchi-netboot-vm' in vms)
 
-    @unittest.skipUnless(utils.running_as_root() and
-                         os.uname()[4] != "s390x", 'Must be run as root')
+    @unittest.skipUnless(
+        utils.running_as_root() and os.uname()[
+            4] != 's390x', 'Must be run as root'
+    )
     def test_vm_disk(self):
         disk_path = os.path.join(TMP_DIR, 'existent2.iso')
         open(disk_path, 'w').close()
         modern_disk_bus = osinfo.get_template_default('modern', 'disk_bus')
 
         def _attach_disk(expect_bus=modern_disk_bus):
-            disk_args = {"type": "disk",
-                         "pool": pool,
-                         "vol": vol}
+            disk_args = {'type': 'disk', 'pool': pool, 'vol': vol}
             disk = inst.vmstorages_create(vm_name, disk_args)
             storage_list = inst.vmstorages_get_list(vm_name)
-            self.assertEquals(prev_count + 1, len(storage_list))
+            self.assertEqual(prev_count + 1, len(storage_list))
 
             # Check the bus type to be 'virtio'
             disk_info = inst.vmstorage_lookup(vm_name, disk)
-            self.assertEquals(u'disk', disk_info['type'])
-            self.assertEquals(vol_path, disk_info['path'])
-            self.assertEquals(expect_bus, disk_info['bus'])
+            self.assertEqual(u'disk', disk_info['type'])
+            self.assertEqual(vol_path, disk_info['path'])
+            self.assertEqual(expect_bus, disk_info['bus'])
             return disk
 
         inst = model.Model(objstore_loc=self.tmp_store)
@@ -759,14 +867,12 @@ class ModelTests(unittest.TestCase):
             path = os.path.join(TMP_DIR, 'kimchi-images')
             pool = 'test-pool'
             vol = 'test-volume.img'
-            vol_path = "%s/%s" % (path, vol)
+            vol_path = '%s/%s' % (path, vol)
             if not os.path.exists(path):
                 os.mkdir(path)
             rollback.prependDefer(shutil.rmtree, path)
 
-            args = {'name': pool,
-                    'path': path,
-                    'type': 'dir'}
+            args = {'name': pool, 'path': path, 'type': 'dir'}
             inst.storagepools_create(args)
             rollback.prependDefer(inst.storagepool_delete, pool)
 
@@ -774,17 +880,22 @@ class ModelTests(unittest.TestCase):
             inst.storagepool_activate(pool)
             rollback.prependDefer(inst.storagepool_deactivate, pool)
 
-            params = {'name': vol,
-                      'capacity': 1073741824,  # 1 GiB
-                      'allocation': 536870912,  # 512 MiB
-                      'format': 'qcow2'}
+            params = {
+                'name': vol,
+                'capacity': 1073741824,  # 1 GiB
+                'allocation': 536870912,  # 512 MiB
+                'format': 'qcow2',
+            }
             task_id = inst.storagevolumes_create(pool, params)['id']
             rollback.prependDefer(inst.storagevolume_delete, pool, vol)
             inst.task_wait(task_id)
 
             vm_name = 'kimchi-cdrom'
-            params = {'name': 'test', 'disks': [],
-                      'source_media': {'type': 'disk', 'path': UBUNTU_ISO}}
+            params = {
+                'name': 'test',
+                'disks': [],
+                'source_media': {'type': 'disk', 'path': UBUNTU_ISO},
+            }
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
             params = {'name': vm_name,
@@ -794,12 +905,13 @@ class ModelTests(unittest.TestCase):
             rollback.prependDefer(inst.vm_delete, vm_name)
 
             prev_count = len(inst.vmstorages_get_list(vm_name))
-            self.assertEquals(1, prev_count)
+            self.assertEqual(1, prev_count)
 
             # Volume format with mismatched type raise error
-            cdrom_args = {"type": "cdrom", "pool": pool, "vol": vol}
-            self.assertRaises(InvalidParameter, inst.vmstorages_create,
-                              vm_name, cdrom_args)
+            cdrom_args = {'type': 'cdrom', 'pool': pool, 'vol': vol}
+            self.assertRaises(
+                InvalidParameter, inst.vmstorages_create, vm_name, cdrom_args
+            )
 
             # Cold plug and unplug a disk
             disk = _attach_disk()
@@ -812,28 +924,30 @@ class ModelTests(unittest.TestCase):
             # VM disk still there after powered off
             inst.vm_poweroff(vm_name)
             disk_info = inst.vmstorage_lookup(vm_name, disk)
-            self.assertEquals(u'disk', disk_info['type'])
+            self.assertEqual(u'disk', disk_info['type'])
             inst.vmstorage_delete(vm_name, disk)
 
             # Specifying pool and path at same time will fail
-            disk_args = {"type": "disk",
-                         "pool": pool,
-                         "vol": vol,
-                         "path": disk_path}
+            disk_args = {'type': 'disk', 'pool': pool,
+                         'vol': vol, 'path': disk_path}
             self.assertRaises(
-                InvalidParameter, inst.vmstorages_create, vm_name, disk_args)
+                InvalidParameter, inst.vmstorages_create, vm_name, disk_args
+            )
 
             old_distro_iso = TMP_DIR + 'rhel4_8.iso'
-            iso_gen.construct_fake_iso(old_distro_iso, True, '4.8', 'rhel')
+            construct_fake_iso(old_distro_iso, True, '4.8', 'rhel')
 
             vm_name = 'kimchi-ide-bus-vm'
-            params = {'name': 'old_distro_template', 'disks': [],
-                      'source_media': {'type': 'disk', 'path': old_distro_iso}}
+            params = {
+                'name': 'old_distro_template',
+                'disks': [],
+                'source_media': {'type': 'disk', 'path': old_distro_iso},
+            }
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'old_distro_template')
             params = {
                 'name': vm_name,
-                'template': '/plugins/kimchi/templates/old_distro_template'
+                'template': '/plugins/kimchi/templates/old_distro_template',
             }
             task2 = inst.vms_create(params)
             inst.task_wait(task2['id'])
@@ -853,8 +967,11 @@ class ModelTests(unittest.TestCase):
         inst = model.Model(objstore_loc=self.tmp_store)
         with RollbackContext() as rollback:
             vm_name = 'kimchi-cdrom'
-            params = {'name': 'test', 'disks': [],
-                      'source_media': {'type': 'disk', 'path': UBUNTU_ISO}}
+            params = {
+                'name': 'test',
+                'disks': [],
+                'source_media': {'type': 'disk', 'path': UBUNTU_ISO},
+            }
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
             params = {'name': vm_name,
@@ -864,7 +981,7 @@ class ModelTests(unittest.TestCase):
             rollback.prependDefer(inst.vm_delete, vm_name)
 
             prev_count = len(inst.vmstorages_get_list(vm_name))
-            self.assertEquals(1, prev_count)
+            self.assertEqual(1, prev_count)
 
             # dummy .iso files
             iso_path = os.path.join(TMP_DIR, 'existent.iso')
@@ -876,76 +993,86 @@ class ModelTests(unittest.TestCase):
             wrong_iso_path = '/nonexistent.iso'
 
             # Create a cdrom
-            cdrom_args = {"type": "cdrom",
-                          "path": iso_path}
+            cdrom_args = {'type': 'cdrom', 'path': iso_path}
             cdrom_dev = inst.vmstorages_create(vm_name, cdrom_args)
             storage_list = inst.vmstorages_get_list(vm_name)
-            self.assertEquals(prev_count + 1, len(storage_list))
+            self.assertEqual(prev_count + 1, len(storage_list))
 
             # Get cdrom info
             cd_info = inst.vmstorage_lookup(vm_name, cdrom_dev)
-            self.assertEquals(u'cdrom', cd_info['type'])
-            self.assertEquals(iso_path, cd_info['path'])
+            self.assertEqual(u'cdrom', cd_info['type'])
+            self.assertEqual(iso_path, cd_info['path'])
 
             # update path of existing cd with
             # non existent iso
-            self.assertRaises(InvalidParameter, inst.vmstorage_update,
-                              vm_name, cdrom_dev, {'path': wrong_iso_path})
+            self.assertRaises(
+                InvalidParameter,
+                inst.vmstorage_update,
+                vm_name,
+                cdrom_dev,
+                {'path': wrong_iso_path},
+            )
 
             # Make sure CD ROM still exists after failure
             cd_info = inst.vmstorage_lookup(vm_name, cdrom_dev)
-            self.assertEquals(u'cdrom', cd_info['type'])
-            self.assertEquals(iso_path, cd_info['path'])
+            self.assertEqual(u'cdrom', cd_info['type'])
+            self.assertEqual(iso_path, cd_info['path'])
 
             # update path of existing cd with existent iso of shutoff vm
             inst.vmstorage_update(vm_name, cdrom_dev, {'path': iso_path2})
             cdrom_info = inst.vmstorage_lookup(vm_name, cdrom_dev)
-            self.assertEquals(iso_path2, cdrom_info['path'])
+            self.assertEqual(iso_path2, cdrom_info['path'])
 
             # update path of existing cd with existent iso of running vm
             inst.vm_start(vm_name)
             inst.vmstorage_update(vm_name, cdrom_dev, {'path': iso_path})
             cdrom_info = inst.vmstorage_lookup(vm_name, cdrom_dev)
-            self.assertEquals(iso_path, cdrom_info['path'])
+            self.assertEqual(iso_path, cdrom_info['path'])
 
             # eject cdrom
             cdrom_dev = inst.vmstorage_update(vm_name, cdrom_dev, {'path': ''})
             cdrom_info = inst.vmstorage_lookup(vm_name, cdrom_dev)
-            self.assertEquals('', cdrom_info['path'])
+            self.assertEqual('', cdrom_info['path'])
             inst.vm_poweroff(vm_name)
 
             # removing non existent cdrom
-            self.assertRaises(NotFoundError, inst.vmstorage_delete, vm_name,
-                              "fakedev")
+            self.assertRaises(
+                NotFoundError, inst.vmstorage_delete, vm_name, 'fakedev')
 
             # removing valid cdrom
             inst.vmstorage_delete(vm_name, cdrom_dev)
             storage_list = inst.vmstorages_get_list(vm_name)
-            self.assertEquals(prev_count, len(storage_list))
+            self.assertEqual(prev_count, len(storage_list))
 
             # Create a new cdrom using a remote iso
             valid_remote_iso_path = get_remote_iso_path()
-            cdrom_args = {"type": "cdrom",
-                          "path": valid_remote_iso_path}
+            cdrom_args = {'type': 'cdrom', 'path': valid_remote_iso_path}
             cdrom_dev = inst.vmstorages_create(vm_name, cdrom_args)
             storage_list = inst.vmstorages_get_list(vm_name)
-            self.assertEquals(prev_count + 1, len(storage_list))
+            self.assertEqual(prev_count + 1, len(storage_list))
 
             # Update remote-backed cdrom with the same ISO
-            inst.vmstorage_update(vm_name, cdrom_dev,
-                                  {'path': valid_remote_iso_path})
+            inst.vmstorage_update(vm_name, cdrom_dev, {
+                                  'path': valid_remote_iso_path})
             cdrom_info = inst.vmstorage_lookup(vm_name, cdrom_dev)
-            cur_cdrom_path = re.sub(":80/", '/', cdrom_info['path'])
-            self.assertEquals(valid_remote_iso_path, cur_cdrom_path)
+            cur_cdrom_path = re.sub(':80/', '/', cdrom_info['path'])
+            self.assertEqual(valid_remote_iso_path, cur_cdrom_path)
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_vm_storage_provisioning(self):
         inst = model.Model(objstore_loc=self.tmp_store)
 
         with RollbackContext() as rollback:
-            params = {'name': 'test', 'disks': [{'size': 1, 'pool': {
-                      'name': '/plugins/kimchi/storagepools/default'}}],
-                      'source_media': {'type': 'disk', 'path': UBUNTU_ISO}}
+            params = {
+                'name': 'test',
+                'disks': [
+                    {
+                        'size': 1,
+                        'pool': {'name': '/plugins/kimchi/storagepools/default'},
+                    }
+                ],
+                'source_media': {'type': 'disk', 'path': UBUNTU_ISO},
+            }
 
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
@@ -958,22 +1085,27 @@ class ModelTests(unittest.TestCase):
 
             vm_info = inst.vm_lookup(params['name'])
             disk_path = '%s/%s-0.img' % (
-                inst.storagepool_lookup('default')['path'], vm_info['uuid'])
+                inst.storagepool_lookup('default')['path'],
+                vm_info['uuid'],
+            )
             self.assertTrue(os.access(disk_path, os.F_OK))
         self.assertFalse(os.access(disk_path, os.F_OK))
 
     def _create_template_conf_with_disk_format(self, vol_format):
         if vol_format is None:
-            conf_file_data = "[main]\n\n[storage]\n\n[[disk.0]]\n" \
-                             "#format = \n\n[graphics]\n\n[processor]\n"
+            conf_file_data = (
+                '[main]\n\n[storage]\n\n[[disk.0]]\n'
+                '#format = \n\n[graphics]\n\n[processor]\n'
+            )
         else:
-            conf_file_data = "[main]\n\n[storage]\n\n[[disk.0]]\n" \
-                             "format = %s\n\n[graphics]\n\n[processor]\n"\
-                             % vol_format
+            conf_file_data = (
+                '[main]\n\n[storage]\n\n[[disk.0]]\n'
+                'format = %s\n\n[graphics]\n\n[processor]\n' % vol_format
+            )
 
         config_file = os.path.join(paths.sysconf_dir, 'template.conf')
-        config_bkp_file = \
-            os.path.join(paths.sysconf_dir, 'template.conf-unit_test_bkp')
+        config_bkp_file = os.path.join(
+            paths.sysconf_dir, 'template.conf-unit_test_bkp')
 
         os.rename(config_file, config_bkp_file)
 
@@ -984,8 +1116,8 @@ class ModelTests(unittest.TestCase):
 
     def _restore_template_conf_file(self):
         config_file = os.path.join(paths.sysconf_dir, 'template.conf')
-        config_bkp_file = \
-            os.path.join(paths.sysconf_dir, 'template.conf-unit_test_bkp')
+        config_bkp_file = os.path.join(
+            paths.sysconf_dir, 'template.conf-unit_test_bkp')
         os.rename(config_bkp_file, config_file)
         osinfo.defaults = osinfo._get_tmpl_defaults()
 
@@ -1003,9 +1135,16 @@ class ModelTests(unittest.TestCase):
             self._create_template_conf_with_disk_format('vmdk')
             rollback.prependDefer(self._restore_template_conf_file)
 
-            params = {'name': 'test', 'disks': [{'size': 1, 'pool': {
-                      'name': '/plugins/kimchi/storagepools/default'}}],
-                      'source_media': {'type': 'disk', 'path': UBUNTU_ISO}}
+            params = {
+                'name': 'test',
+                'disks': [
+                    {
+                        'size': 1,
+                        'pool': {'name': '/plugins/kimchi/storagepools/default'},
+                    }
+                ],
+                'source_media': {'type': 'disk', 'path': UBUNTU_ISO},
+            }
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
 
@@ -1016,8 +1155,7 @@ class ModelTests(unittest.TestCase):
             rollback.prependDefer(inst.vm_delete, 'test-vm-1')
 
             created_disk_format = self._get_disk_format_from_vm(
-                'test-vm-1', inst.conn
-            )
+                'test-vm-1', inst.conn)
             self.assertEqual(created_disk_format, 'vmdk')
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
@@ -1030,10 +1168,17 @@ class ModelTests(unittest.TestCase):
             self._create_template_conf_with_disk_format(default_vol)
             rollback.prependDefer(self._restore_template_conf_file)
 
-            params = {'name': 'test', 'disks': [{
-                'size': 1, 'format': user_vol,
-                'pool': {'name': '/plugins/kimchi/storagepools/default'}}],
-                'source_media': {'type': 'disk', 'path': UBUNTU_ISO}}
+            params = {
+                'name': 'test',
+                'disks': [
+                    {
+                        'size': 1,
+                        'format': user_vol,
+                        'pool': {'name': '/plugins/kimchi/storagepools/default'},
+                    }
+                ],
+                'source_media': {'type': 'disk', 'path': UBUNTU_ISO},
+            }
 
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
@@ -1045,8 +1190,7 @@ class ModelTests(unittest.TestCase):
             rollback.prependDefer(inst.vm_delete, 'test-vm-1')
 
             created_disk_format = self._get_disk_format_from_vm(
-                'test-vm-1', inst.conn
-            )
+                'test-vm-1', inst.conn)
             self.assertEqual(created_disk_format, user_vol)
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
@@ -1057,9 +1201,16 @@ class ModelTests(unittest.TestCase):
             self._create_template_conf_with_disk_format(None)
             rollback.prependDefer(self._restore_template_conf_file)
 
-            params = {'name': 'test', 'disks': [{'size': 1, 'pool': {
-                      'name': '/plugins/kimchi/storagepools/default'}}],
-                      'source_media': {'type': 'disk', 'path': UBUNTU_ISO}}
+            params = {
+                'name': 'test',
+                'disks': [
+                    {
+                        'size': 1,
+                        'pool': {'name': '/plugins/kimchi/storagepools/default'},
+                    }
+                ],
+                'source_media': {'type': 'disk', 'path': UBUNTU_ISO},
+            }
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
 
@@ -1070,60 +1221,66 @@ class ModelTests(unittest.TestCase):
             rollback.prependDefer(inst.vm_delete, 'test-vm-1')
 
             created_disk_format = self._get_disk_format_from_vm(
-                'test-vm-1', inst.conn
-            )
+                'test-vm-1', inst.conn)
             self.assertEqual(created_disk_format, 'qcow2')
 
     def test_vm_memory_hotplug(self):
-        config.set("authentication", "method", "pam")
+        config.set('authentication', 'method', 'pam')
         inst = model.Model(None, objstore_loc=self.tmp_store)
-        orig_params = {'name': 'test',
-                       'memory': {'current': 1024,
-                                  'maxmemory': 4096
-                                  if os.uname()[4] != "s390x" else 2048},
-                       'source_media': {'type': 'disk', 'path': UBUNTU_ISO}}
+        orig_params = {
+            'name': 'test',
+            'memory': {
+                'current': 1024,
+                'maxmemory': 4096 if os.uname()[4] != 's390x' else 2048,
+            },
+            'source_media': {'type': 'disk', 'path': UBUNTU_ISO},
+        }
         inst.templates_create(orig_params)
 
         with RollbackContext() as rollback:
-            params = {'name': 'kimchi-vm1',
-                      'template': '/plugins/kimchi/templates/test'}
+            params = {
+                'name': 'kimchi-vm1',
+                'template': '/plugins/kimchi/templates/test',
+            }
             task1 = inst.vms_create(params)
             inst.task_wait(task1['id'])
-            rollback.prependDefer(utils.rollback_wrapper, inst.vm_delete,
-                                  'kimchi-vm1')
+            rollback.prependDefer(utils.rollback_wrapper,
+                                  inst.vm_delete, 'kimchi-vm1')
             # Start vm
             inst.vm_start('kimchi-vm1')
-            rollback.prependDefer(utils.rollback_wrapper, inst.vm_poweroff,
-                                  'kimchi-vm1')
+            rollback.prependDefer(
+                utils.rollback_wrapper, inst.vm_poweroff, 'kimchi-vm1'
+            )
 
             # Hotplug memory, only available in Libvirt >= 1.2.14
             params = {'memory': {'current': 2048}}
             if inst.capabilities_lookup()['mem_hotplug_support']:
                 inst.vm_update('kimchi-vm1', params)
-                rollback.prependDefer(utils.rollback_wrapper, inst.vm_delete,
-                                      'kimchi-vm1')
+                rollback.prependDefer(
+                    utils.rollback_wrapper, inst.vm_delete, 'kimchi-vm1'
+                )
                 params['memory']['maxmemory'] = 4096
-                self.assertEquals(params['memory'],
-                                  inst.vm_lookup('kimchi-vm1')['memory'])
+                self.assertEqual(
+                    params['memory'], inst.vm_lookup('kimchi-vm1')['memory']
+                )
 
                 params['memory']['current'] = 4096
                 del params['memory']['maxmemory']
                 inst.vm_update('kimchi-vm1', params)
                 vm = inst.vm_lookup('kimchi-vm1')
-                self.assertEquals(4096, vm['memory']['current'])
+                self.assertEqual(4096, vm['memory']['current'])
 
                 # Test memory devices
                 conn = inst.conn.get()
                 xml = conn.lookupByName('kimchi-vm1').XMLDesc()
                 root = ET.fromstring(xml)
                 devs = root.findall('./devices/memory/target/size')
-                self.assertEquals(2, len(devs))
+                self.assertEqual(2, len(devs))
                 totMemDevs = 0
                 for size in devs:
                     totMemDevs += convert_data_size(size.text,
-                                                    size.get('unit'),
-                                                    'MiB')
-                self.assertEquals(3072, totMemDevs)
+                                                    size.get('unit'), 'MiB')
+                self.assertEqual(3072, totMemDevs)
 
                 inst.vm_poweroff('kimchi-vm1')
                 # Remove all devs:
@@ -1132,7 +1289,7 @@ class ModelTests(unittest.TestCase):
                 xml = conn.lookupByName('kimchi-vm1').XMLDesc()
                 root = ET.fromstring(xml)
                 devs = root.findall('./devices/memory')
-                self.assertEquals(0, len(devs))
+                self.assertEqual(0, len(devs))
 
                 # Hotplug 1G DIMM , 512M , 256M and 256M
                 inst.vm_start('kimchi-vm1')
@@ -1146,18 +1303,17 @@ class ModelTests(unittest.TestCase):
                 inst.vm_update('kimchi-vm1', params)
 
                 vm = inst.vm_lookup('kimchi-vm1')
-                self.assertEquals(3072, vm['memory']['current'])
+                self.assertEqual(3072, vm['memory']['current'])
 
                 xml = conn.lookupByName('kimchi-vm1').XMLDesc()
                 root = ET.fromstring(xml)
                 devs = root.findall('./devices/memory/target/size')
-                self.assertEquals(4, len(devs))
+                self.assertEqual(4, len(devs))
                 totMemDevs = 0
                 for size in devs:
                     totMemDevs += convert_data_size(size.text,
-                                                    size.get('unit'),
-                                                    'MiB')
-                self.assertEquals(2048, totMemDevs)
+                                                    size.get('unit'), 'MiB')
+                self.assertEqual(2048, totMemDevs)
 
                 inst.vm_poweroff('kimchi-vm1')
                 # Remove 2x256M + 1x512M ... then sum 256M to virtual memory
@@ -1166,22 +1322,22 @@ class ModelTests(unittest.TestCase):
                 xml = conn.lookupByName('kimchi-vm1').XMLDesc()
                 root = ET.fromstring(xml)
                 devs = root.findall('./devices/memory/target/size')
-                self.assertEquals(1, len(devs))
+                self.assertEqual(1, len(devs))
                 totMemDevs = 0
                 for size in devs:
                     totMemDevs += convert_data_size(size.text,
-                                                    size.get('unit'),
-                                                    'MiB')
-                self.assertEquals(1024, totMemDevs)
+                                                    size.get('unit'), 'MiB')
+                self.assertEqual(1024, totMemDevs)
             else:
-                self.assertRaises(InvalidOperation, inst.vm_update,
-                                  'kimchi-vm1', params)
+                self.assertRaises(
+                    InvalidOperation, inst.vm_update, 'kimchi-vm1', params
+                )
 
-    msg = "Memory hotplug in non-numa guests only for PowerPC arch."
+    msg = 'Memory hotplug in non-numa guests only for PowerPC arch.'
 
     @unittest.skipUnless(('ppc64' in os.uname()[4]), msg)
     def test_non_numa_vm_memory_hotplug(self):
-        config.set("authentication", "method", "pam")
+        config.set('authentication', 'method', 'pam')
         inst = model.Model(None, objstore_loc=self.tmp_store)
         conn = inst.conn.get()
         vm = 'non-numa-kimchi-test'
@@ -1196,61 +1352,76 @@ class ModelTests(unittest.TestCase):
             # Hotplug memory
             params = {'memory': {'current': 3072}}
             inst.vm_update(vm, params)
-            self.assertEquals(params['memory']['current'],
-                              inst.vm_lookup(vm)['memory']['current'])
+            self.assertEqual(
+                params['memory']['current'], inst.vm_lookup(
+                    vm)['memory']['current']
+            )
 
             # Test number and size of memory device added
             root = ET.fromstring(conn.lookupByName(vm).XMLDesc())
             devs = root.findall('./devices/memory/target/size')
-            self.assertEquals(1, len(devs))
-            self.assertEquals(2048 << 10, int(devs[0].text))
+            self.assertEqual(1, len(devs))
+            self.assertEqual(2048 << 10, int(devs[0].text))
 
             params = {'memory': {'current': 4096}}
             inst.vm_update(vm, params)
-            self.assertEquals(params['memory']['current'],
-                              inst.vm_lookup(vm)['memory']['current'])
+            self.assertEqual(
+                params['memory']['current'], inst.vm_lookup(
+                    vm)['memory']['current']
+            )
 
             # Test number and size of memory device added
             root = ET.fromstring(conn.lookupByName(vm).XMLDesc())
             devs = root.findall('./devices/memory/target/size')
-            self.assertEquals(2, len(devs))
-            self.assertEquals(1024 << 10, int(devs[1].text))
-            self.assertEquals(3072 << 10,
-                              int(devs[0].text) + int(devs[1].text))
+            self.assertEqual(2, len(devs))
+            self.assertEqual(1024 << 10, int(devs[1].text))
+            self.assertEqual(3072 << 10, int(devs[0].text) + int(devs[1].text))
 
             # Stop vm and test persistence
             inst.vm_poweroff(vm)
-            self.assertEquals(params['memory']['current'],
-                              inst.vm_lookup(vm)['memory']['current'])
+            self.assertEqual(
+                params['memory']['current'], inst.vm_lookup(
+                    vm)['memory']['current']
+            )
 
     def test_vm_edit(self):
-        config.set("authentication", "method", "pam")
-        inst = model.Model(None,
-                           objstore_loc=self.tmp_store)
+        config.set('authentication', 'method', 'pam')
+        inst = model.Model(None, objstore_loc=self.tmp_store)
 
         # template disk format must be qcow2 because vmsnapshot
         # only supports this format
         orig_params = {
-            'name': 'test', 'memory': {'current': 1024, 'maxmemory': 2048},
+            'name': 'test',
+            'memory': {'current': 1024, 'maxmemory': 2048},
             'cpu_info': {'vcpus': 1},
             'source_media': {'type': 'disk', 'path': UBUNTU_ISO},
-            'disks': [{'size': 1, 'format': 'qcow2', 'pool': {
-                       'name': '/plugins/kimchi/storagepools/default'}}]}
+            'disks': [
+                {
+                    'size': 1,
+                    'format': 'qcow2',
+                    'pool': {'name': '/plugins/kimchi/storagepools/default'},
+                }
+            ],
+        }
         inst.templates_create(orig_params)
 
         with RollbackContext() as rollback:
-            params_1 = {'name': 'kimchi-vm1',
-                        'template': '/plugins/kimchi/templates/test'}
-            params_2 = {'name': 'kimchi-vm2',
-                        'template': '/plugins/kimchi/templates/test'}
+            params_1 = {
+                'name': 'kimchi-vm1',
+                'template': '/plugins/kimchi/templates/test',
+            }
+            params_2 = {
+                'name': 'kimchi-vm2',
+                'template': '/plugins/kimchi/templates/test',
+            }
             task1 = inst.vms_create(params_1)
             inst.task_wait(task1['id'])
-            rollback.prependDefer(utils.rollback_wrapper, inst.vm_delete,
-                                  'kimchi-vm1')
+            rollback.prependDefer(utils.rollback_wrapper,
+                                  inst.vm_delete, 'kimchi-vm1')
             task2 = inst.vms_create(params_2)
             inst.task_wait(task2['id'])
-            rollback.prependDefer(utils.rollback_wrapper, inst.vm_delete,
-                                  'kimchi-vm2')
+            rollback.prependDefer(utils.rollback_wrapper,
+                                  inst.vm_delete, 'kimchi-vm2')
 
             vms = inst.vms_get_list()
             self.assertTrue('kimchi-vm1' in vms)
@@ -1258,170 +1429,204 @@ class ModelTests(unittest.TestCase):
             # make sure "vm_update" works when the domain has a snapshot
             inst.vmsnapshots_create(u'kimchi-vm1')
 
-            if os.uname()[4] != "s390x":
+            if os.uname()[4] != 's390x':
                 # update vm graphics when vm is not running
-                inst.vm_update(u'kimchi-vm1',
-                               {"graphics": {"passwd": "123456"}})
+                inst.vm_update(
+                    u'kimchi-vm1', {'graphics': {'passwd': '123456'}})
 
                 inst.vm_start('kimchi-vm1')
-                rollback.prependDefer(utils.rollback_wrapper, inst.vm_poweroff,
-                                      'kimchi-vm1')
+                rollback.prependDefer(
+                    utils.rollback_wrapper, inst.vm_poweroff, 'kimchi-vm1'
+                )
 
-                vm_info = inst.vm_lookup(u'kimchi-vm1')
-                self.assertEquals('123456', vm_info['graphics']["passwd"])
-                self.assertEquals(None, vm_info['graphics']["passwdValidTo"])
+                vm_info = inst.vm_lookup('kimchi-vm1')
+                self.assertEqual('123456', vm_info['graphics']['passwd'])
+                self.assertEqual(None, vm_info['graphics']['passwdValidTo'])
 
                 # update vm graphics when vm is running
-                inst.vm_update(u'kimchi-vm1',
-                               {"graphics": {"passwd": "abcdef",
-                                             "passwdValidTo": 20}})
-                vm_info = inst.vm_lookup(u'kimchi-vm1')
-                self.assertEquals('abcdef', vm_info['graphics']["passwd"])
-                self.assertGreaterEqual(20,
-                                        vm_info['graphics']['passwdValidTo'])
+                inst.vm_update(
+                    'kimchi-vm1',
+                    {'graphics': {'passwd': 'abcdef', 'passwdValidTo': 20}},
+                )
+                vm_info = inst.vm_lookup('kimchi-vm1')
+                self.assertEqual('abcdef', vm_info['graphics']['passwd'])
+                self.assertGreaterEqual(
+                    20, vm_info['graphics']['passwdValidTo'])
 
                 info = inst.vm_lookup('kimchi-vm1')
-                self.assertEquals('running', info['state'])
+                self.assertEqual('running', info['state'])
 
                 params = {'name': 'new-vm'}
-                self.assertRaises(InvalidParameter, inst.vm_update,
-                                  'kimchi-vm1', params)
+                self.assertRaises(
+                    InvalidParameter, inst.vm_update, 'kimchi-vm1', params
+                )
             else:
                 inst.vm_start('kimchi-vm1')
 
             # change VM users and groups, when wm is running.
-            inst.vm_update(u'kimchi-vm1',
-                           {'users': ['root'], 'groups': ['root']})
+            inst.vm_update(
+                u'kimchi-vm1', {'users': ['root'], 'groups': ['root']})
             vm_info = inst.vm_lookup(u'kimchi-vm1')
-            self.assertEquals(['root'], vm_info['users'])
-            self.assertEquals(['root'], vm_info['groups'])
+            self.assertEqual(['root'], vm_info['users'])
+            self.assertEqual(['root'], vm_info['groups'])
 
             # change VM users and groups by removing all elements,
             # when vm is running.
             inst.vm_update(u'kimchi-vm1', {'users': [], 'groups': []})
             vm_info = inst.vm_lookup(u'kimchi-vm1')
-            self.assertEquals([], vm_info['users'])
-            self.assertEquals([], vm_info['groups'])
+            self.assertEqual([], vm_info['users'])
+            self.assertEqual([], vm_info['groups'])
 
             # power off vm
             inst.vm_poweroff('kimchi-vm1')
-            self.assertRaises(OperationFailed, inst.vm_update,
-                              'kimchi-vm1', {'name': 'kimchi-vm2'})
+            self.assertRaises(
+                OperationFailed, inst.vm_update, 'kimchi-vm1', {
+                    'name': 'kimchi-vm2'}
+            )
 
             # update maxvcpus only
             inst.vm_update(u'kimchi-vm1', {'cpu_info': {'maxvcpus': 8}})
             vm_info = inst.vm_lookup(u'kimchi-vm1')
-            self.assertEquals(8, vm_info['cpu_info']['maxvcpus'])
+            self.assertEqual(8, vm_info['cpu_info']['maxvcpus'])
 
             # update vcpus only
             inst.vm_update(u'kimchi-vm1', {'cpu_info': {'vcpus': 4}})
             vm_info = inst.vm_lookup(u'kimchi-vm1')
-            self.assertEquals(4, vm_info['cpu_info']['vcpus'])
+            self.assertEqual(4, vm_info['cpu_info']['vcpus'])
 
             # vcpus > maxvcpus: failure
-            self.assertRaises(InvalidParameter, inst.vm_update, u'kimchi-vm1',
-                              {'cpu_info': {'vcpus': 10}})
+            self.assertRaises(
+                InvalidParameter,
+                inst.vm_update,
+                u'kimchi-vm1',
+                {'cpu_info': {'vcpus': 10}},
+            )
 
             # define CPU topology
-            inst.vm_update(u'kimchi-vm1', {'cpu_info': {'topology': {
-                           'sockets': 2, 'cores': 2, 'threads': 2}}})
+            inst.vm_update(
+                u'kimchi-vm1',
+                {'cpu_info': {'topology': {'sockets': 2, 'cores': 2, 'threads': 2}}},
+            )
             vm_info = inst.vm_lookup(u'kimchi-vm1')
-            self.assertEquals({'sockets': 2, 'cores': 2, 'threads': 2},
-                              vm_info['cpu_info']['topology'])
+            self.assertEqual(
+                {'sockets': 2, 'cores': 2, 'threads': 2},
+                vm_info['cpu_info']['topology'],
+            )
 
             # vcpus not a multiple of threads
-            self.assertRaises(InvalidParameter, inst.vm_update, u'kimchi-vm1',
-                              {'cpu_info': {'vcpus': 5}})
+            self.assertRaises(
+                InvalidParameter,
+                inst.vm_update,
+                u'kimchi-vm1',
+                {'cpu_info': {'vcpus': 5}},
+            )
 
             # maxvcpus different of (sockets * cores * threads)
-            self.assertRaises(InvalidParameter, inst.vm_update, u'kimchi-vm1',
-                              {'cpu_info': {'maxvcpus': 4}})
+            self.assertRaises(
+                InvalidParameter,
+                inst.vm_update,
+                u'kimchi-vm1',
+                {'cpu_info': {'maxvcpus': 4}},
+            )
 
             # topology does not match maxvcpus (8 != 3 * 2 * 2)
-            self.assertRaises(InvalidParameter, inst.vm_update, u'kimchi-vm1',
-                              {'cpu_info': {'topology': {
-                               'sockets': 3, 'cores': 2, 'threads': 2}}})
+            self.assertRaises(
+                InvalidParameter,
+                inst.vm_update,
+                u'kimchi-vm1',
+                {'cpu_info': {'topology': {'sockets': 3, 'cores': 2, 'threads': 2}}},
+            )
 
             # undefine CPU topology
             inst.vm_update(u'kimchi-vm1', {'cpu_info': {'topology': {}}})
             vm_info = inst.vm_lookup(u'kimchi-vm1')
-            self.assertEquals({}, vm_info['cpu_info']['topology'])
+            self.assertEqual({}, vm_info['cpu_info']['topology'])
 
             # reduce maxvcpus to same as vcpus
             inst.vm_update(u'kimchi-vm1', {'cpu_info': {'maxvcpus': 4}})
             vm_info = inst.vm_lookup(u'kimchi-vm1')
-            self.assertEquals(4, vm_info['cpu_info']['maxvcpus'])
+            self.assertEqual(4, vm_info['cpu_info']['maxvcpus'])
 
             # rename and increase memory when vm is not running
-            params = {'name': u'пeω-∨м',
-                      'memory': {'current': 2048}}
+            params = {'name': u'пeω-∨м', 'memory': {'current': 2048}}
             inst.vm_update('kimchi-vm1', params)
-            rollback.prependDefer(utils.rollback_wrapper, inst.vm_delete,
-                                  u'пeω-∨м')
-            self.assertEquals(vm_info['uuid'],
-                              inst.vm_lookup(u'пeω-∨м')['uuid'])
+            rollback.prependDefer(utils.rollback_wrapper,
+                                  inst.vm_delete, u'пeω-∨м')
+            self.assertEqual(
+                vm_info['uuid'], inst.vm_lookup(u'пeω-∨м')['uuid'])
             info = inst.vm_lookup(u'пeω-∨м')
             # Max memory is returned, add to test
             params['memory']['maxmemory'] = 2048
             for key in params.keys():
-                self.assertEquals(params[key], info[key])
+                self.assertEqual(params[key], info[key])
 
             # change only VM users - groups are not changed (default is empty)
             users = inst.users_get_list()[:3]
             inst.vm_update(u'пeω-∨м', {'users': users})
-            self.assertEquals(users, inst.vm_lookup(u'пeω-∨м')['users'])
-            self.assertEquals([], inst.vm_lookup(u'пeω-∨м')['groups'])
+            self.assertEqual(users, inst.vm_lookup(u'пeω-∨м')['users'])
+            self.assertEqual([], inst.vm_lookup(u'пeω-∨м')['groups'])
 
             # change only VM groups - users are not changed (default is empty)
             groups = inst.groups_get_list()[:2]
             inst.vm_update(u'пeω-∨м', {'groups': groups})
-            self.assertEquals(users, inst.vm_lookup(u'пeω-∨м')['users'])
-            self.assertEquals(groups, inst.vm_lookup(u'пeω-∨м')['groups'])
+            self.assertEqual(users, inst.vm_lookup(u'пeω-∨м')['users'])
+            self.assertEqual(groups, inst.vm_lookup(u'пeω-∨м')['groups'])
 
             # change VM users and groups by adding a new element to each one
             users.append(pwd.getpwuid(os.getuid()).pw_name)
             groups.append(grp.getgrgid(os.getgid()).gr_name)
             inst.vm_update(u'пeω-∨м', {'users': users, 'groups': groups})
-            self.assertEquals(users, inst.vm_lookup(u'пeω-∨м')['users'])
-            self.assertEquals(groups, inst.vm_lookup(u'пeω-∨м')['groups'])
+            self.assertEqual(users, inst.vm_lookup(u'пeω-∨м')['users'])
+            self.assertEqual(groups, inst.vm_lookup(u'пeω-∨м')['groups'])
 
             # change VM users (wrong value) and groups
             # when an error occurs, everything fails and nothing is changed
-            self.assertRaises(InvalidParameter, inst.vm_update, u'пeω-∨м',
-                              {'users': ['userdoesnotexist'], 'groups': []})
-            self.assertEquals(users, inst.vm_lookup(u'пeω-∨м')['users'])
-            self.assertEquals(groups, inst.vm_lookup(u'пeω-∨м')['groups'])
+            self.assertRaises(
+                InvalidParameter,
+                inst.vm_update,
+                u'пeω-∨м',
+                {'users': ['userdoesnotexist'], 'groups': []},
+            )
+            self.assertEqual(users, inst.vm_lookup(u'пeω-∨м')['users'])
+            self.assertEqual(groups, inst.vm_lookup(u'пeω-∨м')['groups'])
 
             # change VM users and groups (wrong value)
             # when an error occurs, everything fails and nothing is changed
-            self.assertRaises(InvalidParameter, inst.vm_update, u'пeω-∨м',
-                              {'users': [], 'groups': ['groupdoesnotexist']})
-            self.assertEquals(users, inst.vm_lookup(u'пeω-∨м')['users'])
-            self.assertEquals(groups, inst.vm_lookup(u'пeω-∨м')['groups'])
+            self.assertRaises(
+                InvalidParameter,
+                inst.vm_update,
+                u'пeω-∨м',
+                {'users': [], 'groups': ['groupdoesnotexist']},
+            )
+            self.assertEqual(users, inst.vm_lookup(u'пeω-∨м')['users'])
+            self.assertEqual(groups, inst.vm_lookup(u'пeω-∨м')['groups'])
 
             # change VM users and groups by removing all elements
             inst.vm_update(u'пeω-∨м', {'users': [], 'groups': []})
-            self.assertEquals([], inst.vm_lookup(u'пeω-∨м')['users'])
-            self.assertEquals([], inst.vm_lookup(u'пeω-∨м')['groups'])
+            self.assertEqual([], inst.vm_lookup(u'пeω-∨м')['users'])
+            self.assertEqual([], inst.vm_lookup(u'пeω-∨м')['groups'])
 
             # change bootorder
-            b_order = ["hd", "network", "cdrom"]
-            inst.vm_update(u'пeω-∨м', {"bootorder": b_order})
-            self.assertEquals(b_order, inst.vm_lookup(u'пeω-∨м')['bootorder'])
+            b_order = ['hd', 'network', 'cdrom']
+            inst.vm_update(u'пeω-∨м', {'bootorder': b_order})
+            self.assertEqual(b_order, inst.vm_lookup(u'пeω-∨м')['bootorder'])
 
             # try to add empty list
-            self.assertRaises(OperationFailed, inst.vm_update, u'пeω-∨м',
-                              {"bootorder": [""]})
+            self.assertRaises(
+                OperationFailed, inst.vm_update, u'пeω-∨м', {'bootorder': ['']}
+            )
 
             # try to pass invalid parameter
-            self.assertRaises(OperationFailed, inst.vm_update, u'пeω-∨м',
-                              {"bootorder": ["bla"]})
+            self.assertRaises(
+                OperationFailed, inst.vm_update, u'пeω-∨м', {
+                    'bootorder': ['bla']}
+            )
 
             # enable/disable bootmenu
-            inst.vm_update(u'пeω-∨м', {"bootmenu": True})
-            self.assertEquals("yes", inst.vm_lookup(u'пeω-∨м')['bootmenu'])
-            inst.vm_update(u'пeω-∨м', {"bootmenu": False})
-            self.assertEquals("no", inst.vm_lookup(u'пeω-∨м')['bootmenu'])
+            inst.vm_update(u'пeω-∨м', {'bootmenu': True})
+            self.assertEqual('yes', inst.vm_lookup(u'пeω-∨м')['bootmenu'])
+            inst.vm_update(u'пeω-∨м', {'bootmenu': False})
+            self.assertEqual('no', inst.vm_lookup(u'пeω-∨м')['bootmenu'])
 
     def test_get_vm_cpu_cores(self):
         xml = """<domain type='kvm'>\
@@ -1446,7 +1651,7 @@ class ModelTests(unittest.TestCase):
 
     @mock.patch('wok.plugins.kimchi.model.vms.VMModel.has_topology')
     def test_get_vm_cpu_topology(self, mock_has_topology):
-        class FakeDom():
+        class FakeDom:
             def XMLDesc(self, flag):
                 return """<domain type='kvm'>\
 <cpu><topology sockets='3' cores='2' threads='8'/></cpu>\
@@ -1464,7 +1669,7 @@ class ModelTests(unittest.TestCase):
 
     @mock.patch('wok.plugins.kimchi.model.vms.VMModel.has_topology')
     def test_get_vm_cpu_topology_blank(self, mock_has_topology):
-        class FakeDom():
+        class FakeDom:
             def XMLDesc(self, flag):
                 return """<domain type='kvm'></domain>"""
 
@@ -1482,12 +1687,12 @@ class ModelTests(unittest.TestCase):
         inst = model.Model(None, objstore_loc=self.tmp_store)
 
         with self.assertRaisesRegexp(InvalidParameter, 'KCHCPUHOTP0001E'):
-            params = {"cpu_info": {"vcpus": 1, 'maxvcpus': 4}}
+            params = {'cpu_info': {'vcpus': 1, 'maxvcpus': 4}}
             inst.vm_cpu_hotplug_precheck('', params)
 
     @mock.patch('wok.plugins.kimchi.model.vms.VMModel.has_topology')
     def test_vm_cpu_hotplug_abovemax_fail(self, mock_has_topology):
-        class FakeDom():
+        class FakeDom:
             def XMLDesc(self, flag):
                 return """<domain type='kvm'>\
 <vcpu placement='static' current='1'>8</vcpu><\
@@ -1500,14 +1705,15 @@ class ModelTests(unittest.TestCase):
         inst = model.Model(None, objstore_loc=self.tmp_store)
 
         with self.assertRaisesRegexp(InvalidParameter, 'KCHCPUINF0001E'):
-            params = {"cpu_info": {"vcpus": 16}}
+            params = {'cpu_info': {'vcpus': 16}}
             inst.vm_cpu_hotplug_precheck(FakeDom(), params)
 
     @mock.patch('wok.plugins.kimchi.model.vms.VMModel.has_topology')
     @mock.patch('wok.plugins.kimchi.model.vms.VMModel.get_vm_cpu_topology')
-    def test_vm_cpu_hotplug_topology_mismatch_fail(self, mock_topology,
-                                                   mock_has_topology):
-        class FakeDom():
+    def test_vm_cpu_hotplug_topology_mismatch_fail(
+        self, mock_topology, mock_has_topology
+    ):
+        class FakeDom:
             def XMLDesc(self, flag):
                 return """<domain type='kvm'>\
 <vcpu placement='static' current='8'>48</vcpu><\
@@ -1522,11 +1728,11 @@ class ModelTests(unittest.TestCase):
         inst = model.Model(None, objstore_loc=self.tmp_store)
 
         with self.assertRaisesRegexp(InvalidParameter, 'KCHCPUINF0005E'):
-            params = {"cpu_info": {"vcpus": 10}}
+            params = {'cpu_info': {'vcpus': 10}}
             inst.vm_cpu_hotplug_precheck(FakeDom(), params)
 
     def test_vm_cpu_hotplug_error(self):
-        class FakeDom():
+        class FakeDom:
             def setVcpusFlags(self, vcpu, flags):
                 raise libvirt.libvirtError('')
 
@@ -1535,20 +1741,19 @@ class ModelTests(unittest.TestCase):
             inst.vm_update_cpu_live(FakeDom(), '')
 
             # enable/disable autostart
-            inst.vm_update(u'пeω-∨м', {"autostart": True})
-            self.assertEquals(1, inst.vm_lookup(u'пeω-∨м')['autostart'])
-            inst.vm_update(u'пeω-∨м', {"autostart": False})
-            self.assertEquals(0, inst.vm_lookup(u'пeω-∨м')['autostart'])
+            inst.vm_update(u'пeω-∨м', {'autostart': True})
+            self.assertEqual(1, inst.vm_lookup(u'пeω-∨м')['autostart'])
+            inst.vm_update(u'пeω-∨м', {'autostart': False})
+            self.assertEqual(0, inst.vm_lookup(u'пeω-∨м')['autostart'])
 
     def test_get_interfaces(self):
-        inst = model.Model('test:///default',
-                           objstore_loc=self.tmp_store)
+        inst = model.Model('test:///default', objstore_loc=self.tmp_store)
         expected_ifaces = netinfo.all_favored_interfaces()
         ifaces = inst.interfaces_get_list()
-        self.assertEquals(len(expected_ifaces), len(ifaces))
+        self.assertEqual(len(expected_ifaces), len(ifaces))
         for name in expected_ifaces:
             iface = inst.interface_lookup(name)
-            self.assertEquals(iface['name'], name)
+            self.assertEqual(iface['name'], name)
             self.assertIn('type', iface)
             self.assertIn('status', iface)
             self.assertIn('ipaddr', iface)
@@ -1568,65 +1773,72 @@ class ModelTests(unittest.TestCase):
         def abnormal_op(cb, params):
             try:
                 raise task_except
-            except:
-                cb("Exception raised", False)
+            except Exception:
+                cb('Exception raised', False)
 
         def continuous_ops(cb, params):
-            cb("step 1 OK")
+            cb('step 1 OK')
             time.sleep(2)
-            cb("step 2 OK")
+            cb('step 2 OK')
             time.sleep(2)
-            cb("step 3 OK", params.get('result', True))
+            cb('step 3 OK', params.get('result', True))
 
-        inst = model.Model('test:///default',
-                           objstore_loc=self.tmp_store)
+        inst = model.Model('test:///default', objstore_loc=self.tmp_store)
         taskid = AsyncTask('', quick_op, 'Hello').id
         inst.task_wait(taskid)
-        self.assertEquals('finished', inst.task_lookup(taskid)['status'])
-        self.assertEquals('Hello', inst.task_lookup(taskid)['message'])
+        self.assertEqual('finished', inst.task_lookup(taskid)['status'])
+        self.assertEqual('Hello', inst.task_lookup(taskid)['message'])
 
         params = {'delay': 3, 'result': False,
                   'message': 'It was not meant to be'}
         taskid = AsyncTask('', long_op, params).id
-        self.assertEquals('running', inst.task_lookup(taskid)['status'])
-        self.assertEquals('The request is being processing.',
-                          inst.task_lookup(taskid)['message'])
+        self.assertEqual('running', inst.task_lookup(taskid)['status'])
+        self.assertEqual(
+            'The request is being processing.', inst.task_lookup(taskid)[
+                'message']
+        )
         inst.task_wait(taskid)
-        self.assertEquals('failed', inst.task_lookup(taskid)['status'])
-        self.assertEquals('It was not meant to be',
-                          inst.task_lookup(taskid)['message'])
+        self.assertEqual('failed', inst.task_lookup(taskid)['status'])
+        self.assertEqual('It was not meant to be',
+                         inst.task_lookup(taskid)['message'])
         taskid = AsyncTask('', abnormal_op, {}).id
         inst.task_wait(taskid)
-        self.assertEquals('Exception raised',
-                          inst.task_lookup(taskid)['message'])
-        self.assertEquals('failed', inst.task_lookup(taskid)['status'])
+        self.assertEqual('Exception raised',
+                         inst.task_lookup(taskid)['message'])
+        self.assertEqual('failed', inst.task_lookup(taskid)['status'])
 
         taskid = AsyncTask('', continuous_ops, {'result': True}).id
-        self.assertEquals('running', inst.task_lookup(taskid)['status'])
+        self.assertEqual('running', inst.task_lookup(taskid)['status'])
         inst.task_wait(taskid, timeout=10)
-        self.assertEquals('finished', inst.task_lookup(taskid)['status'])
+        self.assertEqual('finished', inst.task_lookup(taskid)['status'])
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_delete_running_vm(self):
         inst = model.Model(objstore_loc=self.tmp_store)
 
         with RollbackContext() as rollback:
-            params = {'name': u'test', 'disks': [],
-                      'source_media': {'type': 'disk', 'path': UBUNTU_ISO}}
+            params = {
+                'name': u'test',
+                'disks': [],
+                'source_media': {'type': 'disk', 'path': UBUNTU_ISO},
+            }
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
 
-            params = {'name': u'kīмсhī-∨м',
-                      'template': u'/plugins/kimchi/templates/test'}
+            params = {
+                'name': u'kīмсhī-∨м',
+                'template': u'/plugins/kimchi/templates/test',
+            }
             task = inst.vms_create(params)
             inst.task_wait(task['id'])
-            rollback.prependDefer(utils.rollback_wrapper, inst.vm_delete,
-                                  u'kīмсhī-∨м')
+            rollback.prependDefer(utils.rollback_wrapper,
+                                  inst.vm_delete, u'kīмсhī-∨м')
 
             inst.vm_start(u'kīмсhī-∨м')
-            self.assertEquals(inst.vm_lookup(u'kīмсhī-∨м')['state'], 'running')
-            rollback.prependDefer(utils.rollback_wrapper, inst.vm_poweroff,
-                                  u'kīмсhī-∨м')
+            self.assertEqual(inst.vm_lookup(u'kīмсhī-∨м')['state'], 'running')
+            rollback.prependDefer(
+                utils.rollback_wrapper, inst.vm_poweroff, u'kīмсhī-∨м'
+            )
 
             inst.vm_delete(u'kīмсhī-∨м')
 
@@ -1638,8 +1850,11 @@ class ModelTests(unittest.TestCase):
         inst = model.Model(objstore_loc=self.tmp_store)
 
         with RollbackContext() as rollback:
-            params = {'name': 'test', 'disks': [],
-                      'source_media': {'type': 'disk', 'path': UBUNTU_ISO}}
+            params = {
+                'name': 'test',
+                'disks': [],
+                'source_media': {'type': 'disk', 'path': UBUNTU_ISO},
+            }
             inst.templates_create(params)
             rollback.prependDefer(inst.template_delete, 'test')
 
@@ -1651,7 +1866,7 @@ class ModelTests(unittest.TestCase):
 
             vms = inst.vms_get_list()
 
-            self.assertEquals(vms, sorted(vms, key=unicode.lower))
+            self.assertEqual(vms, sorted(vms, key=str.lower))
 
     def test_vm_clone(self):
         inst = model.Model('test:///default', objstore_loc=self.tmp_store)
@@ -1680,18 +1895,20 @@ class ModelTests(unittest.TestCase):
             rollback.prependDefer(inst.vm_delete, clone2_name)
             inst.task_wait(task1['id'])
             task1 = inst.task_lookup(task1['id'])
-            self.assertEquals('finished', task1['status'])
+            self.assertEqual('finished', task1['status'])
             inst.task_wait(task2['id'])
             task2 = inst.task_lookup(task2['id'])
-            self.assertEquals('finished', task2['status'])
+            self.assertEqual('finished', task2['status'])
 
             # update the original VM info because its state has changed
             original_vm = inst.vm_lookup(name)
             clone_vm = inst.vm_lookup(clone1_name)
 
             self.assertNotEqual(original_vm['name'], clone_vm['name'])
-            self.assertTrue(re.match(u'%s-clone-\d+' % original_vm['name'],
-                                     clone_vm['name']))
+            self.assertTrue(
+                re.match(u'%s-clone-\\d+' %
+                         original_vm['name'], clone_vm['name'])
+            )
             del original_vm['name']
             del clone_vm['name']
 
@@ -1701,11 +1918,10 @@ class ModelTests(unittest.TestCase):
 
             # compare all VM settings except the ones already compared
             # (and removed) above (i.e. 'name' and 'uuid')
-            self.assertEquals(original_vm, clone_vm)
+            self.assertEqual(original_vm, clone_vm)
 
     def test_use_test_host(self):
-        inst = model.Model('test:///default',
-                           objstore_loc=self.tmp_store)
+        inst = model.Model('test:///default', objstore_loc=self.tmp_store)
 
         with RollbackContext() as rollback:
             params = {
@@ -1713,7 +1929,7 @@ class ModelTests(unittest.TestCase):
                 'source_media': {'type': 'disk', 'path': UBUNTU_ISO},
                 'domain': 'test',
                 'arch': 'i686',
-                'disks': []
+                'disks': [],
             }
 
             _setDiskPoolDefaultTest()
@@ -1733,8 +1949,7 @@ class ModelTests(unittest.TestCase):
             self.assertTrue('kimchi-vm' in vms)
 
     def test_get_distros(self):
-        inst = model.Model('test:///default',
-                           objstore_loc=self.tmp_store)
+        inst = model.Model('test:///default', objstore_loc=self.tmp_store)
         distros = inst.distros_get_list()
         for d in distros:
             distro = inst.distro_lookup(d)
@@ -1746,8 +1961,7 @@ class ModelTests(unittest.TestCase):
 
     @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_deep_scan(self):
-        inst = model.Model(None,
-                           objstore_loc=self.tmp_store)
+        inst = model.Model(None, objstore_loc=self.tmp_store)
         with RollbackContext() as rollback:
             deep_path = os.path.join(TMP_DIR, 'deep-scan')
             subdir_path = os.path.join(deep_path, 'isos')
@@ -1755,12 +1969,14 @@ class ModelTests(unittest.TestCase):
                 os.makedirs(subdir_path)
             ubuntu_iso = os.path.join(deep_path, 'ubuntu12.04.iso')
             sles_iso = os.path.join(subdir_path, 'sles10.iso')
-            iso_gen.construct_fake_iso(ubuntu_iso, True, '12.04', 'ubuntu')
-            iso_gen.construct_fake_iso(sles_iso, True, '10', 'sles')
+            construct_fake_iso(ubuntu_iso, True, '12.04', 'ubuntu')
+            construct_fake_iso(sles_iso, True, '10', 'sles')
 
-            args = {'name': 'kimchi-scanning-pool',
-                    'path': deep_path,
-                    'type': 'kimchi-iso'}
+            args = {
+                'name': 'kimchi-scanning-pool',
+                'path': deep_path,
+                'type': 'kimchi-iso',
+            }
             inst.storagepools_create(args)
             rollback.prependDefer(shutil.rmtree, deep_path)
             rollback.prependDefer(shutil.rmtree, args['path'])
@@ -1768,14 +1984,14 @@ class ModelTests(unittest.TestCase):
 
             time.sleep(1)
             volumes = inst.storagevolumes_get_list(args['name'])
-            self.assertEquals(len(volumes), 2)
+            self.assertEqual(len(volumes), 2)
 
     def _host_is_power():
         return platform.machine().startswith('ppc')
 
     @unittest.skipUnless(_host_is_power(), 'Only required for Power hosts')
     def test_pci_hotplug_requires_usb_controller(self):
-        config.set("authentication", "method", "pam")
+        config.set('authentication', 'method', 'pam')
         inst = model.Model(None, objstore_loc=self.tmp_store)
         tpl_params = {'name': 'test', 'memory': 1024, 'cdrom': UBUNTU_ISO}
         inst.templates_create(tpl_params)
@@ -1784,15 +2000,15 @@ class ModelTests(unittest.TestCase):
             vm_params = {'name': 'kimchi-vm1', 'template': '/templates/test'}
             task1 = inst.vms_create(vm_params)
             inst.task_wait(task1['id'])
-            rollback.prependDefer(utils.rollback_wrapper, inst.vm_delete,
-                                  'kimchi-vm1')
+            rollback.prependDefer(utils.rollback_wrapper,
+                                  inst.vm_delete, 'kimchi-vm1')
             # Start vm
             inst.vm_start('kimchi-vm1')
-            rollback.prependDefer(utils.rollback_wrapper, inst.vm_poweroff,
-                                  'kimchi-vm1')
+            rollback.prependDefer(
+                utils.rollback_wrapper, inst.vm_poweroff, 'kimchi-vm1'
+            )
             # check if create VM has USB controller
-            self.assertTrue(
-                inst.vmhostdevs_have_usb_controller('kimchi-vm1'))
+            self.assertTrue(inst.vmhostdevs_have_usb_controller('kimchi-vm1'))
 
     def get_hostdevs_xml(self):
         return """\
@@ -1878,18 +2094,15 @@ multifunction='on'/>
         inst = model.Model(None, objstore_loc=self.tmp_store)
 
         hostdev_multi_elem = objectify.fromstring(
-            self.get_hostdev_multifunction_xml()
-        )
+            self.get_hostdev_multifunction_xml())
         self.assertTrue(
-            inst.vmhostdev_is_hostdev_multifunction(hostdev_multi_elem)
-        )
+            inst.vmhostdev_is_hostdev_multifunction(hostdev_multi_elem))
 
         hostdev_nomulti_elem = objectify.fromstring(
             self.get_hostdev_nomultifunction_xml()
         )
         self.assertFalse(
-            inst.vmhostdev_is_hostdev_multifunction(hostdev_nomulti_elem)
-        )
+            inst.vmhostdev_is_hostdev_multifunction(hostdev_nomulti_elem))
 
     def test_vmhostdev_get_devices_same_addr(self):
         inst = model.Model(None, objstore_loc=self.tmp_store)
@@ -1898,8 +2111,7 @@ multifunction='on'/>
         hostdevs = root.devices.hostdev
 
         hostdev_multi_elem = objectify.fromstring(
-            self.get_hostdev_multifunction_xml()
-        )
+            self.get_hostdev_multifunction_xml())
 
         hostdev_same_addr_str = """\
 <hostdev mode="subsystem" type="pci" managed="yes"><driver name="vfio"/>\
@@ -1908,26 +2120,27 @@ multifunction='on'/>
 <address type="pci" domain="0x0000" bus="0x00" slot="0x05" function="0x1"/>\
 </hostdev>"""
         same_addr_devices = [
-            ET.tostring(hostdev_multi_elem), hostdev_same_addr_str
+            ET.tostring(hostdev_multi_elem).decode('utf-8'),
+            hostdev_same_addr_str,
         ]
 
-        self.assertItemsEqual(
-            same_addr_devices,
-            inst.vmhostdev_get_devices_same_addr(hostdevs, hostdev_multi_elem)
+        self.assertEqual(
+            set(same_addr_devices)
+            - set(inst.vmhostdev_get_devices_same_addr(hostdevs, hostdev_multi_elem)),
+            set(),
         )
 
         nomatch_elem = objectify.fromstring(
-            self.get_hostdev_nomultifunction_xml()
-        )
+            self.get_hostdev_nomultifunction_xml())
 
         self.assertEqual(
             inst.vmhostdev_get_devices_same_addr(hostdevs, nomatch_elem),
-            [ET.tostring(nomatch_elem)]
+            [ET.tostring(nomatch_elem).decode('utf-8')],
         )
 
     @mock.patch('wok.plugins.kimchi.model.vmhostdevs.get_vm_config_flag')
     def test_vmhostdev_unplug_multifunction_pci(self, mock_conf_flag):
-        class FakeDom():
+        class FakeDom:
             def detachDeviceFlags(self, xml, config_flag):
                 pass
 
@@ -1939,21 +2152,20 @@ multifunction='on'/>
         hostdevs = root.devices.hostdev
 
         hostdev_multi_elem = objectify.fromstring(
-            self.get_hostdev_multifunction_xml()
-        )
+            self.get_hostdev_multifunction_xml())
 
         self.assertTrue(
-            inst.vmhostdev_unplug_multifunction_pci(FakeDom(), hostdevs,
-                                                    hostdev_multi_elem)
+            inst.vmhostdev_unplug_multifunction_pci(
+                FakeDom(), hostdevs, hostdev_multi_elem
+            )
         )
 
         nomatch_elem = objectify.fromstring(
-            self.get_hostdev_nomultifunction_xml()
-        )
+            self.get_hostdev_nomultifunction_xml())
 
         self.assertFalse(
-            inst.vmhostdev_unplug_multifunction_pci(FakeDom(), hostdevs,
-                                                    nomatch_elem)
+            inst.vmhostdev_unplug_multifunction_pci(
+                FakeDom(), hostdevs, nomatch_elem)
         )
 
 
@@ -1976,4 +2188,4 @@ class BaseModelTests(unittest.TestCase):
     def test_root_model(self):
         t = BaseModelTests.TestModel()
         t.foos_create({'item1': 10})
-        self.assertEquals(t.foos_get_list(), ['item1'])
+        self.assertEqual(t.foos_get_list(), ['item1'])

@@ -17,7 +17,6 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 #
-
 import glob
 import os
 import signal
@@ -78,7 +77,7 @@ class VMScreenshot(object):
         """
         try:
             now = time.time()
-            clear_list = glob.glob("%s/%s-*.png" %
+            clear_list = glob.glob('%s/%s-*.png' %
                                    (config.get_screenshot_path(),
                                     self.vm_uuid))
             for f in clear_list:
@@ -98,7 +97,7 @@ class VMScreenshot(object):
         pass
 
     def _create_black_image(self, thumbnail):
-        image = Image.new("RGB", self.THUMBNAIL_SIZE, 'black')
+        image = Image.new('RGB', self.THUMBNAIL_SIZE, 'black')
         image.save(thumbnail)
 
     def _watch_stream_creation(self, thumbnail):
@@ -120,7 +119,7 @@ class VMScreenshot(object):
             try:
                 self._generate_scratch(thumbnail)
                 os._exit(0)
-            except:
+            except Exception:
                 os._exit(1)
         else:
             counter = 0
@@ -130,21 +129,21 @@ class VMScreenshot(object):
                 time.sleep(1)
                 ret = os.waitpid(pid, os.WNOHANG)
 
-            fd = open(pipe, "a")
+            fd = open(pipe, 'a')
             if ret != (pid, 0):
-                fd.write("-")
+                fd.write('-')
                 if ret[0] != pid:
                     os.kill(int(pid), signal.SIGKILL)
                     os.waitpid(pid, 0)
             else:
-                fd.write("+")
+                fd.write('+')
             fd.close()
 
     def _get_test_result(self):
         if not os.path.exists(pipe):
             return
 
-        fd = open(pipe, "r")
+        fd = open(pipe, 'r')
         data = fd.read()
         fd.close()
 
@@ -163,9 +162,9 @@ class VMScreenshot(object):
         elif stream_test_result:
             try:
                 self._generate_scratch(thumbnail)
-            except:
-                wok_log.error("screenshot_creation: Unable to create "
-                              "screenshot image %s." % thumbnail)
+            except Exception:
+                wok_log.error('screenshot_creation: Unable to create '
+                              'screenshot image %s.' % thumbnail)
         else:
             self._create_black_image(thumbnail)
 
@@ -178,7 +177,7 @@ class VMScreenshot(object):
                 # work around pic truncate validation in thumbnail generation
                 im.thumbnail(self.THUMBNAIL_SIZE)
             except Exception as e:
-                wok_log.warning("Image load with warning: %s." % e)
-            im.save(thumbnail, "PNG")
+                wok_log.warning('Image load with warning: %s.' % e)
+            im.save(thumbnail, 'PNG')
 
         self.info['thumbnail'] = thumbnail

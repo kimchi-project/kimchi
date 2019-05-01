@@ -16,16 +16,14 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301USA
-
 import subprocess
-
 
 from wok.exception import OperationFailed
 
 
 class TargetClient(object):
     def __init__(self, target, host, port=None, auth=None):
-        self.portal = host + ("" if port is None else ":%s" % port)
+        self.portal = host + ('' if port is None else ':%s' % port)
         self.target = target
         self.auth = auth
         self.targetCmd = ['iscsiadm', '--mode', 'node', '--targetname',
@@ -53,7 +51,7 @@ class TargetClient(object):
         out, err = iscsiadm.communicate()
         if iscsiadm.returncode != 0:
             msg_args = {'portal': self.portal, 'err': err}
-            raise OperationFailed("KCHISCSI0001E", msg_args)
+            raise OperationFailed('KCHISCSI0001E', msg_args)
         return out
 
     def _discover(self):
@@ -64,7 +62,7 @@ class TargetClient(object):
         out, err = iscsiadm.communicate()
         if iscsiadm.returncode != 0:
             msg_args = {'portal': self.portal, 'err': err}
-            raise OperationFailed("KCHISCSI0001E", msg_args)
+            raise OperationFailed('KCHISCSI0001E', msg_args)
         return out
 
     def _run_op(self, op):

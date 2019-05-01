@@ -16,7 +16,6 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
 import lxml.etree as ET
 from lxml.builder import E
 
@@ -44,10 +43,12 @@ def get_bootorder_xml(boot_order=None):
     """
     boot_xml = ''
     for device in get_bootorder_node(boot_order):
-        boot_xml += ET.tostring(device, encoding='utf-8', pretty_print=True)
+        boot_xml += ET.tostring(device, encoding='utf-8', pretty_print=True).decode(
+            'utf-8'
+        )
 
     return boot_xml
 
 
 def get_bootmenu_node():
-    return E.bootmenu(enable="yes", timeout="5000")
+    return E.bootmenu(enable='yes', timeout='5000')

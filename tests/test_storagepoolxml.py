@@ -16,36 +16,37 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-
-import lxml.etree as ET
 import unittest
 
+import lxml.etree as ET
 from wok.plugins.kimchi.model.libvirtstoragepool import StoragePoolDef
 
 
 class StoragepoolXMLTests(unittest.TestCase):
     def test_get_storagepool_xml(self):
         poolDefs = [
-            {'def':
-                {'type': 'dir',
-                 'name': 'unitTestDirPool',
-                 'path': '/var/temp/images'},
-             'xml':
-             """
+            {
+                'def': {
+                    'type': 'dir',
+                    'name': 'unitTestDirPool',
+                    'path': '/var/temp/images',
+                },
+                'xml': """
              <pool type='dir'>
                <name>unitTestDirPool</name>
                <target>
                  <path>/var/temp/images</path>
                </target>
              </pool>
-             """},
-            {'def':
-                {'type': 'netfs',
-                 'name': 'unitTestNFSPool',
-                 'source': {'host': '127.0.0.1',
-                            'path': '/var/export'}},
-             'xml':
-             """
+             """,
+            },
+            {
+                'def': {
+                    'type': 'netfs',
+                    'name': 'unitTestNFSPool',
+                    'source': {'host': '127.0.0.1', 'path': '/var/export'},
+                },
+                'xml': """
              <pool type='netfs'>
                <name>unitTestNFSPool</name>
                <source>
@@ -56,13 +57,15 @@ class StoragepoolXMLTests(unittest.TestCase):
                  <path>/var/lib/kimchi/nfs_mount/unitTestNFSPool</path>
                </target>
              </pool>
-             """},
-            {'def':
-                {'type': 'logical',
-                 'name': 'unitTestLogicalPool',
-                 'source': {'devices': ['/dev/hda', '/dev/hdb']}},
-             'xml':
-             """
+             """,
+            },
+            {
+                'def': {
+                    'type': 'logical',
+                    'name': 'unitTestLogicalPool',
+                    'source': {'devices': ['/dev/hda', '/dev/hdb']},
+                },
+                'xml': """
              <pool type='logical'>
              <name>unitTestLogicalPool</name>
                  <source>
@@ -73,15 +76,18 @@ class StoragepoolXMLTests(unittest.TestCase):
                  <path>/dev/unitTestLogicalPool</path>
              </target>
              </pool>
-             """},
-            {'def':
-                {'type': 'iscsi',
-                 'name': 'unitTestISCSIPool',
-                 'source': {
-                     'host': '127.0.0.1',
-                     'target': 'iqn.2003-01.org.linux-iscsi.localhost'}},
-             'xml':
-             """
+             """,
+            },
+            {
+                'def': {
+                    'type': 'iscsi',
+                    'name': 'unitTestISCSIPool',
+                    'source': {
+                        'host': '127.0.0.1',
+                        'target': 'iqn.2003-01.org.linux-iscsi.localhost',
+                    },
+                },
+                'xml': """
              <pool type='iscsi'>
                <name>unitTestISCSIPool</name>
                <source>
@@ -92,16 +98,19 @@ class StoragepoolXMLTests(unittest.TestCase):
                  <path>/dev/disk/by-id</path>
                </target>
              </pool>
-             """},
-            {'def':
-                {'type': 'iscsi',
-                 'name': 'unitTestISCSIPoolPort',
-                 'source': {
-                     'host': '127.0.0.1',
-                     'port': 3266,
-                     'target': 'iqn.2003-01.org.linux-iscsi.localhost'}},
-             'xml':
-             """
+             """,
+            },
+            {
+                'def': {
+                    'type': 'iscsi',
+                    'name': 'unitTestISCSIPoolPort',
+                    'source': {
+                        'host': '127.0.0.1',
+                        'port': 3266,
+                        'target': 'iqn.2003-01.org.linux-iscsi.localhost',
+                    },
+                },
+                'xml': """
              <pool type='iscsi'>
                <name>unitTestISCSIPoolPort</name>
                <source>
@@ -112,17 +121,22 @@ class StoragepoolXMLTests(unittest.TestCase):
                  <path>/dev/disk/by-id</path>
                </target>
              </pool>
-             """},
-            {'def':
-                {'type': 'iscsi',
-                 'name': 'unitTestISCSIPoolAuth',
-                 'source': {
-                     'host': '127.0.0.1',
-                     'target': 'iqn.2003-01.org.linux-iscsi.localhost',
-                     'auth': {'username': 'testUser',
-                              'password': 'ActuallyNotUsedInPoolXML'}}},
-             'xml':
-             """
+             """,
+            },
+            {
+                'def': {
+                    'type': 'iscsi',
+                    'name': 'unitTestISCSIPoolAuth',
+                    'source': {
+                        'host': '127.0.0.1',
+                        'target': 'iqn.2003-01.org.linux-iscsi.localhost',
+                        'auth': {
+                            'username': 'testUser',
+                            'password': 'ActuallyNotUsedInPoolXML',
+                        },
+                    },
+                },
+                'xml': """
              <pool type='iscsi'>
                <name>unitTestISCSIPoolAuth</name>
                <source>
@@ -136,19 +150,23 @@ class StoragepoolXMLTests(unittest.TestCase):
                  <path>/dev/disk/by-id</path>
                </target>
              </pool>
-             """},
-            {'def':
-                {'type': 'scsi',
-                 'name': 'unitTestSCSIFCPool',
-                 'path': '/dev/disk/by-path',
-                 'source': {
-                     'name': 'scsi_host3',
-                     'adapter': {
-                         'type': 'fc_host',
-                         'wwpn': '0123456789abcdef',
-                         'wwnn': 'abcdef0123456789'}}},
-             'xml':
-             """
+             """,
+            },
+            {
+                'def': {
+                    'type': 'scsi',
+                    'name': 'unitTestSCSIFCPool',
+                    'path': '/dev/disk/by-path',
+                    'source': {
+                        'name': 'scsi_host3',
+                        'adapter': {
+                            'type': 'fc_host',
+                            'wwpn': '0123456789abcdef',
+                            'wwnn': 'abcdef0123456789',
+                        },
+                    },
+                },
+                'xml': """
              <pool type='scsi'>
                <name>unitTestSCSIFCPool</name>
                <source>
@@ -159,7 +177,9 @@ class StoragepoolXMLTests(unittest.TestCase):
                    <path>/dev/disk/by-path</path>
                </target>
              </pool>
-             """}]
+             """,
+            },
+        ]
 
         for poolDef in poolDefs:
             defObj = StoragePoolDef.create(poolDef['def'])
@@ -168,4 +188,4 @@ class StoragepoolXMLTests(unittest.TestCase):
             parser = ET.XMLParser(remove_blank_text=True)
             t1 = ET.fromstring(xmlStr, parser)
             t2 = ET.fromstring(poolDef['xml'], parser)
-            self.assertEquals(ET.tostring(t1), ET.tostring(t2))
+            self.assertEqual(ET.tostring(t1), ET.tostring(t2))

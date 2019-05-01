@@ -17,15 +17,14 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 #
-
 import glob
 import json
 import os
 
-from wok.exception import NotFoundError, OperationFailed
-from wok.utils import wok_log
-
+from wok.exception import NotFoundError
+from wok.exception import OperationFailed
 from wok.plugins.kimchi import config
+from wok.utils import wok_log
 
 
 ARCHS = {'x86_64': ['x86_64', 'amd64', 'i686', 'x86', 'i386'],
@@ -43,21 +42,21 @@ class DistroLoader(object):
     def _get_json_info(self, fname):
         msg_args = {'filename': fname}
         if not os.path.isfile(fname):
-            msg = "DistroLoader: failed to find distro file: %s" % fname
+            msg = 'DistroLoader: failed to find distro file: %s' % fname
             wok_log.error(msg)
-            raise NotFoundError("KCHDL0001E", msg_args)
+            raise NotFoundError('KCHDL0001E', msg_args)
         try:
             with open(fname) as f:
                 data = json.load(f)
             return data
         except ValueError:
-            msg = "DistroLoader: failed to parse distro file: %s" % fname
+            msg = 'DistroLoader: failed to parse distro file: %s' % fname
             wok_log.error(msg)
-            raise OperationFailed("KCHDL0002E", msg_args)
+            raise OperationFailed('KCHDL0002E', msg_args)
 
     def get(self):
         arch_list = ARCHS.get(os.uname()[4])
-        all_json_files = glob.glob("%s/%s" % (self.location, "*.json"))
+        all_json_files = glob.glob('%s/%s' % (self.location, '*.json'))
         distros = []
         for f in all_json_files:
             distros.extend(self._get_json_info(f))

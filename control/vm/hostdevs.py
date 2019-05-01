@@ -16,37 +16,29 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
-from wok.control.base import AsyncCollection, AsyncResource
+from wok.control.base import AsyncCollection
+from wok.control.base import AsyncResource
 from wok.control.utils import UrlSubNode
 
 
-VMHOSTDEVS_REQUESTS = {
-    'POST': {'default': "KCHVMHDEV0001L"},
-}
+VMHOSTDEVS_REQUESTS = {'POST': {'default': 'KCHVMHDEV0001L'}}
 
-VMHOSTDEV_REQUESTS = {
-    'DELETE': {
-        'default': "KCHVMHDEV0002L",
-    },
-}
+VMHOSTDEV_REQUESTS = {'DELETE': {'default': 'KCHVMHDEV0002L'}}
 
 
-@UrlSubNode("hostdevs")
+@UrlSubNode('hostdevs')
 class VMHostDevs(AsyncCollection):
     def __init__(self, model, vmid):
         super(VMHostDevs, self).__init__(model)
         self.resource = VMHostDev
         self.vmid = vmid
-        self.resource_args = [self.vmid, ]
-        self.model_args = [self.vmid, ]
+        self.resource_args = [self.vmid]
+        self.model_args = [self.vmid]
 
         # set user log messages and make sure all parameters are present
         self.log_map = VMHOSTDEVS_REQUESTS
-        self.log_args.update({
-            'name': '',
-            'vmid': self.vmid.encode('utf-8') if self.vmid else '',
-        })
+        self.log_args.update(
+            {'name': '', 'vmid': self.vmid if self.vmid else ''})
 
 
 class VMHostDev(AsyncResource):
@@ -58,9 +50,7 @@ class VMHostDev(AsyncResource):
 
         # set user log messages and make sure all parameters are present
         self.log_map = VMHOSTDEV_REQUESTS
-        self.log_args.update({
-            'vmid': self.vmid.encode('utf-8') if self.vmid else '',
-        })
+        self.log_args.update({'vmid': self.vmid if self.vmid else ''})
 
     @property
     def data(self):

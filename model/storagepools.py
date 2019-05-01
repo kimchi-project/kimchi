@@ -16,48 +16,57 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
 import libvirt
 import lxml.etree as ET
 from lxml.builder import E
-
 from wok.asynctask import AsyncTask
-from wok.exception import InvalidOperation, MissingParameter
-from wok.exception import NotFoundError, OperationFailed
-from wok.utils import run_command, wok_log
-from wok.xmlutils.utils import xpath_get_text
-
-from wok.plugins.kimchi.config import config, get_kimchi_version, kimchiPaths
+from wok.exception import InvalidOperation
+from wok.exception import MissingParameter
+from wok.exception import NotFoundError
+from wok.exception import OperationFailed
+from wok.plugins.kimchi.config import config
+from wok.plugins.kimchi.config import get_kimchi_version
+from wok.plugins.kimchi.config import kimchiPaths
 from wok.plugins.kimchi.model.config import CapabilitiesModel
 from wok.plugins.kimchi.model.host import DeviceModel
 from wok.plugins.kimchi.model.libvirtstoragepool import StoragePoolDef
 from wok.plugins.kimchi.osinfo import defaults as tmpl_defaults
 from wok.plugins.kimchi.scan import Scanner
-from wok.plugins.kimchi.utils import pool_name_from_uri, is_s390x
+from wok.plugins.kimchi.utils import is_s390x
+from wok.plugins.kimchi.utils import pool_name_from_uri
+from wok.utils import run_command
+from wok.utils import wok_log
+from wok.xmlutils.utils import xpath_get_text
 
 
-ISO_POOL_NAME = u'kimchi_isos'
+ISO_POOL_NAME = 'kimchi_isos'
 
-POOL_STATE_MAP = {0: 'inactive',
-                  1: 'initializing',
-                  2: 'active',
-                  3: 'degraded',
-                  4: 'inaccessible'}
+POOL_STATE_MAP = {
+    0: 'inactive',
+    1: 'initializing',
+    2: 'active',
+    3: 'degraded',
+    4: 'inaccessible',
+}
 
 # Types of pools supported
-STORAGE_SOURCES = {'netfs': {'addr': '/pool/source/host/@name',
-                             'path': '/pool/source/dir/@path'},
-                   'iscsi': {'addr': '/pool/source/host/@name',
-                             'port': '/pool/source/host/@port',
-                             'path': '/pool/source/device/@path'},
-                   'scsi': {'adapter_type': '/pool/source/adapter/@type',
-                            'adapter_name': '/pool/source/adapter/@name',
-                            'wwnn': '/pool/source/adapter/@wwnn',
-                            'wwpn': '/pool/source/adapter/@wwpn'}}
+STORAGE_SOURCES = {
+    'netfs': {'addr': '/pool/source/host/@name', 'path': '/pool/source/dir/@path'},
+    'iscsi': {
+        'addr': '/pool/source/host/@name',
+        'port': '/pool/source/host/@port',
+        'path': '/pool/source/device/@path',
+    },
+    'scsi': {
+        'adapter_type': '/pool/source/adapter/@type',
+        'adapter_name': '/pool/source/adapter/@name',
+        'wwnn': '/pool/source/adapter/@wwnn',
+        'wwpn': '/pool/source/adapter/@wwpn',
+    },
+}
 
 
 class StoragePoolsModel(object):
-
     def __init__(self, **kargs):
         self.conn = kargs['conn']
         self.objstore = kargs['objstore']
@@ -90,18 +99,20 @@ class StoragePoolsModel(object):
 
         conn = self.conn.get()
         for pool_name in pools:
-            error_msg = ("Storage pool %s does not exist or is not "
-                         "active. Please, check the configuration in "
-                         "%s/template.conf to ensure it lists only valid "
-                         "storage." % (pool_name, kimchiPaths.sysconf_dir))
+            error_msg = (
+                'Storage pool %s does not exist or is not '
+                'active. Please, check the configuration in '
+                '%s/template.conf to ensure it lists only valid '
+                'storage.' % (pool_name, kimchiPaths.sysconf_dir)
+            )
             try:
                 pool = conn.storagePoolLookupByName(pool_name)
-            except libvirt.libvirtError, e:
+            except libvirt.libvirtError as e:
                 pool_path = pools[pool_name].get('path')
                 if pool_path is None:
-                    msg = "Fatal: Unable to find storage pool %s. "
-                    wok_log.error(msg % pool_name)
-                    wok_log.error("Details: %s", e.message)
+                    wok_log.error(
+                        f'Fatal: Unable to find storage pool {pool_name}.')
+                    wok_log.error(f'Details: {str(e)}')
                     raise Exception(error_msg)
 
                 # Try to create the pool
@@ -110,10 +121,10 @@ class StoragePoolsModel(object):
                 xml = ET.tostring(pool)
                 try:
                     pool = conn.storagePoolDefineXML(xml, 0)
-                except libvirt.libvirtError, e:
-                    msg = "Fatal: Unable to create storage pool %s. "
-                    wok_log.error(msg % pool_name)
-                    wok_log.error("Details: %s", e.message)
+                except libvirt.libvirtError as e:
+                    wok_log.error(
+                        f'Fatal: Unable to create storage pool {pool_name}.')
+                    wok_log.error(f'Details: {str(e)}')
                     raise Exception(error_msg)
 
                 # Build and set autostart value to pool
@@ -124,16 +135,16 @@ class StoragePoolsModel(object):
                     # already exists on system
                     pool.build(libvirt.VIR_STORAGE_POOL_BUILD_NEW)
                     pool.setAutostart(1)
-                except:
+                except Exception:
                     pass
 
             if pool.isActive() == 0:
                 try:
                     pool.create(0)
-                except libvirt.libvirtError, e:
-                    msg = "Fatal: Unable to create storage pool %s. "
-                    wok_log.error(msg % pool_name)
-                    wok_log.error("Details: %s", e.message)
+                except libvirt.libvirtError as e:
+                    wok_log.error(
+                        f'Fatal: Unable to create storage pool {pool_name}.')
+                    wok_log.error(f'Details: {str(e)}')
                     raise Exception(error_msg)
 
     def get_list(self):
@@ -141,13 +152,13 @@ class StoragePoolsModel(object):
             conn = self.conn.get()
             names = conn.listStoragePools()
             names += conn.listDefinedStoragePools()
-            return sorted(map(lambda x: x.decode('utf-8'), names))
+            return sorted(names)
         except libvirt.libvirtError as e:
-            raise OperationFailed("KCHPOOL0006E",
-                                  {'err': e.get_error_message()})
+            raise OperationFailed(
+                'KCHPOOL0006E', {'err': e.get_error_message()})
 
     def _check_lvm(self, name, from_vg):
-        vgdisplay_cmd = ['vgdisplay', name.encode('utf-8')]
+        vgdisplay_cmd = ['vgdisplay', name]
         output, error, returncode = run_command(vgdisplay_cmd)
         # From vgdisplay error codes:
         # 1  error reading VGDA
@@ -157,10 +168,10 @@ class StoragePoolsModel(object):
         # 5  no volume groups found at all
         # 6  error reading VGDA from lvmtab
         if from_vg and returncode in [2, 4, 5]:
-            raise InvalidOperation("KCHPOOL0038E", {'name': name})
+            raise InvalidOperation('KCHPOOL0038E', {'name': name})
 
         if not from_vg and returncode not in [2, 4, 5]:
-            raise InvalidOperation("KCHPOOL0036E", {'name': name})
+            raise InvalidOperation('KCHPOOL0036E', {'name': name})
 
     def create(self, params):
         task_id = None
@@ -170,7 +181,7 @@ class StoragePoolsModel(object):
         try:
             name = params['name']
             if name == ISO_POOL_NAME:
-                raise InvalidOperation("KCHPOOL0031E")
+                raise InvalidOperation('KCHPOOL0031E')
 
             # The user may want to create a logical pool with the same name
             # used before but a volume group will already exist with this name
@@ -190,13 +201,13 @@ class StoragePoolsModel(object):
 
             poolDef = StoragePoolDef.create(params)
             poolDef.prepare(conn)
-            xml = poolDef.xml.encode("utf-8")
-        except KeyError, item:
-            raise MissingParameter("KCHPOOL0004E",
-                                   {'item': str(item), 'name': name})
+            xml = poolDef.xml
+        except KeyError as item:
+            raise MissingParameter(
+                'KCHPOOL0004E', {'item': str(item), 'name': name})
 
         if name in self.get_list():
-            raise InvalidOperation("KCHPOOL0001E", {'name': name})
+            raise InvalidOperation('KCHPOOL0001E', {'name': name})
 
         try:
             if task_id:
@@ -206,9 +217,10 @@ class StoragePoolsModel(object):
 
             pool = conn.storagePoolDefineXML(xml, 0)
         except libvirt.libvirtError as e:
-            wok_log.error("Problem creating Storage Pool: %s", e)
-            raise OperationFailed("KCHPOOL0007E",
-                                  {'name': name, 'err': e.get_error_message()})
+            wok_log.error(f'Problem creating Storage Pool: {str(e)}')
+            raise OperationFailed(
+                'KCHPOOL0007E', {'name': name, 'err': e.get_error_message()}
+            )
 
         # Build and set autostart value to pool
         # Ignore error as the pool was already successfully created
@@ -219,28 +231,30 @@ class StoragePoolsModel(object):
                 pool.setAutostart(1)
             else:
                 pool.setAutostart(0)
-        except:
+        except Exception:
             pass
 
         if params['type'] == 'netfs':
-            output, error, returncode = run_command(['setsebool', '-P',
-                                                    'virt_use_nfs=1'])
+            output, error, returncode = run_command(
+                ['setsebool', '-P', 'virt_use_nfs=1']
+            )
             if error or returncode:
-                wok_log.error("Unable to set virt_use_nfs=1. If you use "
-                              "SELinux, this may prevent NFS pools from "
-                              "being used.")
+                wok_log.error(
+                    'Unable to set virt_use_nfs=1. If you use '
+                    'SELinux, this may prevent NFS pools from '
+                    'being used.'
+                )
         return name
 
     def _clean_scan(self, pool_name):
         try:
             conn = self.conn.get()
-            pool = conn.storagePoolLookupByName(pool_name.encode("utf-8"))
+            pool = conn.storagePoolLookupByName(pool_name)
             pool.destroy()
             with self.objstore as session:
                 session.delete('scanning', pool_name)
-        except Exception, e:
-            err = "Exception %s occured when cleaning scan result"
-            wok_log.debug(err % e.message)
+        except Exception as e:
+            wok_log.debug(f'Exception {e} occurred when cleaning scan result')
 
     def _do_deep_scan(self, params):
         scan_params = dict(ignore_list=[])
@@ -249,23 +263,26 @@ class StoragePoolsModel(object):
 
         for pool in self.get_list():
             try:
-                res = StoragePoolModel(conn=self.conn,
-                                       objstore=self.objstore).lookup(pool)
+                res = StoragePoolModel(conn=self.conn, objstore=self.objstore).lookup(
+                    pool
+                )
                 if res['state'] == 'active':
                     scan_params['ignore_list'].append(res['path'])
-            except Exception, e:
-                err = "Exception %s occured when get ignore path"
-                wok_log.debug(err % e.message)
+            except Exception as e:
+                wok_log.debug(f'Exception {e} occured when get ignore path')
 
         params['path'] = self.scanner.scan_dir_prepare(params['name'])
         scan_params['pool_path'] = params['path']
-        task_id = AsyncTask('/plugins/kimchi/storagepools/%s' % ISO_POOL_NAME,
-                            self.scanner.start_scan, scan_params).id
+        task_id = AsyncTask(
+            f'/plugins/kimchi/storagepools/{ISO_POOL_NAME}',
+            self.scanner.start_scan,
+            scan_params,
+        ).id
         # Record scanning-task/storagepool mapping for future querying
         try:
             with self.objstore as session:
-                session.store('scanning', params['name'], task_id,
-                              get_kimchi_version())
+                session.store(
+                    'scanning', params['name'], task_id, get_kimchi_version())
             return task_id
         except Exception as e:
             raise OperationFailed('KCHPOOL0037E', {'err': e.message})
@@ -280,10 +297,10 @@ class StoragePoolModel(object):
     def get_storagepool(name, conn):
         conn = conn.get()
         try:
-            return conn.storagePoolLookupByName(name.encode("utf-8"))
+            return conn.storagePoolLookupByName(name)
         except libvirt.libvirtError as e:
             if e.get_error_code() == libvirt.VIR_ERR_NO_STORAGE_POOL:
-                raise NotFoundError("KCHPOOL0002E", {'name': name})
+                raise NotFoundError('KCHPOOL0002E', {'name': name})
             else:
                 raise
 
@@ -294,8 +311,8 @@ class StoragePoolModel(object):
         try:
             pool.refresh(0)
 
-        except Exception, e:
-            wok_log.error("Pool refresh failed: %s" % str(e))
+        except Exception as e:
+            wok_log.error(f'Pool refresh failed: {e}')
 
         return pool.numOfVolumes()
 
@@ -309,7 +326,7 @@ class StoragePoolModel(object):
             if len(res) == 1:
                 source[key] = res[0]
             elif len(res) == 0:
-                source[key] = ""
+                source[key] = ''
             else:
                 source[key] = res
         return source
@@ -317,13 +334,13 @@ class StoragePoolModel(object):
     def _nfs_status_online(self, pool, poolArgs=None):
         if not poolArgs:
             xml = pool.XMLDesc(0)
-            pool_type = xpath_get_text(xml, "/pool/@type")[0]
+            pool_type = xpath_get_text(xml, '/pool/@type')[0]
             source = self._get_storage_source(pool_type, xml)
             poolArgs = {}
             poolArgs['name'] = pool.name()
             poolArgs['type'] = pool_type
-            poolArgs['source'] = {'path': source['path'],
-                                  'host': source['addr']}
+            poolArgs['source'] = {
+                'path': source['path'], 'host': source['addr']}
         conn = self.conn.get()
         poolDef = StoragePoolDef.create(poolArgs)
         try:
@@ -338,14 +355,17 @@ class StoragePoolModel(object):
         autostart = True if pool.autostart() else False
         persistent = True if pool.isPersistent() else False
         xml = pool.XMLDesc(0)
-        path = xpath_get_text(xml, "/pool/target/path")[0]
-        pool_type = xpath_get_text(xml, "/pool/@type")[0]
+        path = xpath_get_text(xml, '/pool/target/path')[0]
+        pool_type = xpath_get_text(xml, '/pool/@type')[0]
         source = self._get_storage_source(pool_type, xml)
         # FIXME: nfs workaround - prevent any libvirt operation
         # for a nfs if the corresponding NFS server is down.
         if pool_type == 'netfs' and not self._nfs_status_online(pool):
-            wok_log.debug("NFS pool %s is offline, reason: NFS "
-                          "server %s is unreachable.", name, source['addr'])
+            wok_log.debug(
+                'NFS pool %s is offline, reason: NFS ' 'server %s is unreachable.',
+                name,
+                source['addr'],
+            )
             # Mark state as '4' => inaccessible.
             info[0] = 4
             # skip calculating volumes
@@ -353,17 +373,19 @@ class StoragePoolModel(object):
         else:
             nr_volumes = self._get_storagepool_vols_num(pool)
 
-        res = {'state': POOL_STATE_MAP[info[0]],
-               'path': path,
-               'source': source,
-               'type': pool_type,
-               'autostart': autostart,
-               'capacity': info[1],
-               'allocated': info[2],
-               'available': info[3],
-               'nr_volumes': nr_volumes,
-               'persistent': persistent,
-               'in_use': self._pool_used_by_template(name)}
+        res = {
+            'state': POOL_STATE_MAP[info[0]],
+            'path': path,
+            'source': source,
+            'type': pool_type,
+            'autostart': autostart,
+            'capacity': info[1],
+            'allocated': info[2],
+            'available': info[3],
+            'nr_volumes': nr_volumes,
+            'persistent': persistent,
+            'in_use': self._pool_used_by_template(name),
+        }
 
         if not pool.isPersistent():
             # Deal with deep scan generated pool
@@ -383,19 +405,23 @@ class StoragePoolModel(object):
             lsblk_cmd = ['lsblk', disk]
             output, error, returncode = run_command(lsblk_cmd)
             if returncode != 0:
-                wok_log.error('%s is not a valid disk/partition. Could not '
-                              'add it to the pool %s.', disk, pool_name)
-                raise OperationFailed('KCHPOOL0027E', {'disk': disk,
-                                                       'pool': pool_name})
+                wok_log.error(
+                    '%s is not a valid disk/partition. Could not '
+                    'add it to the pool %s.',
+                    disk,
+                    pool_name,
+                )
+                raise OperationFailed(
+                    'KCHPOOL0027E', {'disk': disk, 'pool': pool_name})
         # add disks to the lvm pool using vgextend + virsh refresh
-        vgextend_cmd = ["vgextend", pool_name]
+        vgextend_cmd = ['vgextend', pool_name]
         vgextend_cmd += disks
         output, error, returncode = run_command(vgextend_cmd)
         if returncode != 0:
-            msg = "Could not add disks to pool %s, error: %s"
+            msg = 'Could not add disks to pool %s, error: %s'
             wok_log.error(msg, pool_name, error)
-            raise OperationFailed('KCHPOOL0028E', {'pool': pool_name,
-                                                   'err': error})
+            raise OperationFailed(
+                'KCHPOOL0028E', {'pool': pool_name, 'err': error})
         # refreshing pool state
         pool = self.get_storagepool(pool_name, self.conn)
         if pool.isActive():
@@ -412,30 +438,32 @@ class StoragePoolModel(object):
         if 'disks' in params:
             # check if pool is type 'logical'
             xml = pool.XMLDesc(0)
-            pool_type = xpath_get_text(xml, "/pool/@type")[0]
+            pool_type = xpath_get_text(xml, '/pool/@type')[0]
             if pool_type != 'logical':
                 raise InvalidOperation('KCHPOOL0029E')
             self._update_lvm_disks(name, params['disks'])
         ident = pool.name()
-        return ident.decode('utf-8')
+        return ident
 
     def activate(self, name):
         pool = self.get_storagepool(name, self.conn)
         # FIXME: nfs workaround - do not activate a NFS pool
         # if the NFS server is not reachable.
         xml = pool.XMLDesc(0)
-        pool_type = xpath_get_text(xml, "/pool/@type")[0]
+        pool_type = xpath_get_text(xml, '/pool/@type')[0]
         if pool_type == 'netfs' and not self._nfs_status_online(pool):
             # block the user from activating the pool.
             source = self._get_storage_source(pool_type, xml)
-            raise OperationFailed("KCHPOOL0032E",
-                                  {'name': name, 'server': source['addr']})
-            return
+            raise OperationFailed(
+                'KCHPOOL0032E', {'name': name, 'server': source['addr']}
+            )
+
         try:
             pool.create(0)
         except libvirt.libvirtError as e:
-            raise OperationFailed("KCHPOOL0009E",
-                                  {'name': name, 'err': e.get_error_message()})
+            raise OperationFailed(
+                'KCHPOOL0009E', {'name': name, 'err': e.get_error_message()}
+            )
 
     def _pool_used_by_template(self, pool_name):
         with self.objstore as session:
@@ -457,23 +485,25 @@ class StoragePoolModel(object):
         # FIXME: nfs workaround - do not try to deactivate a NFS pool
         # if the NFS server is not reachable.
         xml = pool.XMLDesc(0)
-        pool_type = xpath_get_text(xml, "/pool/@type")[0]
+        pool_type = xpath_get_text(xml, '/pool/@type')[0]
         if pool_type == 'netfs' and not self._nfs_status_online(pool):
             # block the user from dactivating the pool.
             source = self._get_storage_source(pool_type, xml)
-            raise OperationFailed("KCHPOOL0033E",
-                                  {'name': name, 'server': source['addr']})
-            return
+            raise OperationFailed(
+                'KCHPOOL0033E', {'name': name, 'server': source['addr']}
+            )
+
         try:
             persistent = pool.isPersistent()
             pool.destroy()
         except libvirt.libvirtError as e:
-            raise OperationFailed("KCHPOOL0010E",
-                                  {'name': name, 'err': e.get_error_message()})
+            raise OperationFailed(
+                'KCHPOOL0010E', {'name': name, 'err': e.get_error_message()}
+            )
         # If pool was not persistent, then it was erased by destroy() and
         # must return nothing here, to trigger _redirect() and avoid errors
         if not persistent:
-            return ""
+            return ''
 
     def delete(self, name):
         if self._pool_used_by_template(name):
@@ -481,24 +511,25 @@ class StoragePoolModel(object):
 
         pool = self.get_storagepool(name, self.conn)
         if pool.isActive():
-            raise InvalidOperation("KCHPOOL0005E", {'name': name})
+            raise InvalidOperation('KCHPOOL0005E', {'name': name})
 
         vms = self._get_vms_attach_to_storagepool(name)
         if len(vms) > 0:
-            raise InvalidOperation('KCHPOOL0039E', {'name': name,
-                                                    'vms': ",".join(vms)})
+            raise InvalidOperation(
+                'KCHPOOL0039E', {'name': name, 'vms': ','.join(vms)})
         try:
             pool.undefine()
         except libvirt.libvirtError as e:
-            raise OperationFailed("KCHPOOL0011E",
-                                  {'name': name, 'err': e.get_error_message()})
+            raise OperationFailed(
+                'KCHPOOL0011E', {'name': name, 'err': e.get_error_message()}
+            )
 
     def _get_vms_attach_to_storagepool(self, storagepool):
         conn = self.conn.get()
 
         # get storage pool path
         pool = self.get_storagepool(storagepool, self.conn)
-        path = "".join(xpath_get_text(pool.XMLDesc(), "/pool/target/path"))
+        path = ''.join(xpath_get_text(pool.XMLDesc(), '/pool/target/path'))
 
         # activate and deactive quickly to get volumes
         vms = []
@@ -516,5 +547,4 @@ class IsoPoolModel(object):
         pass
 
     def lookup(self, name):
-        return {'state': 'active',
-                'type': 'kimchi-iso'}
+        return {'state': 'active', 'type': 'kimchi-iso'}

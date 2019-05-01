@@ -16,20 +16,16 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+import unittest
 
 import ipaddr
 import lxml.etree as ET
-import unittest
-
-
-from wok.xmlutils.utils import xpath_get_text
-
 from wok.plugins.kimchi.xmlutils import network as nxml
+from wok.xmlutils.utils import xpath_get_text
 
 
 def normalize_xml(xml_str):
-    return ET.tostring(ET.fromstring(xml_str,
-                       ET.XMLParser(remove_blank_text=True)))
+    return ET.tostring(ET.fromstring(xml_str, ET.XMLParser(remove_blank_text=True)))
 
 
 class NetworkXmlTests(unittest.TestCase):
@@ -37,124 +33,128 @@ class NetworkXmlTests(unittest.TestCase):
         """
         Test network dhcp xml
         """
-        dhcp_range = {"start": "192.168.122.100", "end": "192.168.122.254"}
-        host1 = {"mac": "00:16:3e:77:e2:ed",
-                 "name": "foo.example.com",
-                 "ip": "192.168.122.10"}
-        host2 = {"mac": "00:16:3e:3e:a9:1a",
-                 "name": "bar.example.com",
-                 "ip": "192.168.122.11"}
+        dhcp_range = {'start': '192.168.122.100', 'end': '192.168.122.254'}
+        host1 = {
+            'mac': '00:16:3e:77:e2:ed',
+            'name': 'foo.example.com',
+            'ip': '192.168.122.10',
+        }
+        host2 = {
+            'mac': '00:16:3e:3e:a9:1a',
+            'name': 'bar.example.com',
+            'ip': '192.168.122.11',
+        }
         params = {}
 
         dhcp = nxml._get_dhcp_elem(**params)
-        self.assertEquals(None, dhcp)
+        self.assertEqual(None, dhcp)
 
-        params["range"] = dhcp_range
+        params['range'] = dhcp_range
         xml = ET.tostring(nxml._get_dhcp_elem(**params))
-        start = xpath_get_text(xml, "/dhcp/range/@start")
-        end = xpath_get_text(xml, "/dhcp/range/@end")
-        self.assertEquals(dhcp_range['start'], start[0])
-        self.assertEquals(dhcp_range['end'], end[0])
+        start = xpath_get_text(xml, '/dhcp/range/@start')
+        end = xpath_get_text(xml, '/dhcp/range/@end')
+        self.assertEqual(dhcp_range['start'], start[0])
+        self.assertEqual(dhcp_range['end'], end[0])
 
-        params["hosts"] = [host1, host2]
+        params['hosts'] = [host1, host2]
         xml = ET.tostring(nxml._get_dhcp_elem(**params))
-        ip = xpath_get_text(xml, "/dhcp/host/@ip")
-        self.assertEquals(ip, [host1['ip'], host2['ip']])
+        ip = xpath_get_text(xml, '/dhcp/host/@ip')
+        self.assertEqual(ip, [host1['ip'], host2['ip']])
 
     def test_ip_xml(self):
         """
         Test network ip xml
         """
-        dhcp_range = {"start": "192.168.122.100", "end": "192.168.122.254"}
+        dhcp_range = {'start': '192.168.122.100', 'end': '192.168.122.254'}
         params = {}
 
         dhcp = nxml._get_dhcp_elem(**params)
-        self.assertEquals(None, dhcp)
+        self.assertEqual(None, dhcp)
 
-        params["net"] = "192.168.122.0/255.255.255.0"
-        params["dhcp"] = {'range': dhcp_range}
+        params['net'] = '192.168.122.0/255.255.255.0'
+        params['dhcp'] = {'range': dhcp_range}
         xml = ET.tostring(nxml._get_ip_elem(**params))
-        start = xpath_get_text(xml, "/ip/dhcp/range/@start")[0]
-        end = xpath_get_text(xml, "/ip/dhcp/range/@end")[0]
-        self.assertEquals(dhcp_range['start'], start)
-        self.assertEquals(dhcp_range['end'], end)
+        start = xpath_get_text(xml, '/ip/dhcp/range/@start')[0]
+        end = xpath_get_text(xml, '/ip/dhcp/range/@end')[0]
+        self.assertEqual(dhcp_range['start'], start)
+        self.assertEqual(dhcp_range['end'], end)
 
-        address = xpath_get_text(xml, "/ip/@address")[0]
-        netmask = xpath_get_text(xml, "/ip/@netmask")[0]
-        self.assertEquals(address, params["net"].split("/")[0])
-        self.assertEquals(netmask, params["net"].split("/")[1])
+        address = xpath_get_text(xml, '/ip/@address')[0]
+        netmask = xpath_get_text(xml, '/ip/@netmask')[0]
+        self.assertEqual(address, params['net'].split('/')[0])
+        self.assertEqual(netmask, params['net'].split('/')[1])
 
         # test _get_ip_xml can accepts strings: '192.168.122.0/24',
         # which is same as "192.168.122.0/255.255.255.0"
-        params["net"] = "192.168.122.0/24"
+        params['net'] = '192.168.122.0/24'
         xml = ET.tostring(nxml._get_ip_elem(**params))
-        netmask = xpath_get_text(xml, "/ip/@netmask")[0]
-        self.assertEquals(netmask,
-                          str(ipaddr.IPNetwork(params["net"]).netmask))
+        netmask = xpath_get_text(xml, '/ip/@netmask')[0]
+        self.assertEqual(netmask, str(ipaddr.IPNetwork(params['net']).netmask))
 
     def test_forward_xml(self):
         """
         Test network forward xml
         """
-        params = {"mode": None}
+        params = {'mode': None}
 
         forward = nxml._get_forward_elem(**params)
-        self.assertEquals(None, forward)
+        self.assertEqual(None, forward)
 
-        params["mode"] = 'nat'
-        params["dev"] = 'eth0'
+        params['mode'] = 'nat'
+        params['dev'] = 'eth0'
         xml = ET.tostring(nxml._get_forward_elem(**params))
-        mode = xpath_get_text(xml, "/forward/@mode")[0]
-        dev = xpath_get_text(xml, "/forward/@dev")[0]
-        self.assertEquals(params['mode'], mode)
-        self.assertEquals(params['dev'], dev)
+        mode = xpath_get_text(xml, '/forward/@mode')[0]
+        dev = xpath_get_text(xml, '/forward/@dev')[0]
+        self.assertEqual(params['mode'], mode)
+        self.assertEqual(params['dev'], dev)
 
     def test_network_xml(self):
         """
         Test network xml
         """
-        params = {"name": "test",
-                  "forward": {"mode": "nat", "dev": ""},
-                  "net": "192.168.0.0/255.255.255.0"}
+        params = {
+            'name': 'test',
+            'forward': {'mode': 'nat', 'dev': ''},
+            'net': '192.168.0.0/255.255.255.0',
+        }
         xml = nxml.to_network_xml(**params)
-        name = xpath_get_text(xml, "/network/name")[0]
-        self.assertEquals(name, params['name'])
+        name = xpath_get_text(xml, '/network/name')[0]
+        self.assertEqual(name, params['name'])
 
-        forward_mode = xpath_get_text(xml, "/network/forward/@mode")[0]
-        self.assertEquals(forward_mode, params['forward']['mode'])
-        forward_dev = xpath_get_text(xml, "/network/forward/@dev")[0]
-        self.assertEquals(forward_dev, '')
+        forward_mode = xpath_get_text(xml, '/network/forward/@mode')[0]
+        self.assertEqual(forward_mode, params['forward']['mode'])
+        forward_dev = xpath_get_text(xml, '/network/forward/@dev')[0]
+        self.assertEqual(forward_dev, '')
 
-        address = xpath_get_text(xml, "/network/ip/@address")[0]
-        self.assertEquals(address, params["net"].split("/")[0])
-        netmask = xpath_get_text(xml, "/network/ip/@netmask")[0]
-        self.assertEquals(netmask, params["net"].split("/")[1])
+        address = xpath_get_text(xml, '/network/ip/@address')[0]
+        self.assertEqual(address, params['net'].split('/')[0])
+        netmask = xpath_get_text(xml, '/network/ip/@netmask')[0]
+        self.assertEqual(netmask, params['net'].split('/')[1])
 
-        dhcp_start = xpath_get_text(xml, "/network/ip/dhcp/range/@start")
-        self.assertEquals(dhcp_start, [])
-        dhcp_end = xpath_get_text(xml, "/network/ip/dhcp/range/@end")
-        self.assertEquals(dhcp_end, [])
+        dhcp_start = xpath_get_text(xml, '/network/ip/dhcp/range/@start')
+        self.assertEqual(dhcp_start, [])
+        dhcp_end = xpath_get_text(xml, '/network/ip/dhcp/range/@end')
+        self.assertEqual(dhcp_end, [])
 
         # test optional params
-        params['forward']['dev'] = "eth0"
-        params['dhcp'] = {"range": {'start': '192.168.0.1',
-                                    'end': '192.168.0.254'}}
+        params['forward']['dev'] = 'eth0'
+        params['dhcp'] = {
+            'range': {'start': '192.168.0.1', 'end': '192.168.0.254'}}
         xml = nxml.to_network_xml(**params)
-        forward_dev = xpath_get_text(xml, "/network/forward/@dev")[0]
-        self.assertEquals(forward_dev, params['forward']['dev'])
+        forward_dev = xpath_get_text(xml, '/network/forward/@dev')[0]
+        self.assertEqual(forward_dev, params['forward']['dev'])
 
-        dhcp_start = xpath_get_text(xml, "/network/ip/dhcp/range/@start")[0]
-        self.assertEquals(dhcp_start, params['dhcp']['range']['start'])
-        dhcp_end = xpath_get_text(xml, "/network/ip/dhcp/range/@end")[0]
-        self.assertEquals(dhcp_end, params['dhcp']['range']['end'])
+        dhcp_start = xpath_get_text(xml, '/network/ip/dhcp/range/@start')[0]
+        self.assertEqual(dhcp_start, params['dhcp']['range']['start'])
+        dhcp_end = xpath_get_text(xml, '/network/ip/dhcp/range/@end')[0]
+        self.assertEqual(dhcp_end, params['dhcp']['range']['end'])
 
         # test _get_ip_xml can accepts strings: '192.168.122.0/24',
         # which is same as "192.168.122.0/255.255.255.0"
-        params["net"] = "192.168.0.0/24"
+        params['net'] = '192.168.0.0/24'
         xml = nxml.to_network_xml(**params)
-        netmask = xpath_get_text(xml, "/network/ip/@netmask")[0]
-        self.assertEquals(netmask,
-                          str(ipaddr.IPNetwork(params["net"]).netmask))
+        netmask = xpath_get_text(xml, '/network/ip/@netmask')[0]
+        self.assertEqual(netmask, str(ipaddr.IPNetwork(params['net']).netmask))
 
     def test_vepa_network_singledev_xml(self):
         expected_xml = """<network>\
@@ -165,11 +165,8 @@ class NetworkXmlTests(unittest.TestCase):
 </network>"""
 
         params = {
-            "name": "test_vepa",
-            "forward": {
-                "mode": "vepa",
-                "devs": ["vepa_switch_interface"]
-            }
+            'name': 'test_vepa',
+            'forward': {'mode': 'vepa', 'devs': ['vepa_switch_interface']},
         }
         xml_str = nxml.to_network_xml(**params)
         self.assertEqual(xml_str, expected_xml)
@@ -185,15 +182,15 @@ class NetworkXmlTests(unittest.TestCase):
 </network>"""
 
         params = {
-            "name": "test_vepa",
-            "forward": {
-                "mode": "vepa",
-                "devs": [
-                    "vepa_switch_interface1",
-                    "vepa_switch_interface2",
-                    "vepa_switch_interface3"
-                ]
-            }
+            'name': 'test_vepa',
+            'forward': {
+                'mode': 'vepa',
+                'devs': [
+                    'vepa_switch_interface1',
+                    'vepa_switch_interface2',
+                    'vepa_switch_interface3',
+                ],
+            },
         }
         xml_str = nxml.to_network_xml(**params)
         self.assertEqual(xml_str, expected_xml)
@@ -207,11 +204,8 @@ class NetworkXmlTests(unittest.TestCase):
 </network>"""
 
         params = {
-            "name": "test_passthrough",
-            "forward": {
-                "mode": "passthrough",
-                "devs": ["passthrough_interface"]
-            }
+            'name': 'test_passthrough',
+            'forward': {'mode': 'passthrough', 'devs': ['passthrough_interface']},
         }
         xml_str = nxml.to_network_xml(**params)
         self.assertEqual(xml_str, expected_xml)
@@ -227,22 +221,21 @@ class NetworkXmlTests(unittest.TestCase):
 </network>"""
 
         params = {
-            "name": "test_passthrough",
-            "forward": {
-                "mode": "passthrough",
-                "devs": [
-                    "passthrough_interface1",
-                    "passthrough_interface2",
-                    "passthrough_interface3"
-                ]
-            }
+            'name': 'test_passthrough',
+            'forward': {
+                'mode': 'passthrough',
+                'devs': [
+                    'passthrough_interface1',
+                    'passthrough_interface2',
+                    'passthrough_interface3',
+                ],
+            },
         }
         xml_str = nxml.to_network_xml(**params)
         self.assertEqual(xml_str, expected_xml)
 
 
 class InterfaceXmlTests(unittest.TestCase):
-
     def test_vlan_tagged_bridge_no_ip(self):
         expected_xml = """
             <interface type='bridge' name='br10'>
@@ -257,7 +250,7 @@ class InterfaceXmlTests(unittest.TestCase):
             </interface>
             """
         actual_xml = nxml.create_vlan_tagged_bridge_xml('br10', 'em1', '10')
-        self.assertEquals(actual_xml, normalize_xml(expected_xml))
+        self.assertEqual(actual_xml, normalize_xml(expected_xml))
 
     def test_linux_bridge_no_ip(self):
         em1_xml = """
@@ -279,6 +272,6 @@ class InterfaceXmlTests(unittest.TestCase):
                 </protocol>
             </interface>
             """
-        actual_xml = nxml.create_linux_bridge_xml('br10', 'em1',
-                                                  normalize_xml(em1_xml))
-        self.assertEquals(actual_xml, normalize_xml(expected_xml))
+        actual_xml = nxml.create_linux_bridge_xml(
+            'br10', 'em1', normalize_xml(em1_xml))
+        self.assertEqual(actual_xml, normalize_xml(expected_xml))

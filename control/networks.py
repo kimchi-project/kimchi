@@ -16,21 +16,21 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
-from wok.control.base import Collection, Resource
+from wok.control.base import Collection
+from wok.control.base import Resource
 from wok.control.utils import UrlSubNode
 
 
 NETWORKS_REQUESTS = {
-    'POST': {'default': "KCHNET0001L"},
+    'POST': {'default': 'KCHNET0001L'},
 }
 
 NETWORK_REQUESTS = {
-    'DELETE': {'default': "KCHNET0002L"},
-    'PUT': {'default': "KCHNET0003L"},
+    'DELETE': {'default': 'KCHNET0002L'},
+    'PUT': {'default': 'KCHNET0003L'},
     'POST': {
-        'activate': "KCHNET0004L",
-        'deactivate': "KCHNET0005L",
+        'activate': 'KCHNET0004L',
+        'deactivate': 'KCHNET0005L',
     },
 }
 
@@ -51,7 +51,7 @@ class Network(Resource):
     def __init__(self, model, ident):
         super(Network, self).__init__(model, ident)
         self.admin_methods = ['PUT', 'POST', 'DELETE']
-        self.uri_fmt = "/networks/%s"
+        self.uri_fmt = '/networks/%s'
         self.activate = self.generate_action_handler('activate')
         self.deactivate = self.generate_action_handler('deactivate',
                                                        destructive=True)

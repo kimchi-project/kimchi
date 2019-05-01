@@ -17,19 +17,18 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 #
-
-import ethtool
 import glob
-import ipaddr
 import os
 from distutils.spawn import find_executable
 
+import ethtool
+import ipaddr
 from wok.stringutils import encode_value
 from wok.utils import run_command
 
 
-APrivateNets = ipaddr.IPNetwork("10.0.0.0/8")
-BPrivateNets = ipaddr.IPNetwork("172.16.0.0/12")
+APrivateNets = ipaddr.IPNetwork('10.0.0.0/8')
+BPrivateNets = ipaddr.IPNetwork('172.16.0.0/12')
 CPrivateNets = ipaddr.IPNetwork('192.168.0.0/16')
 PrivateNets = [CPrivateNets, BPrivateNets, APrivateNets]
 DefaultNetsPool = [ipaddr.IPNetwork('192.168.122.0/23'),
@@ -115,10 +114,10 @@ def vlans():
         List[str]: a list with the vlans found.
 
     """
-    return list(set([b.split('/')[-1]
-                     for b in glob.glob(NET_PATH + '/*')]) &
-                set([b.split('/')[-1]
-                     for b in glob.glob(PROC_NET_VLAN + '*')]))
+    return list(
+        set([b.split('/')[-1] for b in glob.glob(NET_PATH + '/*')]) &
+        set([b.split('/')[-1] for b in glob.glob(PROC_NET_VLAN + '*')])
+    )
 
 
 def is_vlan(iface):
@@ -185,7 +184,7 @@ def ovs_bridges():
     if not is_openvswitch_running():
         return []
 
-    ovs_cmd = find_executable("ovs-vsctl")
+    ovs_cmd = find_executable('ovs-vsctl')
 
     # openvswitch not installed: there is no OVS bridge configured
     if ovs_cmd is None:
@@ -234,7 +233,7 @@ def ovs_bridge_ports(ovsbr):
     if not is_openvswitch_running():
         return []
 
-    ovs_cmd = find_executable("ovs-vsctl")
+    ovs_cmd = find_executable('ovs-vsctl')
 
     # openvswitch not installed: there is no OVS bridge configured
     if ovs_cmd is None:
@@ -254,7 +253,7 @@ def all_interfaces():
         List[str]: a list with all interfaces of the host.
 
     """
-    return [d.rsplit("/", 1)[-1] for d in glob.glob(NET_PATH + '/*')]
+    return [d.rsplit('/', 1)[-1] for d in glob.glob(NET_PATH + '/*')]
 
 
 def slaves(bonding):
@@ -348,7 +347,7 @@ def get_vlan_device(vlan):
     if os.path.exists(PROC_NET_VLAN + vlan):
         with open(PROC_NET_VLAN + vlan) as vlan_file:
             for line in vlan_file:
-                if "Device:" in line:
+                if 'Device:' in line:
                     dummy, dev = line.split()
                     break
     return dev
@@ -451,13 +450,13 @@ def get_interface_type(iface):
     """
     try:
         if is_nic(iface):
-            return "nic"
+            return 'nic'
         if is_bonding(iface):
-            return "bonding"
+            return 'bonding'
         if is_bridge(iface):
-            return "bridge"
+            return 'bridge'
         if is_vlan(iface):
-            return "vlan"
+            return 'vlan'
         return 'unknown'
     except IOError:
         return 'unknown'
@@ -471,7 +470,7 @@ def get_dev_macaddr(dev):
 def get_dev_netaddr(dev):
     info = ethtool.get_interfaces_info(dev)[0]
     return (info.ipv4_address and
-            "%s/%s" % (info.ipv4_address, info.ipv4_netmask) or '')
+            '%s/%s' % (info.ipv4_address, info.ipv4_netmask) or '')
 
 
 def get_dev_netaddrs():

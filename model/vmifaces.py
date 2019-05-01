@@ -16,17 +16,19 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
-import libvirt
 import os
 import random
-from lxml import etree, objectify
 
-from wok.exception import InvalidParameter, MissingParameter
-from wok.exception import NotFoundError, InvalidOperation
-
+import libvirt
+from lxml import etree
+from lxml import objectify
+from wok.exception import InvalidOperation
+from wok.exception import InvalidParameter
+from wok.exception import MissingParameter
+from wok.exception import NotFoundError
 from wok.plugins.kimchi.model.config import CapabilitiesModel
-from wok.plugins.kimchi.model.vms import DOM_STATE_MAP, VMModel
+from wok.plugins.kimchi.model.vms import DOM_STATE_MAP
+from wok.plugins.kimchi.model.vms import VMModel
 from wok.plugins.kimchi.xmlutils.interface import get_iface_xml
 
 
@@ -45,17 +47,15 @@ class VMIfacesModel(object):
         conn = self.conn.get()
 
         if params['type'] == 'network':
-            network = params.get("network")
+            network = params.get('network')
 
             if network is None:
                 raise MissingParameter('KCHVMIF0007E')
 
             networks = conn.listNetworks() + conn.listDefinedNetworks()
-            networks = map(lambda x: x.decode('utf-8'), networks)
-
             if network not in networks:
-                raise InvalidParameter('KCHVMIF0002E',
-                                       {'name': vm, 'network': network})
+                raise InvalidParameter(
+                    'KCHVMIF0002E', {'name': vm, 'network': network})
 
         # For architecture other than s390x/s390 type ovs/macvtap
         # and source interface are not supported.
@@ -67,15 +67,14 @@ class VMIfacesModel(object):
 
         # For s390x/s390 architecture
         if os.uname()[4] in ['s390x', 's390']:
-            params['name'] = params.get("source", None)
+            params['name'] = params.get('source', None)
 
             # For type ovs and mavtap, source interface has to be provided.
             if params['name'] is None and params['type'] in ['ovs', 'macvtap']:
                 raise InvalidParameter('KCHVMIF0015E')
             # If source interface provided, only type supported are ovs
             # and mavtap.
-            if params['name'] is not None and \
-               params['type'] not in ['ovs', 'macvtap']:
+            if params['name'] is not None and params['type'] not in ['ovs', 'macvtap']:
                 raise InvalidParameter('KCHVMIF0014E')
 
             # FIXME: Validation if source interface exists.
@@ -93,8 +92,9 @@ class VMIfacesModel(object):
         if 'mac' in params and params['mac']:
             # make sure it is unique
             if params['mac'] in macs:
-                raise InvalidParameter('KCHVMIF0009E',
-                                       {'name': vm, 'mac': params['mac']})
+                raise InvalidParameter(
+                    'KCHVMIF0009E', {'name': vm, 'mac': params['mac']}
+                )
 
         # otherwise choose a random mac address
         else:
@@ -112,7 +112,7 @@ class VMIfacesModel(object):
         flags = 0
         if dom.isPersistent():
             flags |= libvirt.VIR_DOMAIN_AFFECT_CONFIG
-        if DOM_STATE_MAP[dom.info()[0]] != "shutoff":
+        if DOM_STATE_MAP[dom.info()[0]] != 'shutoff':
             flags |= libvirt.VIR_DOMAIN_AFFECT_LIVE
         dom.attachDeviceFlags(xml, flags)
 
@@ -124,14 +124,18 @@ class VMIfacesModel(object):
         xml = dom.XMLDesc(0)
         root = objectify.fromstring(xml)
 
-        return root.devices.findall("interface")
+        return root.devices.findall('interface')
 
     @staticmethod
     def random_mac():
-        mac = [0x52, 0x54, 0x00,
-               random.randint(0x00, 0x7f),
-               random.randint(0x00, 0xff),
-               random.randint(0x00, 0xff)]
+        mac = [
+            0x52,
+            0x54,
+            0x00,
+            random.randint(0x00, 0x7F),
+            random.randint(0x00, 0xFF),
+            random.randint(0x00, 0xFF),
+        ]
         return ':'.join(map(lambda x: u'%02x' % x, mac))
 
 
@@ -152,7 +156,7 @@ class VMIfaceModel(object):
 
         iface = self._get_vmiface(vm, mac)
         if iface is None:
-            raise NotFoundError("KCHVMIF0001E", {'name': vm, 'iface': mac})
+            raise NotFoundError('KCHVMIF0001E', {'name': vm, 'iface': mac})
 
         info['type'] = iface.attrib['type']
         info['mac'] = iface.mac.get('address')
@@ -164,17 +168,15 @@ class VMIfaceModel(object):
             info['source'] = iface.source.get('dev')
             info['mode'] = iface.source.get('mode')
             info['type'] = 'macvtap'
-        elif (info['type'] == 'bridge' and
-              info.get('virtualport') == 'openvswitch'):
+        elif info['type'] == 'bridge' and info.get('virtualport') == 'openvswitch':
             info['source'] = iface.source.get('bridge')
             info['type'] = 'ovs'
         else:
             info['network'] = iface.source.get('network')
 
-        if iface.find("model") is not None:
+        if iface.find('model') is not None:
             info['model'] = iface.model.get('type')
-        if info['type'] == 'bridge' and \
-           info.get('virtualport') != 'openvswitch':
+        if info['type'] == 'bridge' and info.get('virtualport') != 'openvswitch':
             info['bridge'] = iface.source.get('bridge')
         if info.get('network'):
             info['ips'] = self._get_ips(vm, info['mac'], info['network'])
@@ -188,14 +190,14 @@ class VMIfaceModel(object):
         #   cache has entries for this MAC.
         conn = self.conn.get()
         dom = VMModel.get_vm(vm, self.conn)
-        if DOM_STATE_MAP[dom.info()[0]] == "shutoff":
+        if DOM_STATE_MAP[dom.info()[0]] == 'shutoff':
             return ips
 
         # An iface may have multiple IPs
         # An IP could have been assigned without libvirt.
         # First check the ARP cache.
         with open('/proc/net/arp') as f:
-            ips = [line.split()[0] for line in f.xreadlines() if mac in line]
+            ips = [line.split()[0] for line in f.readlines() if mac in line]
 
         # Some ifaces may be inactive, so if the ARP cache didn't have them,
         # and they happen to be assigned via DHCP, we can check there too.
@@ -217,25 +219,25 @@ class VMIfaceModel(object):
         iface = self._get_vmiface(vm, mac)
 
         if iface is None:
-            raise NotFoundError("KCHVMIF0001E", {'name': vm, 'iface': mac})
+            raise NotFoundError('KCHVMIF0001E', {'name': vm, 'iface': mac})
 
         flags = 0
         if dom.isPersistent():
             flags |= libvirt.VIR_DOMAIN_AFFECT_CONFIG
-        if DOM_STATE_MAP[dom.info()[0]] != "shutoff":
+        if DOM_STATE_MAP[dom.info()[0]] != 'shutoff':
             flags |= libvirt.VIR_DOMAIN_AFFECT_LIVE
 
-        dom.detachDeviceFlags(etree.tostring(iface), flags)
+        dom.detachDeviceFlags(etree.tostring(iface).decode('utf-8'), flags)
 
     def update(self, vm, mac, params):
         dom = VMModel.get_vm(vm, self.conn)
         iface = self._get_vmiface(vm, mac)
 
         if iface is None:
-            raise NotFoundError("KCHVMIF0001E", {'name': vm, 'iface': mac})
+            raise NotFoundError('KCHVMIF0001E', {'name': vm, 'iface': mac})
 
         # cannot change mac address in a running system
-        if DOM_STATE_MAP[dom.info()[0]] != "shutoff":
+        if DOM_STATE_MAP[dom.info()[0]] != 'shutoff':
             raise InvalidOperation('KCHVMIF0011E')
 
         # mac address is a required parameter
@@ -244,20 +246,20 @@ class VMIfaceModel(object):
 
         # new mac address must be unique
         if self._get_vmiface(vm, params['mac']) is not None:
-            raise InvalidParameter('KCHVMIF0009E',
-                                   {'name': vm, 'mac': params['mac']})
+            raise InvalidParameter(
+                'KCHVMIF0009E', {'name': vm, 'mac': params['mac']})
 
         flags = 0
         if dom.isPersistent():
             flags |= libvirt.VIR_DOMAIN_AFFECT_CONFIG
 
         # remove the current nic
-        xml = etree.tostring(iface)
+        xml = etree.tostring(iface).decode('utf-8')
         dom.detachDeviceFlags(xml, flags=flags)
 
         # add the nic with the desired mac address
         iface.mac.attrib['address'] = params['mac']
-        xml = etree.tostring(iface)
+        xml = etree.tostring(iface).decode('utf-8')
         dom.attachDeviceFlags(xml, flags=flags)
 
         return [vm, params['mac']]

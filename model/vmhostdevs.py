@@ -16,36 +16,50 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
 import glob
-import libvirt
 import os
 import platform
 import threading
-from lxml import etree, objectify
-from lxml.builder import E, ElementMaker
 from operator import itemgetter
 
+import libvirt
+from lxml import etree
+from lxml import objectify
+from lxml.builder import E
+from lxml.builder import ElementMaker
 from wok.asynctask import AsyncTask
-from wok.exception import InvalidOperation, InvalidParameter, NotFoundError
+from wok.exception import InvalidOperation
+from wok.exception import InvalidParameter
+from wok.exception import NotFoundError
 from wok.exception import OperationFailed
 from wok.message import WokMessage
 from wok.model.tasks import TaskModel
-from wok.rollbackcontext import RollbackContext
-from wok.utils import run_command, wok_log
-
 from wok.plugins.kimchi.model.config import CapabilitiesModel
-from wok.plugins.kimchi.model.host import DeviceModel, DevicesModel
+from wok.plugins.kimchi.model.host import DeviceModel
+from wok.plugins.kimchi.model.host import DevicesModel
 from wok.plugins.kimchi.model.utils import get_vm_config_flag
-from wok.plugins.kimchi.model.vms import DOM_STATE_MAP, VMModel
+from wok.plugins.kimchi.model.vms import DOM_STATE_MAP
+from wok.plugins.kimchi.model.vms import VMModel
 from wok.plugins.kimchi.xmlutils.qemucmdline import get_qemucmdline_xml
 from wok.plugins.kimchi.xmlutils.qemucmdline import QEMU_NAMESPACE
+from wok.rollbackcontext import RollbackContext
+from wok.utils import run_command
+from wok.utils import wok_log
 
 
 CMDLINE_FIELD_NAME = 'spapr-pci-host-bridge.mem_win_size'
-USB_MODELS_PCI_HOTPLUG = ["piix3-uhci", "piix4-uhci", "ehci", "ich9-ehci1",
-                          "ich9-uhci1", "ich9-uhci2", "ich9-uhci3",
-                          "vt82c686b-uhci", "pci-ohci", "nec-xhci"]
+USB_MODELS_PCI_HOTPLUG = [
+    'piix3-uhci',
+    'piix4-uhci',
+    'ehci',
+    'ich9-ehci1',
+    'ich9-uhci1',
+    'ich9-uhci2',
+    'ich9-uhci3',
+    'vt82c686b-uhci',
+    'pci-ohci',
+    'nec-xhci',
+]
 WINDOW_SIZE_BAR = 0x800000000
 
 
@@ -60,9 +74,7 @@ class VMHostDevsModel(object):
         self.task = TaskModel(**kargs)
         self._cb = None
         self.events.registerAttachDevicesEvent(
-            self.conn,
-            self._event_devices,
-            self)
+            self.conn, self._event_devices, self)
 
     def get_list(self, vmid):
         dom = VMModel.get_vm(vmid, self.conn)
@@ -88,7 +100,7 @@ class VMHostDevsModel(object):
             wok_log.error('opaque must be valid')
             return
 
-        wok_log.info("Device %s added successfuly" % alias)
+        wok_log.info('Device %s added successfuly' % alias)
         opaque._cb('OK', True)
 
     def create(self, vmid, params):
@@ -96,11 +108,12 @@ class VMHostDevsModel(object):
         dev_info = self.dev_model.lookup(dev_name)
 
         if dev_info['device_type'] == 'pci':
-            taskid = AsyncTask(u'/plugins/kimchi/vms/%s/hostdevs/' %
-                               VMModel.get_vm(vmid, self.conn).name(),
-                               self._attach_pci_device,
-                               {'vmid': vmid, 'dev_info': dev_info,
-                                'lock': threading.RLock()}).id
+            taskid = AsyncTask(
+                u'/plugins/kimchi/vms/%s/hostdevs/'
+                % VMModel.get_vm(vmid, self.conn).name(),
+                self._attach_pci_device,
+                {'vmid': vmid, 'dev_info': dev_info, 'lock': threading.RLock()},
+            ).id
             return self.task.lookup(taskid)
 
         with RollbackContext() as rollback:
@@ -114,11 +127,12 @@ class VMHostDevsModel(object):
 
             rollback.commitAll()
 
-        taskid = AsyncTask(u'/plugins/kimchi/vms/%s/hostdevs/' %
-                           VMModel.get_vm(vmid, self.conn).name(),
-                           '_attach_%s_device' % dev_info['device_type'],
-                           {'vmid': vmid, 'dev_info': dev_info,
-                            'lock': threading.RLock()}).id
+        taskid = AsyncTask(
+            u'/plugins/kimchi/vms/%s/hostdevs/'
+            % VMModel.get_vm(vmid, self.conn).name(),
+            '_attach_%s_device' % dev_info['device_type'],
+            {'vmid': vmid, 'dev_info': dev_info, 'lock': threading.RLock()},
+        ).id
 
         return self.task.lookup(taskid)
 
@@ -127,35 +141,30 @@ class VMHostDevsModel(object):
         # all devices included in the xml will be sorted in reverse (the
         # function 0 will be the last one) and will include the guest
         # address details
-        for dev_info in sorted(pci_infos,
-                               key=itemgetter('function'),
-                               reverse=True):
+        for dev_info in sorted(pci_infos, key=itemgetter('function'), reverse=True):
 
             dev_info['detach_driver'] = driver
-            hostdevs += self._get_pci_device_xml(dev_info,
-                                                 slot,
-                                                 True)
+            hostdevs += self._get_pci_device_xml(dev_info, slot, True)
 
         return '<devices>%s</devices>' % hostdevs
 
     def have_usb_controller(self, vmid):
         dom = VMModel.get_vm(vmid, self.conn)
-
         root = objectify.fromstring(dom.XMLDesc(0))
 
         try:
             controllers = root.devices.controller
-
         except AttributeError:
             return False
 
         for controller in controllers:
-
             if 'model' not in controller.attrib:
                 continue
 
-            if controller.attrib['type'] == 'usb' and \
-               controller.attrib['model'] in USB_MODELS_PCI_HOTPLUG:
+            if (
+                controller.attrib['type'] == 'usb' and
+                controller.attrib['model'] in USB_MODELS_PCI_HOTPLUG
+            ):
                 return True
 
         return False
@@ -164,34 +173,44 @@ class VMHostDevsModel(object):
         if 'detach_driver' not in dev_info:
             dev_info['detach_driver'] = 'kvm'
 
-        source = E.source(E.address(domain=str(dev_info['domain']),
-                                    bus=str(dev_info['bus']),
-                                    slot=str(dev_info['slot']),
-                                    function=str(dev_info['function'])))
+        source = E.source(
+            E.address(
+                domain=str(dev_info['domain']),
+                bus=str(dev_info['bus']),
+                slot=str(dev_info['slot']),
+                function=str(dev_info['function']),
+            )
+        )
         driver = E.driver(name=dev_info['detach_driver'])
 
         if is_multifunction:
             if dev_info['function'] == 0:
-                multi = E.address(type='pci',
-                                  domain='0',
-                                  bus='0',
-                                  slot=str(slot),
-                                  function=str(dev_info['function']),
-                                  multifunction='on')
+                multi = E.address(
+                    type='pci',
+                    domain='0',
+                    bus='0',
+                    slot=str(slot),
+                    function=str(dev_info['function']),
+                    multifunction='on',
+                )
 
             else:
-                multi = E.address(type='pci',
-                                  domain='0',
-                                  bus='0',
-                                  slot=str(slot),
-                                  function=str(dev_info['function']))
+                multi = E.address(
+                    type='pci',
+                    domain='0',
+                    bus='0',
+                    slot=str(slot),
+                    function=str(dev_info['function']),
+                )
 
-            host_dev = E.hostdev(source, driver, multi,
-                                 mode='subsystem', type='pci', managed='yes')
+            host_dev = E.hostdev(
+                source, driver, multi, mode='subsystem', type='pci', managed='yes'
+            )
 
         else:
-            host_dev = E.hostdev(source, driver,
-                                 mode='subsystem', type='pci', managed='yes')
+            host_dev = E.hostdev(
+                source, driver, mode='subsystem', type='pci', managed='yes'
+            )
 
         return etree.tostring(host_dev)
 
@@ -200,27 +219,28 @@ class VMHostDevsModel(object):
         # Linux kernel < 3.5 doesn't provide /sys/kernel/iommu_groups
         if os.path.isdir('/sys/kernel/iommu_groups'):
             if not glob.glob('/sys/kernel/iommu_groups/*'):
-                raise InvalidOperation("KCHVMHDEV0003E")
+                raise InvalidOperation('KCHVMHDEV0003E')
 
         # Enable virt_use_sysfs on RHEL6 and older distributions
         # In recent Fedora, there is no virt_use_sysfs.
-        out, err, rc = run_command(['getsebool', 'virt_use_sysfs'],
-                                   silent=True)
-        if rc == 0 and out.rstrip('\n') != "virt_use_sysfs --> on":
-            out, err, rc = run_command(['setsebool', '-P',
-                                        'virt_use_sysfs=on'])
+        out, err, rc = run_command(
+            ['getsebool', 'virt_use_sysfs'], silent=True)
+        if rc == 0 and out.rstrip('\n') != 'virt_use_sysfs --> on':
+            out, err, rc = run_command(
+                ['setsebool', '-P', 'virt_use_sysfs=on'])
             if rc != 0:
-                wok_log.warning("Unable to turn on sebool virt_use_sysfs")
+                wok_log.warning('Unable to turn on sebool virt_use_sysfs')
 
     def _available_slot(self, dom):
         xmlstr = dom.XMLDesc(0)
         root = objectify.fromstring(xmlstr)
-        slots = []
         try:
             devices = root.devices
-            slots = [self.dev_model._toint(dev.attrib['slot'])
-                     for dev in devices.findall('.//address')
-                     if 'slot' in dev.attrib]
+            slots = [
+                self.dev_model._toint(dev.attrib['slot'])
+                for dev in devices.findall('.//address')
+                if 'slot' in dev.attrib
+            ]
 
         except AttributeError:
             return 1
@@ -243,9 +263,8 @@ class VMHostDevsModel(object):
 
         try:
             self._passthrough_device_validate(dev_info['name'])
-
         except InvalidParameter as e:
-            cb(e.message, False)
+            cb(str(e), False)
             raise
 
         with lock:
@@ -253,7 +272,7 @@ class VMHostDevsModel(object):
                 self._validate_pci_passthrough_env()
 
             except InvalidOperation as e:
-                cb(e.message, False)
+                cb(str(e), False)
                 raise
 
             dom = VMModel.get_vm(vmid, self.conn)
@@ -261,54 +280,40 @@ class VMHostDevsModel(object):
 
             # 'vfio' systems requires a usb controller in order to support pci
             # hotplug on Power.
-            if driver == 'vfio' and platform.machine().startswith('ppc') and \
-               DOM_STATE_MAP[dom.info()[0]] != "shutoff" and \
-               not self.have_usb_controller(vmid):
+            if (
+                driver == 'vfio' and
+                platform.machine().startswith('ppc') and
+                DOM_STATE_MAP[dom.info()[0]] != 'shutoff' and
+                not self.have_usb_controller(vmid)
+            ):
                 msg = WokMessage('KCHVMHDEV0008E', {'vmid': vmid})
                 cb(msg.get_text(), False)
-                raise InvalidOperation("KCHVMHDEV0008E", {'vmid': vmid})
+                raise InvalidOperation('KCHVMHDEV0008E', {'vmid': vmid})
 
             # Attach all PCI devices in the same IOMMU group
             affected_names = self.devs_model.get_list(
-                _passthrough_affected_by=dev_info['name'])
+                _passthrough_affected_by=dev_info['name']
+            )
             passthrough_names = self.devs_model.get_list(
-                _cap='pci', _passthrough='true')
+                _cap='pci', _passthrough='true'
+            )
             group_names = list(set(affected_names) & set(passthrough_names))
-            pci_infos = [self.dev_model.lookup(dev_name) for dev_name in
-                         group_names]
+            pci_infos = [self.dev_model.lookup(
+                dev_name) for dev_name in group_names]
             pci_infos.append(dev_info)
-
-            is_multifunction = len(pci_infos) > 1
             pci_infos = sorted(pci_infos, key=itemgetter('name'))
 
             # does not allow hot-plug of 3D graphic cards
             is_3D_device = self.dev_model.is_device_3D_controller(dev_info)
-            if is_3D_device and DOM_STATE_MAP[dom.info()[0]] != "shutoff":
+            if is_3D_device and DOM_STATE_MAP[dom.info()[0]] != 'shutoff':
                 msg = WokMessage('KCHVMHDEV0006E', {'name': dev_info['name']})
                 cb(msg.get_text(), False)
-                raise InvalidOperation('KCHVMHDEV0006E',
-                                       {'name': dev_info['name']})
+                raise InvalidOperation(
+                    'KCHVMHDEV0006E', {'name': dev_info['name']})
 
             # all devices in the group that is going to be attached to the vm
             # must be detached from the host first
-            with RollbackContext() as rollback:
-                for pci_info in pci_infos:
-                    try:
-                        dev = self.conn.get().nodeDeviceLookupByName(
-                            pci_info['name'])
-                        dev.dettach()
-                    except Exception:
-                        msg = WokMessage('KCHVMHDEV0005E',
-                                         {'name': pci_info['name']})
-                        cb(msg.get_text(), False)
-                        raise OperationFailed('KCHVMHDEV0005E',
-                                              {'name': pci_info['name']})
-                    else:
-                        rollback.prependDefer(dev.reAttach)
-
-                rollback.commitAll()
-
-            device_flags = get_vm_config_flag(dom, mode='all')
+            self._attach_all_devices(pci_infos)
 
             # when attaching a 3D graphic device it might be necessary to
             # increase the window size memory in order to be able to attach
@@ -316,58 +321,84 @@ class VMHostDevsModel(object):
             if is_3D_device:
                 self.update_mmio_guest(vmid, True)
 
-            slot = 0
+            self._attach_multifunction_devices(dom, pci_infos, driver, vmid)
+
+        if DOM_STATE_MAP[dom.info()[0]] == 'shutoff':
+            cb('OK', True)
+
+    def _attach_multifunction_devices(self, dom, pci_infos, driver, vmid):
+        slot = 0
+        is_multifunction = len(pci_infos) > 1
+        device_flags = get_vm_config_flag(dom, mode='all')
+        with RollbackContext() as rollback:
+            # multifuction: try to attach all functions together within one
+            # xml file. It requires libvirt support.
             if is_multifunction:
                 # search for the first available slot in guest xml
                 slot = self._available_slot(dom)
+                xmlstr = self._get_pci_devices_xml(pci_infos, slot, driver)
 
-            with RollbackContext() as rollback:
-                # multifuction: try to attach all functions together within one
-                # xml file. It requires libvirt support.
-                if is_multifunction:
-                    xmlstr = self._get_pci_devices_xml(pci_infos, slot, driver)
+                try:
+                    dom.attachDeviceFlags(xmlstr, device_flags)
 
-                    try:
-                        dom.attachDeviceFlags(xmlstr, device_flags)
+                except libvirt.libvirtError:
+                    # If operation fails, we try the other way, where each
+                    # function is attached individually
+                    pass
+                else:
+                    rollback.prependDefer(
+                        dom.detachDeviceFlags, xmlstr, device_flags
+                    )
+                    rollback.commitAll()
+                    if DOM_STATE_MAP[dom.info()[0]] == 'shutoff':
+                        self._cb('OK', True)
+                    return
 
-                    except libvirt.libvirtError:
-                        # If operation fails, we try the other way, where each
-                        # function is attached individually
-                        pass
-                    else:
-                        rollback.prependDefer(dom.detachDeviceFlags, xmlstr,
-                                              device_flags)
-                        rollback.commitAll()
-                        if DOM_STATE_MAP[dom.info()[0]] == "shutoff":
-                            cb('OK', True)
-                        return
+            # attach each function individually (multi or single function)
+            for pci_info in pci_infos:
+                pci_info['detach_driver'] = driver
+                xmlstr = self._get_pci_device_xml(
+                    pci_info, slot, is_multifunction)
+                try:
+                    dom.attachDeviceFlags(xmlstr, device_flags)
 
-                # attach each function individually (multi or single function)
-                for pci_info in pci_infos:
-                    pci_info['detach_driver'] = driver
-                    xmlstr = self._get_pci_device_xml(pci_info,
-                                                      slot,
-                                                      is_multifunction)
-                    try:
-                        dom.attachDeviceFlags(xmlstr, device_flags)
+                except libvirt.libvirtError:
+                    msg = WokMessage(
+                        'KCHVMHDEV0007E', {
+                            'device': pci_info['name'], 'vm': vmid}
+                    )
+                    self._cb(msg.get_text(), False)
+                    wok_log.error(
+                        'Failed to attach host device %s to VM %s: \n%s',
+                        pci_info['name'],
+                        vmid,
+                        xmlstr,
+                    )
+                    raise
 
-                    except libvirt.libvirtError:
-                        msg = WokMessage('KCHVMHDEV0007E',
-                                         {'device': pci_info['name'],
-                                          'vm': vmid})
-                        cb(msg.get_text(), False)
-                        wok_log.error(
-                            'Failed to attach host device %s to VM %s: \n%s',
-                            pci_info['name'], vmid, xmlstr)
-                        raise
+                rollback.prependDefer(
+                    dom.detachDeviceFlags, xmlstr, device_flags)
 
-                    rollback.prependDefer(dom.detachDeviceFlags,
-                                          xmlstr, device_flags)
+            rollback.commitAll()
 
-                rollback.commitAll()
+    def _attach_all_devices(self, pci_infos):
+        with RollbackContext() as rollback:
+            for pci_info in pci_infos:
+                try:
+                    dev = self.conn.get().nodeDeviceLookupByName(
+                        pci_info['name'])
+                    dev.dettach()
+                except Exception:
+                    msg = WokMessage('KCHVMHDEV0005E', {
+                        'name': pci_info['name']})
+                    self._cb(msg.get_text(), False)
+                    raise OperationFailed(
+                        'KCHVMHDEV0005E', {'name': pci_info['name']}
+                    )
+                else:
+                    rollback.prependDefer(dev.reAttach)
 
-        if DOM_STATE_MAP[dom.info()[0]] == "shutoff":
-            cb('OK', True)
+            rollback.commitAll()
 
     def _count_3D_devices_attached(self, dom):
         counter = 0
@@ -438,8 +469,7 @@ class VMHostDevsModel(object):
                     line.remove(arg.getprevious())
                     line.remove(arg)
 
-                return etree.tostring(root, encoding='utf-8',
-                                      pretty_print=True)
+                return etree.tostring(root, encoding='utf-8', pretty_print=True)
 
         return None
 
@@ -467,11 +497,15 @@ class VMHostDevsModel(object):
 
     def _get_scsi_device_xml(self, dev_info):
         adapter = E.adapter(name=('scsi_host%s' % dev_info['host']))
-        address = E.address(type='scsi', bus=str(dev_info['bus']),
-                            target=str(dev_info['target']),
-                            unit=str(dev_info['lun']))
-        host_dev = E.hostdev(E.source(adapter, address),
-                             mode='subsystem', type='scsi', sgio='unfiltered')
+        address = E.address(
+            type='scsi',
+            bus=str(dev_info['bus']),
+            target=str(dev_info['target']),
+            unit=str(dev_info['lun']),
+        )
+        host_dev = E.hostdev(
+            E.source(adapter, address), mode='subsystem', type='scsi', sgio='unfiltered'
+        )
         return etree.tostring(host_dev)
 
     def _attach_scsi_device(self, cb, params):
@@ -485,7 +519,7 @@ class VMHostDevsModel(object):
             self._passthrough_device_validate(dev_info['name'])
 
         except InvalidParameter as e:
-            cb(e.message, False)
+            cb(str(e), False)
             raise
 
         with lock:
@@ -499,20 +533,24 @@ class VMHostDevsModel(object):
                     dom.attachDeviceFlags(xmlstr, device_flags)
 
                 except libvirt.libvirtError:
-                    msg = WokMessage('KCHVMHDEV0007E',
-                                     {'device': dev_info['name'],
-                                      'vm': vmid})
+                    msg = WokMessage(
+                        'KCHVMHDEV0007E', {
+                            'device': dev_info['name'], 'vm': vmid}
+                    )
                     cb(msg.get_text(), False)
                     wok_log.error(
                         'Failed to attach host device %s to VM %s: \n%s',
-                        dev_info['name'], vmid, xmlstr)
+                        dev_info['name'],
+                        vmid,
+                        xmlstr,
+                    )
                     raise
 
-                rollback.prependDefer(dom.detachDeviceFlags, xmlstr,
-                                      device_flags)
+                rollback.prependDefer(
+                    dom.detachDeviceFlags, xmlstr, device_flags)
                 rollback.commitAll()
 
-        if DOM_STATE_MAP[dom.info()[0]] == "shutoff":
+        if DOM_STATE_MAP[dom.info()[0]] == 'shutoff':
             cb('OK', True)
 
     def _get_usb_device_xml(self, dev_info):
@@ -521,7 +559,8 @@ class VMHostDevsModel(object):
             E.product(id=dev_info['product']['id']),
             E.address(bus=str(dev_info['bus']),
                       device=str(dev_info['device'])),
-            startupPolicy='optional')
+            startupPolicy='optional',
+        )
         host_dev = E.hostdev(source, mode='subsystem',
                              ype='usb', managed='yes')
         return etree.tostring(host_dev)
@@ -538,7 +577,7 @@ class VMHostDevsModel(object):
             self._passthrough_device_validate(dev_info['name'])
 
         except InvalidParameter as e:
-            cb(e.message, False)
+            cb(str(e), False)
             raise
 
         with lock:
@@ -550,20 +589,24 @@ class VMHostDevsModel(object):
                     dom.attachDeviceFlags(xmlstr, device_flags)
 
                 except libvirt.libvirtError:
-                    msg = WokMessage('KCHVMHDEV0007E',
-                                     {'device': dev_info['name'],
-                                      'vm': vmid})
+                    msg = WokMessage(
+                        'KCHVMHDEV0007E', {
+                            'device': dev_info['name'], 'vm': vmid}
+                    )
                     cb(msg.get_text(), False)
                     wok_log.error(
                         'Failed to attach host device %s to VM %s: \n%s',
-                        dev_info['name'], vmid, xmlstr)
+                        dev_info['name'],
+                        vmid,
+                        xmlstr,
+                    )
                     raise
 
-                rollback.prependDefer(dom.detachDeviceFlags, xmlstr,
-                                      device_flags)
+                rollback.prependDefer(
+                    dom.detachDeviceFlags, xmlstr, device_flags)
                 rollback.commitAll()
 
-        if DOM_STATE_MAP[dom.info()[0]] == "shutoff":
+        if DOM_STATE_MAP[dom.info()[0]] == 'shutoff':
             cb('OK', True)
 
 
@@ -577,9 +620,7 @@ class VMHostDevModel(object):
         self.dev_model = DeviceModel(**kargs)
         self._cb = None
         self.events.registerDetachDevicesEvent(
-            self.conn,
-            self._event_devices,
-            self)
+            self.conn, self._event_devices, self)
 
     def lookup(self, vmid, dev_name):
         dom = VMModel.get_vm(vmid, self.conn)
@@ -588,22 +629,24 @@ class VMHostDevModel(object):
         try:
             hostdev = root.devices.hostdev
         except AttributeError:
-            raise NotFoundError('KCHVMHDEV0001E',
-                                {'vmid': vmid, 'dev_name': dev_name})
+            raise NotFoundError('KCHVMHDEV0001E', {
+                                'vmid': vmid, 'dev_name': dev_name})
 
         for e in hostdev:
             deduced_name = DeviceModel.deduce_dev_name(e, self.conn)
             if deduced_name == dev_name:
                 dev_info = self.dev_model.lookup(dev_name)
-                return {'name': dev_name,
-                        'type': e.attrib['type'],
-                        'product': dev_info.get('product', None),
-                        'vendor': dev_info.get('vendor', None),
-                        'multifunction': dev_info.get('multifunction', None),
-                        'vga3d': dev_info.get('vga3d', None)}
+                return {
+                    'name': dev_name,
+                    'type': e.attrib['type'],
+                    'product': dev_info.get('product', None),
+                    'vendor': dev_info.get('vendor', None),
+                    'multifunction': dev_info.get('multifunction', None),
+                    'vga3d': dev_info.get('vga3d', None),
+                }
 
-        raise NotFoundError('KCHVMHDEV0001E',
-                            {'vmid': vmid, 'dev_name': dev_name})
+        raise NotFoundError('KCHVMHDEV0001E', {
+                            'vmid': vmid, 'dev_name': dev_name})
 
     def delete(self, vmid, dev_name):
         dom = VMModel.get_vm(vmid, self.conn)
@@ -614,16 +657,20 @@ class VMHostDevModel(object):
             hostdev = root.devices.hostdev
 
         except AttributeError:
-            raise NotFoundError('KCHVMHDEV0001E',
-                                {'vmid': vmid, 'dev_name': dev_name})
+            raise NotFoundError('KCHVMHDEV0001E', {
+                                'vmid': vmid, 'dev_name': dev_name})
 
-        task_params = {'vmid': vmid,
-                       'dev_name': dev_name,
-                       'dom': dom,
-                       'hostdev': hostdev,
-                       'lock': threading.RLock()}
-        task_uri = u'/plugins/kimchi/vms/%s/hostdevs/%s' % \
-            (VMModel.get_vm(vmid, self.conn).name(), dev_name)
+        task_params = {
+            'vmid': vmid,
+            'dev_name': dev_name,
+            'dom': dom,
+            'hostdev': hostdev,
+            'lock': threading.RLock(),
+        }
+        task_uri = u'/plugins/kimchi/vms/%s/hostdevs/%s' % (
+            VMModel.get_vm(vmid, self.conn).name(),
+            dev_name,
+        )
         taskid = AsyncTask(task_uri, self._detach_device, task_params).id
         return self.task.lookup(taskid)
 
@@ -635,22 +682,22 @@ class VMHostDevModel(object):
             wok_log.error('opaque must be valid')
             return
 
-        wok_log.info("Device %s removed successfully" % alias)
+        wok_log.info('Device %s removed successfully' % alias)
 
         # Re-attach device to host if it's not managed mode
         if not opaque._managed:
             try:
                 dev = conn.get().nodeDeviceLookupByName(alias)
                 dev.reAttach()
-            except libvirt.libvirtError, e:
+            except libvirt.libvirtError as e:
                 wok_log.error(
-                    "Unable to attach device %s back to host. Error: %s",
-                    alias, e.message
+                    'Unable to attach device %s back to host. Error: %s', alias, str(
+                        e)
                 )
         else:
             wok_log.info(
                 "Device %s was attached in 'managed' mode. "
-                "Skipping re-attach()." % alias
+                'Skipping re-attach().' % alias
             )
 
         opaque._cb('OK', True)
@@ -665,18 +712,22 @@ class VMHostDevModel(object):
         lock = params['lock']
 
         with lock:
-            pci_devs = {DeviceModel.deduce_dev_name(e, self.conn): e
-                        for e in hostdev if e.attrib['type'] == 'pci'}
+            pci_devs = {
+                DeviceModel.deduce_dev_name(e, self.conn): e
+                for e in hostdev
+                if e.attrib['type'] == 'pci'
+            }
 
             dev_info = self.dev_model.lookup(dev_name)
             is_3D_device = self.dev_model.is_device_3D_controller(dev_info)
-            if is_3D_device and DOM_STATE_MAP[dom.info()[0]] != "shutoff":
-                raise InvalidOperation('KCHVMHDEV0006E',
-                                       {'name': dev_info['name']})
+            if is_3D_device and DOM_STATE_MAP[dom.info()[0]] != 'shutoff':
+                raise InvalidOperation(
+                    'KCHVMHDEV0006E', {'name': dev_info['name']})
 
             if not pci_devs.get(dev_name):
-                raise NotFoundError('KCHVMHDEV0001E',
-                                    {'vmid': vmid, 'dev_name': dev_name})
+                raise NotFoundError(
+                    'KCHVMHDEV0001E', {'vmid': vmid, 'dev_name': dev_name}
+                )
 
             dev_name_elem = pci_devs[dev_name]
             self._managed = dev_name_elem.get('managed', 'no') == 'yes'
@@ -684,8 +735,7 @@ class VMHostDevModel(object):
             # check for multifunction and detach all functions together
             try:
                 multi = self.unplug_multifunction_pci(
-                    dom, hostdev, dev_name_elem
-                )
+                    dom, hostdev, dev_name_elem)
             except libvirt.libvirtError:
                 multi = False
 
@@ -695,31 +745,31 @@ class VMHostDevModel(object):
                     devsmodel = VMHostDevsModel(conn=self.conn)
                     devsmodel.update_mmio_guest(vmid, False)
 
-                if DOM_STATE_MAP[dom.info()[0]] == "shutoff":
+                if DOM_STATE_MAP[dom.info()[0]] == 'shutoff':
                     cb('OK', True)
                 return
 
             # detach individually
             xmlstr = etree.tostring(dev_name_elem)
-            dom.detachDeviceFlags(
-                xmlstr, get_vm_config_flag(dom, mode='all'))
+            dom.detachDeviceFlags(xmlstr, get_vm_config_flag(dom, mode='all'))
             if dev_name_elem.attrib['type'] == 'pci':
-                self._delete_affected_pci_devices(dom, dev_name,
-                                                  pci_devs)
+                self._delete_affected_pci_devices(dom, dev_name, pci_devs)
             if is_3D_device:
                 devsmodel = VMHostDevsModel(conn=self.conn)
                 devsmodel.update_mmio_guest(vmid, False)
 
-        if DOM_STATE_MAP[dom.info()[0]] == "shutoff":
+        if DOM_STATE_MAP[dom.info()[0]] == 'shutoff':
             cb('OK', True)
 
     def get_devices_same_addr(self, hostdevs, device_elem):
         def elem_has_valid_address(elem):
-            if elem.get('type') != 'pci' or \
-                    elem.address is None or \
-                    elem.address.get('domain') is None or \
-                    elem.address.get('bus') is None or \
-                    elem.address.get('slot') is None:
+            if (
+                elem.get('type') != 'pci' or
+                elem.address is None or
+                elem.address.get('domain') is None or
+                elem.address.get('bus') is None or
+                elem.address.get('slot') is None
+            ):
                 return False
             return True
 
@@ -740,21 +790,28 @@ class VMHostDevModel(object):
             dev_bus = dev.address.get('bus')
             dev_slot = dev.address.get('slot')
 
-            if dev_domain == device_domain and dev_bus == device_bus and \
-                    dev_slot == device_slot:
-                devices.append(etree.tostring(dev))
+            if (
+                dev_domain == device_domain and
+                dev_bus == device_bus and
+                dev_slot == device_slot
+            ):
+                devices.append(etree.tostring(dev).decode('utf-8'))
 
         return devices
 
     def is_hostdev_multifunction(self, dev_elem):
-        if dev_elem.address is None or \
-                dev_elem.address.get('multifunction') is None or \
-                dev_elem.address.get('function') is None:
+        if (
+            dev_elem.address is None or
+            dev_elem.address.get('multifunction') is None or
+            dev_elem.address.get('function') is None
+        ):
 
             return False
 
-        is_multi = dev_elem.address.get('multifunction') == 'on' and \
+        is_multi = (
+            dev_elem.address.get('multifunction') == 'on' and
             dev_elem.address.get('function') == '0x0'
+        )
 
         return is_multi
 
@@ -768,8 +825,7 @@ class VMHostDevModel(object):
             return False
 
         devices_xml = '<devices>%s</devices>' % ''.join(devices)
-        dom.detachDeviceFlags(devices_xml,
-                              get_vm_config_flag(dom, mode='all'))
+        dom.detachDeviceFlags(devices_xml, get_vm_config_flag(dom, mode='all'))
 
         return True
 
@@ -780,10 +836,11 @@ class VMHostDevModel(object):
             return
 
         affected_names = set(
-            DevicesModel(
-                conn=self.conn).get_list(_passthrough_affected_by=dev_name))
+            DevicesModel(conn=self.conn).get_list(
+                _passthrough_affected_by=dev_name)
+        )
 
-        for pci_name, e in pci_devs.iteritems():
+        for pci_name, e in pci_devs.items():
             if pci_name in affected_names:
                 xmlstr = etree.tostring(e)
                 dom.detachDeviceFlags(
@@ -805,5 +862,5 @@ class VMHoldersModel(object):
             dom_name = dom.name()
             if device_id in devsmodel.get_list(dom_name):
                 state = DOM_STATE_MAP[dom.info()[0]]
-                res.append({"name": dom_name, "state": state})
+                res.append({'name': dom_name, 'state': state})
         return res

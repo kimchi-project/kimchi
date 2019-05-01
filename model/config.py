@@ -16,22 +16,22 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
-import cherrypy
 from multiprocessing.pool import ThreadPool
 
+import cherrypy
 from wok.basemodel import Singleton
 from wok.exception import NotFoundError
-from wok.utils import run_command, wok_log
-
 from wok.plugins.kimchi.config import find_qemu_binary
 from wok.plugins.kimchi.config import get_kimchi_version
 from wok.plugins.kimchi.distroloader import DistroLoader
-from wok.plugins.kimchi.model.featuretests import FeatureTests
 from wok.plugins.kimchi.model.featuretests import FEATURETEST_POOL_NAME
 from wok.plugins.kimchi.model.featuretests import FEATURETEST_VM_NAME
+from wok.plugins.kimchi.model.featuretests import FeatureTests
 from wok.plugins.kimchi.screenshot import VMScreenshot
-from wok.plugins.kimchi.utils import check_url_path, is_libvirtd_up
+from wok.plugins.kimchi.utils import check_url_path
+from wok.plugins.kimchi.utils import is_libvirtd_up
+from wok.utils import run_command
+from wok.utils import wok_log
 
 
 class ConfigModel(object):
@@ -42,9 +42,7 @@ class ConfigModel(object):
         return {'version': get_kimchi_version()}
 
 
-class CapabilitiesModel(object):
-    __metaclass__ = Singleton
-
+class CapabilitiesModel(object, metaclass=Singleton):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
         self.qemu_stream = False
@@ -88,58 +86,53 @@ class CapabilitiesModel(object):
         FeatureTests.enable_libvirt_error_logging()
 
     def _set_depend_capabilities(self):
-        wok_log.info("\n*** Kimchi: Running dependable feature tests ***")
+        wok_log.info('\n*** Kimchi: Running dependable feature tests ***')
         conn = self.conn.get()
         if conn is None:
-            wok_log.info("*** Kimchi: Dependable feature tests not completed "
-                         "***\n")
+            wok_log.info(
+                '*** Kimchi: Dependable feature tests not completed ' '***\n')
             return
         self.qemu_stream = FeatureTests.qemu_supports_iso_stream()
-        msg = "QEMU stream support .......: %s"
-        wok_log.info(msg % str(self.qemu_stream))
+        wok_log.info(f'QEMU stream support .......: {self.qemu_stream}')
 
         self.libvirt_stream_protocols = []
         for p in ['http', 'https', 'ftp', 'ftps', 'tftp']:
             if FeatureTests.libvirt_supports_iso_stream(conn, p):
                 self.libvirt_stream_protocols.append(p)
-        msg = "Libvirt Stream Protocols ..: %s"
-        wok_log.info(msg % str(self.libvirt_stream_protocols))
-        wok_log.info("*** Kimchi: Dependable feature tests completed ***\n")
+        wok_log.info(
+            f'Libvirt Stream Protocols ..: {self.libvirt_stream_protocols}')
+        wok_log.info('*** Kimchi: Dependable feature tests completed ***\n')
+
     _set_depend_capabilities.priority = 90
 
     def _set_capabilities(self):
-        wok_log.info("\n*** Kimchi: Running feature tests ***")
+        wok_log.info('\n*** Kimchi: Running feature tests ***')
         self.libvirtd_running = is_libvirtd_up()
-        msg = "Service Libvirtd running ...: %s"
-        wok_log.info(msg % str(self.libvirtd_running))
-        if self.libvirtd_running == False:
-            wok_log.info("*** Kimchi: Feature tests not completed ***\n")
+        wok_log.info(f'Service Libvirtd running ...: {self.libvirtd_running}')
+        if not self.libvirtd_running:
+            wok_log.info('*** Kimchi: Feature tests not completed ***\n')
             return
         conn = self.conn.get()
         self.nfs_target_probe = FeatureTests.libvirt_support_nfs_probe(conn)
-        msg = "NFS Target Probe support ...: %s"
-        wok_log.info(msg % str(self.nfs_target_probe))
+        wok_log.info(f'NFS Target Probe support ...: {self.nfs_target_probe}')
         self.fc_host_support = FeatureTests.libvirt_support_fc_host(conn)
-        msg = "Fibre Channel Host support .: %s"
-        wok_log.info(msg % str(self.fc_host_support))
+        wok_log.info(f'Fibre Channel Host support .: {self.fc_host_support}')
         self.kernel_vfio = FeatureTests.kernel_support_vfio()
-        msg = "Kernel VFIO support ........: %s"
-        wok_log.info(msg % str(self.kernel_vfio))
+        wok_log.info(f'Kernel VFIO support ........: {self.kernel_vfio}')
         self.nm_running = FeatureTests.is_nm_running()
-        msg = "Network Manager running ....: %s"
-        wok_log.info(msg % str(self.nm_running))
+        wok_log.info(f'Network Manager running ....: {self.nm_running}')
         self.mem_hotplug_support = FeatureTests.has_mem_hotplug_support(conn)
-        msg = "Memory Hotplug support .....: %s"
-        wok_log.info(msg % str(self.mem_hotplug_support))
-        wok_log.info("*** Kimchi: Feature tests completed ***\n")
+        wok_log.info(
+            f'Memory Hotplug support .....: {self.mem_hotplug_support}')
+        wok_log.info('*** Kimchi: Feature tests completed ***\n')
+
     _set_capabilities.priority = 90
 
     def _qemu_support_spice(self):
         qemu_path = find_qemu_binary(find_emulator=True)
         out, err, rc = run_command(['ldd', qemu_path])
         if rc != 0:
-            wok_log.error('Failed to find qemu binary dependencies: %s',
-                          err)
+            wok_log.error(f'Failed to find qemu binary dependencies: {err}')
             return False
         for line in out.split('\n'):
             if line.lstrip().startswith('libspice-server.so'):
@@ -148,27 +141,31 @@ class CapabilitiesModel(object):
 
     def lookup(self, *ident):
         if not is_libvirtd_up():
-            return {'libvirt_stream_protocols': [],
-                    'qemu_spice': False,
-                    'qemu_stream': False,
-                    'screenshot': None,
-                    'kernel_vfio': self.kernel_vfio,
-                    'nm_running': FeatureTests.is_nm_running(),
-                    'mem_hotplug_support': False,
-                    'libvirtd_running': False}
-        elif self.libvirtd_running == False:
+            return {
+                'libvirt_stream_protocols': [],
+                'qemu_spice': False,
+                'qemu_stream': False,
+                'screenshot': None,
+                'kernel_vfio': self.kernel_vfio,
+                'nm_running': FeatureTests.is_nm_running(),
+                'mem_hotplug_support': False,
+                'libvirtd_running': False,
+            }
+        elif not self.libvirtd_running:
             # Libvirt returned, run tests again
             self._set_capabilities()
             self._set_depend_capabilities()
 
-        return {'libvirt_stream_protocols': self.libvirt_stream_protocols,
-                'qemu_spice': self._qemu_support_spice(),
-                'qemu_stream': self.qemu_stream,
-                'screenshot': VMScreenshot.get_stream_test_result(),
-                'kernel_vfio': self.kernel_vfio,
-                'nm_running': FeatureTests.is_nm_running(),
-                'mem_hotplug_support': self.mem_hotplug_support,
-                'libvirtd_running': True}
+        return {
+            'libvirt_stream_protocols': self.libvirt_stream_protocols,
+            'qemu_spice': self._qemu_support_spice(),
+            'qemu_stream': self.qemu_stream,
+            'screenshot': VMScreenshot.get_stream_test_result(),
+            'kernel_vfio': self.kernel_vfio,
+            'nm_running': FeatureTests.is_nm_running(),
+            'mem_hotplug_support': self.mem_hotplug_support,
+            'libvirtd_running': True,
+        }
 
 
 class DistrosModel(object):
@@ -190,7 +187,7 @@ class DistrosModel(object):
         map_res = pool.map_async(validate_distro, self.distros.values())
         pool.close()
         pool.join()
-        res = list(set(map_res.get()) - set([None]))
+        res = list(set(map_res.get()) - {None})
         return sorted(res)
 
 
@@ -202,4 +199,4 @@ class DistroModel(object):
         try:
             return self._distros.distros[name]
         except KeyError:
-            raise NotFoundError("KCHDISTRO0001E", {'name': name})
+            raise NotFoundError('KCHDISTRO0001E', {'name': name})

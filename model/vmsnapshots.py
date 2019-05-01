@@ -16,20 +16,21 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
+import time
 
 import libvirt
 import lxml.etree as ET
-import time
 from lxml import objectify
 from lxml.builder import E
-
 from wok.asynctask import AsyncTask
-from wok.exception import InvalidOperation, NotFoundError, OperationFailed
-from wok.xmlutils.utils import xpath_get_text
+from wok.exception import InvalidOperation
+from wok.exception import NotFoundError
+from wok.exception import OperationFailed
 from wok.model.tasks import TaskModel
-
 from wok.plugins.kimchi.model.vms import VMModel
-from wok.plugins.kimchi.model.vmstorages import VMStorageModel, VMStoragesModel
+from wok.plugins.kimchi.model.vmstorages import VMStorageModel
+from wok.plugins.kimchi.model.vmstorages import VMStoragesModel
+from wok.xmlutils.utils import xpath_get_text
 
 
 class VMSnapshotsModel(object):
@@ -65,14 +66,18 @@ class VMSnapshotsModel(object):
             format = storage['format']
 
             if type != u'cdrom' and format != u'qcow2':
-                raise InvalidOperation('KCHSNAP0010E', {'vm': vm_name,
-                                                        'format': format})
+                raise InvalidOperation(
+                    'KCHSNAP0010E', {'vm': vm_name, 'format': format}
+                )
 
-        name = params.get('name', unicode(int(time.time())))
+        name = params.get('name', str(int(time.time())))
 
         task_params = {'vm_name': vm_name, 'name': name}
-        taskid = AsyncTask(u'/plugins/kimchi/vms/%s/snapshots/%s' % (vm_name,
-                           name), self._create_task, task_params).id
+        taskid = AsyncTask(
+            u'/plugins/kimchi/vms/%s/snapshots/%s' % (vm_name, name),
+            self._create_task,
+            task_params,
+        ).id
         return self.task.lookup(taskid)
 
     def _create_task(self, cb, params):
@@ -90,17 +95,17 @@ class VMSnapshotsModel(object):
         cb('building snapshot XML')
         root_elem = E.domainsnapshot()
         root_elem.append(E.name(name))
-        xml = ET.tostring(root_elem, encoding='utf-8')
+        xml = ET.tostring(root_elem, encoding='utf-8').decode('utf-8')
 
         try:
             cb('fetching snapshot domain')
             vir_dom = VMModel.get_vm(vm_name, self.conn)
             cb('creating snapshot')
             vir_dom.snapshotCreateXML(xml, 0)
-        except (NotFoundError, OperationFailed, libvirt.libvirtError), e:
-            raise OperationFailed('KCHSNAP0002E',
-                                  {'name': name, 'vm': vm_name,
-                                   'err': e.message})
+        except (NotFoundError, OperationFailed, libvirt.libvirtError) as e:
+            raise OperationFailed(
+                'KCHSNAP0002E', {'name': name, 'vm': vm_name, 'err': str(e)}
+            )
 
         cb('OK', True)
 
@@ -109,11 +114,10 @@ class VMSnapshotsModel(object):
 
         try:
             vir_snaps = vir_dom.listAllSnapshots(0)
-            return sorted([s.getName().decode('utf-8') for s in vir_snaps],
-                          key=unicode.lower)
-        except libvirt.libvirtError, e:
-            raise OperationFailed('KCHSNAP0005E',
-                                  {'vm': vm_name, 'err': e.message})
+            return sorted([s.getName() for s in vir_snaps], key=str.lower)
+        except libvirt.libvirtError as e:
+            raise OperationFailed(
+                'KCHSNAP0005E', {'vm': vm_name, 'err': str(e)})
 
 
 class VMSnapshotModel(object):
@@ -124,32 +128,34 @@ class VMSnapshotModel(object):
         vir_snap = self.get_vmsnapshot(vm_name, name)
 
         try:
-            snap_xml_str = vir_snap.getXMLDesc(0).decode('utf-8')
-        except libvirt.libvirtError, e:
-            raise OperationFailed('KCHSNAP0004E', {'name': name,
-                                                   'vm': vm_name,
-                                                   'err': e.message})
+            snap_xml_str = vir_snap.getXMLDesc(0)
+        except libvirt.libvirtError as e:
+            raise OperationFailed(
+                'KCHSNAP0004E', {'name': name, 'vm': vm_name, 'err': str(e)}
+            )
 
         snap_xml = objectify.fromstring(snap_xml_str)
 
         try:
-            parent = unicode(snap_xml.parent.name)
+            parent = str(snap_xml.parent.name)
         except AttributeError:
             parent = u''
 
-        return {'created': unicode(snap_xml.creationTime),
-                'name': unicode(snap_xml.name),
-                'parent': parent,
-                'state': unicode(snap_xml.state)}
+        return {
+            'created': str(snap_xml.creationTime),
+            'name': str(snap_xml.name),
+            'parent': parent,
+            'state': str(snap_xml.state),
+        }
 
     def delete(self, vm_name, name):
         try:
             vir_snap = self.get_vmsnapshot(vm_name, name)
             vir_snap.delete(0)
-        except libvirt.libvirtError, e:
-            raise OperationFailed('KCHSNAP0006E', {'name': name,
-                                                   'vm': vm_name,
-                                                   'err': e.message})
+        except libvirt.libvirtError as e:
+            raise OperationFailed(
+                'KCHSNAP0006E', {'name': name, 'vm': vm_name, 'err': str(e)}
+            )
 
     def revert(self, vm_name, name):
         try:
@@ -158,28 +164,29 @@ class VMSnapshotModel(object):
             vir_dom.revertToSnapshot(vir_snap, 0)
 
             # get vm name recorded in the snapshot and return new uri params
-            vm_new_name = xpath_get_text(vir_snap.getXMLDesc(0),
-                                         'domain/name')[0]
+            vm_new_name = xpath_get_text(
+                vir_snap.getXMLDesc(0), 'domain/name')[0]
             return [vm_new_name, name]
-        except libvirt.libvirtError, e:
-            raise OperationFailed('KCHSNAP0009E', {'name': name,
-                                                   'vm': vm_name,
-                                                   'err': e.message})
+        except libvirt.libvirtError as e:
+            raise OperationFailed(
+                'KCHSNAP0009E', {'name': name, 'vm': vm_name, 'err': str(e)}
+            )
 
     def get_vmsnapshot(self, vm_name, name):
         vir_dom = VMModel.get_vm(vm_name, self.conn)
 
         try:
             return vir_dom.snapshotLookupByName(name, 0)
-        except libvirt.libvirtError, e:
+        except libvirt.libvirtError as e:
             code = e.get_error_code()
             if code == libvirt.VIR_ERR_NO_DOMAIN_SNAPSHOT:
-                raise NotFoundError('KCHSNAP0003E', {'name': name,
-                                                     'vm': vm_name})
+                raise NotFoundError(
+                    'KCHSNAP0003E', {'name': name, 'vm': vm_name})
             else:
-                raise OperationFailed('KCHSNAP0004E', {'name': name,
-                                                       'vm': vm_name,
-                                                       'err': e.message})
+                raise OperationFailed(
+                    'KCHSNAP0004E', {'name': name,
+                                     'vm': vm_name, 'err': str(e)}
+                )
 
 
 class CurrentVMSnapshotModel(object):
@@ -192,12 +199,12 @@ class CurrentVMSnapshotModel(object):
 
         try:
             vir_snap = vir_dom.snapshotCurrent(0)
-            snap_name = vir_snap.getName().decode('utf-8')
-        except libvirt.libvirtError, e:
+            snap_name = vir_snap.getName()
+        except libvirt.libvirtError as e:
             if e.get_error_code() == libvirt.VIR_ERR_NO_DOMAIN_SNAPSHOT:
                 return {}
 
-            raise OperationFailed('KCHSNAP0008E',
-                                  {'vm': vm_name, 'err': e.message})
+            raise OperationFailed(
+                'KCHSNAP0008E', {'vm': vm_name, 'err': str(e)})
 
         return self.vmsnapshot.lookup(vm_name, snap_name)

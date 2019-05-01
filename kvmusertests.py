@@ -15,16 +15,14 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-
-import libvirt
 import platform
-import psutil
 import threading
 
-
+import libvirt
+import psutil
 from wok.rollbackcontext import RollbackContext
 
-KVMUSERTEST_VM_NAME = "KVMUSERTEST_VM"
+KVMUSERTEST_VM_NAME = 'KVMUSERTEST_VM'
 
 
 class UserTests(object):
@@ -49,8 +47,7 @@ class UserTests(object):
             if cls.user:
                 return cls.user
 
-        arch = 'ppc64' if platform.machine() == 'ppc64le' \
-            else platform.machine()
+        arch = 'ppc64' if platform.machine() == 'ppc64le' else platform.machine()
 
         xml = cls.SIMPLE_VM_XML % {'name': KVMUSERTEST_VM_NAME, 'arch': arch}
 
@@ -79,4 +76,4 @@ class UserTests(object):
 
 if __name__ == '__main__':
     ut = UserTests()
-    print ut.probe_user()
+    print(ut.probe_user())

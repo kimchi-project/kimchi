@@ -17,9 +17,7 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
 import json
-import libvirt
 import os
 import shutil
 import tempfile
@@ -27,11 +25,11 @@ import time
 import unittest
 
 import iso_gen
-import tests.utils as utils
-
+import libvirt
+from wok.plugins.kimchi.model import model
 from wok.rollbackcontext import RollbackContext
 
-from wok.plugins.kimchi.model import model
+import tests.utils as utils
 
 
 TMP_DIR = '/var/lib/kimchi/tests/'
@@ -72,16 +70,16 @@ def _get_event_id():
 
 def _store_event(data):
     global TMP_EVENT
-    with open(TMP_EVENT, "a") as file:
-        file.write("%s\n" % data)
+    with open(TMP_EVENT, 'a') as file:
+        file.write('%s\n' % data)
 
 
 def _get_event(id):
     global TMP_EVENT
-    with open(TMP_EVENT, "r") as file:
+    with open(TMP_EVENT, 'r') as file:
         for event in [line.rstrip('\n') for line in file.readlines()]:
             fields = event.split('|')
-            if fields[0] == id:
+            if fields[0] == str(id):
                 return fields[1]
 
 
@@ -96,33 +94,56 @@ class LibvirtEventsTests(unittest.TestCase):
         """
         Callback to handle Domain (VMs) events - VM Livecycle.
         """
-        evStrings = ("Defined", "Undefined", "Started", "Suspended", "Resumed",
-                     "Stopped", "Shutdown", "PMSuspended", "Crashed")
-        evDetails = (("Added", "Updated"),
-                     ("Removed", ),
-                     ("Booted", "Migrated", "Restored", "Snapshot", "Wakeup"),
-                     ("Paused", "Migrated", "IOError", "Watchdog", "Restored",
-                      "Snapshot", "API error"),
-                     ("Unpaused", "Migrated", "Snapshot"),
-                     ("Shutdown", "Destroyed", "Crashed", "Migrated", "Saved",
-                      "Failed", "Snapshot"),
-                     ("Finished", ),
-                     ("Memory", "Disk"),
-                     ("Panicked"))
+        evStrings = (
+            'Defined',
+            'Undefined',
+            'Started',
+            'Suspended',
+            'Resumed',
+            'Stopped',
+            'Shutdown',
+            'PMSuspended',
+            'Crashed',
+        )
+        evDetails = (
+            ('Added', 'Updated'),
+            ('Removed',),
+            ('Booted', 'Migrated', 'Restored', 'Snapshot', 'Wakeup'),
+            (
+                'Paused',
+                'Migrated',
+                'IOError',
+                'Watchdog',
+                'Restored',
+                'Snapshot',
+                'API error',
+            ),
+            ('Unpaused', 'Migrated', 'Snapshot'),
+            (
+                'Shutdown',
+                'Destroyed',
+                'Crashed',
+                'Migrated',
+                'Saved',
+                'Failed',
+                'Snapshot',
+            ),
+            ('Finished',),
+            ('Memory', 'Disk'),
+            ('Panicked'),
+        )
 
-        data = {'domain': dom.name(), 'event': evStrings[event],
-                'event_detail': evDetails[event][detail]}
+        data = {
+            'domain': dom.name(),
+            'event': evStrings[event],
+            'event_detail': evDetails[event][detail],
+        }
         _store_event('%s|%s' % (_get_next_event_id(), json.dumps(data)))
 
-    def domain_event_reboot_cb(self, conn, dom, *args):
-        """
-        Callback to handle Domain (VMs) events - VM Reboot.
-        """
-        data = {'domain': dom.name(), 'event': 'Rebooted'}
-        _store_event('%s|%s' % (_get_next_event_id(), json.dumps(data)))
-
-    @unittest.skipUnless(utils.running_as_root() and
-                         os.uname()[4] != "s390x", 'Must be run as root')
+    @unittest.skipUnless(
+        utils.running_as_root() and os.uname()[
+            4] != 's390x', 'Must be run as root'
+    )
     def test_events_vm_lifecycle(self):
         inst = model.Model(objstore_loc=self.tmp_store)
         self.objstore = inst.objstore
@@ -131,81 +152,75 @@ class LibvirtEventsTests(unittest.TestCase):
         # Create a template and VM to test, and start lifecycle tests
         with RollbackContext() as rollback:
             # Register the most common Libvirt domain events to be handled.
-            event_map = [(libvirt.VIR_DOMAIN_EVENT_ID_LIFECYCLE,
-                          self.domain_event_lifecycle_cb),
-                         (libvirt.VIR_DOMAIN_EVENT_ID_REBOOT,
-                          self.domain_event_reboot_cb)]
+            event_map = [
+                (libvirt.VIR_DOMAIN_EVENT_ID_LIFECYCLE, self.domain_event_lifecycle_cb)
+            ]
 
             for event, event_cb in event_map:
-                ev_id = conn.domainEventRegisterAny(None, event, event_cb,
-                                                    None)
-                rollback.prependDefer(conn.domainEventDeregisterAny, ev_id)
+                conn.domainEventRegister(event_cb, None)
+                rollback.prependDefer(conn.domainEventDeregister, event_cb)
 
             # Create a template
-            template_params = {'name': 'ttest',
-                               'source_media': {'type': 'disk',
-                                                'path': UBUNTU_ISO}}
+            template_params = {
+                'name': 'ttest',
+                'source_media': {'type': 'disk', 'path': UBUNTU_ISO},
+            }
 
             inst.templates_create(template_params)
             rollback.prependDefer(inst.template_delete, 'ttest')
 
             # Create a VM (guest)
-            vm_params = {'name': 'kimchi-vm1',
-                         'template': '/plugins/kimchi/templates/ttest'}
+            vm_params = {
+                'name': 'kimchi-vm1',
+                'template': '/plugins/kimchi/templates/ttest',
+            }
             task = inst.vms_create(vm_params)
             inst.task_wait(task['id'], 10)
             task = inst.task_lookup(task['id'])
-            self.assertEquals('finished', task['status'])
+            self.assertEqual('finished', task['status'])
             time.sleep(5)
             # Check event of domain definition (addition)
             res = json.loads(_get_event(str(_get_event_id())))
-            self.assertEquals('kimchi-vm1', res['domain'])
-            self.assertEquals('Defined', res['event'])
-            self.assertEquals('Added', res['event_detail'])
+            self.assertEqual('kimchi-vm1', res['domain'])
+            self.assertEqual('Defined', res['event'])
+            self.assertEqual('Added', res['event_detail'])
 
             # Start the VM and check the event
             inst.vm_start('kimchi-vm1')
             time.sleep(5)
             res = json.loads(_get_event(str(_get_event_id())))
-            self.assertEquals('kimchi-vm1', res['domain'])
-            self.assertEquals('Started', res['event'])
-            self.assertEquals('Booted', res['event_detail'])
+            self.assertEqual('kimchi-vm1', res['domain'])
+            self.assertEqual('Started', res['event'])
+            self.assertEqual('Booted', res['event_detail'])
 
             # Suspend the VM and check the event
             inst.vm_suspend('kimchi-vm1')
             time.sleep(5)
             res = json.loads(_get_event(str(_get_event_id())))
-            self.assertEquals('kimchi-vm1', res['domain'])
-            self.assertEquals('Suspended', res['event'])
-            self.assertEquals('Paused', res['event_detail'])
+            self.assertEqual('kimchi-vm1', res['domain'])
+            self.assertEqual('Suspended', res['event'])
+            self.assertEqual('Paused', res['event_detail'])
 
             # Resume the VM and check the event
             inst.vm_resume('kimchi-vm1')
             time.sleep(5)
             res = json.loads(_get_event(str(_get_event_id())))
-            self.assertEquals('kimchi-vm1', res['domain'])
-            self.assertEquals('Resumed', res['event'])
-            self.assertEquals('Unpaused', res['event_detail'])
-
-            # Reboot the VM and check the event
-            inst.vm_reset('kimchi-vm1')
-            time.sleep(5)
-            res = json.loads(_get_event(str(_get_event_id())))
-            self.assertEquals('kimchi-vm1', res['domain'])
-            self.assertEquals('Rebooted', res['event'])
+            self.assertEqual('kimchi-vm1', res['domain'])
+            self.assertEqual('Resumed', res['event'])
+            self.assertEqual('Unpaused', res['event_detail'])
 
             # PowerOff (hard stop) the VM and check the event
             inst.vm_poweroff('kimchi-vm1')
             time.sleep(5)
             res = json.loads(_get_event(str(_get_event_id())))
-            self.assertEquals('kimchi-vm1', res['domain'])
-            self.assertEquals('Stopped', res['event'])
-            self.assertEquals('Destroyed', res['event_detail'])
+            self.assertEqual('kimchi-vm1', res['domain'])
+            self.assertEqual('Stopped', res['event'])
+            self.assertEqual('Destroyed', res['event_detail'])
 
             # Delete the VM and check the event
             inst.vm_delete('kimchi-vm1')
             time.sleep(5)
             res = json.loads(_get_event(str(_get_event_id())))
-            self.assertEquals('kimchi-vm1', res['domain'])
-            self.assertEquals('Undefined', res['event'])
-            self.assertEquals('Removed', res['event_detail'])
+            self.assertEqual('kimchi-vm1', res['domain'])
+            self.assertEqual('Undefined', res['event'])
+            self.assertEqual('Removed', res['event_detail'])

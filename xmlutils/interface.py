@@ -16,10 +16,8 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
 import lxml.etree as ET
 from lxml.builder import E
-
 from wok.plugins.kimchi import osinfo
 
 
@@ -70,7 +68,7 @@ def get_iface_network_xml(params, arch=None, os_distro=None, os_version=None):
     if mac is not None:
         interface.append(E.mac(address=mac))
 
-    return ET.tostring(interface, encoding='utf-8', pretty_print=True)
+    return ET.tostring(interface, encoding='utf-8', pretty_print=True).decode('utf-8')
 
 
 def get_iface_macvtap_xml(params, arch=None):
@@ -99,7 +97,7 @@ def get_iface_macvtap_xml(params, arch=None):
     if mac is not None:
         interface.append(E.mac(address=mac))
 
-    return ET.tostring(interface, encoding='utf-8', pretty_print=True)
+    return ET.tostring(interface, encoding='utf-8', pretty_print=True).decode('utf-8')
 
 
 def get_iface_ovs_xml(params, arch=None):
@@ -127,4 +125,4 @@ def get_iface_ovs_xml(params, arch=None):
     if mac is not None:
         interface.append(E.mac(address=mac))
 
-    return ET.tostring(interface, encoding='utf-8', pretty_print=True)
+    return ET.tostring(interface, encoding='utf-8', pretty_print=True).decode('utf-8')

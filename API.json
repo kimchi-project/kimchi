@@ -1,5 +1,5 @@
 {
-    "$schema": "http://json-schema.org/draft-03/schema#",
+    "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "Kimchi API",
     "description": "Json schema for Kimchi API",
     "type": "object",
@@ -9,15 +9,16 @@
             "type": "object",
             "properties": {
                 "type": {
+                    "type": "string",
                     "enum": ["spice", "vnc"],
                     "error": "KCHVM0014E"
                 },
                 "listen": {
                     "error": "KCHVM0015E",
-                    "type": [
+                    "anyOf": [
                         {
                             "type": "string",
-                            "format": "ip-address"
+                            "format": "ipv4"
                         },
                         {
                             "type": "string",
@@ -93,18 +94,20 @@
         "interface": {
              "description": "Host network interface. This indicates how to configure the host network interface (Ethernet, Bond, VLAN) as direct macvtap or as OVS interface to a VM.",
              "type": "object",
+            "required": [
+                "type",
+                "name"
+            ],
              "properties": {
                    "type": {
                        "description": "Host network interface type. Valid types are: 'macvtap' for host network interface (Ethernet, Bond, VLAN) to be connected as direct MacVTap or 'ovs' for openvswitch host network interface to be connected as virtual switch to a VM.",
                        "type": "string",
                        "pattern":  "^(macvtap|ovs)$",
-                       "required": "True",
                        "error": "KCHTMPL0034E"
                     },
                    "name": {
                        "description": "The host network interface name. It should be name of host network interface(Ethernet, Bond, VLAN) for type 'macvtap' and name of host openvswitch bridge interface for type ovs",
                        "type": "string",
-                       "required": "True",
                        "error": "KCHTMPL0035E"
                     },
                    "mode": {
@@ -121,6 +124,10 @@
     "properties": {
         "storagepools_create": {
             "type": "object",
+            "required": [
+                "name",
+                "type"
+            ],
             "error": "KCHPOOL0026E",
             "properties": {
                 "name": {
@@ -128,14 +135,12 @@
                     "type": "string",
                     "minLength": 1,
                     "pattern": "^[^/]*$",
-                    "required": true,
                     "error": "KCHPOOL0016E"
                 },
                 "type": {
                     "description": "The type of the defined Storage Pool",
                     "type": "string",
                     "pattern": "^dir|netfs|logical|kimchi-iso|iscsi|scsi$",
-                    "required": true,
                     "error": "KCHPOOL0017E"
                 },
                 "path": {
@@ -270,23 +275,28 @@
         },
         "storagevolume_update": {
             "type": "object",
+            "required":  [
+                "chunk",
+                "chunk_size"
+            ],
             "properties": {
                 "chunk": {
                     "description": "Upload storage volume chunk",
-                    "error": "KCHVOL0024E",
-                    "required": true
+                    "error": "KCHVOL0024E"
                 },
                 "chunk_size": {
                     "description": "Chunk size of uploaded storage volume",
                     "type": "string",
-                    "error": "KCHVOL0024E",
-                    "required": true
+                    "error": "KCHVOL0024E"
                 }
             },
             "additionalProperties": false
         },
         "vms_create": {
             "type": "object",
+            "required": [
+                "template"
+            ],
             "error": "KCHVM0016E",
             "properties": {
                 "name": {
@@ -309,7 +319,6 @@
                     "description": "The URI of a template to use when building a VM",
                     "type": "string",
                     "pattern": "^/plugins/kimchi/templates/(.*?)/?$",
-                    "required": true,
                     "error": "KCHVM0012E"
                 },
                 "storagepool": {
@@ -430,11 +439,13 @@
         },
         "vm_migrate": {
             "type": "object",
+            "required": [
+                "remote_host"
+            ],
             "properties": {
                 "remote_host": {
                     "description": "IP address or hostname of the remote server",
                     "type": "string",
-                    "required": true,
                     "minLength": 1,
                     "error": "KCHVM0060E"
                 },
@@ -459,6 +470,10 @@
         },
         "networks_create": {
             "type": "object",
+            "required": [
+                "name",
+                "connection"
+            ],
             "error": "KCHNET0016E",
             "properties": {
                 "name": {
@@ -466,14 +481,12 @@
                     "type": "string",
                     "minLength": 1,
                     "pattern": "^[^/\"]*$",
-                    "required": true,
                     "error": "KCHNET0011E"
                 },
                 "connection": {
                     "description": "Specifies how this network should be connected to the other networks",
                     "type": "string",
                     "pattern": "^isolated|nat|bridge|macvtap|vepa|passthrough$",
-                    "required": true,
                     "error": "KCHNET0012E"
                 },
                 "subnet": {
@@ -529,13 +542,15 @@
         },
         "vmifaces_create": {
             "type": "object",
+            "required": [
+                "type"
+            ],
             "error": "KCHVMIF0007E",
             "properties": {
                 "type": {
                     "description": "The type of VM network interface that libvirt supports. Type 'macvtap' for host network interface (Ethernet, Bond, VLAN) to be connected as direct MacVTap or 'ovs' for openvswitch host network interface to be connected as virtual switch to a VM or 'network' for libvirt virtual network to be connected to VM. ",
                     "type": "string",
                     "pattern": "^network|macvtap|ovs$",
-                    "required": true,
                     "error": "KCHVMIF0004E"
                 },
                 "network": {
@@ -582,6 +597,9 @@
         },
         "templates_create": {
             "type": "object",
+            "required": [
+                "source_media"
+            ],
             "error": "KCHTMPL0016E",
             "properties": {
                 "name": {
@@ -612,12 +630,14 @@
                 "memory": { "$ref": "#/kimchitype/memory" },
                 "source_media": {
                     "type" : "object",
+                    "required": [
+                        "type"
+                    ],
                     "properties" : {
                         "type": {
                             "description": "Type of source media: disk or netboot",
                             "type": "string",
-                            "pattern": "^disk|netboot$",
-                            "required": true
+                            "pattern": "^disk|netboot$"
                         },
                         "path": {
                             "description": "Path for installation media (ISO, disk, remote ISO)",
@@ -625,8 +645,7 @@
                             "pattern" : "^((/)|(http)[s]?:|[t]?(ftp)[s]?:)+.*$"
                         }
                     },
-                    "additionalProperties": false,
-                    "required": true
+                    "additionalProperties": false
                 },
                 "disks": {
                     "description": "List of disks",
@@ -728,13 +747,15 @@
          },
         "vmstorages_create": {
             "type": "object",
+            "required": [
+                "type"
+            ],
             "error": "KCHVMSTOR0012E",
             "properties": {
                 "type": {
                     "description": "The storage type",
                     "type": "string",
                     "pattern": "^cdrom|disk$",
-                    "required": true,
                     "error": "KCHVMSTOR0002E"
                 },
                 "pool": {
@@ -759,13 +780,15 @@
         },
         "vmstorage_update": {
             "type": "object",
+            "required": [
+                "path"
+            ],
             "error": "KCHVMSTOR0013E",
             "properties": {
                "path": {
                     "description": "Path of iso image file or disk mount point",
                     "type": "string",
                     "pattern": "^(|(/)|(http)[s]?:|[t]?(ftp)[s]?:)+.*$",
-                    "required": true,
                     "error": "KCHVMSTOR0003E"
                 }
             },
@@ -909,12 +932,14 @@
         },
         "vmhostdevs_create": {
             "type": "object",
+            "required": [
+                "name"
+            ],
             "properties": {
                 "name": {
                     "description": "Then name of the device to assign to VM",
                     "type": "string",
                     "pattern": "^[_A-Za-z0-9-]+$",
-                    "required": true,
                     "error": "KCHVMHDEV0004E"
                 }
             },

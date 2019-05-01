@@ -17,7 +17,6 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 #
-
 import glob
 import hashlib
 import os.path
@@ -25,9 +24,9 @@ import shutil
 import tempfile
 import time
 
+from wok.plugins.kimchi.isoinfo import IsoImage
+from wok.plugins.kimchi.isoinfo import probe_iso
 from wok.utils import wok_log
-
-from wok.plugins.kimchi.isoinfo import IsoImage, probe_iso
 
 
 SCAN_IGNORE = ['/tmp/kimchi-scan-*']
@@ -49,16 +48,16 @@ class Scanner(object):
         """
         try:
             now = time.time()
-            clean_list = glob.glob("/tmp/kimchi-scan-*")
+            clean_list = glob.glob('/tmp/kimchi-scan-*')
             for d in clean_list:
-                transient_pool = \
-                    os.path.basename(d).replace('kimchi-scan-', '')[0: -6]
+                transient_pool = os.path.basename(
+                    d).replace('kimchi-scan-', '')[0:-6]
                 if now - os.path.getmtime(d) > window:
                     shutil.rmtree(d)
                     self.clean_cb(transient_pool)
         except OSError as e:
-            msg = "Exception %s occured when cleaning stale pool, ignore"
-            wok_log.debug(msg % e.message)
+            msg = f'Exception {e} occured when cleaning stale pool, ignore'
+            wok_log.debug(msg)
 
     def scan_dir_prepare(self, name):
         # clean stale scan storage pools
@@ -69,21 +68,26 @@ class Scanner(object):
         def updater(iso_info):
             iso_name = os.path.basename(iso_info['path'])[:-3]
 
-            duplicates = "%s/%s*" % (params['pool_path'], iso_name)
+            duplicates = '%s/%s*' % (params['pool_path'], iso_name)
             for f in glob.glob(duplicates):
                 iso_img = IsoImage(f)
-                if (iso_info['distro'], iso_info['version']) == \
-                   iso_img.probe():
+                if (iso_info['distro'], iso_info['version']) == iso_img.probe():
                     return
 
-            iso_path = iso_name + hashlib.md5(iso_info['path']).hexdigest() + \
+            iso_path = (
+                iso_name +
+                hashlib.md5(iso_info['path'].encode('utf-8')).hexdigest() +
                 '.iso'
-            link_name = os.path.join(params['pool_path'],
-                                     os.path.basename(iso_path))
+            )
+            link_name = os.path.join(
+                params['pool_path'], os.path.basename(iso_path))
             os.symlink(iso_info['path'], link_name)
 
         ignore_paths = params.get('ignore_list', [])
-        scan_params = dict(path=params['scan_path'], updater=updater,
-                           ignore_list=ignore_paths + SCAN_IGNORE)
+        scan_params = dict(
+            path=params['scan_path'],
+            updater=updater,
+            ignore_list=ignore_paths + SCAN_IGNORE,
+        )
         probe_iso(None, scan_params)
         cb('', True)

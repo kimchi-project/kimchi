@@ -16,42 +16,40 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
-import libvirt
 import os
 from collections import defaultdict
-from lxml import objectify
 
+import libvirt
+from lxml import objectify
 from wok.exception import InvalidParameter
 from wok.exception import NotFoundError
-from wok.xmlutils.utils import xpath_get_text
-
 from wok.plugins.kimchi import disks
 from wok.plugins.kimchi.model import hostdev
 from wok.plugins.kimchi.model.config import CapabilitiesModel
-from wok.plugins.kimchi.model.vms import VMModel, VMsModel
+from wok.plugins.kimchi.model.vms import VMModel
+from wok.plugins.kimchi.model.vms import VMsModel
+from wok.xmlutils.utils import xpath_get_text
 
 
 class DevicesModel(object):
     def __init__(self, **kargs):
         self.conn = kargs['conn']
         self.caps = CapabilitiesModel(**kargs)
-        self.cap_map = \
-            {'net': libvirt.VIR_CONNECT_LIST_NODE_DEVICES_CAP_NET,
-             'pci': libvirt.VIR_CONNECT_LIST_NODE_DEVICES_CAP_PCI_DEV,
-             'scsi': libvirt.VIR_CONNECT_LIST_NODE_DEVICES_CAP_SCSI,
-             'scsi_host': libvirt.VIR_CONNECT_LIST_NODE_DEVICES_CAP_SCSI_HOST,
-             'storage': libvirt.VIR_CONNECT_LIST_NODE_DEVICES_CAP_STORAGE,
-             'usb_device': libvirt.VIR_CONNECT_LIST_NODE_DEVICES_CAP_USB_DEV,
-             'usb':
-             libvirt.VIR_CONNECT_LIST_NODE_DEVICES_CAP_USB_INTERFACE}
+        self.cap_map = {
+            'net': libvirt.VIR_CONNECT_LIST_NODE_DEVICES_CAP_NET,
+            'pci': libvirt.VIR_CONNECT_LIST_NODE_DEVICES_CAP_PCI_DEV,
+            'scsi': libvirt.VIR_CONNECT_LIST_NODE_DEVICES_CAP_SCSI,
+            'scsi_host': libvirt.VIR_CONNECT_LIST_NODE_DEVICES_CAP_SCSI_HOST,
+            'storage': libvirt.VIR_CONNECT_LIST_NODE_DEVICES_CAP_STORAGE,
+            'usb_device': libvirt.VIR_CONNECT_LIST_NODE_DEVICES_CAP_USB_DEV,
+            'usb': libvirt.VIR_CONNECT_LIST_NODE_DEVICES_CAP_USB_INTERFACE,
+        }
         # TODO: when no longer supporting Libvirt < 1.0.5 distros
         # (like RHEL6) remove this verification and insert the
         # key 'fc_host' with the libvirt variable in the hash
         # declaration above.
         try:
-            self.cap_map['fc_host'] = \
-                libvirt.VIR_CONNECT_LIST_NODE_DEVICES_CAP_FC_HOST
+            self.cap_map['fc_host'] = libvirt.VIR_CONNECT_LIST_NODE_DEVICES_CAP_FC_HOST
         except AttributeError:
             self.cap_map['fc_host'] = None
 
@@ -67,23 +65,26 @@ class DevicesModel(object):
             except AttributeError:
                 continue
 
-            vm_devs = [DeviceModel.deduce_dev_name(e, self.conn)
-                       for e in hostDevices]
+            vm_devs = [DeviceModel.deduce_dev_name(
+                e, self.conn) for e in hostDevices]
 
             for dev in vm_devs:
                 unavailable_devs.append(dev)
 
         return unavailable_devs
 
-    def get_list(self, _cap=None, _passthrough=None,
-                 _passthrough_affected_by=None,
-                 _available_only=None):
+    def get_list(
+        self,
+        _cap=None,
+        _passthrough=None,
+        _passthrough_affected_by=None,
+        _available_only=None,
+    ):
         if _passthrough_affected_by is not None:
             # _passthrough_affected_by conflicts with _cap and _passthrough
             if (_cap, _passthrough) != (None, None):
-                raise InvalidParameter("KCHHOST0004E")
-            return sorted(
-                self._get_passthrough_affected_devs(_passthrough_affected_by))
+                raise InvalidParameter('KCHHOST0004E')
+            return sorted(self._get_passthrough_affected_devs(_passthrough_affected_by))
 
         if _cap == 'fc_host':
             dev_names = self._get_devices_fc_host()
@@ -93,15 +94,15 @@ class DevicesModel(object):
         if _passthrough is not None and _passthrough.lower() == 'true':
             conn = self.conn.get()
             passthrough_names = [
-                dev['name'] for dev in hostdev.get_passthrough_dev_infos(conn)]
+                dev['name'] for dev in hostdev.get_passthrough_dev_infos(conn)
+            ]
 
             dev_names = list(set(dev_names) & set(passthrough_names))
 
-            if _available_only is not None and _available_only.lower() \
-                    == 'true':
+            if _available_only is not None and _available_only.lower() == 'true':
                 unavailable_devs = self._get_unavailable_devices()
-                dev_names = [dev for dev in dev_names
-                             if dev not in unavailable_devs]
+                dev_names = [
+                    dev for dev in dev_names if dev not in unavailable_devs]
 
         dev_names.sort()
         return dev_names
@@ -155,7 +156,7 @@ class DeviceModel(object):
         try:
             devices = DevicesModel(conn=conn).get_list()
 
-        except:
+        except Exception:
             return iommu_groups
 
         for device in devices:
@@ -172,7 +173,7 @@ class DeviceModel(object):
         conn = self.conn.get()
         try:
             dev = conn.nodeDeviceLookupByName(nodedev_name)
-        except:
+        except Exception:
             raise NotFoundError('KCHHOST0003E', {'name': nodedev_name})
 
         info = hostdev.get_dev_info(dev)
@@ -191,7 +192,7 @@ class DeviceModel(object):
             with open(os.path.join(info['path'], 'class')) as f:
                 pci_class = int(f.readline().strip(), 16)
 
-        except:
+        except Exception:
             return False
 
         if pci_class == 0x030200:
@@ -231,7 +232,8 @@ class DeviceModel(object):
         for field in ('bus', 'target', 'unit'):
             attrib[field] = DeviceModel._toint(e.source.address.attrib[field])
         attrib['host'] = DeviceModel._toint(
-            e.source.adapter.attrib['name'][len('scsi_host'):])
+            e.source.adapter.attrib['name'][len('scsi_host'):]
+        )
         return 'scsi_%(host)d_%(bus)d_%(target)d_%(unit)d' % attrib
 
     @staticmethod
@@ -249,7 +251,7 @@ class DeviceModel(object):
             evendor = 0
             eproduct = 0
         else:
-            unknown_dev = 'usb_vendor_%s_product_%s' % (evendor, eproduct)
+            unknown_dev = f'usb_vendor_{evendor}_product_{eproduct}'
 
         try:
             ebus = DeviceModel._toint(e.source.address.attrib['bus'])
@@ -258,7 +260,7 @@ class DeviceModel(object):
             ebus = -1
             edevice = -1
         else:
-            unknown_dev = 'usb_bus_%s_device_%s' % (ebus, edevice)
+            unknown_dev = f'usb_bus_{ebus}_device_{edevice}'
 
         for usb_info in usb_infos:
             ivendor = DeviceModel._toint(usb_info['vendor']['id'])
@@ -303,14 +305,16 @@ class VolumeGroupModel(object):
 
     def lookup(self, name):
         def _format(vg):
-            return {'name': vg['vgname'],
-                    'size': vg['size'],
-                    'free': vg['free'],
-                    'pvs': [pv['pvname'] for pv in disks.pvs(vg['vgname'])],
-                    'lvs': [lv['lvname'] for lv in disks.lvs(vg['vgname'])]}
+            return {
+                'name': vg['vgname'],
+                'size': vg['size'],
+                'free': vg['free'],
+                'pvs': [pv['pvname'] for pv in disks.pvs(vg['vgname'])],
+                'lvs': [lv['lvname'] for lv in disks.lvs(vg['vgname'])],
+            }
 
         vgs = [_format(vg) for vg in disks.vgs() if vg['vgname'] == name]
         if not vgs:
-            raise InvalidParameter("KCHLVMS0001E", {'name': name})
+            raise InvalidParameter('KCHLVMS0001E', {'name': name})
 
         return vgs[0]

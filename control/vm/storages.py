@@ -16,39 +16,32 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
-from wok.control.base import Collection, Resource
+from wok.control.base import Collection
+from wok.control.base import Resource
 from wok.control.utils import UrlSubNode
 
 
-VMSTORAGES_REQUESTS = {
-    'POST': {
-        'default': "KCHVMSTOR0001L",
-    },
-}
+VMSTORAGES_REQUESTS = {'POST': {'default': 'KCHVMSTOR0001L'}}
 
 VMSTORAGE_REQUESTS = {
-    'DELETE': {'default': "KCHVMSTOR0002L"},
-    'PUT': {'default': "KCHVMSTOR0003L"},
+    'DELETE': {'default': 'KCHVMSTOR0002L'},
+    'PUT': {'default': 'KCHVMSTOR0003L'},
 }
 
 
-@UrlSubNode("storages")
+@UrlSubNode('storages')
 class VMStorages(Collection):
     def __init__(self, model, vm):
         super(VMStorages, self).__init__(model)
         self.resource = VMStorage
         self.vm = vm
-        self.resource_args = [self.vm, ]
-        self.model_args = [self.vm, ]
+        self.resource_args = [self.vm]
+        self.model_args = [self.vm]
 
         # set user log messages and make sure all parameters are present
         self.log_map = VMSTORAGES_REQUESTS
-        self.log_args.update({
-            'vm': self.vm.encode('utf-8') if self.vm else '',
-            'path': '',
-            'type': '',
-        })
+        self.log_args.update(
+            {'vm': self.vm if self.vm else '', 'path': '', 'type': ''})
 
 
 class VMStorage(Resource):
@@ -62,9 +55,7 @@ class VMStorage(Resource):
 
         # set user log messages and make sure all parameters are present
         self.log_map = VMSTORAGE_REQUESTS
-        self.log_args.update({
-            'vm': self.vm.encode('utf-8') if self.vm else '',
-        })
+        self.log_args.update({'vm': self.vm if self.vm else ''})
 
     @property
     def data(self):

@@ -16,7 +16,6 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-
 import ipaddr
 import lxml.etree as ET
 from lxml.builder import E
@@ -33,15 +32,14 @@ def _get_dhcp_elem(**kwargs):
     """
     dhcp = E.dhcp()
     if 'range' in kwargs.keys():
-        dhcp_range = E.range(start=kwargs['range']['start'],
-                             end=kwargs['range']['end'])
+        dhcp_range = E.range(
+            start=kwargs['range']['start'], end=kwargs['range']['end'])
         dhcp.append(dhcp_range)
 
     if 'hosts' in kwargs.keys():
         for host in kwargs['hosts']:
-            dhcp.append(E.host(mac=host['mac'],
-                               name=host['name'],
-                               ip=host['ip']))
+            dhcp.append(
+                E.host(mac=host['mac'], name=host['name'], ip=host['ip']))
 
     return dhcp if len(dhcp) > 0 else None
 
@@ -73,7 +71,7 @@ def _get_forward_elem(**kwargs):
     <forward mode='hostdev' dev='eth0' managed='yes'>
     </forward>
     """
-    if "mode" in kwargs.keys() and kwargs['mode'] is None:
+    if 'mode' in kwargs.keys() and kwargs['mode'] is None:
         return None
 
     forward = E.forward()
@@ -109,7 +107,7 @@ def to_network_xml(**kwargs):
             network.append(E.virtualport(type='openvswitch'))
 
     # None means is Isolated network, {} means default mode nat
-    params = kwargs.get('forward', {"mode": None})
+    params = kwargs.get('forward', {'mode': None})
     forward = _get_forward_elem(**params)
     if forward is not None:
         network.append(forward)
@@ -117,7 +115,7 @@ def to_network_xml(**kwargs):
     if 'net' in kwargs:
         network.append(_get_ip_elem(**kwargs))
 
-    return ET.tostring(network)
+    return ET.tostring(network).decode('utf-8')
 
 
 def create_vlan_tagged_bridge_xml(bridge, interface, vlan_id):
@@ -125,29 +123,25 @@ def create_vlan_tagged_bridge_xml(bridge, interface, vlan_id):
     vlan.set('tag', vlan_id)
     m = E.interface(
         E.start(mode='onboot'),
-        E.bridge(
-            E.interface(
-                vlan,
-                type='vlan',
-                name='.'.join([interface, vlan_id]))),
+        E.bridge(E.interface(vlan, type='vlan',
+                             name='.'.join([interface, vlan_id]))),
         type='bridge',
-        name=bridge)
+        name=bridge,
+    )
     return ET.tostring(m)
 
 
 def create_linux_bridge_xml(bridge, interface, iface_xml):
     m = E.interface(
         E.start(mode='onboot'),
-        E.bridge(
-            E.interface(
-                type='ethernet',
-                name=interface)),
+        E.bridge(E.interface(type='ethernet', name=interface)),
         type='bridge',
-        name=bridge)
+        name=bridge,
+    )
 
     # use same network configuration of lower interface
     iface = ET.fromstring(iface_xml)
-    for element in iface.iter("protocol"):
+    for element in iface.iter('protocol'):
         m.append(element)
 
     return ET.tostring(m)
@@ -156,7 +150,7 @@ def create_linux_bridge_xml(bridge, interface, iface_xml):
 def get_no_network_config_xml(iface_xml):
     # remove all protocol elements from interface xml
     xml = ET.fromstring(iface_xml)
-    for element in xml.iter("protocol"):
+    for element in xml.iter('protocol'):
         element.getparent().remove(element)
 
     return ET.tostring(xml)

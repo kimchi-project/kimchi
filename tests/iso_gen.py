@@ -16,7 +16,6 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-
 import platform
 import struct
 
@@ -24,8 +23,7 @@ from wok.plugins.kimchi.isoinfo import IsoImage
 
 
 iso_des = [
-    ('openbsd', lambda v: True,
-        lambda v: 'OpenBSD/i386    %s Install CD' % v),
+    ('openbsd', lambda v: True, lambda v: 'OpenBSD/i386    %s Install CD' % v),
     ('centos', lambda v: True, lambda v: 'CentOS_%s_Final' % v),
     ('windows', '2000', 'W2AFPP'),
     ('windows', 'xp', 'WXPFPP'),
@@ -47,14 +45,28 @@ iso_des = [
     ('rhel', '4.8', 'RHEL/4-U8'),
     ('rhel', lambda v: v.startswith('6.'), lambda v: 'RHEL_%s' % v),
     ('debian', lambda v: True, lambda v: 'Debian %s' % v),
-    ('ubuntu',
-     lambda v: v in ('7.10', '8.04', '8.10', '9.04', '9.10', '10.04', '10.10',
-                     '11.04', '11.10', '12.04', '12.10', '13.04', '13.10',
-                     '14.04'),
-     lambda v: 'Ubuntu %s' % v),
-    ('fedora',
-     lambda v: v in ('16', '17', '18', '19'),
-     lambda v: 'Fedora %s' % v)
+    (
+        'ubuntu',
+        lambda v: v
+        in (
+            '7.10',
+            '8.04',
+            '8.10',
+            '9.04',
+            '9.10',
+            '10.04',
+            '10.10',
+            '11.04',
+            '11.10',
+            '12.04',
+            '12.10',
+            '13.04',
+            '13.10',
+            '14.04',
+        ),
+        lambda v: 'Ubuntu %s' % v,
+    ),
+    ('fedora', lambda v: v in ('16', '17', '18', '19'), lambda v: 'Fedora %s' % v),
 ]
 
 
@@ -79,11 +91,11 @@ class FakeIsoImage(object):
         fd.seek(16 * IsoImage.SECTOR_SIZE)
         fmt = IsoImage.VOL_DESC
         vd_type = 1
-        vd_ident = 'CD001'
+        vd_ident = b'CD001'
         vd_ver = 1
         pad0 = 1
-        sys_id = 'fake os'
-        vol_id = iso_volid
+        sys_id = b'fake os'
+        vol_id = iso_volid.encode('utf-8')
         data = (vd_type, vd_ident, vd_ver, pad0, sys_id, vol_id)
         s = fmt.pack(*data)
         fd.write(s)
@@ -92,16 +104,16 @@ class FakeIsoImage(object):
     def _add_sector_padding(self, fd, s):
         padding_len = IsoImage.SECTOR_SIZE - len(s)
         fmt = struct.Struct('=%ss' % padding_len)
-        s = fmt.pack('a' * padding_len)
+        s = fmt.pack(b'a' * padding_len)
         fd.write(s)
 
     def _build_el_torito(self, fd):
         fmt = IsoImage.EL_TORITO_BOOT_RECORD
         vd_type = 0
-        vd_ident = 'CD001'
+        vd_ident = b'CD001'
         vd_ver = 1
-        et_ident = "EL TORITO SPECIFICATION:"
-        pad0 = 'a' * 32
+        et_ident = b'EL TORITO SPECIFICATION:'
+        pad0 = b'a' * 32
         boot_cat = 0
         data = (vd_type, vd_ident, vd_ver, et_ident, pad0, boot_cat)
         s = fmt.pack(*data)
@@ -113,10 +125,10 @@ class FakeIsoImage(object):
         hdr_id = 0
         platform_id = 0
         pad0 = 1
-        ident = 'c' * 24
+        ident = b'c' * 24
         csum = 1
         key55 = 0x55
-        keyAA = 0xaa
+        keyAA = 0xAA
         data = (hdr_id, platform_id, pad0, ident, csum, key55, keyAA)
         s = fmt.pack(*data)
         fd.write(s)
@@ -136,23 +148,23 @@ class FakeIsoImage(object):
         s = fmt.pack(*data)
         fd.write(s)
 
-        s = 'a' * IsoImage.SECTOR_SIZE
+        s = b'a' * IsoImage.SECTOR_SIZE
         fd.write(s)
 
     def _build_bootable_ppc_path_table(self, fd):
         # write path table locator
         PATH_TABLE_LOC_OFFSET = 16 * IsoImage.SECTOR_SIZE + 132
-        PATH_TABLE_SIZE_LOC = struct.Struct("<I 4s I")
+        PATH_TABLE_SIZE_LOC = struct.Struct('<I 4s I')
         path_table_size = 64
         path_table_loc = 18
         fd.seek(PATH_TABLE_LOC_OFFSET)
         fmt = PATH_TABLE_SIZE_LOC
-        data = (path_table_size, 4*'0', path_table_loc)
+        data = (path_table_size, 4 * '0', path_table_loc)
         s = fmt.pack(*data)
         fd.write(s)
         # write path table entry
         fd.seek(path_table_loc * IsoImage.SECTOR_SIZE)
-        DIR_NAMELEN_LOCATION_PARENT = struct.Struct("<B B I H 3s")
+        DIR_NAMELEN_LOCATION_PARENT = struct.Struct('<B B I H 3s')
         dir_namelen = 3
         dir_loc = 19
         dir_parent = 1
@@ -164,7 +176,7 @@ class FakeIsoImage(object):
         # write 'ppc' dir record
         ppc_dir_offset = dir_loc * IsoImage.SECTOR_SIZE
         fd.seek(ppc_dir_offset)
-        STATIC_DIR_RECORD_FMT = struct.Struct("<B 9s I 11s B 6s B 12s")
+        STATIC_DIR_RECORD_FMT = struct.Struct('<B 9s I 11s B 6s B 12s')
         dir_rec_len = 1
         unused1 = 9 * '0'
         dir_size = 100
@@ -172,9 +184,17 @@ class FakeIsoImage(object):
         file_flags = 0
         unused3 = 6 * '0'
         file_name_len = 12
-        boot_file_name = "bootinfo.txt"
-        data = (dir_rec_len, unused1, dir_size, unused2, file_flags,
-                unused3, file_name_len, boot_file_name)
+        boot_file_name = 'bootinfo.txt'
+        data = (
+            dir_rec_len,
+            unused1,
+            dir_size,
+            unused2,
+            file_flags,
+            unused3,
+            file_name_len,
+            boot_file_name,
+        )
         fmt = STATIC_DIR_RECORD_FMT
         s = fmt.pack(*data)
         fd.write(s)
@@ -198,10 +218,10 @@ def construct_fake_iso(path, bootable, version, distro):
             vol_id = gen_id(version)
         else:
             vol_id = gen_id
-        with open(path, 'w') as fd:
+        with open(path, 'wb') as fd:
             return iso._build_iso(fd, vol_id, bootable)
 
-    raise Exception("%s: %s not supported generation" % (distro, version))
+    raise Exception('%s: %s not supported generation' % (distro, version))
 
 
 if __name__ == '__main__':

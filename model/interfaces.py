@@ -16,15 +16,13 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
 import ethtool
-
-from wok.exception import InvalidParameter, NotFoundError
-from wok.stringutils import encode_value
-from wok.utils import wok_log
-
+from wok.exception import InvalidParameter
+from wok.exception import NotFoundError
 from wok.plugins.kimchi import network as netinfo
 from wok.plugins.kimchi.model.networks import NetworksModel
+from wok.stringutils import encode_value
+from wok.utils import wok_log
 
 
 class InterfacesModel(object):
@@ -33,19 +31,26 @@ class InterfacesModel(object):
         self.networks = NetworksModel(**kargs)
 
     def get_list(self, _inuse=None):
-        if _inuse == "true":
-            return list(set(netinfo.all_favored_interfaces()) &
-                        set(self.networks.get_all_networks_interfaces()))
-        elif _inuse == "false":
-            return list(set(netinfo.all_favored_interfaces()) -
-                        set(self.networks.get_all_networks_interfaces()))
+        if _inuse == 'true':
+            return list(
+                set(netinfo.all_favored_interfaces()) &
+                set(self.networks.get_all_networks_interfaces())
+            )
+        elif _inuse == 'false':
+            return list(
+                set(netinfo.all_favored_interfaces()) -
+                set(self.networks.get_all_networks_interfaces())
+            )
         elif _inuse is None:
             return list(set(netinfo.all_favored_interfaces()))
         else:
-            wok_log.error("Invalid filter _inuse. _inuse: %s. Supported"
-                          " options are %s" % (_inuse, 'true/false'))
-            raise InvalidParameter("KCHIFACE0002E",
-                                   {'supported_inuse': ['true', 'false']})
+            wok_log.error(
+                f'Invalid filter _inuse. _inuse: {_inuse}. Supported'
+                f' options are true/false'
+            )
+            raise InvalidParameter(
+                'KCHIFACE0002E', {'supported_inuse': ['true', 'false']}
+            )
 
 
 class InterfaceModel(object):
@@ -54,7 +59,7 @@ class InterfaceModel(object):
 
     def lookup(self, name):
         if encode_value(name) not in map(encode_value, ethtool.get_devices()):
-            raise NotFoundError("KCHIFACE0001E", {'name': name})
+            raise NotFoundError('KCHIFACE0001E', {'name': name})
 
         ipaddr = ''
         netmask = ''
@@ -66,16 +71,18 @@ class InterfaceModel(object):
             module = ethtool.get_module(encode_value(name))
 
             flags = ethtool.get_flags(encode_value(name))
-            status = 'up' if flags & (ethtool.IFF_RUNNING | ethtool.IFF_UP) \
-                     else 'down'
+            status = 'up' if flags & (
+                ethtool.IFF_RUNNING | ethtool.IFF_UP) else 'down'
         except IOError:
             pass
 
         iface_type = netinfo.get_interface_type(name)
 
-        return {'name': name,
-                'type': iface_type,
-                'status': status,
-                'ipaddr': ipaddr,
-                'netmask': netmask,
-                'module': module}
+        return {
+            'name': name,
+            'type': iface_type,
+            'status': status,
+            'ipaddr': ipaddr,
+            'netmask': netmask,
+            'module': module,
+        }

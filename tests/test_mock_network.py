@@ -17,17 +17,17 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
-import cherrypy
 import json
 import unittest
 from functools import partial
 
-from tests.utils import patch_auth, request, run_server
-
+import cherrypy
+from test_model_network import _do_network_test
 from wok.plugins.kimchi.model.featuretests import FeatureTests
 
-from test_model_network import _do_network_test
+from tests.utils import patch_auth
+from tests.utils import request
+from tests.utils import run_server
 
 
 model = None
@@ -51,17 +51,27 @@ class MockNetworkTests(unittest.TestCase):
         self.request = partial(request)
         model.reset()
 
-    @unittest.skipIf(FeatureTests.is_nm_running(),
-                     'test_vlan_tag_bridge skipped because Network '
-                     'Manager is running.')
+    @unittest.skipIf(
+        FeatureTests.is_nm_running(),
+        'test_vlan_tag_bridge skipped because Network ' 'Manager is running.',
+    )
     def test_vlan_tag_bridge(self):
         # Verify the current system has at least one interface to create a
         # bridged network
         interfaces = json.loads(
-            self.request(
-                '/plugins/kimchi/interfaces?_inuse=false&type=nic').read())
+            self.request('/plugins/kimchi/interfaces?_inuse=false&type=nic')
+            .read()
+            .decode('utf-8')
+        )
         if len(interfaces) > 0:
             iface = interfaces[0]['name']
-            _do_network_test(self, model, {'name': u'vlan-tagged-bridge',
-                                           'connection': 'bridge',
-                                           'interface': iface, 'vlan_id': 987})
+            _do_network_test(
+                self,
+                model,
+                {
+                    'name': u'vlan-tagged-bridge',
+                    'connection': 'bridge',
+                    'interface': iface,
+                    'vlan_id': 987,
+                },
+            )

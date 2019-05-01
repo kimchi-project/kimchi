@@ -17,15 +17,16 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 #
+import os
 
 import cherrypy
 import libvirt
-import os
-
-from wok.exception import InvalidOperation, OperationFailed
+from wok.exception import InvalidOperation
+from wok.exception import OperationFailed
 from wok.plugins.kimchi import config as kimchi_config
 from wok.plugins.kimchi.model.vms import VMModel
-from wok.utils import run_command, wok_log
+from wok.utils import run_command
+from wok.utils import wok_log
 
 
 def write_virt_viewer_file(params):
@@ -38,7 +39,7 @@ port=%(graphics_port)s
     file_contents = file_template % params
 
     if params.get('graphics_passwd'):
-        file_contents += 'password=%s\n' % params['graphics_passwd']
+        file_contents += f'password={params["graphics_passwd"]}\n'
 
     try:
         with open(params.get('path'), 'w') as vv_file:
@@ -62,21 +63,20 @@ def create_virt_viewer_file(vm_name, graphics_info):
         host = _get_request_host()
 
         default_dir = kimchi_config.get_virtviewerfiles_path()
-        file_path = os.path.join(default_dir, '%s-access.vv' % vm_name)
+        file_path = os.path.join(default_dir, f'{vm_name}-access.vv')
 
         file_params = {
             'type': graphics_type,
             'graphics_port': graphics_port,
             'graphics_passwd': graphics_passwd,
             'host': host,
-            'path': file_path
+            'path': file_path,
         }
         write_virt_viewer_file(file_params)
         return file_path
 
     except Exception as e:
-        raise OperationFailed("KCHVM0084E",
-                              {'name': vm_name, 'err': e.message})
+        raise OperationFailed('KCHVM0084E', {'name': vm_name, 'err': str(e)})
 
 
 class VMVirtViewerFileModel(object):
@@ -87,8 +87,8 @@ class VMVirtViewerFileModel(object):
         cherrypy.engine.subscribe('exit', self.cleanup)
 
     def cleanup(self):
-        wok_log.info('Closing any VNC/SPICE firewall ports '
-                     'opened by Kimchi ...')
+        wok_log.info(
+            'Closing any VNC/SPICE firewall ports ' 'opened by Kimchi ...')
         self.firewall_mngr.remove_all_vms_ports()
         for cb_id in self.vm_event_callbacks.values():
             self.conn.get().domainEventDeregisterAny(cb_id)
@@ -97,7 +97,7 @@ class VMVirtViewerFileModel(object):
         dom = VMModel.get_vm(name, self.conn)
         d_info = dom.info()
         if d_info[0] != libvirt.VIR_DOMAIN_RUNNING:
-            raise InvalidOperation("KCHVM0083E", {'name': name})
+            raise InvalidOperation('KCHVM0083E', {'name': name})
 
     def event_vmshutdown_cb(self, conn, dom, event, detail, *args):
         if event == libvirt.VIR_DOMAIN_EVENT_STOPPED:
@@ -114,7 +114,7 @@ class VMVirtViewerFileModel(object):
                 dom,
                 libvirt.VIR_DOMAIN_EVENT_ID_LIFECYCLE,
                 self.event_vmshutdown_cb,
-                None
+                None,
             )
             self.vm_event_callbacks[vm_name] = cb_id
 
@@ -122,8 +122,8 @@ class VMVirtViewerFileModel(object):
             if type(e) == AttributeError:
                 reason = 'Libvirt service is not running'
             else:
-                reason = e.message
-            wok_log.error("Register of LIFECYCLE event failed: %s" % reason)
+                reason = str(e)
+            wok_log.error(f'Register of LIFECYCLE event failed: {reason}')
 
     def lookup(self, name):
         self._check_if_vm_running(name)
@@ -135,12 +135,10 @@ class VMVirtViewerFileModel(object):
             self.firewall_mngr.add_vm_graphics_port(name, graphics_port)
             self.handleVMShutdownPowerOff(name)
 
-        return 'plugins/kimchi/data/virtviewerfiles/%s' %\
-               os.path.basename(file_path)
+        return f'plugins/kimchi/data/virtviewerfiles/{os.path.basename(file_path)}'
 
 
 class FirewallManager(object):
-
     @staticmethod
     def check_if_firewall_cmd_enabled():
         _, _, r_code = run_command(['firewall-cmd', '--state', '-q'])
@@ -179,54 +177,48 @@ class FirewallManager(object):
 
 
 class FirewallCMDProvider(object):
-
     @staticmethod
     def enable_tcp_port(port):
         _, err, r_code = run_command(
-            ['firewall-cmd', '--add-port=%s/tcp' % port]
-        )
+            ['firewall-cmd', '--add-port=%s/tcp' % port])
         if r_code != 0:
-            wok_log.error('Error when adding port to firewall-cmd: %s' % err)
+            wok_log.error(f'Error when adding port to firewall-cmd: {err}')
 
     @staticmethod
     def disable_tcp_port(port):
         _, err, r_code = run_command(
-            ['firewall-cmd', '--remove-port=%s/tcp' % port]
-        )
+            ['firewall-cmd', f'--remove-port={port}/tcp'])
         if r_code != 0:
-            wok_log.error('Error when removing port from '
-                          'firewall-cmd: %s' % err)
+            wok_log.error(f'Error when removing port from firewall-cmd: {err}')
 
 
 class UFWProvider(object):
-
     @staticmethod
     def enable_tcp_port(port):
-        _, err, r_code = run_command(['ufw', 'allow', '%s/tcp' % port])
+        _, err, r_code = run_command(['ufw', 'allow', f'{port}/tcp'])
         if r_code != 0:
-            wok_log.error('Error when adding port to ufw: %s' % err)
+            wok_log.error(f'Error when adding port to ufw: {err}')
 
     @staticmethod
     def disable_tcp_port(port):
-        _, err, r_code = run_command(['ufw', 'deny', '%s/tcp' % port])
+        _, err, r_code = run_command(['ufw', 'deny', f'{port}/tcp'])
         if r_code != 0:
-            wok_log.error('Error when removing port from ufw: %s' % err)
+            wok_log.error(f'Error when removing port from ufw: {err}')
 
 
 class IPTablesProvider(object):
-
     @staticmethod
     def enable_tcp_port(port):
-        cmd = ['iptables', '-I', 'INPUT', '-p', 'tcp', '--dport',
-               port, '-j', 'ACCEPT']
+        cmd = ['iptables', '-I', 'INPUT', '-p',
+               'tcp', '--dport', port, '-j', 'ACCEPT']
         _, err, r_code = run_command(cmd)
         if r_code != 0:
-            wok_log.error('Error when adding port to iptables: %s' % err)
+            wok_log.error(f'Error when adding port to iptables: {err}')
 
     @staticmethod
     def disable_tcp_port(port):
-        cmd = ['iptables', '-D', 'INPUT', '-p', 'tcp', '--dport',
-               port, '-j', 'ACCEPT']
+        cmd = ['iptables', '-D', 'INPUT', '-p',
+               'tcp', '--dport', port, '-j', 'ACCEPT']
         _, err, r_code = run_command(cmd)
         if r_code != 0:
-            wok_log.error('Error when removing port from itables: %s' % err)
+            wok_log.error(f'Error when removing port from itables: {err}')

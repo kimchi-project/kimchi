@@ -17,22 +17,23 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 #
-
 import contextlib
 import json
+import os
 import re
 import sqlite3
 import time
-import os
-import urllib2
-from httplib import HTTPConnection, HTTPException
-from urlparse import urlparse
+import urllib
+from http.client import HTTPConnection
+from http.client import HTTPException
 
-from wok.exception import InvalidParameter, OperationFailed
+from wok.exception import InvalidParameter
+from wok.exception import OperationFailed
 from wok.plugins.kimchi import config
 from wok.plugins.kimchi.osinfo import get_template_default
 from wok.stringutils import encode_value
-from wok.utils import run_command, wok_log
+from wok.utils import run_command
+from wok.utils import wok_log
 from wok.xmlutils.utils import xpath_get_text
 
 MAX_REDIRECTION_ALLOWED = 5
@@ -42,7 +43,7 @@ def _uri_to_name(collection, uri):
     expr = '/plugins/kimchi/%s/(.*?)$' % collection
     m = re.match(expr, uri)
     if not m:
-        raise InvalidParameter("WOKUTILS0001E", {'uri': uri})
+        raise InvalidParameter('WOKUTILS0001E', {'uri': uri})
     return m.group(1)
 
 
@@ -58,13 +59,12 @@ def check_url_path(path, redirected=0):
     if redirected > MAX_REDIRECTION_ALLOWED:
         return False
     try:
-        code = ''
-        parse_result = urlparse(path)
+        parse_result = urllib.parse.urlparse(path)
         server_name = parse_result.netloc
         urlpath = parse_result.path
         if not urlpath:
             # Just a server, as with a repo.
-            with contextlib.closing(urllib2.urlopen(path)) as res:
+            with contextlib.closing(urllib.request.urlopen(path)) as res:
                 code = res.getcode()
         else:
             # socket.gaierror could be raised,
@@ -80,10 +80,10 @@ def check_url_path(path, redirected=0):
         elif code == 301 or code == 302:
             for header in response.getheaders():
                 if header[0] == 'location':
-                    return check_url_path(header[1], redirected+1)
+                    return check_url_path(header[1], redirected + 1)
         else:
             return False
-    except (urllib2.URLError, HTTPException, IOError, ValueError):
+    except (urllib.error.URLError, HTTPException, IOError, ValueError):
         return False
     return True
 
@@ -102,19 +102,21 @@ def upgrade_objectstore_data(item, old_uri, new_uri):
         for row in cursor.fetchall():
             # execute update here
             template = json.loads(row[1])
-            path = (template[item] if item in template else 'none')
+            path = template[item] if item in template else 'none'
             if path.startswith(old_uri):
                 template[item] = new_uri + path
-                sql = "UPDATE objects SET json=?, version=? WHERE id=?"
-                cursor.execute(sql, (json.dumps(template),
-                                     config.get_kimchi_version(), row[0]))
+                sql = 'UPDATE objects SET json=?, version=? WHERE id=?'
+                cursor.execute(
+                    sql, (json.dumps(template),
+                          config.get_kimchi_version(), row[0])
+                )
                 conn.commit()
                 total += 1
-    except sqlite3.Error, e:
+    except sqlite3.Error as e:
         if conn:
             conn.rollback()
-        wok_log.error("Error while upgrading objectstore data: %s", e.args[0])
-        raise OperationFailed("KCHUTILS0006E")
+        wok_log.error('Error while upgrading objectstore data: %s', e.args[0])
+        raise OperationFailed('KCHUTILS0006E')
     finally:
         if conn:
             conn.close()
@@ -139,28 +141,26 @@ def upgrade_objectstore_template_disks(libv_conn):
             # Get pool info
             pool_uri = template['storagepool']
             pool_name = pool_name_from_uri(pool_uri)
-            pool = libv_conn.get().storagePoolLookupByName(
-                pool_name.encode("utf-8"))
-            pool_type = xpath_get_text(pool.XMLDesc(0), "/pool/@type")[0]
+            pool = libv_conn.get().storagePoolLookupByName(pool_name.encode('utf-8'))
+            pool_type = xpath_get_text(pool.XMLDesc(0), '/pool/@type')[0]
 
             # Update json
             new_disks = []
             for disk in template['disks']:
-                disk['pool'] = {'name': pool_uri,
-                                'type': pool_type}
+                disk['pool'] = {'name': pool_uri, 'type': pool_type}
                 new_disks.append(disk)
             template['disks'] = new_disks
             del template['storagepool']
 
-            sql = "UPDATE objects SET json=? WHERE id=?"
+            sql = 'UPDATE objects SET json=? WHERE id=?'
             cursor.execute(sql, (json.dumps(template), row[0]))
             conn.commit()
             total += 1
-    except sqlite3.Error, e:
+    except sqlite3.Error as e:
         if conn:
             conn.rollback()
-        wok_log.error("Error while upgrading objectstore data: %s", e.args[0])
-        raise OperationFailed("KCHUTILS0006E")
+        wok_log.error('Error while upgrading objectstore data: %s', e.args[0])
+        raise OperationFailed('KCHUTILS0006E')
     finally:
         if conn:
             conn.close()
@@ -186,24 +186,23 @@ def upgrade_objectstore_memory():
             memory = template['memory']
             # New memory is a dictionary with 'current' and 'maxmemory'
             if type(memory) is not dict:
-                maxmem = get_template_default('modern',
-                                              'memory').get('maxmemory')
+                maxmem = get_template_default(
+                    'modern', 'memory').get('maxmemory')
                 if maxmem < memory:
                     maxmem = memory
-                template['memory'] = {'current': memory,
-                                      'maxmemory': maxmem}
+                template['memory'] = {'current': memory, 'maxmemory': maxmem}
             else:
                 continue
 
-            sql = "UPDATE objects SET json=? WHERE id=?"
+            sql = 'UPDATE objects SET json=? WHERE id=?'
             cursor.execute(sql, (json.dumps(template), row[0]))
             conn.commit()
             total += 1
-    except sqlite3.Error, e:
+    except sqlite3.Error as e:
         if conn:
             conn.rollback()
-        wok_log.error("Error while upgrading objectstore data: %s", e.args[0])
-        raise OperationFailed("KCHUTILS0006E")
+        wok_log.error('Error while upgrading objectstore data: %s', e.args[0])
+        raise OperationFailed('KCHUTILS0006E')
     finally:
         if conn:
             conn.close()
@@ -240,7 +239,7 @@ def get_next_clone_name(all_names, basename, name_suffix='', ts=False):
         ts_suffix = int(time.time() * 1000000)
         new_name = u'%s-clone-%d' % (basename, ts_suffix)
     else:
-        re_expr = u'%s-clone-(?P<%s>\d+)' % (basename, re_group_num)
+        re_expr = u'%s-clone-(?P<%s>\\d+)' % (basename, re_group_num)
         if name_suffix != '':
             re_expr = u'%s%s' % (re_expr, name_suffix)
 
@@ -293,10 +292,19 @@ def create_disk_image(format_type, path, capacity):
 
     """
     out, err, rc = run_command(
-        ["/usr/bin/qemu-img", "create", "-f", format_type, "-o",
-         "preallocation=metadata", path, encode_value(capacity) + "G"])
+        [
+            '/usr/bin/qemu-img',
+            'create',
+            '-f',
+            format_type,
+            '-o',
+            'preallocation=metadata',
+            path,
+            encode_value(capacity) + 'G',
+        ]
+    )
 
     if rc != 0:
-        raise OperationFailed("KCHTMPL0041E", {'err': err})
+        raise OperationFailed('KCHTMPL0041E', {'err': err})
 
     return

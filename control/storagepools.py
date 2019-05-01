@@ -16,30 +16,24 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
 import cherrypy
-
-from wok.control.base import Collection, Resource
-from wok.control.utils import get_class_name, model_fn
-from wok.control.utils import validate_params
+from wok.control.base import Collection
+from wok.control.base import Resource
+from wok.control.utils import get_class_name
+from wok.control.utils import model_fn
 from wok.control.utils import UrlSubNode
-
+from wok.control.utils import validate_params
 from wok.plugins.kimchi.control.storagevolumes import IsoVolumes
 from wok.plugins.kimchi.control.storagevolumes import StorageVolumes
 from wok.plugins.kimchi.model.storagepools import ISO_POOL_NAME
 
 
-STORAGEPOOLS_REQUESTS = {
-    'POST': {'default': "KCHPOOL0001L"},
-}
+STORAGEPOOLS_REQUESTS = {'POST': {'default': 'KCHPOOL0001L'}}
 
 STORAGEPOOL_REQUESTS = {
-    'DELETE': {'default': "KCHPOOL0002L"},
-    'PUT': {'default': "KCHPOOL0003L"},
-    'POST': {
-        'activate': "KCHPOOL0004L",
-        'deactivate': "KCHPOOL0005L",
-    },
+    'DELETE': {'default': 'KCHPOOL0002L'},
+    'PUT': {'default': 'KCHPOOL0003L'},
+    'POST': {'activate': 'KCHPOOL0004L', 'deactivate': 'KCHPOOL0005L'},
 }
 
 
@@ -95,27 +89,29 @@ class StoragePool(Resource):
     def __init__(self, model, ident):
         super(StoragePool, self).__init__(model, ident)
         self.admin_methods = ['PUT', 'POST', 'DELETE']
-        self.uri_fmt = "/storagepools/%s"
+        self.uri_fmt = '/storagepools/%s'
         self.activate = self.generate_action_handler('activate')
-        self.deactivate = self.generate_action_handler('deactivate',
-                                                       destructive=True)
+        self.deactivate = self.generate_action_handler(
+            'deactivate', destructive=True)
         self.storagevolumes = StorageVolumes(self.model, ident)
         self.log_map = STORAGEPOOL_REQUESTS
 
     @property
     def data(self):
-        res = {'name': self.ident,
-               'state': self.info['state'],
-               'capacity': self.info['capacity'],
-               'allocated': self.info['allocated'],
-               'available': self.info['available'],
-               'path': self.info['path'],
-               'source': self.info['source'],
-               'type': self.info['type'],
-               'nr_volumes': self.info['nr_volumes'],
-               'autostart': self.info['autostart'],
-               'persistent': self.info['persistent'],
-               'in_use': self.info['in_use']}
+        res = {
+            'name': self.ident,
+            'state': self.info['state'],
+            'capacity': self.info['capacity'],
+            'allocated': self.info['allocated'],
+            'available': self.info['available'],
+            'path': self.info['path'],
+            'source': self.info['source'],
+            'type': self.info['type'],
+            'nr_volumes': self.info['nr_volumes'],
+            'autostart': self.info['autostart'],
+            'persistent': self.info['persistent'],
+            'in_use': self.info['in_use'],
+        }
 
         val = self.info.get('task_id')
         if val:
@@ -131,6 +127,8 @@ class IsoPool(Resource):
 
     @property
     def data(self):
-        return {'name': self.ident,
-                'state': self.info['state'],
-                'type': self.info['type']}
+        return {
+            'name': self.ident,
+            'state': self.info['state'],
+            'type': self.info['type'],
+        }

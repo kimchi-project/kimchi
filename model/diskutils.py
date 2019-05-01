@@ -16,9 +16,10 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
-from wok.plugins.kimchi.model.vms import VMModel, VMsModel
-from wok.plugins.kimchi.xmlutils.disk import get_vm_disk_info, get_vm_disks
+from wok.plugins.kimchi.model.vms import VMModel
+from wok.plugins.kimchi.model.vms import VMsModel
+from wok.plugins.kimchi.xmlutils.disk import get_vm_disk_info
+from wok.plugins.kimchi.xmlutils.disk import get_vm_disks
 
 
 """

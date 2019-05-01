@@ -17,15 +17,17 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
-import cherrypy
 import json
 import unittest
+import urllib
 from functools import partial
 
-from tests.utils import patch_auth, request, run_server
-
+import cherrypy
 from test_model_storagevolume import _do_volume_test
+
+from tests.utils import patch_auth
+from tests.utils import request
+from tests.utils import run_server
 
 
 model = None
@@ -51,37 +53,58 @@ class MockStorageVolumeTests(unittest.TestCase):
     def test_storagevolume(self):
         # MockModel always returns 2 partitions (vdx, vdz)
         partitions = json.loads(
-            self.request('/plugins/kimchi/host/partitions').read()
+            self.request(
+                '/plugins/kimchi/host/partitions').read().decode('utf-8')
         )
         devs = [dev['path'] for dev in partitions]
 
         # MockModel always returns 3 FC devices
         fc_devs = json.loads(
-            self.request('/plugins/kimchi/host/devices?_cap=fc_host').read()
+            self.request('/plugins/kimchi/host/devices?_cap=fc_host')
+            .read()
+            .decode('utf-8')
         )
         fc_devs = [dev['name'] for dev in fc_devs]
 
         poolDefs = [
-            {'type': 'dir', 'name': u'kīмсhīUnitTestDirPool',
-             'path': '/tmp/kimchi-images'},
-            {'type': 'netfs', 'name': u'kīмсhīUnitTestNSFPool',
-             'source': {'host': 'localhost',
-                        'path': '/var/lib/kimchi/nfs-pool'}},
-            {'type': 'scsi', 'name': u'kīмсhīUnitTestSCSIFCPool',
-             'source': {'adapter_name': fc_devs[0]}},
-            {'type': 'iscsi', 'name': u'kīмсhīUnitTestISCSIPool',
-             'source': {'host': '127.0.0.1',
-                        'target': 'iqn.2015-01.localhost.kimchiUnitTest'}},
-            {'type': 'logical', 'name': u'kīмсhīUnitTestLogicalPool',
-             'source': {'devices': [devs[0]]}}]
+            {
+                'type': 'dir',
+                'name': 'kīмсhīUnitTestDirPool',
+                'path': '/tmp/kimchi-images',
+            },
+            {
+                'type': 'netfs',
+                'name': 'kīмсhīUnitTestNSFPool',
+                'source': {'host': 'localhost', 'path': '/var/lib/kimchi/nfs-pool'},
+            },
+            {
+                'type': 'scsi',
+                'name': 'kīмсhīUnitTestSCSIFCPool',
+                'source': {'adapter_name': fc_devs[0]},
+            },
+            {
+                'type': 'iscsi',
+                'name': 'kīмсhīUnitTestISCSIPool',
+                'source': {
+                    'host': '127.0.0.1',
+                    'target': 'iqn.2015-01.localhost.kimchiUnitTest',
+                },
+            },
+            {
+                'type': 'logical',
+                'name': 'kīмсhīUnitTestLogicalPool',
+                'source': {'devices': [devs[0]]},
+            },
+        ]
 
         for pool in poolDefs:
             pool_name = pool['name']
-            uri = '/plugins/kimchi/storagepools/%s' % pool_name.encode('utf-8')
+            uri = urllib.parse.quote(
+                f'/plugins/kimchi/storagepools/{pool_name}')
             req = json.dumps(pool)
             resp = self.request('/plugins/kimchi/storagepools', req, 'POST')
-            self.assertEquals(201, resp.status)
+            self.assertEqual(201, resp.status)
             # activate the storage pool
             resp = self.request(uri + '/activate', '{}', 'POST')
-            self.assertEquals(200, resp.status)
+            self.assertEqual(200, resp.status)
             _do_volume_test(self, model, pool_name)

@@ -16,15 +16,15 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
-import cherrypy
 import json
 import os
 import tempfile
 
-from wok.plugins.kimchi import config, mockmodel
-from wok.plugins.kimchi.i18n import messages
+import cherrypy
+from wok.plugins.kimchi import config
+from wok.plugins.kimchi import mockmodel
 from wok.plugins.kimchi.control import sub_nodes
+from wok.plugins.kimchi.i18n import messages
 from wok.plugins.kimchi.model import model as kimchiModel
 from wok.plugins.kimchi.utils import upgrade_objectstore_data
 from wok.plugins.kimchi.utils import upgrade_objectstore_memory
@@ -39,7 +39,7 @@ class Kimchi(WokRoot):
             os.path.dirname(os.path.abspath(config.get_object_store())),
             os.path.abspath(config.get_distros_store()),
             os.path.abspath(config.get_screenshot_path()),
-            os.path.abspath(config.get_virtviewerfiles_path())
+            os.path.abspath(config.get_virtviewerfiles_path()),
         ]
         for directory in make_dirs:
             if not os.path.isdir(directory):
@@ -48,14 +48,16 @@ class Kimchi(WokRoot):
         # When running on test mode, specify the objectstore location to
         # remove the file on server shutting down. That way, the system will
         # not suffer any change while running on test mode
-        if wok_options.test and (wok_options.test is True or
-                                 wok_options.test.lower() == 'true'):
+        if wok_options.test and (
+            wok_options.test is True or wok_options.test.lower() == 'true'
+        ):
             self.objectstore_loc = tempfile.mktemp()
             self.model = mockmodel.MockModel(self.objectstore_loc)
 
             def remove_objectstore():
                 if os.path.exists(self.objectstore_loc):
                     os.unlink(self.objectstore_loc)
+
             cherrypy.engine.subscribe('exit', remove_objectstore)
         else:
             self.model = kimchiModel.Model()
@@ -66,8 +68,12 @@ class Kimchi(WokRoot):
         for ident, node in sub_nodes.items():
             setattr(self, ident, node(self.model))
 
-        self.api_schema = json.load(open(os.path.join(os.path.dirname(
-                                    os.path.abspath(__file__)), 'API.json')))
+        with open(
+            os.path.join(os.path.dirname(
+                os.path.abspath(__file__)), 'API.json')
+        ) as fd:
+            self.api_schema = json.load(fd)
+
         self.paths = config.kimchiPaths
         self.domain = 'kimchi'
         self.messages = messages
@@ -77,8 +83,8 @@ class Kimchi(WokRoot):
         # are necessary.
         if upgrade_objectstore_schema(config.get_object_store(), 'version'):
             upgrade_objectstore_data('icon', 'images', 'plugins/kimchi/')
-            upgrade_objectstore_data('storagepool', '/storagepools',
-                                     '/plugins/kimchi')
+            upgrade_objectstore_data(
+                'storagepool', '/storagepools', '/plugins/kimchi')
             upgrade_objectstore_template_disks(self.model.conn)
 
         # Upgrade memory data, if necessary

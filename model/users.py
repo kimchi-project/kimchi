@@ -16,17 +16,16 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
-import ldap
 import pwd
 
+import ldap
 from wok.config import config
 from wok.exception import NotFoundError
 
 
 class UsersModel(object):
     def __init__(self, **args):
-        auth_type = config.get("authentication", "method")
+        auth_type = config.get('authentication', 'method')
         for klass in UsersModel.__subclasses__():
             if auth_type == klass.auth_type:
                 self.user = klass(**args)
@@ -46,12 +45,12 @@ class PAMUsersModel(UsersModel):
 
     def _get_list(self):
         return [user.pw_name for user in pwd.getpwall()
-                if user.pw_shell.rsplit("/")[-1] not in ["nologin", "false"]]
+                if user.pw_shell.rsplit('/')[-1] not in ['nologin', 'false']]
 
     def _validate(self, user):
         try:
             return user in self._get_list()
-        except:
+        except Exception:
             return False
 
 
@@ -72,19 +71,19 @@ class LDAPUsersModel(UsersModel):
             return False
 
     def _get_user(self, _user_id):
-        ldap_server = config.get("authentication", "ldap_server").strip('"')
+        ldap_server = config.get('authentication', 'ldap_server').strip('"')
         ldap_search_base = config.get(
-            "authentication", "ldap_search_base").strip('"')
+            'authentication', 'ldap_search_base').strip('"')
         ldap_search_filter = config.get(
-            "authentication", "ldap_search_filter",
-            vars={"username": _user_id.encode("utf-8")}).strip('"')
+            'authentication', 'ldap_search_filter',
+            vars={'username': _user_id.encode('utf-8')}).strip('"')
 
         connect = ldap.open(ldap_server)
         try:
             result = connect.search_s(
                 ldap_search_base, ldap.SCOPE_SUBTREE, ldap_search_filter)
             if len(result) == 0:
-                raise NotFoundError("KCHAUTH0004E", {'user_id': _user_id})
+                raise NotFoundError('KCHAUTH0004E', {'user_id': _user_id})
             return result[0][1]
         except ldap.NO_SUCH_OBJECT:
-            raise NotFoundError("KCHAUTH0004E", {'user_id': _user_id})
+            raise NotFoundError('KCHAUTH0004E', {'user_id': _user_id})

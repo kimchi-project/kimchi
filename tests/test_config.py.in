@@ -46,7 +46,7 @@ class ConfigTests(unittest.TestCase):
             usr_local = '/usr/local'
             if not expected.startswith('/usr'):
                 expected = usr_local + expected
-        self.assertEquals(actual, expected)
+        self.assertEqual(actual, expected)
 
     def test_installed_plugin_paths(self):
         KimchiPaths.get_prefix = lambda self: '@datadir@/wok'
@@ -62,14 +62,14 @@ class ConfigTests(unittest.TestCase):
     def test_uninstalled_plugin_paths(self):
         paths = KimchiPaths()
         prefix = paths.prefix
-        self.assertEquals(paths.conf_dir, '%s/src/wok/plugins/kimchi' % prefix)
-        self.assertEquals(paths.conf_file,
-                          '%s/src/wok/plugins/kimchi/kimchi.conf' % prefix)
-        self.assertEquals(paths.src_dir, '%s/src/wok/plugins/kimchi' % prefix)
-        self.assertEquals(paths.ui_dir,
-                          '%s/src/wok/plugins/kimchi/ui' % prefix)
-        self.assertEquals(paths.mo_dir,
-                          '%s/src/wok/plugins/kimchi/mo' % prefix)
+        self.assertEqual(paths.conf_dir, '%s/src/wok/plugins/kimchi' % prefix)
+        self.assertEqual(paths.conf_file,
+                         '%s/src/wok/plugins/kimchi/kimchi.conf' % prefix)
+        self.assertEqual(paths.src_dir, '%s/src/wok/plugins/kimchi' % prefix)
+        self.assertEqual(paths.ui_dir,
+                         '%s/src/wok/plugins/kimchi/ui' % prefix)
+        self.assertEqual(paths.mo_dir,
+                         '%s/src/wok/plugins/kimchi/mo' % prefix)
 
     def test_kimchi_config(self):
         KimchiPaths.get_prefix = PluginPaths.get_prefix = get_prefix
@@ -172,4 +172,4 @@ class ConfigTests(unittest.TestCase):
 
         kimchi_config = Parser().dict_from_file(KimchiPaths().conf_file)
         kimchi_config.update(KimchiConfig())
-        self.assertEquals(kimchi_config, configObj)
+        self.assertEqual(kimchi_config, configObj)

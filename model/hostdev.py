@@ -16,15 +16,13 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
 import os
 from pprint import pformat
 from pprint import pprint
 
+from wok.plugins.kimchi.model.libvirtconnection import LibvirtConnection
 from wok.utils import wok_log
 from wok.xmlutils.utils import dictize
-
-from wok.plugins.kimchi.model.libvirtconnection import LibvirtConnection
 
 
 def _get_all_host_dev_infos(libvirt_conn):
@@ -43,8 +41,11 @@ def _get_dev_info_tree(dev_infos):
         try:
             parent = devs[dev_info['parent']]
         except KeyError:
-            wok_log.error('Parent %s of device %s does not exist.',
-                          dev_info['parent'], dev_info['name'])
+            wok_log.error(
+                'Parent %s of device %s does not exist.',
+                dev_info['parent'],
+                dev_info['name'],
+            )
             continue
 
         try:
@@ -65,18 +66,19 @@ def _is_pci_qualified(pci_dev):
     with open(os.path.join(pci_dev['path'], 'class')) as f:
         pci_class = int(f.readline().strip(), 16)
 
-    if pci_class != 0x030200 and pci_class & 0xff0000 in blacklist_classes:
+    if pci_class != 0x030200 and pci_class & 0xFF0000 in blacklist_classes:
         return False
 
     return True
 
 
 def get_passthrough_dev_infos(libvirt_conn):
-    ''' Get devices eligible to be passed through to VM. '''
+    """ Get devices eligible to be passed through to VM. """
 
     def is_eligible(dev):
-        return dev['device_type'] in ('usb_device', 'scsi') or \
-            (dev['device_type'] == 'pci' and _is_pci_qualified(dev))
+        return dev['device_type'] in ('usb_device', 'scsi') or (
+            dev['device_type'] == 'pci' and _is_pci_qualified(dev)
+        )
 
     dev_infos = _get_all_host_dev_infos(libvirt_conn)
 
@@ -99,8 +101,9 @@ def _get_same_iommugroup_devices(dev_infos, device_info):
             try:
                 parent_info = dev_dict[parent]
             except KeyError:
-                wok_log.error("Parent %s of device %s does not exist",
-                              parent, dev_info['name'])
+                wok_log.error(
+                    'Parent %s of device %s does not exist', parent, dev_info['name']
+                )
                 break
 
             try:
@@ -119,9 +122,12 @@ def _get_same_iommugroup_devices(dev_infos, device_info):
     if iommu_group is None:
         return []
 
-    return [dev_info for dev_info in dev_infos
-            if dev_info['name'] != device_info['name'] and
-            get_iommu_group(dev_info) == iommu_group]
+    return [
+        dev_info
+        for dev_info in dev_infos
+        if dev_info['name'] != device_info['name']
+        and get_iommu_group(dev_info) == iommu_group
+    ]
 
 
 def _get_children_devices(dev_infos, device_info):
@@ -161,7 +167,7 @@ def get_affected_passthrough_devices(libvirt_conn, passthrough_dev):
 
 
 def get_dev_info(node_dev):
-    ''' Parse the node device XML string into dict according to
+    """ Parse the node device XML string into dict according to
     http://libvirt.org/formatnode.html.
 
     scsi_generic is not documented in libvirt official website. Try to
@@ -170,7 +176,7 @@ def get_dev_info(node_dev):
 
     scsi_target is not documented in libvirt official website. Try to
     parse scsi_target according to the libvirt commit db19834a0a.
-    '''
+    """
     xmlstr = node_dev.XMLDesc(0)
     info = dictize(xmlstr)['device']
     dev_type = info['capability'].pop('type')
@@ -179,21 +185,21 @@ def get_dev_info(node_dev):
     info.update(cap_dict)
 
     # parent device not found: set as None
-    info["parent"] = info.get("parent")
+    info['parent'] = info.get('parent')
 
     if dev_type in ('scsi', 'scsi_generic', 'scsi_target', 'system', 'usb'):
         return info
 
     if dev_type in ('net', 'pci', 'scsi_host', 'storage', 'usb_device'):
-        return globals()['_get_%s_dev_info' % dev_type](info)
+        return globals()[f'_get_{dev_type}_dev_info'](info)
 
-    wok_log.error("Unknown device type: %s", dev_type)
+    wok_log.error(f'Unknown device type: {dev_type}')
     return info
 
 
 def _get_net_dev_info(info):
     cap = info.pop('capability')
-    links = {"80203": "IEEE 802.3", "80211": "IEEE 802.11"}
+    links = {'80203': 'IEEE 802.3', '80211': 'IEEE 802.11'}
     link_raw = cap['type']
     info['link_type'] = links.get(link_raw, link_raw)
 
@@ -209,11 +215,16 @@ def _get_pci_dev_info(info):
         info[k]['description'] = description
     if 'path' not in info:
         # Old libvirt does not provide syspath info
-        info['path'] = \
-            "/sys/bus/pci/devices/" \
-            "%(domain)04x:%(bus)02x:%(slot)02x.%(function)01x" % {
-                'domain': info['domain'], 'bus': info['bus'],
-                'slot': info['slot'], 'function': info['function']}
+        info['path'] = (
+            '/sys/bus/pci/devices/'
+            '%(domain)04x:%(bus)02x:%(slot)02x.%(function)01x'
+            % {
+                'domain': info['domain'],
+                'bus': info['bus'],
+                'slot': info['slot'],
+                'function': info['function'],
+            }
+        )
     try:
         info['iommuGroup'] = int(info['iommuGroup']['number'])
     except KeyError:
@@ -286,10 +297,10 @@ def _print_host_dev_tree(libvirt_conn):
     dev_infos = _get_all_host_dev_infos(libvirt_conn)
     root = _get_dev_info_tree(dev_infos)
     if root is None:
-        print "No device found"
+        print('No device found')
         return
-    print '-----------------'
-    print '\n'.join(_format_dev_node(root))
+    print('-----------------')
+    print('\n'.join(_format_dev_node(root)))
 
 
 def _format_dev_node(node):
@@ -305,7 +316,7 @@ def _format_dev_node(node):
     count = len(children)
     for i, child in enumerate(children):
         if count == 1:
-            lines.append('   \-----------------')
+            lines.append('   \\-----------------')
         else:
             lines.append('   +-----------------')
         clines = _format_dev_node(child)
@@ -322,5 +333,5 @@ def _format_dev_node(node):
 if __name__ == '__main__':
     libvirt_conn = LibvirtConnection('qemu:///system').get()
     _print_host_dev_tree(libvirt_conn)
-    print 'Eligible passthrough devices:'
+    print('Eligible passthrough devices:')
     pprint(get_passthrough_dev_infos(libvirt_conn))

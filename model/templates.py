@@ -16,36 +16,37 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
 import copy
-import libvirt
-import magic
 import os
 import platform
-import psutil
 import stat
-import urlparse
+import urllib.parse
 
-from wok.exception import InvalidOperation, InvalidParameter
-from wok.exception import NotFoundError, OperationFailed
+import libvirt
+import magic
+import psutil
+from wok.exception import InvalidOperation
+from wok.exception import InvalidParameter
+from wok.exception import NotFoundError
+from wok.exception import OperationFailed
+from wok.plugins.kimchi.config import get_kimchi_version
+from wok.plugins.kimchi.kvmusertests import UserTests
+from wok.plugins.kimchi.model.cpuinfo import CPUInfoModel
+from wok.plugins.kimchi.utils import create_disk_image
+from wok.plugins.kimchi.utils import is_libvirtd_up
+from wok.plugins.kimchi.utils import pool_name_from_uri
+from wok.plugins.kimchi.vmtemplate import VMTemplate
 from wok.utils import probe_file_permission_as_user
 from wok.utils import run_setfacl_set_attr
 from wok.xmlutils.utils import xpath_get_text
 
-from wok.plugins.kimchi.config import get_kimchi_version
-from wok.plugins.kimchi.kvmusertests import UserTests
-from wok.plugins.kimchi.model.cpuinfo import CPUInfoModel
-from wok.plugins.kimchi.utils import is_libvirtd_up, pool_name_from_uri
-from wok.plugins.kimchi.utils import create_disk_image
-from wok.plugins.kimchi.vmtemplate import VMTemplate
-
-ISO_TYPE = ["DOS/MBR", "ISO 9660 CD-ROM"]
+ISO_TYPE = ['DOS/MBR', 'ISO 9660 CD-ROM']
 # In PowerPC, memories must be aligned to 256 MiB
 PPC_MEM_ALIGN = 256
 # Max memory 16TB for PPC and 4TiB for X (according to Red Hat), in KiB
-MAX_MEM_LIM = 4294967296    # 4 TiB
+MAX_MEM_LIM = 4294967296  # 4 TiB
 if os.uname()[4] in ['ppc', 'ppc64', 'ppc64le']:
-    MAX_MEM_LIM *= 4     # 16TiB
+    MAX_MEM_LIM *= 4  # 16TiB
 
 
 class TemplatesModel(object):
@@ -59,19 +60,20 @@ class TemplatesModel(object):
         conn = self.conn.get()
         for net_name in params.get(u'networks', []):
             try:
-                conn.networkLookupByName(net_name.encode('utf-8'))
+                conn.networkLookupByName(net_name)
             except Exception:
-                raise InvalidParameter("KCHTMPL0003E", {'network': net_name,
-                                                        'template': name})
+                raise InvalidParameter(
+                    'KCHTMPL0003E', {'network': net_name, 'template': name}
+                )
         # Valid interfaces
         interfaces = params.get('interfaces', [])
         validate_interfaces(interfaces)
 
         if os.uname()[4] not in ['s390x', 's390'] and 'console' in params:
-            raise InvalidParameter("KCHTMPL0043E")
+            raise InvalidParameter('KCHTMPL0043E')
 
         # get source_media
-        source_media = params.pop("source_media")
+        source_media = params.pop('source_media')
 
         if source_media['type'] == 'netboot':
             params['netboot'] = True
@@ -80,18 +82,22 @@ class TemplatesModel(object):
         # Get path of source media if it's based on disk type.
         path = source_media.get('path', None)
         if path is None:
-            raise InvalidParameter("KCHTMPL0016E")
+            raise InvalidParameter('KCHTMPL0016E')
 
         # not local image: set as remote ISO
-        path = path.encode('utf-8')
-        if urlparse.urlparse(path).scheme in ["http", "https", "tftp", "ftp",
-                                              "ftps"]:
-            params["cdrom"] = path
+        if urllib.parse.urlparse(path).scheme in [
+            'http',
+            'https',
+            'tftp',
+            'ftp',
+            'ftps',
+        ]:
+            params['cdrom'] = path
             return self.save_template(params)
 
         # Local file (ISO/Img) does not exist: raise error
         if not os.path.exists(path):
-            raise InvalidParameter("KCHTMPL0002E", {'path': path})
+            raise InvalidParameter('KCHTMPL0002E', {'path': path})
 
         # create magic object to discover file type
         file_type = magic.open(magic.MAGIC_NONE)
@@ -101,7 +107,7 @@ class TemplatesModel(object):
         # cdrom
         iscdrom = [t for t in ISO_TYPE if t in ftype]
         if iscdrom:
-            params["cdrom"] = path
+            params['cdrom'] = path
 
             # check search permission
             st_mode = os.stat(path).st_mode
@@ -111,13 +117,14 @@ class TemplatesModel(object):
                 run_setfacl_set_attr(realpath, user=user)
                 ret, excp = probe_file_permission_as_user(realpath, user)
                 if ret is False:
-                    raise InvalidParameter('KCHISO0008E',
-                                           {'filename': path, 'user': user,
-                                            'err': excp})
+                    raise InvalidParameter(
+                        'KCHISO0008E', {'filename': path,
+                                        'user': user, 'err': excp}
+                    )
         # disk
         else:
-            params["disks"] = params.get('disks', [])
-            params["disks"].append({"base": path})
+            params['disks'] = params.get('disks', [])
+            params['disks'].append({'base': path})
 
         return self.save_template(params)
 
@@ -143,17 +150,16 @@ class TemplatesModel(object):
         name = params['name']
         with self.objstore as session:
             if name in session.get_list('template'):
-                raise InvalidOperation("KCHTMPL0001E", {'name': name})
+                raise InvalidOperation('KCHTMPL0001E', {'name': name})
 
         # Store template on objectstore
         try:
             with self.objstore as session:
-                session.store('template', name, t.info,
-                              get_kimchi_version())
+                session.store('template', name, t.info, get_kimchi_version())
         except InvalidOperation:
             raise
-        except Exception, e:
-            raise OperationFailed('KCHTMPL0020E', {'err': e.message})
+        except Exception as e:
+            raise OperationFailed('KCHTMPL0020E', {'err': str(e)})
 
         return name
 
@@ -169,15 +175,18 @@ class TemplatesModel(object):
         pool_name = pool_name_from_uri(pool['name'])
         if pool['type'] in ['iscsi', 'scsi']:
             if not volume:
-                raise InvalidParameter("KCHTMPL0018E")
+                raise InvalidParameter('KCHTMPL0018E')
 
             storagevolumes = __import__(
-                "wok.plugins.kimchi.model.storagevolumes", fromlist=[''])
-            pool_volumes = storagevolumes.StorageVolumesModel(
-                **kwargs).get_list(pool_name)
+                'wok.plugins.kimchi.model.storagevolumes', fromlist=['']
+            )
+            pool_volumes = storagevolumes.StorageVolumesModel(**kwargs).get_list(
+                pool_name
+            )
             if volume not in pool_volumes:
-                raise InvalidParameter("KCHTMPL0019E", {'pool': pool_name,
-                                                        'volume': volume})
+                raise InvalidParameter(
+                    'KCHTMPL0019E', {'pool': pool_name, 'volume': volume}
+                )
 
 
 class TemplateModel(object):
@@ -206,14 +215,17 @@ class TemplateModel(object):
 
     def clone(self, name):
         # set default name
-        subfixs = [v[len(name):] for v in self.templates.get_list()
-                   if v.startswith(name)]
-        indexs = [int(v.lstrip("-clone")) for v in subfixs
-                  if v.startswith("-clone") and
-                  v.lstrip("-clone").isdigit()]
+        subfixs = [
+            v[len(name):] for v in self.templates.get_list() if v.startswith(name)
+        ]
+        indexs = [
+            int(v.lstrip('-clone'))
+            for v in subfixs
+            if v.startswith('-clone') and v.lstrip('-clone').isdigit()
+        ]
         indexs.sort()
-        index = "1" if not indexs else str(indexs[-1] + 1)
-        clone_name = name + "-clone" + index
+        index = '1' if not indexs else str(indexs[-1] + 1)
+        clone_name = name + '-clone' + index
 
         temp = self.lookup(name)
         temp['name'] = clone_name
@@ -227,7 +239,7 @@ class TemplateModel(object):
         except NotFoundError:
             raise
         except Exception as e:
-            raise OperationFailed('KCHTMPL0021E', {'err': e.message})
+            raise OperationFailed('KCHTMPL0021E', {'err': str(e)})
 
     def update(self, name, params):
         edit_template = self.lookup(name)
@@ -235,17 +247,20 @@ class TemplateModel(object):
         # If new name is not same as existing name
         # and new name already exists: raise exception
         with self.objstore as session:
-            if 'name' in params and name != params['name'] \
-               and params['name'] in session.get_list('template'):
-                raise InvalidOperation("KCHTMPL0001E",
-                                       {'name': params['name']})
+            if (
+                'name' in params
+                and name != params['name']
+                and params['name'] in session.get_list('template')
+            ):
+                raise InvalidOperation(
+                    'KCHTMPL0001E', {'name': params['name']})
 
         # Valid interfaces
         interfaces = params.get('interfaces', [])
         validate_interfaces(interfaces)
 
         if os.uname()[4] not in ['s390x', 's390'] and 'console' in params:
-            raise InvalidParameter("KCHTMPL0043E")
+            raise InvalidParameter('KCHTMPL0043E')
 
         # Merge graphics settings
         graph_args = params.get('graphics')
@@ -273,10 +288,11 @@ class TemplateModel(object):
         for net_name in params.get(u'networks', []):
             try:
                 conn = self.conn.get()
-                conn.networkLookupByName(net_name.encode('utf-8'))
+                conn.networkLookupByName(net_name)
             except Exception:
-                raise InvalidParameter("KCHTMPL0003E", {'network': net_name,
-                                                        'template': name})
+                raise InvalidParameter(
+                    'KCHTMPL0003E', {'network': net_name, 'template': name}
+                )
 
         try:
             # make sure the new template will be created
@@ -292,8 +308,8 @@ class TemplateModel(object):
 
         except InvalidOperation:
             raise
-        except Exception, e:
-            raise OperationFailed('KCHTMPL0032E', {'err': e.message})
+        except Exception as e:
+            raise OperationFailed('KCHTMPL0032E', {'err': str(e)})
 
         return params['name']
 
@@ -304,7 +320,7 @@ def validate_interfaces(interfaces):
     # Otherwise FIXME to valid interfaces exist on system.
     #
     if os.uname()[4] not in ['s390x', 's390'] and interfaces:
-        raise InvalidParameter("KCHTMPL0039E")
+        raise InvalidParameter('KCHTMPL0039E')
     # FIXME to valid interfaces on system.
 
 
@@ -324,29 +340,37 @@ def validate_memory(memory):
     # Memories must be lesser than 16TiB (PPC) or 4TiB (x86) and the Host
     # memory limit
     if (current > (MAX_MEM_LIM >> 10)) or (maxmem > (MAX_MEM_LIM >> 10)):
-        raise InvalidParameter("KCHVM0079E",
-                               {'value': str(MAX_MEM_LIM / (1024**3))})
+        raise InvalidParameter(
+            'KCHVM0079E', {'value': str(MAX_MEM_LIM / (1024 ** 3))})
     if (current > host_memory) or (maxmem > host_memory):
-        raise InvalidParameter("KCHVM0078E", {'memHost': host_memory})
+        raise InvalidParameter('KCHVM0078E', {'memHost': host_memory})
 
     # Current memory cannot be greater than maxMemory
     if current > maxmem:
-        raise InvalidParameter("KCHTMPL0031E",
-                               {'mem': str(current),
-                                'maxmem': str(maxmem)})
+        raise InvalidParameter(
+            'KCHTMPL0031E', {'mem': str(current), 'maxmem': str(maxmem)}
+        )
 
     # make sure memory and Maxmemory are alingned in 256MiB in PowerPC
     if platform.machine().startswith('ppc'):
         if current % PPC_MEM_ALIGN != 0:
-            raise InvalidParameter('KCHVM0071E',
-                                   {'param': "Memory",
-                                    'mem': str(current),
-                                    'alignment': str(PPC_MEM_ALIGN)})
+            raise InvalidParameter(
+                'KCHVM0071E',
+                {
+                    'param': 'Memory',
+                    'mem': str(current),
+                    'alignment': str(PPC_MEM_ALIGN),
+                },
+            )
         elif maxmem % PPC_MEM_ALIGN != 0:
-            raise InvalidParameter('KCHVM0071E',
-                                   {'param': "Maximum Memory",
-                                    'mem': str(maxmem),
-                                    'alignment': str(PPC_MEM_ALIGN)})
+            raise InvalidParameter(
+                'KCHVM0071E',
+                {
+                    'param': 'Maximum Memory',
+                    'mem': str(maxmem),
+                    'alignment': str(PPC_MEM_ALIGN),
+                },
+            )
 
 
 class LibvirtVMTemplate(VMTemplate):
@@ -369,11 +393,12 @@ class LibvirtVMTemplate(VMTemplate):
         pool_name = pool_name_from_uri(pool_uri)
         try:
             conn = self.conn.get()
-            pool = conn.storagePoolLookupByName(pool_name.encode("utf-8"))
+            pool = conn.storagePoolLookupByName(pool_name)
 
         except libvirt.libvirtError:
-            raise InvalidParameter("KCHTMPL0004E", {'pool': pool_uri,
-                                                    'template': self.name})
+            raise InvalidParameter(
+                'KCHTMPL0004E', {'pool': pool_uri, 'template': self.name}
+            )
 
         return pool
 
@@ -389,48 +414,49 @@ class LibvirtVMTemplate(VMTemplate):
     def _get_active_storagepools_name(self):
         conn = self.conn.get()
         names = conn.listStoragePools()
-        return sorted(map(lambda x: x.decode('utf-8'), names))
+        return sorted(names)
 
     def _network_validate(self):
         names = self.info.get('networks', [])
         for name in names:
             try:
                 conn = self.conn.get()
-                network = conn.networkLookupByName(name.encode('utf-8'))
+                network = conn.networkLookupByName(name)
             except libvirt.libvirtError:
-                raise InvalidParameter("KCHTMPL0003E", {'network': name,
-                                                        'template': self.name})
+                raise InvalidParameter(
+                    'KCHTMPL0003E', {'network': name, 'template': self.name}
+                )
 
             if not network.isActive():
-                raise InvalidParameter("KCHTMPL0007E", {'network': name,
-                                                        'template': self.name})
+                raise InvalidParameter(
+                    'KCHTMPL0007E', {'network': name, 'template': self.name}
+                )
 
     def _get_storage_path(self, pool_uri=None):
         try:
             pool = self._get_storage_pool(pool_uri)
 
-        except:
+        except Exception:
             return ''
 
         xml = pool.XMLDesc(0)
-        return xpath_get_text(xml, "/pool/target/path")[0]
+        return xpath_get_text(xml, '/pool/target/path')[0]
 
     def _get_storage_type(self, pool_uri=None):
         try:
             pool = self._get_storage_pool(pool_uri)
 
-        except:
+        except Exception:
             return ''
         xml = pool.XMLDesc(0)
-        return xpath_get_text(xml, "/pool/@type")[0]
+        return xpath_get_text(xml, '/pool/@type')[0]
 
     def _get_volume_path(self, pool, vol):
         pool = self._get_storage_pool(pool)
         try:
             return pool.storageVolLookupByName(vol).path()
-        except:
-            raise NotFoundError("KCHVOL0002E", {'name': vol,
-                                                'pool': pool})
+        except Exception:
+            raise NotFoundError('KCHVOL0002E', {'name': vol, 'pool': pool})
 
     def fork_vm_storage(self, vm_uuid):
         # Provision storages:
@@ -439,19 +465,18 @@ class LibvirtVMTemplate(VMTemplate):
             for v in disk_and_vol_list:
                 if v['pool'] is not None:
                     pool = self._get_storage_pool(v['pool'])
-                    # outgoing text to libvirt, encode('utf-8')
-                    pool.createXML(v['xml'].encode('utf-8'), 0)
+                    # outgoing text to libvirt, decode('utf-8')
+                    pool.createXML(v['xml'].decode('utf-8'), 0)
                 else:
                     capacity = v['capacity']
                     format_type = v['format']
                     path = v['path']
                     create_disk_image(
-                        format_type=format_type,
-                        path=path,
-                        capacity=capacity)
+                        format_type=format_type, path=path, capacity=capacity
+                    )
 
         except libvirt.libvirtError as e:
-            raise OperationFailed("KCHVMSTOR0008E", {'error': e.message})
+            raise OperationFailed('KCHVMSTOR0008E', {'error': str(e)})
 
         return disk_and_vol_list
 

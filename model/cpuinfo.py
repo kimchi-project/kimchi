@@ -16,12 +16,13 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
 import platform
 from xml.etree import ElementTree as ET
 
-from wok.exception import InvalidParameter, InvalidOperation
-from wok.utils import run_command, wok_log
+from wok.exception import InvalidOperation
+from wok.exception import InvalidParameter
+from wok.utils import run_command
+from wok.utils import wok_log
 
 
 ARCH = 'power' if platform.machine().startswith('ppc') else 'x86'
@@ -55,16 +56,14 @@ class CPUInfoModel(object):
         self.max_threads = 0
 
         self.conn = kargs['conn']
-        libvirt_topology = None
         try:
             connect = self.conn.get()
             libvirt_topology = get_topo_capabilities(connect)
         except Exception as e:
-            wok_log.info("Unable to get CPU topology capabilities: %s"
-                         % e.message)
+            wok_log.info(f'Unable to get CPU topology capabilities: {str(e)}')
             return
         if libvirt_topology is None:
-            wok_log.info("cpu_info topology not supported.")
+            wok_log.info('cpu_info topology not supported.')
             return
 
         if ARCH == 'power':
@@ -84,10 +83,10 @@ class CPUInfoModel(object):
             out, error, rc = run_command(['ppc64_cpu', '--threads-per-core'])
             if not rc:
                 self.threads_per_core = int(out.split()[-1])
-            self.sockets = self.cores_present/self.threads_per_core
+            self.sockets = self.cores_present / self.threads_per_core
             if self.sockets == 0:
                 self.sockets = 1
-            self.cores_per_socket = self.cores_present/self.sockets
+            self.cores_per_socket = self.cores_present / self.sockets
         else:
             # Intel or AMD
             self.guest_threads_enabled = True
@@ -105,7 +104,7 @@ class CPUInfoModel(object):
             'cores_present': self.cores_present,
             'cores_available': self.cores_available,
             'threads_per_core': self.threads_per_core,
-            }
+        }
 
     def check_cpu_info(self, cpu_info):
         """
@@ -124,25 +123,28 @@ class CPUInfoModel(object):
         topology = cpu_info.get('topology')
         if topology:
             # sockets, cores and threads are required when topology is defined
-            if 'sockets' not in topology or 'cores' not in topology or \
-               'threads' not in topology:
-                raise InvalidOperation("KCHCPUINF0007E")
+            if (
+                'sockets' not in topology
+                or 'cores' not in topology
+                or 'threads' not in topology
+            ):
+                raise InvalidOperation('KCHCPUINF0007E')
 
             sockets = topology['sockets']
             cores = topology['cores']
             threads = topology['threads']
 
             if not self.guest_threads_enabled:
-                raise InvalidOperation("KCHCPUINF0003E")
+                raise InvalidOperation('KCHCPUINF0003E')
             if maxvcpus != sockets * cores * threads:
-                raise InvalidParameter("KCHCPUINF0002E")
+                raise InvalidParameter('KCHCPUINF0002E')
             if vcpus % threads != 0:
-                raise InvalidParameter("KCHCPUINF0005E")
+                raise InvalidParameter('KCHCPUINF0005E')
 
         if maxvcpus > self.get_host_max_vcpus():
-            raise InvalidParameter("KCHCPUINF0004E")
+            raise InvalidParameter('KCHCPUINF0004E')
         if vcpus > maxvcpus:
-            raise InvalidParameter("KCHCPUINF0001E")
+            raise InvalidParameter('KCHCPUINF0001E')
 
     def get_host_max_vcpus(self):
         if ARCH == 'power':

@@ -16,15 +16,14 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
 from wok.basemodel import BaseModel
 from wok.objectstore import ObjectStore
 from wok.plugins.kimchi import config
-from wok.pushserver import send_wok_notification
-from wok.utils import get_all_model_instances, get_model_instances
-
 from wok.plugins.kimchi.model.libvirtconnection import LibvirtConnection
 from wok.plugins.kimchi.model.libvirtevents import LibvirtEvents
+from wok.pushserver import send_wok_notification
+from wok.utils import get_all_model_instances
+from wok.utils import get_model_instances
 
 
 class Model(BaseModel):
@@ -55,7 +54,7 @@ class Model(BaseModel):
 
         super(Model, self).__init__(models)
 
-    def _events_handler(self, conn, pool, ev, details, opaque):
+    def _events_handler(self, api):
         # Do not use any known method (POST, PUT, DELETE) as it is used by Wok
         # engine and may lead in having 2 notifications for the same action
-        send_wok_notification('/plugins/kimchi', opaque, 'METHOD')
+        send_wok_notification('/plugins/kimchi', api, 'METHOD')

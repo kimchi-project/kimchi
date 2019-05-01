@@ -16,7 +16,6 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
 import grp
 
 from wok.config import config
@@ -24,7 +23,7 @@ from wok.config import config
 
 class GroupsModel(object):
     def __init__(self, **args):
-        auth_type = config.get("authentication", "method")
+        auth_type = config.get('authentication', 'method')
         for klass in GroupsModel.__subclasses__():
             if auth_type == klass.auth_type:
                 self.grp = klass(**args)
@@ -47,7 +46,7 @@ class PAMGroupsModel(GroupsModel):
 
     def _get_list(self):
         return sorted([group.gr_name
-                      for group in grp.getgrall()])
+                       for group in grp.getgrall()])
 
     def _validate(self, gid):
         try:

@@ -16,24 +16,20 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
 from wok import template
-from wok.control.base import AsyncCollection, Collection, Resource
-from wok.control.utils import get_class_name, model_fn
+from wok.control.base import AsyncCollection
+from wok.control.base import Collection
+from wok.control.base import Resource
+from wok.control.utils import get_class_name
+from wok.control.utils import model_fn
 
 
-STORAGEVOLUMES_REQUESTS = {
-    'POST': {'default': "KCHVOL0001L"},
-}
+STORAGEVOLUMES_REQUESTS = {'POST': {'default': 'KCHVOL0001L'}}
 
 STORAGEVOLUME_REQUESTS = {
-    'DELETE': {'default': "KCHVOL0002L"},
-    'PUT': {'default': "KCHVOL0003L"},
-    'POST': {
-        'wipe': "KCHVOL0004L",
-        'resize': "KCHVOL0005L",
-        'clone': "KCHVOL0006L",
-    },
+    'DELETE': {'default': 'KCHVOL0002L'},
+    'PUT': {'default': 'KCHVOL0003L'},
+    'POST': {'wipe': 'KCHVOL0004L', 'resize': 'KCHVOL0005L', 'clone': 'KCHVOL0006L'},
 }
 
 
@@ -42,19 +38,16 @@ class StorageVolumes(AsyncCollection):
         super(StorageVolumes, self).__init__(model)
         self.resource = StorageVolume
         self.pool = pool
-        self.resource_args = [self.pool, ]
-        self.model_args = [self.pool, ]
+        self.resource_args = [self.pool]
+        self.model_args = [self.pool]
         self.log_map = STORAGEVOLUMES_REQUESTS
-        self.log_args.update({
-            'name': '',
-            'pool': self.pool.encode('utf-8') if self.pool else '',
-        })
+        self.log_args.update(
+            {'name': '', 'pool': self.pool if self.pool else ''})
 
     def filter_data(self, resources, fields_filter):
         # filter directory from storage volumes
         fields_filter.update({'type': ['file', 'block', 'network']})
-        return super(StorageVolumes, self).filter_data(resources,
-                                                       fields_filter)
+        return super(StorageVolumes, self).filter_data(resources, fields_filter)
 
 
 class StorageVolume(Resource):
@@ -71,22 +64,22 @@ class StorageVolume(Resource):
 
         # set user log messages and make sure all parameters are present
         self.log_map = STORAGEVOLUME_REQUESTS
-        self.log_args.update({
-            'pool': self.pool.encode('utf-8') if self.pool else '',
-            'size': '',
-        })
+        self.log_args.update(
+            {'pool': self.pool if self.pool else '', 'size': ''})
 
     @property
     def data(self):
-        res = {'name': self.ident,
-               'type': self.info['type'],
-               'capacity': self.info['capacity'],
-               'allocation': self.info['allocation'],
-               'path': self.info['path'],
-               'used_by': self.info['used_by'],
-               'format': self.info['format'],
-               'isvalid': self.info['isvalid'],
-               'has_permission': self.info['has_permission']}
+        res = {
+            'name': self.ident,
+            'type': self.info['type'],
+            'capacity': self.info['capacity'],
+            'allocation': self.info['allocation'],
+            'path': self.info['path'],
+            'used_by': self.info['used_by'],
+            'format': self.info['format'],
+            'isvalid': self.info['isvalid'],
+            'has_permission': self.info['has_permission'],
+        }
 
         for key in ('os_version', 'os_distro', 'bootable', 'base'):
             val = self.info.get(key)

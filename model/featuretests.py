@@ -16,19 +16,20 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
+import platform
+import subprocess
 
 import cherrypy
 import libvirt
 import lxml.etree as ET
-import platform
-import subprocess
 from lxml.builder import E
+from wok.utils import run_command
+from wok.utils import servermethod
+from wok.utils import wok_log
 
-from wok.utils import run_command, servermethod, wok_log
 
-
-FEATURETEST_VM_NAME = "FEATURETEST_VM"
-FEATURETEST_POOL_NAME = "FEATURETEST_POOL"
+FEATURETEST_VM_NAME = 'FEATURETEST_VM'
+FEATURETEST_POOL_NAME = 'FEATURETEST_POOL'
 
 ISO_STREAM_XML = """
 <domain type='%(domain)s'>
@@ -103,7 +104,6 @@ SCSI_FC_XML = """
 
 
 class FeatureTests(object):
-
     @staticmethod
     def disable_libvirt_error_logging():
         def libvirt_errorhandler(userdata, error):
@@ -130,16 +130,19 @@ class FeatureTests(object):
         domain_type = 'test' if conn_type == 'test' else 'kvm'
         arch = 'i686' if conn_type == 'test' else platform.machine()
         arch = 'ppc64' if arch == 'ppc64le' else arch
-        xml = ISO_STREAM_XML % {'name': FEATURETEST_VM_NAME,
-                                'domain': domain_type, 'protocol': protocol,
-                                'arch': arch}
+        xml = ISO_STREAM_XML % {
+            'name': FEATURETEST_VM_NAME,
+            'domain': domain_type,
+            'protocol': protocol,
+            'arch': arch,
+        }
         try:
             FeatureTests.disable_libvirt_error_logging()
             dom = conn.defineXML(xml)
             dom.undefine()
             return True
-        except libvirt.libvirtError, e:
-            wok_log.error(e.message)
+        except libvirt.libvirtError as e:
+            wok_log.error(str(e))
             return False
         finally:
             FeatureTests.enable_libvirt_error_logging()
@@ -148,13 +151,14 @@ class FeatureTests(object):
     def libvirt_support_nfs_probe(conn):
         def _get_xml():
             obj = E.source(E.host(name='127.0.0.1'), E.format(type='nfs'))
-            xml = ET.tostring(obj)
+            xml = ET.tostring(obj).decode('utf-8')
             return xml
+
         try:
             FeatureTests.disable_libvirt_error_logging()
             conn.findStoragePoolSources('netfs', _get_xml(), 0)
         except libvirt.libvirtError as e:
-            wok_log.error(e.message)
+            wok_log.error(str(e))
             if e.get_error_code() == 38:
                 # if libvirt cannot find showmount,
                 # it returns 38--general system call failure
@@ -169,18 +173,22 @@ class FeatureTests(object):
     def qemu_supports_iso_stream():
         host = cherrypy.server.socket_host
         port = cherrypy.server.socket_port
-        cmd = "qemu-io -r http://%s:%d/plugins/kimchi/images/icon-fedora.png \
-              -c 'read -v 0 512'" % (host, port)
-        proc = subprocess.Popen(cmd, stdout=subprocess.PIPE,
-                                stderr=subprocess.PIPE, shell=True)
+        cmd = (
+            "qemu-io -r http://%s:%d/plugins/kimchi/images/icon-fedora.png \
+              -c 'read -v 0 512'"
+            % (host, port)
+        )
+        proc = subprocess.Popen(
+            cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True
+        )
         stdout, stderr = proc.communicate()
         return len(stderr) == 0
 
     @staticmethod
     def libvirt_support_fc_host(conn):
+        pool = None
         try:
             FeatureTests.disable_libvirt_error_logging()
-            pool = None
             pool_xml = SCSI_FC_XML % {'name': FEATURETEST_POOL_NAME}
             pool = conn.storagePoolDefineXML(pool_xml, 0)
         except libvirt.libvirtError as e:
@@ -196,13 +204,13 @@ class FeatureTests(object):
     def kernel_support_vfio():
         out, err, rc = run_command(['modprobe', 'vfio-pci'])
         if rc != 0:
-            wok_log.warning("Unable to load Kernal module vfio-pci.")
+            wok_log.warning('Unable to load Kernal module vfio-pci.')
             return False
         return True
 
     @staticmethod
     def is_nm_running():
-        '''Tries to determine whether NetworkManager is running.'''
+        """Tries to determine whether NetworkManager is running."""
 
         out, err, rc = run_command(['nmcli', 'dev', 'status'])
         if rc != 0:
@@ -212,10 +220,10 @@ class FeatureTests(object):
 
     @staticmethod
     def has_mem_hotplug_support(conn):
-        '''
+        """
         A memory device can be hot-plugged or hot-unplugged since libvirt
         version 1.2.14.
-        '''
+        """
         # Libvirt < 1.2.14 does not support memory devices, so try to attach a
         # device. Then check if QEMU (>= 2.1) supports memory hotplug, starting
         # the guest These steps avoid errors with Libvirt 'test' driver for KVM
@@ -227,15 +235,16 @@ class FeatureTests(object):
         dom = None
         try:
             FeatureTests.disable_libvirt_error_logging()
-            dom = conn.defineXML(MAXMEM_VM_XML % {'name': FEATURETEST_VM_NAME,
-                                                  'domain': domain_type,
-                                                  'arch': arch})
+            dom = conn.defineXML(
+                MAXMEM_VM_XML
+                % {'name': FEATURETEST_VM_NAME, 'domain': domain_type, 'arch': arch}
+            )
             dom.attachDeviceFlags(DEV_MEM_XML, libvirt.VIR_DOMAIN_MEM_CONFIG)
             dom.create()
         except libvirt.libvirtError:
             return False
         finally:
-            if (dom and dom.isActive() == 1):
+            if dom and dom.isActive() == 1:
                 dom.destroy()
             dom is None or dom.undefine()
             FeatureTests.enable_libvirt_error_logging()

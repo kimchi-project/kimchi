@@ -16,16 +16,15 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
-import libvirt
 import threading
 import time
 
-from wok.model.notifications import add_notification, del_notification
+import libvirt
+from wok.model.notifications import add_notification
+from wok.model.notifications import del_notification
 from wok.model.notifications import notificationsStore
-from wok.utils import wok_log
-
 from wok.plugins.kimchi.utils import is_libvirtd_up
+from wok.utils import wok_log
 
 
 class LibvirtConnection(object):
@@ -46,9 +45,18 @@ class LibvirtConnection(object):
         when calling its methods.
         """
         objs = []
-        for name in ('virDomain', 'virDomainSnapshot', 'virInterface',
-                     'virNWFilter', 'virNetwork', 'virNodeDevice', 'virSecret',
-                     'virStoragePool', 'virStorageVol', 'virStream'):
+        for name in (
+            'virDomain',
+            'virDomainSnapshot',
+            'virInterface',
+            'virNWFilter',
+            'virNetwork',
+            'virNodeDevice',
+            'virSecret',
+            'virStoragePool',
+            'virStorageVol',
+            'virStream',
+        ):
             try:
                 attr = getattr(libvirt, name)
             except AttributeError:
@@ -62,6 +70,7 @@ class LibvirtConnection(object):
         callable libvirt methods so we can catch connection errors and handle
         them by restarting the server.
         """
+
         def wrapMethod(f):
             def wrapper(*args, **kwargs):
                 try:
@@ -70,19 +79,22 @@ class LibvirtConnection(object):
                 except libvirt.libvirtError as e:
                     edom = e.get_error_domain()
                     ecode = e.get_error_code()
-                    EDOMAINS = (libvirt.VIR_FROM_REMOTE,
-                                libvirt.VIR_FROM_RPC)
-                    ECODES = (libvirt.VIR_ERR_SYSTEM_ERROR,
-                              libvirt.VIR_ERR_INTERNAL_ERROR,
-                              libvirt.VIR_ERR_NO_CONNECT,
-                              libvirt.VIR_ERR_INVALID_CONN)
+                    EDOMAINS = (libvirt.VIR_FROM_REMOTE, libvirt.VIR_FROM_RPC)
+                    ECODES = (
+                        libvirt.VIR_ERR_SYSTEM_ERROR,
+                        libvirt.VIR_ERR_INTERNAL_ERROR,
+                        libvirt.VIR_ERR_NO_CONNECT,
+                        libvirt.VIR_ERR_INVALID_CONN,
+                    )
                     if edom in EDOMAINS and ecode in ECODES:
-                        wok_log.error('Connection to libvirt broken. '
-                                      'Recycling. ecode: %d edom: %d' %
-                                      (ecode, edom))
+                        wok_log.error(
+                            'Connection to libvirt broken. '
+                            'Recycling. ecode: %d edom: %d' % (ecode, edom)
+                        )
                         with LibvirtConnection._connectionLock:
                             self._connections[conn_id] = None
                     raise
+
             wrapper.__name__ = f.__name__
             wrapper.__doc__ = f.__doc__
             return wrapper
@@ -91,34 +103,17 @@ class LibvirtConnection(object):
             wok_log.error('Libvirt service is not active.')
             add_notification('KCHCONN0002E', plugin_name='/plugins/kimchi')
             return None
-        elif (notificationsStore.get('KCHCONN0002E') is not None):
+        elif notificationsStore.get('KCHCONN0002E') is not None:
             try:
                 del_notification('KCHCONN0002E')
-            except:
+            except Exception:
                 # If notification was not found, just ignore
                 pass
 
         with LibvirtConnection._connectionLock:
             conn = self._connections.get(conn_id)
             if not conn:
-                retries = 5
-                while True:
-                    retries = retries - 1
-                    try:
-                        conn = libvirt.open(self.uri)
-                        break
-                    except libvirt.libvirtError:
-                        wok_log.error('Unable to connect to libvirt.')
-                        if not retries:
-                            wok_log.error("Unable to establish connection "
-                                          "with libvirt. Please check "
-                                          "your libvirt URI which is often "
-                                          "defined in "
-                                          "/etc/libvirt/libvirt.conf")
-                            add_notification("KCHCONN0001E",
-                                             plugin_name="/plugins/kimchi")
-                            return None
-                    time.sleep(2)
+                conn = self._get_new_connection()
 
                 for name in dir(libvirt.virConnect):
                     method = getattr(conn, name)
@@ -138,6 +133,28 @@ class LibvirtConnection(object):
                 # However the values need to be considered wisely to not affect
                 # hosts which are hosting a lot of virtual machines
             return conn
+
+    def _get_new_connection(self):
+        retries = 5
+        while True:
+            retries = retries - 1
+            try:
+                return libvirt.open(self.uri)
+            except libvirt.libvirtError:
+                wok_log.error('Unable to connect to libvirt.')
+                if not retries:
+                    wok_log.error(
+                        'Unable to establish connection '
+                        'with libvirt. Please check '
+                        'your libvirt URI which is often '
+                        'defined in '
+                        '/etc/libvirt/libvirt.conf'
+                    )
+                    add_notification(
+                        'KCHCONN0001E', plugin_name='/plugins/kimchi'
+                    )
+                    return None
+            time.sleep(2)
 
     def isQemuURI(self):
         """

@@ -16,33 +16,33 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
-from wok.control.base import AsyncCollection, Resource
-from wok.control.utils import internal_redirect, UrlSubNode
-
+from wok.control.base import AsyncCollection
+from wok.control.base import Resource
+from wok.control.utils import internal_redirect
+from wok.control.utils import UrlSubNode
 from wok.plugins.kimchi.control.vm import sub_nodes
 
 
 VMS_REQUESTS = {
     'POST': {
-        'default': "KCHVM0001L",
+        'default': 'KCHVM0001L',
     },
 }
 
 VM_REQUESTS = {
-    'DELETE': {'default': "KCHVM0002L"},
-    'PUT': {'default': "KCHVM0003L"},
+    'DELETE': {'default': 'KCHVM0002L'},
+    'PUT': {'default': 'KCHVM0003L'},
     'POST': {
-        'start': "KCHVM0004L",
-        'poweroff': "KCHVM0005L",
-        'shutdown': "KCHVM0006L",
-        'reset': "KCHVM0007L",
-        'connect': "KCHVM0008L",
-        'clone': "KCHVM0009L",
-        'migrate': "KCHVM0010L",
-        'suspend': "KCHVM0011L",
-        'resume': "KCHVM0012L",
-        'serial': "KCHVM0013L",
+        'start': 'KCHVM0004L',
+        'poweroff': 'KCHVM0005L',
+        'shutdown': 'KCHVM0006L',
+        'reset': 'KCHVM0007L',
+        'connect': 'KCHVM0008L',
+        'clone': 'KCHVM0009L',
+        'migrate': 'KCHVM0010L',
+        'suspend': 'KCHVM0011L',
+        'resume': 'KCHVM0012L',
+        'serial': 'KCHVM0013L',
     },
 }
 
