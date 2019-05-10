@@ -80,8 +80,6 @@ check-local:
 		git grep --cached -Il '' | grep -v '^ui/spice-html5/' |  \
 			xargs egrep '.* +$$'                             \
 			&& echo "ERROR: Whitespaces found" || echo "Ok"; \
-		echo "IBM copyright year verification ..." ;              \
-		/bin/bash ../../../../check-IBM-license-header.sh ;       \
 	fi;
 	@if [ -f $(RPMLINT) ]; then \
 		./check_spec_errors.sh; \
