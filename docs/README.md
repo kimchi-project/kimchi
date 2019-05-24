@@ -39,7 +39,7 @@ before starting up the wokd service.
 
 * [RHEL/Fedora systems](/docs/fedora-deps.md)
 * [Debian/Ubuntu systems](/docs/ubuntu-deps.md)
-* [openSUSE systems](/docs/opensuse-deps.md)
+* [openSUSE systems](/docs/opensuse-leap-deps.md)
 
 Build and Install
 -----------------

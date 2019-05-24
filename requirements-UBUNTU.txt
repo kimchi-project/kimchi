@@ -1,0 +1,2 @@
+ethtool
+ipaddr

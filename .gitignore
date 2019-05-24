@@ -15,6 +15,7 @@ build-aux/config.sub
 build-aux/install-sh
 build-aux/missing
 build-aux/py-compile
+build-aux/*-pkg-deps
 configure
 config.log
 config.py

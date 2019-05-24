@@ -19,4 +19,29 @@
 
 docdir = $(datadir)/kimchi/doc
 
+all:
+	@for os_distro in ubuntu fedora opensuse-leap; do \
+		case $$os_distro in \
+			ubuntu) \
+		    	PKG_MGNT_TOOL="apt install -y"; \
+		    ;; \
+		    fedora) \
+		    	PKG_MGNT_TOOL="dnf install -y"; \
+		    ;; \
+		    opensuse-leap) \
+		    	PKG_MGNT_TOOL="zypper install -y"; \
+		    ;; \
+		    *) \
+		    	PKG_MGNT_TOOL="error"; \
+		    ;; \
+		esac; \
+		echo $${PKG_MGNT_TOOL}; \
+		DEV_DEPS=`grep "^[^#;]" ../$${os_distro}-dev-deps.list` ;\
+		RUNTIME_DEPS=`grep "^[^#;]" ../$${os_distro}-runtime-deps.list` ;\
+		sed -e "s|[@]DISTRO[@]|$${os_distro^^}|g" \
+			-e "s|[@]PKG_MGNT_TOOL[@]|$${PKG_MGNT_TOOL}|g" \
+			-e "s|[@]DEV_DEPS[@]|`echo $${DEV_DEPS}`|g" \
+			-e "s|[@]RUNTIME_DEPS[@]|`echo $${RUNTIME_DEPS}`|g" deps.md.tmpl > $${os_distro}-deps.md ;\
+	done
+
 dist_doc_DATA = $(wildcard *.md) $(wildcard *.png) $(NULL)

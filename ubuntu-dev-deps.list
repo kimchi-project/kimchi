@@ -1,0 +1,18 @@
+# File auto-generated on build process. Do not change it.
+# Add new dependencies to dependencies.yaml file instead.
+#
+gcc
+make
+autoconf
+automake
+git
+python3-pip
+python3-requests
+python3-mock
+gettext
+pkgconf
+xsltproc
+python3-dev
+pep8
+pyflakes
+python3-yaml

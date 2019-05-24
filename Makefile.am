@@ -134,13 +134,14 @@ deb: contrib/make-deb.sh
 	$(top_srcdir)/contrib/make-deb.sh
 
 kimchi.spec: contrib/kimchi.spec.fedora contrib/kimchi.spec.suse
-	@if test -e /etc/redhat-release; then                   \
-		ln -sf contrib/kimchi.spec.fedora $@ ;              	\
-	elif test -e /etc/SuSE-release; then                    \
-		ln -sf contrib/kimchi.spec.suse $@ ;                	\
+	OS_DISTRO=`sed -n -e '/^ID=/p' /etc/os-release  | sed 's/ID=//g; s|["'\'']||g'`
+	@if [[ $OS_DISTRO == "fedora" ]]; then                   \
+		ln -sf contrib/wok.spec.fedora $@ ;              \
+    elif [[ $OS_DISTRO == "opensuse-leap" ]]; then            \
+		ln -sf contrib/wok.spec.suse $@ ;                \
 	else                                                    \
-		echo "Unable to select a spec file for RPM build" ; 	\
-		/bin/false ;                                        	\
+		echo "Unable to select a spec file for RPM build" ; \
+		/bin/false ;                                        \
 	fi
 
 rpm: dist kimchi.spec

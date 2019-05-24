@@ -1,0 +1,18 @@
+# File auto-generated on build process. Do not change it.
+# Add new dependencies to dependencies.yaml file instead.
+#
+systemd
+logrotate
+python3-jsonschema
+python3-psutil
+python3-ldap
+python3-lxml
+python3-websockify
+openssl
+nginx
+python3-cherrypy3
+python-cheetah
+python3-pam
+python-m2crypto
+gettext
+python3-openssl

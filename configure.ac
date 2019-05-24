@@ -25,6 +25,17 @@ AC_SUBST([PACKAGE_VERSION],
 AC_SUBST([PACKAGE_RELEASE],
          [m4_esyscmd([./build-aux/pkg-version --release])])
 
+AC_CONFIG_COMMANDS([generate_deps], [./build-aux/generateDepsFiles.py])
+
+AC_SUBST_FILE([UBUNTU_DEPS])
+UBUNTU_DEPS=./build-aux/ubuntu-pkg-deps
+
+AC_SUBST_FILE([FEDORA_DEPS])
+FEDORA_DEPS=./build-aux/fedora-pkg-deps
+
+AC_SUBST_FILE([SUSE_DEPS])
+SUSE_DEPS=./build-aux/opensuse-leap-pkg-deps
+
 # Testing for version and release
 AS_IF([test "x$PACKAGE_VERSION" = x],
       AC_MSG_ERROR([package version not defined]))
