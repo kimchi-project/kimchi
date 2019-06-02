@@ -1683,7 +1683,7 @@ class RestTests(unittest.TestCase):
     def test_config(self):
         resp = self.request('/plugins/kimchi/config').read()
         conf = json.loads(resp)
-        keys = ['version']
+        keys = ["version", "with_spice_web_client"]
         self.assertEqual(keys, sorted(conf.keys()))
 
     def test_capabilities(self):

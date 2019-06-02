@@ -824,6 +824,7 @@ Contains information about Kimchi configuration.
 
 * **GET**: Retrieve configuration information
     * version: The version of the kimchi service
+    * with_spice_web_client: True is buit with spice web client support
 * **POST**: *See Configuration Actions*
 
 **Actions (POST):**

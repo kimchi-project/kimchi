@@ -23,6 +23,7 @@ from wok.basemodel import Singleton
 from wok.exception import NotFoundError
 from wok.plugins.kimchi.config import find_qemu_binary
 from wok.plugins.kimchi.config import get_kimchi_version
+from wok.plugins.kimchi.config import with_spice_web_client
 from wok.plugins.kimchi.distroloader import DistroLoader
 from wok.plugins.kimchi.model.featuretests import FEATURETEST_POOL_NAME
 from wok.plugins.kimchi.model.featuretests import FEATURETEST_VM_NAME
@@ -39,7 +40,8 @@ class ConfigModel(object):
         pass
 
     def lookup(self, name):
-        return {'version': get_kimchi_version()}
+        return {'version': get_kimchi_version(),
+                'with_spice_web_client': with_spice_web_client()}
 
 
 class CapabilitiesModel(object, metaclass=Singleton):

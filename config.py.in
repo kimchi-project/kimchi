@@ -42,6 +42,10 @@ def get_kimchi_version():
     return "-".join([__version__, __release__])
 
 
+def with_spice_web_client():
+    return __with_spice_web_client__ == 'yes'
+
+
 def get_distros_store():
     return os.path.join(kimchiPaths.sysconf_dir, 'distros.d')
 
@@ -109,6 +113,8 @@ class KimchiPaths(PluginPaths):
                                         'spice-web-client/index.html')
             self.spice_dir = os.path.join(self.ui_dir, 'spice-web-client')
         else:
+            self.spice_file = os.path.join(self.ui_dir,
+                                       'spice-html5/pages/spice_auto.html')
             if __with_spice__ == 'yes':
                 self.spice_dir = os.path.join(self.ui_dir, 'spice-html5')
             elif os.path.exists('@datadir@/spice-html5'):
