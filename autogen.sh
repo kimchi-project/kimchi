@@ -29,7 +29,8 @@ if [ ! -f "configure" ]; then
 fi
 
 if [ "x$1" == "x--system" ]; then
-    ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var
+    shift
+    ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var $@
 else
    if [ $# -gt 0 ]; then
         ./configure $@

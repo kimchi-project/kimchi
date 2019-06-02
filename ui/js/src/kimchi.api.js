@@ -372,10 +372,20 @@ var kimchi = {
         }).done(function(data, textStatus, xhr) {
             url = 'https://' + location.hostname + ':' + proxy_port;
             url += server_root;
-
-            let spice_html5 = true;
-            if(spice_html5)
+            if(kimchi.config['with_spice_web_client'])
             {
+                /*
+                 * Slightly different api for spice-web-client
+                 */
+                url += "/plugins/kimchi/spice-web-client/index.html";
+                url += "?port=" + proxy_port + server_root;
+                url += "&host=" + location.hostname;
+                url += "&vmInfoToken=" + wok.urlSafeB64Encode(vm).replace(/=*$/g, "");
+                url += '&protocol=wss';
+            }
+            else
+            {
+                // Using spice-html5 by default
                 url += "/plugins/kimchi/spice_auto.html";
                 /*
                  * When using server_root we need pass the value with port
@@ -392,17 +402,6 @@ var kimchi = {
                  * */
                 url += "&token=" + wok.urlSafeB64Encode(vm).replace(/=*$/g, "");
                 url += '&encrypt=1';
-            }
-            else
-            {   
-                /*
-                 * Slightly different api for spice-web-client
-                 */
-                url += "/plugins/kimchi/spice-web-client/index.html";
-                url += "?port=" + proxy_port + server_root;
-                url += "&host=" + location.hostname;
-                url += "&vmInfoToken=" + wok.urlSafeB64Encode(vm).replace(/=*$/g, "");
-                url += '&protocol=wss';
             }
             window.open(url);
         });
