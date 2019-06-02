@@ -16,7 +16,7 @@ wdi.BMP2 = $.spcExtend(wdi.SpiceObject, {
 		var paletteSize = 0, unique, paletteData, numEnts = 0;
 		if (bpp <= 8 && bpp > 0) {
 			var palette = [];
-			if (flags & 1) {
+			if (flags & wdi.SpiceBitmapFlags.SPICE_BITMAP_FLAGS_PAL_CACHE_ME) {
 				var paletteOffset = this.bytesToInt32(imageData); // From the begininig of the spice packet?
 				len = imageData.length;
 				paletteSize = 4*Math.pow(2,bpp);
@@ -64,10 +64,11 @@ wdi.BMP2 = $.spcExtend(wdi.SpiceObject, {
 			paletteSize: numEnts * 4,
 			palette: palette,
 			stride: stride,
-			type: type
+			type: type,
+			flags: flags
 		});
 	},
-	
+
 	setContent: function(c) {
 		this.imageSize = c.imageSize;
 		this.width = c.width;
@@ -79,8 +80,9 @@ wdi.BMP2 = $.spcExtend(wdi.SpiceObject, {
 		this.size = this.offset + this.imageSize;
 		this.stride = c.stride;
 		this.type = c.type;
+		this.flags = c.flags;
 	},
-	
+
 	marshall: function(context) {
 		var type = this.type;
 		var palette = this.palette;
@@ -89,13 +91,14 @@ wdi.BMP2 = $.spcExtend(wdi.SpiceObject, {
 		var stride = this.stride;
 		var data = this.imageData;
 		var size = data.length;
+		var flags = this.flags;
 
 		var pixelsStride = stride * 8/this.bpp;
 		var bytesStride = pixelsStride * 4;
 		var buf = new ArrayBuffer(bytesStride * height);
 		var buf8 = new Uint8ClampedArray(buf);
 		var buf32 = new Uint32Array(buf);
-		var topdown = false;
+		var topdown = flags & wdi.SpiceBitmapFlags.SPICE_BITMAP_FLAGS_TOP_DOWN;
 
 		var oct, i, pos, buffPos, spiceColor;
 		var b;
@@ -141,7 +144,6 @@ wdi.BMP2 = $.spcExtend(wdi.SpiceObject, {
 				}
 
 			} else if (type === wdi.SpiceBitmapFmt.SPICE_BITMAP_FMT_RGBA) {
-				topdown = true;
 				for (pos = 0; pos < size; pos+=4) {
 					b = data[pos];
 					data[pos] = data[pos+2];
