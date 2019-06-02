@@ -157,8 +157,6 @@ class KimchiConfig(PluginConfig):
                                        'path': kimchiPaths.spice_css_file},
             '/spice-web-client': {'type': 'dir',
                                   'path': kimchiPaths.spice_dir},
-            '/index.html': {'type': 'file',
-                            'path': kimchiPaths.spice_file},
             '/serial': {'type': 'dir',
                         'path': kimchiPaths.serial_dir}}
 
