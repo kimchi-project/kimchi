@@ -69,7 +69,7 @@ wdi.RasterEngine = $.spcExtend(wdi.EventObject.prototype, {
 			URL.revokeObjectURL(url);
 			var box = stream.computedBox;
 			// we only rotate the stream if spice tells us so through the TOP_DOWN flag mask
-			if (!stream.flags & wdi.SpiceStreamFlags.SPICE_STREAM_FLAGS_TOP_DOWN) {
+			if (!(stream.flags & wdi.SpiceStreamFlags.SPICE_STREAM_FLAGS_TOP_DOWN)) {
 				var offsetX = box.x + (this.width/2);
 				var offsetY = box.y + (this.height/2);
 				context.save();

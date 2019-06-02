@@ -22,7 +22,7 @@ wdi.PlaybackProcess = $.spcExtend(wdi.EventObject.prototype, {
 			wdi.Debug.warn('The client browser does not support Web Audio API');
 		}
 		this.startTime = 0;
-		this.typedBuffer = new ArrayBuffer(1024*32);
+		this.typedBuffer = new ArrayBuffer(this.minBuffSize*2);
 		this.position = 0;
 	},
 
@@ -96,10 +96,9 @@ wdi.PlaybackProcess = $.spcExtend(wdi.EventObject.prototype, {
 	flush: function(dataTimestamp) {
 		if(this.position > 0) {
 			if (this.started) {
-				this.playSound(this.typedBuffer, dataTimestamp);
+				this.playSound(this.typedBuffer.slice(0, this.position), dataTimestamp);
 			}
 			this.position = 0;
-			this.typedBuffer = new ArrayBuffer(1024*32);
 		}
 	},
 
