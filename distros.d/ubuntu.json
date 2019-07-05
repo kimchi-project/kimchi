@@ -68,7 +68,7 @@
         "os_arch": "ppc64le",
         "os_version": "16.04.06",
         "path": "http://cdimages.ubuntu.com/releases/16.04/release/ubuntu-16.04.6-server-ppc64el.iso"
-    }
+    },
         {
         "name": "Ubuntu Server 18.04 (Bionic Beaver)",
         "os_distro": "ubuntu",
