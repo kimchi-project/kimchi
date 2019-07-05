@@ -4,29 +4,29 @@ Section: base
 Priority: optional
 Architecture: all
 Depends: wok (>= 2.1.0),
-         python-imaging | python-pil,
-         python-configobj,
+         python-imaging | python3-pil,
+         python3-configobj,
          novnc,
-         python-jsonschema (>= 1.3.0),
-         python-libvirt,
+         python3-jsonschema (>= 1.3.0),
+         python3-libvirt,
          gettext,
          libvirt-clients,
          nfs-common,
          qemu-kvm,
-         python-parted,
-         python-psutil (>= 0.6.0),
-         python-ethtool,
+         python3-parted,
+         python3-psutil (>= 0.6.0),
+         python3-ethtool,
          sosreport,
          python-ipaddr,
-         python-lxml,
+         python3-lxml,
          open-iscsi,
-         python-guestfs,
+         python3-guestfs,
          libguestfs-tools,
          spice-html5,
-         python-magic,
-         python-paramiko
+         python3-magic,
+         python3-paramiko
 Build-Depends: xsltproc,
                gettext,
-               python-lxml
+               python3-lxml
 Maintainer: Aline Manera <alinefm@br.ibm.com>
 Description: Kimchi web application
