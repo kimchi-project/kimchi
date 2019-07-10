@@ -960,11 +960,6 @@
   }
 }
 
-#guest-content-container .wok-guest-list .wok-guest-list-header > span.column-vnc,
-#guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-vnc {
-  display: none;
-}
-
 #guest-content-container .wok-guest-list .wok-guest-list-header > span.column-vnc > a,
 #guest-content-container .wok-guest-list .wok-guest-list-body .wok-guest-list-item > span.column-vnc > a {
   font-weight: normal;
