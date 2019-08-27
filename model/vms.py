@@ -330,9 +330,9 @@ class VMModel(object):
 
             # You can only change <maxMemory> offline, updating guest XML
             if (
-                ('memory' in params) and
-                ('maxmemory' in params['memory']) and
-                (DOM_STATE_MAP[dom.info()[0]] != 'shutoff')
+                ('memory' in params)
+                and ('maxmemory' in params['memory'])
+                and (DOM_STATE_MAP[dom.info()[0]] != 'shutoff')
             ):
                 raise InvalidParameter('KCHVM0080E')
 
@@ -722,8 +722,8 @@ class VMModel(object):
         access_info = dictize(access_xml)
         auth = config.get('authentication', 'method')
         if 'auth' in access_info['access'] and (
-            'type' in access_info['access']['auth'] or
-            len(access_info['access']['auth']) > 1
+            'type' in access_info['access']['auth']
+            or len(access_info['access']['auth']) > 1
         ):
             users = xpath_get_text(
                 access_xml, f"/access/auth[@type='{auth}']/user")
@@ -772,7 +772,7 @@ class VMModel(object):
 
         conn = self.conn.get()
         if not dom.isActive():
-            return conn.defineXML(ET.tostring(root, encoding='utf-8').decode('utf-8'))
+            return conn.defineXML(ET.tostring(root, encoding='unicode'))
 
         xml = dom.XMLDesc(libvirt.VIR_DOMAIN_XML_SECURE)
         dom.updateDeviceFlags(
@@ -851,7 +851,7 @@ class VMModel(object):
             os.append(get_bootmenu_node())
 
         # update <os>
-        return ET.tostring(et)
+        return ET.tostring(et, encoding='unicode')
 
     def _update_s390x_console(self, xml, params):
         if xpath_get_text(xml, XPATH_DOMAIN_CONSOLE_TARGET):
@@ -865,7 +865,7 @@ class VMModel(object):
         et = ET.fromstring(xml)
         devices = et.find('devices')
         devices.append(console)
-        return ET.tostring(et)
+        return ET.tostring(et, encoding='unicode')
 
     def _update_title(self, new_xml, title):
         if len(xpath_get_text(new_xml, XPATH_TITLE)) > 0:
@@ -874,7 +874,7 @@ class VMModel(object):
         else:
             et = ET.fromstring(new_xml)
             et.append(E.title(title))
-            new_xml = ET.tostring(et)
+            new_xml = ET.tostring(et, encoding='unicode')
 
         return new_xml
 
@@ -886,7 +886,7 @@ class VMModel(object):
         else:
             et = ET.fromstring(new_xml)
             et.append(E.description(description))
-            new_xml = ET.tostring(et)
+            new_xml = ET.tostring(et, encoding='unicode')
 
         return new_xml
 
@@ -960,8 +960,8 @@ class VMModel(object):
             if 'name' in params:
                 lflags = libvirt.VIR_DOMAIN_SNAPSHOT_LIST_ROOTS
                 dflags = (
-                    libvirt.VIR_DOMAIN_SNAPSHOT_DELETE_CHILDREN |
-                    libvirt.VIR_DOMAIN_SNAPSHOT_DELETE_METADATA_ONLY
+                    libvirt.VIR_DOMAIN_SNAPSHOT_DELETE_CHILDREN
+                    | libvirt.VIR_DOMAIN_SNAPSHOT_DELETE_METADATA_ONLY
                 )
 
                 for virt_snap in dom.listAllSnapshots(lflags):
@@ -997,7 +997,8 @@ class VMModel(object):
         return nonascii_name if nonascii_name is not None else vm_name, dom
 
     def _get_new_memory(self, root, newMem, oldMem, memDevs):
-        memDevsAmount = self._get_mem_dev_total_size(ET.tostring(root))
+        memDevsAmount = self._get_mem_dev_total_size(
+            ET.tostring(root, encoding='unicode'))
 
         if newMem > (oldMem << 10):
             return newMem - memDevsAmount
@@ -1013,7 +1014,7 @@ class VMModel(object):
                 root.find('./devices').remove(dev)
                 if ((oldMem << 10) - totRemoved) <= newMem:
                     return newMem - self._get_mem_dev_total_size(
-                        ET.tostring(root)
+                        ET.tostring(root, encoding='unicode')
                     )
 
         if newMem == (oldMem << 10):
@@ -1034,7 +1035,7 @@ class VMModel(object):
             # Just update value in max memory tag
             maxMemTag.text = str(newMaxMem)
         elif (maxMemTag is not None) and (newMem == newMaxMem):
-            if self._get_mem_dev_total_size(ET.tostring(root)) == 0:
+            if self._get_mem_dev_total_size(ET.tostring(root, encoding='unicode')) == 0:
                 # Remove the tag
                 root.remove(maxMemTag)
             else:
@@ -1104,7 +1105,8 @@ class VMModel(object):
 
             if (maxMemTag is not None) and (not hasMaxMem):
                 if newMem == newMaxMem and (
-                    self._get_mem_dev_total_size(ET.tostring(root)) == 0
+                    self._get_mem_dev_total_size(
+                        ET.tostring(root, encoding='unicode')) == 0
                 ):
                     root.remove(maxMemTag)
 
@@ -1116,7 +1118,7 @@ class VMModel(object):
                 memtune.remove(hl)
                 memtune.insert(0, E.hard_limit(
                     str(newMaxMem + 1048576), unit='Kib'))
-        return ET.tostring(root, encoding='utf-8')
+        return ET.tostring(root, encoding='unicode')
 
     def get_vm_cpu_cores(self, vm_xml):
         return xpath_get_text(vm_xml, XPATH_TOPOLOGY + '/@cores')[0]
@@ -1224,8 +1226,8 @@ class VMModel(object):
                 )
             # Check number of slots supported
             if (
-                len(xpath_get_text(xml, './devices/memory')) ==
-                MEM_DEV_SLOTS[os.uname()[4]]
+                len(xpath_get_text(xml, './devices/memory'))
+                == MEM_DEV_SLOTS[os.uname()[4]]
             ):
                 raise InvalidOperation('KCHVM0045E')
 
@@ -1728,8 +1730,8 @@ class VMModel(object):
                 )
 
         websocket.add_proxy_token(
-            name
-            + '-console', os.path.join(serialconsole.BASE_DIRECTORY, name), True
+            name +
+            '-console', os.path.join(serialconsole.BASE_DIRECTORY, name), True
         )
 
         try:

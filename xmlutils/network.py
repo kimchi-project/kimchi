@@ -115,7 +115,7 @@ def to_network_xml(**kwargs):
     if 'net' in kwargs:
         network.append(_get_ip_elem(**kwargs))
 
-    return ET.tostring(network).decode('utf-8')
+    return ET.tostring(network, encoding='unicode')
 
 
 def create_vlan_tagged_bridge_xml(bridge, interface, vlan_id):
@@ -128,7 +128,7 @@ def create_vlan_tagged_bridge_xml(bridge, interface, vlan_id):
         type='bridge',
         name=bridge,
     )
-    return ET.tostring(m)
+    return ET.tostring(m, encoding='unicode')
 
 
 def create_linux_bridge_xml(bridge, interface, iface_xml):
@@ -144,7 +144,7 @@ def create_linux_bridge_xml(bridge, interface, iface_xml):
     for element in iface.iter('protocol'):
         m.append(element)
 
-    return ET.tostring(m)
+    return ET.tostring(m, encoding='unicode')
 
 
 def get_no_network_config_xml(iface_xml):
@@ -153,4 +153,4 @@ def get_no_network_config_xml(iface_xml):
     for element in xml.iter('protocol'):
         element.getparent().remove(element)
 
-    return ET.tostring(xml)
+    return ET.tostring(xml, encoding='unicode')

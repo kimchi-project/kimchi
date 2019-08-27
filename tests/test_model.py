@@ -2120,7 +2120,7 @@ multifunction='on'/>
 <address type="pci" domain="0x0000" bus="0x00" slot="0x05" function="0x1"/>\
 </hostdev>"""
         same_addr_devices = [
-            ET.tostring(hostdev_multi_elem).decode('utf-8'),
+            ET.tostring(hostdev_multi_elem, encoding='unicode'),
             hostdev_same_addr_str,
         ]
 
@@ -2135,7 +2135,7 @@ multifunction='on'/>
 
         self.assertEqual(
             inst.vmhostdev_get_devices_same_addr(hostdevs, nomatch_elem),
-            [ET.tostring(nomatch_elem).decode('utf-8')],
+            [ET.tostring(nomatch_elem, encoding='unicode')],
         )
 
     @mock.patch('wok.plugins.kimchi.model.vmhostdevs.get_vm_config_flag')

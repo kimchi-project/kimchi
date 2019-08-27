@@ -520,8 +520,8 @@ class StorageVolumeModel(object):
             target_elem.append(E.format(type=orig_vol['format']))
             root_elem.append(target_elem)
             new_vol_xml = ET.tostring(
-                root_elem, encoding='utf-8', pretty_print=True
-            ).decode('utf-8')
+                root_elem, encoding='unicode', pretty_print=True
+            )
 
             cb('cloning volume')
             new_vir_pool.createXMLFrom(new_vol_xml, orig_vir_vol, 0)

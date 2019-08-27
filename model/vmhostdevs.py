@@ -469,7 +469,7 @@ class VMHostDevsModel(object):
                     line.remove(arg.getprevious())
                     line.remove(arg)
 
-                return etree.tostring(root, encoding='utf-8', pretty_print=True)
+                return etree.tostring(root, encoding='unicode', pretty_print=True)
 
         return None
 
@@ -484,7 +484,7 @@ class VMHostDevsModel(object):
             args = {}
             args['-global'] = val
             root.append(etree.fromstring(get_qemucmdline_xml(args)))
-            return etree.tostring(root, encoding='utf-8', pretty_print=True)
+            return etree.tostring(root, encoding='unicode', pretty_print=True)
 
         # <qemu:commandline> exists but there is no <qemu:arg value global>
         # so, we add those missing arguments inside the exising cmdline
@@ -493,7 +493,7 @@ class VMHostDevsModel(object):
         cmdline.append(EM.arg(value='-global'))
         cmdline.append(EM.arg(value=val))
 
-        return etree.tostring(root, encoding='utf-8', pretty_print=True)
+        return etree.tostring(root, encoding='unicode', pretty_print=True)
 
     def _get_scsi_device_xml(self, dev_info):
         adapter = E.adapter(name=('scsi_host%s' % dev_info['host']))

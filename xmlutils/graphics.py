@@ -26,6 +26,6 @@ def get_graphics_xml(params):
     """
     graphics = E.graphics(type=params['type'], autoport='yes',
                           listen=params['listen'])
-    graphics_xml = ET.tostring(graphics, encoding='utf-8', pretty_print=True)
+    graphics_xml = ET.tostring(graphics, encoding='unicode', pretty_print=True)
 
     return graphics_xml

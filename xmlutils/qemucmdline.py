@@ -40,4 +40,4 @@ def get_qemucmdline_xml(args):
         root.append(EM.arg(value=opt))
         root.append(EM.arg(value=value))
 
-    return ET.tostring(root, encoding='utf-8', pretty_print=True)
+    return ET.tostring(root, encoding='unicode', pretty_print=True)

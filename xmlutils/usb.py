@@ -41,4 +41,4 @@ def get_usb_controller_xml(model):
         model=model
     )
 
-    return ET.tostring(m)
+    return ET.tostring(m, encoding='unicode')

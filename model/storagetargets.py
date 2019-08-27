@@ -106,7 +106,7 @@ class StorageTargetsModel(object):
             host_attr['port'] = server_port
 
         obj = E.source(E.host(host_attr), *extra_args)
-        xml = ET.tostring(obj)
+        xml = ET.tostring(obj, encoding='unicode')
         return xml
 
     def _parse_target_source_result(self, target_type, xml_str):

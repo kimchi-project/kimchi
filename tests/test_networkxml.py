@@ -25,7 +25,7 @@ from wok.xmlutils.utils import xpath_get_text
 
 
 def normalize_xml(xml_str):
-    return ET.tostring(ET.fromstring(xml_str, ET.XMLParser(remove_blank_text=True)))
+    return ET.tostring(ET.fromstring(xml_str, ET.XMLParser(remove_blank_text=True)), encoding='unicode')
 
 
 class NetworkXmlTests(unittest.TestCase):
@@ -50,14 +50,14 @@ class NetworkXmlTests(unittest.TestCase):
         self.assertEqual(None, dhcp)
 
         params['range'] = dhcp_range
-        xml = ET.tostring(nxml._get_dhcp_elem(**params))
+        xml = ET.tostring(nxml._get_dhcp_elem(**params), encoding='unicode')
         start = xpath_get_text(xml, '/dhcp/range/@start')
         end = xpath_get_text(xml, '/dhcp/range/@end')
         self.assertEqual(dhcp_range['start'], start[0])
         self.assertEqual(dhcp_range['end'], end[0])
 
         params['hosts'] = [host1, host2]
-        xml = ET.tostring(nxml._get_dhcp_elem(**params))
+        xml = ET.tostring(nxml._get_dhcp_elem(**params), encoding='unicode')
         ip = xpath_get_text(xml, '/dhcp/host/@ip')
         self.assertEqual(ip, [host1['ip'], host2['ip']])
 
@@ -73,7 +73,7 @@ class NetworkXmlTests(unittest.TestCase):
 
         params['net'] = '192.168.122.0/255.255.255.0'
         params['dhcp'] = {'range': dhcp_range}
-        xml = ET.tostring(nxml._get_ip_elem(**params))
+        xml = ET.tostring(nxml._get_ip_elem(**params), encoding='unicode')
         start = xpath_get_text(xml, '/ip/dhcp/range/@start')[0]
         end = xpath_get_text(xml, '/ip/dhcp/range/@end')[0]
         self.assertEqual(dhcp_range['start'], start)
@@ -87,7 +87,7 @@ class NetworkXmlTests(unittest.TestCase):
         # test _get_ip_xml can accepts strings: '192.168.122.0/24',
         # which is same as "192.168.122.0/255.255.255.0"
         params['net'] = '192.168.122.0/24'
-        xml = ET.tostring(nxml._get_ip_elem(**params))
+        xml = ET.tostring(nxml._get_ip_elem(**params), encoding='unicode')
         netmask = xpath_get_text(xml, '/ip/@netmask')[0]
         self.assertEqual(netmask, str(ipaddr.IPNetwork(params['net']).netmask))
 
@@ -102,7 +102,7 @@ class NetworkXmlTests(unittest.TestCase):
 
         params['mode'] = 'nat'
         params['dev'] = 'eth0'
-        xml = ET.tostring(nxml._get_forward_elem(**params))
+        xml = ET.tostring(nxml._get_forward_elem(**params), encoding='unicode')
         mode = xpath_get_text(xml, '/forward/@mode')[0]
         dev = xpath_get_text(xml, '/forward/@dev')[0]
         self.assertEqual(params['mode'], mode)

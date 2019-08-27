@@ -97,11 +97,7 @@ def get_disk_xml(params):
         )
 
     if len(params['path']) == 0:
-        return (
-            dev,
-            ET.tostring(disk, encoding='utf-8',
-                        pretty_print=True).decode('utf-8'),
-        )
+        return dev, ET.tostring(disk, encoding='unicode', pretty_print=True)
 
     if disk_type == 'network':
         """
@@ -122,7 +118,7 @@ def get_disk_xml(params):
         source.set(DEV_TYPE_SRC_ATTR_MAP[disk_type], params['path'])
 
     disk.append(source)
-    return dev, ET.tostring(disk, encoding='utf-8', pretty_print=True).decode('utf-8')
+    return dev, ET.tostring(disk, encoding='unicode', pretty_print=True)
 
 
 def _get_disk_type(path):

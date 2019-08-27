@@ -43,9 +43,7 @@ def get_bootorder_xml(boot_order=None):
     """
     boot_xml = ''
     for device in get_bootorder_node(boot_order):
-        boot_xml += ET.tostring(device, encoding='utf-8', pretty_print=True).decode(
-            'utf-8'
-        )
+        boot_xml += ET.tostring(device, encoding='unicode', pretty_print=True)
 
     return boot_xml
 

@@ -47,19 +47,19 @@ def get_serial_xml(params):
         console = E.console(type='pty')
         console.append(E.target(type='serial', port='1'))
         console.append(E.address(type='spapr-vio', reg='0x30001000'))
-        return ET.tostring(console, encoding='utf-8', pretty_print=True)
+        return ET.tostring(console, encoding='unicode', pretty_print=True)
     # for s390x
     elif params['arch'] in ['s390x']:
         # if params doesn't have console parameter, use virtio as default
         console_type = params.get('console', 'virtio')
         console = E.console(type='pty')
         console.append(E.target(type=console_type, port='0'))
-        return ET.tostring(console, encoding='utf-8', pretty_print=True)
+        return ET.tostring(console, encoding='unicode', pretty_print=True)
     # for x
     else:
         serial = E.serial(type='pty')
         serial.append(E.target(port='0'))
         console = E.console(type='pty')
         console.append(E.target(type='serial', port='0'))
-        return ET.tostring(serial, encoding='utf-8', pretty_print=True) + \
-            ET.tostring(console, encoding='utf-8', pretty_print=True)
+        return ET.tostring(serial, encoding='unicode', pretty_print=True) + \
+            ET.tostring(console, encoding='unicode', pretty_print=True)

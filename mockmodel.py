@@ -208,7 +208,7 @@ class MockModel(Model):
                         break
             if add:
                 root.devices.append(dev)
-        return ET.tostring(root, encoding='utf-8').decode('utf-8')
+        return ET.tostring(root, encoding='unicode')
 
     @staticmethod
     def undefineDomain(dom):
@@ -226,7 +226,7 @@ class MockModel(Model):
             myxml.target.size._setText(
                 str(int(convert_data_size(myxml.target.size.text, unit, 'KiB')))
             )
-            xml = ET.tostring(myxml).decode('utf-8')
+            xml = ET.tostring(myxml, encoding='unicode')
             dom.setMaxMemory(int(dom.maxMemory() + myxml.target.size))
         MockModel._mock_vms[dom.name()].append(xml)
 
@@ -254,17 +254,14 @@ class MockModel(Model):
     @staticmethod
     def detachDeviceFlags(dom, xml, flags=0):
         node = ET.fromstring(xml)
-        xml = ET.tostring(node, encoding='utf-8',
-                          pretty_print=True).decode('utf-8')
+        xml = ET.tostring(node, encoding='unicode', pretty_print=True)
         if xml in MockModel._mock_vms[dom.name()]:
             MockModel._mock_vms[dom.name()].remove(xml)
 
     @staticmethod
     def updateDeviceFlags(dom, xml, flags=0):
         _, old_dev = MockModel._get_device_node(dom, xml)
-        old_xml = ET.tostring(old_dev, encoding='utf-8', pretty_print=True).decode(
-            'utf-8'
-        )
+        old_xml = ET.tostring(old_dev, encoding='unicode', pretty_print=True)
         if old_xml in MockModel._mock_vms[dom.name()]:
             MockModel._mock_vms[dom.name()].remove(old_xml)
         MockModel._mock_vms[dom.name()].append(xml)
@@ -329,7 +326,7 @@ class MockModel(Model):
             dev = E.device(path=d)
             source.append(dev)
 
-        conn.storagePoolDefineXML(ET.tostring(root).decode('utf-8'), 0)
+        conn.storagePoolDefineXML(ET.tostring(root, encoding='unicode'), 0)
 
     def _mock_storagevolumes_create(self, pool, params):
         vol_source = ['url', 'capacity']
@@ -562,7 +559,7 @@ class MockModel(Model):
                 source, driver, mode='subsystem', type='pci', managed='yes'
             )
 
-        return ET.tostring(host_dev).decode('utf-8')
+        return ET.tostring(host_dev, encoding='unicode')
 
 
 class MockStorageVolumes(object):

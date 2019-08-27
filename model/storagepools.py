@@ -118,7 +118,7 @@ class StoragePoolsModel(object):
                 # Try to create the pool
                 pool = E.pool(E.name(pool_name), type='dir')
                 pool.append(E.target(E.path(pool_path)))
-                xml = ET.tostring(pool)
+                xml = ET.tostring(pool, encoding='unicode')
                 try:
                     pool = conn.storagePoolDefineXML(xml, 0)
                 except libvirt.libvirtError as e:

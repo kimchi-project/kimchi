@@ -67,7 +67,7 @@ class DirPoolDef(StoragePoolDef):
         pool = E.pool(type='dir')
         pool.append(E.name(self.poolArgs['name']))
         pool.append(E.target(E.path(self.poolArgs['path'])))
-        return ET.tostring(pool, encoding='utf-8', pretty_print=True).decode('utf-8')
+        return ET.tostring(pool, encoding='unicode', pretty_print=True)
 
 
 class NetfsPoolDef(StoragePoolDef):
@@ -217,7 +217,7 @@ class IscsiPoolDef(StoragePoolDef):
             usage = E.usage(type='iscsi')
             usage.append(E.target(self.poolArgs['name']))
             secret.append(usage)
-            virSecret = conn.secretDefineXML(ET.tostring(secret))
+            virSecret = conn.secretDefineXML(ET.tostring(secret, encoding='unicode'))
 
         virSecret.setValue(auth['password'])
 

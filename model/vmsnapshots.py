@@ -95,7 +95,7 @@ class VMSnapshotsModel(object):
         cb('building snapshot XML')
         root_elem = E.domainsnapshot()
         root_elem.append(E.name(name))
-        xml = ET.tostring(root_elem, encoding='utf-8').decode('utf-8')
+        xml = ET.tostring(root_elem, encoding='unicode')
 
         try:
             cb('fetching snapshot domain')

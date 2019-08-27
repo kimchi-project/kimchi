@@ -151,7 +151,7 @@ class FeatureTests(object):
     def libvirt_support_nfs_probe(conn):
         def _get_xml():
             obj = E.source(E.host(name='127.0.0.1'), E.format(type='nfs'))
-            xml = ET.tostring(obj).decode('utf-8')
+            xml = ET.tostring(obj, encoding='unicode')
             return xml
 
         try:

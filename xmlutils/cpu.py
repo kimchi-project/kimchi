@@ -31,7 +31,7 @@ def get_numa_xml(cpus, memory):
         cpus='0-' + str(cpus - 1) if cpus > 1 else '0',
         memory=str(memory),
         unit='KiB'))
-    return ET.tostring(xml)
+    return ET.tostring(xml, encoding='unicode')
 
 
 def get_topology_xml(cpu_topo):
@@ -41,7 +41,7 @@ def get_topology_xml(cpu_topo):
         sockets=str(cpu_topo['sockets']),
         cores=str(cpu_topo['cores']),
         threads=str(cpu_topo['threads']))
-    return ET.tostring(xml)
+    return ET.tostring(xml, encoding='unicode')
 
 
 def get_cpu_xml(cpus, memory, cpu_topo=None):
@@ -58,4 +58,4 @@ def get_cpu_xml(cpus, memory, cpu_topo=None):
     xml = E.cpu(ET.fromstring(get_numa_xml(cpus, memory)))
     if cpu_topo:
         xml.insert(0, ET.fromstring(get_topology_xml(cpu_topo)))
-    return ET.tostring(xml)
+    return ET.tostring(xml, encoding='unicode')
