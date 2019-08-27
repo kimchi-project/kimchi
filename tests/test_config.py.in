@@ -80,7 +80,8 @@ class ConfigTests(unittest.TestCase):
                 'enable': True
             },
             'kimchi': {
-                'create_iso_pool': True
+                'create_iso_pool': True,
+                'take_screenshot': True
             },
             '/': {
                 'tools.trailing_slash.on': False,
