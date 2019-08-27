@@ -132,8 +132,8 @@ class StorageVolumesModel(object):
         vol_xml = """
         <volume>
           <name>%(name)s</name>
-          <allocation unit='bytes'>%(allocation)s</allocation>
-          <capacity unit='bytes'>%(capacity)s</capacity>
+          <allocation unit='M'>%(allocation)s</allocation>
+          <capacity unit='M'>%(capacity)s</capacity>
           <source>
           </source>
           <target>
