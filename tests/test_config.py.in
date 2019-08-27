@@ -106,6 +106,12 @@ class ConfigTests(unittest.TestCase):
                 'tools.staticdir.dir': paths.spice_dir,
                 'tools.staticdir.on': True
             },
+            '/spice-web-client': {
+                'tools.wokauth.on': True,
+                'tools.nocache.on': True,
+                'tools.staticdir.dir': paths.spice_dir,
+                'tools.staticdir.on': True
+            },
             '/spice_auto.html': {
                 'tools.wokauth.on': True,
                 'tools.nocache.on': True,
