@@ -14,4 +14,4 @@ Runtime Dependencies
 --------------------
 
     $ sudo -H pip3 install -r requirements-FEDORA.txt
-    $ sudo dnf install -y systemd logrotate python3-jsonschema python3-psutil python3-ldap python3-lxml python3-websockify openssl nginx python3-cherrypy python3-cheetah python3-pam python3-m2crypto gettext-devel
+    $ sudo dnf install -y python3-configobj python3-lxml python3-magic python3-paramiko python3-ldap spice-html5 novnc qemu-kvm python3-libvirt python3-pyparted python3-ethtool python3-pillow python3-cherrypy python3-pam python3-libguestfs libvirt libvirt-daemon-config-network iscsi-initiator-utils libguestfs-tools sos nfs-utils

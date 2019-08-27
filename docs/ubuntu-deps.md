@@ -14,4 +14,4 @@ Runtime Dependencies
 --------------------
 
     $ sudo -H pip3 install -r requirements-UBUNTU.txt
-    $ sudo apt install -y systemd logrotate python3-jsonschema python3-psutil python3-ldap python3-lxml python3-websockify openssl nginx python3-cherrypy3 python-cheetah python3-pam python-m2crypto gettext python3-openssl
+    $ sudo apt install -y python3-configobj python3-lxml python3-magic python3-paramiko python3-ldap spice-html5 novnc qemu-kvm python3-libvirt python3-parted python3-guestfs python3-pil python3-cherrypy3 python3-pam libvirt-bin nfs-common sosreport open-iscsi libguestfs-tools
