@@ -25,7 +25,8 @@ from wok.xmlutils.utils import xpath_get_text
 
 
 def normalize_xml(xml_str):
-    return ET.tostring(ET.fromstring(xml_str, ET.XMLParser(remove_blank_text=True)), encoding='unicode')
+    node = ET.fromstring(xml_str, ET.XMLParser(remove_blank_text=True))
+    return ET.tostring(node, encoding='unicode')
 
 
 class NetworkXmlTests(unittest.TestCase):

@@ -110,11 +110,11 @@ class KimchiPaths(PluginPaths):
 
         if __with_spice_web_client__ == 'yes':
             self.spice_file = os.path.join(self.ui_dir,
-                                        'spice-web-client/index.html')
+                                           'spice-web-client/index.html')
             self.spice_dir = os.path.join(self.ui_dir, 'spice-web-client')
         else:
             self.spice_file = os.path.join(self.ui_dir,
-                                       'spice-html5/pages/spice_auto.html')
+                                           'spice-html5/pages/spice_auto.html')
             if __with_spice__ == 'yes':
                 self.spice_dir = os.path.join(self.ui_dir, 'spice-html5')
             elif os.path.exists('@datadir@/spice-html5'):

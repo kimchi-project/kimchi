@@ -67,7 +67,7 @@ I18N_FILES = ./i18n.py \
 	$(NULL)
 
 check-local:
-	contrib/check_i18n.py $(I18N_FILES)
+	PYTHONPATH=. contrib/check_i18n.py $(I18N_FILES)
 	@if [ -d '.git' ]; then                                        \
 		find . -path './.git' -prune -o                        \
 			-name '*.py' -o -name '*.py.in'  |             \
@@ -83,7 +83,7 @@ check-local:
 	./check_ui_code_errors.sh
 	@if $(GIT) rev-parse &> /dev/null ; then                         \
 		echo "Whitespace verification ...";                      \
-		git grep --cached -Il '' | grep -v '^ui/spice-html5/' |  \
+		git grep --cached -Il '' | grep -Ev '^ui/spice-html5/|^ui/spice-web-client/' |  \
 			xargs egrep '.* +$$'                             \
 			&& echo "ERROR: Whitespaces found" || echo "Ok"; \
 	fi;

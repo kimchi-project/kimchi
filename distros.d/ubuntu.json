@@ -69,19 +69,18 @@
         "os_version": "16.04.06",
         "path": "http://cdimages.ubuntu.com/releases/16.04/release/ubuntu-16.04.6-server-ppc64el.iso"
     },
-        {
+    {
         "name": "Ubuntu Server 18.04 (Bionic Beaver)",
         "os_distro": "ubuntu",
-        "os_arch": "x86_64",  
+        "os_arch": "x86_64",
         "os_version": "18.04.2",
         "path": "http://releases.ubuntu.com/18.04/ubuntu-18.04.2-live-server-amd64.iso"
     },
-    { 
+    {
         "name": "Ubuntu Server 18.04 LE (Bionic Beaver)",
         "os_distro": "ubuntu",
-        "os_arch": "ppc64le",   
+        "os_arch": "ppc64le",
         "os_version": "18.04.2",
         "path": "http://cdimage.ubuntu.com/releases/18.04.2/release/ubuntu-18.04.2-server-ppc64el.iso"
     }
-
 ]
