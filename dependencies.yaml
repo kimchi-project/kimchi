@@ -55,7 +55,6 @@ runtime-deps:
     - python3-pil
     - python3-cherrypy3
     - python3-pam
-    -
     - libvirt-bin
     - nfs-common
     - sosreport
