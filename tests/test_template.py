@@ -278,12 +278,8 @@ class TemplateTests(unittest.TestCase):
         self.assertEqual(update_tmpl['cpu_info'], cpu_info_data['cpu_info'])
 
         # Test memory and max memory
-        # - memory greated than max memory (1024 default on x86
-        # otherwise 2048)
-        if os.uname()[4] == 's390x':
-            req = json.dumps({'memory': {'current': 4096}})
-        else:
-            req = json.dumps({'memory': {'current': 2048}})
+        # - memory greated than max memory
+        req = json.dumps({'memory': {'current': 4096}})
         resp = self.request(new_tmpl_uri, req, 'PUT')
         self.assertEqual(400, resp.status)
         # - max memory greater than limit: 16TiB to PPC and 4TiB to x86

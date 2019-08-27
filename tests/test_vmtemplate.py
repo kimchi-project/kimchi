@@ -138,10 +138,7 @@ class VMTemplateTests(unittest.TestCase):
         # max memory tag is not set
         self.assertEqual(0, len(xpath_get_text(xml, expr)))
         expr = '/domain/memory'
-        if os.uname()[4] == 's390x':
-            self.assertEqual(str(2048), xpath_get_text(xml, expr)[0])
-        else:
-            self.assertEqual(str(1024), xpath_get_text(xml, expr)[0])
+        self.assertEqual(str(2048), xpath_get_text(xml, expr)[0])
 
         if hasattr(psutil, 'virtual_memory'):
             host_memory = psutil.virtual_memory().total >> 10
