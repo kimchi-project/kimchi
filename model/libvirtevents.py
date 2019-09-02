@@ -113,14 +113,11 @@ class LibvirtEvents(object):
         Register libvirt events to listen to any pool change
         """
         def lifecycle_cb(conn, dom, event, detail, opaque):
-            return cb(opaque)
-
-        def refresh_cb(conn, pool, opaque):
+            print(f'pool lifecycle = {event} {detail} {opaque}')
             return cb(opaque)
 
         pool_events = [
-            (libvirt.VIR_STORAGE_POOL_EVENT_ID_LIFECYCLE, lifecycle_cb),
-            (libvirt.VIR_STORAGE_POOL_EVENT_ID_REFRESH, refresh_cb)
+            (libvirt.VIR_STORAGE_POOL_EVENT_ID_LIFECYCLE, lifecycle_cb)
         ]
 
         for ev, ev_cb in pool_events:
