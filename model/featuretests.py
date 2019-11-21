@@ -72,7 +72,7 @@ MAXMEM_VM_XML = """
     <type arch='%(arch)s'>hvm</type>
     <boot dev='hd'/>
   </os>
-  <cpu>
+  <cpu mode='host-passthrough'>
     <numa>
       <cell id='0' cpus='0' memory='256' unit='MiB'/>
     </numa>

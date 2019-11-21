@@ -17,6 +17,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 import lxml.etree as ET
+import platform
 from lxml.builder import E
 
 
@@ -56,6 +57,10 @@ def get_cpu_xml(cpus, memory, cpu_topo=None):
     if cpu_topo is None:
         cpu_topo = {}
     xml = E.cpu(ET.fromstring(get_numa_xml(cpus, memory)))
+    if platform.machine() in ['ppc64el', 'ppc64le', 'aarch64']:
+        xml.set('mode', 'host-passthrough')
+
     if cpu_topo:
         xml.insert(0, ET.fromstring(get_topology_xml(cpu_topo)))
+
     return ET.tostring(xml, encoding='unicode')
