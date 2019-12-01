@@ -19,7 +19,7 @@
 import copy
 import glob
 import os
-import platform
+import distro
 from collections import defaultdict
 from distutils.version import LooseVersion
 
@@ -38,7 +38,7 @@ SUPPORTED_ARCHS = {
 }
 
 # Memory devices slot limits by architecture
-HOST_DISTRO = platform.linux_distribution()
+HOST_DISTRO = distro.linux_distribution(full_distribution_name=False)
 MEM_DEV_SLOTS = {
     'ppc64': 32 if HOST_DISTRO and HOST_DISTRO[0] == 'Ubuntu' else 256,
     'ppc64le': 32 if HOST_DISTRO and HOST_DISTRO[0] == 'Ubuntu' else 256,
