@@ -22,7 +22,7 @@ development-deps:
     - libxslt
     - gcc-c++
     - python3-devel
-    - python2-pep8
+    - python3-pep8
     - python3-pyflakes
     - rpmlint
     - python3-pyyaml
