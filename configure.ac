@@ -54,6 +54,8 @@ AC_SUBST([PYTHON_VERSION])
 AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([0.10])
 AC_PATH_PROG([CHEETAH], [cheetah], [/usr/bin/cheetah])
+AC_SUBST([pythondir],
+         [m4_esyscmd([python3 -c "import distutils.sysconfig as sys; print(sys.get_python_lib())"])])
 
 # Checking for pyflakes
 AC_PATH_PROG([PYFLAKES], [pyflakes])
