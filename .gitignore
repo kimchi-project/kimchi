@@ -1,5 +1,6 @@
 *.pyc
 *~
+*.list
 i18n/mo/*
 log
 data
