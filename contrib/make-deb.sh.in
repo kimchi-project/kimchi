@@ -29,6 +29,5 @@ fi
 TMPDIR=`mktemp -d`
 
 make DESTDIR=$TMPDIR install-deb
-pip3 install -r requirements-UBUNTU.txt $TMPDIR
 dpkg-deb -b $TMPDIR kimchi-${VERSION}-${RELEASE}.noarch.deb
 rm -rf $TMPDIR

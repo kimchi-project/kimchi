@@ -56,12 +56,23 @@ EXTRA_DIST = \
 	COPYING.LGPL \
 	CONTRIBUTE.md \
 	VERSION \
+	fedora-dev-deps.list \
+	fedora-runtime-deps.list \
+	opensuse-leap-dev-deps.list \
+	opensuse-leap-runtime-deps.list \
+	ubuntu-dev-deps.list \
+	ubuntu-runtime-deps.list \
+	requirements-FEDORA.txt \
+	requirements-OPENSUSE-LEAP.txt \
+	requirements-UBUNTU.txt \
 	build-aux/pkg-version \
 	config.py.in \
 	$(NULL)
 
 
 PEP8_BLACKLIST = *config.py,*i18n.py,*tests/test_config.py
+
+OS_DISTRO=$(shell sed -n -e '/^ID=/p' /etc/os-release  | sed 's/ID=//g; s|["'\'']||g')
 
 I18N_FILES = ./i18n.py \
 	$(NULL)
@@ -134,11 +145,10 @@ deb: contrib/make-deb.sh
 	$(top_srcdir)/contrib/make-deb.sh
 
 kimchi.spec: contrib/kimchi.spec.fedora contrib/kimchi.spec.suse
-	OS_DISTRO=`sed -n -e '/^ID=/p' /etc/os-release  | sed 's/ID=//g; s|["'\'']||g'`
-	@if [[ $OS_DISTRO == "fedora" ]]; then                   \
-		ln -sf contrib/wok.spec.fedora $@ ;              \
-    elif [[ $OS_DISTRO == "opensuse-leap" ]]; then            \
-		ln -sf contrib/wok.spec.suse $@ ;                \
+	@if [[ $(OS_DISTRO) == "fedora" ]]; then                \
+		ln -sf contrib/kimchi.spec.fedora $@ ;              \
+	elif [[ $(OS_DISTRO) == "opensuse-leap" ]]; then        \
+		ln -sf contrib/kimchi.spec.suse $@ ;                \
 	else                                                    \
 		echo "Unable to select a spec file for RPM build" ; \
 		/bin/false ;                                        \

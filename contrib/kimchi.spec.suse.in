@@ -26,7 +26,6 @@ make
 %install
 rm -rf %{buildroot}
 make DESTDIR=%{buildroot} install
-pip3 install -r requirements-OPENSUSE-LEAP.txt %{buildroot}
 
 
 %clean
@@ -34,7 +33,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %attr(-,root,root)
-%{python_sitelib}/wok/plugins/kimchi/
+%{python_sitelib}/*
 %{_datadir}/kimchi/doc/
 %{_prefix}/share/locale/*/LC_MESSAGES/kimchi.mo
 %{_datadir}/wok/plugins/kimchi/

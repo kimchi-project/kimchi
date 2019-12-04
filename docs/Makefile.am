@@ -19,6 +19,10 @@
 
 docdir = $(datadir)/kimchi/doc
 
+EXTRA_DIST = \
+	deps.md.tmpl \
+	$(NULL)
+
 all:
 	@for os_distro in ubuntu fedora opensuse-leap; do \
 		case $$os_distro in \
