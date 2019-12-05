@@ -20,32 +20,22 @@
 docdir = $(datadir)/kimchi/doc
 
 EXTRA_DIST = \
-	deps.md.tmpl \
+	README.md.tmpl \
 	$(NULL)
 
+FEDORA_DEV_DEPS=$(shell grep "^[^\#;]" ../fedora-dev-deps.list)
+FEDORA_RUNTIME_DEPS=$(shell grep "^[^\#;]" ../fedora-runtime-deps.list)
+UBUNTU_DEV_DEPS=$(shell grep "^[^\#;]" ../ubuntu-dev-deps.list)
+UBUNTU_RUNTIME_DEPS=$(shell grep "^[^\#;]" ../ubuntu-runtime-deps.list)
+OPENSUSE_DEV_DEPS=$(shell grep "^[^\#;]" ../opensuse-leap-dev-deps.list)
+OPENSUSE_RUNTIME_DEPS=$(shell grep "^[^\#;]" ../opensuse-leap-runtime-deps.list)
+
 all:
-	@for os_distro in ubuntu fedora opensuse-leap; do \
-		case $$os_distro in \
-			ubuntu) \
-		    	PKG_MGNT_TOOL="apt install -y"; \
-		    ;; \
-		    fedora) \
-		    	PKG_MGNT_TOOL="dnf install -y"; \
-		    ;; \
-		    opensuse-leap) \
-		    	PKG_MGNT_TOOL="zypper install -y"; \
-		    ;; \
-		    *) \
-		    	PKG_MGNT_TOOL="error"; \
-		    ;; \
-		esac; \
-		echo $${PKG_MGNT_TOOL}; \
-		DEV_DEPS=`grep "^[^#;]" ../$${os_distro}-dev-deps.list` ;\
-		RUNTIME_DEPS=`grep "^[^#;]" ../$${os_distro}-runtime-deps.list` ;\
-		sed -e "s|[@]DISTRO[@]|$${os_distro^^}|g" \
-			-e "s|[@]PKG_MGNT_TOOL[@]|$${PKG_MGNT_TOOL}|g" \
-			-e "s|[@]DEV_DEPS[@]|`echo $${DEV_DEPS}`|g" \
-			-e "s|[@]RUNTIME_DEPS[@]|`echo $${RUNTIME_DEPS}`|g" deps.md.tmpl > $${os_distro}-deps.md ;\
-	done
+	sed -e "s|[@]FEDORA_DEV_DEPS[@]|$(FEDORA_DEV_DEPS)|g" \
+		-e "s|[@]FEDORA_RUNTIME_DEPS[@]|$(FEDORA_RUNTIME_DEPS)|g" \
+		-e "s|[@]UBUNTU_DEV_DEPS[@]|`echo $(UBUNTU_DEV_DEPS)`|g" \
+		-e "s|[@]UBUNTU_RUNTIME_DEPS[@]|`echo $(UBUNTU_RUNTIME_DEPS)`|g" \
+		-e "s|[@]OPENSUSE_DEV_DEPS[@]|`echo $(OPENSUSE_DEV_DEPS)`|g" \
+		-e "s|[@]OPENSUSE_RUNTIME_DEPS[@]|`echo $(OPENSUSE_RUNTIME_DEPS)`|g" README.md.tmpl > README.md ;
 
 dist_doc_DATA = $(wildcard *.md) $(wildcard *.png) $(NULL)
