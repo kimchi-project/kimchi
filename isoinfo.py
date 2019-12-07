@@ -47,7 +47,7 @@ iso_dir = [
         lambda m: m.group(2),
         ('OpenBSD/(i386|amd64)    (\\d+\\.\\d+) Install CD'),
     ),
-    ('centos', lambda m: m.group(1), ('CentOS[ _](\\d+\\.?\\d?)[ _].+')),
+    ('centos', lambda m: m.group(1), ('CentOS[ _-](\\d+\\.?\\d?)[ _-].+')),
     (
         'windows',
         '2000',
