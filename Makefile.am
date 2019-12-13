@@ -116,6 +116,7 @@ do_substitution = \
 	-e 's,[@]datadir[@],$(datadir),g'               \
 	-e 's,[@]sysconfdir[@],$(sysconfdir),g'         \
 	-e 's,[@]localstatedir[@],$(localstatedir),g'   \
+	-e 's,[@]runstatedir[@],$(runstatedir),g'       \
 	-e 's,[@]pkgdatadir[@],$(pkgdatadir),g'         \
 	-e 's,[@]wokdir[@],$(wokdir),g'           			\
 	-e 's,[@]kimchidir[@],$(kimchidir),g'           \
