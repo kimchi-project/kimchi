@@ -37,6 +37,8 @@ __release__ = "@kimchirelease@"
 # Storage pool constant for read-only pool types
 READONLY_POOL_TYPE = ['iscsi', 'scsi', 'mpath']
 
+def get_libvirt_path():
+    return os.path.join("@runstatedir@", 'libvirt')
 
 def get_kimchi_version():
     return "-".join([__version__, __release__])
