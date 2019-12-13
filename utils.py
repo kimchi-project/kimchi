@@ -22,6 +22,7 @@ import json
 import os
 import re
 import sqlite3
+import stat
 import time
 import urllib
 from http.client import HTTPConnection
@@ -262,11 +263,19 @@ def get_next_clone_name(all_names, basename, name_suffix='', ts=False):
 
 def is_libvirtd_up():
     """
-    Checks if libvirtd.service is up.
+    Checks if libvirt is up.
     """
-    cmd = ['systemctl', 'is-active', 'libvirtd.service']
-    output, error, rc = run_command(cmd, silent=True)
-    return True if output == 'active\n' else False
+    isSocket = False
+    paths = ['/var/run/libvirt/libvirt-sock', '/usr/local/var/run/libvirt/libvirt-sock']
+    for path in paths:
+        try:
+            mode = os.stat(path).st_mode
+            if stat.S_ISSOCK(mode):
+                isSocket = True
+        except:
+            pass
+
+    return True if isSocket else False
 
 
 def is_s390x():
