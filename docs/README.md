@@ -45,7 +45,7 @@ before starting up the wokd service.
 **Runtime Dependencies**
 
     sudo -H pip3 install -r requirements-FEDORA.txt
-    sudo dnf install -y python3-configobj python3-lxml python3-magic python3-paramiko python3-ldap spice-html5 novnc qemu-kvm python3-libvirt python3-pyparted python3-ethtool python3-pillow python3-cherrypy python3-pam python3-libguestfs libvirt libvirt-daemon-config-network iscsi-initiator-utils libguestfs-tools sos nfs-utils
+    sudo dnf install -y python3-configobj python3-lxml python3-magic python3-paramiko python3-ldap spice-html5 novnc qemu-kvm python3-libvirt python3-pyparted python3-ethtool python3-pillow python3-cherrypy python3-libguestfs libvirt libvirt-daemon-config-network iscsi-initiator-utils libguestfs-tools sos nfs-utils
 
 ## Ubuntu
 
@@ -60,7 +60,7 @@ before starting up the wokd service.
     sudo apt install libnl-route-3-dev
 
     sudo -H pip3 install -r requirements-UBUNTU.txt
-    sudo apt install -y python3-configobj python3-lxml python3-magic python3-paramiko python3-ldap spice-html5 novnc qemu-kvm python3-libvirt python3-parted python3-guestfs python3-pil python3-cherrypy3 python3-pam libvirt0 libvirt-daemon-system libvirt-clients nfs-common sosreport open-iscsi libguestfs-tools libnl-route-3-dev
+    sudo apt install -y python3-configobj python3-lxml python3-magic python3-paramiko python3-ldap spice-html5 novnc qemu-kvm python3-libvirt python3-parted python3-guestfs python3-pil python3-cherrypy3 libvirt0 libvirt-daemon-system libvirt-clients nfs-common sosreport open-iscsi libguestfs-tools libnl-route-3-dev
 
 ## openSUSE LEAP
 
@@ -72,7 +72,7 @@ before starting up the wokd service.
 **Runtime Dependencies**
 
     sudo -H pip3 install -r requirements-OPENSUSE-LEAP.txt
-    sudo zypper install -y python3-configobj python3-lxml python3-magic python3-paramiko python3-ldap spice-html5 novnc qemu-kvm python3-libvirt-python python-parted python3-ethtool python3-Pillow python3-CherryPy python3-python-pam python3-ipaddr python3-libguestfs libvirt libvirt-daemon-config-network open-iscsi guestfs-tools nfs-client
+    sudo zypper install -y python3-configobj python3-lxml python3-magic python3-paramiko python3-ldap spice-html5 novnc qemu-kvm python3-libvirt-python python-parted python3-ethtool python3-Pillow python3-CherryPy python3-ipaddr python3-libguestfs libvirt libvirt-daemon-config-network open-iscsi guestfs-tools nfs-client
 
 ## Build and Install
 
