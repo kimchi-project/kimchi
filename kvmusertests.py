@@ -20,6 +20,7 @@ import threading
 
 import libvirt
 import psutil
+from wok.plugins.kimchi.config import get_libvirt_path
 from wok.rollbackcontext import RollbackContext
 
 KVMUSERTEST_VM_NAME = 'KVMUSERTEST_VM'
@@ -60,7 +61,7 @@ class UserTests(object):
                 f = libvirt.VIR_DOMAIN_START_AUTODESTROY
                 dom = conn.createXML(xml, flags=f)
                 rollback.prependDefer(dom.destroy)
-                filename = '/var/run/libvirt/qemu/%s.pid' % KVMUSERTEST_VM_NAME
+                filename = get_libvirt_path() + '/qemu/%s.pid' % KVMUSERTEST_VM_NAME
                 with open(filename) as f:
                     pidStr = f.read()
                 p = psutil.Process(int(pidStr))
