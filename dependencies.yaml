@@ -77,12 +77,12 @@ runtime-deps:
     - nfs-utils
   opensuse-leap:
     - python3-libvirt-python
-    - python-parted
     - python3-ethtool
     - python3-Pillow
     - python3-CherryPy
     - python3-ipaddr
     - python3-libguestfs
+    - parted-devel
     - libvirt
     - libvirt-daemon-config-network
     - open-iscsi
