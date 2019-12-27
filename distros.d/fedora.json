@@ -1,16 +1,16 @@
 [
     {
-        "name": "Fedora 28",
+        "name": "Fedora 30",
         "os_distro": "fedora",
         "os_arch": "x86_64",
-        "os_version": "28",
-        "path": "http://mirrors.kernel.org/fedora/releases/28/Everything/x86_64/iso/Fedora-Everything-netinst-x86_64-28-1.1.iso"
+        "os_version": "30",
+        "path": "https://muug.ca/mirror/fedora/linux/releases/30/Everything/x86_64/iso/Fedora-Everything-netinst-x86_64-30-1.2.iso"
     },
     {
-        "name": "Fedora 29",
+        "name": "Fedora 31",
         "os_distro": "fedora",
         "os_arch": "x86_64",
-        "os_version": "29",
-        "path": "http://mirrors.kernel.org/fedora/releases/29/Everything/x86_64/iso/Fedora-Everything-netinst-x86_64-29-1.2.iso"
+        "os_version": "31",
+        "path": "https://muug.ca/mirror/fedora/linux/releases/31/Everything/x86_64/iso/Fedora-Everything-netinst-x86_64-31-1.9.iso"
     }
 ]

@@ -1,9 +1,9 @@
 [
     {
-        "name": "Debian jessie",
+        "name": "Debian 10",
         "os_distro": "debian",
         "os_arch": "x86_64",
-        "os_version": "8.5",
-        "path": "http://ftp.acc.umu.se/debian-cd/8.5.0-live/amd64/iso-hybrid/debian-live-8.5.0-amd64-gnome-desktop.iso"
+        "os_version": "10",
+        "path": "https://cdimage.debian.org/debian-cd/current/i386/iso-cd/debian-10.2.0-i386-netinst.iso"
     }
 ]

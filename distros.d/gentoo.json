@@ -3,14 +3,7 @@
         "name": "gentoo-20140826",
         "os_distro": "gentoo",
         "os_arch": "x86_64",
-        "os_version": "20140826",
-        "path": "http://distfiles.gentoo.org/releases/amd64/20140826/livedvd-amd64-multilib-20140826.iso"
-    },
-    {
-        "name": "gentoo-20160514",
-        "os_distro": "gentoo",
-        "os_arch": "x86_64",
-        "os_version": "20160514",
-        "path": "http://distfiles.gentoo.org/releases/amd64/20160514/livedvd-amd64-multilib-20160514.iso"
+        "os_version": "20191206",
+        "path": "https://distfiles.gentoo.org/releases/x86/autobuilds/20191206T214502Z/install-x86-minimal-20191206T214502Z.iso"
     }
 ]
