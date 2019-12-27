@@ -40,7 +40,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %attr(-,root,root)
-%{python3_sitelib}/kimchi/*
+%{python3_sitelib}/wok/plugins/kimchi/
 %{_datadir}/kimchi/doc/
 %{_prefix}/share/locale/*/LC_MESSAGES/kimchi.mo
 %{_datadir}/wok/plugins/kimchi/
