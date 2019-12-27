@@ -16,7 +16,6 @@ development-deps:
     - pep8
     - pyflakes
     - python3-yaml
-    - libnl-route-3-dev
   fedora:
     - gettext-devel
     - rpm-build
@@ -88,3 +87,5 @@ runtime-deps:
     - open-iscsi
     - guestfs-tools
     - nfs-client
+    - gcc
+    - python3-devel

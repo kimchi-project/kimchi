@@ -40,40 +40,37 @@ before starting up the wokd service.
 
 **Development Dependencies**
 
-    sudo -H pip3 install -r requirements-dev.txt
     sudo dnf install -y gcc make autoconf automake git python3-pip python3-requests python3-mock gettext-devel rpm-build libxslt gcc-c++ python3-devel python3-pep8 python3-pyflakes rpmlint python3-pyyaml
+    sudo -H pip3 install -r requirements-dev.txt
 
 **Runtime Dependencies**
 
-    sudo -H pip3 install -r requirements-FEDORA.txt
     sudo dnf install -y python3-configobj python3-lxml python3-magic python3-paramiko python3-ldap spice-html5 novnc qemu-kvm python3-libvirt python3-pyparted python3-ethtool python3-pillow python3-cherrypy python3-libguestfs libvirt libvirt-daemon-config-network iscsi-initiator-utils libguestfs-tools sos nfs-utils
+    sudo -H pip3 install -r requirements-FEDORA.txt
 
 ## Debian / Ubuntu
 
 **Development Dependencies**
 
+    sudo apt install -y gcc make autoconf automake git python3-pip python3-requests python3-mock gettext pkgconf xsltproc python3-dev pep8 pyflakes python3-yaml
     sudo -H pip3 install -r requirements-dev.txt
-    sudo apt install -y gcc make autoconf automake git python3-pip python3-requests python3-mock gettext pkgconf xsltproc python3-dev pep8 pyflakes python3-yaml libnl-route-3-dev
 
 **Runtime Dependencies**
 
-    # Install libnl-route-3-dev in order to install ethtool using pip
-    sudo apt install libnl-route-3-dev
-
-    sudo -H pip3 install -r requirements-UBUNTU.txt
     sudo apt install -y python3-configobj python3-lxml python3-magic python3-paramiko python3-ldap spice-html5 novnc qemu-kvm python3-libvirt python3-parted python3-guestfs python3-pil python3-cherrypy3 libvirt0 libvirt-daemon-system libvirt-clients nfs-common sosreport open-iscsi libguestfs-tools libnl-route-3-dev
+    sudo -H pip3 install -r requirements-UBUNTU.txt
 
 ## openSUSE LEAP
 
 **Development Dependencies**
 
-    sudo -H pip3 install -r requirements-dev.txt
     sudo zypper install -y gcc make autoconf automake git python3-pip python3-requests python3-mock gettext-tools rpm-build libxslt-tools gcc-c++ python3-devel python3-pep8 python3-pyflakes rpmlint python3-PyYAML python3-distro
+    sudo -H pip3 install -r requirements-dev.txt
 
 **Runtime Dependencies**
 
+    sudo zypper install -y python3-configobj python3-lxml python3-magic python3-paramiko python3-ldap spice-html5 novnc qemu-kvm python3-libvirt-python python3-ethtool python3-Pillow python3-CherryPy python3-ipaddr python3-libguestfs parted-devel libvirt libvirt-daemon-config-network open-iscsi guestfs-tools nfs-client gcc python3-devel
     sudo -H pip3 install -r requirements-OPENSUSE-LEAP.txt
-    sudo zypper install -y python3-configobj python3-lxml python3-magic python3-paramiko python3-ldap spice-html5 novnc qemu-kvm python3-libvirt-python python3-ethtool python3-Pillow python3-CherryPy python3-ipaddr python3-libguestfs parted-devel libvirt libvirt-daemon-config-network open-iscsi guestfs-tools nfs-client
 
 ## Build and Install
 

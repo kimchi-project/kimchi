@@ -40,40 +40,37 @@ before starting up the wokd service.
 
 **Development Dependencies**
 
-    sudo -H pip3 install -r requirements-dev.txt
     sudo dnf install -y @FEDORA_DEV_DEPS@
+    sudo -H pip3 install -r requirements-dev.txt
 
 **Runtime Dependencies**
 
-    sudo -H pip3 install -r requirements-FEDORA.txt
     sudo dnf install -y @FEDORA_RUNTIME_DEPS@
+    sudo -H pip3 install -r requirements-FEDORA.txt
 
 ## Debian / Ubuntu
 
 **Development Dependencies**
 
-    sudo -H pip3 install -r requirements-dev.txt
     sudo apt install -y @UBUNTU_DEV_DEPS@
+    sudo -H pip3 install -r requirements-dev.txt
 
 **Runtime Dependencies**
 
-    # Install libnl-route-3-dev in order to install ethtool using pip
-    sudo apt install libnl-route-3-dev
-
-    sudo -H pip3 install -r requirements-UBUNTU.txt
     sudo apt install -y @UBUNTU_RUNTIME_DEPS@
+    sudo -H pip3 install -r requirements-UBUNTU.txt
 
 ## openSUSE LEAP
 
 **Development Dependencies**
 
-    sudo -H pip3 install -r requirements-dev.txt
     sudo zypper install -y @OPENSUSE_DEV_DEPS@
+    sudo -H pip3 install -r requirements-dev.txt
 
 **Runtime Dependencies**
 
-    sudo -H pip3 install -r requirements-OPENSUSE-LEAP.txt
     sudo zypper install -y @OPENSUSE_RUNTIME_DEPS@
+    sudo -H pip3 install -r requirements-OPENSUSE-LEAP.txt
 
 ## Build and Install
 
