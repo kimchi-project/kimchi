@@ -32,6 +32,7 @@ If you prefer to install Kimchi from source code, follow the steps below!
 
 First of all, make sure to [Wok](https://github.com/kimchi-project/wok/#getting-started)
 installed in your system.
+
 To add Kimchi plugin, please make sure to have all the dependencies installed
 before starting up the wokd service.
 
@@ -47,7 +48,7 @@ before starting up the wokd service.
     sudo -H pip3 install -r requirements-FEDORA.txt
     sudo dnf install -y python3-configobj python3-lxml python3-magic python3-paramiko python3-ldap spice-html5 novnc qemu-kvm python3-libvirt python3-pyparted python3-ethtool python3-pillow python3-cherrypy python3-libguestfs libvirt libvirt-daemon-config-network iscsi-initiator-utils libguestfs-tools sos nfs-utils
 
-## Ubuntu
+## Debian / Ubuntu
 
 **Development Dependencies**
 
@@ -76,16 +77,19 @@ before starting up the wokd service.
 
 ## Build and Install
 
-    # For openSUSE:
-    ./autogen.sh --with-spice-html5
-
-    # Otherwise:
-    ./autogen.sh --system
-
+    sudo ./autogen.sh --system
     make
 
     # Optional if running from the source tree
     sudo make install
+
+    # Or, to make installable .deb packages
+    make deb
+
+    # Or, for RPM packages
+    make rpm
+
+If you are looking for stable versions, there are some packages available at https://github.com/kimchi-project/kimchi/releases
 
 ## Testing
 
@@ -133,6 +137,19 @@ pool (default path is: /var/lib/kimchi/isos).
 #### Server access
 Please, check [Wok configuration](https://github.com/kimchi-project/wok/#troubleshooting)
 if you are getting problems to access Wok server.
+
+#### Missing Virtualization tab
+
+If you follow all the steps to get Wok and Kimchi running and even though you can not see
+the virtualization tab, it means something went wrong.
+
+You can get more details about it when running wok with `--environment=dev`.
+
+    sudo python3 /usr/bin/wokd --environment=dev
+
+There will be a message like:
+
+    Failed to import plugin wok.plugins.kimchi.Kimchi, error: XXX
 
 #### NFS storage pool
 Please, check the NFS export path permission is configured like below:
