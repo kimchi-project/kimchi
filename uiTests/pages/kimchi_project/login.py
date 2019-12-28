@@ -2,6 +2,8 @@ import logging
 import os
 import utils
 
+from selenium.common.exceptions import TimeoutException
+
 # locators by ID
 USERNAME = "username"
 PASSWORD = "password"
@@ -35,14 +37,19 @@ class KimchiLoginPage():
         assert ENV_HOST in os.environ, f"{ENV_HOST} is a required environment var"
 
         # get values
-        host = os.environ[ENV_HOST]
-        port = os.environ.get(ENV_PORT) or "8001"
+        self.host = os.environ[ENV_HOST]
+        self.port = os.environ.get(ENV_PORT) or "8001"
         self.user = os.environ[ENV_USER]
         self.password = os.environ[ENV_PASS]
 
-        self.browser.get(f"https://{host}:{port}/login.html")
-
     def login(self):
+        try:
+            url = f"https://{self.host}:{self.port}/login.html"
+            self.browser.get(url)
+        except TimeoutException as e:
+            logging.error(f"Cannot reach kimchi at {url}")
+            return False
+
         # fill user and password
         utils.fillTextIfElementIsVisibleById(self.browser,
                                              USERNAME,

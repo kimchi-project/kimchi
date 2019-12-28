@@ -22,7 +22,9 @@ def getBrowser(headless=True):
         options.add_argument('--no-sandbox')
         options.add_argument('--disable-gpu')
 
-    return webdriver.Chrome(options=options) 
+    driver = webdriver.Chrome(options=options)
+    driver.set_page_load_timeout(WAIT * 2)
+    return driver
 
 def waitElementByCondition(browser, condition, searchMethod, searchString, errorMessage, time=WAIT):
     try:
