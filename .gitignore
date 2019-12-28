@@ -38,3 +38,4 @@ po/gen-pot
 *.rej
 *.pem
 ui/pages/help/*/*.html
+uiTests/.env
