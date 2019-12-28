@@ -21,7 +21,7 @@ $ source .env/bin/activate
 $ pip install -r requirements.txt
 ```
 
-### Run
+### Run in headless mode
 The Makefile expect some environment variables to run kimchi, which are:
 
 ```
@@ -35,5 +35,14 @@ KIMCHI_PORT: port for kimchi             default: 8001
 So, if you are running against a remote host:
 
 ```
-$ read -s pass; KIMCHI_HOST=<HOST> KIMCHI_PASSWORD=$pass  make
+$ read -s pass; KIMCHI_HOST=<HOST> KIMCHI_PASSWORD=$pass make
+```
+
+### Run in debug mode
+If you use the command above, the browser will no be visible for you.
+
+To see the browser action, add the variable `DEBUG`
+
+```
+$ read -s pass; KIMCHI_HOST=<HOST> KIMCHI_PASSWORD=$pass DEBUG=true make
 ```
