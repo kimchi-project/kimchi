@@ -55,11 +55,11 @@ for UT in $ARGS; do
     RES=$?
     if [ $RES -ne 0 ]; then
         # unit test has failed, so keep the OUTPUT_FILE and print the results
-        echo -e "\t ${RED}FAILED${NC}"
+        STATS=$(echo "$OUTPUT" | grep "Ran")
+        echo -e "\t ${RED}FAILED${NC} - $STATS"
         ERROR_LOG_BEGIN=$(echo "$OUTPUT" | grep -n "^\==*" | head -n1 | cut -d":" -f1)
         ERROR_LOG_END=$(echo "$OUTPUT" | wc -l)
         echo "$OUTPUT" | tail -n $((${ERROR_LOG_END}-${ERROR_LOG_BEGIN}+1))
-        STATS=$(echo "$OUTPUT" | grep "Ran")
         FAILED_UT+=([$UT]=$(echo "$OUTPUT" | grep FAILED | cut -d" " -f2-4))
         echo "$OUTPUT" >> $OUTPUT_FILE
     else
