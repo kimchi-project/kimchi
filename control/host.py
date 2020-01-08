@@ -96,7 +96,7 @@ class Partitions(Collection):
     # sorted by their path
     def _get_resources(self, flag_filter):
         res_list = super(Partitions, self)._get_resources(flag_filter)
-        res_list = list(filter(lambda x: x.info['available'], res_list))
+        res_list = list(filter(lambda x: x.info.get('available', False), res_list))
         if is_s390x():
             # On s390x arch filter out the DASD block devices which
             # don't have any partition(s). This is necessary because
@@ -123,7 +123,7 @@ class Partition(Resource):
 
     @property
     def data(self):
-        if not self.info['available']:
+        if not self.info.get('available', False):
             raise NotFoundError('KCHPART0001E', {'name': self.info['name']})
 
         return self.info
