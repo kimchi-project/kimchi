@@ -103,7 +103,7 @@ class NetfsPoolDef(StoragePoolDef):
                 rollback.prependDefer(run_command, umount_cmd, cmd_timeout)
             except TimeoutExpired:
                 raise InvalidParameter('KCHPOOL0012E', {'path': export_path})
-            with open('/proc/mounts', 'rb') as f:
+            with open('/proc/mounts', 'r') as f:
                 rawMounts = f.read()
             output_items = ['dev_path', 'mnt_point', 'type']
             mounts = parse_cmd_output(rawMounts, output_items)
