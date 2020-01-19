@@ -1,8 +1,8 @@
 # Kimchi E2E Tests
 
-The tests are located in uiTests. You should go to the directory to start them
+The tests are located in `tests/ui`. You should go to the directory to start them
 ```
-$ cd uiTests
+$ cd tests/ui
 ```
 
 ## How to run
@@ -22,20 +22,22 @@ $ pip install -r requirements.txt
 ```
 
 ### Run in headless mode
-The Makefile expect some environment variables to run kimchi, which are:
+The script expect some environment variables to run kimchi-project tests, which are:
 
 ```
 Expect environment variables:
-KIMCHI_USERNAME: username for the host   default: root
-KIMCHI_PASSWORD: password for the host
-KIMCHI_HOST: host for kimchi             default: localhost
-KIMCHI_PORT: port for kimchi             default: 8001
+USERNAME: username for the host   default: root
+PASSWORD: password for the host
+HOST: host for kimchi             default: localhost
+PORT: port for kimchi             default: 8001
 ```
 
 So, if you are running against a remote host:
 
 ```
-$ read -s pass; KIMCHI_HOST=<HOST> KIMCHI_PASSWORD=$pass make
+$ HOST=<HOST> ./run_tests.sh
+Type password for host USER@HOST
+
 ```
 
 ### Run in debug mode
@@ -44,5 +46,7 @@ If you use the command above, the browser will no be visible for you.
 To see the browser action, add the variable `DEBUG`
 
 ```
-$ read -s pass; KIMCHI_HOST=<HOST> KIMCHI_PASSWORD=$pass DEBUG=true make
+$ HOST=<HOST> DEBUG=true ./run_tests.sh
+Type password for host USER@HOST
+
 ```

@@ -1,5 +1,5 @@
 import utils
-from .login import KimchiLoginPage
+from pages.login import KimchiLoginPage
 
 VIRTUALIZATION_TAB = "//a[@class = 'item virtualizationTab']"
 TEMPLATES_TAB = "//a[@href = 'plugins/kimchi/tabs/templates.html']"
