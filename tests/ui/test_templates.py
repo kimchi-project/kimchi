@@ -1,4 +1,4 @@
-import unittest
+import pytest
 
 from utils import getBrowser
 from pages.templates import KimchiTemplatePage
@@ -18,19 +18,18 @@ ADD_TEMPLATE = "template-add"
 ISOS_LIST = "list-local-iso"
 
 
-class TestTemplate(unittest.TestCase):
+@pytest.fixture()
+def templatePage():
+    browser = getBrowser()
+    templatePage = KimchiTemplatePage(browser)
+    yield templatePage
+    browser.close()
 
-    def setUp(self):
-        self.browser = getBrowser()
-        self.templatePage = KimchiTemplatePage(self.browser)
+def test_default_templates(templatePage):
+    templates = templatePage.retrieveDefaulTemplates()
 
-    def test_default_templates(self):
-        templates = self.templatePage.retrieveDefaulTemplates()
+    # assert templates
+    for template in templates:
+        assert template in EXPECTED_TEMPLATES, f"{template} not found"
 
-        # assert templates
-        for template in templates:
-            assert template in EXPECTED_TEMPLATES, f"{template} not found"
-
-    def tearDown(self):
-        self.browser.close()
 
