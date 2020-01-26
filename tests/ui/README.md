@@ -21,6 +21,16 @@ $ source .env/bin/activate
 $ pip install -r requirements.txt
 ```
 
+### Install Browser
+
+This tests expect Google Chrome installed. Visit https://www.google.com/chrome/ for info
+
+### Start wok server
+
+```
+$ python src/wokd
+```
+
 ### Run in headless mode
 The script expect some environment variables to run kimchi-project tests, which are:
 
@@ -28,8 +38,8 @@ The script expect some environment variables to run kimchi-project tests, which 
 Expect environment variables:
 USERNAME: username for the host   default: root
 PASSWORD: password for the host
-HOST: host for kimchi             default: localhost
-PORT: port for kimchi             default: 8001
+HOST: host for wok                default: localhost
+PORT: port for wok                default: 8001
 ```
 
 So, if you are running against a remote host:

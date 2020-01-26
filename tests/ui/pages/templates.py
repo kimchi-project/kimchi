@@ -1,5 +1,5 @@
 import utils
-from pages.login import KimchiLoginPage
+from pages.login import WokLoginPage
 
 VIRTUALIZATION_TAB = "//a[@class = 'item virtualizationTab']"
 TEMPLATES_TAB = "//a[@href = 'plugins/kimchi/tabs/templates.html']"
@@ -10,7 +10,7 @@ class KimchiTemplatePage():
 
     def __init__(self, browser):
         self.browser = browser
-        assert KimchiLoginPage(browser).login(), "Cannot login to Kimchi"
+        assert WokLoginPage(browser).login(), "Cannot login to Kimchi"
 
     def retrieveDefaulTemplates(self):
         # click virtualization Tab
