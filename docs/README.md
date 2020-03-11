@@ -4,6 +4,7 @@
     * [Mobile Browser Support](https://github.com/kimchi-project/wok/#mobile-browser-support)
 * [Linux Support](https://github.com/kimchi-project/wok/#linux-support)
 * [Getting started](#getting-started)
+    * [JFrog Repositories](#jfrog-repositories)
     * [Install Dependencies](#install-dependencies)
     * [Build and Install](#build-and-install)
     * [Starting up Wok](https://github.com/kimchi-project/wok/#starting-up-wok)
@@ -25,8 +26,28 @@ over the web using a browser that supports HTML5.
 # Getting Started
 
 The latest packages available can be found at https://github.com/kimchi-project/kimchi/releases/latest
+* If you want to use the repositories, check [JFrog Repositories](#jfrog-repositories)
 
 If you prefer to install Kimchi from source code, follow the steps below!
+
+# JFrog Repositories
+
+Thanks to the initiative from JFrog and Google Cloud Platform to host our open source project for free, you can know
+use the JFrog Repositories to install Kimchi and Wok. You may not find the packages in some distributions yet, we are working to make it available to all distributions.
+
+Check all the available repositories here:
+
+* **CentOS**: https://kimchi.jfrog.io/kimchi/centos/
+* **Debian**: https://kimchi.jfrog.io/kimchi/debian
+* **Fedora**: https://kimchi.jfrog.io/kimchi/fedora/
+* **OpenSuse**: https://kimchi.jfrog.io/kimchi/opensuse/
+* **RHEL**: https://kimchi.jfrog.io/kimchi/rhel/
+* **SUSE**: https://kimchi.jfrog.io/kimchi/suse/
+* **Ubuntu**: https://kimchi.jfrog.io/kimchi/ubuntu
+
+* **Staging Area**: https://kimchi.jfrog.io/kimchi/staging/
+
+![jfrog](/docs/jfrog.png)
 
 ## Install Dependencies
 
