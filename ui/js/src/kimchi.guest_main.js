@@ -474,6 +474,10 @@ kimchi.createGuestLi = function(vmObject, prevScreenImage, openMenu) {
             osType.addClass('icon-opensuse');
             osType.attr('val', 'openSUSE');
             osType.html('openSUSE');
+        } else if (vmObject.icon == 'plugins/kimchi/images/icon-sles.png') {
+            osType.addClass('icon-sles');
+            osType.attr('val', 'Suse');
+            osType.html('Suse');
         } else if (vmObject.icon == 'plugins/kimchi/images/icon-gentoo.png') {
             osType.addClass('icon-gentoo');
             osType.attr('val', 'Gentoo');
@@ -502,6 +506,8 @@ kimchi.createGuestLi = function(vmObject, prevScreenImage, openMenu) {
             osName.addClass('icon-centos');
         } else if (vmObject.icon == 'plugins/kimchi/images/icon-opensuse.png') {
             osName.addClass('icon-opensuse');
+        } else if (vmObject.icon == 'plugins/kimchi/images/icon-sles.png') {
+            osName.addClass('icon-sles');
         } else if (vmObject.icon == 'plugins/kimchi/images/icon-gentoo.png') {
             osName.addClass('icon-gentoo');
         } else if (vmObject.icon == 'plugins/kimchi/images/icon-debian.png') {
