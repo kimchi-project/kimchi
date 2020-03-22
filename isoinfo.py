@@ -140,6 +140,7 @@ iso_dir = [
     ('sles', '10', 'SLES10|SUSE-Linux-Enterprise-Server.001'),
     ('sles', '11', 'SUSE_SLES-11-0-0|SLE-11'),
     ('sles', '12', 'SLE-12'),
+    ('sles', '15', 'SLE-15'),
     ('sles', lambda m: '11sp%s' % m.group(1), 'SLES-11-SP(\\d+)'),
     ('opensuse', lambda m: m.group(1), 'openSUSE[ -](\\d+\\.\\d+)'),
     ('opensuse', '11.1', 'SU1110.001'),
