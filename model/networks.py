@@ -17,9 +17,9 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 import copy
+import ipaddress
 import time
 
-import ipaddr
 import libvirt
 from libvirt import VIR_INTERFACE_XML_INACTIVE
 from wok.exception import InvalidOperation
@@ -130,7 +130,7 @@ class NetworksModel(object):
             network = NetworkModel.get_network(self.conn.get(), net_name)
             xml = network.XMLDesc(0)
             subnet = NetworkModel.get_network_from_xml(xml)['subnet']
-            subnet and invalid_addrs.append(ipaddr.IPNetwork(subnet))
+            subnet and invalid_addrs.append(ipaddress.IPv4Network(subnet, False))
             addr_pools = addr_pools if addr_pools else netinfo.PrivateNets
         return netinfo.get_one_free_network(invalid_addrs, addr_pools)
 
@@ -143,17 +143,15 @@ class NetworksModel(object):
                 raise OperationFailed('KCHNET0009E', {'name': params['name']})
 
         try:
-            ip = ipaddr.IPNetwork(netaddr)
+            ip = ipaddress.IPv4Network(netaddr, False)
         except ValueError:
             raise InvalidParameter(
                 'KCHNET0003E', {'subnet': netaddr, 'network': params['name']}
             )
 
-        if ip.ip == ip.network:
-            ip.ip = ip.ip + 1
-
-        dhcp_start = str(ip.network + int(ip.numhosts / 2))
-        dhcp_end = str(ip.network + int(ip.numhosts - 3))
+        ip.network_address = ip.network_address + 1
+        dhcp_start = str(ip.network_address + int(ip.num_addresses / 2))
+        dhcp_end = str(ip.network_address + int(ip.num_addresses - 3))
         params.update(
             {'net': str(ip), 'dhcp': {
                 'range': {'start': dhcp_start, 'end': dhcp_end}}}
@@ -384,8 +382,8 @@ class NetworkModel(object):
         # libvirt use format 192.168.0.1/24, standard should be 192.168.0.0/24
         # http://www.ovirt.org/File:Issue3.png
         if subnet:
-            subnet = ipaddr.IPNetwork(subnet)
-            subnet = '%s/%s' % (subnet.network, subnet.prefixlen)
+            subnet = ipaddress.IPv4Network(subnet, False)
+            subnet = '%s/%s' % (subnet.network_address, subnet.prefixlen)
 
         if connection in ['passthrough', 'vepa']:
             interfaces = xpath_get_text(xml, '/network/forward/interface/@dev')

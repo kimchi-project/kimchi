@@ -79,7 +79,6 @@ runtime-deps:
     - python3-ethtool
     - python3-Pillow
     - python3-CherryPy
-    - python3-ipaddr
     - python3-libguestfs
     - parted-devel
     - libvirt

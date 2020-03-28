@@ -270,7 +270,7 @@ def is_libvirtd_up():
         mode = os.stat(path).st_mode
         if stat.S_ISSOCK(mode):
             return True
-    except:
+    except Exception:
         pass
 
     return False

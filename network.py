@@ -18,22 +18,22 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 #
 import glob
+import ipaddress
 import os
 from distutils.spawn import find_executable
 
 import ethtool
-import ipaddr
 from wok.stringutils import encode_value
 from wok.utils import run_command
 
 
-APrivateNets = ipaddr.IPNetwork('10.0.0.0/8')
-BPrivateNets = ipaddr.IPNetwork('172.16.0.0/12')
-CPrivateNets = ipaddr.IPNetwork('192.168.0.0/16')
+APrivateNets = ipaddress.IPv4Network('10.0.0.0/8', False)
+BPrivateNets = ipaddress.IPv4Network('172.16.0.0/12', False)
+CPrivateNets = ipaddress.IPv4Network('192.168.0.0/16', False)
 PrivateNets = [CPrivateNets, BPrivateNets, APrivateNets]
-DefaultNetsPool = [ipaddr.IPNetwork('192.168.122.0/23'),
-                   ipaddr.IPNetwork('192.168.124.0/22'),
-                   ipaddr.IPNetwork('192.168.128.0/17')]
+DefaultNetsPool = [ipaddress.IPv4Network('192.168.122.0/23', False),
+                   ipaddress.IPv4Network('192.168.124.0/22', False),
+                   ipaddress.IPv4Network('192.168.128.0/17', False)]
 
 NET_PATH = '/sys/class/net'
 NIC_PATH = '/sys/class/net/*/device'
@@ -477,7 +477,7 @@ def get_dev_netaddrs():
     nets = []
     for dev in ethtool.get_devices():
         devnet = get_dev_netaddr(dev)
-        devnet and nets.append(ipaddr.IPNetwork(devnet))
+        devnet and nets.append(ipaddress.IPv4Network(devnet, False))
     return nets
 
 
@@ -488,7 +488,7 @@ def get_one_free_network(used_nets, nets_pool=None):
         nets_pool = PrivateNets
 
     def _get_free_network(nets, used_nets):
-        for net in nets.subnet(new_prefix=24):
+        for net in nets.subnets(new_prefix=24):
             if not any(net.overlaps(used) for used in used_nets):
                 return str(net)
         return None

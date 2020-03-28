@@ -16,9 +16,9 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+import ipaddress
 import unittest
 
-import ipaddr
 import lxml.etree as ET
 from wok.plugins.kimchi.xmlutils import network as nxml
 from wok.xmlutils.utils import xpath_get_text
@@ -90,7 +90,8 @@ class NetworkXmlTests(unittest.TestCase):
         params['net'] = '192.168.122.0/24'
         xml = ET.tostring(nxml._get_ip_elem(**params), encoding='unicode')
         netmask = xpath_get_text(xml, '/ip/@netmask')[0]
-        self.assertEqual(netmask, str(ipaddr.IPNetwork(params['net']).netmask))
+        self.assertEqual(netmask, str(
+            ipaddress.IPv4Network(params['net'], False).netmask))
 
     def test_forward_xml(self):
         """
@@ -155,7 +156,8 @@ class NetworkXmlTests(unittest.TestCase):
         params['net'] = '192.168.0.0/24'
         xml = nxml.to_network_xml(**params)
         netmask = xpath_get_text(xml, '/network/ip/@netmask')[0]
-        self.assertEqual(netmask, str(ipaddr.IPNetwork(params['net']).netmask))
+        self.assertEqual(netmask, str(
+            ipaddress.IPv4Network(params['net'], False).netmask))
 
     def test_vepa_network_singledev_xml(self):
         expected_xml = """<network>\

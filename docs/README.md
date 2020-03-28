@@ -69,7 +69,7 @@ before starting up the wokd service.
 
 **Runtime Dependencies**
 
-    sudo zypper install -y python3-configobj python3-lxml python3-magic python3-paramiko python3-ldap spice-html5 novnc qemu-kvm python3-libvirt-python python3-ethtool python3-Pillow python3-CherryPy python3-ipaddr python3-libguestfs parted-devel libvirt libvirt-daemon-config-network open-iscsi guestfs-tools nfs-client gcc python3-devel
+    sudo zypper install -y python3-configobj python3-lxml python3-magic python3-paramiko python3-ldap spice-html5 novnc qemu-kvm python3-libvirt-python python3-ethtool python3-Pillow python3-CherryPy python3-libguestfs parted-devel libvirt libvirt-daemon-config-network open-iscsi guestfs-tools nfs-client gcc python3-devel
     sudo -H pip3 install -r requirements-OPENSUSE-LEAP.txt
 
 ## Build and Install

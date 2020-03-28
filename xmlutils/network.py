@@ -16,7 +16,8 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-import ipaddr
+import ipaddress
+
 import lxml.etree as ET
 from lxml.builder import E
 
@@ -55,8 +56,8 @@ def _get_ip_elem(**kwargs):
     if 'net' not in kwargs.keys():
         return None
 
-    net = ipaddr.IPNetwork(kwargs['net'])
-    ip = E.ip(address=str(net.ip), netmask=str(net.netmask))
+    net = ipaddress.IPv4Network(kwargs['net'], False)
+    ip = E.ip(address=str(net.network_address), netmask=str(net.netmask))
 
     dhcp_params = kwargs.get('dhcp', {})
     dhcp = _get_dhcp_elem(**dhcp_params)
