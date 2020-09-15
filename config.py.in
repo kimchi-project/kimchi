@@ -22,9 +22,9 @@ import libvirt
 import os
 import platform
 import threading
-from cherrypy.lib.reprconf import Parser
 
 from wok.config import PluginConfig, PluginPaths
+from wok.utils import load_plugin_conf
 from wok.xmlutils.utils import xpath_get_text
 
 kimchiLock = threading.Lock()
@@ -70,8 +70,7 @@ def get_virtviewerfiles_path():
 
 
 def get_config():
-    plugin_conf = PluginPaths('kimchi').conf_file
-    return Parser().dict_from_file(plugin_conf)
+    return load_plugin_conf('kimchi')
 
 
 config = get_config()
