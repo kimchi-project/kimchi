@@ -169,6 +169,15 @@ There will be a message like:
 
     Failed to import plugin wok.plugins.kimchi.Kimchi, error: XXX
 
+If the log shows details of a missing dependency, like this:
+
+    Failed to import plugin wok.plugins.kimchi.Kimchi, error: No module named 'ipaddr'
+
+You have to install this dependency manually due to changes in upstream. For that change ${RELEASE_NUMBER} to your version of the release:
+
+    sudo -H pip3 install https://github.com/kimchi-project/kimchi/raw/${RELEASE_NUMBER}/requirements-FEDORA.txt
+
+
 #### NFS storage pool
 Please, check the NFS export path permission is configured like below:
 
