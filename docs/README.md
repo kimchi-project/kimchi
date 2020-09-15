@@ -78,7 +78,7 @@ before starting up the wokd service.
 
 **Runtime Dependencies**
 
-    sudo apt install -y python3-configobj python3-lxml python3-magic python3-paramiko python3-ldap spice-html5 novnc qemu-kvm python3-libvirt python3-parted python3-guestfs python3-pil python3-cherrypy3 libvirt0 libvirt-daemon-system libvirt-clients nfs-common sosreport open-iscsi libguestfs-tools libnl-route-3-dev
+    sudo apt install -y python3-configobj python3-lxml python3-magic python3-paramiko python3-ldap spice-html5 novnc qemu-kvm python3-libvirt python3-parted python3-ethtool python3-guestfs python3-pil python3-cherrypy3 libvirt0 libvirt-daemon-system libvirt-clients nfs-common sosreport open-iscsi libguestfs-tools libnl-route-3-dev
     sudo -H pip3 install -r requirements-UBUNTU.txt
 
 ## openSUSE LEAP
@@ -176,6 +176,7 @@ If the log shows details of a missing dependency, like this:
 You have to install this dependency manually due to changes in upstream. For that change ${RELEASE_NUMBER} to your version of the release:
 
     sudo -H pip3 install https://github.com/kimchi-project/kimchi/raw/${RELEASE_NUMBER}/requirements-FEDORA.txt
+
 
 #### NFS storage pool
 Please, check the NFS export path permission is configured like below:

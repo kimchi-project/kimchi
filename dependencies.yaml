@@ -50,6 +50,7 @@ runtime-deps:
   ubuntu:
     - python3-libvirt
     - python3-parted
+    - python3-ethtool
     - python3-guestfs
     - python3-pil
     - python3-cherrypy3
