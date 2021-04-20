@@ -2097,9 +2097,6 @@ class VMModel(object):
                     self._create_remote_disk(dev_info, remote_host, user)
 
     def migrate(self, name, remote_host, user=None, password=None, enable_rdma=None):
-        name = name.decode('utf-8')
-        remote_host = remote_host.decode('utf-8')
-
         if user is None:
             user = 'root'
 
@@ -2127,7 +2124,7 @@ class VMModel(object):
         return self.task.lookup(task_id)
 
     def _migrate_task(self, cb, params):
-        name = params['name'].decode('utf-8')
+        name = params['name']
         dest_conn = params['dest_conn']
         non_shared = params['non_shared']
         remote_host = params['remote_host']
