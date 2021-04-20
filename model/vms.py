@@ -1997,13 +1997,6 @@ class VMModel(object):
             cmd, stdout=subprocess.PIPE, shell=True, preexec_fn=os.setsid
         )
         timeout = 0
-        while proc.poll() is None:
-            time.sleep(1)
-            timeout += 1
-            if timeout == 5:
-                os.killpg(os.getpgid(proc.pid), signal.SIGTERM)
-                raise OperationFailed(
-                    'KCHVM0090E', {'host': remote_host, 'user': user})
 
     def _get_remote_libvirt_conn(self, remote_host, user='root', transport='ssh'):
         dest_uri = f'qemu+{transport}://{user}@{remote_host}/system'
@@ -2097,8 +2090,8 @@ class VMModel(object):
                     self._create_remote_disk(dev_info, remote_host, user)
 
     def migrate(self, name, remote_host, user=None, password=None, enable_rdma=None):
-        name = name.decode('utf-8')
-        remote_host = remote_host.decode('utf-8')
+        #name = name.decode('utf-8')
+        #remote_host = remote_host.decode('utf-8')
 
         if user is None:
             user = 'root'
@@ -2127,7 +2120,7 @@ class VMModel(object):
         return self.task.lookup(task_id)
 
     def _migrate_task(self, cb, params):
-        name = params['name'].decode('utf-8')
+        name = params['name']
         dest_conn = params['dest_conn']
         non_shared = params['non_shared']
         remote_host = params['remote_host']
@@ -2149,7 +2142,7 @@ class VMModel(object):
         else:
             dest_conn.close()
             raise OperationFailed('KCHVM0057E', {'name': name, 'state': state})
-        if non_shared:
+        if True:
             flags |= libvirt.VIR_MIGRATE_NON_SHARED_DISK
             self._create_vm_remote_paths(name, remote_host, user)
 
