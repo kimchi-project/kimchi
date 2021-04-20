@@ -1996,14 +1996,6 @@ class VMModel(object):
         proc = subprocess.Popen(
             cmd, stdout=subprocess.PIPE, shell=True, preexec_fn=os.setsid
         )
-        timeout = 0
-        while proc.poll() is None:
-            time.sleep(1)
-            timeout += 1
-            if timeout == 5:
-                os.killpg(os.getpgid(proc.pid), signal.SIGTERM)
-                raise OperationFailed(
-                    'KCHVM0090E', {'host': remote_host, 'user': user})
 
     def _get_remote_libvirt_conn(self, remote_host, user='root', transport='ssh'):
         dest_uri = f'qemu+{transport}://{user}@{remote_host}/system'
