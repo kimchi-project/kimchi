@@ -2090,9 +2090,6 @@ class VMModel(object):
                     self._create_remote_disk(dev_info, remote_host, user)
 
     def migrate(self, name, remote_host, user=None, password=None, enable_rdma=None):
-        #name = name.decode('utf-8')
-        #remote_host = remote_host.decode('utf-8')
-
         if user is None:
             user = 'root'
 
@@ -2142,7 +2139,7 @@ class VMModel(object):
         else:
             dest_conn.close()
             raise OperationFailed('KCHVM0057E', {'name': name, 'state': state})
-        if True:
+        if non_shared:
             flags |= libvirt.VIR_MIGRATE_NON_SHARED_DISK
             self._create_vm_remote_paths(name, remote_host, user)
 
