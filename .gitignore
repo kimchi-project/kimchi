@@ -1,6 +1,7 @@
 *.pyc
 *~
 *.list
+.scannerwork/*
 i18n/mo/*
 log
 data
