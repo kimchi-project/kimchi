@@ -193,7 +193,7 @@ mapped user can get into the mount point.
 
 There are a lof of ways to contribute to the Kimchi Project:
 
-* Issues can be reported at [Github](https://github.com/kimchi-project/kimchi/issues)
+* Issues can be reported at [GiHhub](https://github.com/kimchi-project/kimchi/issues)
 * Patches are always welcome! Please, follow [these instructions](https://github.com/kimchi-project/kimchi/wiki/How-to-Contribute)
  on how to send patches to the mailing list (kimchi-devel@ovirt.org) or submit a pull request.
 
